@@ -1,0 +1,88 @@
+schema_version: "0.1"
+
+id: OM-T-NT-0003
+kind: theorem
+title_zh: 阶乘互素定理（下一素数母定理）
+title_en: Factorial-coprime theorem (next-prime mother theorem)
+domain: NT
+msc:
+  - "11A41"
+  - "11N05"
+tags:
+  - 下一素数
+  - 阶乘互素
+  - m!
+
+status: VERIFIED(L2)
+evidence_level: L2
+revision: 1
+created: 2026-09-10
+updated: 2026-09-10
+
+latex: >-
+  q = NextPrime(m) = min{ x>m : gcd(x, m!) = 1 }
+
+assumptions:
+  - "m>=2 为整数"
+  - "m! 包含且仅包含所有素数 <=m 的全部幂次"
+statement_latex: >-
+  对任意整数 m>=2，严格大于 m 的最小素数 q 等于严格大于 m 的最小与 m! 互素的整数
+
+hypotheses:
+  - "m >= 2 为整数"
+  - "m! 包含且仅包含所有素数 <= m 的全部幂次"
+
+conclusion_latex: >-
+  NextPrime(m) = min{ x>m : gcd(x, m!) = 1 }
+
+proof: >-
+  记右侧最小元素为 r。由于 q>m 为素数，q 不整除 m!，故 gcd(q,m!)=1，从而 r<=q。
+  若 r 为合数，取其素因子 s<m（否则 s>=m 且 s|r 与 gcd(r,m!)=1 矛盾），则
+  gcd(s,m!)=1，与 r 的最小性矛盾。故 r 必为素数，r=q。
+
+symbols:
+  - name: "NextPrime(m)"
+    meaning_zh: "严格大于 m 的最小素数"
+    type: integer
+  - name: "m!"
+    meaning_zh: "m 的阶乘"
+    type: integer
+
+domain_of_validity: "一切整数 m>=2；初等命题，无条件"
+
+specializations: []
+generalizations:
+  - OM-T-NT-0007   # 安全窗口（q 给出逃逸上界）
+related:
+  - OM-D-NT-0001
+  - OM-T-NT-0004
+  - OM-T-NT-0001
+
+caveat: >-
+  1) 该刻画是下一素数的等价定义性命题（初等），用于把"下一素数"与"互素结构"挂钩；
+  2) 直接枚举 x 找互素整数实际仍要判素，不是更快算法；
+  3) 同类阶乘/互素刻画为初等式推论，不构成优先权主张；
+  4) L2 仅数值核对，非形式化证明。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: pwcv-theorems
+      precision_digits: 0
+      sample_count: 999
+      seed: 0
+      max_abs_residual: "0"
+      script: 05-验证中心/01-引擎/pwcv_theorems.py
+      last_run: 2026-09-10
+      checks:
+        - "min{x>m: gcd(x,m!)=1} == NextPrime(m)，m=2..1000（独立 SPF 判素与互素）"
+
+provenance:
+  ai_assisted: true
+  ai_role: full_generation
+  sources:
+    - type: url
+      value: "PWCV 框架（Primorial Wheel Coverage–Void），2026-09-10，用户提交论文"
+  contributors:
+    - "openmath-bot"

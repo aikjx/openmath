@@ -1,0 +1,91 @@
+schema_version: "0.1"
+
+id: OM-F-AN-0001
+kind: formula
+title_zh: 欧拉恒等式
+title_en: Euler's identity
+domain: AN
+msc:
+  - "30A99"
+  - "11A99"
+tags:
+  - 指数函数
+  - 复分析
+  - 常数
+
+status: VERIFIED(L3)
+evidence_level: L3
+revision: 1
+created: 2026-09-10
+updated: 2026-09-10
+
+latex: >-
+  e^{i\pi} + 1 = 0
+
+sympy: >-
+  exp(I*pi) + 1
+
+assumptions:
+  - e^{i\theta} 由复指数函数的幂级数定义：exp(z) = sum_{n=0}^{\infty} z^n / n!
+  - 采用复平面的标准分支约定（主值）
+
+symbols:
+  - name: "e"
+    meaning_zh: "自然对数的底"
+    type: real
+    constraints: "e ≈ 2.718281828459045..."
+  - name: "i"
+    meaning_zh: "虚数单位"
+    type: complex
+    constraints: "i^2 = -1"
+  - name: "pi"
+    meaning_zh: "圆周率"
+    type: real
+    constraints: "π ≈ 3.141592653589793..."
+
+domain_of_validity: "复平面上的恒等式；一般形式为 e^{i\\theta} = cos θ + i sin θ（欧拉公式）"
+
+specializations: []
+generalizations: []        # 一般形式「欧拉公式 e^{iθ} = cosθ + i sinθ」待录入
+related:
+  - OM-F-AN-0002
+
+caveat: >-
+  本恒等式的数值验证几乎总能"通过"，因为它是复指数函数的定义性推论。
+  因此 L2/L3 通过几乎不提供信息量——真正的验证在于确认所用分支约定一致
+  （若使用非主值分支，e^{iπ} 仍为 -1，但 e^{i\theta} 的一般形式需重新审视多值性）。
+  此条目作为"验证范式的最小示例"存在，而非作为困难结论。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: mpmath
+      precision_digits: 50
+      sample_count: 1
+      seed: 0
+      sample_points:
+        - {}
+      max_abs_residual: "0.0"
+      script: 08-工具/examples/verify_OM-F-AN-0001.py
+      last_run: 2026-09-10
+    L3:
+      passed: true
+      engine: sympy
+      method: "simplify(exp(I*pi) + 1) == 0"
+      script: 08-工具/examples/verify_OM-F-AN-0001.py
+      last_run: 2026-09-10
+    L4:
+      passed: false
+      system: ""
+      name: ""
+      note: "mathlib 中已有 Complex.exp_pi_mul_I，但本库尚未建立绑定"
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: "Euler, L. Introductio in analysin infinitorum (1748)"
+  contributors:
+    - "openmath-bot"

@@ -1,0 +1,78 @@
+# 公式记录模板 —— 复制后填写，删除所有 <...> 占位
+# 完整字段说明见 ../schema/记录schema.md
+
+schema_version: "0.1"
+
+id: OM-F-<域>-<序号>
+kind: formula
+title_zh: <中文标题>
+title_en: <English Title>
+domain: <域代码>
+msc:
+  - "<MSC号>"
+tags:
+  - <标签>
+
+status: DRAFT              # DRAFT | PROPOSED | UNDER_REVIEW | VERIFIED(Lx) | CONSENSUS | CANONICAL | CONDITIONAL | FALSIFIED | DEPRECATED
+evidence_level: L0         # L0..L6，必须与 status 中的级别一致
+revision: 1
+created: <YYYY-MM-DD>
+updated: <YYYY-MM-DD>
+
+latex: >-
+  <LaTeX 表达式，不含 $ 符号>
+
+sympy: >-
+  <可选。SymPy 可解析的表达式，用于 L3 符号验证>
+
+assumptions:
+  - <逐条列出假设。无假设请写空数组：assumptions: []>
+  - <例：s 为复数且 s ≠ 1>
+
+symbols:
+  - name: "<符号>"
+    meaning_zh: "<中文含义>"
+    type: complex          # real | complex | integer | natural | rational | matrix | function | set | ...
+    constraints: "<约束，可选>"
+
+domain_of_validity: "<适用范围的自然语言描述>"
+
+specializations: []        # 引用的其他条目 ID
+generalizations: []        # 引用的其他条目 ID
+related: []                # 引用的其他条目 ID
+
+caveat: >-
+  <已知失效模式：数值验证在什么情况下会误导？符号引擎在何处会出错？
+   这是本库最有价值的字段之一，请认真填写。>
+
+verification:
+  levels:
+    L2:
+      passed: false
+      engine: mpmath
+      precision_digits: 50
+      sample_count: 0
+      seed: 0
+      max_abs_residual: ""
+      script: ""
+      last_run: ""
+    L3:
+      passed: false
+      engine: sympy
+      method: ""
+      script: ""
+      last_run: ""
+    L4:
+      passed: false
+      system: ""
+      name: ""
+      note: "尚未形式化"
+
+provenance:
+  ai_assisted: false
+  ai_role: ""              # drafting | translation | verification | full_generation
+  sources:
+    - type: book           # doi | arxiv | book | url
+      value: "<书名/作者/页码，或 DOI>"
+  contributors:
+    - "<github-id>"

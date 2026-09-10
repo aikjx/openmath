@@ -1,0 +1,78 @@
+schema_version: "0.1"
+
+id: OM-F-NT-0002
+kind: formula
+title_zh: 第 n 素数的 n-only 有限表示（母公式）
+title_en: n-only finite representation of the n-th prime (mother formula)
+domain: NT
+msc:
+  - "11N05"
+  - "11A41"
+tags:
+  - 第n素数
+  - n-only 表示
+  - 显式上下界
+  - 精确公式
+
+status: VERIFIED(L2)
+evidence_level: L2
+revision: 1
+created: 2026-09-10
+updated: 2026-09-10
+
+latex: >-
+  L_n=floor(n(log n+log log n-1))+1,
+  U_n=ceil(n(log n+log log n));
+  p_n = L_n + sum_{x=L_n}^{U_n-1} Theta(n - pi(x)),
+  pi(x)=sum_{t=2}^{x} I_P(t)
+
+assumptions:
+  - "n >= 6（显式上下界在 n>=6 时成立）"
+  - "pi(x) 由 OM-D-NT-0001 的 I_P 连乘定义代入，故整条公式只依赖 n"
+  - "Theta 为整数正阶跃（见 OM-D-NT-0001）"
+
+symbols:
+  - name: "L_n"
+    meaning_zh: "第 n 素数的下界（含 +1 取整）"
+    type: integer
+  - name: "U_n"
+    meaning_zh: "第 n 素数的上界（向上取整）"
+    type: integer
+
+domain_of_validity: "n>=6；经典显式界（Rosser–Schoenfeld 型），无条件"
+
+specializations: []
+generalizations: []
+related:
+  - OM-D-NT-0001
+  - OM-T-NT-0001
+  - OM-P-NT-0002
+
+caveat: >-
+  1) 精确公式不等于快速公式：内部仍需精确计算 pi(x)（由 I_P 连乘定义），随机访问 n->p_n 的
+     快速化必须接到 Lehmer/LMO 后端（见 OM-P-NT-0002，方向 A）；
+  2) 同类「第 n 素数闭式」早已存在（Willans 1964 等），本母公式是已知构造的再表述，不构成优先权主张；
+  3) L2 仅数值核对，非形式化证明。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: pwcv-theorems
+      precision_digits: 0
+      sample_count: 995
+      seed: 0
+      max_abs_residual: "0"
+      script: 05-验证中心/01-引擎/pwcv_theorems.py
+      last_run: 2026-09-10
+      checks:
+        - "p_n 母公式 == 独立筛法第 n 素数，n=6..1000"
+
+provenance:
+  ai_assisted: true
+  ai_role: full_generation
+  sources:
+    - type: url
+      value: "PWCV 框架（Primorial Wheel Coverage–Void），2026-09-10，用户提交论文"
+  contributors:
+    - "openmath-bot"

@@ -1,0 +1,95 @@
+schema_version: "0.1"
+
+id: OM-T-NT-0005
+kind: theorem
+title_zh: 模 6 合数覆盖母方程
+title_en: Mod-6 composite-coverage mother equation
+domain: NT
+msc:
+  - "11A07"   # 同余、覆盖
+  - "11N05"
+tags:
+  - 模6
+  - 合数覆盖
+  - 母方程
+  - 6ab±a±b
+
+status: VERIFIED(L2)
+evidence_level: L2
+revision: 1
+created: 2026-09-10
+updated: 2026-09-10
+
+latex: >-
+  N=6k+epsilon>3, epsilon in {-1,+1};
+  N composite iff exists a,b in N, sigma=+-1 :
+  k = 6ab + a*epsilon*sigma + b*sigma,
+  with 1<=a<=floor((sqrt(N)-sigma)/6)
+
+assumptions:
+  - "N>3 且 gcd(N,6)=1（即 N=6k±1）"
+  - "判定时取较小因子 6a+sigma <= sqrt(N)"
+statement_latex: >-
+  对 N=6k+epsilon>3（epsilon=+-1），N 为合数当且仅当存在 a,b>=1 与 sigma=+-1
+  满足 k = 6ab + a*epsilon*sigma + b*sigma
+
+hypotheses:
+  - "N>3 且 gcd(N,6)=1（即 N=6k+-1）"
+  - "判定时取较小因子 6a+sigma <= sqrt(N)"
+
+conclusion_latex: >-
+  N composite <=> exists (a,b,sigma) with k = 6ab + a epsilon sigma + b sigma
+
+proof: >-
+  若 N 为合数且与 6 互素，其非平凡因子亦属 +-1 mod 6。令较小因子为 6a+sigma（sigma=+-1），
+  另一因子为 6b+epsilon*sigma（因 N=6k+epsilon，另一因子符号必为 epsilon*sigma 才能使
+  乘积余数回到 epsilon）。展开 (6a+sigma)(6b+epsilon*sigma)=6k+epsilon 即得 k 的式子。
+  反之若等式成立且 a,b>=1，则 N 分解为两因子均 >1，故为合数。
+
+symbols:
+  - name: "epsilon"
+    meaning_zh: "N mod 6 的符号化：N≡1 取 +1，N≡5 取 -1"
+    type: integer
+    constraints: "epsilon in {-1,+1}"
+  - name: "sigma"
+    meaning_zh: "较小因子模 6 的符号（+-1）"
+    type: integer
+    constraints: "sigma in {-1,+1}"
+
+domain_of_validity: "N=6k±1 且 N>3；初等乘法结构，无条件"
+
+specializations: []
+generalizations:
+  - OM-T-NT-0006   # 一般 wheel 覆盖是 M=6 的推广
+related:
+  - OM-D-NT-0001
+  - OM-T-NT-0006
+
+caveat: >-
+  1) 传统四种形式 6ab-a-b / 6ab+a+b / 6ab+a-b / 6ab-a+b 只是本母方程在 (epsilon,sigma)
+     四种符号组合下的展开；
+  2) 该结构为初等乘法恒等式，不能单独视为新的素数分布定律（红线：不得越界）；
+  3) L2 仅数值核对（对筛出的合数独立分解后重组坐标），非形式化证明。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: pwcv-theorems
+      precision_digits: 0
+      sample_count: 166666
+      seed: 0
+      max_abs_residual: "0"
+      script: 05-验证中心/01-引擎/pwcv_theorems.py
+      last_run: 2026-09-10
+      checks:
+        - "N=6k±1 且 N<=500000 的每一合数，独立分解后重构 (a,b,sigma) 使 k=6ab+aεσ+bσ，且 N=(6a+σ)(6b+εσ)"
+
+provenance:
+  ai_assisted: true
+  ai_role: full_generation
+  sources:
+    - type: url
+      value: "PWCV 框架（Primorial Wheel Coverage–Void），2026-09-10，用户提交论文"
+  contributors:
+    - "openmath-bot"

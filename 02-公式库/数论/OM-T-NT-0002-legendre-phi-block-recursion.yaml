@@ -1,0 +1,91 @@
+schema_version: "0.1"
+
+id: OM-T-NT-0002
+kind: theorem
+title_zh: 素数计数分块递归分解（Legendre φ 递归恒等式）
+title_en: Block-recursive decomposition of prime counting (Legendre phi recursion)
+domain: NT
+msc:
+  - "11N05"
+  - "11Y11"   # 素数计数算法
+tags:
+  - Legendre phi
+  - 分块递归
+  - 素数计数
+  - 轮积恒等式
+
+status: VERIFIED(L2)
+evidence_level: L2
+revision: 1
+created: 2026-09-10
+updated: 2026-09-10
+
+latex: >-
+  phi(x,a)=phi(x,a-1)-phi(floor(x/p_a),a-1), phi(x,0)=x;
+  pi(x)=phi(x,a)+a-1,  a=pi(floor(sqrt(x)))
+
+assumptions:
+  - "x 为非负整数；p_a 为第 a 个素数；phi(x,0)=x"
+  - "a=pi(floor(sqrt(x)))，此时所有素因子>p_a 的合数 >=(p_a+1)^2>x"
+statement_latex: >-
+  Legendre 分块函数 phi(x,a)=#{1<=m<=x: 所有素因子>p_a} 满足递归
+  phi(x,a)=phi(x,a-1)-phi(floor(x/p_a),a-1)；
+  取 a=pi(floor(sqrt(x))) 有 pi(x)=phi(x,a)+a-1
+
+hypotheses:
+  - "x 为非负整数；p_a 为第 a 个素数；phi(x,0)=x"
+  - "a=pi(floor(sqrt(x))) 时，所有素因子>p_a 的合数 >=(p_a+1)^2>x，故 phi 仅计 1 与大于 p_a 的素数"
+
+conclusion_latex: >-
+  pi(x) = phi(x, pi(floor(sqrt(x)))) + pi(floor(sqrt(x))) - 1
+
+proof: >-
+  phi(x,a) 计 1..x 中不被前 a 个素数整除的整数。递归：从"不被前 a-1 个整除"的集合中，
+  减去那些被 p_a 整除但不被前 a-1 个整除的（即 p_a 乘以一个不被前 a-1 个整除的数，
+  共 phi(floor(x/p_a), a-1) 个）。当 a=pi(floor(sqrt(x))) 时，所有素因子>p_a 的合数
+  最小为 (p_a+1)^2>x，故 phi 中除 1 外恰为大于 p_a 的素数，个数为 pi(x)-a，得 pi(x)=phi+a-1。
+
+symbols:
+  - name: "phi(x,a)"
+    meaning_zh: "Legendre 分块函数：1..x 中不被前 a 个素数整除的整数个数"
+    type: integer
+
+domain_of_validity: "一切非负整数 x, a；恒等式，无条件"
+
+specializations: []
+generalizations:
+  - OM-F-NT-0001   # Meissel / Lehmer 在更大 a 下的修正（P2/P3）
+related:
+  - OM-F-NT-0001
+  - OM-A-NT-0001
+  - OM-D-NT-0001
+
+caveat: >-
+  1) 本条目只核对 Legendre 递归与其直接定义逐点一致，并推出 pi=phi+a-1；
+     真正的 Meissel / Lehmer 加速（P2/P3）由 OM-F-NT-0001 / OM-A-NT-0001 与 prime-pi-block 引擎独立承担；
+  2) 递归为"分块"手段，本身仍非亚线性；亚线性来自 Meissel–Lehmer / LMO（见 OM-P-NT-0002）；
+  3) L2 仅数值交叉，非形式化证明。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: pwcv-theorems
+      precision_digits: 0
+      sample_count: 40
+      seed: 0
+      max_abs_residual: "0"
+      script: 05-验证中心/01-引擎/pwcv_theorems.py
+      last_run: 2026-09-10
+      checks:
+        - "phi_rec(x,a)==phi_direct(x,a)，a=0..7，x in {97,1000,99991,50000,200000}"
+        - "pi(x)==phi_rec(x,a)+a-1，a=pi(floor(sqrt(x)))，x in {1000,10000,100000,200000,500000}"
+
+provenance:
+  ai_assisted: true
+  ai_role: full_generation
+  sources:
+    - type: url
+      value: "PWCV 框架（Primorial Wheel Coverage–Void），2026-09-10，用户提交论文"
+  contributors:
+    - "openmath-bot"

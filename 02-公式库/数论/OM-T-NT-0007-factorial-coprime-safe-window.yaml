@@ -1,0 +1,84 @@
+schema_version: "0.1"
+
+id: OM-T-NT-0007
+kind: theorem
+title_zh: 阶乘互素安全窗口定理
+title_en: Factorial-coprime safe-window theorem
+domain: NT
+msc:
+  - "11A41"
+  - "11N05"
+tags:
+  - 安全窗口
+  - 阶乘互素
+  - 素数间隙
+
+status: VERIFIED(L2)
+evidence_level: L2
+revision: 1
+created: 2026-09-10
+updated: 2026-09-10
+
+latex: >-
+  if m < x < [NextPrime(m)]^2 then gcd(x, m!) = 1  <=>  x is prime
+
+assumptions:
+  - "m>=2 为整数；q=NextPrime(m)"
+  - "区间 (m,q^2) 内与 m! 互素的整数恰为素数（由 OM-T-NT-0003/0004 推出）"
+statement_latex: >-
+  设 q=NextPrime(m)。对 m<x<q^2，有 gcd(x,m!)=1 当且仅当 x 为素数
+
+hypotheses:
+  - "m >= 2 为整数；q=NextPrime(m)"
+  - "区间 (m, q^2) 内与 m! 互素的整数恰为素数（由 OM-T-NT-0003/0004 推出）"
+
+conclusion_latex: >-
+  (m < x < q^2) => [ gcd(x,m!)=1  <=>  x prime ]
+
+proof: >-
+  由 OM-T-NT-0004，严格大于 1 且与 m! 互素的最小合数为 q^2。因此在开区间 (m,q^2) 中，
+  任何与 m! 互素的整数都＜q^2，不可能是该最小逃逸合数，故只能是素数；反之亦然：
+  区间内的素数显然与 m! 互素（其素因子 q>m）。
+
+symbols:
+  - name: "(m, q^2)"
+    meaning_zh: "安全窗口：大于 m 且小于 q^2 的开区间"
+    type: interval
+
+domain_of_validity: "一切整数 m>=2；初等推论，无条件"
+
+specializations:
+  - OM-T-NT-0004   # 首逃逸平方给出上界 q^2
+generalizations: []
+related:
+  - OM-T-NT-0003
+  - OM-T-NT-0004
+  - OM-T-NT-0001
+
+caveat: >-
+  1) 安全窗口是 OM-T-NT-0003/0004 的直接推论；窗口长度 q^2 随 m 增长，不解决素数间隙上界问题；
+  2) 真正连接 prime gap 与 wheel gap 的是 Jacobsthal 上界（OM-T-NT-0008）；
+  3) L2 仅数值核对，非形式化证明。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: pwcv-theorems
+      precision_digits: 0
+      sample_count: 999
+      seed: 0
+      max_abs_residual: "0"
+      script: 05-验证中心/01-引擎/pwcv_theorems.py
+      last_run: 2026-09-10
+      checks:
+        - "对 m=2..200、x in (m, q^2)，若 gcd(x,m!)=1 则 x 为素数（独立 SPF 判定）"
+
+provenance:
+  ai_assisted: true
+  ai_role: full_generation
+  sources:
+    - type: url
+      value: "PWCV 框架（Primorial Wheel Coverage–Void），2026-09-10，用户提交论文"
+  contributors:
+    - "openmath-bot"

@@ -1,0 +1,87 @@
+schema_version: "0.1"
+
+id: OM-T-NT-0008
+kind: theorem
+title_zh: 素数间隔的 Jacobsthal 上界
+title_en: Jacobsthal upper bound for prime gaps
+domain: NT
+msc:
+  - "11N05"   # 素数间隙
+  - "11A07"
+tags:
+  - 素数间隙
+  - Jacobsthal 函数
+  - 轮积空洞
+
+status: VERIFIED(L2)
+evidence_level: L2
+revision: 1
+created: 2026-09-10
+updated: 2026-09-10
+
+latex: >-
+  g_n = p_{n+1}-p_n  <=  j(p_n#),
+  j(M) = min { L : 任意 L 个连续整数中至少一个与 M 互素 }
+
+assumptions:
+  - "p_n 为第 n 个素数；p_n#=p_1...p_n"
+  - "j(M) 为 Jacobsthal 函数：保证任意 j(M) 个连续整数中至少一个与 M 互素的最小长度"
+statement_latex: >-
+  素数间隙 g_n 不超过模 p_n# 的 Jacobsthal 函数：g_n <= j(p_n#)
+
+hypotheses:
+  - "p_n 为第 n 个素数；p_n#=p_1...p_n"
+  - "j(M) 为 Jacobsthal 函数：保证任意 j(M) 个连续整数中至少一个与 M 互素的最小长度"
+
+conclusion_latex: >-
+  g_n = p_{n+1}-p_n <= j(p_n#)
+
+proof: >-
+  p_n 与 p_{n+1} 之间严格相邻，p_n+1,...,p_{n+1}-1 都不是素数，且每个都与 p_n# 不互素
+  （这些整数的最小素因子 <= p_n：否则该整数 >= (p_n+1)^2 > p_{n+1}，与 < p_{n+1} < 2p_n 矛盾）。
+  故这些连续非互素整数长度 g_n-1 不超过 j(p_n#)-1，即 g_n <= j(p_n#)。
+
+symbols:
+  - name: "g_n"
+    meaning_zh: "素数间隙 p_{n+1}-p_n"
+    type: integer
+  - name: "j(M)"
+    meaning_zh: "Jacobsthal 函数：模 M 的连续互素保证长度"
+    type: integer
+
+domain_of_validity: "一切 n>=1；初等推论，无条件"
+
+specializations: []
+generalizations: []
+related:
+  - OM-T-NT-0004
+  - OM-T-NT-0006
+  - OM-P-NT-0002
+
+caveat: >-
+  1) 本上界由 wheel 几何直接推出，但 Jacobsthal 函数自身结构复杂，本上界并不解决素数间隙问题；
+  2) 寻找更窄的、可计算的 g_n 上界或新间隔定理是真正数论突破方向（OM-P-NT-0002，方向 C）；
+  3) L2 仅对 n=1..7 数值核对（p_n# 可枚举），非形式化证明，也未覆盖大 n。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: pwcv-theorems
+      precision_digits: 0
+      sample_count: 7
+      seed: 0
+      max_abs_residual: "0"
+      script: 05-验证中心/01-引擎/pwcv_theorems.py
+      last_run: 2026-09-10
+      checks:
+        - "g_n <= j(p_n#)，n=1..7（j 由模 p_n# 一个周期内的相邻约化剩余最大间隔计算）"
+
+provenance:
+  ai_assisted: true
+  ai_role: full_generation
+  sources:
+    - type: url
+      value: "PWCV 框架（Primorial Wheel Coverage–Void），2026-09-10，用户提交论文"
+  contributors:
+    - "openmath-bot"

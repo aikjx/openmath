@@ -1,0 +1,98 @@
+schema_version: "0.1"
+
+id: OM-T-NT-0001
+kind: theorem
+title_zh: 素数离散微积分闭环（指示 ↔ 计数 ↔ 第 n 素数）
+title_en: Prime discrete-calculus closure (indicator ↔ counting ↔ n-th prime)
+domain: NT
+msc:
+  - "11N05"   # 素数计数
+  - "11A41"
+  - "11A07"
+tags:
+  - 离散导数
+  - 素数指示
+  - 素数计数
+  - 第n素数
+  - 离散逆
+
+status: VERIFIED(L2)
+evidence_level: L2
+revision: 1
+created: 2026-09-10
+updated: 2026-09-10
+
+latex: >-
+  Delta pi(N) = pi(N) - pi(N-1) = I_P(N);
+  p_n = min{x>=2: pi(x) >= n},  pi(p_n)=n,  pi(p_n-1)=n-1;
+  LargestPrime_{<=N} = p_{pi(N)};  NextPrime(N) = p_{pi(N)+1}
+
+assumptions:
+  - "N>=2；pi 为素数计数函数（严格等式，见 OM-D-NT-0001 / OM-F-NT-0001）"
+  - "第 n 个素数 p_n 按通常顺序定义"
+statement_latex: >-
+  I_P(N) <=> Delta pi(N) = pi(N)-pi(N-1);
+  p_n = min{x>=2: pi(x)>=n} 且 pi(p_n)=n;
+  LargestPrime_{<=N}=p_{pi(N)};  NextPrime(N)=p_{pi(N)+1}
+
+hypotheses:
+  - "N>=2；pi 为素数计数函数（严格等式，见 OM-D-NT-0001 / OM-F-NT-0001）"
+  - "第 n 个素数 p_n 按通常顺序定义"
+
+conclusion_latex: >-
+  素数位置 = pi 的离散一阶导数；pi 是其离散积分；p_n 是 pi 的离散广义逆
+
+proof: >-
+  由 OM-D-NT-0001，pi(N)-pi(N-1) 恰为区间 (N-1,N] 中素数个数，即 I_P(N)。
+  由 pi 严格递增（每步 +0 或 +1），p_n = min{x: pi(x)>=n} 给出第 n 个素数且 pi(p_n)=n。
+  对 LargestPrime：pi(N) 个素数中最大的是第 pi(N) 个，即 p_{pi(N)}。
+  NextPrime(N) 即第 pi(N)+1 个素数。
+
+symbols:
+  - name: "Delta pi(N)"
+    meaning_zh: "pi 的有限差分（离散导数）"
+    type: integer
+  - name: "p_n"
+    meaning_zh: "第 n 个素数"
+    type: integer
+
+domain_of_validity: "一切正整数 N, n；无条件、无猜想依赖"
+
+specializations: []
+generalizations: []
+related:
+  - OM-D-NT-0001
+  - OM-F-NT-0001
+  - OM-A-NT-0001
+  - OM-F-NT-0002
+
+caveat: >-
+  1) 「素数求导」在数学上应理解为离散导数或分布导数（每个素数位置对应一个单位 Dirac 质量），
+     而非普通连续导数（红线：不得误称连续导数）；
+  2) 精确公式不等于快速公式：p_n 的离散逆仍需逐点计算 pi，见 OM-F-NT-0002 与 OM-P-NT-0002；
+  3) L2 仅数值交叉，非形式化证明。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: pwcv-theorems
+      precision_digits: 0
+      sample_count: 22301
+      seed: 0
+      max_abs_residual: "0"
+      script: 05-验证中心/01-引擎/pwcv_theorems.py
+      last_run: 2026-09-10
+      checks:
+        - "Delta pi(N)==I_P(N)（连乘 I vs 筛前缀 pi），N<=20000"
+        - "pi(p_n)==n 且 p_n==min{x: pi(x)>=n}，n<=2000"
+        - "LargestPrime_{<=N}==p_{pi(N)}，N<=5000"
+
+provenance:
+  ai_assisted: true
+  ai_role: full_generation
+  sources:
+    - type: url
+      value: "PWCV 框架（Primorial Wheel Coverage–Void），2026-09-10，用户提交论文"
+  contributors:
+    - "openmath-bot"

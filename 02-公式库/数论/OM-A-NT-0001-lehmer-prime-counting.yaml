@@ -1,0 +1,117 @@
+schema_version: "0.1"
+
+id: OM-A-NT-0001
+kind: algorithm
+title_zh: Meissel–Lehmer 精确素数计数算法
+title_en: Meissel–Lehmer exact prime counting
+domain: NT
+msc:
+  - "11N05"
+  - "11Y11"   # 数论中的机器计算
+tags:
+  - 素数计数
+  - Meissel
+  - Lehmer
+  - 精确算法
+  - 无条件
+
+status: VERIFIED(L2)
+evidence_level: L2
+revision: 1
+created: 2026-09-10
+updated: 2026-09-10
+
+latex: >-
+  Meissel: pi(x) = phi(x,a) + a - 1 - sum_{i=a+1}^{b} (pi(floor(x/p_i)) - i + 1),
+  a = pi(x^{1/3}), b = pi(x^{1/2});
+  Lehmer: pi(x) = phi(x,a) + (b+a-2)(b-a+1)/2
+   - sum_{i=a+1}^{b} pi(floor(x/p_i))
+   - sum_{i=a+1}^{c} sum_{j=i}^{pi(sqrt(x/p_i))} (pi(floor(x/(p_i p_j))) - j + 1),
+  c = pi(x^{1/4})
+
+assumptions:
+  - "x 为非负整数"
+  - "p_i 为第 i 个素数，索引从 1 开始"
+  - "phi(x,a) 定义见 OM-F-NT-0001"
+  - "整数立方根/四次根必须精确求得；浮点近似会导致 a、b、c 取错"
+  - "小 x 需要独立的基准实现（筛法前缀表）作为终止条件"
+
+symbols:
+  - name: "a"
+    meaning_zh: "pi(x^{1/3})，phi 的筛除素数个数"
+    type: natural
+  - name: "b"
+    meaning_zh: "pi(x^{1/2})，P_2 求和上界"
+    type: natural
+  - name: "c"
+    meaning_zh: "pi(x^{1/4})，P_3 求和上界（仅 Lehmer）"
+    type: natural
+
+domain_of_validity: "一切 x >= 0；严格等式，无条件、无猜想依赖"
+
+specializations: []
+generalizations: []
+related:
+  - OM-F-NT-0001
+  - OM-P-NT-0002
+
+caveat: >-
+  1) 表限内的 pi(x) 直接查表会让递归路径"空过"，检查必须另建小表引擎强制递归；
+  2) 节点计数前必须清空记忆化，否则跨调用复用会虚报 0；
+  3) 整数根必须精确，浮点 x**(1/3) 在大 x 上会取错 a；
+  4) 复杂度一栏是文献值，本库未做跨量级渐近拟合；
+  5) L2 通过只能证伪，不构成正确性证明（红线一）。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: prime-pi-block
+      precision_digits: 0
+      sample_count: 2215
+      seed: 0
+      max_abs_residual: "0"
+      script: 05-验证中心/01-引擎/prime_pi_block.py
+      last_run: 2026-09-10
+      checks:
+        - "pi(10^k) == OEIS A006880 对 k=1..10：全部相等，4.2s"
+        - "Meissel vs Lehmer：5 个 >10^6 的点全部相等"
+        - "Lehmer 递归 vs 独立筛法：2190 点全部相等"
+      measured_phi_nodes:
+        - {x: 10000000, pi: 664579, nodes: 20809, seconds: 0.016}
+        - {x: 100000000, pi: 5761455, nodes: 115389, seconds: 0.09}
+        - {x: 1000000000, pi: 50847534, nodes: 607396, seconds: 0.63}
+    L3:
+      passed: false
+      engine: ""
+      method: ""
+      note: "未做"
+    L4:
+      passed: false
+      system: ""
+      name: ""
+      note: "未形式化"
+
+# 结构化检查项：供 05-验证中心/01-引擎/prime_pi_block.py 的 run() 直接执行。
+# expected 取自 OEIS A006880（外部权威值，非本程序生成）。
+checks:
+  - {x: 10, expected: 4}
+  - {x: 1000, expected: 168}
+  - {x: 100000, expected: 9592}
+  - {x: 1000000, expected: 78498}
+  - {x: 10000000, expected: 664579}
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: "Meissel, E. D. F. (1870), 素数计数的分块方法"
+    - type: book
+      value: "Lehmer, D. H. (1959), On the exact number of primes less than a given limit"
+    - type: book
+      value: "Deléglise, M. & Rivat, J. (1996), Computing pi(x): the Meissel, Lehmer, Lagarias, Miller, Odlyzko method"
+    - type: url
+      value: "OEIS A006880"
+  contributors:
+    - "openmath-bot"

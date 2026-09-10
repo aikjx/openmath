@@ -1,0 +1,130 @@
+schema_version: "0.1"
+
+id: OM-P-NT-0002
+kind: problem
+title_zh: 第 n 个素数的低复杂度精确公式
+title_en: Low-complexity exact formula for the n-th prime
+domain: NT
+msc:
+  - "11N05"
+  - "11Y11"
+  - "11A41"
+tags:
+  - 素数
+  - 精确计数
+  - 复杂度
+  - Willans 公式
+  - 开放问题
+
+status: OPEN
+evidence_level: L2
+revision: 1
+created: 2026-09-10
+updated: 2026-09-10
+
+assumptions:
+  - "Q1（存在性）与 Q2（复杂度）必须分开陈述，二者答案独立"
+  - "复杂度以 x 的数值大小为输入尺度（非位长）；p_n 版本需另行精确化"
+  - "要求无条件：不依赖黎曼假设或任何未证明猜想"
+  - "要求精确值：不接受带误差界的近似"
+
+statement_latex: >-
+  Q1: 是否存在 F:N->N，使 F(n)=p_n 且不把 p_1..p_{n-1} 作为输入？（已解决：存在，Willans 1964）
+  Q2: 是否存在无条件确定性算法，在时间显著低于 x^{2/3}（例如 O(x^{1/2+eps})）内精确计算 pi(x) 或精确输出 p_n？（OPEN）
+
+proposed_by: "存在性问可追溯至 19 世纪；复杂度问随 Meissel(1870)/Lehmer(1959) 成型"
+proposed_year: null
+
+current_status: OPEN
+
+partial_results:
+  - year: 1808
+    author: "Legendre"
+    result: "phi(x,a) 递归，pi(x) = phi(x,a) + a - 1"
+  - year: 1870
+    author: "Meissel"
+    result: "引入 P_2 修正"
+  - year: 1959
+    author: "Lehmer"
+    result: "引入 P_3 修正，复杂度降至 x^{2/3} 量级"
+  - year: 1996
+    author: "Deléglise & Rivat"
+    result: "O(x^{2/3} / log^2 x)"
+  - year: 1962
+    author: "Rosser & Schoenfeld"
+    result: "显式界 n(log n + log log n - 1) < p_n < n(log n + log log n)（n >= 6）"
+
+resolution:
+  q1_existence:
+    status: RESOLVED
+    year: 1964
+    author: "Willans"
+    method: "Willans 型有界取整求和公式"
+    note: "非本库成果，禁止任何优先权宣称（红线七）"
+  q2_complexity:
+    status: OPEN
+
+refutation: null
+
+prize: "无"
+
+equivalent_forms:
+  - "精确计算 pi(x) 与精确定位 p_n 在多项式开销内互化（离散反演 p_n = min{x : pi(x) >= n}）"
+
+implications:
+  - "若 Q2 被肯定解决，将改进一切依赖精确 pi(x) 的计算数论任务"
+  - "已知下界：无（既不能证明可达，也不能证明不可达）"
+
+fact_check:
+  status: UNVERIFIED
+  sources:
+    - type: book
+      value: "Legendre, A.-M. Essai sur la théorie des nombres (1808)"
+    - type: book
+      value: "Lehmer, D. H. (1959), On the exact number of primes less than a given limit"
+    - type: book
+      value: "Willans, C. P. (1964), On Formulae for the Nth Prime Number, Math. Gazette"
+    - type: book
+      value: "Deléglise, M. & Rivat, J. (1996), Computing pi(x)"
+    - type: url
+      value: "OEIS A006880"
+  note: >-
+    数值部分（pi(10^k) 对齐 A006880、phi 与轮积恒等、递归路径与筛法对齐）由本库引擎
+    独立复算通过（本地 VERIFIED(L2)，见 05-验证中心/03-结果/prime_pi_block_L2.json）；
+    但文献页码、卷号及 Lagarias–Odlyzko 的精确复杂度指标未经原始文献核对，
+    故整条 fact_check.status 保持 UNVERIFIED。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: prime-pi-block
+      sample_count: 2215
+      max_abs_residual: "0"
+      script: 05-验证中心/01-引擎/prime_pi_block.py
+      last_run: 2026-09-10
+      note: "验证的是经典算法的复现一致性，不是对 Q2 的推进"
+    L3:
+      passed: false
+      note: "未做"
+    L4:
+      passed: false
+      note: "未形式化"
+
+# 结构化检查项：验证的是"经典算法可被本库精确复现"，不是对 Q2 的推进。
+# expected 取自 OEIS A006880（外部权威值，非本程序生成）。
+checks:
+  - {x: 10, expected: 4}
+  - {x: 1000, expected: 168}
+  - {x: 100000, expected: 9592}
+  - {x: 1000000, expected: 78498}
+  - {x: 10000000, expected: 664579}
+
+provenance:
+  ai_assisted: true
+  ai_role: full_generation
+  sources:
+    - type: url
+      value: "OEIS A006880"
+  contributors:
+    - "openmath-bot"

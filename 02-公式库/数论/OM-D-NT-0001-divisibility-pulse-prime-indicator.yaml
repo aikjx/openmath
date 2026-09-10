@@ -1,0 +1,85 @@
+schema_version: "0.1"
+
+id: OM-D-NT-0001
+kind: definition
+title_zh: 精确整除脉冲、素数指示与整数阶跃
+title_en: Exact divisibility pulse, prime indicator, and integer step
+domain: NT
+msc:
+  - "11A41"   # 素数
+  - "11N05"   # 素数分布：素数计数函数
+  - "11A07"   # 同余；原根；整除脉冲
+tags:
+  - 整除脉冲
+  - 素数指示
+  - 精确判素
+  - 离散结构
+  - 整数阶跃
+
+status: VERIFIED(L2)
+evidence_level: L2
+revision: 1
+created: 2026-09-10
+updated: 2026-09-10
+
+latex: >-
+  delta_d(N) = floor(N/d) - floor((N-1)/d) = 1_{d|N};
+  I_P(N) = 0 (N<2), else prod_{d=2}^{floor(sqrt(N))} (1 - delta_d(N));
+  Theta(z) = ceil(z/(|z|+1)) = 1_{z>0} (z integer)
+
+assumptions:
+  - "N, d 为正整数"
+  - "I_P(N) 的连乘上界为 floor(sqrt(N))，空乘积（N<4 时）规定为 1"
+  - "Theta(z) 此处只用于整数 z；对一般实数需另行定义"
+
+symbols:
+  - name: "delta_d(N)"
+    meaning_zh: "整除脉冲：d 整除 N 时为 1，否则为 0"
+    type: integer
+    constraints: "delta_d(N) in {0,1}"
+  - name: "I_P(N)"
+    meaning_zh: "素数指示函数：N 为素数时为 1，否则为 0"
+    type: integer
+    constraints: "I_P(N) in {0,1}"
+  - name: "Theta(z)"
+    meaning_zh: "整数正阶跃：z>0 时为 1，否则为 0"
+    type: integer
+    constraints: "Theta(z) in {0,1}"
+
+domain_of_validity: "一切正整数 N, d；恒等式，无条件、无猜想依赖"
+
+specializations: []
+generalizations: []
+related:
+  - OM-T-NT-0001
+  - OM-F-NT-0001
+
+caveat: >-
+  1) delta_d 把"是否整除"变成确定代数量，是后续一切精确判素结构的起点；
+  2) I_P(N) 直接试除至 sqrt(N)，单点判素最坏 O(sqrt(N)) 次整除检查，不是快速算法；
+  3) L2 通过（精确整数核对）只说明公式内部自洽，不构成证明（红线一）。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: pwcv-theorems
+      precision_digits: 0
+      sample_count: 10301
+      seed: 0
+      max_abs_residual: "0"
+      script: 05-验证中心/01-引擎/pwcv_theorems.py
+      last_run: 2026-09-10
+      checks:
+        - "delta_d(N)=1_{d|N} 对 t<=300, d<=t 逐点核对"
+        - "I_P(t)==1_{t prime} 对 t<=10000（连乘 vs 试除，独立路径）"
+        - "Theta(z)==1_{z>0} 对 z in [-10,10]"
+
+provenance:
+  ai_assisted: true
+  ai_role: full_generation
+  sources:
+    - type: url
+      value: "PWCV 框架（Primorial Wheel Coverage–Void），2026-09-10，用户提交论文"
+  contributors:
+    - "openmath-bot"

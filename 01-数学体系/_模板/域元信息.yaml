@@ -1,0 +1,41 @@
+# 域元信息模板 —— 复制后填写，删除所有 <...> 占位
+domain:
+  code: <两位大写域代码，如 NT>
+  name_zh: <中文域名，如 数论>
+  name_en: <English Name>
+  directory: <目录名，如 04-数论>
+  version: "0.1.0"
+
+msc:
+  primary:            # 本域主要覆盖的 MSC 两位类
+    - <"11">
+  related:            # 部分覆盖或频繁交叉的 MSC 类
+    - <"11M06">
+
+position:
+  depends_on:         # 上游依赖（域代码）
+    - <FD>
+  feeds:              # 下游应用（域代码）
+    - <AN>
+
+governance:
+  lead: <负责人 GitHub ID 或 空字符串>
+  reviewers:
+    - <评审者 ID>
+  status: ACTIVE      # ACTIVE | PROPOSED | FROZEN | DEPRECATED
+
+content:
+  counts:
+    definitions: 0
+    formulas: 0
+    theorems: 0
+    conjectures: 0
+    counterexamples: 0
+    algorithms: 0
+  coverage_note: >-
+    <诚实说明当前覆盖程度，例如：仅含示例条目，主体内容待录入。>
+
+verification:
+  default_precision_digits: 50
+  special_notes: >-
+    <本域验证的特殊注意点，例如：数论条目禁止以有限数值样例作为证明性证据。>

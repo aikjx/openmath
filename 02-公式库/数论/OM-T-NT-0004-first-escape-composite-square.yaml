@@ -1,0 +1,84 @@
+schema_version: "0.1"
+
+id: OM-T-NT-0004
+kind: theorem
+title_zh: 首逃逸合数平方定理
+title_en: First-escape composite square theorem
+domain: NT
+msc:
+  - "11A41"
+  - "11N05"
+tags:
+  - 首逃逸合数
+  - 安全窗口
+  - 阶乘互素
+
+status: VERIFIED(L2)
+evidence_level: L2
+revision: 1
+created: 2026-09-10
+updated: 2026-09-10
+
+latex: >-
+  min{ C>1 : C composite and gcd(C,m!)=1 } = [NextPrime(m)]^2
+
+assumptions:
+  - "m>=2 为整数；q=NextPrime(m)"
+  - "gcd(C,m!)=1 意味着 C 的素因子全部 > m"
+statement_latex: >-
+  设 q=NextPrime(m)，则严格大于 1 且与 m! 互素的最小合数恰为 q^2
+
+hypotheses:
+  - "m >= 2 为整数；q=NextPrime(m)"
+  - "gcd(C,m!)=1 意味着 C 的素因子全部 > m"
+
+conclusion_latex: >-
+  FirstEscapeComposite(m) = q^2
+
+proof: >-
+  因 gcd(C,m!)=1，C 的所有素因子均 > m；最小的大于 m 的素数是 q，故每个素因子 >= q。
+  合数至少含两个素因子（计重数），所以 C >= q^2。另一方面 q^2 显然为合数且
+  gcd(q^2,m!)=1。故最小值恰为 q^2。
+
+symbols:
+  - name: "FirstEscapeComposite(m)"
+    meaning_zh: "严格大于 1 且与 m! 互素的最小合数"
+    type: integer
+
+domain_of_validity: "一切整数 m>=2；初等推论，无条件"
+
+specializations: []
+generalizations:
+  - OM-T-NT-0007   # 安全窗口 m<x<q^2
+related:
+  - OM-T-NT-0003
+  - OM-T-NT-0007
+  - OM-D-NT-0001
+
+caveat: >-
+  1) 这是 OM-T-NT-0003 的直接推论：与 m! 互素的最小合数给出了"安全窗口"的上界 q^2；
+  2) 系统性的历史文献检索完成前，不应宣称"首逃逸平方"为历史首创（红线七）；
+  3) L2 仅数值核对，非形式化证明。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: pwcv-theorems
+      precision_digits: 0
+      sample_count: 999
+      seed: 0
+      max_abs_residual: "0"
+      script: 05-验证中心/01-引擎/pwcv_theorems.py
+      last_run: 2026-09-10
+      checks:
+        - "FirstEscapeComposite(m) == NextPrime(m)^2，m=2..1000"
+
+provenance:
+  ai_assisted: true
+  ai_role: full_generation
+  sources:
+    - type: url
+      value: "PWCV 框架（Primorial Wheel Coverage–Void），2026-09-10，用户提交论文"
+  contributors:
+    - "openmath-bot"

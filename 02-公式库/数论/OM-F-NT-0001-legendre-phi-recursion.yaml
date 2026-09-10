@@ -1,0 +1,118 @@
+schema_version: "0.1"
+
+id: OM-F-NT-0001
+kind: formula
+title_zh: Legendre φ 分块递归与轮积恒等式
+title_en: Legendre phi block recursion and the primorial wheel identity
+domain: NT
+msc:
+  - "11N05"   # 素数分布：素数计数函数
+  - "11A41"   # 素数
+tags:
+  - 素数计数
+  - Legendre phi
+  - 轮积筛
+  - 分块递归
+  - 精确算法
+
+status: VERIFIED(L2)
+evidence_level: L2
+revision: 1
+created: 2026-09-10
+updated: 2026-09-10
+
+latex: >-
+  phi(x,a) = phi(x,a-1) - phi(floor(x/p_a), a-1), phi(x,0) = x;
+  pi(x) = phi(x,a) + a - 1 with a = pi(floor(sqrt(x)));
+  phi(x,k) = floor(x/p_k#) * varphi(p_k#) + #{1 <= r <= x mod p_k# : gcd(r, p_k#) = 1}
+
+assumptions:
+  - "x 为非负整数，a 为非负整数"
+  - "p_i 表示第 i 个素数（p_1 = 2）"
+  - "phi 计数区间为 [1, x]，因此 phi(x, a) 包含 1"
+  - "p_k# 表示前 k 个素数的乘积（primorial），p_0# = 1，varphi(p_0#) = 1"
+
+symbols:
+  - name: "x"
+    meaning_zh: "计数上界"
+    type: natural
+    constraints: "x >= 0"
+  - name: "a"
+    meaning_zh: "参与筛除的素数个数"
+    type: natural
+    constraints: "a >= 0"
+  - name: "p_a"
+    meaning_zh: "第 a 个素数"
+    type: natural
+    constraints: "p_1 = 2"
+  - name: "phi(x, a)"
+    meaning_zh: "[1,x] 中不被 p_1..p_a 任一整除的整数个数"
+    type: natural
+    constraints: "phi(x,0) = x"
+  - name: "pi(x)"
+    meaning_zh: "不超过 x 的素数个数"
+    type: natural
+  - name: "p_k#"
+    meaning_zh: "前 k 个素数的乘积（primorial）"
+    type: natural
+    constraints: "p_0# = 1"
+
+domain_of_validity: "一切非负整数 x 与非负整数 a；恒等式，无附加条件"
+
+specializations: []
+generalizations: []
+related:
+  - OM-A-NT-0001
+  - OM-P-NT-0002
+
+caveat: >-
+  1) 递归节点数与试除取模数是不同的基本操作，单次常数不同，压缩比只说明操作数量级；
+  2) 测量前必须清空 phi 记忆表，否则重复查询会虚报 0 节点（本库实测踩坑）；
+  3) 轮积掩码实现的内存随 p_k# 指数增长，k 较大时不可行；
+  4) 本条目只提供 L2 数值证据，数值一致不构成证明。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: prime-pi-block
+      precision_digits: 0
+      sample_count: 2225
+      seed: 0
+      max_abs_residual: "0"
+      script: 05-验证中心/01-引擎/prime_pi_block.py
+      last_run: 2026-09-10
+      checks:
+        - "phi(x,k) == wheel_phi(x,k) 对 k=0..6，x in {1,2,97,1000,99991,10^6,7*10^6}：全部相等"
+        - "pi(10^k) == OEIS A006880 对 k=1..10：全部相等"
+        - "Lehmer 递归 vs 独立筛法：表限 1000、x<=3*10^5 步长 137 共 2190 点全部相等"
+    L3:
+      passed: false
+      engine: ""
+      method: ""
+      note: "未做。离散递归的符号化简收益低，且 SymPy 通过不构成证明（红线一）"
+    L4:
+      passed: false
+      system: ""
+      name: ""
+      note: "未形式化"
+
+# 结构化检查项：pi(x) 的精确值，供 prime_pi_block 引擎的 run() 直接执行。
+# expected 取自 OEIS A006880（外部权威值，非本程序生成）。
+checks:
+  - {x: 10, expected: 4}
+  - {x: 1000, expected: 168}
+  - {x: 100000, expected: 9592}
+  - {x: 1000000, expected: 78498}
+  - {x: 10000000, expected: 664579}
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: "Legendre, A.-M. Essai sur la théorie des nombres (1808)"
+    - type: url
+      value: "OEIS A006880 (Number of primes < 10^n)"
+  contributors:
+    - "openmath-bot"

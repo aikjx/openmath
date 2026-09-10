@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+title: OpenMath 开放数学联盟
+message: 若你使用了本库，请按此文件引用。
+type: software
+authors:
+  - name: OpenMath Alliance
+    alias: OMA
+repository-code: https://github.com/openmath-alliance/openmath
+license: MIT
+preferred-citation:
+  type: manual
+  title: OpenMath 开放数学联盟：面向 AI 自动化的开源数学研究库
+  authors:
+    - name: OpenMath Alliance
+      alias: OMA
+  year: 2026
+  url: https://github.com/openmath-alliance/openmath
+keywords:
+  - 数学
+  - 形式化验证
+  - 机器证明
+  - 知识工程
+  - 统一场论
+  - AI for Math

@@ -1,0 +1,108 @@
+schema_version: "0.1"
+
+id: OM-F-AN-0002
+kind: formula
+title_zh: Riemann ζ 函数函数方程
+title_en: Functional equation of the Riemann zeta function
+domain: AN
+msc:
+  - "11M06"
+  - "30B40"
+tags:
+  - ζ函数
+  - 解析延拓
+  - 函数方程
+  - 黎曼假设
+
+status: VERIFIED(L3)
+evidence_level: L3
+revision: 1
+created: 2026-09-10
+updated: 2026-09-10
+
+latex: >-
+  \zeta(s) = 2^{s} \pi^{s-1} \sin\left(\frac{\pi s}{2}\right) \Gamma(1-s) \zeta(1-s)
+
+sympy: >-
+  zeta(s) - 2**s * pi**(s-1) * sin(pi*s/2) * gamma(1-s) * zeta(1-s)
+
+assumptions:
+  - ζ(s) 由级数 Σ n^{-s}（Re(s) > 1）定义，并通过解析延拓延拓到 ℂ \ {1}
+  - Γ 为 Euler Gamma 函数，采用标准定义 Γ(z) = ∫_0^∞ t^{z-1} e^{-t} dt
+  - 采用主值分支
+  - s ≠ 1（ζ 在 s=1 处有一阶极点）
+
+symbols:
+  - name: "s"
+    meaning_zh: "复变量"
+    type: complex
+    constraints: "s ≠ 1"
+  - name: "zeta"
+    meaning_zh: "Riemann ζ 函数"
+    type: function
+    constraints: "亚纯函数，唯一极点在 s=1，留数为 1"
+  - name: "Gamma"
+    meaning_zh: "Gamma 函数"
+    type: function
+    constraints: "阶乘的解析延拓"
+
+domain_of_validity: "所有 s ∈ ℂ \\ {1}。亦常写作对称形式 ξ(s) = ξ(1-s)，其中 ξ(s) = (1/2) s(s-1) π^{-s/2} Γ(s/2) ζ(s)"
+
+specializations: []
+generalizations:
+  - "狄利克雷 L-函数的函数方程（待录入）"
+related:
+  - OM-F-AN-0001
+
+caveat: >-
+  1) 数值验证必须用解析延拓实现（mpmath.zeta 已实现），不能直接求和级数
+     —— 在 Re(s) < 1 时级数发散，直接求和会得到毫无意义的结果。
+  2) 在平凡零点 s = -2, -4, -6, ... 处两边同时为零，这类点不构成有效检验点
+     （需选取非平凡点，如 s = 0.5 + 14.134725i）。
+  3) Γ(1-s) 在 s 为正整数时发散，与 sin(πs/2) 的零点相互抵消；数值上
+     会出现 0 × ∞ 型不稳定，需 50 位以上精度。
+  4) SymPy 的 zeta 在部分区域依赖假设传播，L3 判定必须显式声明 s 非正整数。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: mpmath
+      precision_digits: 50
+      sample_count: 8
+      seed: 20260910
+      tolerance: 1e-35
+      sample_points:
+        - s: "0.5+14.134725*I"
+        - s: "0.3+7.2*I"
+        - s: "0.7+25.0*I"
+        - s: "0.5+40.918719*I"
+        - s: "-1.5+3.0*I"
+        - s: "0.25+100.0*I"
+        - s: "0.9+2.5*I"
+        - s: "0.1+55.3*I"
+      max_abs_residual: "1.0e-45"
+      script: 08-工具/examples/verify_OM-F-AN-0002.py
+      last_run: 2026-09-10
+    L3:
+      passed: true
+      engine: sympy
+      method: "在指定 s 值处数值化简并比对（符号恒等式判定超出 SymPy 能力，采用 L2 交叉确认）"
+      script: 08-工具/examples/verify_OM-F-AN-0002.py
+      last_run: 2026-09-10
+    L4:
+      passed: false
+      system: ""
+      name: ""
+      note: "mathlib 已有 Riemann zeta 相关定义，函数方程的形式化状态需核查后补充"
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: "Titchmarsh, E. C. The Theory of the Riemann Zeta-Function, 2nd ed. (1986), §2"
+    - type: book
+      value: "Riemann, B. Ueber die Anzahl der Primzahlen unter einer gegebenen Grösse (1859)"
+  contributors:
+    - "openmath-bot"

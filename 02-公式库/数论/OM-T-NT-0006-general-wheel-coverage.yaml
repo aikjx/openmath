@@ -1,0 +1,95 @@
+schema_version: "0.1"
+
+id: OM-T-NT-0006
+kind: theorem
+title_zh: 一般 wheel 覆盖定理
+title_en: General wheel-coverage theorem
+domain: NT
+msc:
+  - "11A07"
+  - "11N05"
+  - "11Y11"
+tags:
+  - 轮积
+  - wheel sieve
+  - 乘法覆盖
+  - 约化剩余系
+
+status: VERIFIED(L2)
+evidence_level: L2
+revision: 1
+created: 2026-09-10
+updated: 2026-09-10
+
+latex: >-
+  gcd(N,M)=1, N=Ma+r, M=b+s? no; N=(Ma+r)(Mb+s),
+  k = Mab + a s + b r + (rs-u)/M,
+  r,s in R_M={1<=t<M: gcd(t,M)=1}, u=N mod M
+
+assumptions:
+  - "M 为任意正整数（可取 M=p_r# 轮积）"
+  - "gcd(N,M)=1；若 N 合数则可写 N=xy 且 gcd(x,M)=gcd(y,M)=1"
+statement_latex: >-
+  设 gcd(N,M)=1，R_M 为模 M 约化剩余系，N=Mk+u。则 N 为合数当且仅当存在
+  r,s in R_M 与 a,b>=0（且 Ma+r>1, Mb+s>1）使 N=(Ma+r)(Mb+s)，
+  即 k = Mab + a s + b r + (rs-u)/M
+
+hypotheses:
+  - "M 为任意正整数（可取 M=p_r# 轮积）"
+  - "gcd(N,M)=1；若 N 合数则可写 N=xy 且 gcd(x,M)=gcd(y,M)=1"
+
+conclusion_latex: >-
+  N composite <=> exists r,s in R_M, a,b>=0 : N=(Ma+r)(Mb+s)
+
+proof: >-
+  若 gcd(N,M)=1 且 N=xy（x,y>1），则 gcd(x,M)=gcd(y,M)=1，故
+  x=Ma+r,\ y=Mb+s，其中 r,s in R_M。展开 (Ma+r)(Mb+s)=M^2 ab+Mas+Mbr+rs；
+  令 u=rs mod M、t=(rs-u)/M，则 Mk+u = M(Mab+as+br+t)+u，得
+  k=Mab+as+br+(rs-u)/M。反之若等式成立且两因子 >1，则 N 为合数。
+
+symbols:
+  - name: "R_M"
+    meaning_zh: "模 M 约化剩余系 {1<=t<M: gcd(t,M)=1}"
+    type: set
+  - name: "M"
+    meaning_zh: "wheel 模（常取 primorial M_r=p_r#）"
+    type: integer
+
+domain_of_validity: "任意 M>=1，gcd(N,M)=1；初等乘法结构，无条件"
+
+specializations:
+  - OM-T-NT-0005   # M=6 为本定理最低阶特例
+generalizations: []
+related:
+  - OM-T-NT-0005
+  - OM-D-NT-0001
+  - OM-A-NT-0001
+
+caveat: >-
+  1) 本定理是 primorial wheel / wheel sieve 的成熟框架（M=6 仅最低阶特例），不构成首创；
+  2) 周期密度严格为 phi(M)/M = prod_{j=1}^r (1-1/p_j)；本定理只给单点因子坐标，
+     整块覆盖计数（交叠项）仍是开放问题（见 OM-P-NT-0002 方向 B）；
+  3) L2 仅数值核对，非形式化证明。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: pwcv-theorems
+      precision_digits: 0
+      sample_count: 54086
+      seed: 0
+      max_abs_residual: "0"
+      script: 05-验证中心/01-引擎/pwcv_theorems.py
+      last_run: 2026-09-10
+      checks:
+        - "M in {6,30,210}，N<=500000 且 gcd(N,M)=1 的每一合数，独立分解后重构 (r,s,a,b) 使 N=(Ma+r)(Mb+s)"
+
+provenance:
+  ai_assisted: true
+  ai_role: full_generation
+  sources:
+    - type: url
+      value: "PWCV 框架（Primorial Wheel Coverage–Void），2026-09-10，用户提交论文"
+  contributors:
+    - "openmath-bot"

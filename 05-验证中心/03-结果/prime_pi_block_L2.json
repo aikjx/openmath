@@ -1,0 +1,118 @@
+{
+  "engine": "prime-pi-block",
+  "level": "L2",
+  "results": [
+    {
+      "check": "A. pi(10^k) vs OEIS A006880 (k<=10)",
+      "passed": true,
+      "detail": "4.173s  不一致=无"
+    },
+    {
+      "check": "B. Lehmer 递归 vs 独立筛法 (表限1000, x<=3e5)",
+      "passed": true,
+      "detail": "采样 2190 点，不一致=无"
+    },
+    {
+      "check": "C. Meissel vs Lehmer (5 个 >10^6 的点)",
+      "passed": true,
+      "detail": "不一致=无"
+    },
+    {
+      "check": "D. wheel_phi(x,k) == phi(x,k) (k<=6)",
+      "passed": true,
+      "detail": "不一致=无"
+    },
+    {
+      "check": "E. p_n 随机访问 (n=1..2000, 与筛法比对)",
+      "passed": true,
+      "detail": "0.009s  不一致=无"
+    },
+    {
+      "check": "E2. p_n 大 n 随机访问",
+      "passed": true,
+      "detail": "不一致=无"
+    },
+    {
+      "check": "F. brute / Legendre / Lehmer 结果一致",
+      "passed": true,
+      "detail": "见上表，三者逐个 x 完全相等"
+    }
+  ],
+  "passed": 7,
+  "total": 7,
+  "complexity": [
+    {
+      "x": 10000,
+      "brute_mod_ops": 117527,
+      "brute_seconds": 0.0207,
+      "legendre_phi_nodes": 672,
+      "legendre_seconds": 0.0003,
+      "lehmer_phi_nodes": 0,
+      "lehmer_seconds": 0.0,
+      "compression_ratio_brute_over_legendre": 174.89,
+      "pi_brute": 1229,
+      "pi_legendre": 1229,
+      "pi_lehmer": 1229
+    },
+    {
+      "x": 30000,
+      "brute_mod_ops": 523929,
+      "brute_seconds": 0.0805,
+      "legendre_phi_nodes": 1605,
+      "legendre_seconds": 0.0008,
+      "lehmer_phi_nodes": 0,
+      "lehmer_seconds": 0.0,
+      "compression_ratio_brute_over_legendre": 326.44,
+      "pi_brute": 3245,
+      "pi_legendre": 3245,
+      "pi_lehmer": 3245
+    },
+    {
+      "x": 100000,
+      "brute_mod_ops": 2745694,
+      "brute_seconds": 0.4433,
+      "legendre_phi_nodes": 3959,
+      "legendre_seconds": 0.0021,
+      "lehmer_phi_nodes": 0,
+      "lehmer_seconds": 0.0,
+      "compression_ratio_brute_over_legendre": 693.53,
+      "pi_brute": 9592,
+      "pi_legendre": 9592,
+      "pi_lehmer": 9592
+    }
+  ],
+  "large_x": [
+    {
+      "x": 10000000,
+      "pi": 664579,
+      "phi_nodes": 20809,
+      "pi_calls": 1,
+      "seconds": 0.0146,
+      "brute_mod_ops_extrapolated": 21081852121
+    },
+    {
+      "x": 100000000,
+      "pi": 5761455,
+      "phi_nodes": 115389,
+      "pi_calls": 1,
+      "seconds": 0.0918,
+      "brute_mod_ops_extrapolated": 666666700000
+    },
+    {
+      "x": 1000000000,
+      "pi": 50847534,
+      "phi_nodes": 607396,
+      "pi_calls": 1,
+      "seconds": 0.6287,
+      "brute_mod_ops_extrapolated": 21081852121881
+    }
+  ],
+  "environment": {
+    "python": "3.8.8",
+    "platform": "Windows-10-10.0.26100-SP0",
+    "machine": "AMD64",
+    "dependencies": [],
+    "table_limit": 1000000,
+    "timestamp_utc": "2026-09-09T17:38:35Z"
+  }
+}
