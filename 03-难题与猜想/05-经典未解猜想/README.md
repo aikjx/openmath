@@ -29,6 +29,7 @@
 | **Andre–Oort 猜想** | 有重要进展（部分情形已解决） | ⭐⭐⭐ |
 | **Green–Tao 的推广**（多项式模式的素数） | 有进展 | ⭐⭐⭐ |
 | **第 n 个素数的低复杂度精确公式**（[OM-P-NT-0002](OM-P-NT-0002-nth-prime-low-complexity-formula.md)） | `OPEN`（"公式存在性"那一问已 `RESOLVED`：Willans 1964） | ⭐⭐ |
+| **强哥德巴赫猜想**（[OM-P-NT-0003](OM-P-NT-0003-goldbach-conjecture.md)） | `PARTIAL`（强二元仍 `OPEN`；Chen 1+2、弱哥德巴赫 Helfgott 2013 已证；本库 L2 至 10⁷） | ⭐⭐⭐ |
 
 **abc 猜想特别说明**（本库 `DISPUTED` 的范本）：
 
