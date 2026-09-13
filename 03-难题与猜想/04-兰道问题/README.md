@@ -60,12 +60,15 @@ Landau 四问题是一个**极好的诚实教材**：它们全部表述简单到
 04-兰道问题/
 ├── README.md                  # 本索引
 ├── 01-强哥德巴赫_ζ温度判素体系.md  # 强哥德巴赫条目（τ_z / 两温 detector / USSD 核验与判定）
+├── 01B-强哥德巴赫_二维均方Dispersion与DWSC.md  # 二维均方 Goldbach dispersion / DWSC 核验与判定
 ├── 02-孪生素数猜想.md          # 孪生素数条目（Hardy–Littlewood 渐近）
 ├── 代码/
 │   ├── 孪生素数_验证.py        # 孪生素数独立引擎（筛法 + OEIS 交叉校验 + HL 渐近标定）
-│   └── ζ温度判素_验证.py       # τ_z 体系核验（式(1)-(22) 精确核验 + 层级律 + |z|-一致性）
+│   ├── ζ温度判素_验证.py       # τ_z 体系核验（式(1)-(22) 精确核验 + 层级律 + |z|-一致性）
+│   └── 二维均方GoldbachDispersion_验证.py  # BGD→DWSC 链核验（换元恒等式 + gcd 能量 + 均方实测）
 ├── 数据/
-│   └── zeta_temperature_verification.json
+│   ├── zeta_temperature_verification.json
+│   └── bgd_dispersion_verification.json
 └── 图/                         # 数值验证配图
     ├── fig_goldbach.png
     ├── fig_twin.png
@@ -90,3 +93,5 @@ Landau 四问题是一个**极好的诚实教材**：它们全部表述简单到
 $\tau_z$ 判素体系的**代数与组合部分已被精确认证**（$\tau'_0(q^a)=1/a$、两温核的精确刻画 $D_{s,t}(n)=0\iff\omega(n)=2$ 且无平方因子、$\eta_2=\tfrac12$ 与 $\eta_3=\tfrac13-\tfrac{s^2}{6\rho}$ 的闭式、主项常数 $\Psi(\rho,c)=\frac{e^{\rho c}-\rho e^c}{1-\rho}<1$、$\mathfrak S_N(0)\ge2C_2$）；
 但 **USSD 与"每个偶数的 Hardy–Littlewood 渐近"同深度**，缺口收敛为单一命题：$\tau_z$ 的 Bombieri–Vinogradov 型分布定理（水平 $\ge 1/2$，对 $|z|\asymp1/\log\log N$ 一致）。
 **状态仍为 `PARTIAL`（未解决）。**
+
+二维均方 dispersion（BGD→DWSC）路线（2026-09-13）已核验：换元恒等式 (5)(6) **精确成立**（双路径相符到 $6\cdot10^{-10}$）、gcd 能量 $\|W_N\|_2^2\asymp N^2/M$ **成立**、对角项稀释**渐近成立**；但"只需 $N^{-1/4}$ 节省"是 Cauchy 的假象（真预算为 $\log^{-A}$），且 (2) 在可算尺度被 Poisson 噪声（每对仅 $5\sim14$ 个事件）掩盖、数值不可达；新暴露的致命脆弱点是模型 $\mathcal M_N$ 的局部因子（$p\mid N$ 处 $\nu(p)$ 取错即造成 $\approx30\%$ 系统偏差）。缺口仍为：**水平 $1/2$ 的素数对相关的对数级节省**。详见 [01B-强哥德巴赫_二维均方Dispersion与DWSC.md](./01B-强哥德巴赫_二维均方Dispersion与DWSC.md)。
