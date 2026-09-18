@@ -32,3 +32,30 @@ engines:
       PWCV 框架定理的精确整数验证（独立基准：埃拉托色尼筛 + 最小素因子表 + π 前缀）。
       覆盖整除脉冲/素数指示/离散微积分闭环/阶乘互素/首逃逸平方/模6母方程/一般wheel/
       安全窗口/Jacobsthal 上界。仅标准库；自检 10/10 通过。只提供 L2 证据。
+
+  - name: landau-scan
+    path: 05-验证中心/01-引擎/landau_scan.py
+    levels: [L2]
+    domains: [NT]
+    dependencies: []
+    enabled: true
+    priority: 25
+    note: >-
+      Landau 开放问题扫描：Legendre 窗口区间素数计数恒等式（筛前缀差分 vs phi 分块递归双路交叉）、
+      n^2+1 序列的 Legendre-Mobius 筛恒等式与完备化恒等式、筛余项爆炸的可量化度量、
+      Bateman-Horn 常数截断序列与 P_2 层实测。覆盖 OM-F-NT-0003/0004、OM-P-NT-0003/0004。
+      仅标准库；自检 4/4 通过。只提供 L2 证据；开放问题条目一律表述为"范围内未发现反例"。
+
+  - name: landau-symbolic
+    path: 05-验证中心/01-引擎/landau_symbolic.py
+    levels: [L3]
+    domains: [NT]
+    dependencies: [sympy]
+    enabled: true
+    priority: 15
+    note: >-
+      Landau 条目的符号层：S3.1 用 solveset 符号定位第二式的例外集合恰为 {1}；
+      S4.1 Euler 积展开的纯符号比对；S4.2 CRT 构造性核对 x^2≡-1 (mod d) 的解数；
+      S4.3 完备化恒等式的命题逻辑证明（satisfiable 判空）；S4.4 余项上界展开；
+      S4.5/S4.6 Mertens 型渐近与交叉一致性（依赖 Mertens 定理，仅登记）。
+      覆盖 OM-F-NT-0003/0004。自检 10/10 通过。只提供 L3 证据，不构成证明。

@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-09-09T18:35:59Z",
-  "count": 15,
+  "generated": "2026-09-18T04:14:23Z",
+  "count": 19,
   "by_domain": {
     "AN": [
       "OM-F-AN-0001",
@@ -12,7 +12,11 @@
       "OM-D-NT-0001",
       "OM-F-NT-0001",
       "OM-F-NT-0002",
+      "OM-F-NT-0003",
+      "OM-F-NT-0004",
       "OM-P-NT-0002",
+      "OM-P-NT-0003",
+      "OM-P-NT-0004",
       "OM-T-NT-0001",
       "OM-T-NT-0002",
       "OM-T-NT-0003",
@@ -34,10 +38,14 @@
       "OM-F-AN-0001",
       "OM-F-AN-0002",
       "OM-F-NT-0001",
-      "OM-F-NT-0002"
+      "OM-F-NT-0002",
+      "OM-F-NT-0003",
+      "OM-F-NT-0004"
     ],
     "problem": [
-      "OM-P-NT-0002"
+      "OM-P-NT-0002",
+      "OM-P-NT-0003",
+      "OM-P-NT-0004"
     ],
     "theorem": [
       "OM-T-NT-0001",
@@ -51,6 +59,10 @@
     ]
   },
   "by_level": {
+    "L1": [
+      "OM-P-NT-0003",
+      "OM-P-NT-0004"
+    ],
     "L2": [
       "OM-A-NT-0001",
       "OM-D-NT-0001",
@@ -68,12 +80,18 @@
     ],
     "L3": [
       "OM-F-AN-0001",
-      "OM-F-AN-0002"
+      "OM-F-AN-0002",
+      "OM-F-NT-0003",
+      "OM-F-NT-0004"
     ]
   },
   "by_status": {
     "OPEN": [
       "OM-P-NT-0002"
+    ],
+    "PROPOSED": [
+      "OM-P-NT-0003",
+      "OM-P-NT-0004"
     ],
     "VERIFIED(L2)": [
       "OM-A-NT-0001",
@@ -91,25 +109,44 @@
     ],
     "VERIFIED(L3)": [
       "OM-F-AN-0001",
-      "OM-F-AN-0002"
+      "OM-F-AN-0002",
+      "OM-F-NT-0003",
+      "OM-F-NT-0004"
     ]
   },
   "by_tag": {
     "6ab±a±b": [
       "OM-T-NT-0005"
     ],
+    "Bateman-Horn": [
+      "OM-F-NT-0004",
+      "OM-P-NT-0004"
+    ],
     "Jacobsthal 函数": [
       "OM-T-NT-0008"
     ],
+    "Landau 问题": [
+      "OM-F-NT-0004",
+      "OM-P-NT-0003",
+      "OM-P-NT-0004"
+    ],
     "Legendre phi": [
       "OM-F-NT-0001",
+      "OM-F-NT-0003",
       "OM-T-NT-0002"
+    ],
+    "Legendre 猜想": [
+      "OM-F-NT-0003",
+      "OM-P-NT-0003"
     ],
     "Lehmer": [
       "OM-A-NT-0001"
     ],
     "Meissel": [
       "OM-A-NT-0001"
+    ],
+    "Mobius 反演": [
+      "OM-F-NT-0004"
     ],
     "Willans 公式": [
       "OM-P-NT-0002"
@@ -119,6 +156,10 @@
     ],
     "n-only 表示": [
       "OM-F-NT-0002"
+    ],
+    "n^2+1": [
+      "OM-F-NT-0004",
+      "OM-P-NT-0004"
     ],
     "wheel sieve": [
       "OM-T-NT-0006"
@@ -156,7 +197,9 @@
       "OM-F-AN-0001"
     ],
     "开放问题": [
-      "OM-P-NT-0002"
+      "OM-P-NT-0002",
+      "OM-P-NT-0003",
+      "OM-P-NT-0004"
     ],
     "指数函数": [
       "OM-F-AN-0001"
@@ -166,6 +209,9 @@
     ],
     "整除脉冲": [
       "OM-D-NT-0001"
+    ],
+    "方块窗口": [
+      "OM-F-NT-0003"
     ],
     "无条件": [
       "OM-A-NT-0001"
@@ -179,6 +225,10 @@
     "母方程": [
       "OM-T-NT-0005"
     ],
+    "短区间": [
+      "OM-F-NT-0003",
+      "OM-P-NT-0003"
+    ],
     "离散导数": [
       "OM-T-NT-0001"
     ],
@@ -191,6 +241,13 @@
     "第n素数": [
       "OM-F-NT-0002",
       "OM-T-NT-0001"
+    ],
+    "筛法": [
+      "OM-F-NT-0004",
+      "OM-P-NT-0004"
+    ],
+    "筛维数": [
+      "OM-F-NT-0004"
     ],
     "精确公式": [
       "OM-F-NT-0002"
@@ -215,10 +272,12 @@
     "素数计数": [
       "OM-A-NT-0001",
       "OM-F-NT-0001",
+      "OM-F-NT-0003",
       "OM-T-NT-0001",
       "OM-T-NT-0002"
     ],
     "素数间隙": [
+      "OM-P-NT-0003",
       "OM-T-NT-0007",
       "OM-T-NT-0008"
     ],
@@ -276,7 +335,24 @@
       "OM-P-NT-0002",
       "OM-T-NT-0001"
     ],
+    "OM-F-NT-0003": [
+      "OM-F-NT-0001",
+      "OM-P-NT-0003"
+    ],
+    "OM-F-NT-0004": [
+      "OM-F-NT-0001",
+      "OM-P-NT-0004",
+      "OM-T-NT-0006"
+    ],
     "OM-P-NT-0002": [],
+    "OM-P-NT-0003": [
+      "OM-F-NT-0003",
+      "OM-P-NT-0004"
+    ],
+    "OM-P-NT-0004": [
+      "OM-F-NT-0004",
+      "OM-P-NT-0003"
+    ],
     "OM-T-NT-0001": [
       "OM-A-NT-0001",
       "OM-D-NT-0001",

@@ -120,14 +120,40 @@ python -m openmath index --level L4          # 按证据等级筛选
 
 ## 七、覆盖现状（诚实）
 
-| 状态 | 数量 |
-| --- | --- |
-| 示例条目 | 2（欧拉恒等式、ζ 函数方程） |
-| 数论条目 | 2（[OM-F-NT-0001](数论/OM-F-NT-0001-legendre-phi-recursion.md) Legendre φ 分块递归与轮积恒等式、[OM-A-NT-0001](数论/OM-A-NT-0001-lehmer-prime-counting.md) Meissel–Lehmer 精确计数） |
-| 待录入 | 其余全部 |
+| 类别 | 数量 | 说明 |
+| --- | --- | --- |
+| 示例条目（`分析/`） | 2 | 欧拉恒等式、ζ 函数方程——示范格式与验证写法，**不是内容主体** |
+| 数论条目（`数论/`） | 16 | F×4、T×8、A×1、D×1、P×2 |
+| 难题条目（`03-难题与猜想/`） | 1 | OM-P-NT-0002（第 n 个素数低复杂度公式，开放） |
+| **合计** | **19** | `python -m openmath lint` 19/19 L0 通过；`verify --level L2` 19/19 未发现反例 |
+| 其中已到 L3（符号） | 2 | OM-F-NT-0003、OM-F-NT-0004 |
+| **L4 形式化** | **0** | 本库**没有任何一条**可以说"已证明"（[红线一](../00-宪章/02-诚实红线.md)） |
 
-示例条目的作用是**示范格式与验证写法**，不是内容主体。建议贡献者先阅读 [`分析/OM-F-AN-0002-*.yaml`](分析/OM-F-AN-0002-riemann-zeta-functional-equation.yaml) 作为范本。
+**域覆盖**：已启用域仅 `NT` 与 `AN` 两个。schema 允许的 20 个域代码中，
+其余 18 个（`FD`/`ST`/`CT`/`AL`/`GR`/`TG`/`PR`/`SC`/`CB`/`GT`/`NA`/`IT`/`DS`/`MP`/`GO`/`OR`/`TC`/`XS`）
+**无任何条目**。这是本库当前最大的内容缺口。
 
-数论两条的验证脚本是 [`05-验证中心/01-引擎/prime_pi_block.py`](../05-验证中心/01-引擎/prime_pi_block.py)
-（纯标准库，`python prime_pi_block.py --big --json`）。注意它们**只到 L2**：
-数值一致只能证伪，不构成证明（[红线一](../00-宪章/02-诚实红线.md)）。
+数论条目的验证脚本有两个（均纯标准库）：
+
+- [`05-验证中心/01-引擎/prime_pi_block.py`](../05-验证中心/01-引擎/prime_pi_block.py)
+  （`python prime_pi_block.py --big --json`）——精确素数计数；
+- [`05-验证中心/01-引擎/landau_scan.py`](../05-验证中心/01-引擎/landau_scan.py)
+  （`python landau_scan.py --json`）——纯标准库，L2：Landau 第三/第四问题扫描；
+- [`05-验证中心/01-引擎/landau_symbolic.py`](../05-验证中心/01-引擎/landau_symbolic.py)
+  （`python landau_symbolic.py --json`）——sympy，L3：上述两条恒等式的**符号层**验证
+  （Euler 积纯符号展开、CRT 构造性核对、完备化恒等式的**命题逻辑证明**、
+  Mertens 交叉一致性）。
+
+这两组引擎支撑
+[OM-F-NT-0003](数论/OM-F-NT-0003-legendre-window-interval-count.md)、
+[OM-F-NT-0004](数论/OM-F-NT-0004-n2plus1-legendre-mobius-sieve.md)、
+[OM-P-NT-0003](数论/OM-P-NT-0003-legendre-conjecture.md)、
+[OM-P-NT-0004](数论/OM-P-NT-0004-landau-n2plus1-primes.md)。
+
+注意：
+
+- **L2 通过 = 扫描范围内未发现反例**，只能证伪（[红线一](../00-宪章/02-诚实红线.md)）；
+- **L3 通过 = 符号层未发现反例**，**仍不是证明**。本库唯一的 candidate-level
+  符号证明是 OM-F-NT-0004 的 S4.3（`satisfiable`=False，命题层无反模型），
+  但它依赖的前提本身不由本库导出；
+- 开放问题条目（`OM-P-*`）的 `passed: true` 只表示"范围内未发现反例"。

@@ -42,6 +42,8 @@ def run(record: dict, level: str, options: dict) -> dict:
 | `sympy-symbolic` | L3 | sympy | ✅ | 化简；未归零时回退 L2 交叉确认 |
 | **`prime-pi-block`** | **L2** | **无（仅标准库）** | ✅ | **精确素数计数**：brute / Legendre / Meissel / Lehmer + primorial wheel 四路交叉；自检 6/6 |
 | **`pwcv-theorems`** | **L2** | **无（仅标准库）** | ✅ | **PWCV 框架定理**：整除脉冲/素数指示/离散微积分闭环/阶乘互素/首逃逸平方/模6母方程/一般wheel/安全窗口/Jacobsthal 上界；独立筛+SPF 基准，自检 10/10 |
+| **`landau-scan`** | **L2** | **无（仅标准库）** | ✅ | **Landau 开放问题扫描**：Legendre 窗口区间素数恒等式（筛前缀 vs φ 分块双路）、n²+1 的 Legendre–Möbius 筛恒等式与完备化恒等式、筛余项爆炸度量、Bateman–Horn 常数截断序列；自检 4/4。开放问题条目只报"范围内未发现反例" |
+| **`landau-symbolic`** | **L3** | sympy | ✅ | **Landau 条目的符号层**：用 solveset 符号定位第二式的例外集合恰为 `{1}`、Euler 积纯符号展开比对、CRT 构造性核对、完备化恒等式的**命题逻辑证明**（`satisfiable` 判空）、Mertens 型渐近与交叉一致性；自检 10/10。**不构成证明** |
 | `dimensional` | L1/L3 | 无 | ⬜ 规划 | 量纲分析（物理条目） |
 | `sat-counterexample` | L5 | python-sat | ⬜ 规划 | 命题/有限域反例搜索 |
 | `lean4` | L4 | lake + mathlib | ⬜ 规划 | Lean 形式化 |

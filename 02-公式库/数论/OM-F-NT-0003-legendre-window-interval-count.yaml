@@ -1,0 +1,128 @@
+schema_version: "0.1"
+
+id: OM-F-NT-0003
+kind: formula
+title_zh: 区间素数计数的 Legendre 窗口恒等式（方块窗口）
+title_en: Legendre window identity for interval prime counting (square window)
+domain: NT
+msc:
+  - "11N05"   # 素数分布：素数计数函数
+  - "11A41"   # 素数
+tags:
+  - 素数计数
+  - Legendre phi
+  - 短区间
+  - 方块窗口
+  - Legendre 猜想
+
+status: VERIFIED(L3)
+evidence_level: L3
+revision: 2
+created: 2026-09-18
+updated: 2026-09-18
+
+latex: >-
+  c(n) := #{p prime : n^2 < p <= (n+1)^2} = pi((n+1)^2) - pi(n^2);
+  c(n) = phi((n+1)^2, a) - phi(n^2, a) with a = pi(n+1), for n >= 2
+
+assumptions:
+  - "n 为正整数"
+  - "pi(x) 为不超过 x 的素数个数"
+  - "phi(x,a) 计数 [1,x] 中不被前 a 个素数整除的整数，含 1"
+  - "第二式要求 n >= 2（n=1 时窗口含素数 2 = n+1，会被筛除）"
+
+symbols:
+  - name: "n"
+    meaning_zh: "窗口下界平方根"
+    type: natural
+    constraints: "n >= 1"
+  - name: "c(n)"
+    meaning_zh: "开区间 (n^2, (n+1)^2] 内素数个数"
+    type: natural
+  - name: "pi(x)"
+    meaning_zh: "不超过 x 的素数个数"
+    type: natural
+  - name: "phi(x,a)"
+    meaning_zh: "[1,x] 中不被 p_1..p_a 任一整除的整数个数（含 1）"
+    type: natural
+  - name: "a"
+    meaning_zh: "筛除所用素数的个数，本式中取 pi(n+1)"
+    type: natural
+
+domain_of_validity: >-
+  第一式对一切正整数 n 成立（恒等式，无附加条件）；
+  第二式对 n >= 2 成立。
+
+specializations: []
+generalizations: []
+related:
+  - OM-F-NT-0001
+  - OM-P-NT-0003
+
+caveat: >-
+  1) 第一式是定义式重述，本身不提供任何素数分布信息；本条目的实质内容是第二式——
+     它把"短区间计数"还原为两个 phi 值之差，从而可以用分块递归而非逐个判素来计算；
+  2) 第二式的有效性依赖 a = pi(n+1) >= pi(sqrt((n+1)^2)) = pi(n+1)，
+     即窗口上界内的合数必带 <= n+1 的素因子，故 phi 差值中不残留合数；
+  3) n=1 是唯一的例外（窗口含素数 2 = n+1），已在 domain_of_validity 中排除；
+  4) 本条目只提供 L2 数值证据：两路算法逐点相等不构成证明（红线一）。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: landau-scan
+      precision_digits: 0
+      sample_count: 2325
+      seed: 0
+      max_abs_residual: "0"
+      script: 05-验证中心/01-引擎/landau_scan.py
+      last_run: 2026-09-18
+      checks:
+        - "pi(10^k) == OEIS A006880 对 k=1..6：全部相等（筛法外部锚）"
+        - "c(n) 前缀差分 vs 逐点直接计数：n=1..2000 全部相等，min c(n)=2 @ n=1"
+        - "c(n) = phi((n+1)^2,a) - phi(n^2,a), a=pi(n+1)：n=2..300 全部相等（离散残差 0）"
+    L3:
+      passed: true
+      engine: landau-symbolic
+      method: "sympy 1.13.3：solveset 解不等式定位例外集合；factorint 穷举核实带小素因子"
+      script: 05-验证中心/01-引擎/landau_symbolic.py
+      last_run: 2026-09-18
+      checks:
+        - "S3.1 solveset(n^2-n-1>=0, Integers) = Union(Range(-oo,0,1), Range(2,oo,1))"
+        - "S3.1 故第二式对一切 n>=2 成立，唯一例外为 n=1（符号地定位，非靠枚举猜）"
+        - "S3.2 对 n=2..120 全窗口逐个合数做 factorint，最小素因子均 <= n+1：无反例"
+      note: >-
+        L3 只说明符号层未发现反例。S3.1 实际上给出了例外性的完整证明思路
+        （解集是 Range(2,oo,1)），但本库仍**不**标注为"已证明"——
+        正式的machine-checked证明需要 L4（Lean/Rocq），而本库 L4 = 0。
+    L4:
+      passed: false
+      system: ""
+      name: ""
+      note: "未形式化"
+
+checks:
+  - {n: 1, expected: 2}
+  - {n: 2, expected: 2}
+  - {n: 3, expected: 2}
+  - {n: 4, expected: 3}
+  - {n: 5, expected: 2}
+  - {n: 6, expected: 4}
+  - {n: 7, expected: 3}
+  - {n: 8, expected: 4}
+  - {n: 9, expected: 3}
+  - {n: 10, expected: 5}
+  - {n: 11, expected: 4}
+  - {n: 12, expected: 5}
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: "Legendre, A.-M. Essai sur la théorie des nombres (1808)"
+    - type: url
+      value: "OEIS A006880 (Number of primes < 10^n)"
+  contributors:
+    - "openmath-bot"

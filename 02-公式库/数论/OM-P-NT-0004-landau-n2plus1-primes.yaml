@@ -1,0 +1,122 @@
+schema_version: "0.1"
+
+id: OM-P-NT-0004
+kind: problem
+title_zh: Landau 第四问题 · 是否存在无穷多个素数形如 n²+1
+title_en: Landau's fourth problem - are there infinitely many primes of the form n^2+1
+domain: NT
+msc:
+  - "11N32"   # 由多项式表示的素数
+  - "11N35"   # 筛法
+  - "11A41"   # 素数
+tags:
+  - Landau 问题
+  - n^2+1
+  - 筛法
+  - Bateman-Horn
+  - 开放问题
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-09-18
+updated: 2026-09-18
+
+assumptions:
+  - "n 为正整数，素数按通常定义"
+  - "A(N) 的定义见 OM-F-NT-0004"
+  - "P_2 指至多两个素因子的乘积（计重数）"
+
+statement_latex: >-
+  是否存在无穷多个正整数 n 使得 n^2 + 1 为素数？
+  记 A(N) = #{n <= N : n^2+1 为素数}，即问 A(N) 是否无界。
+
+proposed_by: "Edmund Landau"
+proposed_year: 1912
+
+current_status: OPEN
+
+partial_results:
+  - year: 1978
+    author: "Iwaniec"
+    result: >-
+      存在无穷多个 n 使 n^2+1 为 P_2（至多两个素因子的乘积）。
+      这是目前最强的弱化结论，仍未跨越到"素数"本身。
+
+resolution: null
+refutation: null
+prize: ""
+
+equivalent_forms:
+  - "A(N) = A_Y(N) + E(N,Y)（Y >= N+1）中 A(N) 是否无界（见 OM-F-NT-0004）"
+  - "素数 p 使 p-1 为完全平方数者是否有无穷多个（n^2+1=p <=> p-1=n^2）"
+
+implications:
+  - statement: "Bateman-Horn 猜想蕴含本问题成立，并给出 A(N) ~ (C_BH/2) * Li(N)"
+    direction: "sufficient"
+    note: "BH 是启发式猜想，不是定理；它对本问题只有'蕴含'关系，不构成证明"
+  - statement: "本问题与孪生素数猜想同为筛法维度 1，已知结果高度平行（都停在几乎素数层）"
+    direction: "structural"
+    note: "见 OM-F-NT-0004 第四节：omega(p) 在 p≡1(4) 取 2、p≡3(4) 取 0，平均维数为 1"
+
+fact_check:
+  status: UNVERIFIED
+  sources:
+    - "Iwaniec, H. 'Almost-primes represented by quadratic polynomials', Invent. Math. 47 (1978)"
+    - "Bateman, P. T.; Horn, R. A. (1962)"
+  note: >-
+    本库尚未逐条核对原始文献。1912 为 Landau 在国际数学家大会提出四个问题的标准年份，
+    Iwaniec 的 P_2 结论为标准引用。待核对原文后升级为 VERIFIED。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: landau-scan
+      precision_digits: 0
+      sample_count: 20000
+      seed: 0
+      max_abs_residual: "0"
+      script: 05-验证中心/01-引擎/landau_scan.py
+      last_run: 2026-09-18
+      note: >-
+        PASS 只表示扫描范围内未发现反例且渐近式与实测相容，
+        不表示问题成立，也不构成进展（红线一）。
+      checks:
+        - "A(20000) = 1559（确定性 Miller-Rabin，基底 2..37，对 n < 3.3e24 确定）"
+        - "A(N)/Li(N) = 0.681506；A(N)*log(N)/N = 0.771977"
+        - "BH 局部积截断：P=100 -> 1.351546；P=1000 -> 1.370454；P=10000 -> 1.371023；P=50000 -> 1.372585"
+        - "P_2 层：n<=3000 中 n^2+1 至多两个素因子者 1245/3000"
+    L3:
+      passed: false
+      engine: ""
+      method: ""
+      note: "不适用：开放问题无符号可化简对象"
+    L4:
+      passed: false
+      system: ""
+      name: ""
+      note: "未形式化"
+
+caveat: >-
+  1) A(N) 无界是一个全称/无限命题，任何有限 N 的计数都不构成证据；
+  2) Bateman-Horn 的局部积是**条件收敛**的（p≡1(4) 与 p≡3(4) 两侧的对数项相互抵消），
+     截断值会振荡，因此"实测比值与截断常数吻合"只说明启发式自洽，
+     不说明常数已收敛，更不说明渐近式成立；
+  3) Iwaniec 的 P_2 结论是本库**引用**的文献结果，本库不重新证明、
+     也不为其提供机器证据；本引擎只给出 P_2 层的实测计数作对照。
+
+related:
+  - OM-F-NT-0004
+  - OM-P-NT-0003
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: article
+      value: "Iwaniec, H. 'Almost-primes represented by quadratic polynomials', Invent. Math. 47 (1978), 171-188"
+    - type: article
+      value: "Bateman, P. T.; Horn, R. A. 'A heuristic asymptotic formula concerning the distribution of prime numbers', Math. Comp. 16 (1962)"
+  contributors:
+    - "openmath-bot"

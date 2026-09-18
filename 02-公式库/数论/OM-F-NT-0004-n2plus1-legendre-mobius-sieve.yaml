@@ -1,0 +1,141 @@
+schema_version: "0.1"
+
+id: OM-F-NT-0004
+kind: formula
+title_zh: n²+1 序列的 Legendre–Möbius 筛恒等式与余项爆炸度量
+title_en: Legendre-Mobius sieve identity for the n^2+1 sequence, and its remainder blow-up
+domain: NT
+msc:
+  - "11N32"   # 由多项式表示的素数
+  - "11N35"   # 筛法
+  - "11A41"   # 素数
+tags:
+  - 筛法
+  - Mobius 反演
+  - n^2+1
+  - Landau 问题
+  - 筛维数
+  - Bateman-Horn
+
+status: VERIFIED(L3)
+evidence_level: L3
+revision: 2
+created: 2026-09-18
+updated: 2026-09-18
+
+latex: >-
+  omega(p) = #{n mod p : p | n^2+1} = 1 (p=2), 2 (p = 1 mod 4), 0 (p = 3 mod 4);
+  A_Y(N) := #{n <= N : gcd(n^2+1, P(Y)) = 1} = sum_{d | P(Y)} mu(d) * C_d(N);
+  C_d(N) = #{n <= N : d | n^2+1} = omega(d) * floor(N/d) + r_d(N), 0 <= r_d(N) <= omega(d);
+  A(N) := #{n <= N : n^2+1 prime} = A_Y(N) + E(N,Y), Y >= N+1,
+  E(N,Y) = #{n <= N : n^2+1 prime and n^2+1 <= Y}
+
+assumptions:
+  - "P(Y) = prod_{p <= Y} p"
+  - "omega 乘性延拓到无平方因子的 d：omega(d) = prod_{p|d} omega(p)"
+  - "d 只取 P(Y) 的无平方因子除数（mu(d) != 0）"
+  - "完备化恒等式要求 Y >= N+1，此时 sqrt(n^2+1) <= sqrt(N^2+1) < N+1 <= Y"
+
+symbols:
+  - name: "omega(p)"
+    meaning_zh: "模 p 下使 p | n^2+1 的剩余类个数"
+    type: natural
+    constraints: "p=2 -> 1；p≡1(4) -> 2；p≡3(4) -> 0"
+  - name: "P(Y)"
+    meaning_zh: "不超过 Y 的全部素数之积"
+    type: natural
+  - name: "A_Y(N)"
+    meaning_zh: "[1,N] 中使 n^2+1 不含任何 <=Y 素因子的 n 的个数"
+    type: natural
+  - name: "C_d(N)"
+    meaning_zh: "[1,N] 中使 d | n^2+1 的 n 的个数"
+    type: natural
+  - name: "E(N,Y)"
+    meaning_zh: "被筛误杀的补正项：n^2+1 自身是 <=Y 的素数"
+    type: natural
+  - name: "A(N)"
+    meaning_zh: "[1,N] 中使 n^2+1 为素数的 n 的个数"
+    type: natural
+
+domain_of_validity: >-
+  筛恒等式对一切 N >= 1 与 Y >= 2 成立；
+  完备化恒等式 A(N) = A_Y(N) + E(N,Y) 要求 Y >= N+1。
+
+specializations: []
+generalizations: []
+related:
+  - OM-P-NT-0004
+  - OM-F-NT-0001
+  - OM-T-NT-0006
+
+caveat: >-
+  1) 恒等式精确但**不可用于证明**：A(N) 的真值信息全部藏在 E(N,Y) 与余项 r_d(N) 中；
+  2) 余项上界 sum_d omega(d) = prod_{p<=Y}(1+omega(p)) 随 Y 指数增长，
+     而主项 N*prod_{p<=Y}(1-omega(p)/p) 只缓慢衰减；取 Y≈N（完备化所必需）时
+     二者比值实测约 10^19.5（N=500）——这是"奇偶性障碍"的一个可量化下界，
+     不是该障碍的完整刻画；
+  3) 本条目的 L2 只核验恒等式本身（两路算法逐点相等），
+     不构成对 Landau 第四问题的任何进展；
+  4) omega(p)=0 对 p≡3(4) 意味着一半的素数根本不参与筛，
+     有效筛维数为 1（与孪生素数同维），这是两条难题难度同阶的结构原因。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: landau-scan
+      precision_digits: 0
+      sample_count: 500
+      seed: 0
+      max_abs_residual: "0"
+      script: 05-验证中心/01-引擎/landau_scan.py
+      last_run: 2026-09-18
+      checks:
+        - "A_Y(500)：逐 n 试除 vs Mobius 求和，Y in {10,20,30,42} 全部相等（150/111/104/93）"
+        - "C_d(N) = omega(d)*floor(N/d) + r_d, 0 <= r_d <= omega(d)：全部 d 成立（CRT 余数界）"
+        - "完备化 A(500)=A_501(500)+E=62+8=70，与确定性 Miller-Rabin 判定一致（残差 0）"
+        - "余项/主项比值：Y=42 -> 10^1.2；Y=100 -> 10^3.6；Y=500 -> 10^19.5"
+    L3:
+      passed: true
+      engine: landau-symbolic
+      method: >-
+        sympy 1.13.3：符号变量展开 Euler 积；sympy.ntheory.modular.crt 构造性核对 CRT；
+        sympy.logic.inference.satisfiable 对完备化恒等式做命题逻辑证明；
+        高精度（mpmath 15 位有效）Mertens 渐近与交叉一致性
+      script: 05-验证中心/01-引擎/landau_symbolic.py
+      last_run: 2026-09-18
+      checks:
+        - "S4.1 prod_p(1-x_p) 的符号展开 == sum_S (-1)^{|S|} prod_{p in S} x_p，7 个素因子 128 项，残差 = 0"
+        - "S4.1b 代入 x_p = omega(p)/p：prod_{p<=17}(1-omega(p)/p) = 99/442（精确有理数）"
+        - "S4.2 CRT 构造性核对：x^2 ≡ -1 (mod d) 的解数 == prod omega(p)，d 取 <=3 个素数的全部组合"
+        - "S4.3 完备化恒等式的命题逻辑证明：satisfiable(前提 ∧ ¬结论) = False（命题层无反模型）"
+        - "S4.4 余项上界展开：sum_{d|P(Y)} omega(d) == prod_{p<=Y}(1+omega(p))，Y=37 时两侧均为 486"
+        - "S4.6 Mertens 交叉一致性：log Y·prod(1-omega/p) 与 e^{-gamma}·C_BH(Y) 偏差单调下降，Y=10^5 处 3.04e-4"
+      note: >-
+        **L3 不是证明。** S4.1/S4.4 是符号恒等式的展开比对；S4.3 在给定四条前提之下
+        是命题层的完整证明（SAT 判空），但前提本身依赖初等数论事实而不是本库导出的。
+        S4.5/S4.6 依赖 Mertens 第三定理与算术级数中的素数定理，此处只作登记与一致度量。
+        本库 L4 = 0，任何条目都不得标注"已证明"。
+    L4:
+      passed: false
+      system: ""
+      name: ""
+      note: "未形式化"
+
+checks:
+  - {N: 500, Y: 10, expected: 150}
+  - {N: 500, Y: 20, expected: 111}
+  - {N: 500, Y: 30, expected: 104}
+  - {N: 500, Y: 42, expected: 93}
+  - {N: 500, Y: 501, expected: 62, note: "A_Y，需加 E=8 才等于 A(500)=70"}
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: article
+      value: "Bateman, P. T.; Horn, R. A. 'A heuristic asymptotic formula concerning the distribution of prime numbers' (1962)"
+    - type: article
+      value: "Iwaniec, H. 'Almost-primes represented by quadratic polynomials' (1978)"
+  contributors:
+    - "openmath-bot"

@@ -1,0 +1,123 @@
+schema_version: "0.1"
+
+id: OM-P-NT-0003
+kind: problem
+title_zh: Landau 第三问题 · Legendre 猜想（相邻平方数之间必有素数）
+title_en: Landau's third problem - Legendre's conjecture (a prime between consecutive squares)
+domain: NT
+msc:
+  - "11N05"   # 素数分布
+  - "11A41"   # 素数
+tags:
+  - Landau 问题
+  - Legendre 猜想
+  - 短区间
+  - 素数间隙
+  - 开放问题
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-09-18
+updated: 2026-09-18
+
+assumptions:
+  - "素数、完全平方数按通常定义；n 为正整数"
+  - "(n+1)^2 对 n>=1 恒为合数，故窗口中 '<' 与 '<=' 两种写法等价"
+  - "c(n) 的定义见 OM-F-NT-0003，与 pi((n+1)^2)-pi(n^2) 一致"
+
+statement_latex: >-
+  对一切正整数 n，存在素数 p 满足 n^2 < p < (n+1)^2；
+  等价地 c(n) := pi((n+1)^2) - pi(n^2) >= 1（因 (n+1)^2 对 n>=1 恒为合数，<= 与 < 等价）
+
+proposed_by: "Adrien-Marie Legendre"
+proposed_year: 1808
+
+current_status: OPEN
+
+partial_results:
+  - year: 1930
+    author: "Hoheisel"
+    result: "首次证明存在 theta < 1 使得充分大的 x 在 [x, x+x^theta] 内必有素数"
+  - year: 2001
+    author: "Baker, Harman, Pintz"
+    result: "theta = 0.525 可行：[x, x+x^0.525] 内必有素数（x 充分大）"
+
+resolution: null
+refutation: null
+prize: ""
+
+equivalent_forms:
+  - "c(n) = pi((n+1)^2) - pi(n^2) >= 1 对一切 n >= 1（见 OM-F-NT-0003）"
+  - "素数间隙形式：记 p_k 为第 k 个素数，则 g_k = p_{k+1} - p_k < 2*sqrt(p_k) + 1"
+
+implications:
+  - statement: "Cramér 猜想（g_k = O((log p_k)^2)）蕴含 Legendre 猜想（对充分大的 n）"
+    direction: "sufficient"
+    note: "log^2 增长远慢于 sqrt，故充分大后间隙必然小于 2*sqrt(p)+1"
+  - statement: "Riemann 假设不蕴含 Legendre 猜想"
+    direction: "insufficient"
+    note: "RH 只给间隙 O(sqrt(p) log p)，比窗口长度 2*sqrt(p)+1 多一个 log 因子；量级上不足以闭合"
+  - statement: "Baker-Harman-Pintz 的无条件结果不覆盖 Legendre 窗口"
+    direction: "insufficient"
+    note: "窗口长度 2*sqrt(x)+1 对应指数 1/2 < 0.525；且 x^0.525 超过 2*sqrt(x)+1 的临界点约 x* ≈ 1.1e12"
+
+fact_check:
+  status: UNVERIFIED
+  sources:
+    - "Baker, R. C.; Harman, G.; Pintz, J. 'The difference between consecutive primes, II' (2001)"
+    - "Legendre, A.-M. Essai sur la théorie des nombres (1808)"
+  note: >-
+    本库尚未逐条核对原始文献。年份 1808 取自《Essai sur la théorie des nombres》第 2 版，
+    部分二手来源标为 1798（第 1 版），本库不做判定。BHP 的 0.525 为标准引用值，
+    待与原文核对后升级为 VERIFIED。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: landau-scan
+      precision_digits: 0
+      sample_count: 2000
+      seed: 0
+      max_abs_residual: "0"
+      script: 05-验证中心/01-引擎/landau_scan.py
+      last_run: 2026-09-18
+      note: >-
+        PASS 只表示扫描范围内未发现反例，不表示猜想成立，也不构成任何进展（红线一）。
+      checks:
+        - "n=1..2000 逐个枚举：min c(n) = 2 @ n=1，全程无 c(n)=0"
+        - "窗口长度与 BHP 所需长度的临界点：n* ≈ 1.049e6（x* ≈ 1.100e12）"
+    L3:
+      passed: false
+      engine: ""
+      method: ""
+      note: "不适用：开放问题无符号可化简对象"
+    L4:
+      passed: false
+      system: ""
+      name: ""
+      note: "未形式化"
+
+caveat: >-
+  1) 枚举到 2000（乃至任意有限 N）对 Legendre 猜想毫无证明价值：
+     猜想是关于一切 n 的全称命题，而窗口密度随 n 增长（平均约 (2n+1)/(2 log n) 个素数），
+     反例若存在更可能出现在大 n 处，有限扫描在原理上无法触及；
+  2) 本条目的 L2 通过**不得**被读作"猜想很可能成立"；
+  3) 已知无条件结果与猜想之间隔着一个完整的指数差（0.525 vs 0.5），
+     且该差不是"再优化一点常数"就能消除的——它对应解析数论中零点密度估计的硬边界。
+
+related:
+  - OM-F-NT-0003
+  - OM-P-NT-0004
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: "Legendre, A.-M. Essai sur la théorie des nombres (1808)"
+    - type: article
+      value: "Baker, R. C.; Harman, G.; Pintz, J. 'The difference between consecutive primes, II', Proc. London Math. Soc. 83 (2001)"
+  contributors:
+    - "openmath-bot"
