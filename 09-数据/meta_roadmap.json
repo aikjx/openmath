@@ -1,0 +1,165 @@
+{
+  "meta": {
+    "generated_by": "06-AI自动化/01-工作流/openmath_meta.py",
+    "generated_at": "2026-09-19T15:07:04",
+    "provenance": {
+      "ai_assisted": true,
+      "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"
+    },
+    "honesty": "本文件为 L0/L2 级整理与有限域计算产物：知识库为策展式收集（非穷尽）；结构计算在其有限论域内严格，但**不蕴含**任何无限域猜想的证明。",
+    "note": "定量部分直接沿用 breakthrough_roadmap.json 的评分口径，不做二次加工以免引入虚构精度；定性部分明确标注为**主观判断**，不伪装成计算的排名。"
+  },
+  "quantitative_top": [
+    {
+      "id": "numeric_zero_search",
+      "demand": 1,
+      "cost_estimate": 3,
+      "priority_score": 0.3333,
+      "unlocks_conjectures": [
+        "RH"
+      ],
+      "note": "沿用既有突破路线图评分（需求/成本），此处未做层级加成。"
+    },
+    {
+      "id": "complexity_reduction",
+      "demand": 1,
+      "cost_estimate": 4,
+      "priority_score": 0.25,
+      "unlocks_conjectures": [
+        "PNP"
+      ],
+      "note": "沿用既有突破路线图评分（需求/成本），此处未做层级加成。"
+    },
+    {
+      "id": "random_matrix_analogy",
+      "demand": 1,
+      "cost_estimate": 4,
+      "priority_score": 0.25,
+      "unlocks_conjectures": [
+        "RH"
+      ],
+      "note": "沿用既有突破路线图评分（需求/成本），此处未做层级加成。"
+    },
+    {
+      "id": "circle_method",
+      "demand": 1,
+      "cost_estimate": 5,
+      "priority_score": 0.2,
+      "unlocks_conjectures": [
+        "GC"
+      ],
+      "note": "沿用既有突破路线图评分（需求/成本），此处未做层级加成。"
+    },
+    {
+      "id": "elliptic_curve_computation",
+      "demand": 1,
+      "cost_estimate": 5,
+      "priority_score": 0.2,
+      "unlocks_conjectures": [
+        "BSD"
+      ],
+      "note": "沿用既有突破路线图评分（需求/成本），此处未做层级加成。"
+    },
+    {
+      "id": "l_function_evaluation",
+      "demand": 1,
+      "cost_estimate": 5,
+      "priority_score": 0.2,
+      "unlocks_conjectures": [
+        "BSD"
+      ],
+      "note": "沿用既有突破路线图评分（需求/成本），此处未做层级加成。"
+    },
+    {
+      "id": "cohomology_computation",
+      "demand": 1,
+      "cost_estimate": 5,
+      "priority_score": 0.2,
+      "unlocks_conjectures": [
+        "HODGE"
+      ],
+      "note": "沿用既有突破路线图评分（需求/成本），此处未做层级加成。"
+    },
+    {
+      "id": "pde_numerical_simulation",
+      "demand": 1,
+      "cost_estimate": 5,
+      "priority_score": 0.2,
+      "unlocks_conjectures": [
+        "NS"
+      ],
+      "note": "沿用既有突破路线图评分（需求/成本），此处未做层级加成。"
+    },
+    {
+      "id": "energy_estimate",
+      "demand": 1,
+      "cost_estimate": 5,
+      "priority_score": 0.2,
+      "unlocks_conjectures": [
+        "NS"
+      ],
+      "note": "沿用既有突破路线图评分（需求/成本），此处未做层级加成。"
+    },
+    {
+      "id": "algebraic_complexity",
+      "demand": 1,
+      "cost_estimate": 5,
+      "priority_score": 0.2,
+      "unlocks_conjectures": [
+        "PNP"
+      ],
+      "note": "沿用既有突破路线图评分（需求/成本），此处未做层级加成。"
+    }
+  ],
+  "qualitative_suggestions": [
+    {
+      "id": "method_selector",
+      "name": "自动方法选择器（L2）",
+      "layer": "L2",
+      "rationale": "当前已实现的 L1 方法无人自动调度；补上这一层，已有能力的利用率才会从'手工编排'变为'自动组合'。",
+      "why_not_scored": "它对猜想覆盖率没有直接贡献（现有评分口径都会给它 0 需求），故不给出数值优先级，仅作定性建议。"
+    },
+    {
+      "id": "analogy_transport_engine",
+      "name": "类比迁移引擎（给定映射 → 机械验证）",
+      "layer": "L2",
+      "rationale": "类比是唯一完全空白且无法靠扩充数据填补的范式；即便只做到'人工给定结构对应 + 机器验证'，也能把部分跨领域借用从直觉变为可检查操作。",
+      "why_not_scored": "缺乏可靠的自动类比评测基准，任何分数都会是虚构精度。"
+    },
+    {
+      "id": "interval_verified_numerics",
+      "name": "区间算术严格验证",
+      "layer": "L1",
+      "rationale": "把现有抽样验证升级为带严格误差界的验证，可直接收敛'精度鸿沟'这一逻辑缺口——它提升证据强度而非覆盖率。",
+      "why_not_scored": "提升的是证据强度而非覆盖率，覆盖率口径无法体现其价值。"
+    }
+  ],
+  "orphan_capabilities": {
+    "ids": [
+      "ast_parse",
+      "arith_eval",
+      "transc_eval",
+      "poly_classify",
+      "linear_solve",
+      "quadratic_formula",
+      "gaussian_elimination",
+      "numeric_root",
+      "structure_computation",
+      "homology_computation"
+    ],
+    "meaning": "这些已实现能力**未被任何未解猜想调用**：说明'有能力'与'有方向'是两件事。有限群/同调计算能算对已知对象，却不为霍奇/BSD 提供任何处理方向。"
+  },
+  "new_capabilities_impact": {
+    "ids": [
+      "gaussian_elimination",
+      "structure_computation",
+      "homology_computation"
+    ],
+    "uncontributing_to_any_conjecture": [
+      "gaussian_elimination",
+      "structure_computation",
+      "homology_computation"
+    ],
+    "meaning": "本轮新增的三条能力**没有给任何未解猜想增加处理方向**，方向覆盖率因此保持不变。这是**如实记录**而非遗漏：会算同调 ≠ 能攻击霍奇猜想；把有限的进步记成'进展了一大步'正是要杜绝的做法。"
+  }
+}

@@ -187,8 +187,9 @@ def logarithmic_integral(x: float) -> float:
     """li(x) = PV∫_0^x dt/ln t，用 Soldner 常数 + Simpson 数值积分（从 2 到 x）。
 
     分段原因：被积函数 1/ln t 在 t→2 附近变化剧烈而随后极其平缓，
-    若对 [2, x] 用**均匀** Simpson，步长 h 由大区间决定，起点附近分辨率严重不足
-    （实测 li(1e5) 会偏高约 15）。故拆为 [2,10] 与 [10,x] 两段分别加密。
+    若对 [2, x] 用**均匀** Simpson，步长 h 由大区间决定，起点附近分辨率严重不足。
+    故先密分 [2,10]，再对 [10,x] 按 10 倍**几何**分段加密（只拆成两段时，
+    在 x=1e5 处相对误差仍有 2.4e-5，2026-09-19 审计中用 Ei 级数独立复核发现并修正）。
     """
     if x <= 2:
         return _SOLDNER
@@ -205,7 +206,13 @@ def logarithmic_integral(x: float) -> float:
 
     total = simpson(2.0, 10.0, 4000)
     if x > 10:
-        total += simpson(10.0, float(x), 4000)
+        # 按 10 倍**几何**分段：审计实测原先对 [10, x] 一次性均匀 Simpson，
+        # 在 x=1e5 时步长约 25，相对误差达 2.4e-5（用 Ei 级数独立复核后确认）。
+        a = 10.0
+        while a < x:
+            b = min(a * 10.0, float(x))
+            total += simpson(a, b, 2000)
+            a = b
     elif x > 2:
         total = simpson(2.0, float(x), 4000)
     return _SOLDNER + total

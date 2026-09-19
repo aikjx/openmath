@@ -9,6 +9,24 @@
 - 难题档案的自动状态追踪（监听 arXiv 与期刊）
 - 知识图谱可视化（跨分支依赖关系）
 
+### 新增（2026-09-19，AI 流水线产物）
+- **06-AI自动化/02-引擎/openmath_sys/theoryforge.py**：理论锻造引擎。在五族有限对象
+  （整数 / 图 / 有限群 / 整数划分 / 有限链复形）上以**精确有理算术**跑三条关系发现通道
+  （线性零空间 / 单项式 / Graffiti 式不等式），并做**留出集**与**规模外推**两级反例搜索。
+- **06-AI自动化/01-工作流/openmath_theory.py**（流水线第 7 阶段 S7）：产出
+  `09-数据/theory_forge.json`、`theory_candidates.json`、`theory_net.json`
+  与 `01-工作流/THEORY_REPORT.md`；含 6 项自核验（本轮 0 违规）。
+- `openmath_sys/__init__.py` 补充导出 `structure` 与 `theoryforge` 两组能力。
+- 每日自动流水线由 6 阶段扩展为 **7 阶段**（追加 S7_theory；它不消费任何上游产物，
+  故 `meta` 计算的算子闭包不动点仍为第 4 轮，闭包 artifact 增至 24 类）。
+
+### 修正（2026-09-19）
+- **实错修正**：`structure.py::analyze_group` 此前把群的**指数**取成元素阶的**最大值**
+  （对 S₃ 得出 3，正确值应为 lcm(2,3)=6）。现已改为最小公倍数，旧口径保留在
+  新增的 `max_element_order` 字段中，**未静默抹掉历史取值**。依赖它的
+  `structure_experiments.json` 已重新生成。
+- 清理 `openmath_meta.py` 文档字符串中的乱码残片。
+
 ---
 
 ## [0.1.0] - 2026-09-10

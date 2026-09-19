@@ -102,6 +102,8 @@ PARADIGM_MAP = {
     "elliptic_curve_computation": "structure_computation",
     "cohomology_computation": "structure_computation",
     "algebraic_complexity": "structure_computation",
+    "structure_computation": "structure_computation",
+    "homology_computation": "structure_computation",
     "map_iteration": "simulation",
     "pde_numerical_simulation": "simulation",
     "lattice_qcd_numeric": "simulation",

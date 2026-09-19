@@ -1,7 +1,7 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_synthesis.py",
-    "generated_at": "2026-09-19T11:32:08",
+    "generated_at": "2026-09-19T12:25:46",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"
@@ -11,10 +11,9 @@
   },
   "summary": {
     "paradigms": 12,
-    "methods_classified": 34,
+    "methods_classified": 36,
     "fully_blank_paradigms": [
       "analogy",
-      "structure_computation",
       "transform"
     ]
   },
@@ -29,6 +28,20 @@
         "prime_sieve",
         "sieve_theory",
         "rad_computation"
+      ],
+      "missing_ids": [],
+      "coverage": 1.0
+    },
+    {
+      "paradigm": "solving",
+      "name": "求解",
+      "description": "求出未知量的精确或数值解",
+      "methods_total": 3,
+      "methods_implemented": 3,
+      "implemented_ids": [
+        "linear_solve",
+        "quadratic_formula",
+        "gaussian_elimination"
       ],
       "missing_ids": [],
       "coverage": 1.0
@@ -64,19 +77,21 @@
       "coverage": 0.6667
     },
     {
-      "paradigm": "solving",
-      "name": "求解",
-      "description": "求出未知量的精确或数值解",
-      "methods_total": 3,
+      "paradigm": "structure_computation",
+      "name": "结构计算",
+      "description": "计算代数/拓扑不变量（秩、上同调等）",
+      "methods_total": 5,
       "methods_implemented": 2,
       "implemented_ids": [
-        "linear_solve",
-        "quadratic_formula"
+        "structure_computation",
+        "homology_computation"
       ],
       "missing_ids": [
-        "gaussian_elimination"
+        "elliptic_curve_computation",
+        "cohomology_computation",
+        "algebraic_complexity"
       ],
-      "coverage": 0.6667
+      "coverage": 0.4
     },
     {
       "paradigm": "approximation",
@@ -157,20 +172,6 @@
       "implemented_ids": [],
       "missing_ids": [
         "random_matrix_analogy"
-      ],
-      "coverage": 0.0
-    },
-    {
-      "paradigm": "structure_computation",
-      "name": "结构计算",
-      "description": "计算代数/拓扑不变量（秩、上同调等）",
-      "methods_total": 3,
-      "methods_implemented": 0,
-      "implemented_ids": [],
-      "missing_ids": [
-        "elliptic_curve_computation",
-        "cohomology_computation",
-        "algebraic_complexity"
       ],
       "coverage": 0.0
     },

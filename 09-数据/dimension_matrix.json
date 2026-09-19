@@ -1,0 +1,771 @@
+{
+  "meta": {
+    "generated_by": "06-AI自动化/01-工作流/openmath_meta.py",
+    "generated_at": "2026-09-19T15:07:04",
+    "provenance": {
+      "ai_assisted": true,
+      "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"
+    },
+    "honesty": "本文件为 L0/L2 级整理与有限域计算产物：知识库为策展式收集（非穷尽）；结构计算在其有限论域内严格，但**不蕴含**任何无限域猜想的证明。",
+    "note": "矩阵单元 = (维度 × 范式) 中**已实现**的能力。映射由 CAP_DIMS 手工指定（策展），不同专家可能给出不同切分；此处不代表唯一正确答案。"
+  },
+  "dimensions": {
+    "D1": "句法（解析/结构）",
+    "D2": "语义（符号/类型映射）",
+    "D3": "结构（代数形态/不变量）",
+    "D4": "计算（求值/求解/逼近）",
+    "D5": "证据（等级/来源/论域边界）",
+    "D6": "元认知（方法选择/缺口识别/不可能性意识）"
+  },
+  "paradigms": {
+    "representation": "表示",
+    "evaluation": "求值",
+    "decision": "判定",
+    "construction": "构造",
+    "search": "搜索",
+    "solving": "求解",
+    "transform": "变换",
+    "approximation": "逼近",
+    "reduction": "归约",
+    "structure_computation": "结构计算",
+    "simulation": "模拟",
+    "analogy": "类比"
+  },
+  "matrix": [
+    {
+      "dimension": "D1",
+      "name": "句法（解析/结构）",
+      "by_paradigm": {
+        "representation": [
+          "ast_parse"
+        ],
+        "evaluation": [],
+        "decision": [],
+        "construction": [],
+        "search": [],
+        "solving": [],
+        "transform": [],
+        "approximation": [],
+        "reduction": [],
+        "structure_computation": [],
+        "simulation": [],
+        "analogy": []
+      },
+      "nonempty": 1
+    },
+    {
+      "dimension": "D2",
+      "name": "语义（符号/类型映射）",
+      "by_paradigm": {
+        "representation": [],
+        "evaluation": [
+          "transc_eval"
+        ],
+        "decision": [],
+        "construction": [],
+        "search": [],
+        "solving": [],
+        "transform": [],
+        "approximation": [],
+        "reduction": [],
+        "structure_computation": [],
+        "simulation": [],
+        "analogy": []
+      },
+      "nonempty": 1
+    },
+    {
+      "dimension": "D3",
+      "name": "结构（代数形态/不变量）",
+      "by_paradigm": {
+        "representation": [],
+        "evaluation": [],
+        "decision": [
+          "poly_classify"
+        ],
+        "construction": [
+          "prime_sieve",
+          "sieve_theory",
+          "rad_computation"
+        ],
+        "search": [
+          "exhaustive_search"
+        ],
+        "solving": [
+          "gaussian_elimination"
+        ],
+        "transform": [],
+        "approximation": [],
+        "reduction": [
+          "modular_analysis"
+        ],
+        "structure_computation": [
+          "structure_computation",
+          "homology_computation"
+        ],
+        "simulation": [],
+        "analogy": []
+      },
+      "nonempty": 6
+    },
+    {
+      "dimension": "D4",
+      "name": "计算（求值/求解/逼近）",
+      "by_paradigm": {
+        "representation": [],
+        "evaluation": [
+          "arith_eval",
+          "transc_eval"
+        ],
+        "decision": [],
+        "construction": [],
+        "search": [
+          "numeric_root"
+        ],
+        "solving": [
+          "linear_solve",
+          "quadratic_formula",
+          "gaussian_elimination"
+        ],
+        "transform": [],
+        "approximation": [
+          "asymptotic_estimation"
+        ],
+        "reduction": [],
+        "structure_computation": [],
+        "simulation": [
+          "map_iteration"
+        ],
+        "analogy": []
+      },
+      "nonempty": 5
+    },
+    {
+      "dimension": "D5",
+      "name": "证据（等级/来源/论域边界）",
+      "by_paradigm": {
+        "representation": [],
+        "evaluation": [],
+        "decision": [],
+        "construction": [],
+        "search": [],
+        "solving": [],
+        "transform": [],
+        "approximation": [],
+        "reduction": [],
+        "structure_computation": [],
+        "simulation": [],
+        "analogy": []
+      },
+      "nonempty": 0
+    },
+    {
+      "dimension": "D6",
+      "name": "元认知（方法选择/缺口识别/不可能性意识）",
+      "by_paradigm": {
+        "representation": [],
+        "evaluation": [],
+        "decision": [],
+        "construction": [],
+        "search": [],
+        "solving": [],
+        "transform": [],
+        "approximation": [],
+        "reduction": [],
+        "structure_computation": [],
+        "simulation": [],
+        "analogy": []
+      },
+      "nonempty": 0
+    }
+  ],
+  "summary": {
+    "dimensions": 6,
+    "paradigms": 12,
+    "total_cells": 72,
+    "nonempty_cells": 13,
+    "density": 0.1806,
+    "empty_cells": 59,
+    "structurally_reachable_empty": 40
+  },
+  "empty_cells": [
+    {
+      "dimension": "D1",
+      "paradigm": "evaluation"
+    },
+    {
+      "dimension": "D1",
+      "paradigm": "decision"
+    },
+    {
+      "dimension": "D1",
+      "paradigm": "construction"
+    },
+    {
+      "dimension": "D1",
+      "paradigm": "search"
+    },
+    {
+      "dimension": "D1",
+      "paradigm": "solving"
+    },
+    {
+      "dimension": "D1",
+      "paradigm": "transform"
+    },
+    {
+      "dimension": "D1",
+      "paradigm": "approximation"
+    },
+    {
+      "dimension": "D1",
+      "paradigm": "reduction"
+    },
+    {
+      "dimension": "D1",
+      "paradigm": "structure_computation"
+    },
+    {
+      "dimension": "D1",
+      "paradigm": "simulation"
+    },
+    {
+      "dimension": "D1",
+      "paradigm": "analogy"
+    },
+    {
+      "dimension": "D2",
+      "paradigm": "representation"
+    },
+    {
+      "dimension": "D2",
+      "paradigm": "decision"
+    },
+    {
+      "dimension": "D2",
+      "paradigm": "construction"
+    },
+    {
+      "dimension": "D2",
+      "paradigm": "search"
+    },
+    {
+      "dimension": "D2",
+      "paradigm": "solving"
+    },
+    {
+      "dimension": "D2",
+      "paradigm": "transform"
+    },
+    {
+      "dimension": "D2",
+      "paradigm": "approximation"
+    },
+    {
+      "dimension": "D2",
+      "paradigm": "reduction"
+    },
+    {
+      "dimension": "D2",
+      "paradigm": "structure_computation"
+    },
+    {
+      "dimension": "D2",
+      "paradigm": "simulation"
+    },
+    {
+      "dimension": "D2",
+      "paradigm": "analogy"
+    },
+    {
+      "dimension": "D3",
+      "paradigm": "representation"
+    },
+    {
+      "dimension": "D3",
+      "paradigm": "evaluation"
+    },
+    {
+      "dimension": "D3",
+      "paradigm": "transform"
+    },
+    {
+      "dimension": "D3",
+      "paradigm": "approximation"
+    },
+    {
+      "dimension": "D3",
+      "paradigm": "simulation"
+    },
+    {
+      "dimension": "D3",
+      "paradigm": "analogy"
+    },
+    {
+      "dimension": "D4",
+      "paradigm": "representation"
+    },
+    {
+      "dimension": "D4",
+      "paradigm": "decision"
+    },
+    {
+      "dimension": "D4",
+      "paradigm": "construction"
+    },
+    {
+      "dimension": "D4",
+      "paradigm": "transform"
+    },
+    {
+      "dimension": "D4",
+      "paradigm": "reduction"
+    },
+    {
+      "dimension": "D4",
+      "paradigm": "structure_computation"
+    },
+    {
+      "dimension": "D4",
+      "paradigm": "analogy"
+    },
+    {
+      "dimension": "D5",
+      "paradigm": "representation"
+    },
+    {
+      "dimension": "D5",
+      "paradigm": "evaluation"
+    },
+    {
+      "dimension": "D5",
+      "paradigm": "decision"
+    },
+    {
+      "dimension": "D5",
+      "paradigm": "construction"
+    },
+    {
+      "dimension": "D5",
+      "paradigm": "search"
+    },
+    {
+      "dimension": "D5",
+      "paradigm": "solving"
+    },
+    {
+      "dimension": "D5",
+      "paradigm": "transform"
+    },
+    {
+      "dimension": "D5",
+      "paradigm": "approximation"
+    },
+    {
+      "dimension": "D5",
+      "paradigm": "reduction"
+    },
+    {
+      "dimension": "D5",
+      "paradigm": "structure_computation"
+    },
+    {
+      "dimension": "D5",
+      "paradigm": "simulation"
+    },
+    {
+      "dimension": "D5",
+      "paradigm": "analogy"
+    },
+    {
+      "dimension": "D6",
+      "paradigm": "representation"
+    },
+    {
+      "dimension": "D6",
+      "paradigm": "evaluation"
+    },
+    {
+      "dimension": "D6",
+      "paradigm": "decision"
+    },
+    {
+      "dimension": "D6",
+      "paradigm": "construction"
+    },
+    {
+      "dimension": "D6",
+      "paradigm": "search"
+    },
+    {
+      "dimension": "D6",
+      "paradigm": "solving"
+    },
+    {
+      "dimension": "D6",
+      "paradigm": "transform"
+    },
+    {
+      "dimension": "D6",
+      "paradigm": "approximation"
+    },
+    {
+      "dimension": "D6",
+      "paradigm": "reduction"
+    },
+    {
+      "dimension": "D6",
+      "paradigm": "structure_computation"
+    },
+    {
+      "dimension": "D6",
+      "paradigm": "simulation"
+    },
+    {
+      "dimension": "D6",
+      "paradigm": "analogy"
+    }
+  ],
+  "structurally_reachable_empty": [
+    {
+      "dimension": "D1",
+      "paradigm": "evaluation",
+      "planned_methods": [
+        "l_function_evaluation"
+      ]
+    },
+    {
+      "dimension": "D1",
+      "paradigm": "search",
+      "planned_methods": [
+        "numeric_zero_search"
+      ]
+    },
+    {
+      "dimension": "D1",
+      "paradigm": "transform",
+      "planned_methods": [
+        "factorization",
+        "grobner_basis",
+        "eigen_decomposition",
+        "symbolic_diff",
+        "symbolic_int",
+        "renormalization"
+      ]
+    },
+    {
+      "dimension": "D1",
+      "paradigm": "approximation",
+      "planned_methods": [
+        "limit_computation",
+        "circle_method",
+        "energy_estimate"
+      ]
+    },
+    {
+      "dimension": "D1",
+      "paradigm": "reduction",
+      "planned_methods": [
+        "complexity_reduction"
+      ]
+    },
+    {
+      "dimension": "D1",
+      "paradigm": "structure_computation",
+      "planned_methods": [
+        "elliptic_curve_computation",
+        "cohomology_computation",
+        "algebraic_complexity"
+      ]
+    },
+    {
+      "dimension": "D1",
+      "paradigm": "simulation",
+      "planned_methods": [
+        "pde_numerical_simulation",
+        "lattice_qcd_numeric",
+        "ricci_flow_analysis"
+      ]
+    },
+    {
+      "dimension": "D1",
+      "paradigm": "analogy",
+      "planned_methods": [
+        "random_matrix_analogy"
+      ]
+    },
+    {
+      "dimension": "D2",
+      "paradigm": "search",
+      "planned_methods": [
+        "numeric_zero_search"
+      ]
+    },
+    {
+      "dimension": "D2",
+      "paradigm": "transform",
+      "planned_methods": [
+        "factorization",
+        "grobner_basis",
+        "eigen_decomposition",
+        "symbolic_diff",
+        "symbolic_int",
+        "renormalization"
+      ]
+    },
+    {
+      "dimension": "D2",
+      "paradigm": "approximation",
+      "planned_methods": [
+        "limit_computation",
+        "circle_method",
+        "energy_estimate"
+      ]
+    },
+    {
+      "dimension": "D2",
+      "paradigm": "reduction",
+      "planned_methods": [
+        "complexity_reduction"
+      ]
+    },
+    {
+      "dimension": "D2",
+      "paradigm": "structure_computation",
+      "planned_methods": [
+        "elliptic_curve_computation",
+        "cohomology_computation",
+        "algebraic_complexity"
+      ]
+    },
+    {
+      "dimension": "D2",
+      "paradigm": "simulation",
+      "planned_methods": [
+        "pde_numerical_simulation",
+        "lattice_qcd_numeric",
+        "ricci_flow_analysis"
+      ]
+    },
+    {
+      "dimension": "D2",
+      "paradigm": "analogy",
+      "planned_methods": [
+        "random_matrix_analogy"
+      ]
+    },
+    {
+      "dimension": "D3",
+      "paradigm": "evaluation",
+      "planned_methods": [
+        "l_function_evaluation"
+      ]
+    },
+    {
+      "dimension": "D3",
+      "paradigm": "transform",
+      "planned_methods": [
+        "factorization",
+        "grobner_basis",
+        "eigen_decomposition",
+        "symbolic_diff",
+        "symbolic_int",
+        "renormalization"
+      ]
+    },
+    {
+      "dimension": "D3",
+      "paradigm": "approximation",
+      "planned_methods": [
+        "limit_computation",
+        "circle_method",
+        "energy_estimate"
+      ]
+    },
+    {
+      "dimension": "D3",
+      "paradigm": "simulation",
+      "planned_methods": [
+        "pde_numerical_simulation",
+        "lattice_qcd_numeric",
+        "ricci_flow_analysis"
+      ]
+    },
+    {
+      "dimension": "D3",
+      "paradigm": "analogy",
+      "planned_methods": [
+        "random_matrix_analogy"
+      ]
+    },
+    {
+      "dimension": "D4",
+      "paradigm": "transform",
+      "planned_methods": [
+        "factorization",
+        "grobner_basis",
+        "eigen_decomposition",
+        "symbolic_diff",
+        "symbolic_int",
+        "renormalization"
+      ]
+    },
+    {
+      "dimension": "D4",
+      "paradigm": "reduction",
+      "planned_methods": [
+        "complexity_reduction"
+      ]
+    },
+    {
+      "dimension": "D4",
+      "paradigm": "structure_computation",
+      "planned_methods": [
+        "elliptic_curve_computation",
+        "cohomology_computation",
+        "algebraic_complexity"
+      ]
+    },
+    {
+      "dimension": "D4",
+      "paradigm": "analogy",
+      "planned_methods": [
+        "random_matrix_analogy"
+      ]
+    },
+    {
+      "dimension": "D5",
+      "paradigm": "evaluation",
+      "planned_methods": [
+        "l_function_evaluation"
+      ]
+    },
+    {
+      "dimension": "D5",
+      "paradigm": "search",
+      "planned_methods": [
+        "numeric_zero_search"
+      ]
+    },
+    {
+      "dimension": "D5",
+      "paradigm": "transform",
+      "planned_methods": [
+        "factorization",
+        "grobner_basis",
+        "eigen_decomposition",
+        "symbolic_diff",
+        "symbolic_int",
+        "renormalization"
+      ]
+    },
+    {
+      "dimension": "D5",
+      "paradigm": "approximation",
+      "planned_methods": [
+        "limit_computation",
+        "circle_method",
+        "energy_estimate"
+      ]
+    },
+    {
+      "dimension": "D5",
+      "paradigm": "reduction",
+      "planned_methods": [
+        "complexity_reduction"
+      ]
+    },
+    {
+      "dimension": "D5",
+      "paradigm": "structure_computation",
+      "planned_methods": [
+        "elliptic_curve_computation",
+        "cohomology_computation",
+        "algebraic_complexity"
+      ]
+    },
+    {
+      "dimension": "D5",
+      "paradigm": "simulation",
+      "planned_methods": [
+        "pde_numerical_simulation",
+        "lattice_qcd_numeric",
+        "ricci_flow_analysis"
+      ]
+    },
+    {
+      "dimension": "D5",
+      "paradigm": "analogy",
+      "planned_methods": [
+        "random_matrix_analogy"
+      ]
+    },
+    {
+      "dimension": "D6",
+      "paradigm": "evaluation",
+      "planned_methods": [
+        "l_function_evaluation"
+      ]
+    },
+    {
+      "dimension": "D6",
+      "paradigm": "search",
+      "planned_methods": [
+        "numeric_zero_search"
+      ]
+    },
+    {
+      "dimension": "D6",
+      "paradigm": "transform",
+      "planned_methods": [
+        "factorization",
+        "grobner_basis",
+        "eigen_decomposition",
+        "symbolic_diff",
+        "symbolic_int",
+        "renormalization"
+      ]
+    },
+    {
+      "dimension": "D6",
+      "paradigm": "approximation",
+      "planned_methods": [
+        "limit_computation",
+        "circle_method",
+        "energy_estimate"
+      ]
+    },
+    {
+      "dimension": "D6",
+      "paradigm": "reduction",
+      "planned_methods": [
+        "complexity_reduction"
+      ]
+    },
+    {
+      "dimension": "D6",
+      "paradigm": "structure_computation",
+      "planned_methods": [
+        "elliptic_curve_computation",
+        "cohomology_computation",
+        "algebraic_complexity"
+      ]
+    },
+    {
+      "dimension": "D6",
+      "paradigm": "simulation",
+      "planned_methods": [
+        "pde_numerical_simulation",
+        "lattice_qcd_numeric",
+        "ricci_flow_analysis"
+      ]
+    },
+    {
+      "dimension": "D6",
+      "paradigm": "analogy",
+      "planned_methods": [
+        "random_matrix_analogy"
+      ]
+    }
+  ]
+}

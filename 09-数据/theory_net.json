@@ -1,0 +1,299 @@
+{
+  "meta": {
+    "generated_at": "2026-09-19T15:07:05",
+    "generator": "openmath_theory.py",
+    "evidence_level": "L2",
+    "provenance": {
+      "ai_assisted": true,
+      "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"
+    },
+    "note": "不变量的线性独立性与表出关系均在**当前对象库**内计算；换库则重算。"
+  },
+  "families": {
+    "arithmetic": {
+      "family": "arithmetic",
+      "n_objects": 59,
+      "n_invariants": 15,
+      "rank": 14,
+      "independent_basis": [
+        "Omega",
+        "P_plus",
+        "abundance",
+        "aliquot",
+        "mu",
+        "n",
+        "n_over_rad",
+        "omega",
+        "p_minus",
+        "phi",
+        "phi_ratio",
+        "rad",
+        "squarefree",
+        "tau"
+      ],
+      "derived_invariants": [
+        {
+          "invariant": "sigma",
+          "expressed_by": {
+            "aliquot": "1",
+            "n": "1"
+          },
+          "support_size": 2,
+          "parsimonious": true,
+          "reverified_exactly": true
+        }
+      ],
+      "parsimonious_expressions": [],
+      "note": "主元/自由列的划分依赖**当前对象库**：换一批对象结论就会变。因此这里的'独立基'是库内概念，不是理论的独立性判定。"
+    },
+    "graph": {
+      "family": "graph",
+      "n_objects": 61,
+      "n_invariants": 16,
+      "rank": 15,
+      "independent_basis": [
+        "avg_degree",
+        "bipartite",
+        "chromatic_number",
+        "clique_number",
+        "components",
+        "connected",
+        "degree_sum",
+        "diameter",
+        "girth",
+        "independent_number",
+        "max_degree",
+        "min_degree",
+        "spanning_trees",
+        "triangles",
+        "vertices"
+      ],
+      "derived_invariants": [
+        {
+          "invariant": "edges",
+          "expressed_by": {
+            "degree_sum": "1/2"
+          },
+          "support_size": 1,
+          "parsimonious": true,
+          "reverified_exactly": true
+        }
+      ],
+      "parsimonious_expressions": [],
+      "note": "主元/自由列的划分依赖**当前对象库**：换一批对象结论就会变。因此这里的'独立基'是库内概念，不是理论的独立性判定。"
+    },
+    "group": {
+      "family": "group",
+      "n_objects": 26,
+      "n_invariants": 12,
+      "rank": 12,
+      "independent_basis": [
+        "abelian",
+        "center_size",
+        "class_number",
+        "elements_at_exponent",
+        "exponent",
+        "involutions",
+        "max_element_order",
+        "min_generators",
+        "order",
+        "proper_subgroup_order_types",
+        "proper_subgroups_count",
+        "subgroups_only_trivial"
+      ],
+      "derived_invariants": [],
+      "parsimonious_expressions": [],
+      "note": "主元/自由列的划分依赖**当前对象库**：换一批对象结论就会变。因此这里的'独立基'是库内概念，不是理论的独立性判定。"
+    },
+    "partition": {
+      "family": "partition",
+      "n_objects": 66,
+      "n_invariants": 12,
+      "rank": 8,
+      "independent_basis": [
+        "conjugate_distinct",
+        "conjugate_length",
+        "conjugate_rank",
+        "durfee",
+        "odd_parts",
+        "ones",
+        "self_conjugate",
+        "sum"
+      ],
+      "derived_invariants": [
+        {
+          "invariant": "distinct_parts",
+          "expressed_by": {
+            "conjugate_distinct": "1"
+          },
+          "support_size": 1,
+          "parsimonious": true,
+          "reverified_exactly": true
+        },
+        {
+          "invariant": "largest_part",
+          "expressed_by": {
+            "conjugate_length": "1"
+          },
+          "support_size": 1,
+          "parsimonious": true,
+          "reverified_exactly": true
+        },
+        {
+          "invariant": "rank",
+          "expressed_by": {
+            "conjugate_rank": "-1"
+          },
+          "support_size": 1,
+          "parsimonious": true,
+          "reverified_exactly": true
+        },
+        {
+          "invariant": "length",
+          "expressed_by": {
+            "conjugate_length": "1",
+            "conjugate_rank": "1"
+          },
+          "support_size": 2,
+          "parsimonious": true,
+          "reverified_exactly": true
+        }
+      ],
+      "parsimonious_expressions": [
+        {
+          "invariant": "conjugate_distinct",
+          "via_relation": "conjugate_distinct - distinct_parts = 0",
+          "rhs": {
+            "distinct_parts": "1"
+          },
+          "constant": "0",
+          "support_size": 1
+        },
+        {
+          "invariant": "distinct_parts",
+          "via_relation": "conjugate_distinct - distinct_parts = 0",
+          "rhs": {
+            "conjugate_distinct": "1"
+          },
+          "constant": "0",
+          "support_size": 1
+        }
+      ],
+      "note": "主元/自由列的划分依赖**当前对象库**：换一批对象结论就会变。因此这里的'独立基'是库内概念，不是理论的独立性判定。"
+    },
+    "complex": {
+      "family": "complex",
+      "n_objects": 14,
+      "n_invariants": 14,
+      "rank": 7,
+      "independent_basis": [
+        "b0",
+        "b1",
+        "b2",
+        "c0",
+        "c1",
+        "dim",
+        "has_torsion"
+      ],
+      "derived_invariants": [
+        {
+          "invariant": "euler_consistent",
+          "expressed_by": {
+            "b0": "1"
+          },
+          "support_size": 1,
+          "parsimonious": true,
+          "reverified_exactly": true
+        },
+        {
+          "invariant": "torsion_count",
+          "expressed_by": {
+            "has_torsion": "1"
+          },
+          "support_size": 1,
+          "parsimonious": true,
+          "reverified_exactly": true
+        },
+        {
+          "invariant": "betti_total",
+          "expressed_by": {
+            "b0": "1",
+            "b1": "1",
+            "b2": "1"
+          },
+          "support_size": 3,
+          "parsimonious": true,
+          "reverified_exactly": true
+        },
+        {
+          "invariant": "euler_betti",
+          "expressed_by": {
+            "b0": "1",
+            "b1": "-1",
+            "b2": "1"
+          },
+          "support_size": 3,
+          "parsimonious": true,
+          "reverified_exactly": true
+        },
+        {
+          "invariant": "euler_cells",
+          "expressed_by": {
+            "b0": "1",
+            "b1": "-1",
+            "b2": "1"
+          },
+          "support_size": 3,
+          "parsimonious": true,
+          "reverified_exactly": true
+        },
+        {
+          "invariant": "cell_total",
+          "expressed_by": {
+            "b0": "1",
+            "b1": "-1",
+            "b2": "1",
+            "c1": "2"
+          },
+          "support_size": 4,
+          "parsimonious": false,
+          "reverified_exactly": true
+        },
+        {
+          "invariant": "c2",
+          "expressed_by": {
+            "b0": "1",
+            "b1": "-1",
+            "b2": "1",
+            "c0": "-1",
+            "c1": "1"
+          },
+          "support_size": 5,
+          "parsimonious": false,
+          "reverified_exactly": true
+        }
+      ],
+      "parsimonious_expressions": [
+        {
+          "invariant": "has_torsion",
+          "via_relation": "has_torsion - torsion_count = 0",
+          "rhs": {
+            "torsion_count": "1"
+          },
+          "constant": "0",
+          "support_size": 1
+        },
+        {
+          "invariant": "torsion_count",
+          "via_relation": "has_torsion - torsion_count = 0",
+          "rhs": {
+            "has_torsion": "1"
+          },
+          "constant": "0",
+          "support_size": 1
+        }
+      ],
+      "note": "主元/自由列的划分依赖**当前对象库**：换一批对象结论就会变。因此这里的'独立基'是库内概念，不是理论的独立性判定。"
+    }
+  }
+}

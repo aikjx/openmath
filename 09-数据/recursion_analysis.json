@@ -1,0 +1,284 @@
+{
+  "meta": {
+    "generated_by": "06-AI自动化/01-工作流/openmath_meta.py",
+    "generated_at": "2026-09-19T15:07:04",
+    "provenance": {
+      "ai_assisted": true,
+      "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"
+    },
+    "honesty": "本文件为 L0/L2 级整理与有限域计算产物：知识库为策展式收集（非穷尽）；结构计算在其有限论域内严格，但**不蕴含**任何无限域猜想的证明。",
+    "note": "套娃 = 把'方法'本身作为对象再上一阶。层级越高，**能做的操作越少，但影响面越广**；本体系的能力高度集中在 L1，L2 仅少量具备，L3 几乎空白。"
+  },
+  "layer_profile": [
+    {
+      "layer": "L0",
+      "name": "对象层",
+      "description": "直接以数学对象/数据为输入",
+      "total": 0,
+      "our_implemented": 0,
+      "our_partial": 0,
+      "coverage": null
+    },
+    {
+      "layer": "L1",
+      "name": "方法层",
+      "description": "作用于对象的方法（绝大多数传统方法在此层）",
+      "total": 83,
+      "our_implemented": 4,
+      "our_partial": 12,
+      "coverage": 0.0482
+    },
+    {
+      "layer": "L2",
+      "name": "元方法层",
+      "description": "以**方法**为输入的方法（分类、选择、组合、验证方法）",
+      "total": 20,
+      "our_implemented": 6,
+      "our_partial": 3,
+      "coverage": 0.3
+    },
+    {
+      "layer": "L3",
+      "name": "元元层",
+      "description": "以**方法体系/纲领**为输入（方法论设计、不可能性论证）",
+      "total": 7,
+      "our_implemented": 0,
+      "our_partial": 3,
+      "coverage": 0.0
+    }
+  ],
+  "self_referential_method_ids": [
+    "ablation_study",
+    "replication",
+    "method_classification",
+    "method_selection",
+    "method_composition",
+    "method_verification",
+    "method_transfer",
+    "generalization_of_methods",
+    "specialization_of_methods",
+    "hybridization",
+    "ensemble_voting",
+    "meta_learning",
+    "auto_tuning",
+    "benchmarking",
+    "adversarial_testing",
+    "evidence_tiering",
+    "limitation_awareness",
+    "self_application",
+    "bootstrapping",
+    "external_review",
+    "methodology_design",
+    "research_programme",
+    "paradigm_shift",
+    "comparative_methodology",
+    "meta_analysis",
+    "impossibility_theory",
+    "falsification_design"
+  ],
+  "our_meta_capabilities": [
+    {
+      "id": "method_classification",
+      "name": "方法分类学",
+      "layer": "L2",
+      "status": "implemented"
+    },
+    {
+      "id": "method_composition",
+      "name": "方法复合/流水线",
+      "layer": "L2",
+      "status": "implemented"
+    },
+    {
+      "id": "benchmarking",
+      "name": "基准评测",
+      "layer": "L2",
+      "status": "implemented"
+    },
+    {
+      "id": "evidence_tiering",
+      "name": "证据分级",
+      "layer": "L2",
+      "status": "implemented"
+    },
+    {
+      "id": "limitation_awareness",
+      "name": "局限意识/不可能性论证",
+      "layer": "L2",
+      "status": "implemented"
+    },
+    {
+      "id": "self_application",
+      "name": "自指应用",
+      "layer": "L2",
+      "status": "implemented"
+    }
+  ],
+  "pipeline_closure": {
+    "initial_artifacts": [
+      "A_remote"
+    ],
+    "rounds": [
+      {
+        "round": 1,
+        "fired": [
+          "S1_ingest",
+          "S3_experiments",
+          "S7_theory"
+        ],
+        "new_artifacts": [
+          "A_cd",
+          "A_exp",
+          "A_expr",
+          "A_forge",
+          "A_papers",
+          "A_theory_cands",
+          "A_theory_net"
+        ]
+      },
+      {
+        "round": 2,
+        "fired": [
+          "S2_analyze"
+        ],
+        "new_artifacts": [
+          "A_conjectures",
+          "A_gaps",
+          "A_methods",
+          "A_numeric",
+          "A_taxonomy"
+        ]
+      },
+      {
+        "round": 3,
+        "fired": [
+          "S4_coalition",
+          "S5_synthesis"
+        ],
+        "new_artifacts": [
+          "A_coalition",
+          "A_dims",
+          "A_finite",
+          "A_paradigms",
+          "A_roadmap",
+          "A_space",
+          "A_verification"
+        ]
+      },
+      {
+        "round": 4,
+        "fired": [
+          "S6_meta"
+        ],
+        "new_artifacts": [
+          "A_dimmatrix",
+          "A_kb",
+          "A_meta_roadmap",
+          "A_recursion"
+        ]
+      },
+      {
+        "round": 5,
+        "fired": [],
+        "new_artifacts": [],
+        "note": "无新增 → 到达不动点"
+      }
+    ],
+    "rounds_to_fixed_point": 4,
+    "fixed_point_artifacts": [
+      "A_cd",
+      "A_coalition",
+      "A_conjectures",
+      "A_dimmatrix",
+      "A_dims",
+      "A_exp",
+      "A_expr",
+      "A_finite",
+      "A_forge",
+      "A_gaps",
+      "A_kb",
+      "A_meta_roadmap",
+      "A_methods",
+      "A_numeric",
+      "A_papers",
+      "A_paradigms",
+      "A_recursion",
+      "A_remote",
+      "A_roadmap",
+      "A_space",
+      "A_taxonomy",
+      "A_theory_cands",
+      "A_theory_net",
+      "A_verification"
+    ],
+    "closure_size": 24,
+    "self_application_present": true,
+    "self_application_note": "S6_meta（以及不吃任何上游产物的 S7_theory）的输出不被**任何**阶段消费，因此算子在第 4 轮（S6 触发）后停住 —— 这就是套娃的**不动点**。真正的自指只有一处：S6 分析的对象（STAGES 描述）包含 S6 自身，即'把套娃了自己一圈的流水线作为输入'。但这只是**结构自洽性**操作，不产生任何新的数学真值。注意 S7_theory 虽然在第 1 轮就能触发（它不依赖任何上游产物），但它同样无人消费，因此对不动点的轮次没有贡献——**多加一个阶段并不自动多加一层套娃**。"
+  },
+  "self_audit": {
+    "checks": [
+      {
+        "check": "未解猜想 proof_claimed 必须为 False",
+        "passed": true,
+        "violations": [],
+        "detail": "诚实红线：不得声称证明未解猜想"
+      },
+      {
+        "check": "已实现方法须指向存在的文件",
+        "passed": true,
+        "violations": [],
+        "detail": "防止把未实现的能力登记为已实现（这是对'能力虚报'的直接检查）"
+      },
+      {
+        "check": "产物须标注 provenance.ai_assisted=true",
+        "passed": true,
+        "violations": [],
+        "detail": "诚实红线：AI 生成内容必须标注"
+      },
+      {
+        "check": "禁用夸大/虚假声明词",
+        "passed": true,
+        "violations": [],
+        "detail": "扫描词表 ['最全面', '最高权限', '已证明黎曼', '我们证明了', '彻底解决', '穷尽全部数学']；**否定式使用（如'而非穷尽全部数学'）属诚实表述，单独计入 benign_honest_negations，不计违规**",
+        "benign_honest_negations": [
+          "math_taxonomy.json:穷尽全部数学@否定语境"
+        ]
+      },
+      {
+        "check": "有限化定理须声明不蕴含原猜想",
+        "passed": true,
+        "violations": [],
+        "detail": "防止把有限域结论偷换成无限域结论"
+      }
+    ],
+    "total_checks": 5,
+    "violations": 0
+  },
+  "artifact_glossary": {
+    "A_remote": "网络远端源（OpenMath CD / arXiv）",
+    "A_cd": "CD 快照与符号目录",
+    "A_papers": "论文索引",
+    "A_expr": "表达式/方程的分析结果",
+    "A_taxonomy": "理论体系分类",
+    "A_gaps": "结构缺口",
+    "A_conjectures": "猜想登记表",
+    "A_methods": "方法体系",
+    "A_numeric": "数值/恒等式验证结果",
+    "A_exp": "计算实验结果",
+    "A_coalition": "算法联盟注册表",
+    "A_roadmap": "突破路线图",
+    "A_space": "可能性空间",
+    "A_paradigms": "处理范式",
+    "A_verification": "未破解验证与逻辑缺口",
+    "A_finite": "有限化定理",
+    "A_dims": "扩展维度框架",
+    "A_kb": "处理方法知识库",
+    "A_recursion": "递归/套娃分析",
+    "A_dimmatrix": "维度矩阵",
+    "A_meta_roadmap": "元路线图",
+    "A_forge": "理论锻造全量结果（候选 + 反例台账）",
+    "A_theory_net": "各对象族的不变量理论体系网",
+    "A_theory_cands": "通过主筛选的候选关系清单"
+  },
+  "diminishing_returns_note": "层级每上一阶，可执行的方法条数骤降（见 layer_profile），而'缺失一层的代价'急剧上升：L1 缺一项只影响对应题型，L2 缺一项（如方法选择）会让**所有**已实现的 L1 方法无法被自动调度。这正是当前最大的结构性短板。"
+}

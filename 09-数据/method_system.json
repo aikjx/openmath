@@ -1,18 +1,18 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_analyze.py",
-    "generated_at": "2026-09-19T11:20:06",
+    "generated_at": "2026-09-19T12:19:58",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理基于 openmath_sys 引擎与已下载 OpenMath/arXiv 数据自动生成，未经人类复核，不得作为 L3+ 证据。"
     },
     "honesty": "本系列文件为 L0/L2 级数据处理与计算校验产物，非证明。方程求解、猜想的可计算实验均为计算验证(L2)，不构成对未解猜想的证明。预印本与猜想状态均标 UNVERIFIED/UNSOLVED。",
-    "note": "方法清单为标准数学方法的**整理性汇编**（KNOWN_L4 常识级）；`implemented` 字段严格表示本流水线当前是否真能执行，共 14/34 项已实现。对未解猜想，即便全部适用方法齐备也仍未被解决，故 can_resolve 除已解决的庞加莱外恒为 False，绝不暗示本系统或现有方法足以证明它们。"
+    "note": "方法清单为标准数学方法的**整理性汇编**（KNOWN_L4 常识级）；`implemented` 字段严格表示本流水线当前是否真能执行，共 17/36 项已实现。对未解猜想，即便全部适用方法齐备也仍未被解决，故 can_resolve 除已解决的庞加莱外恒为 False，绝不暗示本系统或现有方法足以证明它们。"
   },
   "summary": {
-    "methods_total": 34,
-    "methods_implemented": 14,
-    "methods_missing": 20,
+    "methods_total": 36,
+    "methods_implemented": 17,
+    "methods_missing": 19,
     "conjectures_linked": 11,
     "conjectures_with_zero_implemented_direction": 5
   },
@@ -22,7 +22,7 @@
       "name": "句法解析(AST)",
       "domain": "通用/句法",
       "implemented": true,
-      "where": "openmath_sys/parser.py",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/parser.py",
       "description": "把数学文本解析成语法树(D1 句法维度)。",
       "limitation": "仅支持 + - * / ^ 与含参函数、比较运算符；不支持 LaTeX/积分号等高级记法。"
     },
@@ -31,7 +31,7 @@
       "name": "表达式求值",
       "domain": "通用/计算",
       "implemented": true,
-      "where": "openmath_sys/parser.py",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/parser.py",
       "description": "代入变量数值求结果(D4 计算维度)。",
       "limitation": "纯数值，不做符号化简。"
     },
@@ -40,7 +40,7 @@
       "name": "超越函数求值（三角/反三角/双曲/复数）",
       "domain": "超越函数",
       "implemented": true,
-      "where": "openmath_sys/parser.py (_call_func)",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/parser.py (_call_func)",
       "description": "evaluate 支持 sin/cos/tan/sec/csc/cot、对应反函数与双曲/反双曲，且**复数感知**（参数为复数或实数域溢出时回落 cmath）。",
       "limitation": "不支持 \\partial 偏导、grad/curl/laplacian 等向量分析算子；多值函数在 |z|>1 处会因主分支约定出现'虚假不符'（非反例）。"
     },
@@ -49,7 +49,7 @@
       "name": "方程形态分类",
       "domain": "代数",
       "implemented": true,
-      "where": "openmath_sys/parser.py",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/parser.py",
       "description": "判定 linear/quadratic/transcendental 等(D3 结构维度)。",
       "limitation": "仅按变量次数分类，不识别更深结构（如可约性、对称性）。"
     },
@@ -58,7 +58,7 @@
       "name": "一元一次方程求解",
       "domain": "代数",
       "implemented": true,
-      "where": "openmath_sys/parser.py",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/parser.py",
       "description": "解形如 ax+b=0 的方程。",
       "limitation": "仅单变量、仅一次。"
     },
@@ -67,7 +67,7 @@
       "name": "一元二次求根公式",
       "domain": "代数",
       "implemented": true,
-      "where": "openmath_sys/parser.py",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/parser.py",
       "description": "解 ax²+bx+c=0（含复数根）。",
       "limitation": "仅单变量二次。"
     },
@@ -76,7 +76,7 @@
       "name": "埃拉托斯特尼筛",
       "domain": "数论",
       "implemented": true,
-      "where": "本脚本 (primes_upto)",
+      "where": "06-AI自动化/01-工作流/openmath_analyze.py (primes_upto)",
       "description": "求出 ≤N 的全部素数。",
       "limitation": "受内存与时间限制，N 不能过大。"
     },
@@ -85,7 +85,7 @@
       "name": "穷举验证",
       "domain": "组合/数论",
       "implemented": true,
-      "where": "本脚本 (goldbach_check / collatz_check)",
+      "where": "06-AI自动化/01-工作流/openmath_analyze.py (goldbach_check / collatz_check)",
       "description": "在有限范围内逐一验证命题成立。",
       "limitation": "只能给出有限区间内的证据，永远无法由此得到证明。"
     },
@@ -94,7 +94,7 @@
       "name": "迭代映射",
       "domain": "动力系统",
       "implemented": true,
-      "where": "本脚本 (collatz_check)",
+      "where": "06-AI自动化/01-工作流/openmath_analyze.py (collatz_check)",
       "description": "迭代给定映射并记录收敛性。",
       "limitation": "长轨道需大量计算，且迭代本身不证明收敛性。"
     },
@@ -120,10 +120,10 @@
       "id": "gaussian_elimination",
       "name": "高斯消元",
       "domain": "线性代数",
-      "implemented": false,
-      "where": null,
-      "description": "解线性方程组、求秩。",
-      "limitation": "未实现。"
+      "implemented": true,
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/structure.py",
+      "description": "精确秩计算：有理数域(Fraction)与有限域 GF(p) 两种系数的行消元。",
+      "limitation": "仅实现**精确秩**；未实现一般方程组的回代求解、符号消元与浮点版本。"
     },
     {
       "id": "eigen_decomposition",
@@ -166,7 +166,7 @@
       "name": "数值求根",
       "domain": "数值分析",
       "implemented": true,
-      "where": "openmath_sys/numeric.py",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/numeric.py",
       "description": "区间扫描+二分，求任意单变量方程的数值根（超越方程亦可）。",
       "limitation": "仅单变量；受 [lo,hi] 区间与步长限制可能漏根；结果为 L2 数值证据，非解析解、非证明。"
     },
@@ -184,7 +184,7 @@
       "name": "渐近估计",
       "domain": "解析数论",
       "implemented": true,
-      "where": "openmath_sys/numbertheory.py",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/numbertheory.py",
       "description": "对计数函数做渐近对照：π(x) 与 x/ln x、li(x) 的数值比较。",
       "limitation": "**仅实现数值对照版本**：只做 π(x) 与两类近似的误差比较，**不是**一般意义下的渐近展开推导工具（不能推导新渐近式）。注意小 x 处 li 因含高阶正项反而高估更多，其优势在 x>=1000 后显现。"
     },
@@ -202,7 +202,7 @@
       "name": "筛法（解析）",
       "domain": "解析数论",
       "implemented": true,
-      "where": "openmath_sys/numbertheory.py",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/numbertheory.py",
       "description": "埃拉托斯特尼筛及其两个具体应用：哥德巴赫分拆计数、孪生素数筛。",
       "limitation": "**仅实现基础组合筛的两个具体应用**（分拆计数/孪生素数筛）；**不是** Selberg 筛、大筛法等解析筛法理论，无法给出上界估计类结果。"
     },
@@ -211,7 +211,7 @@
       "name": "模类分析",
       "domain": "数论",
       "implemented": true,
-      "where": "openmath_sys/numbertheory.py",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/numbertheory.py",
       "description": "按剩余类统计 Collatz 轨道停止时间的分布。",
       "limitation": "**仅实现最朴素的模类统计**（按 n mod m 分组求均值/最大值）；是描述性统计，**不提供**任何证明方向。"
     },
@@ -239,8 +239,26 @@
       "domain": "代数几何",
       "implemented": false,
       "where": null,
-      "description": "计算代数簇的上同调群。",
-      "limitation": "未实现。"
+      "description": "计算代数簇的上同调群（ℓ-adic / 德拉姆）。",
+      "limitation": "未实现。注意：已实现的 homology_computation 是**有限链复形的域系数同调**，与本条（射影代数簇的上同调、Hodge 分解、(p,p) 类）不是同一回事，不能相互替代——这也是为何本条仍未实现。"
+    },
+    {
+      "id": "structure_computation",
+      "name": "有限群结构计算",
+      "domain": "代数",
+      "implemented": true,
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/structure.py",
+      "description": "由 Cayley 表判定群公理，求单位元/逆元/元素阶/中心/交换性/子群（含 Lagrange 检验）。",
+      "limitation": "仅**有限群且以 Cayley 表给出**；不处理无限群、不处理群表示论。子群枚举在阶 ≤14 时完备，否则仅枚举由 ≤3 个元素生成的子群（结果标记 partial）。"
+    },
+    {
+      "id": "homology_computation",
+      "name": "有限链复形同调",
+      "domain": "代数拓扑",
+      "implemented": true,
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/structure.py",
+      "description": "构造链复形求 Betti 数（Q 与 GF(p)），并用泛系数定理递归检测 p-挠元个数；附带 Euler 示性数的链群/Betti 双路自检。",
+      "limitation": "仅**有限**单纯复形与 CW/Δ-复形，仅**域系数**。能报 p-挠元**个数**但无法确定 Z_{p^k} 的指数 k；不含上同调环结构、不含 Hodge 分解、不含谱序列。"
     },
     {
       "id": "pde_numerical_simulation",
@@ -301,7 +319,7 @@
       "name": "rad 计算",
       "domain": "数论",
       "implemented": true,
-      "where": "openmath_sys/numbertheory.py",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/numbertheory.py",
       "description": "精确计算 rad(n)（不同素因子之积），并搜索 quality>1 的 ABC 三元组。",
       "limitation": "rad(n) 本身按定义精确实现；但 ABC 三元组搜索为**穷举**，受 c_max 上限限制，未找到更高 quality 不代表不存在。"
     },

@@ -1,7 +1,7 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_coalition.py",
-    "generated_at": "2026-09-19T11:20:13",
+    "generated_at": "2026-09-19T12:25:46",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理基于 openmath_sys 引擎与已下载 OpenMath/arXiv 数据自动生成，未经人类复核，不得作为 L3+ 证据。"
@@ -10,25 +10,25 @@
     "tier_note": "权限层级 READ<COMPUTE<TRANSFORM<SUPREME 仅为**内部逻辑授权**分级，SUPREME 不映射任何操作系统提权；safe=False 的算法在任何层级均被拒绝。"
   },
   "summary": {
-    "members_total": 40,
-    "implemented": 20,
-    "missing": 20,
+    "members_total": 42,
+    "implemented": 23,
+    "missing": 19,
     "by_tier": {
       "READ": 7,
       "COMPUTE": 17,
-      "TRANSFORM": 16
+      "TRANSFORM": 18
     },
     "by_origin": {
       "scheduler": 6,
-      "method_system": 34
+      "method_system": 36
     },
     "by_layer": {
-      "capability": 34,
+      "capability": 36,
       "orchestration": 6
     },
     "unsafe_refused": 0,
-    "unique_capability_units": 37,
-    "unique_implemented": 17,
+    "unique_capability_units": 39,
+    "unique_implemented": 20,
     "duplicate_wrappers": 3,
     "dedup_note": "调度器内置算法中有 3 个（structural_classifier, evaluator, equation_solver）是包装在方法层之上的编排适配器，本身不提供新的数学能力，故 `unique_capability_units` 已将其扣除，避免把'接口数'误报为'能力数'。"
   },
@@ -148,7 +148,7 @@
       "name": "句法解析(AST)",
       "origin": "method_system",
       "layer": "capability",
-      "where": "openmath_sys/parser.py",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/parser.py",
       "domain": "通用/句法",
       "tier": "READ",
       "safe": true,
@@ -165,7 +165,7 @@
       "name": "表达式求值",
       "origin": "method_system",
       "layer": "capability",
-      "where": "openmath_sys/parser.py",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/parser.py",
       "domain": "通用/计算",
       "tier": "COMPUTE",
       "safe": true,
@@ -182,7 +182,7 @@
       "name": "超越函数求值（三角/反三角/双曲/复数）",
       "origin": "method_system",
       "layer": "capability",
-      "where": "openmath_sys/parser.py (_call_func)",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/parser.py (_call_func)",
       "domain": "超越函数",
       "tier": "COMPUTE",
       "safe": true,
@@ -199,7 +199,7 @@
       "name": "方程形态分类",
       "origin": "method_system",
       "layer": "capability",
-      "where": "openmath_sys/parser.py",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/parser.py",
       "domain": "代数",
       "tier": "TRANSFORM",
       "safe": true,
@@ -216,7 +216,7 @@
       "name": "一元一次方程求解",
       "origin": "method_system",
       "layer": "capability",
-      "where": "openmath_sys/parser.py",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/parser.py",
       "domain": "代数",
       "tier": "TRANSFORM",
       "safe": true,
@@ -233,7 +233,7 @@
       "name": "一元二次求根公式",
       "origin": "method_system",
       "layer": "capability",
-      "where": "openmath_sys/parser.py",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/parser.py",
       "domain": "代数",
       "tier": "TRANSFORM",
       "safe": true,
@@ -250,7 +250,7 @@
       "name": "埃拉托斯特尼筛",
       "origin": "method_system",
       "layer": "capability",
-      "where": "本脚本 (primes_upto)",
+      "where": "06-AI自动化/01-工作流/openmath_analyze.py (primes_upto)",
       "domain": "数论",
       "tier": "COMPUTE",
       "safe": true,
@@ -270,7 +270,7 @@
       "name": "穷举验证",
       "origin": "method_system",
       "layer": "capability",
-      "where": "本脚本 (goldbach_check / collatz_check)",
+      "where": "06-AI自动化/01-工作流/openmath_analyze.py (goldbach_check / collatz_check)",
       "domain": "组合/数论",
       "tier": "COMPUTE",
       "safe": true,
@@ -292,7 +292,7 @@
       "name": "迭代映射",
       "origin": "method_system",
       "layer": "capability",
-      "where": "本脚本 (collatz_check)",
+      "where": "06-AI自动化/01-工作流/openmath_analyze.py (collatz_check)",
       "domain": "动力系统",
       "tier": "COMPUTE",
       "safe": true,
@@ -345,16 +345,16 @@
       "name": "高斯消元",
       "origin": "method_system",
       "layer": "capability",
-      "where": null,
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/structure.py",
       "domain": "线性代数",
       "tier": "TRANSFORM",
       "safe": true,
-      "implemented": false,
+      "implemented": true,
       "tags": [
         "transform"
       ],
-      "description": "解线性方程组、求秩。",
-      "limitation": "未实现。",
+      "description": "精确秩计算：有理数域(Fraction)与有限域 GF(p) 两种系数的行消元。",
+      "limitation": "仅实现**精确秩**；未实现一般方程组的回代求解、符号消元与浮点版本。",
       "unlocks_conjectures": []
     },
     {
@@ -430,7 +430,7 @@
       "name": "数值求根",
       "origin": "method_system",
       "layer": "capability",
-      "where": "openmath_sys/numeric.py",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/numeric.py",
       "domain": "数值分析",
       "tier": "COMPUTE",
       "safe": true,
@@ -467,7 +467,7 @@
       "name": "渐近估计",
       "origin": "method_system",
       "layer": "capability",
-      "where": "openmath_sys/numbertheory.py",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/numbertheory.py",
       "domain": "解析数论",
       "tier": "READ",
       "safe": true,
@@ -506,7 +506,7 @@
       "name": "筛法（解析）",
       "origin": "method_system",
       "layer": "capability",
-      "where": "openmath_sys/numbertheory.py",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/numbertheory.py",
       "domain": "解析数论",
       "tier": "READ",
       "safe": true,
@@ -526,7 +526,7 @@
       "name": "模类分析",
       "origin": "method_system",
       "layer": "capability",
-      "where": "openmath_sys/numbertheory.py",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/numbertheory.py",
       "domain": "数论",
       "tier": "COMPUTE",
       "safe": true,
@@ -592,11 +592,45 @@
       "tags": [
         "transform"
       ],
-      "description": "计算代数簇的上同调群。",
-      "limitation": "未实现。",
+      "description": "计算代数簇的上同调群（ℓ-adic / 德拉姆）。",
+      "limitation": "未实现。注意：已实现的 homology_computation 是**有限链复形的域系数同调**，与本条（射影代数簇的上同调、Hodge 分解、(p,p) 类）不是同一回事，不能相互替代——这也是为何本条仍未实现。",
       "unlocks_conjectures": [
         "HODGE"
       ]
+    },
+    {
+      "id": "structure_computation",
+      "name": "有限群结构计算",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/structure.py",
+      "domain": "代数",
+      "tier": "TRANSFORM",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "transform"
+      ],
+      "description": "由 Cayley 表判定群公理，求单位元/逆元/元素阶/中心/交换性/子群（含 Lagrange 检验）。",
+      "limitation": "仅**有限群且以 Cayley 表给出**；不处理无限群、不处理群表示论。子群枚举在阶 ≤14 时完备，否则仅枚举由 ≤3 个元素生成的子群（结果标记 partial）。",
+      "unlocks_conjectures": []
+    },
+    {
+      "id": "homology_computation",
+      "name": "有限链复形同调",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/structure.py",
+      "domain": "代数拓扑",
+      "tier": "TRANSFORM",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "transform"
+      ],
+      "description": "构造链复形求 Betti 数（Q 与 GF(p)），并用泛系数定理递归检测 p-挠元个数；附带 Euler 示性数的链群/Betti 双路自检。",
+      "limitation": "仅**有限**单纯复形与 CW/Δ-复形，仅**域系数**。能报 p-挠元**个数**但无法确定 Z_{p^k} 的指数 k；不含上同调环结构、不含 Hodge 分解、不含谱序列。",
+      "unlocks_conjectures": []
     },
     {
       "id": "pde_numerical_simulation",
@@ -717,7 +751,7 @@
       "name": "rad 计算",
       "origin": "method_system",
       "layer": "capability",
-      "where": "openmath_sys/numbertheory.py",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/numbertheory.py",
       "domain": "数论",
       "tier": "COMPUTE",
       "safe": true,
