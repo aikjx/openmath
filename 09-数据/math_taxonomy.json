@@ -1,13 +1,13 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_analyze.py",
-    "generated_at": "2026-09-19T10:19:02",
+    "generated_at": "2026-09-19T10:59:48",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理基于 openmath_sys 引擎与已下载 OpenMath/arXiv 数据自动生成，未经人类复核，不得作为 L3+ 证据。"
     },
     "honesty": "本系列文件为 L0/L2 级数据处理与计算校验产物，非证明。方程求解、猜想的可计算实验均为计算验证(L2)，不构成对未解猜想的证明。预印本与猜想状态均标 UNVERIFIED/UNSOLVED。",
-    "scope_note": "以本次实际下载的 20 个 OpenMath 官方 CD（157 符号、155 条 CMP 性质、28 条已分析方程）与论文索引为地基构建的分类骨架。它是对数学理论体系的'结构化索引'，而非穷尽全部数学。OpenMath 官方 CD 全集共 38 个，本次已覆盖其中大部分高价值 CD；但即便全集也不包含群论、拓扑、概率、微分几何等众多领域，这些属已知且无法通过增补 OpenMath CD 消除的盲区。"
+    "scope_note": "以本次实际下载的 38 个 OpenMath 官方 CD（294 符号、179 条 CMP 性质、32 条已分析方程）与论文索引为地基构建的分类骨架。它是对数学理论体系的'结构化索引'，而非穷尽全部数学。OpenMath 官方 CD 全集共 38 个，本次已覆盖其中大部分高价值 CD；但即便全集也不包含群论、拓扑、概率、微分几何等众多领域，这些属已知且无法通过增补 OpenMath CD 消除的盲区。"
   },
   "domains": [
     {
@@ -370,6 +370,238 @@
       ]
     },
     {
+      "domain": "meta",
+      "cds": [
+        "meta"
+      ],
+      "symbol_count": 18,
+      "property_count": 0,
+      "symbols": [
+        {
+          "name": "CD",
+          "cd": "meta",
+          "description": "The top level element for the Content Dictionary. It just acts as a container for the elements described below.",
+          "n_properties": 0
+        },
+        {
+          "name": "CDDefinition",
+          "cd": "meta",
+          "description": "This symbol is used to represent the element which contains the definition of each symbol in a content dictionary. That is: it must contain a 'Name' element and a 'Description' element, and it may contain an arbitrary number of 'Example', 'FMP' or 'CMP' elements.",
+          "n_properties": 0
+        },
+        {
+          "name": "CDName",
+          "cd": "meta",
+          "description": "An element which contains the string corresponding to the name of the CD. The string must match the syntax for CD names given in the OpenMath Standard. Here and elsewhere white space occurring at the beginning or end of the string will be ignored.",
+          "n_properties": 0
+        },
+        {
+          "name": "CDURL",
+          "cd": "meta",
+          "description": "An optional element. If it is used it contains a string representing the URL where the canonical reference copy of this CD is stored.",
+          "n_properties": 0
+        },
+        {
+          "name": "CDBase",
+          "cd": "meta",
+          "description": "An optional element. If it is used it contains a string representing the URI to be used as the base for generated canonical URI references for symbols in the CD.",
+          "n_properties": 0
+        },
+        {
+          "name": "Example",
+          "cd": "meta",
+          "description": "An element which contains an arbitrary number of children, each of which is either a string or an OpenMath Object. These children give examples in natural language, or in OpenMath, of the enclosing symbol definition.",
+          "n_properties": 0
+        },
+        {
+          "name": "CDDate",
+          "cd": "meta",
+          "description": "An element which contains a date as a string in the ISO-8601 YYYY-MM-DD format. This gives the date at which the Content Dictionary was last edited.",
+          "n_properties": 0
+        },
+        {
+          "name": "CDVersion",
+          "cd": "meta",
+          "description": "An element which contains a version number for the CD. This should be a non negative integer. Any change to the CD that affects existing OpenMath applications that support this CD should result in an increase in the version number.",
+          "n_properties": 0
+        },
+        {
+          "name": "CDRevision",
+          "cd": "meta",
+          "description": "An element which contains a revision number (or minor version number) This should be a non-negative integer starting from zero for each new version. Additional examples would be typical changes to a CD requiring a new revision number.",
+          "n_properties": 0
+        },
+        {
+          "name": "CDReviewDate",
+          "cd": "meta",
+          "description": "An element which contains a date as a string in the ISO-8601 YYYY-MM-DD format. This gives the date at which the Content Dictionary is next scheduled for review. It should be expected to be stable until at least this date.",
+          "n_properties": 0
+        },
+        {
+          "name": "CDStatus",
+          "cd": "meta",
+          "description": "An element giving information on the status of the CD. The content of the element must be one of the following strings. official (approved by the OpenMath Society), experimental (currently being tested), private (used by a private group of OpenMath users), or obsolete (an obsolete CD kept only for archival purposes).",
+          "n_properties": 0
+        },
+        {
+          "name": "CDComment",
+          "cd": "meta",
+          "description": "This symbol is used to represent the element of a content dictionary which explains some aspect of that content dictionary. It should have one string argument which makes that explanation.",
+          "n_properties": 0
+        },
+        {
+          "name": "CDUses",
+          "cd": "meta",
+          "description": "An element which contains zero or more CDNames which correspond to the CDs that this CD depends on, i.e. uses in examples and FMPs. If the CD is dependent on any other CDs they may be present here.",
+          "n_properties": 0
+        },
+        {
+          "name": "Description",
+          "cd": "meta",
+          "description": "An element which contains a string corresponding to the description of either the CD or the symbol (depending on which is the enclosing element).",
+          "n_properties": 0
+        },
+        {
+          "name": "Name",
+          "cd": "meta",
+          "description": "An element containing the string corresponding to the name of the symbol being defined. This must match the syntax for symbol names given in the OpenMath Standard. Here and elsewhere white space occurring at the begining or end of the string will be ignored.",
+          "n_properties": 0
+        },
+        {
+          "name": "Role",
+          "cd": "meta",
+          "description": "An element containing the string corresponding to the role of the symbol being defined.",
+          "n_properties": 0
+        },
+        {
+          "name": "CMP",
+          "cd": "meta",
+          "description": "An optional element (which may be repeated many times) which contains a string corresponding to a property of the symbol being defined.",
+          "n_properties": 0
+        },
+        {
+          "name": "FMP",
+          "cd": "meta",
+          "description": "An optional element which contains an OpenMath Object. This corresponds to a property of the symbol being defined.",
+          "n_properties": 0
+        }
+      ],
+      "sample_equations": []
+    },
+    {
+      "domain": "scscp1",
+      "cds": [
+        "scscp1"
+      ],
+      "symbol_count": 17,
+      "property_count": 0,
+      "symbols": [
+        {
+          "name": "procedure_call",
+          "cd": "scscp1",
+          "description": "The actual procedure call. Its only argument is an OpenMath Application, whose head symbol describes the procedure to be called, and whose arguments are the arguments to the procedure.",
+          "n_properties": 0
+        },
+        {
+          "name": "procedure_completed",
+          "cd": "scscp1",
+          "description": "The result of a successful computation. Should come along with a call_id and, possibly, some extra information.",
+          "n_properties": 0
+        },
+        {
+          "name": "procedure_terminated",
+          "cd": "scscp1",
+          "description": "The result of a failed computation. Should come along with a call_id, an error description, and possibly some extra information.",
+          "n_properties": 0
+        },
+        {
+          "name": "call_id",
+          "cd": "scscp1",
+          "description": "Uniquely identifies a procedure call. Used in subsequent communication, so the parties know which call they are talking about.",
+          "n_properties": 0
+        },
+        {
+          "name": "option_max_memory",
+          "cd": "scscp1",
+          "description": "An option, to be given along with a procedure call, describing the maximum amount of memory (in bytes) the system should spend on this call.",
+          "n_properties": 0
+        },
+        {
+          "name": "option_min_memory",
+          "cd": "scscp1",
+          "description": "An option, to be given along with a procedure call, describing the minimum amount of memory (in bytes) the system should be able to spend on this call. The idea is that in certain cases we know in advance that we will need a large amount of memory. If the system will never be able to provide that, it would be a waste of time and resources to even start the computation.",
+          "n_properties": 0
+        },
+        {
+          "name": "option_runtime",
+          "cd": "scscp1",
+          "description": "An option, to be given along with a procedure call, describing the maximum amount of time (in milliseconds) the system should spend on this call.",
+          "n_properties": 0
+        },
+        {
+          "name": "option_debuglevel",
+          "cd": "scscp1",
+          "description": "An option, to be given along with a procedure call, describing the amount of debug information the client is interested in. Should be an integer.",
+          "n_properties": 0
+        },
+        {
+          "name": "option_return_cookie",
+          "cd": "scscp1",
+          "description": "An option, to be given along with a procedure call, indicating that the client would like to have a cookie (i.e. a reference to an OpenMath object residing somewhere) as return value.",
+          "n_properties": 0
+        },
+        {
+          "name": "option_return_object",
+          "cd": "scscp1",
+          "description": "An option, to be given along with a procedure call, indicating that the client would like to have the actual OpenMath object as return value.",
+          "n_properties": 0
+        },
+        {
+          "name": "option_return_nothing",
+          "cd": "scscp1",
+          "description": "An option, to be given along with a procedure call, indicating that the client expects no return value.",
+          "n_properties": 0
+        },
+        {
+          "name": "info_memory",
+          "cd": "scscp1",
+          "description": "A piece of information from the system, to be used along with a procedure_completed or procedure_terminated message, describing how much memory was spent on the calculation. It should be in bytes, denoted using an OMI.",
+          "n_properties": 0
+        },
+        {
+          "name": "info_runtime",
+          "cd": "scscp1",
+          "description": "A piece of information from the system, to be used along with a procedure_completed or procedure_terminated message, describing how much cputime was spent on the calculation. It should be in milliseconds, denoted using an OMI.",
+          "n_properties": 0
+        },
+        {
+          "name": "info_message",
+          "cd": "scscp1",
+          "description": "A piece of information from the server, to be used along with a procedure_completed or procedure_terminated message, giving some additional information. The client may choose to present this information to its user. The argument is an OMSTR.",
+          "n_properties": 0
+        },
+        {
+          "name": "error_memory",
+          "cd": "scscp1",
+          "description": "A description of the error that caused a procedure call to be terminated. This symbol is used with a procedure_terminated, when the system exceeded the amount of memory specified in the option_max_memory option given in the corresponding procedure call. It carries one argument: An OMSTR, which may be empty.",
+          "n_properties": 0
+        },
+        {
+          "name": "error_runtime",
+          "cd": "scscp1",
+          "description": "A description of the error that caused a procedure call to be terminated. This symbol is used with a procedure_terminated, when the system exceeded the runtime specified in the option_runtime option given in the corresponding procedure call. It carries one argument: An OMSTR, which may be empty. Note that this symbol is not intended to be used when a different runtime error occurred. In those cases, one should use error_system_specific.",
+          "n_properties": 0
+        },
+        {
+          "name": "error_system_specific",
+          "cd": "scscp1",
+          "description": "A description of the error that caused a procedure call to be terminated. This symbol is used with a procedure_terminated, when the error is specific to the system that carried out the calculation. This error must carry exactly one argument, and it must be an OMSTR describing the error that occurred.",
+          "n_properties": 0
+        }
+      ],
+      "sample_equations": []
+    },
+    {
       "domain": "函数 Functions",
       "cds": [
         "fns1",
@@ -467,6 +699,101 @@
           "cd": "fns2",
           "description": "This symbol represents a function forming the right-composition of its two functional arguments.",
           "n_properties": 1
+        }
+      ],
+      "sample_equations": []
+    },
+    {
+      "domain": "scscp2",
+      "cds": [
+        "scscp2"
+      ],
+      "symbol_count": 14,
+      "property_count": 0,
+      "symbols": [
+        {
+          "name": "store_session",
+          "cd": "scscp2",
+          "description": "This indicates the request to store an object on the server side (possibly after computing or simplifying it), returning only a cookie (actually, OM reference) pointing to an object that is usable (using an OMR) in the remainder of the current SCSCP session to get access to the actual object.",
+          "n_properties": 0
+        },
+        {
+          "name": "store_persistent",
+          "cd": "scscp2",
+          "description": "This indicates the request to store an object on the server side (possibly after computing or simplifying it), returning only a cookie (actually, OM reference) pointing to an object that is usable (using OMR) in the foreseeable future, possibly from different sessions, to get access to the actual object. The server is encouraged to describe the expected lifetime of this object and whether references to this object from different SCSCP sessions are allowed in the response to a scscp2.get_signature request on this symbol. However, at this time we provide no automated or machine-readable mechanism for handling these lifetimes.",
+          "n_properties": 0
+        },
+        {
+          "name": "retrieve",
+          "cd": "scscp2",
+          "description": "Using the cookie that was obtained earlier by calling the scscp2.store_session or scscp2.store_persistent procedure or another procedure call, return to the client an OM object representing the object, referred by the cookie.",
+          "n_properties": 0
+        },
+        {
+          "name": "unbind",
+          "cd": "scscp2",
+          "description": "This indicates the request to remove the object, referred by the cookie, from the server.",
+          "n_properties": 0
+        },
+        {
+          "name": "get_allowed_heads",
+          "cd": "scscp2",
+          "description": "This symbol is used to find the list of procedures supported by an SCSCP server.",
+          "n_properties": 0
+        },
+        {
+          "name": "is_allowed_head",
+          "cd": "scscp2",
+          "description": "This symbol is used to find whether a particular procedure is supported by an SCSCP server. The reply must be either true or false, described in one of the appropriate symbols from the logic1 content dictionary.",
+          "n_properties": 0
+        },
+        {
+          "name": "get_transient_cd",
+          "cd": "scscp2",
+          "description": "This symbol is used to get the contents of a transient CD created by a server.",
+          "n_properties": 0
+        },
+        {
+          "name": "get_signature",
+          "cd": "scscp2",
+          "description": "A symbol for the client to inquire about the signature of a particular function.",
+          "n_properties": 0
+        },
+        {
+          "name": "get_service_description",
+          "cd": "scscp2",
+          "description": "A symbol for the client to ask for some description of a service. Note that this is a very generic description of the service running on a particular port on a particular machine. More details about for example the available symbols there may be obtained with get_allowed_heads, get_signature or get_transient_cd.",
+          "n_properties": 0
+        },
+        {
+          "name": "signature",
+          "cd": "scscp2",
+          "description": "The symbol to use for describing the types of arguments of a particular function.",
+          "n_properties": 0
+        },
+        {
+          "name": "service_description",
+          "cd": "scscp2",
+          "description": "The symbol for the server to use in a response to scscp2.get_service_description. It takes three OMSTR arguments: Name, Version, and Description.",
+          "n_properties": 0
+        },
+        {
+          "name": "symbol_set",
+          "cd": "scscp2",
+          "description": "This symbol is used in the reply to a scscp2.get_allowed_heads call. It should be the head of an OM Application, the contents of the OMA being arbitrarily many OM Symbols (meaning that a particular symbol is supported), OMA's with head meta.CDName (meaning that all symbols of a particular CD are supported) or OMA's with head meta.CDGroupName (meaning that all symbols of all CDs of a particular CD group are supported). See the example at scscp2.get_allowed_heads.",
+          "n_properties": 0
+        },
+        {
+          "name": "symbol_set_all",
+          "cd": "scscp2",
+          "description": "This symbol is used in the reply to a scscp2.get_signature message. It means that this particular service takes any OpenMath object as argument.",
+          "n_properties": 0
+        },
+        {
+          "name": "no_such_transient_cd",
+          "cd": "scscp2",
+          "description": "Used for errors that arise when the client asks for a transient cd that the server cannot handle.",
+          "n_properties": 0
         }
       ],
       "sample_equations": []
@@ -651,6 +978,89 @@
       ]
     },
     {
+      "domain": "mathmltypes",
+      "cds": [
+        "mathmltypes"
+      ],
+      "symbol_count": 12,
+      "property_count": 0,
+      "symbols": [
+        {
+          "name": "type",
+          "cd": "mathmltypes",
+          "description": "A symbol to be used within an OpenMath attribute to specify the type of the object.",
+          "n_properties": 0
+        },
+        {
+          "name": "integer_type",
+          "cd": "mathmltypes",
+          "description": "A symbol to be used as the argument of the type symbol to convey the type of an integer.",
+          "n_properties": 0
+        },
+        {
+          "name": "real_type",
+          "cd": "mathmltypes",
+          "description": "A symbol to be used as the argument of the type symbol to convey the type of a real number.",
+          "n_properties": 0
+        },
+        {
+          "name": "rational_type",
+          "cd": "mathmltypes",
+          "description": "A symbol to be used as the argument of the type symbol to convey the type of a rational number.",
+          "n_properties": 0
+        },
+        {
+          "name": "complex_cartesian_type",
+          "cd": "mathmltypes",
+          "description": "A symbol to be used as the argument of the type symbol to convey the type of a complex number specified in terms of its real and imaginary parts.",
+          "n_properties": 0
+        },
+        {
+          "name": "complex_polar_type",
+          "cd": "mathmltypes",
+          "description": "A symbol to be used as the argument of the type symbol to convey the type of a complex number specified in terms of its modulus and argument.",
+          "n_properties": 0
+        },
+        {
+          "name": "constant_type",
+          "cd": "mathmltypes",
+          "description": "A symbol to be used as the argument of the type symbol to convey a type for the common constants, pi ~= 3.1415, e ~= 2.718, i = square root of -1, gamma ~= .5772, NaN, infinity (all in the nums cd), true and false (in the logic cd). Also for MathML variables declared to have type constant, as in <ci type=\"constant\">x</ci>.",
+          "n_properties": 0
+        },
+        {
+          "name": "vector_type",
+          "cd": "mathmltypes",
+          "description": "A symbol to be used as the argument of the type symbol to convey the type of a (column) vector, an n-tuple of entries.",
+          "n_properties": 0
+        },
+        {
+          "name": "list_type",
+          "cd": "mathmltypes",
+          "description": "A symbol to be used as the argument of the type symbol to convey the type for a list.",
+          "n_properties": 0
+        },
+        {
+          "name": "set_type",
+          "cd": "mathmltypes",
+          "description": "A symbol to be used as the argument of the type symbol to convey the type for a set.",
+          "n_properties": 0
+        },
+        {
+          "name": "matrix_type",
+          "cd": "mathmltypes",
+          "description": "A symbol to be used as the argument of the type symbol to convey the type for a matrix (n tuple of rows, where each row is an m tuple for some m, it should be noted that each row must be the same length).",
+          "n_properties": 0
+        },
+        {
+          "name": "fn_type",
+          "cd": "mathmltypes",
+          "description": "A symbol to be used as the argument of the type symbol to convey the type for a function name.",
+          "n_properties": 0
+        }
+      ],
+      "sample_equations": []
+    },
+    {
       "domain": "微积分 Calculus",
       "cds": [
         "calculus1",
@@ -806,6 +1216,162 @@
       "sample_equations": []
     },
     {
+      "domain": "relation3",
+      "cds": [
+        "relation3"
+      ],
+      "symbol_count": 11,
+      "property_count": 8,
+      "symbols": [
+        {
+          "name": "is_relation",
+          "cd": "relation3",
+          "description": "This symbol is a boolean function of two arguments, S and R. The first argument should be a set. When applied to S and R, the function returns true if and only if the second argument is a subset of the Cartesian product of S with itself.",
+          "n_properties": 1
+        },
+        {
+          "name": "equivalence_closure",
+          "cd": "relation3",
+          "description": "This symbol represents a binary function whose first argument is a set S, whose second argument is a relation R on S. When applied to S and R, it represents the smallest equivalence relation (with respect to inclusion) on S containing R.",
+          "n_properties": 0
+        },
+        {
+          "name": "transitive_closure",
+          "cd": "relation3",
+          "description": "This symbol represents a binary function whose first argument is a set S, whose second argument is a relation R on S. When applied to S and R, it represents the smallest transitive relation (with respect to inclusion) on S containing R.",
+          "n_properties": 0
+        },
+        {
+          "name": "reflexive_closure",
+          "cd": "relation3",
+          "description": "This symbol represents a binary function whose first argument is a set S, whose second argument is a relation R on S. When applied to S and R, it represents the smallest reflexive relation (with respect to inclusion) on S containing R.",
+          "n_properties": 0
+        },
+        {
+          "name": "symmetric_closure",
+          "cd": "relation3",
+          "description": "This symbol represents a binary function whose first argument is a set S, whose second argument is a relation R on S. When applied to S and R, it represents the smallest symmetric relation (with respect to inclusion) on S containing R.",
+          "n_properties": 0
+        },
+        {
+          "name": "is_transitive",
+          "cd": "relation3",
+          "description": "This symbol represents the boolean binary function which returns true if and only if the second argument is a transitive relation on the first.",
+          "n_properties": 1
+        },
+        {
+          "name": "is_reflexive",
+          "cd": "relation3",
+          "description": "This symbol represents the boolean binary function which returns true if and only if the second argument is a reflexive relation on the first.",
+          "n_properties": 1
+        },
+        {
+          "name": "is_symmetric",
+          "cd": "relation3",
+          "description": "This symbol represents the boolean binary function which returns true if and only if the second argument is a symmetric relation on the first.",
+          "n_properties": 1
+        },
+        {
+          "name": "is_equivalence",
+          "cd": "relation3",
+          "description": "This symbol represents the boolean binary function which returns true if and only if the second argument is an equivalence relation on the first.",
+          "n_properties": 1
+        },
+        {
+          "name": "class",
+          "cd": "relation3",
+          "description": "This symbol represents a ternary function whose first argument is a set S, whose second argument is a relation R on S, and whose third argument is an element a of S. When applied to S, R, and a, it represents the set of all elements in S related to a by R, that is, the set {b in S | (a,b) in R}.",
+          "n_properties": 1
+        },
+        {
+          "name": "classes",
+          "cd": "relation3",
+          "description": "This symbol represents a binary function whose first argument is a set S, whose second argument is a relation R on S. When applied to S and R, it represents the set of all elements in S of the form class(S,R,a) for a in S.",
+          "n_properties": 2
+        }
+      ],
+      "sample_equations": [
+        "class(S,R,a) = {b in S | (a,b) in R}."
+      ]
+    },
+    {
+      "domain": "sts",
+      "cds": [
+        "sts"
+      ],
+      "symbol_count": 11,
+      "property_count": 0,
+      "symbols": [
+        {
+          "name": "type",
+          "cd": "sts",
+          "description": "A symbol to be used within an OpenMath attribute to specify the type of the object.",
+          "n_properties": 0
+        },
+        {
+          "name": "mapsto",
+          "cd": "sts",
+          "description": "This symbol represents the construction of a function type. The first n-1 children denote the types of the arguments, the last denotes the return type.",
+          "n_properties": 0
+        },
+        {
+          "name": "nary",
+          "cd": "sts",
+          "description": "Constructs a child of mapsto which denotes an arbitrary number of copies of the argument of nary.",
+          "n_properties": 0
+        },
+        {
+          "name": "nassoc",
+          "cd": "sts",
+          "description": "Constructs a child of mapsto which denotes an arbitrary number of copies of the argument of nassoc. The operator is associative on these arguments which means that repeated uses may be flattened/unflattened.",
+          "n_properties": 0
+        },
+        {
+          "name": "error",
+          "cd": "sts",
+          "description": "The error symbol is the 'return type' of error symbols in the error signature file.",
+          "n_properties": 0
+        },
+        {
+          "name": "structure",
+          "cd": "sts",
+          "description": "The structure element is used to represent a structure of a particular (algebraic) type.",
+          "n_properties": 0
+        },
+        {
+          "name": "binder",
+          "cd": "sts",
+          "description": "An `OMBIND' object has three parts: a \"binder\" such as \"lambda\" or \"for all\", a (list of) bound variables, and an expression. The use of `binder' in a signature indicates that we are describing something which can only be used as the first child of an OMBIND construct.",
+          "n_properties": 0
+        },
+        {
+          "name": "attribution",
+          "cd": "sts",
+          "description": "An `attribution' object consists of pairs of keys and values. The use of the symbol `attribution' in a signature indicates that the symbol is to be used as a key.",
+          "n_properties": 0
+        },
+        {
+          "name": "Object",
+          "cd": "sts",
+          "description": "Denotes any OpenMath object.",
+          "n_properties": 0
+        },
+        {
+          "name": "NumericalValue",
+          "cd": "sts",
+          "description": "Denotes an OpenMath object that is to be thought of as something that represents a numerical value, or a numerical value.",
+          "n_properties": 0
+        },
+        {
+          "name": "SetNumericalValue",
+          "cd": "sts",
+          "description": "Denotes an OpenMath object that is to be thought of as something that represents a set of numerical values, or a set of numerical values.",
+          "n_properties": 0
+        }
+      ],
+      "sample_equations": []
+    },
+    {
       "domain": "线性代数 Linear Algebra",
       "cds": [
         "linalg1",
@@ -872,6 +1438,77 @@
           "name": "matrix",
           "cd": "linalg2",
           "description": "This symbol is an n-ary matrix constructor which requires matrixrow's as arguments. It is used to represent matrices.",
+          "n_properties": 0
+        }
+      ],
+      "sample_equations": []
+    },
+    {
+      "domain": "metagrp",
+      "cds": [
+        "metagrp"
+      ],
+      "symbol_count": 10,
+      "property_count": 0,
+      "symbols": [
+        {
+          "name": "CDGroupName",
+          "cd": "metagrp",
+          "description": "This symbol represents the element of a CDGroup which describes the name of that CDGroup, it has one argument that should be a string corresponding to the name. The syntactical requirements are given in the OpenMath standard.",
+          "n_properties": 0
+        },
+        {
+          "name": "CDGroupVersion",
+          "cd": "metagrp",
+          "description": "",
+          "n_properties": 0
+        },
+        {
+          "name": "CDGroupURL",
+          "cd": "metagrp",
+          "description": "This symbol represents the element of a CDGroup which describes the CDGroupURL element. It has one string argument which should describe the URL for that CDGroup, not necessarily for the member Content Dictionaries, The syntactical requirements are given in the OpenMath standard.",
+          "n_properties": 0
+        },
+        {
+          "name": "CDGroupDescription",
+          "cd": "metagrp",
+          "description": "This symbol represents the element of a CDGroup which describes the CDGroupDescription element. It has one string argument, this should be the contents of the CDGroupDescription element intended to describe the mathematical area of the CDGroup.",
+          "n_properties": 0
+        },
+        {
+          "name": "CDComment",
+          "cd": "metagrp",
+          "description": "This symbol is used to represent the element of a CDGroup which explains some aspect of the corresponding content dictionary. It should have one string argument which makes that explanation.",
+          "n_properties": 0
+        },
+        {
+          "name": "CDGroupMember",
+          "cd": "metagrp",
+          "description": "This symbol represents the element of a CDGroup which describes each CDGroupMember element. It has one string argument, this should be the contents of the intended CDGroupMember element of the CDGroup. This should be used to identify each member of the CDGroup.",
+          "n_properties": 0
+        },
+        {
+          "name": "CDName",
+          "cd": "metagrp",
+          "description": "This symbol represents the element of a CDGroup which describes each CDName element. It has one string argument, this should be the string corresponding to the name of a content dictionary which is in this CDGroup.",
+          "n_properties": 0
+        },
+        {
+          "name": "CDVersion",
+          "cd": "metagrp",
+          "description": "This symbol represents the element of a CDGroup which describes each CDVersion element. It has one integral argument, this should specify which version of the content dictionary is to be taken as member of the CDGroup. The element is optional. In case it is missing, the last version is the one included in the CDGroup.",
+          "n_properties": 0
+        },
+        {
+          "name": "CDURL",
+          "cd": "metagrp",
+          "description": "This symbol represents the element of a CDGroup which describes each CDURL element. It has one string argument, this should be the string corresponding to the contents of the CDURL element for each Content Dictionary in the CDGroup. The element is optional, in case it is missing, the location of the CDGroup identified by the element CDGroupURL is assumed.",
+          "n_properties": 0
+        },
+        {
+          "name": "CDGroup",
+          "cd": "metagrp",
+          "description": "This symbol represents the outermost element of a CDGroup. It has an arbitrary number of arguments which may be elements of type corresponding to the other symbols defined in this file.",
           "n_properties": 0
         }
       ],
@@ -946,6 +1583,59 @@
       ]
     },
     {
+      "domain": "interval1",
+      "cds": [
+        "interval1"
+      ],
+      "symbol_count": 7,
+      "property_count": 0,
+      "symbols": [
+        {
+          "name": "integer_interval",
+          "cd": "interval1",
+          "description": "A symbol to denote a discrete 1 dimensional interval from the first argument to the second (inclusive), where the discretisation occurs at unit intervals. The arguments are the start and the end points of the interval in that order.",
+          "n_properties": 0
+        },
+        {
+          "name": "interval",
+          "cd": "interval1",
+          "description": "A symbol to denote a continuous 1-dimensional interval without any information about the character of the end points (used in definite integration). The arguments are the start and the end points of the interval in that order.",
+          "n_properties": 0
+        },
+        {
+          "name": "oriented_interval",
+          "cd": "interval1",
+          "description": "A symbol to denote a continuous 1-dimensional interval without any information about the character of the end points (used in definite integration). The arguments are the start and the end points of the integration, in either order.",
+          "n_properties": 0
+        },
+        {
+          "name": "interval_oo",
+          "cd": "interval1",
+          "description": "A symbol to denote a continuous 1-dimensional interval with both end points excluded from the interval. The arguments are the start and the end points of the interval in that order.",
+          "n_properties": 0
+        },
+        {
+          "name": "interval_cc",
+          "cd": "interval1",
+          "description": "A symbol to denote a continuous 1-dimensional interval with both end points included in the interval. The arguments are the start and the end points of the interval in that order.",
+          "n_properties": 0
+        },
+        {
+          "name": "interval_oc",
+          "cd": "interval1",
+          "description": "A symbol to denote a continuous 1-dimensional interval with the first point excluded from the interval, but the last included. The arguments are the start and the end points of the interval in that order.",
+          "n_properties": 0
+        },
+        {
+          "name": "interval_co",
+          "cd": "interval1",
+          "description": "A symbol to denote a continuous 1-dimensional interval with the first point included in the interval, but the last excluded. The arguments are the start and the end points of the interval in that order.",
+          "n_properties": 0
+        }
+      ],
+      "sample_equations": []
+    },
+    {
       "domain": "复数 Complex Numbers",
       "cds": [
         "complex1"
@@ -988,6 +1678,53 @@
           "cd": "complex1",
           "description": "A unary operator representing the complex conjugate of its argument.",
           "n_properties": 1
+        }
+      ],
+      "sample_equations": []
+    },
+    {
+      "domain": "mathmlattr",
+      "cds": [
+        "mathmlattr"
+      ],
+      "symbol_count": 6,
+      "property_count": 0,
+      "symbols": [
+        {
+          "name": "class",
+          "cd": "mathmlattr",
+          "description": "A symbol to be used within an OpenMath attribute to specify the class attribute of the object. The annotation should be an OpenMath string representing the value of the class attribute.",
+          "n_properties": 0
+        },
+        {
+          "name": "style",
+          "cd": "mathmlattr",
+          "description": "A symbol to be used within an OpenMath attribute to specify the style attribute of the object. The annotation should be an OpenMath string representing the value of the style attribute.",
+          "n_properties": 0
+        },
+        {
+          "name": "definitionURL",
+          "cd": "mathmlattr",
+          "description": "A symbol to be used within an OpenMath attribute to specify the definitionURL attribute of the object. The annotation should be an OpenMath string representing the value of the definitionURL attribute.",
+          "n_properties": 0
+        },
+        {
+          "name": "other",
+          "cd": "mathmlattr",
+          "description": "A symbol to be used within an OpenMath attribute to specify the MathML \"other\" attribute of the object. The annotation should be an OpenMath string representing the value of the other attribute.",
+          "n_properties": 0
+        },
+        {
+          "name": "foreign",
+          "cd": "mathmlattr",
+          "description": "A symbol to be used within an OpenMath attribute to specify an attribute of the object. The annotation should be an quadruple of strings constructed via a head foreign_attribute.",
+          "n_properties": 0
+        },
+        {
+          "name": "foreign_attribute",
+          "cd": "mathmlattr",
+          "description": "A symbol to be used as the head of the OpenMath application to construct the object used as the value of the foreign attribution. The four arguments of this function should be OpenMath strings representing in order, the Namespace, prefix and local name and value of the MathML attribute.",
+          "n_properties": 0
         }
       ],
       "sample_equations": []
@@ -1040,6 +1777,166 @@
       "sample_equations": []
     },
     {
+      "domain": "s_data1",
+      "cds": [
+        "s_data1"
+      ],
+      "symbol_count": 6,
+      "property_count": 4,
+      "symbols": [
+        {
+          "name": "mean",
+          "cd": "s_data1",
+          "description": "This symbol represents an n-ary function denoting the mean of its arguments. That is, their sum divided by their number.",
+          "n_properties": 1
+        },
+        {
+          "name": "sdev",
+          "cd": "s_data1",
+          "description": "This symbol represents a function requiring two or more arguments, denoting the sample standard deviation of its arguments. That is, the square root of (the sum of the squares of the deviations from the mean of the arguments, divided by the number of arguments). See CRC Standard Mathematical Tables and Formulae, editor: Dan Zwillinger, CRC Press Inc., 1996, (7.7.11) section 7.7.1.",
+          "n_properties": 1
+        },
+        {
+          "name": "variance",
+          "cd": "s_data1",
+          "description": "This symbol represents a function requiring two or more arguments, denoting the variance of its arguments. That is, the square of the standard deviation.",
+          "n_properties": 1
+        },
+        {
+          "name": "mode",
+          "cd": "s_data1",
+          "description": "This symbol represents an n-ary function denoting the mode of its arguments. That is the value which occurs with the greatest frequency.",
+          "n_properties": 1
+        },
+        {
+          "name": "median",
+          "cd": "s_data1",
+          "description": "This symbol represents an n-ary function denoting the median of its arguments. That is, if the data were placed in ascending order then it denotes the middle one (in the case of an odd amount of data) or the average of the middle two (in the case of an even amount of data).",
+          "n_properties": 0
+        },
+        {
+          "name": "moment",
+          "cd": "s_data1",
+          "description": "This symbol is used to denote the i'th moment of a set of data. The first argument should be the degree of the moment (that is, for the i'th moment the first argument should be i), the second argument should be the point about which the moment is being taken and the rest of the arguments are treated as the data. For n data values x_1, x_2, ..., x_n the i'th moment about c is (1/n) ((x_1-c)^i + (x_2-c)^i + ... + (x_n-c)^i). See CRC Standard Mathematical Tables and Formulae, editor: Dan Zwillinger, CRC Press Inc., 1996, section 7.7.1.",
+          "n_properties": 0
+        }
+      ],
+      "sample_equations": []
+    },
+    {
+      "domain": "metasig",
+      "cds": [
+        "metasig"
+      ],
+      "symbol_count": 5,
+      "property_count": 0,
+      "symbols": [
+        {
+          "name": "CDSignatures",
+          "cd": "metasig",
+          "description": "This symbol is used to represent the outermost element of the Signature File which is characterized by two required attributes that identify the type system and the Content Dictionary whose signatures are defined. The value of the XML attribute 'type' is the name of the Content Dictionary or of the CDGroup that represents the type system. The value of the XML attribute 'cd' is the name of the Content Dictionary whose symbols are assigned signatures in this Signature File. It has an arbitrary number of arguments which may be elements of type corresponding to the other symbols defined in this file.",
+          "n_properties": 0
+        },
+        {
+          "name": "CDSComment",
+          "cd": "metasig",
+          "description": "This symbol is used to represent the element of a signature file which explains some aspect of that signature file. It should have one string argument which makes that explanation.",
+          "n_properties": 0
+        },
+        {
+          "name": "CDSReviewDate",
+          "cd": "metasig",
+          "description": "This symbol is used to represent the element of a signature file which specifies the earliest possible revision date of the signature file. It should have one string argument which specifies that date. The date should be in the format YYYY-MM-DD, e.g. 2000-02-29.",
+          "n_properties": 0
+        },
+        {
+          "name": "CDSStatus",
+          "cd": "metasig",
+          "description": "This symbol is used to represent the element of a signature file which specifies the status of that signature file. It should have one string argument, which should be one of 'official' (approved by the OpenMath Society according to the procedure outlined in the OpenMath standard), 'experimental' (currently being tested), 'private' (used by a private group of OpenMath users) or 'obsolete' (an obsolete signature file, kept only for archival purposes).",
+          "n_properties": 0
+        },
+        {
+          "name": "Signature",
+          "cd": "metasig",
+          "description": "This symbol is used to represent the element of a signature file which specifies the signature of a symbol. It should take two string children, the first should be the symbol who's signature is being specified, the second should be an 'OMOBJ' element which specifies the signature. Additionally the second argument should specify an object which must represent a valid type in the type system identified by the XML attribute 'type' corresponding to the element which corresponds to the symbol 'CDSignatures' enclosing this symbol.",
+          "n_properties": 0
+        }
+      ],
+      "sample_equations": []
+    },
+    {
+      "domain": "rounding1",
+      "cds": [
+        "rounding1"
+      ],
+      "symbol_count": 4,
+      "property_count": 6,
+      "symbols": [
+        {
+          "name": "ceiling",
+          "cd": "rounding1",
+          "description": "The round up (to +infinity) operation.",
+          "n_properties": 1
+        },
+        {
+          "name": "floor",
+          "cd": "rounding1",
+          "description": "The round down (to -infinity) operation.",
+          "n_properties": 1
+        },
+        {
+          "name": "trunc",
+          "cd": "rounding1",
+          "description": "The round to zero operation.",
+          "n_properties": 2
+        },
+        {
+          "name": "round",
+          "cd": "rounding1",
+          "description": "The round to nearest operation.",
+          "n_properties": 2
+        }
+      ],
+      "sample_equations": []
+    },
+    {
+      "domain": "s_dist1",
+      "cds": [
+        "s_dist1"
+      ],
+      "symbol_count": 4,
+      "property_count": 4,
+      "symbols": [
+        {
+          "name": "mean",
+          "cd": "s_dist1",
+          "description": "This symbol represents a unary function denoting the mean of a distribution. The argument is a univariate function to describe the distribution. That is, if f is the function describing the distribution. The mean is the expression integrate(x*f(x)) w.r.t. x over the range (-infinity,infinity).",
+          "n_properties": 1
+        },
+        {
+          "name": "sdev",
+          "cd": "s_dist1",
+          "description": "This symbol represents a unary function denoting the standard deviation of a distribution. The argument is a univariate function to describe the distribution. The standard deviation of a distribution is the arithmetical mean of the squares of the deviation of the distribution from the mean.",
+          "n_properties": 1
+        },
+        {
+          "name": "variance",
+          "cd": "s_dist1",
+          "description": "This symbol represents a unary function denoting the variance of a distribution. The argument is a function to describe the distribution. That is if f is the function which describes the distribution. The variance of a distribution is the square of the standard deviation of the distribution.",
+          "n_properties": 1
+        },
+        {
+          "name": "moment",
+          "cd": "s_dist1",
+          "description": "This symbol represents a ternary function to denote the i'th moment of a distribution. The first argument should be the degree of the moment (that is, for the i'th moment the first argument should be i), the second argument is the value about which the moment is to be taken and the third argument is a univariate function to describe the distribution. That is, if f is the function which describe the distribution. The i'th moment of f about a is the integral of (x-a)^i*f(x) with respect to x, over the interval (-infinity,infinity).",
+          "n_properties": 1
+        }
+      ],
+      "sample_equations": [
+        "mean(f(X)) = int(x*f(x)) w.r.t. x over the range [-infinity,infinity]"
+      ]
+    },
+    {
       "domain": "向量微积分 Vector Calculus",
       "cds": [
         "veccalc1"
@@ -1079,6 +1976,35 @@
       ]
     },
     {
+      "domain": "error",
+      "cds": [
+        "error"
+      ],
+      "symbol_count": 3,
+      "property_count": 0,
+      "symbols": [
+        {
+          "name": "unhandled_symbol",
+          "cd": "error",
+          "description": "This symbol represents the error which is raised when an application reads a symbol which is present in the mentioned content dictionary, but which it has not implemented. When receiving such a symbol, the application should act as if it had received the OpenMath error object constructed from unhandled_symbol and the unhandled symbol as in the example below.",
+          "n_properties": 0
+        },
+        {
+          "name": "unexpected_symbol",
+          "cd": "error",
+          "description": "This symbol represents the error which is raised when an application reads a symbol which is not present in the mentioned content dictionary. When receiving such a symbol, the application should act as if it had received the OpenMath error object constructed from unexpected_symbol and the unexpected symbol as in the example below.",
+          "n_properties": 0
+        },
+        {
+          "name": "unsupported_CD",
+          "cd": "error",
+          "description": "This symbol represents the error which is raised when an application reads a symbol where the mentioned content dictionary is not present. When receiving such a symbol, the application should act as if it had received the OpenMath error object constructed from unsupported_CD and the symbol from the unsupported Content Dictionary as in the example below.",
+          "n_properties": 0
+        }
+      ],
+      "sample_equations": []
+    },
+    {
       "domain": "列表与数据结构 Lists",
       "cds": [
         "list1"
@@ -1108,6 +2034,35 @@
       "sample_equations": []
     },
     {
+      "domain": "piece1",
+      "cds": [
+        "piece1"
+      ],
+      "symbol_count": 3,
+      "property_count": 0,
+      "symbols": [
+        {
+          "name": "piecewise",
+          "cd": "piece1",
+          "description": "This operator heads an expression that is being defined piecewise. Its arguments are n objects built with the piece constructor, optionally followed by one built with otherwise constructor.",
+          "n_properties": 0
+        },
+        {
+          "name": "piece",
+          "cd": "piece1",
+          "description": "This introduces an individual component of a piecewise definition. It has precisely two arguments: the first is the value, and the second is a Boolean (meant to be a predicate) which is true if and only if this piece is to provide the value of the piecewise construct.",
+          "n_properties": 0
+        },
+        {
+          "name": "otherwise",
+          "cd": "piece1",
+          "description": "This symbol introduces the 'default' value of a piecewise construct. If none of the previous piece constructs can provide the value, this will. It has a single child, the value.",
+          "n_properties": 0
+        }
+      ],
+      "sample_equations": []
+    },
+    {
       "domain": "代数结构 Algebra",
       "cds": [
         "alg1"
@@ -1129,13 +2084,85 @@
         }
       ],
       "sample_equations": []
+    },
+    {
+      "domain": "altenc",
+      "cds": [
+        "altenc"
+      ],
+      "symbol_count": 2,
+      "property_count": 0,
+      "symbols": [
+        {
+          "name": "MathML_encoding",
+          "cd": "altenc",
+          "description": "A symbol which heads a piece of MathML encoding in an attribution. The MathML encoding is an XML encoding, and the details may be found at: http://www.w3.org/Math/Overview.html",
+          "n_properties": 0
+        },
+        {
+          "name": "LaTeX_encoding",
+          "cd": "altenc",
+          "description": "A symbol which heads a piece of LaTeX encoding in an attribution.",
+          "n_properties": 0
+        }
+      ],
+      "sample_equations": []
+    },
+    {
+      "domain": "bigfloat1",
+      "cds": [
+        "bigfloat1"
+      ],
+      "symbol_count": 2,
+      "property_count": 2,
+      "symbols": [
+        {
+          "name": "bigfloat",
+          "cd": "bigfloat1",
+          "description": "The bigfloat constructor takes three arguments, a mantissa, a base and the exponent.",
+          "n_properties": 1
+        },
+        {
+          "name": "bigfloatprec",
+          "cd": "bigfloat1",
+          "description": "The bigfloat \"with precision specified in (another) radix\" constructor. Takes 3 arguments, the first argument is a floating point number constructed with the bigfloat constructor, the second is the new radix, whilst the third specifies how many digits are significant.",
+          "n_properties": 1
+        }
+      ],
+      "sample_equations": [
+        "bigfloat(m,r,e)=m*r^e",
+        "bigfloatprec(f,r,p)=f However, if converted to radix r, only p digits in that radix are significant. This usually means that it originated in radix r, and has since (e.g. for display purposes) been converted into its current radix. For exposition, f = m*r^e."
+      ]
+    },
+    {
+      "domain": "quant1",
+      "cds": [
+        "quant1"
+      ],
+      "symbol_count": 2,
+      "property_count": 0,
+      "symbols": [
+        {
+          "name": "forall",
+          "cd": "quant1",
+          "description": "This symbol represents the universal (\"for all\") quantifier which takes two arguments. It must be placed within an OMBIND element. The first argument is the bound variables (placed within an OMBVAR element), and the second is an expression.",
+          "n_properties": 0
+        },
+        {
+          "name": "exists",
+          "cd": "quant1",
+          "description": "This symbol represents the existential (\"there exists\") quantifier which takes two arguments. It must be placed within an OMBIND element. The first argument is the bound variables (placed within an OMBVAR element), and the second is an expression.",
+          "n_properties": 0
+        }
+      ],
+      "sample_equations": []
     }
   ],
   "totals": {
-    "cds": 20,
-    "symbols": 157,
-    "properties": 155,
-    "equations_analyzed": 28
+    "cds": 38,
+    "symbols": 294,
+    "properties": 179,
+    "equations_analyzed": 32
   },
   "papers_summary": {
     "total": 32,

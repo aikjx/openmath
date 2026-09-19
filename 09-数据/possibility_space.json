@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "generated_by": "06-AI自动化/01-工作流/openmath_coalition.py",
+    "generated_at": "2026-09-19T10:59:55",
+    "provenance": {
+      "ai_assisted": true,
+      "note": "由 AI 代理基于 openmath_sys 引擎与已下载 OpenMath/arXiv 数据自动生成，未经人类复核，不得作为 L3+ 证据。"
+    },
+    "honesty": "本系列文件为 L0/L2 级数据处理与计算校验产物，非证明。方法实现状态、成本估计、覆盖率均为工程性评估，不构成数学结论。",
+    "interpretation_warning": "**组合空间 ≠ 能力**。下列计数是'从 n 个可实现方法中排成有序管道'的纯组合学事实（Σ_{k=1..n} P(n,k)），它随 n 阶乘式增长，但其中**绝大多数排列没有数学意义**（例如'求根→解析'是无语义的）。真正的解题能力取决于方法的**覆盖面与正确性**，不取决于排列数。因此这里同时给出语义约束后的保守上界，供对比。"
+  },
+  "current": {
+    "implemented_methods": 14,
+    "orchestration_layer_members": 6,
+    "nominal_pipeline_space": 236975164804,
+    "semantically_valid_upper_bound": 468,
+    "starters": 3,
+    "endings": 6,
+    "middles": 5,
+    "ratio_nominal_to_valid": 506357189.8,
+    "caliber_note": "组合空间仅基于能力层已实现的 14 个数学方法计算；编排层 6 个成员是固定管道骨架（解析/转发/汇总），不参与排列。"
+  },
+  "growth_if_implemented": [
+    {
+      "extra_implemented": 0,
+      "available_methods": 14,
+      "nominal_pipeline_space": 236975164804
+    },
+    {
+      "extra_implemented": 3,
+      "available_methods": 17,
+      "nominal_pipeline_space": 966858672404689
+    },
+    {
+      "extra_implemented": 5,
+      "available_methods": 19,
+      "nominal_pipeline_space": 330665665962403999
+    },
+    {
+      "extra_implemented": 10,
+      "available_methods": 24,
+      "nominal_pipeline_space": 1686553615927922354187744
+    },
+    {
+      "extra_implemented": 20,
+      "available_methods": 34,
+      "nominal_pipeline_space": 802525952794456998100845719437321898884
+    }
+  ]
+}

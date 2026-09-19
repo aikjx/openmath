@@ -1,0 +1,356 @@
+{
+  "meta": {
+    "generated_by": "06-AI自动化/01-工作流/openmath_coalition.py",
+    "generated_at": "2026-09-19T10:59:55",
+    "provenance": {
+      "ai_assisted": true,
+      "note": "由 AI 代理基于 openmath_sys 引擎与已下载 OpenMath/arXiv 数据自动生成，未经人类复核，不得作为 L3+ 证据。"
+    },
+    "honesty": "本系列文件为 L0/L2 级数据处理与计算校验产物，非证明。方法实现状态、成本估计、覆盖率均为工程性评估，不构成数学结论。",
+    "scoring_note": "priority_score = demand / cost_estimate。demand = 该方法出现在多少条未解猜想的'缺失方法'清单中（客观，来自 method_system.linkage）；cost_estimate = 1..5 的**主观启发式估计**，非实测工时，仅用于相对排序。两者相除得到的分数只表示'性价比排序'，不代表投入产出承诺。",
+    "coverage_note": "avg_direction_coverage 是**方向覆盖率**（有多少适用的方法真正可用），**不是猜想的解决率**。方法可用 ≠ 猜想被证明；can_resolve 在本体系中恒不因实现方法而自动置真。"
+  },
+  "summary": {
+    "missing_methods_scored": 20,
+    "with_demand": 13,
+    "with_zero_demand": 7,
+    "coverage_now": 0.3712,
+    "coverage_if_top5": 0.5455,
+    "coverage_if_all": 1.0
+  },
+  "roadmap": [
+    {
+      "id": "numeric_zero_search",
+      "name": "数值零点搜索",
+      "domain": "解析数论",
+      "tier": "COMPUTE",
+      "demand": 1,
+      "unlocks_conjectures": [
+        "RH"
+      ],
+      "cost_estimate": 3,
+      "priority_score": 0.3333
+    },
+    {
+      "id": "complexity_reduction",
+      "name": "复杂性归约",
+      "domain": "计算复杂性",
+      "tier": "COMPUTE",
+      "demand": 1,
+      "unlocks_conjectures": [
+        "PNP"
+      ],
+      "cost_estimate": 4,
+      "priority_score": 0.25
+    },
+    {
+      "id": "random_matrix_analogy",
+      "name": "随机矩阵类比",
+      "domain": "解析数论/数学物理",
+      "tier": "READ",
+      "demand": 1,
+      "unlocks_conjectures": [
+        "RH"
+      ],
+      "cost_estimate": 4,
+      "priority_score": 0.25
+    },
+    {
+      "id": "circle_method",
+      "name": "圆法",
+      "domain": "解析数论",
+      "tier": "READ",
+      "demand": 1,
+      "unlocks_conjectures": [
+        "GC"
+      ],
+      "cost_estimate": 5,
+      "priority_score": 0.2
+    },
+    {
+      "id": "elliptic_curve_computation",
+      "name": "椭圆曲线计算",
+      "domain": "代数几何/数论",
+      "tier": "TRANSFORM",
+      "demand": 1,
+      "unlocks_conjectures": [
+        "BSD"
+      ],
+      "cost_estimate": 5,
+      "priority_score": 0.2
+    },
+    {
+      "id": "l_function_evaluation",
+      "name": "L 函数求值",
+      "domain": "解析数论",
+      "tier": "COMPUTE",
+      "demand": 1,
+      "unlocks_conjectures": [
+        "BSD"
+      ],
+      "cost_estimate": 5,
+      "priority_score": 0.2
+    },
+    {
+      "id": "cohomology_computation",
+      "name": "上同调计算",
+      "domain": "代数几何",
+      "tier": "TRANSFORM",
+      "demand": 1,
+      "unlocks_conjectures": [
+        "HODGE"
+      ],
+      "cost_estimate": 5,
+      "priority_score": 0.2
+    },
+    {
+      "id": "pde_numerical_simulation",
+      "name": "PDE 数值模拟",
+      "domain": "偏微分方程",
+      "tier": "TRANSFORM",
+      "demand": 1,
+      "unlocks_conjectures": [
+        "NS"
+      ],
+      "cost_estimate": 5,
+      "priority_score": 0.2
+    },
+    {
+      "id": "energy_estimate",
+      "name": "能量估计",
+      "domain": "偏微分方程",
+      "tier": "TRANSFORM",
+      "demand": 1,
+      "unlocks_conjectures": [
+        "NS"
+      ],
+      "cost_estimate": 5,
+      "priority_score": 0.2
+    },
+    {
+      "id": "algebraic_complexity",
+      "name": "代数复杂性(GCT)",
+      "domain": "计算复杂性",
+      "tier": "TRANSFORM",
+      "demand": 1,
+      "unlocks_conjectures": [
+        "PNP"
+      ],
+      "cost_estimate": 5,
+      "priority_score": 0.2
+    },
+    {
+      "id": "lattice_qcd_numeric",
+      "name": "格点数值模拟",
+      "domain": "数学物理",
+      "tier": "COMPUTE",
+      "demand": 1,
+      "unlocks_conjectures": [
+        "YM"
+      ],
+      "cost_estimate": 5,
+      "priority_score": 0.2
+    },
+    {
+      "id": "renormalization",
+      "name": "重整化",
+      "domain": "数学物理",
+      "tier": "COMPUTE",
+      "demand": 1,
+      "unlocks_conjectures": [
+        "YM"
+      ],
+      "cost_estimate": 5,
+      "priority_score": 0.2
+    },
+    {
+      "id": "ricci_flow_analysis",
+      "name": "Ricci 流几何化分析",
+      "domain": "几何/拓扑",
+      "tier": "COMPUTE",
+      "demand": 1,
+      "unlocks_conjectures": [
+        "POINCARE"
+      ],
+      "cost_estimate": 5,
+      "priority_score": 0.2
+    },
+    {
+      "id": "factorization",
+      "name": "因式分解",
+      "domain": "代数",
+      "tier": "TRANSFORM",
+      "demand": 0,
+      "unlocks_conjectures": [],
+      "cost_estimate": 3,
+      "priority_score": 0.0
+    },
+    {
+      "id": "gaussian_elimination",
+      "name": "高斯消元",
+      "domain": "线性代数",
+      "tier": "TRANSFORM",
+      "demand": 0,
+      "unlocks_conjectures": [],
+      "cost_estimate": 3,
+      "priority_score": 0.0
+    },
+    {
+      "id": "symbolic_diff",
+      "name": "符号微分",
+      "domain": "微积分",
+      "tier": "TRANSFORM",
+      "demand": 0,
+      "unlocks_conjectures": [],
+      "cost_estimate": 3,
+      "priority_score": 0.0
+    },
+    {
+      "id": "limit_computation",
+      "name": "极限计算",
+      "domain": "微积分",
+      "tier": "TRANSFORM",
+      "demand": 0,
+      "unlocks_conjectures": [],
+      "cost_estimate": 3,
+      "priority_score": 0.0
+    },
+    {
+      "id": "eigen_decomposition",
+      "name": "特征值/谱分解",
+      "domain": "线性代数",
+      "tier": "TRANSFORM",
+      "demand": 0,
+      "unlocks_conjectures": [],
+      "cost_estimate": 4,
+      "priority_score": 0.0
+    },
+    {
+      "id": "grobner_basis",
+      "name": "Gröbner 基",
+      "domain": "代数几何",
+      "tier": "TRANSFORM",
+      "demand": 0,
+      "unlocks_conjectures": [],
+      "cost_estimate": 5,
+      "priority_score": 0.0
+    },
+    {
+      "id": "symbolic_int",
+      "name": "符号积分",
+      "domain": "微积分",
+      "tier": "TRANSFORM",
+      "demand": 0,
+      "unlocks_conjectures": [],
+      "cost_estimate": 5,
+      "priority_score": 0.0
+    }
+  ],
+  "coverage_curve": [
+    {
+      "implemented_extra": 0,
+      "avg_direction_coverage": 0.3712,
+      "conjectures_with_all_methods": 3
+    },
+    {
+      "implemented_extra": 1,
+      "avg_direction_coverage": 0.4015,
+      "conjectures_with_all_methods": 3
+    },
+    {
+      "implemented_extra": 2,
+      "avg_direction_coverage": 0.447,
+      "conjectures_with_all_methods": 3
+    },
+    {
+      "implemented_extra": 3,
+      "avg_direction_coverage": 0.4773,
+      "conjectures_with_all_methods": 4
+    },
+    {
+      "implemented_extra": 4,
+      "avg_direction_coverage": 0.5,
+      "conjectures_with_all_methods": 5
+    },
+    {
+      "implemented_extra": 5,
+      "avg_direction_coverage": 0.5455,
+      "conjectures_with_all_methods": 5
+    },
+    {
+      "implemented_extra": 6,
+      "avg_direction_coverage": 0.5909,
+      "conjectures_with_all_methods": 6
+    },
+    {
+      "implemented_extra": 7,
+      "avg_direction_coverage": 0.6818,
+      "conjectures_with_all_methods": 7
+    },
+    {
+      "implemented_extra": 8,
+      "avg_direction_coverage": 0.7273,
+      "conjectures_with_all_methods": 7
+    },
+    {
+      "implemented_extra": 9,
+      "avg_direction_coverage": 0.7727,
+      "conjectures_with_all_methods": 8
+    },
+    {
+      "implemented_extra": 10,
+      "avg_direction_coverage": 0.8182,
+      "conjectures_with_all_methods": 9
+    },
+    {
+      "implemented_extra": 11,
+      "avg_direction_coverage": 0.8636,
+      "conjectures_with_all_methods": 9
+    },
+    {
+      "implemented_extra": 12,
+      "avg_direction_coverage": 0.9091,
+      "conjectures_with_all_methods": 10
+    },
+    {
+      "implemented_extra": 13,
+      "avg_direction_coverage": 1.0,
+      "conjectures_with_all_methods": 11
+    },
+    {
+      "implemented_extra": 14,
+      "avg_direction_coverage": 1.0,
+      "conjectures_with_all_methods": 11
+    },
+    {
+      "implemented_extra": 15,
+      "avg_direction_coverage": 1.0,
+      "conjectures_with_all_methods": 11
+    },
+    {
+      "implemented_extra": 16,
+      "avg_direction_coverage": 1.0,
+      "conjectures_with_all_methods": 11
+    },
+    {
+      "implemented_extra": 17,
+      "avg_direction_coverage": 1.0,
+      "conjectures_with_all_methods": 11
+    },
+    {
+      "implemented_extra": 18,
+      "avg_direction_coverage": 1.0,
+      "conjectures_with_all_methods": 11
+    },
+    {
+      "implemented_extra": 19,
+      "avg_direction_coverage": 1.0,
+      "conjectures_with_all_methods": 11
+    },
+    {
+      "implemented_extra": 20,
+      "avg_direction_coverage": 1.0,
+      "conjectures_with_all_methods": 11
+    }
+  ]
+}

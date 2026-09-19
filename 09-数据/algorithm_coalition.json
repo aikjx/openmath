@@ -1,0 +1,773 @@
+{
+  "meta": {
+    "generated_by": "06-AI自动化/01-工作流/openmath_coalition.py",
+    "generated_at": "2026-09-19T10:59:55",
+    "provenance": {
+      "ai_assisted": true,
+      "note": "由 AI 代理基于 openmath_sys 引擎与已下载 OpenMath/arXiv 数据自动生成，未经人类复核，不得作为 L3+ 证据。"
+    },
+    "honesty": "本系列文件为 L0/L2 级数据处理与计算校验产物，非证明。方法实现状态、成本估计、覆盖率均为工程性评估，不构成数学结论。",
+    "tier_note": "权限层级 READ<COMPUTE<TRANSFORM<SUPREME 仅为**内部逻辑授权**分级，SUPREME 不映射任何操作系统提权；safe=False 的算法在任何层级均被拒绝。"
+  },
+  "summary": {
+    "members_total": 40,
+    "implemented": 20,
+    "missing": 20,
+    "by_tier": {
+      "READ": 7,
+      "COMPUTE": 17,
+      "TRANSFORM": 16
+    },
+    "by_origin": {
+      "scheduler": 6,
+      "method_system": 34
+    },
+    "by_layer": {
+      "capability": 34,
+      "orchestration": 6
+    },
+    "unsafe_refused": 0,
+    "unique_capability_units": 37,
+    "unique_implemented": 17,
+    "duplicate_wrappers": 3,
+    "dedup_note": "调度器内置算法中有 3 个（structural_classifier, evaluator, equation_solver）是包装在方法层之上的编排适配器，本身不提供新的数学能力，故 `unique_capability_units` 已将其扣除，避免把'接口数'误报为'能力数'。"
+  },
+  "members": [
+    {
+      "id": "semantic_linker",
+      "name": "semantic_linker",
+      "origin": "scheduler",
+      "layer": "orchestration",
+      "where": "openmath_sys/scheduler.py",
+      "domain": "联盟调度",
+      "tier": "READ",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "orchestration"
+      ],
+      "wraps_capabilities": [],
+      "is_duplicate_capability": false,
+      "description": "将符号链接到 OpenMath CD 语义"
+    },
+    {
+      "id": "structural_classifier",
+      "name": "structural_classifier",
+      "origin": "scheduler",
+      "layer": "orchestration",
+      "where": "openmath_sys/scheduler.py",
+      "domain": "联盟调度",
+      "tier": "COMPUTE",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "orchestration"
+      ],
+      "wraps_capabilities": [
+        "poly_classify"
+      ],
+      "is_duplicate_capability": true,
+      "description": "结构形态分类"
+    },
+    {
+      "id": "evaluator",
+      "name": "evaluator",
+      "origin": "scheduler",
+      "layer": "orchestration",
+      "where": "openmath_sys/scheduler.py",
+      "domain": "联盟调度",
+      "tier": "COMPUTE",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "orchestration"
+      ],
+      "wraps_capabilities": [
+        "arith_eval"
+      ],
+      "is_duplicate_capability": true,
+      "description": "样本点求值"
+    },
+    {
+      "id": "consistency_checker",
+      "name": "consistency_checker",
+      "origin": "scheduler",
+      "layer": "orchestration",
+      "where": "openmath_sys/scheduler.py",
+      "domain": "联盟调度",
+      "tier": "COMPUTE",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "orchestration"
+      ],
+      "wraps_capabilities": [],
+      "is_duplicate_capability": false,
+      "description": "四维一致性检查"
+    },
+    {
+      "id": "equation_solver",
+      "name": "equation_solver",
+      "origin": "scheduler",
+      "layer": "orchestration",
+      "where": "openmath_sys/scheduler.py",
+      "domain": "联盟调度",
+      "tier": "TRANSFORM",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "orchestration"
+      ],
+      "wraps_capabilities": [
+        "linear_solve",
+        "quadratic_formula",
+        "numeric_root"
+      ],
+      "is_duplicate_capability": true,
+      "description": "方程求解（单变量多项式）"
+    },
+    {
+      "id": "report_writer",
+      "name": "report_writer",
+      "origin": "scheduler",
+      "layer": "orchestration",
+      "where": "openmath_sys/scheduler.py",
+      "domain": "联盟调度",
+      "tier": "READ",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "orchestration"
+      ],
+      "wraps_capabilities": [],
+      "is_duplicate_capability": false,
+      "description": "汇总推理结论"
+    },
+    {
+      "id": "ast_parse",
+      "name": "句法解析(AST)",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": "openmath_sys/parser.py",
+      "domain": "通用/句法",
+      "tier": "READ",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "syntax"
+      ],
+      "description": "把数学文本解析成语法树(D1 句法维度)。",
+      "limitation": "仅支持 + - * / ^ 与含参函数、比较运算符；不支持 LaTeX/积分号等高级记法。",
+      "unlocks_conjectures": []
+    },
+    {
+      "id": "arith_eval",
+      "name": "表达式求值",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": "openmath_sys/parser.py",
+      "domain": "通用/计算",
+      "tier": "COMPUTE",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "compute"
+      ],
+      "description": "代入变量数值求结果(D4 计算维度)。",
+      "limitation": "纯数值，不做符号化简。",
+      "unlocks_conjectures": []
+    },
+    {
+      "id": "transc_eval",
+      "name": "超越函数求值（三角/反三角/双曲/复数）",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": "openmath_sys/parser.py (_call_func)",
+      "domain": "超越函数",
+      "tier": "COMPUTE",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "compute"
+      ],
+      "description": "evaluate 支持 sin/cos/tan/sec/csc/cot、对应反函数与双曲/反双曲，且**复数感知**（参数为复数或实数域溢出时回落 cmath）。",
+      "limitation": "不支持 \\partial 偏导、grad/curl/laplacian 等向量分析算子；多值函数在 |z|>1 处会因主分支约定出现'虚假不符'（非反例）。",
+      "unlocks_conjectures": []
+    },
+    {
+      "id": "poly_classify",
+      "name": "方程形态分类",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": "openmath_sys/parser.py",
+      "domain": "代数",
+      "tier": "TRANSFORM",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "transform"
+      ],
+      "description": "判定 linear/quadratic/transcendental 等(D3 结构维度)。",
+      "limitation": "仅按变量次数分类，不识别更深结构（如可约性、对称性）。",
+      "unlocks_conjectures": []
+    },
+    {
+      "id": "linear_solve",
+      "name": "一元一次方程求解",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": "openmath_sys/parser.py",
+      "domain": "代数",
+      "tier": "TRANSFORM",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "transform"
+      ],
+      "description": "解形如 ax+b=0 的方程。",
+      "limitation": "仅单变量、仅一次。",
+      "unlocks_conjectures": []
+    },
+    {
+      "id": "quadratic_formula",
+      "name": "一元二次求根公式",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": "openmath_sys/parser.py",
+      "domain": "代数",
+      "tier": "TRANSFORM",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "transform"
+      ],
+      "description": "解 ax²+bx+c=0（含复数根）。",
+      "limitation": "仅单变量二次。",
+      "unlocks_conjectures": []
+    },
+    {
+      "id": "prime_sieve",
+      "name": "埃拉托斯特尼筛",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": "本脚本 (primes_upto)",
+      "domain": "数论",
+      "tier": "COMPUTE",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "analysis"
+      ],
+      "description": "求出 ≤N 的全部素数。",
+      "limitation": "受内存与时间限制，N 不能过大。",
+      "unlocks_conjectures": [
+        "GC",
+        "TPC"
+      ]
+    },
+    {
+      "id": "exhaustive_search",
+      "name": "穷举验证",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": "本脚本 (goldbach_check / collatz_check)",
+      "domain": "组合/数论",
+      "tier": "COMPUTE",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "analysis"
+      ],
+      "description": "在有限范围内逐一验证命题成立。",
+      "limitation": "只能给出有限区间内的证据，永远无法由此得到证明。",
+      "unlocks_conjectures": [
+        "ABC",
+        "COLLATZ",
+        "GC",
+        "TPC"
+      ]
+    },
+    {
+      "id": "map_iteration",
+      "name": "迭代映射",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": "本脚本 (collatz_check)",
+      "domain": "动力系统",
+      "tier": "COMPUTE",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "analysis"
+      ],
+      "description": "迭代给定映射并记录收敛性。",
+      "limitation": "长轨道需大量计算，且迭代本身不证明收敛性。",
+      "unlocks_conjectures": [
+        "COLLATZ"
+      ]
+    },
+    {
+      "id": "factorization",
+      "name": "因式分解",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": null,
+      "domain": "代数",
+      "tier": "TRANSFORM",
+      "safe": true,
+      "implemented": false,
+      "tags": [
+        "transform"
+      ],
+      "description": "把多项式分解为不可约因子。",
+      "limitation": "未实现：无符号多项式代数，导致大量 CD 恒等式无法机器处理。",
+      "unlocks_conjectures": []
+    },
+    {
+      "id": "grobner_basis",
+      "name": "Gröbner 基",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": null,
+      "domain": "代数几何",
+      "tier": "TRANSFORM",
+      "safe": true,
+      "implemented": false,
+      "tags": [
+        "transform"
+      ],
+      "description": "解多元多项式方程组的标准算法。",
+      "limitation": "未实现：这是当前求解无法覆盖多变量的关键缺失。",
+      "unlocks_conjectures": []
+    },
+    {
+      "id": "gaussian_elimination",
+      "name": "高斯消元",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": null,
+      "domain": "线性代数",
+      "tier": "TRANSFORM",
+      "safe": true,
+      "implemented": false,
+      "tags": [
+        "transform"
+      ],
+      "description": "解线性方程组、求秩。",
+      "limitation": "未实现。",
+      "unlocks_conjectures": []
+    },
+    {
+      "id": "eigen_decomposition",
+      "name": "特征值/谱分解",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": null,
+      "domain": "线性代数",
+      "tier": "TRANSFORM",
+      "safe": true,
+      "implemented": false,
+      "tags": [
+        "transform"
+      ],
+      "description": "矩阵特征值与对角化。",
+      "limitation": "未实现。",
+      "unlocks_conjectures": []
+    },
+    {
+      "id": "symbolic_diff",
+      "name": "符号微分",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": null,
+      "domain": "微积分",
+      "tier": "TRANSFORM",
+      "safe": true,
+      "implemented": false,
+      "tags": [
+        "semantic"
+      ],
+      "description": "对表达式求解析导数。",
+      "limitation": "未实现：导致 calculus1 的微分性质无法验证。",
+      "unlocks_conjectures": []
+    },
+    {
+      "id": "symbolic_int",
+      "name": "符号积分",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": null,
+      "domain": "微积分",
+      "tier": "TRANSFORM",
+      "safe": true,
+      "implemented": false,
+      "tags": [
+        "semantic"
+      ],
+      "description": "求不定/定积分的解析形式。",
+      "limitation": "未实现。",
+      "unlocks_conjectures": []
+    },
+    {
+      "id": "limit_computation",
+      "name": "极限计算",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": null,
+      "domain": "微积分",
+      "tier": "TRANSFORM",
+      "safe": true,
+      "implemented": false,
+      "tags": [
+        "analysis"
+      ],
+      "description": "解析求极限。",
+      "limitation": "未实现。",
+      "unlocks_conjectures": []
+    },
+    {
+      "id": "numeric_root",
+      "name": "数值求根",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": "openmath_sys/numeric.py",
+      "domain": "数值分析",
+      "tier": "COMPUTE",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "compute"
+      ],
+      "description": "区间扫描+二分，求任意单变量方程的数值根（超越方程亦可）。",
+      "limitation": "仅单变量；受 [lo,hi] 区间与步长限制可能漏根；结果为 L2 数值证据，非解析解、非证明。",
+      "unlocks_conjectures": []
+    },
+    {
+      "id": "numeric_zero_search",
+      "name": "数值零点搜索",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": null,
+      "domain": "解析数论",
+      "tier": "COMPUTE",
+      "safe": true,
+      "implemented": false,
+      "tags": [
+        "syntax",
+        "compute"
+      ],
+      "description": "沿临界线搜索 ζ 函数零点（如 Riemann–Siegel 公式）。",
+      "limitation": "未实现：故本流水线无法独立复核黎曼猜想的数值进展，仅能引用外部文献。",
+      "unlocks_conjectures": [
+        "RH"
+      ]
+    },
+    {
+      "id": "asymptotic_estimation",
+      "name": "渐近估计",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": "openmath_sys/numbertheory.py",
+      "domain": "解析数论",
+      "tier": "READ",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "syntax"
+      ],
+      "description": "对计数函数做渐近对照：π(x) 与 x/ln x、li(x) 的数值比较。",
+      "limitation": "**仅实现数值对照版本**：只做 π(x) 与两类近似的误差比较，**不是**一般意义下的渐近展开推导工具（不能推导新渐近式）。注意小 x 处 li 因含高阶正项反而高估更多，其优势在 x>=1000 后显现。",
+      "unlocks_conjectures": [
+        "RH",
+        "TPC"
+      ]
+    },
+    {
+      "id": "circle_method",
+      "name": "圆法",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": null,
+      "domain": "解析数论",
+      "tier": "READ",
+      "safe": true,
+      "implemented": false,
+      "tags": [
+        "syntax"
+      ],
+      "description": "Hardy–Littlewood 圆法，处理加性数论问题。",
+      "limitation": "未实现。",
+      "unlocks_conjectures": [
+        "GC"
+      ]
+    },
+    {
+      "id": "sieve_theory",
+      "name": "筛法（解析）",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": "openmath_sys/numbertheory.py",
+      "domain": "解析数论",
+      "tier": "READ",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "syntax"
+      ],
+      "description": "埃拉托斯特尼筛及其两个具体应用：哥德巴赫分拆计数、孪生素数筛。",
+      "limitation": "**仅实现基础组合筛的两个具体应用**（分拆计数/孪生素数筛）；**不是** Selberg 筛、大筛法等解析筛法理论，无法给出上界估计类结果。",
+      "unlocks_conjectures": [
+        "GC",
+        "TPC"
+      ]
+    },
+    {
+      "id": "modular_analysis",
+      "name": "模类分析",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": "openmath_sys/numbertheory.py",
+      "domain": "数论",
+      "tier": "COMPUTE",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "analysis"
+      ],
+      "description": "按剩余类统计 Collatz 轨道停止时间的分布。",
+      "limitation": "**仅实现最朴素的模类统计**（按 n mod m 分组求均值/最大值）；是描述性统计，**不提供**任何证明方向。",
+      "unlocks_conjectures": [
+        "COLLATZ"
+      ]
+    },
+    {
+      "id": "elliptic_curve_computation",
+      "name": "椭圆曲线计算",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": null,
+      "domain": "代数几何/数论",
+      "tier": "TRANSFORM",
+      "safe": true,
+      "implemented": false,
+      "tags": [
+        "transform"
+      ],
+      "description": "计算椭圆曲线的秩、挠子群等。",
+      "limitation": "未实现。",
+      "unlocks_conjectures": [
+        "BSD"
+      ]
+    },
+    {
+      "id": "l_function_evaluation",
+      "name": "L 函数求值",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": null,
+      "domain": "解析数论",
+      "tier": "COMPUTE",
+      "safe": true,
+      "implemented": false,
+      "tags": [
+        "syntax",
+        "compute"
+      ],
+      "description": "计算 L(s) 及其在临界点的导数。",
+      "limitation": "未实现。",
+      "unlocks_conjectures": [
+        "BSD"
+      ]
+    },
+    {
+      "id": "cohomology_computation",
+      "name": "上同调计算",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": null,
+      "domain": "代数几何",
+      "tier": "TRANSFORM",
+      "safe": true,
+      "implemented": false,
+      "tags": [
+        "transform"
+      ],
+      "description": "计算代数簇的上同调群。",
+      "limitation": "未实现。",
+      "unlocks_conjectures": [
+        "HODGE"
+      ]
+    },
+    {
+      "id": "pde_numerical_simulation",
+      "name": "PDE 数值模拟",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": null,
+      "domain": "偏微分方程",
+      "tier": "TRANSFORM",
+      "safe": true,
+      "implemented": false,
+      "tags": [
+        "compute"
+      ],
+      "description": "有限差分/谱方法求解 PDE。",
+      "limitation": "未实现。",
+      "unlocks_conjectures": [
+        "NS"
+      ]
+    },
+    {
+      "id": "energy_estimate",
+      "name": "能量估计",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": null,
+      "domain": "偏微分方程",
+      "tier": "TRANSFORM",
+      "safe": true,
+      "implemented": false,
+      "tags": [
+        "analysis"
+      ],
+      "description": "a priori 能量估计，用于正则性分析。",
+      "limitation": "未实现。",
+      "unlocks_conjectures": [
+        "NS"
+      ]
+    },
+    {
+      "id": "complexity_reduction",
+      "name": "复杂性归约",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": null,
+      "domain": "计算复杂性",
+      "tier": "COMPUTE",
+      "safe": true,
+      "implemented": false,
+      "tags": [
+        "compute"
+      ],
+      "description": "多项式时间归约与完备性分析。",
+      "limitation": "未实现。",
+      "unlocks_conjectures": [
+        "PNP"
+      ]
+    },
+    {
+      "id": "algebraic_complexity",
+      "name": "代数复杂性(GCT)",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": null,
+      "domain": "计算复杂性",
+      "tier": "TRANSFORM",
+      "safe": true,
+      "implemented": false,
+      "tags": [
+        "compute"
+      ],
+      "description": "几何复杂性理论路线。",
+      "limitation": "未实现。",
+      "unlocks_conjectures": [
+        "PNP"
+      ]
+    },
+    {
+      "id": "lattice_qcd_numeric",
+      "name": "格点数值模拟",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": null,
+      "domain": "数学物理",
+      "tier": "COMPUTE",
+      "safe": true,
+      "implemented": false,
+      "tags": [
+        "compute"
+      ],
+      "description": "格点 QCD 给出质量间隙的数值证据。",
+      "limitation": "未实现。",
+      "unlocks_conjectures": [
+        "YM"
+      ]
+    },
+    {
+      "id": "renormalization",
+      "name": "重整化",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": null,
+      "domain": "数学物理",
+      "tier": "COMPUTE",
+      "safe": true,
+      "implemented": false,
+      "tags": [
+        "analysis"
+      ],
+      "description": "重整化群的严格构造。",
+      "limitation": "未实现。",
+      "unlocks_conjectures": [
+        "YM"
+      ]
+    },
+    {
+      "id": "rad_computation",
+      "name": "rad 计算",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": "openmath_sys/numbertheory.py",
+      "domain": "数论",
+      "tier": "COMPUTE",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "analysis"
+      ],
+      "description": "精确计算 rad(n)（不同素因子之积），并搜索 quality>1 的 ABC 三元组。",
+      "limitation": "rad(n) 本身按定义精确实现；但 ABC 三元组搜索为**穷举**，受 c_max 上限限制，未找到更高 quality 不代表不存在。",
+      "unlocks_conjectures": [
+        "ABC"
+      ]
+    },
+    {
+      "id": "random_matrix_analogy",
+      "name": "随机矩阵类比",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": null,
+      "domain": "解析数论/数学物理",
+      "tier": "READ",
+      "safe": true,
+      "implemented": false,
+      "tags": [
+        "syntax"
+      ],
+      "description": "以随机矩阵特征值统计类比 ζ 零点分布。",
+      "limitation": "未实现。",
+      "unlocks_conjectures": [
+        "RH"
+      ]
+    },
+    {
+      "id": "ricci_flow_analysis",
+      "name": "Ricci 流几何化分析",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": null,
+      "domain": "几何/拓扑",
+      "tier": "COMPUTE",
+      "safe": true,
+      "implemented": false,
+      "tags": [
+        "analysis"
+      ],
+      "description": "以 Ricci 流做流形几何化与奇点分析（佩雷尔曼路线）。",
+      "limitation": "未实现。",
+      "unlocks_conjectures": [
+        "POINCARE"
+      ]
+    }
+  ]
+}

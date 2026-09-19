@@ -1,0 +1,276 @@
+{
+  "meta": {
+    "generated_by": "06-AI自动化/01-工作流/openmath_experiments.py",
+    "generated_at": "2026-09-19T11:00:27",
+    "provenance": {
+      "ai_assisted": true,
+      "note": "由 AI 代理基于 openmath_sys 引擎自动生成，未经人类复核，不得作为 L3+ 证据。"
+    },
+    "honesty": "全部结果为 L2 计算证据：**不构成任何数学证明**。穷举/数值验证仅在给定搜索上限内有效，上限之外不作任何断言。",
+    "engine": "openmath_sys/numbertheory.py",
+    "purpose": "把突破路线图 Top4 方法（rad_computation / sieve_theory / asymptotic_estimation / modular_analysis）实际实现并运行，产出 L2 证据。",
+    "limits": {
+      "abc_c_max": 3000,
+      "goldbach_limit": 10000,
+      "twin_limit": 200000,
+      "pi_limit": 100000,
+      "collatz_n_max": 20000
+    }
+  },
+  "experiments": {
+    "E1_abc_quality": {
+      "method_id": "rad_computation",
+      "scope": "精确实现 rad(n)（定义本身，无简化）；并搜索 c<=C_MAX 内 quality>1 的 ABC 三元组。",
+      "conjecture": "ABC",
+      "c_max": 3000,
+      "triples_with_quality_above_1": 57,
+      "top_by_quality": [
+        {
+          "a": 1,
+          "b": 2400,
+          "c": 2401,
+          "rad": 210,
+          "quality": 1.455673
+        },
+        {
+          "a": 3,
+          "b": 125,
+          "c": 128,
+          "rad": 30,
+          "quality": 1.426565
+        },
+        {
+          "a": 625,
+          "b": 2048,
+          "c": 2673,
+          "rad": 330,
+          "quality": 1.360723
+        },
+        {
+          "a": 1,
+          "b": 512,
+          "c": 513,
+          "rad": 114,
+          "quality": 1.317571
+        },
+        {
+          "a": 1,
+          "b": 242,
+          "c": 243,
+          "rad": 66,
+          "quality": 1.311101
+        },
+        {
+          "a": 5,
+          "b": 1024,
+          "c": 1029,
+          "rad": 210,
+          "quality": 1.297214
+        },
+        {
+          "a": 1,
+          "b": 80,
+          "c": 81,
+          "rad": 30,
+          "quality": 1.29203
+        },
+        {
+          "a": 10,
+          "b": 2187,
+          "c": 2197,
+          "rad": 390,
+          "quality": 1.289752
+        }
+      ],
+      "known_reference": {
+        "note": "已知最高 quality 的例子远超本搜索范围（如 2 + 3^10*109 = 23^5，q≈1.6299），本结果仅反映搜索上限内的情况。"
+      }
+    },
+    "E2_goldbach": {
+      "method_id": "sieve_theory",
+      "scope": "仅实现**哥德巴赫分拆计数**这一具体筛法应用；**不是** Selberg 筛/大筛法等一般理论。",
+      "conjecture": "GC",
+      "limit": 10000,
+      "all_even_have_partition": true,
+      "counterexamples_in_range": [],
+      "min_partitions": {
+        "n": 4,
+        "count": 1
+      },
+      "samples": [
+        {
+          "n": 1000,
+          "partitions": 28
+        },
+        {
+          "n": 2000,
+          "partitions": 37
+        },
+        {
+          "n": 3000,
+          "partitions": 104
+        },
+        {
+          "n": 4000,
+          "partitions": 65
+        },
+        {
+          "n": 5000,
+          "partitions": 76
+        },
+        {
+          "n": 6000,
+          "partitions": 178
+        },
+        {
+          "n": 7000,
+          "partitions": 119
+        },
+        {
+          "n": 8000,
+          "partitions": 106
+        },
+        {
+          "n": 9000,
+          "partitions": 242
+        },
+        {
+          "n": 10000,
+          "partitions": 127
+        }
+      ],
+      "trend_note": "G(n) 整体随 n 增长（Hardy–Littlewood 渐近 ~ n/(ln n)^2 * C2），但局部波动剧烈；此处为穷举计数，非渐近公式。"
+    },
+    "E3_twin_primes": {
+      "method_id": "sieve_theory",
+      "scope": "仅实现孪生素数筛这一具体应用；非一般解析筛法。",
+      "conjecture": "TPC",
+      "limit": 200000,
+      "twin_pairs": 2160,
+      "largest_pair": [
+        199931,
+        199933
+      ],
+      "first_pairs": [
+        [
+          3,
+          5
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          11,
+          13
+        ],
+        [
+          17,
+          19
+        ],
+        [
+          29,
+          31
+        ]
+      ]
+    },
+    "E4_prime_asymptotics": {
+      "method_id": "asymptotic_estimation",
+      "scope": "仅实现 π(x) 与 x/ln x、li(x) 的**数值对照**；非一般渐近展开推导工具。",
+      "conjecture": null,
+      "limit": 100000,
+      "rows": [
+        {
+          "x": 100,
+          "pi_x": 25,
+          "x_over_ln_x": 21.71,
+          "li_x": 30.13,
+          "rel_err_x_over_ln": 0.131411,
+          "rel_err_li": 0.205046
+        },
+        {
+          "x": 1000,
+          "pi_x": 168,
+          "x_over_ln_x": 144.76,
+          "li_x": 177.61,
+          "rel_err_x_over_ln": 0.138305,
+          "rel_err_li": 0.0572
+        },
+        {
+          "x": 10000,
+          "pi_x": 1229,
+          "x_over_ln_x": 1085.74,
+          "li_x": 1246.14,
+          "rel_err_x_over_ln": 0.116569,
+          "rel_err_li": 0.013944
+        },
+        {
+          "x": 100000,
+          "pi_x": 9592,
+          "x_over_ln_x": 8685.89,
+          "li_x": 9630.04,
+          "rel_err_x_over_ln": 0.094465,
+          "rel_err_li": 0.003966
+        }
+      ],
+      "max_rel_err_li": 0.205046,
+      "max_rel_err_x_over_ln": 0.138305,
+      "at_largest_x": {
+        "x": 100000,
+        "pi_x": 9592,
+        "x_over_ln_x": 8685.89,
+        "li_x": 9630.04,
+        "rel_err_x_over_ln": 0.094465,
+        "rel_err_li": 0.003966
+      },
+      "note": "必须区分小 x 与大 x：li(x) 的**最大**相对误差出现在最小检查点，因为 li(x)=x/lnx + x/ln²x + ... 多出的高阶项在小 x 处占比很大，会明显高估（例如 x=100 时 li 的误差反而大于 x/ln x）。但在 x>=1000 之后 li 的优势稳定显现并随 x 增大而放大，到最大检查点处 li 的误差远小于 x/ln x（见 at_largest_x）。本结果仅为有限范围内的数值对照，不构成证明。"
+    },
+    "E5_collatz_modular": {
+      "method_id": "modular_analysis",
+      "scope": "按剩余类统计 Collatz 停止时间分布，是最朴素的模类统计；不提供证明方向。",
+      "conjecture": "COLLATZ",
+      "n_max": 20000,
+      "modulus": 6,
+      "overall_mean_steps": 91.7317,
+      "by_residue": [
+        {
+          "residue": 0,
+          "count": 3333,
+          "mean_steps": 85.4719,
+          "max_steps": 262
+        },
+        {
+          "residue": 1,
+          "count": 3334,
+          "mean_steps": 97.138,
+          "max_steps": 278
+        },
+        {
+          "residue": 2,
+          "count": 3334,
+          "mean_steps": 86.204,
+          "max_steps": 257
+        },
+        {
+          "residue": 3,
+          "count": 3333,
+          "mean_steps": 97.5599,
+          "max_steps": 278
+        },
+        {
+          "residue": 4,
+          "count": 3333,
+          "mean_steps": 86.2238,
+          "max_steps": 260
+        },
+        {
+          "residue": 5,
+          "count": 3333,
+          "mean_steps": 97.7927,
+          "max_steps": 273
+        }
+      ],
+      "note": "模类均值差异反映停止时间的算术结构，但**不构成** Collatz 猜想的证明方向；该猜想仍完全未解。"
+    }
+  }
+}

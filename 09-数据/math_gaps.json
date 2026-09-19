@@ -1,7 +1,7 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_analyze.py",
-    "generated_at": "2026-09-19T10:19:02",
+    "generated_at": "2026-09-19T10:59:48",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理基于 openmath_sys 引擎与已下载 OpenMath/arXiv 数据自动生成，未经人类复核，不得作为 L3+ 证据。"
@@ -9,6 +9,30 @@
     "honesty": "本系列文件为 L0/L2 级数据处理与计算校验产物，非证明。方程求解、猜想的可计算实验均为计算验证(L2)，不构成对未解猜想的证明。预印本与猜想状态均标 UNVERIFIED/UNSOLVED。"
   },
   "open_directions": [
+    {
+      "type": "empty_properties",
+      "severity": "high",
+      "target": "altenc",
+      "note": "altenc 已下载 2 个符号但 0 条 CMP 性质，无法抽取方程/恒等式，是明显的结构空洞。"
+    },
+    {
+      "type": "empty_properties",
+      "severity": "high",
+      "target": "error",
+      "note": "error 已下载 3 个符号但 0 条 CMP 性质，无法抽取方程/恒等式，是明显的结构空洞。"
+    },
+    {
+      "type": "empty_properties",
+      "severity": "high",
+      "target": "interval1",
+      "note": "interval1 已下载 7 个符号但 0 条 CMP 性质，无法抽取方程/恒等式，是明显的结构空洞。"
+    },
+    {
+      "type": "empty_properties",
+      "severity": "high",
+      "target": "limit1",
+      "note": "limit1 已下载 5 个符号但 0 条 CMP 性质，无法抽取方程/恒等式，是明显的结构空洞。"
+    },
     {
       "type": "empty_properties",
       "severity": "high",
@@ -24,14 +48,86 @@
     {
       "type": "empty_properties",
       "severity": "high",
-      "target": "limit1",
-      "note": "limit1 已下载 5 个符号但 0 条 CMP 性质，无法抽取方程/恒等式，是明显的结构空洞。"
+      "target": "mathmlattr",
+      "note": "mathmlattr 已下载 6 个符号但 0 条 CMP 性质，无法抽取方程/恒等式，是明显的结构空洞。"
+    },
+    {
+      "type": "empty_properties",
+      "severity": "high",
+      "target": "mathmltypes",
+      "note": "mathmltypes 已下载 12 个符号但 0 条 CMP 性质，无法抽取方程/恒等式，是明显的结构空洞。"
+    },
+    {
+      "type": "empty_properties",
+      "severity": "high",
+      "target": "meta",
+      "note": "meta 已下载 18 个符号但 0 条 CMP 性质，无法抽取方程/恒等式，是明显的结构空洞。"
+    },
+    {
+      "type": "empty_properties",
+      "severity": "high",
+      "target": "metagrp",
+      "note": "metagrp 已下载 10 个符号但 0 条 CMP 性质，无法抽取方程/恒等式，是明显的结构空洞。"
+    },
+    {
+      "type": "empty_properties",
+      "severity": "high",
+      "target": "metasig",
+      "note": "metasig 已下载 5 个符号但 0 条 CMP 性质，无法抽取方程/恒等式，是明显的结构空洞。"
     },
     {
       "type": "empty_properties",
       "severity": "high",
       "target": "minmax1",
       "note": "minmax1 已下载 2 个符号但 0 条 CMP 性质，无法抽取方程/恒等式，是明显的结构空洞。"
+    },
+    {
+      "type": "empty_properties",
+      "severity": "high",
+      "target": "piece1",
+      "note": "piece1 已下载 3 个符号但 0 条 CMP 性质，无法抽取方程/恒等式，是明显的结构空洞。"
+    },
+    {
+      "type": "empty_properties",
+      "severity": "high",
+      "target": "quant1",
+      "note": "quant1 已下载 2 个符号但 0 条 CMP 性质，无法抽取方程/恒等式，是明显的结构空洞。"
+    },
+    {
+      "type": "empty_properties",
+      "severity": "high",
+      "target": "scscp1",
+      "note": "scscp1 已下载 17 个符号但 0 条 CMP 性质，无法抽取方程/恒等式，是明显的结构空洞。"
+    },
+    {
+      "type": "empty_properties",
+      "severity": "high",
+      "target": "scscp2",
+      "note": "scscp2 已下载 14 个符号但 0 条 CMP 性质，无法抽取方程/恒等式，是明显的结构空洞。"
+    },
+    {
+      "type": "empty_properties",
+      "severity": "high",
+      "target": "sts",
+      "note": "sts 已下载 11 个符号但 0 条 CMP 性质，无法抽取方程/恒等式，是明显的结构空洞。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
+      "target": "altenc",
+      "note": "altenc 有 2 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
+      "target": "error",
+      "note": "error 有 3 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
+      "target": "interval1",
+      "note": "interval1 有 7 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
     },
     {
       "type": "no_equations",
@@ -54,14 +150,74 @@
     {
       "type": "no_equations",
       "severity": "medium",
+      "target": "mathmlattr",
+      "note": "mathmlattr 有 6 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
+      "target": "mathmltypes",
+      "note": "mathmltypes 有 12 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
+      "target": "meta",
+      "note": "meta 有 18 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
+      "target": "metagrp",
+      "note": "metagrp 有 10 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
+      "target": "metasig",
+      "note": "metasig 有 5 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
       "target": "minmax1",
       "note": "minmax1 有 2 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
     },
     {
       "type": "no_equations",
       "severity": "medium",
-      "target": "multiset1",
-      "note": "multiset1 有 13 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+      "target": "piece1",
+      "note": "piece1 有 3 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
+      "target": "quant1",
+      "note": "quant1 有 2 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
+      "target": "scscp1",
+      "note": "scscp1 有 17 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
+      "target": "scscp2",
+      "note": "scscp2 有 14 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
+      "target": "sts",
+      "note": "sts 有 11 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
+      "target": "s_data1",
+      "note": "s_data1 有 6 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
     },
     {
       "type": "cross_dependency_gap",
@@ -73,7 +229,7 @@
       "type": "coverage_blindspot",
       "severity": "info",
       "target": "OpenMath CD 全集",
-      "note": "本次摄取 20/38 个官方 CD。需特别注意：OpenMath 官方 CD 全集本身体量有限（共 38 个），并不覆盖群论、拓扑、测度、概率、图论、微分几何等众多数学领域；这些超出 OpenMath 现有覆盖范围，若需覆盖须引入其他知识源，而非简单'多下几个 CD'。"
+      "note": "本次摄取 38/38 个官方 CD。需特别注意：OpenMath 官方 CD 全集本身体量有限（共 38 个），并不覆盖群论、拓扑、测度、概率、图论、微分几何等众多数学领域；这些超出 OpenMath 现有覆盖范围，若需覆盖须引入其他知识源，而非简单'多下几个 CD'。"
     },
     {
       "type": "method_blindspot",

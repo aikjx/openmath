@@ -1,20 +1,20 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_analyze.py",
-    "generated_at": "2026-09-19T10:19:02",
+    "generated_at": "2026-09-19T10:59:48",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理基于 openmath_sys 引擎与已下载 OpenMath/arXiv 数据自动生成，未经人类复核，不得作为 L3+ 证据。"
     },
     "honesty": "本系列文件为 L0/L2 级数据处理与计算校验产物，非证明。方程求解、猜想的可计算实验均为计算验证(L2)，不构成对未解猜想的证明。预印本与猜想状态均标 UNVERIFIED/UNSOLVED。",
-    "note": "方法清单为标准数学方法的**整理性汇编**（KNOWN_L4 常识级）；`implemented` 字段严格表示本流水线当前是否真能执行，共 10/34 项已实现。对未解猜想，即便全部适用方法齐备也仍未被解决，故 can_resolve 除已解决的庞加莱外恒为 False，绝不暗示本系统或现有方法足以证明它们。"
+    "note": "方法清单为标准数学方法的**整理性汇编**（KNOWN_L4 常识级）；`implemented` 字段严格表示本流水线当前是否真能执行，共 14/34 项已实现。对未解猜想，即便全部适用方法齐备也仍未被解决，故 can_resolve 除已解决的庞加莱外恒为 False，绝不暗示本系统或现有方法足以证明它们。"
   },
   "summary": {
     "methods_total": 34,
-    "methods_implemented": 10,
-    "methods_missing": 24,
+    "methods_implemented": 14,
+    "methods_missing": 20,
     "conjectures_linked": 11,
-    "conjectures_with_zero_implemented_direction": 6
+    "conjectures_with_zero_implemented_direction": 5
   },
   "methods": [
     {
@@ -183,10 +183,10 @@
       "id": "asymptotic_estimation",
       "name": "渐近估计",
       "domain": "解析数论",
-      "implemented": false,
-      "where": null,
-      "description": "对计数函数做渐近展开。",
-      "limitation": "未实现。"
+      "implemented": true,
+      "where": "openmath_sys/numbertheory.py",
+      "description": "对计数函数做渐近对照：π(x) 与 x/ln x、li(x) 的数值比较。",
+      "limitation": "**仅实现数值对照版本**：只做 π(x) 与两类近似的误差比较，**不是**一般意义下的渐近展开推导工具（不能推导新渐近式）。注意小 x 处 li 因含高阶正项反而高估更多，其优势在 x>=1000 后显现。"
     },
     {
       "id": "circle_method",
@@ -201,19 +201,19 @@
       "id": "sieve_theory",
       "name": "筛法（解析）",
       "domain": "解析数论",
-      "implemented": false,
-      "where": null,
-      "description": "Selberg/大筛法等，用于孪生素数、哥德巴赫类问题。",
-      "limitation": "未实现。"
+      "implemented": true,
+      "where": "openmath_sys/numbertheory.py",
+      "description": "埃拉托斯特尼筛及其两个具体应用：哥德巴赫分拆计数、孪生素数筛。",
+      "limitation": "**仅实现基础组合筛的两个具体应用**（分拆计数/孪生素数筛）；**不是** Selberg 筛、大筛法等解析筛法理论，无法给出上界估计类结果。"
     },
     {
       "id": "modular_analysis",
       "name": "模类分析",
       "domain": "数论",
-      "implemented": false,
-      "where": null,
-      "description": "按剩余类化简分析问题。",
-      "limitation": "未实现。"
+      "implemented": true,
+      "where": "openmath_sys/numbertheory.py",
+      "description": "按剩余类统计 Collatz 轨道停止时间的分布。",
+      "limitation": "**仅实现最朴素的模类统计**（按 n mod m 分组求均值/最大值）；是描述性统计，**不提供**任何证明方向。"
     },
     {
       "id": "elliptic_curve_computation",
@@ -300,10 +300,10 @@
       "id": "rad_computation",
       "name": "rad 计算",
       "domain": "数论",
-      "implemented": false,
-      "where": null,
-      "description": "计算 rad(n)（互素素因子之积）用于 ABC 猜想检验。",
-      "limitation": "未实现。"
+      "implemented": true,
+      "where": "openmath_sys/numbertheory.py",
+      "description": "精确计算 rad(n)（不同素因子之积），并搜索 quality>1 的 ABC 三元组。",
+      "limitation": "rad(n) 本身按定义精确实现；但 ABC 三元组搜索为**穷举**，受 c_max 上限限制，未找到更高 quality 不代表不存在。"
     },
     {
       "id": "random_matrix_analogy",
@@ -334,13 +334,14 @@
         "asymptotic_estimation",
         "random_matrix_analogy"
       ],
-      "implemented_applicable": [],
+      "implemented_applicable": [
+        "asymptotic_estimation"
+      ],
       "missing_methods": [
         "numeric_zero_search",
-        "asymptotic_estimation",
         "random_matrix_analogy"
       ],
-      "method_coverage": 0.0,
+      "method_coverage": 0.3333,
       "can_resolve": false,
       "direction_note": "缺失方向：本质困难在于零点的'全局分布'与素数分布的关联缺少可机器化的结构性桥梁。现有路线（显式公式、随机矩阵类比、ζ 函数的谱解释）均未能把数值规律提升为解析证明。可探索的开放方向：将零点分布编码为某自伴算子的谱（Hilbert–Pólya 路线）并构造该算子。"
     },
@@ -356,13 +357,13 @@
       ],
       "implemented_applicable": [
         "prime_sieve",
-        "exhaustive_search"
-      ],
-      "missing_methods": [
-        "circle_method",
+        "exhaustive_search",
         "sieve_theory"
       ],
-      "method_coverage": 0.5,
+      "missing_methods": [
+        "circle_method"
+      ],
+      "method_coverage": 0.75,
       "can_resolve": false,
       "direction_note": "缺失方向：筛法（陈氏定理等）能证明'1 个素数 + 1 个殆素数'，但跨过'殆素数→素数'的最后一步缺乏普适工具。开放方向：圆法（Hardy–Littlewood）的误差项控制、或筛权函数的本质改进。"
     },
@@ -378,13 +379,12 @@
       ],
       "implemented_applicable": [
         "prime_sieve",
-        "exhaustive_search"
-      ],
-      "missing_methods": [
+        "exhaustive_search",
         "sieve_theory",
         "asymptotic_estimation"
       ],
-      "method_coverage": 0.5,
+      "missing_methods": [],
+      "method_coverage": 1.0,
       "can_resolve": false,
       "direction_note": "缺失方向：张益唐(2013)证明存在无穷多对差 < 7000 万的素数，界限已被降到 246；但逼近 2 需突破 GPY 筛法的'奇偶障碍'(parity problem)。开放方向：借助更精细的权重或分布级数假设(DHL)进一步压缩界。"
     },
@@ -399,12 +399,11 @@
       ],
       "implemented_applicable": [
         "map_iteration",
-        "exhaustive_search"
-      ],
-      "missing_methods": [
+        "exhaustive_search",
         "modular_analysis"
       ],
-      "method_coverage": 0.6667,
+      "missing_methods": [],
+      "method_coverage": 1.0,
       "can_resolve": false,
       "direction_note": "缺失方向：该问题缺乏自然的代数结构，现有攻击（停止时间分布、模类分析、概率启发式）都无法排除极长轨道或循环的存在。开放方向：将其嵌入更广的动力系统类并寻找不变量，或证明其'几乎必然'归 1 作为中间目标。"
     },
@@ -515,12 +514,11 @@
         "exhaustive_search"
       ],
       "implemented_applicable": [
+        "rad_computation",
         "exhaustive_search"
       ],
-      "missing_methods": [
-        "rad_computation"
-      ],
-      "method_coverage": 0.5,
+      "missing_methods": [],
+      "method_coverage": 1.0,
       "can_resolve": false,
       "direction_note": "缺失方向：即便接受 IUTT，其可机器化验证路径仍不成熟；社区对证明正确性无共识。开放方向：寻找更可被检验的替代证明，或把 IUTT 形式化（Lean/Coq）以便机器核查。"
     }

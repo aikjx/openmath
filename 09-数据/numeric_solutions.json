@@ -1,7 +1,7 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_analyze.py",
-    "generated_at": "2026-09-19T10:19:02",
+    "generated_at": "2026-09-19T10:59:48",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理基于 openmath_sys 引擎与已下载 OpenMath/arXiv 数据自动生成，未经人类复核，不得作为 L3+ 证据。"
@@ -10,13 +10,13 @@
     "note": "对符号求解器判定失败的式子做数值兜底。主操作 verify_identity 为**随机抽样验证代数恒等式**（多在正实数域）；单变量式子另做 find_roots_numeric 数值求根。所有结果均为 L2 数值证据：'holds' 只是有限抽样吻合，绝非证明；'fails' 也可能源于求值器局限或抽样域不匹配，不等于找到反例。"
   },
   "summary": {
-    "symbolic_failed": 29,
+    "symbolic_failed": 33,
     "identity_holds": 9,
     "identity_fails": 14,
-    "skipped_non_algebraic": 2,
-    "unevaluable": 4,
+    "skipped_non_algebraic": 3,
+    "unevaluable": 7,
     "numeric_roots_found": 6,
-    "resolution_rate": 0.5172
+    "resolution_rate": 0.4545
   },
   "solutions": [
     {
@@ -40,6 +40,73 @@
       "numeric_roots": null
     },
     {
+      "raw": "bigfloat(m,r,e)=m*r^e",
+      "source": "CD:bigfloat1/bigfloat",
+      "symbolic_reason": "多变量方程，超出本演示求解范围",
+      "identity": {
+        "status": "unevaluable",
+        "trials_checked": 0,
+        "reason": "抽样点均无法求值（超出定义域或函数不被求值器支持）",
+        "variables": [
+          "e",
+          "m",
+          "r"
+        ]
+      },
+      "numeric_roots": null
+    },
+    {
+      "raw": "bigfloatprec(f,r,p)=f However, if converted to radix r, only p digits in that radix are significant. This usually means that it originated in radix r, and has since (e.g. for display purposes) been converted into its current radix. For exposition, f = m*r^e.",
+      "source": "CD:bigfloat1/bigfloatprec",
+      "symbolic_reason": "多变量方程，超出本演示求解范围",
+      "identity": {
+        "status": "skip",
+        "reason": "含逻辑连接词/蕴含，非纯代数恒等式",
+        "trials_checked": 0
+      },
+      "numeric_roots": null
+    },
+    {
+      "raw": "e = the sum as j ranges from 0 to infinity of 1/(j!)",
+      "source": "CD:nums1/e",
+      "symbolic_reason": "多变量方程，超出本演示求解范围",
+      "identity": {
+        "status": "fails",
+        "trials_checked": 25,
+        "max_relative_diff": 0.7213478025397765,
+        "worst_case_env": {
+          "e": "0.0712009663935298",
+          "the": "0.7925487689333063"
+        },
+        "variables": [
+          "e",
+          "the"
+        ],
+        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+      },
+      "numeric_roots": null
+    },
+    {
+      "raw": "pi = 4 * the sum as j ranges from 0 to infinity of ((1/(4j+1))-(1/(4j+3)))",
+      "source": "CD:nums1/pi",
+      "symbolic_reason": "多变量方程，超出本演示求解范围",
+      "identity": {
+        "status": "fails",
+        "trials_checked": 25,
+        "max_relative_diff": 3.297393872894516,
+        "worst_case_env": {
+          "pi": "0.3362238923464484",
+          "the": "0.908404441310241"
+        },
+        "variables": [
+          "pi",
+          "the"
+        ],
+        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+      },
+      "numeric_roots": null
+    },
+    {
       "raw": "a=b and b=c implies a=c",
       "source": "CD:relation1/eq",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
@@ -47,6 +114,38 @@
         "status": "skip",
         "reason": "含逻辑连接词/蕴含，非纯代数恒等式",
         "trials_checked": 0
+      },
+      "numeric_roots": null
+    },
+    {
+      "raw": "class(S,R,a) = {b in S | (a,b) in R}.",
+      "source": "CD:relation3/class",
+      "symbolic_reason": "多变量方程，超出本演示求解范围",
+      "identity": {
+        "status": "unevaluable",
+        "trials_checked": 0,
+        "reason": "抽样点均无法求值（超出定义域或函数不被求值器支持）",
+        "variables": [
+          "R",
+          "S",
+          "a",
+          "b"
+        ]
+      },
+      "numeric_roots": null
+    },
+    {
+      "raw": "mean(f(X)) = int(x*f(x)) w.r.t. x over the range [-infinity,infinity]",
+      "source": "CD:s_dist1/mean",
+      "symbolic_reason": "多变量方程，超出本演示求解范围",
+      "identity": {
+        "status": "unevaluable",
+        "trials_checked": 0,
+        "reason": "抽样点均无法求值（超出定义域或函数不被求值器支持）",
+        "variables": [
+          "X",
+          "x"
+        ]
       },
       "numeric_roots": null
     },
@@ -7615,46 +7714,6 @@
         -1.03125,
         -1.025
       ]
-    },
-    {
-      "raw": "e = the sum as j ranges from 0 to infinity of 1/(j!)",
-      "source": "CD:nums1/e",
-      "symbolic_reason": "多变量方程，超出本演示求解范围",
-      "identity": {
-        "status": "fails",
-        "trials_checked": 25,
-        "max_relative_diff": 0.7213478025397765,
-        "worst_case_env": {
-          "e": "0.0712009663935298",
-          "the": "0.7925487689333063"
-        },
-        "variables": [
-          "e",
-          "the"
-        ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
-      },
-      "numeric_roots": null
-    },
-    {
-      "raw": "pi = 4 * the sum as j ranges from 0 to infinity of ((1/(4j+1))-(1/(4j+3)))",
-      "source": "CD:nums1/pi",
-      "symbolic_reason": "多变量方程，超出本演示求解范围",
-      "identity": {
-        "status": "fails",
-        "trials_checked": 25,
-        "max_relative_diff": 3.297393872894516,
-        "worst_case_env": {
-          "pi": "0.3362238923464484",
-          "the": "0.908404441310241"
-        },
-        "variables": [
-          "pi",
-          "the"
-        ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
-      },
-      "numeric_roots": null
     },
     {
       "raw": "grad(F) = (\\partial(F)/\\partial(x_1), ... ,\\partial(F)/partial(x_n))",
