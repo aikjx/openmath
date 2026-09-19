@@ -99,6 +99,55 @@ def indep_partitions(n: int) -> int:
     return p[n]
 
 
+def indep_partitions_dp(n: int) -> int:
+    """划分数 p(n) 的**第三种**算法：限制部分大小的 DP。
+
+    `A[k][m]` = 只用不超过 k 的部分去分拆 m 的方法数；
+    转移 `A[k][m] = A[k-1][m] + A[k][m-k]`（不用 k / 至少用一个 k）。
+    答案 `A[n][n]`。与欧拉五边形数递推毫无共同 structural assumption，
+    两条独立路径给出同一个数字时，写错一道递推也会被抓出来。
+    """
+    A = [[0] * (n + 1) for _ in range(n + 1)]
+    A[0][0] = 1
+    for k in range(1, n + 1):
+        for m in range(0, n + 1):
+            v = A[k - 1][m]
+            if m >= k:
+                v += A[k][m - k]
+            A[k][m] = v
+    return A[n][n]
+
+
+def legendre_pi(x: int) -> int:
+    """素数计数的**第二种**算法：Legendre 公式 π(x) = φ(x, a) + a − 1，
+    其中 a = π(⌊√x⌋)，φ(x,a) = 不超过 x 且不被前 a 个素数整除的正整数个数，
+    由递推 φ(x,a) = φ(x,a−1) − φ(⌊x/p_a⌋, a−1) 求得（全程整数，无浮点）。
+
+    与筛法的共同点只有"素数"这个定义本身——筛法是标记合数，这里是容斥计剩余数。
+    两者在 x=10^6 上必须给出同一个数字（本次实测：78498 = 78498）。
+
+    注意：早期版本只递推了前 12 个素数就加 a−1，那是**错的**
+    （a 必须是 π(√x) 的全部）；公式错但结果看着也像个数，所以必须拿它跟筛法对撞。
+    """
+    if x < 2:
+        return 0
+    primes = nt.sieve_primes(int(x ** 0.5) + 1)
+    a = len(primes)
+    memo: Dict[Tuple[int, int], int] = {}
+
+    def phi(y: int, b: int) -> int:
+        if b == 0:
+            return y
+        key = (y, b)
+        if key in memo:
+            return memo[key]
+        v = phi(y, b - 1) - phi(y // primes[b - 1], b - 1)
+        memo[key] = v
+        return v
+
+    return phi(x, a) + a - 1
+
+
 def _lap_minor_det(nv: int, edges: Sequence[Tuple[int, int]]) -> int:
     """矩阵树定理的另一种写法：Bareiss 精确消元（库内用的是同一思想的不同实现）。"""
     L = [[0] * nv for _ in range(nv)]
@@ -248,6 +297,47 @@ def indep_subgroups(table) -> List[set]:
     return out
 
 
+def indep_subgroups_bounded(table) -> List[set]:
+    """子群枚举的**第二种**暴力：只枚举"生成元不超过 ⌈log2 n⌉ 个"的子集闭包。
+
+    完备性论证（不是启发式）：往一个真子群里加一个不属于它的元素，生成的子群
+    规模**至少翻倍**（新子群包含旧子群与其陪集）。所以 |H| ≤ n 的子群必由
+    ≤ ⌈log2 n⌉ 个元素生成。n=15 时只需枚举 C(15,1..4) ≈ 1940 个子集的闭包，
+    而纯 2^n 穷举要 32768 个子集 × O(n²) 校验——慢一个量级以上。
+
+    对 n ≤ 12 的群，本函数与 `indep_subgroups` 在审计里**逐群互检**：
+    两条不同算法若不一致，说明至少一方的完备性论证有问题。
+    """
+    n = len(table)
+    cap = 1
+    while (1 << cap) < n:
+        cap += 1
+
+    def closure(seed: set) -> set:
+        S = set(seed)
+        changed = True
+        while changed:
+            changed = False
+            for a in list(S):
+                for b in list(S):
+                    c = table[a][b]
+                    if c not in S:
+                        S.add(c)
+                        changed = True
+        return S
+
+    seen: set = set()
+    out: List[set] = []
+    for r in range(1, cap + 1):
+        for comb in itertools.combinations(range(n), r):
+            S = closure(set(comb))
+            key = frozenset(S)
+            if key not in seen:
+                seen.add(key)
+                out.append(S)
+    return out
+
+
 def indep_center_size(table) -> int:
     n = len(table)
     return sum(1 for a in range(n)
@@ -357,7 +447,7 @@ class Auditor:
         return rec
 
 
-def audit_arithmetic(aud: Auditor, n_max: int = 120) -> Dict[str, Any]:
+def audit_arithmetic(aud: Auditor, n_max: int = 500) -> Dict[str, Any]:
     rec = aud.section("arithmetic", "算术函数 φ/τ/σ/rad：库内实现 vs 暴力定义（互素计数、除数枚举、质因数分解）")
     for n in range(1, n_max + 1):
         inv = tf.arithmetic_invariants(n)
@@ -370,9 +460,15 @@ def audit_arithmetic(aud: Auditor, n_max: int = 120) -> Dict[str, Any]:
 
 def audit_primes(aud: Auditor) -> Dict[str, Any]:
     rec = aud.section("primes", "素数计数 π(x) 对照教科书已知值")
-    known = {10: 4, 100: 25, 1000: 168, 10000: 1229, 100000: 9592}
+    known = {10: 4, 100: 25, 1000: 168, 10000: 1229, 100000: 9592,
+             # π(10^6) = 78498（教科书值，来源：素数计数表的标准列出值）
+             1000000: 78498}
     for x, want in sorted(known.items()):
         aud.check(rec, f"pi({x})", len(nt.sieve_primes(x)), want)
+    # 第二种算法：Legendre φ 递推 vs 筛法
+    for x in (1000, 10000, 100000, 1000000):
+        aud.check(rec, f"pi({x}) 筛法vsLegendre",
+                  legendre_pi(x), len(nt.sieve_primes(x)))
     return aud.close(rec, {"known_values": known})
 
 
@@ -386,17 +482,31 @@ def audit_li(aud: Auditor, tol: float = 1e-9) -> Dict[str, Any]:
     return aud.close(rec)
 
 
-def audit_partitions(aud: Auditor, n_max: int = 40) -> Dict[str, Any]:
-    rec = aud.section("partitions", "划分数 p(n)：直接生成 vs 欧拉五边形数递推；并校验共轭是对合")
+def audit_partitions(aud: Auditor, n_max: int = 200) -> Dict[str, Any]:
+    rec = aud.section(
+        "partitions",
+        "划分数 p(n)：欧拉五边形数递推 vs 限制部分大小的 DP（第三种算法）；"
+        "小 n 另用直接生成三路对照；并校验共轭是对合")
+    # 直接生成只在小范围做：p(60) 已有近百万条分拆列表，继续往上不现实
+    n_direct = min(n_max, 40)
+    for n in range(0, n_direct + 1):
+        aud.check(rec, f"p({n}) 直接生成", len(tf._partitions(n)),
+                  Fraction(indep_partitions(n)))
     for n in range(0, n_max + 1):
-        aud.check(rec, f"p({n})", len(tf._partitions(n)), indep_partitions(n))
+        euler = indep_partitions(n)
+        dp = indep_partitions_dp(n)
+        aud.check(rec, f"p({n}) 欧拉vsDP", Fraction(dp), Fraction(euler))
     conj_bad = 0
     for n in range(1, 25):
         for lam in tf._partitions(n):
             if tf._conjugate(tf._conjugate(lam)) != lam:
                 conj_bad += 1
     aud.check(rec, "conjugate 是对合 (n<=24)", conj_bad, 0)
-    return aud.close(rec, {"n_max": n_max, "conjugate_failures": conj_bad})
+    return aud.close(rec, {
+        "n_max": n_max, "conjugate_failures": conj_bad,
+        "n_direct_generation": n_direct + 1,
+        "methods": ["欧拉五边形数递推", "限制部分大小 DP", "直接生成（仅 n<=%d）" % n_direct],
+    })
 
 
 def audit_graphs(aud: Auditor, nv_cap: int = 12) -> Dict[str, Any]:
@@ -424,16 +534,25 @@ def audit_graphs(aud: Auditor, nv_cap: int = 12) -> Dict[str, Any]:
     return aud.close(rec, {"objects": len(lib), "exhaustive_up_to_vertices": nv_cap})
 
 
-def audit_groups(aud: Auditor, order_cap: int = 12) -> Dict[str, Any]:
+def audit_groups(aud: Auditor, order_cap: int = 15) -> Dict[str, Any]:
     rec = aud.section("groups", "有限群：中心/共轭类/子群数 vs 独立暴力枚举；并逐元素核对元素阶")
-    lib = tf.build_group_library()
+    # extended 分支把库扩到 13–15 阶（默认的 S7 库仍是 ≤12 阶，不影响上游）
+    lib = tf.build_group_library(extended=True)
+    n_cross_bad = 0
     for o in lib:
         table = o["raw"]
         n = len(table)
         if n > order_cap:
             continue
-        info = st.analyze_group(table)
+        info = st.analyze_group(table, full_enum_cap=order_cap)
         subs = indep_subgroups(table)
+        # 两种独立枚举互检（仅在 2^n 穷举还跑得动的规模上）
+        if n <= 12:
+            fast = indep_subgroups_bounded(table)
+            if len(fast) != len(subs):
+                n_cross_bad += 1
+            aud.check(rec, f"{o['label']} 子群枚举两法一致",
+                      len(fast), len(subs))
         aud.check(rec, f"{o['label']}.proper_subgroups_count",
                   info["proper_subgroups_count"], len([s for s in subs if len(s) < n]))
         aud.check(rec, f"{o['label']}.center_size", info["center_size"], indep_center_size(table))
@@ -484,6 +603,15 @@ VERIFIER_TESTSET: List[Tuple[str, str]] = [
     ("log(x*y) = log(x)*log(y)", "fails"),
     ("sqrt(x+1) = sqrt(x)+1", "fails"),
     ("sin(x) = x", "fails"),
+    # ---- 隐式乘法（2026-09-19 第五轮新增：解析器原生支持的回归护栏）----
+    # 这几条同时也是**优先级约定**的护栏：一旦有人把紧贴乘法改回与 `*` 同优先级，
+    # `/2i` 与 `x/2y` 两条会立刻变红。
+    ("sin(x) = (exp(ix)-exp(-ix))/2i", "holds"),
+    ("cos(x) = (exp(ix)+exp(-ix))/2", "holds"),
+    ("x/2y = x/(2*y)", "holds"),
+    ("2z = z+z", "holds"),
+    ("(x+1)^2 = x^2 + 2x + 1", "holds"),
+    ("-x^2 = -(x^2)", "holds"),
 ]
 
 # 这些式子**超出**随机抽样验证的能力范围，验证器必须拒答（not_decidable）
@@ -492,7 +620,74 @@ VERIFIER_REFUSALS: List[str] = [
     "sin A cos B + cos A sin B = sin(A + B)",
     "grad(F) = (\\partial(F)/\\partial(x_1), ...)",
     "a*x^2 + b*x + c = 0",
+    # 散文即使能被拆成单字母乘积也必须拒答（`the` 不应被当成 t*h*e）
+    "the sum of x = x",
 ]
+
+
+def _audit_parser_structures(aud: Auditor, rec: Dict[str, Any]) -> Dict[str, Any]:
+    """解析器结构核对（2026-09-19 第五轮新增）。
+
+    为什么单独设一组：**优先级错配不会抛异常**。把 `/2i` 当成 `(/2)*i` 时，
+    程序全程正常运行，只是结论反了一个负号——真恒等式被判成假，且没人会怀疑
+    求值器。这类错误只能靠成对对照抓。
+    """
+    from . import parser as ps
+
+    def _val(text: str, env: Dict[str, Any], ctx: set | None = None):
+        m = ps.parse_text(text, ctx)
+        return None if not m.parse_ok else complex(ps.evaluate(m.ast, env))
+
+    tight = _val("1/2i", {"i": 1j})
+    paren = _val("1/(2*i)", {"i": 1j})
+    loose = _val("1/2*i", {"i": 1j})
+    aud.check(rec, "紧贴乘法 `1/2i` 等价于 `1/(2*i)`",
+              abs(tight - paren) < 1e-12, True)
+    aud.check(rec, "紧贴乘法 `1/2i` 不等价于 `(1/2)*i`",
+              abs(tight - loose) > 1e-6, True)
+    spaced = _val("6/2 x", {"x": 7.0})
+    explicit = _val("6/2*x", {"x": 7.0})
+    aud.check(rec, "隔空白乘法与显式 `*` 同优先级",
+              abs(spaced - explicit) < 1e-12, True)
+
+    # 连写必须拆开；散文**不能**被拆开（否则 the -> t*h*e 会凭空造出恒等式）
+    aud.check(rec, "连写 `exp(ix)` 拆成两个变量",
+              sorted(ps.parse_text("exp(ix)", {"x"}).variables), ["i", "x"])
+    aud.check(rec, "散文词 `the` 不被拆成乘积",
+              ps.parse_text("the").variables, ["the"])
+    aud.check(rec, "散文序列整体无法解析", ps.parse_text("the sum of x").parse_ok, False)
+
+    # 旧行为会把未消费的尾巴静默丢掉，于是 `2 ln(x+...)` 被截断成常数 2
+    aud.check(rec, "未消费的尾部记号必须报错",
+              ps.parse_text("pi r^2").parse_ok, False)
+
+    # 内置函数名清单必须覆盖 _call_func 的全部分支：漏登记会让 `sin` 被当作连写
+    # 拆成 s*i*n。用源码反查而不是再抄一遍清单，抄的那份永远会和实现对不上。
+    import inspect
+    import re as _re
+    src = inspect.getsource(ps._call_func)
+    handled: set = set()
+    for m in _re.finditer(r'name (?:in \([^)]*\)|== "([A-Za-z_]+)")', src):
+        if m.group(1):
+            handled.add(m.group(1))
+        else:
+            handled |= set(_re.findall(r'"([A-Za-z_]+)"', m.group(0)))
+    missing = sorted(x for x in handled
+                     if x and x[0].isalpha() and x not in ps._BUILTIN_FUNC_NAMES)
+    aud.check(rec, "_BUILTIN_FUNC_NAMES 覆盖 _call_func 全部分支", missing, [])
+    unknown_extra = sorted(x for x in ps._BUILTIN_FUNC_NAMES - handled
+                           if x not in ("plus", "minus", "times", "divide", "power"))
+    aud.check(rec, "_BUILTIN_FUNC_NAMES 无凭空多出的名字", unknown_extra, [])
+
+    return {
+        "tight_vs_parenthesized": str(tight) + " vs " + str(paren),
+        "tight_vs_loose": str(tight) + " vs " + str(loose),
+        "builtin_names_handled": len(handled),
+        "builtin_names_declared": len(ps._BUILTIN_FUNC_NAMES),
+        "note": ("紧贴乘法（无空白）比 `*` 和 `/` 结合更紧，隔空白乘法与显式 `*` 同优先级。"
+                 "这是 `1/2x` 的经典歧义，本仓库选这条约定是因为它让欧拉公式那条真恒等式"
+                 "判对；持有相反约定的人应直接改这里，测试集会立刻变红。"),
+    }
 
 
 def audit_identity_verifier(aud: Auditor) -> Dict[str, Any]:
@@ -512,11 +707,16 @@ def audit_identity_verifier(aud: Auditor) -> Dict[str, Any]:
     for expr in VERIFIER_REFUSALS:
         got = verify_identity(expr)["status"]
         aud.check(rec, f"拒答 {expr[:38]}", got, "not_decidable")
+
+    # ---- 解析器层：隐式乘法 / 连写切分 / 尾巴未消费 / 名称清单自洽 ----
+    # 查的是**求值前的结构**：优先级错配不会报错，只会让真恒等式变假。
+    parser_checks = _audit_parser_structures(aud, rec)
     return aud.close(rec, {
         "true_identities_correct": f"{tp}/{n_true}",
         "false_identities_correct": f"{tn}/{n_false}",
         "note": ("判准率只统计'在能力范围内'的式子；"
                  "对超出范围的式子，正确的行为是**拒答**而不是给出 holds/fails。"),
+        "parser": parser_checks,
     })
 
 
@@ -663,6 +863,26 @@ def _indep_check_hyper(terms: List[int], P, Q) -> Tuple[Optional[int], int]:
     return first_fail, n_zero_q
 
 
+def _indep_check_prec(terms: List[int], polys) -> Optional[int]:
+    """独立实现：逐项代入 Σ_i p_i(n)·a(n-i) 看是否恰为 0。
+
+    与引擎的差异：引擎在**发现集内**用矩阵零空间定系数、发现集外只做外推；
+    这里对**全量项**从第一项起独立验算一遍，两边口径不同。
+    """
+    k = len(polys) - 1
+    for n in range(k, len(terms)):
+        s = 0
+        for i in range(k + 1):
+            # 用 Horner 求值，与引擎的幂次求和写法不同
+            pv = 0
+            for coef in reversed(polys[i]):
+                pv = pv * n + coef
+            s += pv * terms[n - i]
+        if s != 0:
+            return n
+    return None
+
+
 def audit_sequences(aud: Auditor, n_terms: int = 60) -> Dict[str, Any]:
     """序列引擎审计：教科书首项对照 + 递推独立重算 + 增长率类型对照。"""
     rec = aud.section(
@@ -693,13 +913,25 @@ def audit_sequences(aud: Auditor, n_terms: int = 60) -> Dict[str, Any]:
     disagreements: List[Dict[str, Any]] = []
     for s in seqs:
         terms = s["terms"]
-        for cand in sq.discover_linear(terms) + sq.discover_hypergeometric(terms):
+        for cand in (sq.discover_linear(terms)
+                     + sq.discover_hypergeometric(terms)
+                     + sq.discover_polynomial_recurrence(terms)):
             n_cand += 1
+            if cand.get("skipped"):
+                continue   # 引擎自己声明跳过（项太大），不是一条可复核的断言
             if cand["channel"] == "linear":
                 ff = _indep_check_linear(terms, cand["coeffs"], cand["const"])
                 n_zero_q = 0
-            else:
+            elif cand["channel"] == "hyper":
                 ff, n_zero_q = _indep_check_hyper(terms, cand["P"], cand["Q"])
+            else:
+                ff = _indep_check_prec(terms, cand["polys"])
+                n_zero_q = 0
+                # C4 还要额外查一条：教科书已知形式是否**逐项**成立
+                known_id = (cand.get("recognition") or {}).get("known_id")
+                if known_id:
+                    aud.check(rec, f"C4 已知形式逐项成立 {s['id']}::{known_id}",
+                              ff is None, True)
             mine = ff is None
             theirs = bool(cand.get("survived_extrapolation"))
             key = f"{s['id']}::{cand['channel']}::{cand['statement']}"
@@ -807,6 +1039,172 @@ def audit_sequences(aud: Auditor, n_terms: int = 60) -> Dict[str, Any]:
     n_noise = len(sq.discover_linear(noise)) + len(sq.discover_hypergeometric(noise))
     aud.check(rec, "元检验·随机噪声报 0 候选（不过度报告）", n_noise, 0)
 
+    # ---- ⑥ C4 求解器交叉验证 ----
+    # 引擎的 C4 已从「精确有理高斯消元」换成「模素数消元 + 有理重建 + 精确复核」。
+    # 换求解器是**可以用注意力掩饰过去的**改动：结果不变看起来就没事。所以这里
+    # 用**被换掉的那套**（精确 Fraction 消元）当参照，两边必须给出同一组递推。
+    def _ref_rref(mat: List[List[Fraction]]) -> Tuple[int, List[int],
+                                                     List[List[Fraction]]]:
+        m = [[Fraction(x) for x in row] for row in mat]
+        rows, cols = len(m), len(m[0])
+        piv: List[int] = []
+        r = 0
+        for c in range(cols):
+            sel = None
+            for i in range(r, rows):
+                if m[i][c] != 0:
+                    sel = i
+                    break
+            if sel is None:
+                continue
+            m[r], m[sel] = m[sel], m[r]
+            pv = m[r][c]
+            m[r] = [x / pv for x in m[r]]
+            for i in range(rows):
+                if i != r and m[i][c] != 0:
+                    f = m[i][c]
+                    m[i] = [a - f * b for a, b in zip(m[i], m[r])]
+            piv.append(c)
+            r += 1
+            if r == rows:
+                break
+        return r, piv, m
+
+    def _ref_prec_nullspace(A: List[List[Fraction]]) -> List[List[Fraction]]:
+        if not A:
+            return []
+        cols = len(A[0])
+        _rank, piv, R = _ref_rref(A)
+        free = [c for c in range(cols) if c not in piv]
+        basis: List[List[Fraction]] = []
+        for fc in free:
+            v = [Fraction(0)] * cols
+            v[fc] = Fraction(1)
+            for i, c in enumerate(piv):
+                v[c] = -R[i][fc]
+            basis.append(v)
+        return basis
+
+    def _ref_prec_key(terms: List[int], k: int, deg: int,
+                      v: List[Fraction]) -> Optional[Tuple[int, ...]]:
+        den = 1
+        for x in v:
+            den = den * x.denominator // math.gcd(den, x.denominator)
+        ints = [int(x * den) for x in v]
+        g = 0
+        for x in ints:
+            g = math.gcd(g, abs(x))
+        if g == 0:
+            return None
+        ints = [x // g for x in ints]
+        first_nz = next((x for x in ints if x != 0), 0)
+        if first_nz < 0:
+            ints = [-x for x in ints]
+        polys = [ints[i * (deg + 1):(i + 1) * (deg + 1)] for i in range(k + 1)]
+        if all(x == 0 for x in polys[0]):
+            return None
+        # 规范化：去尾零后展平成元组，使 (k,deg) 与 (k,deg+1) 的重复报法可比
+        norm: List[List[int]] = []
+        for p in polys:
+            t = list(p)
+            while len(t) > 1 and t[-1] == 0:
+                t.pop()
+            norm.append(t)
+        return tuple(x for p in norm for x in p)
+
+    def _ref_prec_exact(terms: List[int], discovery_len: Optional[int] = None,
+                        max_order: int = sq.P_ORDER_MAX,
+                        max_deg: int = sq.P_DEG_MAX) -> set:
+        """参照实现：精确有理高斯消元（C4 换掉的那套）。返回规范化的多项式键集合。"""
+        n_total = len(terms)
+        if discovery_len is None:
+            discovery_len = sq.DISCOVERY_LEN
+        if discovery_len >= n_total:
+            discovery_len = max(max_order + 6, n_total - 6)
+        found: set = set()
+        for k in range(1, max_order + 1):
+            for deg in range(0, max_deg + 1):
+                n_unk = (k + 1) * (deg + 1)
+                n_eq = discovery_len - k
+                if n_eq < n_unk + 4:
+                    continue
+                A = [[Fraction(terms[n - i]) * Fraction(n) ** j
+                      for i in range(k + 1) for j in range(deg + 1)]
+                     for n in range(k, discovery_len)]
+                basis = _ref_prec_nullspace(A)
+                if len(basis) != 1:
+                    continue
+                key = _ref_prec_key(terms, k, deg, basis[0])
+                if key is None:
+                    continue
+                polys = [list(key[i * (deg + 1):(i + 1) * (deg + 1)])
+                         for i in range(k + 1)]
+                # 参照实现也只认在全量项上精确成立的（口径向引擎对齐）
+                ok = True
+                for n in range(k, n_total):
+                    s = 0
+                    for i in range(k + 1):
+                        pv = 0
+                        for co in reversed(polys[i]):
+                            pv = pv * n + co
+                        s += pv * terms[n - i]
+                    if s != 0:
+                        ok = False
+                        break
+                if ok:
+                    found.add(key)
+        return found
+
+    # ⑥-a 有理重建单测：已知有理数 → mod p → 重建回来必须完全一致
+    rp = sq.mod_primes()[0]
+    for _num, _den in ((3, 7), (-5, 3), (17, 19), (-1234, 4321), (1, 2)):
+        _x = (_num * pow(_den, rp - 2, rp)) % rp
+        aud.check(rec, f"有理重建 {_num}/{_den}",
+                  sq.rational_reconstruct(_x, rp), Fraction(_num, _den))
+
+    # ⑥-b 素数合法性：引擎用的模数必须是素数（用自己的 Miller–Rabin 之外的路子再验一遍）
+    for p in sq.mod_primes():
+        aud.check(rec, f"模数 {p.bit_length()} 位为素数",
+                  pow(2, p - 1, p) == 1 and pow(3, p - 1, p) == 1, True)
+
+    # ⑥-c 精确 Fraction 消元 vs 模素数消元：在同一批序列上必须给出同一组递推。
+    #     只在项不太大的序列上跑参照实现（否则 Fraction 分母爆炸到不可用时）。
+    CROSS_SIZE_BOUND = 10 ** 25
+    n_cross = 0
+    n_cross_diff = 0
+    cross_details: List[Dict[str, Any]] = []
+    for s in seqs:
+        terms = s["terms"]
+        dl = sq.DISCOVERY_LEN
+        if max(abs(t) for t in terms[:dl]) > CROSS_SIZE_BOUND:
+            continue
+        n_cross += 1
+        ref = _ref_prec_exact(terms, dl)
+        got = set()
+        for c in sq.discover_polynomial_recurrence(terms, discovery_len=dl):
+            if not c.get("survived_extrapolation"):
+                continue
+            key = _ref_prec_key(terms, c["order"], c["deg"],
+                                [Fraction(x) for x in
+                                 sum(c["polys"], [])])
+            if key is not None:
+                got.add(key)
+        if ref != got:
+            n_cross_diff += 1
+            cross_details.append({
+                "id": s["id"],
+                "only_in_reference": sorted(set(ref) - got)[:3],
+                "only_in_engine": sorted(got - set(ref))[:3],
+            })
+        aud.check(rec, f"C4 双求解器一致 {s['id']}", sorted(got), sorted(ref))
+
+    # ⑥-d 每条报出的 C4 候选必须有 ≥2 个独立素数共同重建出来
+    for s in seqs:
+        for c in sq.discover_polynomial_recurrence(s["terms"]):
+            if c.get("survived_extrapolation"):
+                aud.check(rec, f"C4 多素数一致 {s['id']} 阶{c['order']}次{c['deg']}",
+                          c.get("n_primes_agreeing", 0) >= 2, True)
+
     return aud.close(rec, {
         "n_terms": n_terms,
         "n_reference_terms_checked": n_ref_checked,
@@ -826,6 +1224,20 @@ def audit_sequences(aud: Auditor, n_terms: int = 60) -> Dict[str, Any]:
         "sequences_without_reference": missing_ref,
         "n_recurrence_candidates": n_cand,
         "n_independent_disagreements": n_disagree,
+        "c4_solver_crosscheck": {
+            "engine_solver": ("modular-elimination + rational-reconstruction "
+                              "+ exact-integer-recheck"),
+            "reference_solver": ("exact Fraction Gaussian elimination "
+                                 "（即 C4 换掉的那套，保留为参照）"),
+            "n_sequences_compared": n_cross,
+            "n_disagreements": n_cross_diff,
+            "disagreement_details": cross_details,
+            "size_bound_used": CROSS_SIZE_BOUND,
+            "note": ("换求解器是**可以用注意力掩饰过去**的改动：结果不变看起来就没事。"
+                     "所以这里用被换掉的那套当参照，两边必须给出同一组递推。"
+                     "项太大的序列不参与（Fraction 分母会爆），这部分由 ⑥-d 的"
+                     "多素数一致 + ② 的全量精确复核兜底。"),
+        },
         "disagreements": disagreements,
         "growth_observed": growth_seen,
         "growth_base_bias": base_bias,
@@ -841,14 +1253,14 @@ def audit_sequences(aud: Auditor, n_terms: int = 60) -> Dict[str, Any]:
     })
 
 
-def run_audit(n_max: int = 120) -> Dict[str, Any]:
+def run_audit(n_max: int = 500, order_cap: int = 15) -> Dict[str, Any]:
     aud = Auditor()
     audit_arithmetic(aud, n_max=n_max)
     audit_primes(aud)
     audit_li(aud)
     audit_partitions(aud)
     audit_graphs(aud)
-    audit_groups(aud)
+    audit_groups(aud, order_cap=order_cap)
     audit_homology(aud)
     audit_identity_verifier(aud)
     audit_sequences(aud)

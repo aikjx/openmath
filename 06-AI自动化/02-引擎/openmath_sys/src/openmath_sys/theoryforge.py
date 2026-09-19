@@ -633,7 +633,7 @@ def build_group_library(extended: bool = False) -> List[Dict[str, Any]]:
     objs: List[Dict[str, Any]] = []
 
     def add(name, table):
-        inv = group_invariants(table, max_order=12)
+        inv = group_invariants(table, max_order=15 if extended else 12)
         objs.append({"id": f"group:{name}", "label": name, "raw": table, "inv": inv})
 
     for n in range(1, 13):
@@ -649,10 +649,15 @@ def build_group_library(extended: bool = False) -> List[Dict[str, Any]]:
             add(f"Z{a}xZ{b}", _direct_product(cyclic_additive_group(a),
                                               cyclic_additive_group(b)))
     if extended:
-        for a, b in ((2, 8), (2, 9), (3, 6), (4, 4), (2, 10), (2, 12), (3, 5)):
-            if a * b <= 12:
-                add(f"Z{a}xZ{b}", _direct_product(cyclic_additive_group(a),
-                                                  cyclic_additive_group(b)))
+        # 旧写的 extended 分支里 `a*b <= 12` 把 (2,8)/(4,4)/(3,5)… 全过滤掉了，
+        # 于是 extended=True **一个群也没多加**——一个看起来在工作、其实空转的开关。
+        # 现改为真正扩到 13–15 阶（16 阶子群枚举在库内实现上要 2.8s/群，暂不纳入）。
+        for n in range(13, 16):
+            add(f"Z{n}", cyclic_additive_group(n))
+        t_d7, _ = dihedral_group(7)          # 14 阶
+        add("D7", t_d7)
+        add("Z3xZ5", _direct_product(cyclic_additive_group(3),
+                                     cyclic_additive_group(5)))   # 15 阶
     return objs
 
 

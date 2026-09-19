@@ -3,34 +3,35 @@
   "method": "每个数字都用与被测代码不同的算法重算，或对照教科书已知值；审计只报告差异，不修改被审对象。",
   "summary": {
     "sections": 9,
-    "total_checks": 1798,
+    "total_checks": 3739,
     "failed_checks": 0,
-    "passed_checks": 1798,
+    "passed_checks": 3739,
     "all_ok": true
   },
   "sections": [
     {
       "name": "arithmetic",
       "note": "算术函数 φ/τ/σ/rad：库内实现 vs 暴力定义（互素计数、除数枚举、质因数分解）",
-      "checks": 480,
+      "checks": 2000,
       "failures": [],
-      "passed": 480,
+      "passed": 2000,
       "ok": true,
-      "n_max": 120
+      "n_max": 500
     },
     {
       "name": "primes",
       "note": "素数计数 π(x) 对照教科书已知值",
-      "checks": 5,
+      "checks": 10,
       "failures": [],
-      "passed": 5,
+      "passed": 10,
       "ok": true,
       "known_values": {
         "10": 4,
         "100": 25,
         "1000": 168,
         "10000": 1229,
-        "100000": 9592
+        "100000": 9592,
+        "1000000": 78498
       }
     },
     {
@@ -93,13 +94,19 @@
     },
     {
       "name": "partitions",
-      "note": "划分数 p(n)：直接生成 vs 欧拉五边形数递推；并校验共轭是对合",
-      "checks": 42,
+      "note": "划分数 p(n)：欧拉五边形数递推 vs 限制部分大小的 DP（第三种算法）；小 n 另用直接生成三路对照；并校验共轭是对合",
+      "checks": 243,
       "failures": [],
-      "passed": 42,
+      "passed": 243,
       "ok": true,
-      "n_max": 40,
-      "conjugate_failures": 0
+      "n_max": 200,
+      "conjugate_failures": 0,
+      "n_direct_generation": 41,
+      "methods": [
+        "欧拉五边形数递推",
+        "限制部分大小 DP",
+        "直接生成（仅 n<=40）"
+      ]
     },
     {
       "name": "graphs",
@@ -114,12 +121,12 @@
     {
       "name": "groups",
       "note": "有限群：中心/共轭类/子群数 vs 独立暴力枚举；并逐元素核对元素阶",
-      "checks": 271,
+      "checks": 383,
       "failures": [],
-      "passed": 271,
+      "passed": 383,
       "ok": true,
-      "objects": 26,
-      "order_cap": 12
+      "objects": 31,
+      "order_cap": 15
     },
     {
       "name": "homology",
@@ -133,22 +140,153 @@
     {
       "name": "identity_verifier",
       "note": "判准率只统计'在能力范围内'的式子；对超出范围的式子，正确的行为是**拒答**而不是给出 holds/fails。",
-      "checks": 22,
+      "checks": 38,
       "failures": [],
-      "passed": 22,
+      "passed": 38,
       "ok": true,
-      "true_identities_correct": "12/12",
-      "false_identities_correct": "6/6"
+      "true_identities_correct": "18/18",
+      "false_identities_correct": "6/6",
+      "parser": {
+        "tight_vs_parenthesized": "-0.5j vs -0.5j",
+        "tight_vs_loose": "-0.5j vs 0.5j",
+        "builtin_names_handled": 48,
+        "builtin_names_declared": 48,
+        "note": "紧贴乘法（无空白）比 `*` 和 `/` 结合更紧，隔空白乘法与显式 `*` 同优先级。这是 `1/2x` 的经典歧义，本仓库选这条约定是因为它让欧拉公式那条真恒等式判对；持有相反约定的人应直接改这里，测试集会立刻变红。"
+      }
     },
     {
       "name": "sequences",
       "note": "序列引擎：① 教科书/OEIS 首项对照（外部参照，不取自本仓库代码）；② 每条被报出的递推用**另一份实现**重算一遍全量项；③ 增长率类型与理论底数对照（只断言有把握的条目）",
-      "checks": 379,
+      "checks": 466,
       "failures": [],
-      "passed": 379,
+      "passed": 466,
       "ok": true,
       "n_terms": 60,
       "n_reference_terms_checked": 300,
+      "falsification_meta_test": {
+        "why": "C1/C2 只在发现集上精确相容且解唯一时才报候选，因此真实序列上「外推证伪」恒为 0——那是**没有候选进入检验**，不是没有过拟合。本节用必然破功的合成序列检验该通道本身是否可达。",
+        "n_cases": 8,
+        "n_located_exactly": 8,
+        "all_passed": true,
+        "cases": [
+          {
+            "case": "syn_ord2/once/break@40",
+            "recurrence": "a(n)=a(n-1)+2a(n-2)+1",
+            "break_at": 40,
+            "mode": "once",
+            "n_candidates": 1,
+            "n_falsified": 1,
+            "located_exactly": true,
+            "reported_first_failure": {
+              "n": 40,
+              "expected": 1099511627777,
+              "predicted": "1099511627776"
+            }
+          },
+          {
+            "case": "syn_ord2/once/break@55",
+            "recurrence": "a(n)=a(n-1)+2a(n-2)+1",
+            "break_at": 55,
+            "mode": "once",
+            "n_candidates": 1,
+            "n_falsified": 1,
+            "located_exactly": true,
+            "reported_first_failure": {
+              "n": 55,
+              "expected": 36028797018963968,
+              "predicted": "36028797018963967"
+            }
+          },
+          {
+            "case": "syn_ord2/persistent/break@40",
+            "recurrence": "a(n)=a(n-1)+2a(n-2)+1",
+            "break_at": 40,
+            "mode": "persistent",
+            "n_candidates": 1,
+            "n_falsified": 1,
+            "located_exactly": true,
+            "reported_first_failure": {
+              "n": 40,
+              "expected": 1099511627777,
+              "predicted": "1099511627776"
+            }
+          },
+          {
+            "case": "syn_ord2/persistent/break@55",
+            "recurrence": "a(n)=a(n-1)+2a(n-2)+1",
+            "break_at": 55,
+            "mode": "persistent",
+            "n_candidates": 1,
+            "n_falsified": 1,
+            "located_exactly": true,
+            "reported_first_failure": {
+              "n": 55,
+              "expected": 36028797018963968,
+              "predicted": "36028797018963967"
+            }
+          },
+          {
+            "case": "syn_ord3/once/break@40",
+            "recurrence": "a(n)=a(n-1)+a(n-2)+a(n-3)",
+            "break_at": 40,
+            "mode": "once",
+            "n_candidates": 1,
+            "n_falsified": 1,
+            "located_exactly": true,
+            "reported_first_failure": {
+              "n": 40,
+              "expected": 12960201917,
+              "predicted": "12960201916"
+            }
+          },
+          {
+            "case": "syn_ord3/once/break@55",
+            "recurrence": "a(n)=a(n-1)+a(n-2)+a(n-3)",
+            "break_at": 55,
+            "mode": "once",
+            "n_candidates": 1,
+            "n_falsified": 1,
+            "located_exactly": true,
+            "reported_first_failure": {
+              "n": 55,
+              "expected": 120879712950777,
+              "predicted": "120879712950776"
+            }
+          },
+          {
+            "case": "syn_ord3/persistent/break@40",
+            "recurrence": "a(n)=a(n-1)+a(n-2)+a(n-3)",
+            "break_at": 40,
+            "mode": "persistent",
+            "n_candidates": 1,
+            "n_falsified": 1,
+            "located_exactly": true,
+            "reported_first_failure": {
+              "n": 40,
+              "expected": 12960201917,
+              "predicted": "12960201916"
+            }
+          },
+          {
+            "case": "syn_ord3/persistent/break@55",
+            "recurrence": "a(n)=a(n-1)+a(n-2)+a(n-3)",
+            "break_at": 55,
+            "mode": "persistent",
+            "n_candidates": 1,
+            "n_falsified": 1,
+            "located_exactly": true,
+            "reported_first_failure": {
+              "n": 55,
+              "expected": 120879712950777,
+              "predicted": "120879712950776"
+            }
+          }
+        ],
+        "verdict": "证伪通道可达且定位准确",
+        "evidence": "L2"
+      },
+      "noise_candidates": 0,
+      "zero_falsified_note": "真实序列上「外推证伪 0」的正确解读是**没有候选进入外推检验**（C1/C2 只报发现集上精确相容且解唯一的解），不是「没有过拟合」。证伪通道本身由 ⑤ 的合成序列元检验确认可达。",
       "n_reconciled": 11,
       "n_reconcile_type_mismatch": 0,
       "characteristic_roots": {
@@ -175,8 +313,17 @@
       },
       "char_root_note": "主特征根由递推系数经 Durand–Kerner 求根得到，与教科书常数（φ、tribonacci 常数、塑性数）逐条对照。系数错一个数字，特征根就会跑到别处，所以这条查的是**系数本身**而非拟合质量。",
       "sequences_without_reference": [],
-      "n_recurrence_candidates": 17,
+      "n_recurrence_candidates": 35,
       "n_independent_disagreements": 0,
+      "c4_solver_crosscheck": {
+        "engine_solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+        "reference_solver": "exact Fraction Gaussian elimination （即 C4 换掉的那套，保留为参照）",
+        "n_sequences_compared": 28,
+        "n_disagreements": 0,
+        "disagreement_details": [],
+        "size_bound_used": 10000000000000000000000000,
+        "note": "换求解器是**可以用注意力掩饰过去**的改动：结果不变看起来就没事。所以这里用被换掉的那套当参照，两边必须给出同一组递推。项太大的序列不参与（Fraction 分母会爆），这部分由 ⑥-d 的多素数一致 + ② 的全量精确复核兜底。"
+      },
       "disagreements": [],
       "growth_observed": {
         "primes_count": "neither",
@@ -246,7 +393,7 @@
     }
   ],
   "meta": {
-    "generated_at": "2026-09-19T18:38:26",
+    "generated_at": "2026-09-19T21:40:37",
     "generator": "06-AI自动化/01-工作流/openmath_audit.py",
     "evidence_level": "L2",
     "provenance": {
@@ -333,6 +480,6 @@
     ],
     "total_checks": 6,
     "violations": 0,
-    "generated_at": "2026-09-19T18:38:26"
+    "generated_at": "2026-09-19T21:40:37"
   }
 }

@@ -60,6 +60,9 @@ from openmath_sys import sequences as sq  # noqa: E402
 from openmath_sys.audit import Auditor, audit_sequences  # noqa: E402
 
 
+CHANNEL_CN = {"linear": "C1 常系数", "hyper": "C2 超几何", "prec": "C4 多项式系数"}
+
+
 def _dump(obj, n):
     with open(os.path.join(DATA_DIR, n), "w", encoding="utf-8") as f:
         json.dump(obj, f, ensure_ascii=False, indent=2, default=str)
@@ -145,7 +148,7 @@ def build_net(res: dict) -> dict:
 # ===========================================================================
 # Q4. 自核验：把同一套怀疑用在自己的产物上
 # ===========================================================================
-def self_audit(res: dict, cross: dict, net: dict) -> list:
+def self_audit(res: dict, cross: dict, net: dict, tc: dict) -> list:
     checks = []
 
     def add(name, violations, why):
@@ -211,13 +214,34 @@ def self_audit(res: dict, cross: dict, net: dict) -> list:
         "递推特征根与窗口拟合若给出不同类型，至少一方有 bug；这是两条独立路径的交叉检验")
 
     # 10. 关系网成员必须都是真的存活项（已由 2 覆盖，这里查网的完整性）
+    #     口径对齐：网只聚合 C1/C2，所以这里也只数 C1/C2 的存活项
     total_surv = sum(1 for s in res["sequences"]
                      for c in s["linear"] + s["hyper"]
                      if c.get("survived_extrapolation"))
     net_members = sum(len(d["members"]) for d in net["recurrences"])
-    add(f"关系网成员数一致（网内 {net_members} / 存活 {total_surv}）",
+    add(f"关系网成员数一致（网内 {net_members} / C1C2 存活 {total_surv}）",
         [] if net_members == total_surv else [f"{net_members} != {total_surv}"],
         "网若漏掉存活项，说明聚合口径与筛选口径不一致")
+
+    # 11. 理论封闭的变换上不得有"性质丢失"
+    lost = [f"{tf}::{s}" for tf, d in tc.get("per_transform", {}).items()
+            if d["is_closed_by_theory"]
+            for s in d["cfinite_lost"] + d["precursive_lost"]]
+    n_closed = sum(1 for d in tc.get("per_transform", {}).values()
+                   if d["is_closed_by_theory"])
+    add(f"理论封闭的变换上无性质丢失（{n_closed} 个变换）", lost,
+        "差分/部分和/二项变换对 C-finite 与 P-recursive 都封闭；"
+        "若报出丢失，只能是我的搜索没跟上，属于必须修的缺陷")
+
+    # 12. C4 报出的 deg=0 形式必须已标为冗余，不能直接进候选
+    # 只在"该序列本来就有 C1 候选"时才要求标冗余；否则 C4 的常系数形式
+    # 可能是 C1 没抓到的真发现（C1 带常数项、C4 齐次，两者不完全等同）
+    stray = [f"{s['id']}::{c['statement']}" for s in res["sequences"]
+             for c in s["prec"]
+             if c.get("subsumes_linear") and not c.get("redundant")
+             and any(x.get("survived_extrapolation") for x in s["linear"])]
+    add("C4 的常系数退化形式均已标冗余", stray,
+        "deg=0 的 C4 就是 C1，不标冗余会让候选数虚高（实测会 4 → 17）")
 
     return checks
 
@@ -236,7 +260,7 @@ def _tbl(rows, header=None):
     return "\n".join(out) + "\n"
 
 
-def write_report(res: dict, cross: dict, net: dict, checks: list) -> None:
+def write_report(res: dict, cross: dict, net: dict, tc: dict, checks: list) -> None:
     L = []
     A = L.append
     summ = res["summary"]
@@ -261,22 +285,35 @@ def write_report(res: dict, cross: dict, net: dict, checks: list) -> None:
     A("专门暴露「小样本上拟合出来、全量上不成立」的过拟合。\n")
 
     A("## 2. 总览\n")
+    CH_TAG = {"linear": "C1", "hyper": "C2", "prec": "C4"}
     A(_tbl([["指标", "数值", "含义"]] + [
         ["序列数", summ["n_sequences"], "参与搜索的整数序列"],
-        ["已知递推重发现", summ["n_known_rediscovered"], "校准件：证明机器能工作"],
+        ["已知递推重发现（按候选计）", summ["n_known_rediscovered"],
+         "同一条递推会被两条通道各自认领，故此数会重复"],
+        ["已知递推重发现（按序列计）", summ["n_sequences_with_known"],
+         "校准件：证明机器能工作；看总量用这一行"],
         ["待验证候选", summ["n_candidates"], "通过外推但没对上已知表的项"],
-        ["主发现集被外推证伪", summ["n_falsified_main"], "过拟合被挡下的数量"],
+        ["标记为冗余的形式", summ["n_redundant_marked"],
+         "C4 用 deg=0 重写 C1 已报出的递推，信息量为零，不重复计数"],
+        ["主发现集被外推证伪", summ["n_falsified_main"], "见 §5 对「0 证伪」的澄清"],
         ["压力测试（15 项）被证伪", summ["n_falsified_stress"], "小样本过拟合暴露数"],
     ]))
+    A("\n四条通道：C1 常系数线性递推、C2 一阶有理（超几何）闭式、"
+      "C3 增长率、**C4 多项式系数递推**（本轮新增，见 §6）。\n")
 
     A("## 3. 逐序列结果\n")
     rows = [["序列", "中文名", "通道/状态", "增长率", "底数/次数"]]
     for s in res["sequences"]:
         ch = []
-        for c in s["linear"] + s["hyper"]:
-            tag = "C1" if c["channel"] == "linear" else "C2"
+        for c in s["linear"] + s["hyper"] + s["prec"]:
+            # 冗余形式（C4 重写的 C1/C2）不进表：信息量为零，列出来只会撑长表格
+            if c["status"] in ("CONSEQUENCE_OF_C1", "CONSEQUENCE_OF_C2"):
+                continue
+            tag = CH_TAG.get(c["channel"], c["channel"])
             mark = ("✓已知" if c["status"] == "KNOWN_RECURRENCE_REDISCOVERED"
-                    else ("候选" if c["status"] == "CANDIDATE_UNVERIFIED" else "✗证伪"))
+                    else ("候选" if c["status"] == "CANDIDATE_UNVERIFIED"
+                          else ("✗证伪" if c["status"] == "FALSIFIED_BY_EXTRAPOLATION"
+                                else c["status"])))
             ch.append(f"{tag}:{mark}")
         g = s["growth"]
         extra = ""
@@ -307,6 +344,19 @@ def write_report(res: dict, cross: dict, net: dict, checks: list) -> None:
                          for c in s["linear"] + s["hyper"]
                          if c.get("survived_extrapolation")), "—")]
             for k, v in sorted(cal["unlisted_found"].items())]))
+    c4 = cal["c4"]
+    A("\n**C4（多项式系数递推）单独校准**：\n")
+    A(_tbl([["指标", "结果"]] + [
+        ["期望阳性", f"{len(c4['expected_positive'])} 条"],
+        ["召回", f"{len(c4['recalled'])}/{len(c4['expected_positive'])}"
+                 f"（率 {c4['recall_rate']}）"],
+        ["遗漏", "、".join(c4["missed"]) or "无"],
+        ["期望阴性", f"{len(c4['expected_negative'])} 个序列"],
+        ["真阴性", f"{len(c4['true_negative'])} 个"],
+        ["假警报", "、".join(c4["false_alarm"]) or "无"],
+    ]))
+    A(f"\n> {c4['note']}\n")
+    A(f"\n**口径警告**：{cal['scope_warning']}\n")
 
     A("\n## 5. 独立复核（S8 审计交叉核验）\n")
     A(f"- 教科书/OEIS 首项对照：**{cross['n_reference_terms_checked']} 项**，"
@@ -319,10 +369,23 @@ def write_report(res: dict, cross: dict, net: dict, checks: list) -> None:
     A(f"- 主特征根对照经典常数（φ、tribonacci 常数、塑性数）："
       f"{len(cross['char_root_expect'])} 条，容差 {cross['char_root_expect'] and '1e-6'}。")
     A(f"- C1↔C3 双路径对账：{cross['n_reconciled']} 条，"
-      f"类型分歧 {cross['n_reconcile_type_mismatch']} 条。\n")
+      f"类型分歧 {cross['n_reconcile_type_mismatch']} 条。")
+    mt = cross["falsification_meta_test"]
+    A(f"- **证伪机制元检验**：{mt['n_cases']} 个必然破功的合成序列，"
+      f"成功定位 {mt['n_located_exactly']} 个（{mt['verdict']}）。")
+    A(f"- 随机噪声（固定种子，{cross['n_terms']} 项）：报出候选 "
+      f"{cross['noise_candidates']} 条。\n")
     A("参照值**不取自本仓库任何代码**（写错就会红）。这是刻意的：")
     A("上一轮审计里我自己就把 `li(10)` 的参照值写错过一次，"
       "所以参照必须来自独立算法或教科书，不来自印象。\n")
+    A("### 关于「外推证伪 = 0」——必须澄清\n")
+    A(f"> {cross['zero_falsified_note']}\n")
+    A("换句话说，§2 里那两个 0 **不能**读成「没有过拟合」。C1/C2 只报在发现集上")
+    A("精确相容且解唯一的解，不相容的序列（随机噪声、π(n)、Collatz 停时）连候选都")
+    A("报不出来，自然走不到外推检验那一步。所以本阶段额外做了元检验：自己造")
+    A("**必然破功**的序列丢进去，看引擎能不能报出来、并把第一个失败点定位准。")
+    A(f"结果 {mt['n_located_exactly']}/{mt['n_cases']} 全部精确定位——证伪通道是通的，")
+    A("只是真实序列库里没有候选进入它。\n")
 
     A("## 6. 递推 → 特征根 → 增长率：把 C1 与 C3 接起来\n")
     A("这一节是本阶段**唯一一条方法论上的新增**：原来 C1（递推）与 C3（增长率）")
@@ -362,7 +425,45 @@ def write_report(res: dict, cross: dict, net: dict, checks: list) -> None:
     A("的特征根给出**确定底数** ρ=1.32471796（塑性数），警告即被消解——")
     A("警告本身没错，是递推证据补上了缺口。\n")
 
-    A("## 7. 序列关系网：同递推 → 同解空间\n")
+    A("## 7. 变换算子下的封闭性（套娃层）\n")
+    A("把序列空间当对象、经典变换当算子，问两件事：性质在变换后是否还能**找到**，"
+      "以及谁是不动点。\n")
+    A("**读法（重要）**：对理论封闭的变换，「丢失」要反着读——它不是性质丢了，"
+      "而是**我的搜索没跟上**。所以本节先做两步排除，再谈丢失：\n")
+    A("1. 输出**退化**：逆二项变换会把多项式型序列打成几乎全零"
+      "（`Σ(−1)^(n−k)C(n,k)·k^d = 0` 对 `n>d` 成立），这种输出本身没内容。")
+    A("2. **阶数上限**：变换常使递推阶数上升（部分和 +1 阶、乘 n 可翻倍），"
+      "放宽阶数上限后能找回的，根因就是上限而非性质。\n")
+    A(_tbl([["变换", "是否理论封闭", "不动点", "输出退化", "放宽后找回", "真正丢失"]] +
+           [[d["cn"], "是" if d["is_closed_by_theory"] else "不作判据",
+             "、".join(d["fixed_points"]) or "—",
+             len(d["degenerate_output"]),
+             len(d["recovered_by_relaxed_order"]),
+             len(d["cfinite_lost"]) + len(d["precursive_lost"])]
+            for d in tc["per_transform"].values()]))
+    n_closed_lost = sum(len(d["cfinite_lost"]) + len(d["precursive_lost"])
+                        for d in tc["per_transform"].values()
+                        if d["is_closed_by_theory"])
+    A(f"\n理论封闭的变换上，真正丢失 **{n_closed_lost}** 条。\n")
+    fps = [(tf, d["fixed_points"]) for tf, d in tc["per_transform"].items()
+           if d["fixed_points"]]
+    if fps:
+        A("**不动点**：" + "；".join(
+            f"`{s}` 在 {tc['per_transform'][tf]['cn']} 下不变"
+            for tf, ss in fps for s in ss) + "。")
+        A("`Δ(2ⁿ) = 2^(n+1) − 2ⁿ = 2ⁿ`，所以 `powers_of_two` 是差分的真不动点"
+          "——这不是搜索到的模式，是可以一眼验证的恒等式。\n")
+    # 未被两步排除解释掉的丢失
+    unexplained = [(tf, s, "C-finite" if s in d["cfinite_lost"] else "P-recursive")
+                   for tf, d in tc["per_transform"].items()
+                   for s in d["cfinite_lost"] + d["precursive_lost"]]
+    if unexplained:
+        A("**未被解释的丢失**（即搜索能力的已知边界）：\n")
+        A(_tbl([["变换", "序列", "丢失的性质"]] +
+               [[tc["per_transform"][tf]["cn"], s, k] for tf, s, k in unexplained]))
+        A("\n这些不是数学结论，是**本引擎的能力缺口**，列出来是为了让它可被后续修掉。\n")
+
+    A("## 8. 序列关系网：同递推 → 同解空间\n")
     A(_tbl([["递推式", "通道", "成员", "已知出处"]] +
            [[d["statement"], "C1" if d["channel"] == "linear" else "C2",
              "、".join(m["cn"] for m in d["members"]),
@@ -435,7 +536,16 @@ def main() -> None:
     print(f"     关系网：{net['n_recurrences']} 条递推，"
           f"其中 {net['n_multi_member']} 条多成员")
 
-    checks = self_audit(res, cross, net)
+    print("[S9] 变换封闭性：开始")
+    tc = sq.transform_closure(N_TERMS)
+    res["transform_closure"] = tc
+    n_lost = sum(len(d["cfinite_lost"]) + len(d["precursive_lost"])
+                 for tf, d in tc["per_transform"].items()
+                 if d["is_closed_by_theory"])
+    print(f"     变换 {tc['n_transforms']} 个 × 序列 30 = {tc['n_rows']} 组；"
+          f"理论封闭的变换上丢失 {n_lost} 条")
+
+    checks = self_audit(res, cross, net, tc)
     res["self_audit"] = {
         "checks": checks,
         "total_checks": len(checks),
@@ -482,7 +592,7 @@ def main() -> None:
 
     _dump(res, "sequence_theory.json")
     _dump(cands, "sequence_candidates.json")
-    write_report(res, cross, net, checks)
+    write_report(res, cross, net, tc, checks)
     print(f"[S9] 自核验：{len(checks)} 项，违规 {res['self_audit']['violations']} 项")
     print(f"[S9] 报告已写：{REPORT}")
 

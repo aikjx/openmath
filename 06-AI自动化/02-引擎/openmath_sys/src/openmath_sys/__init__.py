@@ -30,11 +30,19 @@ from .theoryforge import (
     forge_all, KNOWN_RELATIONS, DEFINITIONAL_LINEAR,
 )
 from .audit import run_audit, SCOPE_NOTE as AUDIT_SCOPE_NOTE
+# 注意命名冲突：sequences 与 theoryforge **都有** discover_linear。
+# 若把 sequences 的 discover_linear 扁平导入进来，会静默遮蔽 theoryforge 的那个
+# （两者语义完全不同：一个是有限对象不变量的线性关系，一个是整数序列的递推）。
+# 所以这里**不**扁平导入任何与 theoryforge 重名的函数，改用模块引用。
+from . import sequences as seq
 from .sequences import (
-    build_sequences, discover_linear, discover_hypergeometric, estimate_growth,
-    analyze_sequence, analyze_all, characteristic_polynomial, polynomial_roots,
+    build_sequences, analyze_sequence, analyze_all,
+    characteristic_polynomial, polynomial_roots,
     growth_from_recurrence, reconcile_growth,
-    KNOWN_RECURRENCES, EXPECTED_NEGATIVE,
+    discover_polynomial_recurrence, meta_test_falsification, transform_closure,
+    mod_primes, rational_reconstruct,
+    KNOWN_RECURRENCES, EXPECTED_NEGATIVE, KNOWN_PRECURENCES,
+    P_RECURSIVE_NEGATIVE,
     SCOPE_NOTE as SEQ_SCOPE_NOTE, EVIDENCE_NOTE as SEQ_EVIDENCE_NOTE,
 )
 from .system import OpenMathProcessor
@@ -51,9 +59,13 @@ __all__ = [
     "pareto_filter_inequalities", "recognize_known", "stress_test", "theory_net",
     "forge_all", "KNOWN_RELATIONS", "DEFINITIONAL_LINEAR",
     "run_audit", "AUDIT_SCOPE_NOTE",
-    "build_sequences", "discover_linear", "discover_hypergeometric",
-    "estimate_growth", "analyze_sequence", "analyze_all",
+    # 序列侧：重名函数一律走 seq.<name>，不扁平导出，避免遮蔽 theoryforge
+    "seq", "build_sequences", "analyze_sequence", "analyze_all",
     "characteristic_polynomial", "polynomial_roots", "growth_from_recurrence",
-    "reconcile_growth", "KNOWN_RECURRENCES", "EXPECTED_NEGATIVE",
+    "reconcile_growth", "discover_polynomial_recurrence",
+    "meta_test_falsification", "transform_closure",
+    "mod_primes", "rational_reconstruct",
+    "KNOWN_RECURRENCES", "EXPECTED_NEGATIVE", "KNOWN_PRECURENCES",
+    "P_RECURSIVE_NEGATIVE",
     "SEQ_SCOPE_NOTE", "SEQ_EVIDENCE_NOTE",
 ]

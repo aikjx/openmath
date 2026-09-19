@@ -12,7 +12,7 @@ from __future__ import annotations
 
 import math
 import re
-from .parser import parse_text, evaluate
+from .parser import parse_text, evaluate, standalone_letters
 
 DEFAULT_LO = -20.0
 DEFAULT_HI = 20.0
@@ -188,7 +188,10 @@ def screen_identity(raw: str) -> dict:
         return {"decidable": False, "scope": "not_equation",
                 "reason": "非等号关系", "suspect_variables": []}
     lhs_s, rhs_s = parts
-    left, right = parse_text(lhs_s), parse_text(rhs_s)
+    # 隐式乘法的证据要跨等号收集：`exp(ix)` 只在右侧、独立的 `x` 只在左侧。
+    # 若分别解析，`ix` 就会因为没有本地证据而保持为一个名叫 ix 的变量。
+    ctx = standalone_letters(raw)
+    left, right = parse_text(lhs_s, ctx), parse_text(rhs_s, ctx)
     if not (left.parse_ok and right.parse_ok):
         return {"decidable": False, "scope": "unparsable",
                 "reason": "两侧之一无法解析", "suspect_variables": []}
@@ -226,30 +229,50 @@ def screen_identity(raw: str) -> dict:
     unknown = sorted(t for t in tokens if t.lower() not in known and t not in vars_)
     # LaTeX 命令（\sqrt 等）不算未识别 token
     unknown = [t for t in unknown if not raw.lower().count("\\" + t.lower())]
+    # 解析器已把连写拆成乘积的情形（`ix` → `i*x`）不应算"未被解析到"：
+    # 那些字母都在 vars_ 里，拆开反而是**正确**结果。缺这一步会把
+    # `sin(x) = (e^{ix} − e^{−ix})/(2i)` 判成 parse_suspect，进而退化到
+    # normalize_implicit_mul 那条把优先级做错的旧路上去。
+    unknown = [t for t in unknown if not set(t) <= set(vars_)]
     for t in unknown:
         suspect.append((t, "原文中的标识符未被解析到（可能被求值器静默丢弃）"))
 
-    # 隐式乘法：求值器不支持。实测 `2z` 被当成常量 2（z 被丢弃）、`iz` 被合成一个变量，
-    # 这两种情形都会让抽样验证的变成**另一条式子**，必须先拦下。
-    # 注意：**不清洗单字母常量 i**——它恰恰是最需要被歧义检查抓住的记号
-    # （`-i ln(x)` 这类写法里，i 后面接的是隐式乘法而不是函数调用）
-    cleaned = raw
-    for name in sorted((KNOWN_FUNC_NAMES | PROSE_STOPWORDS | {"e", "pi"}),
-                       key=len, reverse=True):
-        cleaned = re.sub(r"(?<![\w\\])" + re.escape(name) + r"(?![\w])", " ", cleaned, flags=re.I)
-    # LaTeX 命令（\sqrt 等）整体是一个记号，剥离后再查相邻字母，避免把 "sqrt" 的
-    # 字母串误判成隐式乘法
-    cleaned = re.sub(r"\\[A-Za-z]+", " ", cleaned)
-    for m in re.finditer(r"[0-9][A-Za-z]", cleaned):
-        suspect.append((m.group(), "数字紧邻字母：求值器按常量处理，隐式乘法不会被拆开"))
-    for m in re.finditer(r"[A-Za-z][A-Za-z]", cleaned):
-        suspect.append((m.group(), "字母紧邻字母：求值器合成一个标识符，隐式乘法不会被拆开"))
-    for m in re.finditer(r"[0-9]\s+[A-Za-z\\(]", cleaned):
-        suspect.append((m.group().strip(),
-                        "数字隔空白紧邻标识符：求值器会把式子静默截断成该常数"))
-    for m in re.finditer(r"\b[A-Za-z][A-Za-z0-9_]*\s+[A-Za-z\\(]", cleaned):
-        suspect.append((m.group().strip(),
-                        "标识符后接空白再接表达式：求值器只解释为函数调用，疑为隐式乘法"))
+    # 隐式乘法：**解析器现在已经支持**（见 parser.insert_implicit_mul /
+    # split_letter_runs），所以这四条正则不再是"一律拦下"，而是"解析器没拆开才拦"。
+    #
+    # 判据是最后的变量清单：若所有变量都是单字母（或白名单里的多字符名），说明
+    # `2z` / `iz` / `2 ln(x)` 这类连写都已被拆成乘积，没有标识符被吞掉。
+    # 旧逻辑无条件拦下的后果是：这些真恒等式永远停在 not_decidable；
+    # 而如果被母线上的 normalize_implicit_mul 改写成松散的 `2*i`，
+    # `1/2i` 会变成 `(1/2)*i`，把**真恒等式判成 fails**（第五轮实测的回归）。
+    #
+    # 另一个副作用（也是必须的）：通过这道关的式子走的是 raw 原文，
+    # 不再经过 normalize_implicit_mul —— 那个函数补的是**松散** `*`，
+    # 会把 `/2i` 改写成 `/2*i`，优先级从「紧贴」掉回「普通乘」。
+    # 解析出来了但是**多字符**的变量 = 连写没被拆开（或本就是未知标识符）
+    unresolved = [v for v in vars_
+                  if len(v) >= 2 and v not in ALLOWED_MULTICHAR_VARS]
+    if unresolved:
+        cleaned = raw
+        for name in sorted((KNOWN_FUNC_NAMES | PROSE_STOPWORDS | {"e", "pi"}),
+                           key=len, reverse=True):
+            cleaned = re.sub(r"(?<![\w\\])" + re.escape(name) + r"(?![\w])",
+                             " ", cleaned, flags=re.I)
+        # LaTeX 命令（\sqrt 等）整体是一个记号，剥离后再查相邻字母，避免把 "sqrt"
+        # 的字母串误判成隐式乘法
+        cleaned = re.sub(r"\\[A-Za-z]+", " ", cleaned)
+        for m in re.finditer(r"[0-9][A-Za-z]", cleaned):
+            suspect.append((m.group(),
+                            "数字紧邻字母：解析器未拆开，可能变成两个不相干的记号"))
+        for m in re.finditer(r"[A-Za-z][A-Za-z]", cleaned):
+            suspect.append((m.group(),
+                            "字母紧邻字母：解析器未拆开，连写被当成单个标识符"))
+        for m in re.finditer(r"[0-9]\s+[A-Za-z\(]", cleaned):
+            suspect.append((m.group().strip(),
+                            "数字隔空白紧邻标识符：解析器未拆开，式子会被截断成常数"))
+        for m in re.finditer(r"\b[A-Za-z][A-Za-z0-9_]*\s+[A-Za-z\(]", cleaned):
+            suspect.append((m.group().strip(),
+                            "标识符后接空白再接表达式：疑为隐式乘法且解析器未处理"))
 
     if suspect:
         return {"decidable": False, "scope": "parse_suspect",
@@ -292,8 +315,9 @@ def verify_identity(raw: str, trials: int = 25, lo: float = 0.05, hi: float = 0.
         }
     parts = split_equation(raw)
     lhs_s, rhs_s = parts
-    left = parse_text(lhs_s)
-    right = parse_text(rhs_s)
+    ctx = standalone_letters(raw)
+    left = parse_text(lhs_s, ctx)
+    right = parse_text(rhs_s, ctx)
     vars_ = screen["variables"]
     rng = random.Random(seed)
     checked, errors, maxdiff, worst = 0, 0, 0.0, None

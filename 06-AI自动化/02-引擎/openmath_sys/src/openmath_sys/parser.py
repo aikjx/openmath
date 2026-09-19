@@ -74,31 +74,219 @@ class Relation(_Node):
 
 
 # ---------------------------------------------------------------------------
-# 词法分析
+# 词法分析 + 隐式乘法（token 层）
 # ---------------------------------------------------------------------------
+# 以前的做法是：numeric.py 的文本预处理器先补 `*` 再喂进来；parser 自己遇到
+# `2z` 这种相邻因子会抛 ValueError，最终由 screen_identity 判成 not_decidable。
+# 也就是说"隐式乘法"以前是被**识别成问题**而不是被**当成记法**。
+#
+# 现在在 token 层补齐它，配套的取舍有三条，都写在下面是非为了让持异议的人能推翻：
+#   ① 只在"前一个 token 能结束一个因子、后一个 token 能开始一个因子"时插 `*`；
+#   ② `VAR VAR`（如 `x y`）**不**补 —— 与多字符变量名（n、k? 见 task⑱ 注）
+#      以及散文词（"the sum" 会被切成一串 VAR）无法区分，补了会凭空造出恒等式；
+#   ③ FUNC 后紧跟 `(` 的情况 tokenizer 已经当成函数调用，不在这里重复处理。
+#
+# 边界表（prev 能否结束因子 / next 能否开始因子）：
+#   能结束：NUM、VAR、FUNC、')'         能开始：NUM、VAR、FUNC、'('
+_END = ("NUM", "VAR", "FUNC")
+_START = ("NUM", "VAR", "FUNC")
+
+# `_call_func` 支持的全部名字（含别名）与 Python 命名常量，供 split_letter_runs 排除。
+# 与 _call_func 的分支必须保持同步：新增内置函数漏登记在这里，`sin` 可能被拆成 s*i*n。
+# 这条同步由审计检查盯住（见 audit.py 的"内置函数名清单自洽"检查）。
+_BUILTIN_FUNC_NAMES = frozenset({
+    "plus", "minus", "times", "divide", "power", "abs", "sqrt",
+    "exp", "ln", "log",
+    "sin", "cos", "tan", "arcsin", "asin", "arccos", "acos", "arctan", "atan",
+    "arcsec", "asec", "arccsc", "acsc", "arccot", "acot",
+    "sec", "csc", "cot", "sinh", "cosh", "tanh", "sech", "csch", "coth",
+    "arcsinh", "asinh", "arccosh", "acosh", "arctanh", "atanh",
+    "arcsech", "asech", "arccsch", "acsch", "arccoth", "acoth",
+    "gcd", "lcm",
+})
+_NAMED_CONSTANTS = frozenset({"pi", "e", "tau", "phi", "inf", "nan"})
+# 允许参与连写切分的"单位"名（见 split_letter_runs 的判据说明）
+_NAMED_UNITS = frozenset({"i", "e", "pi"})
+
+
+def standalone_letters(raw: str) -> set:
+    """原式里**独立出现过的单字母**集合，供 `split_letter_runs` 作证据。
+
+    之所以要单独抽出来：左右两侧会被**分别**解析（见 numeric.screen_identity），
+    而 `exp(ix)` 只在右侧出现、独立的 `x` 却只在左侧出现。
+    证据必须跨等号收集，否则 `ix` 拆不开。
+    """
+    tokens, _ws = scan_tokens(raw)
+    return {t[1] for t in tokens if t[0] == "VAR" and len(t[1]) == 1}
+
+
+def _segment_run(word: str, names: set) -> list[str] | None:
+    """把 `word` 切成一串"已知名"的拼接；切不动返回 None（**不猜**）。
+
+    `names` = 该式里独立出现过的单字母 ∪ 已知单位名（虚数单位 i、e、π）。
+    长名优先匹配，所以 `pi` 不会被切成 `p`与`i`。
+    """
+    pieces: list[str] = []
+    k = 0
+    while k < len(word):
+        hit = None
+        for span in (2, 1):
+            piece = word[k:k + span]
+            if len(piece) == span and piece in names:
+                hit = piece
+                break
+        if hit is None:
+            return None
+        pieces.append(hit)
+        k += len(hit)
+    return pieces
+
+
+def split_letter_runs(tokens: list[tuple[str, str]],
+                      ws_before: list[bool] | None = None,
+                      context_letters: set | None = None,
+                      ) -> tuple[list[tuple[str, str]], list[bool]]:
+    """把「多个变量连写」的 token 拆成乘积：`iz` -> `i * z`。
+
+    词法扫描会把连续字母整块吃成一个 VAR，所以 `exp(ix)` 里的 `ix` 会变成一个
+    名叫 `ix` 的变量。要在 token 层拆开，必须回答「凭什么认为它是连写而不是
+    一个变量名」。
+
+    判据是**证据式的**：这个串必须能整段切分为「在该式别处**独立出现过的单字母**」
+    或「已知单位名」（虚数单位 i、自然常数 e、圆周率 pi）的拼接，才认定它是连写。
+
+    为什么要算上单位名：`cos(x) = (e^{ix}+e^{-ix})/2` 里的 `i` **从不独立出现**，
+    只认"独立出现过的字母"会把 `ix` 留成一个名叫 ix 的变量。
+
+    副作用是散文天然安全：`the`/`sum`/`ranges` 既非单位名、其字母也不独立出现，
+    切不动就保持原样。这是刻意留的安全阀——宁可在 `xyz` 这类纯连写上漏拆，
+    也不把 `the` 拆成 `t*h*e`。
+
+    内置函数名与整体已知的常量名另行排除，避免 `pi` 被拆成 `p*i`。
+
+    返回值同时带上同步更新过的 `ws_before`（拆出来的后续片段与原片段紧贴），
+    否则后续 `insert_implicit_mul` 的"紧贴 vs 隔空白"判据会错位。
+    """
+    ws = list(ws_before) if ws_before is not None else [False] * len(tokens)
+    standalone = {t[1] for t in tokens if t[0] == "VAR" and len(t[1]) == 1}
+    if context_letters:
+        standalone |= set(context_letters)
+    names = standalone | _NAMED_UNITS
+    out: list[tuple[str, str]] = []
+    out_ws: list[bool] = []
+    for idx, (kind, val) in enumerate(tokens):
+        pieces = None
+        if (kind == "VAR" and len(val) >= 2
+                and val.lower() not in _BUILTIN_FUNC_NAMES
+                and val.lower() not in _NAMED_CONSTANTS):
+            pieces = _segment_run(val, names)
+        if pieces is not None and len(pieces) > 1:
+            for k2, piece in enumerate(pieces):
+                if k2:
+                    out.append(("OP", "*"))
+                    out_ws.append(False)
+                out.append(("VAR", piece))
+                out_ws.append(ws[idx] if k2 == 0 else False)
+        else:
+            out.append((kind, val))
+            out_ws.append(ws[idx])
+    return out, out_ws
+
+
+def insert_implicit_mul(tokens: list[tuple[str, str]],
+                        ws_before: list[bool] | None = None,
+                        ) -> list[tuple[str, str]]:
+    """在相邻因子的 token 之间补乘法记号。返回新列表，不改动入参。
+
+    补出来的记号有两种，**优先级不同**：
+
+    - `JUXTA`：两个因子**紧贴**（中间无空白）。它比 `*` 和 `/` 结合得更紧，
+      于是 `1/2i` 是 `1/(2i)` 而不是 `(1/2)*i`。
+    - `OP *`：两个因子**隔了空白**（如 `2 ln(x)`）。与显式写的 `*` 同优先级。
+
+    这个区分不是我们拍的：`sin(x) = (e^{ix} − e^{−ix})/(2i)` 这条恒等式
+    若按"垫片一律等价于显式 `*`"处理，右侧会变成 `(…)/2·i`，多出一个 `-1` 因子，
+    真恒等式会被判成 fails（2026-09-19 实测到的回归，见 CHANGELOG 第五轮）。
+    Mathematica 用同一套约定（有空白=普通乘，无空白=紧贴合）。
+    """
+    out: list[tuple[str, str]] = []
+    for idx, tok in enumerate(tokens):
+        if out:
+            kind, val = tok
+            if ((kind in _START or (kind == "PAREN" and val == "("))
+                    and implicit_mul_needed(out[-1], tok)):
+                tight = True if ws_before is None else not ws_before[idx]
+                out.append(("JUXTA", "*") if tight else ("OP", "*"))
+        out.append(tok)
+    return out
+
+
+def implicit_mul_needed(prev: tuple[str, str],
+                        nxt: tuple[str, str]) -> bool:
+    """是否需要在这两个相邻 token 之间补 `*`（导出以便独立审计逐格对照）。"""
+    pk, pv = prev
+    nk, nv = nxt
+    prev_ends = pk in _END or (pk == "PAREN" and pv == ")")
+    if not prev_ends:
+        return False
+    next_starts = nk in _START or (nk == "PAREN" and nv == "(")
+    if not next_starts:
+        return False
+    # 取值 ②：两个 VAR 相邻只在**两边都是单字母**时补 ——
+    #     多字符 token 之间（`pi r^2`、散文词序列 `the sum`）无法与多字符变量名区分，
+    #     补了会把散文静默变成乘积。`pi r^2` 因此仍然解析失败（报错好过静默截断成 pi）。
+    if pk == "VAR" and nk == "VAR" and not (len(pv) == 1 and len(nv) == 1):
+        return False
+    # FUNC 后面紧跟的 `(` 是**它的实参表**，不是乘积因子
+    if pk == "FUNC" and nk == "PAREN" and nv == "(":
+        return False
+    return True
+
+
 def tokenize(s: str) -> list[tuple[str, str]]:
+    """词法扫描。只需记号流时用这个；需要空白信息的用 `scan_tokens`。"""
+    return scan_tokens(s)[0]
+
+
+def scan_tokens(s: str) -> tuple[list[tuple[str, str]], list[bool]]:
+    """词法扫描，同时记录每个记号**之前是否紧贴空白**。
+
+    `ws_before[i]` 为真 ⟺ 第 i 个记号在原文里前面有空白。
+    `insert_implicit_mul` 需要它来区分紧贴乘法与隔空白乘法——两者优先级不同。
+    """
     tokens: list[tuple[str, str]] = []
+    ws_before: list[bool] = []
+    pending_ws = False
     i, n = 0, len(s)
     while i < n:
         c = s[i]
         if c.isspace():
+            pending_ws = True
             i += 1
             continue
         if c in "()":
             tokens.append(("PAREN", c))
+            ws_before.append(pending_ws)
+            pending_ws = False
             i += 1
             continue
         if c == ",":
             tokens.append(("COMMA", ","))
+            ws_before.append(pending_ws)
+            pending_ws = False
             i += 1
             continue
         if c in "+-*/^=<>":
             # 合并双字符运算符 >= <= != ==
             if c in "<>=" and i + 1 < n and s[i + 1] in "=>":
                 tokens.append(("OP", c + s[i + 1]))
+                ws_before.append(pending_ws)
+                pending_ws = False
                 i += 2
                 continue
             tokens.append(("OP", c))
+            ws_before.append(pending_ws)
+            pending_ws = False
             i += 1
             continue
         if c.isdigit() or c == ".":
@@ -106,6 +294,8 @@ def tokenize(s: str) -> list[tuple[str, str]]:
             while j < n and (s[j].isdigit() or s[j] == "."):
                 j += 1
             tokens.append(("NUM", s[i:j]))
+            ws_before.append(pending_ws)
+            pending_ws = False
             i = j
             continue
         if c.isalpha() or c == "_":
@@ -120,10 +310,12 @@ def tokenize(s: str) -> list[tuple[str, str]]:
                 tokens.append(("FUNC", name))
             else:
                 tokens.append(("VAR", name))
+            ws_before.append(pending_ws)
+            pending_ws = False
             i = j
             continue
-        i += 1  # 跳过未知字符
-    return tokens
+        i += 1  # 跳过未知字符（不计为空隙，避免 \sqrt 之类被误判成"隔空白"）
+    return tokens, ws_before
 
 
 # ---------------------------------------------------------------------------
@@ -143,7 +335,14 @@ class Parser:
         return t
 
     def parse(self) -> _Node:
-        return self.parse_relation()
+        node = self.parse_relation()
+        if self.pos != len(self.tokens):
+            # 旧实现会把尾巴上的记号静默丢掉。实测后果：`2 ln(x + ...)` 被截断成
+            # 常数 `2`（arcsech 假阴性的根因）。现在尾巴一律报错，让上层判断。
+            raise ValueError(
+                "表达式后面还有未消费的记号："
+                + repr(self.tokens[self.pos:self.pos + 4]))
+        return node
 
     def parse_relation(self) -> _Node:
         left = self.parse_expr()
@@ -193,7 +392,7 @@ class Parser:
         if t[0] == "OP" and t[1] in ("+", "-"):
             self.next()
             return UnaryOp(t[1], self.parse_unary())
-        return self.parse_power()
+        return self.parse_juxta()
 
     def parse_power(self) -> _Node:
         """乘方层：底数是原子，指数允许带一元号（如 `2^-1`），右结合。"""
@@ -202,6 +401,24 @@ class Parser:
         if t[0] == "OP" and t[1] == "^":
             self.next()
             node = BinOp("^", node, self.parse_unary())
+        return node
+
+    def parse_juxta(self) -> _Node:
+        """紧贴隐式乘法层：`2z`、`(a)(b)`、`1/2i` 里的 `2i`。
+
+        比 `*` 和 `/` 结合得更紧，所以 `1/2i` 读作 `1/(2i)`。
+        这一层不放 heated debate：约定本身有争议（`1/2x` 怎么写都有人用），
+        选这条是因为它让真恒等式判对；反面就是读 `1/2x` 的人会理解错。
+        这条约定写在 CHANGELOG 第五轮，允许被推翻。
+        """
+        node = self.parse_power()
+        while True:
+            t = self.peek()
+            if t[0] == "JUXTA":
+                self.next()
+                node = BinOp("*", node, self.parse_power())
+            else:
+                break
         return node
 
     def parse_atom(self) -> _Node:
@@ -528,10 +745,12 @@ def solve_poly(coeffs: dict, var: str) -> dict:
 # ---------------------------------------------------------------------------
 # 对外入口
 # ---------------------------------------------------------------------------
-def parse_text(raw: str) -> MathExpr:
+def parse_text(raw: str, context: set | None = None) -> MathExpr:
     raw = raw.strip()
     try:
-        tokens = tokenize(raw)
+        tokens, ws = scan_tokens(raw)
+        tokens, ws = split_letter_runs(tokens, ws, context_letters=context)
+        tokens = insert_implicit_mul(tokens, ws)
         tree = Parser(tokens).parse()
         variables = sorted({n.name for n in _walk(tree) if isinstance(n, Var)})
         is_eq = isinstance(tree, Relation) and tree.op == "="

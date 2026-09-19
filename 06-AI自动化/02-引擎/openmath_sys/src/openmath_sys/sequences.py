@@ -995,6 +995,179 @@ P_DEG_MAX = 2        # p_i(n) 的最大次数
 P_TERM_ABS_BOUND = 10 ** 45  # 项太大时精确消元会爆，跳过并如实记录
 
 
+# ===========================================================================
+# 6.7b C4 的模素数消元（取代精确有理消元）
+# ---------------------------------------------------------------------------
+# 为什么换：隔项抽样 a(2n) 会让项在原序列第 30 项就超过 1e45，Fraction 消元
+# 的分母呈指数膨胀。旧版做法是「超过 P_TERM_ABS_BOUND 就跳过」——写在 reason
+# 里算诚实，但它让两组长不出结果的原因变成「我们放弃了」而不是「它没有」。
+# 这是**归因错误**：上一轮把它写成「能力缺口，根因 P_DEG_MAX 过小」，实测并不是。
+#
+# 换成三段式：模若干大素数消元 → 有理重建 → **精确整数复核**。
+# 复核是精确的，所以放得再宽也不会放进假阳性；重建失败只导致漏报，不会错报。
+# ===========================================================================
+# 梅森素数指数（2^e − 1 为素数）。运行时仍用 Miller–Rabin 验一遍：
+# 万一记错、放进合数，后面的精确复核也只会让结果变少，不会变错。
+_MERSENNE_EXPONENTS = (61, 89, 107, 127)
+_MR_BASES = (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47,
+             53, 59, 61, 67, 71, 73, 79, 83, 89, 97)
+
+
+def _is_probable_prime(n: int) -> bool:
+    """Miller–Rabin（前 25 个素数作基）。足够本用途：合数漏过也只影响候选量。"""
+    if n < 2:
+        return False
+    for p in _MR_BASES:
+        if n % p == 0:
+            return n == p
+    d, r = n - 1, 0
+    while d % 2 == 0:
+        d //= 2
+        r += 1
+    for a in _MR_BASES:
+        x = pow(a, d, n)
+        if x == 1 or x == n - 1:
+            continue
+        for _ in range(r - 1):
+            x = x * x % n
+            if x == n - 1:
+                break
+        else:
+            return False
+    return True
+
+
+def mod_primes() -> List[int]:
+    ps = []
+    for e in _MERSENNE_EXPONENTS:
+        p = 2 ** e - 1
+        if _is_probable_prime(p):
+            ps.append(p)
+    return ps
+
+
+def _nullspace_mod(A: List[List[int]], p: int) -> List[List[int]]:
+    """齐次系统 A·x ≡ 0 (mod p) 的一组基。p 为素数时非零元必可逆。"""
+    if not A:
+        return []
+    n = len(A[0])
+    rows = [[x % p for x in row] for row in A]
+    piv: List[int] = []
+    r = 0
+    for c in range(n):
+        sel = None
+        for i in range(r, len(rows)):
+            if rows[i][c]:
+                sel = i
+                break
+        if sel is None:
+            continue
+        rows[r], rows[sel] = rows[sel], rows[r]
+        inv = pow(rows[r][c], p - 2, p)
+        rows[r] = [(x * inv) % p for x in rows[r]]
+        for i in range(len(rows)):
+            if i != r and rows[i][c]:
+                f = rows[i][c]
+                rows[i] = [(a - f * b) % p for a, b in zip(rows[i], rows[r])]
+        piv.append(c)
+        r += 1
+        if r == len(rows):
+            break
+    free = [c for c in range(n) if c not in piv]
+    basis: List[List[int]] = []
+    for fc in free:
+        v = [0] * n
+        v[fc] = 1
+        for i, c in enumerate(piv):
+            v[c] = (-rows[i][fc]) % p
+        basis.append(v)
+    return basis
+
+
+def rational_reconstruct(x: int, p: int) -> Optional[Fraction]:
+    """由 x ≡ num·den⁻¹ (mod p) 还原 num/den。
+
+    |num| ≤ sqrt(p/2) 且 0 < den ≤ sqrt(p/2) 时解唯一；不存在则返回 None —— **不猜**。
+    """
+    x %= p
+    if x == 0:
+        return Fraction(0)
+    bound = math.isqrt(p // 2)
+    u0, u1 = p, 0
+    v0, v1 = x, 1
+    while abs(v0) > bound or abs(v1) > bound:
+        if v0 == 0:
+            return None
+        q = u0 // v0
+        u0, v0 = v0, u0 - q * v0
+        u1, v1 = v1, u1 - q * v1
+    num, den = v0, v1
+    if den < 0:
+        num, den = -num, -den
+    if den == 0 or abs(num) > COEF_BOUND or den > COEF_BOUND:
+        return None
+    if (num - x * den) % p != 0:
+        return None
+    g = _gcd(abs(num), den)
+    if g == 0:
+        return None
+    return Fraction(num // g, den // g)
+
+
+def _prec_nullspace_candidates(
+        A: List[List[int]], n_unk: int
+) -> Tuple[List[Tuple[List[int], int]], Dict[str, Any]]:
+    """跨多个大素数求零空间，重建为**整数**系数向量。
+
+    返回 (候选表[(向量, 多少个素数重建出同一个结果)], 诊断)。
+    零空间维数不为 1 的素数直接弃用：维数 >1 意味着方程不足以定出形式。
+    """
+    diag: Dict[str, Any] = {"nullity_by_prime": {}, "primes_examined": 0,
+                            "n_reconstruct_failed": 0}
+    seen: Dict[Tuple[int, ...], int] = {}
+    for p in mod_primes():
+        diag["primes_examined"] += 1
+        bs = _nullspace_mod(A, p)
+        diag["nullity_by_prime"][str(p.bit_length())] = len(bs)
+        if len(bs) != 1:
+            continue
+        v = bs[0]
+        nz = next((i for i, x in enumerate(v) if x), None)
+        if nz is None:
+            continue
+        inv = pow(v[nz], p - 2, p)
+        fr: List[Optional[Fraction]] = [
+            rational_reconstruct((x * inv) % p, p) for x in v]
+        if any(x is None for x in fr):
+            diag["n_reconstruct_failed"] += 1
+            continue
+        fr = [x for x in fr if x is not None]  # 收窄类型，非空已保证
+        den = 1
+        for x in fr:
+            den = den * x.denominator // _gcd(den, x.denominator)
+            if den > COEF_BOUND:
+                diag["n_reconstruct_failed"] += 1
+                break
+        else:
+            ints = [int(x * den) for x in fr]
+            g = 0
+            for x in ints:
+                g = _gcd(g, abs(x))
+            if g == 0:
+                continue
+            ints = [x // g for x in ints]
+            if any(abs(x) > COEF_BOUND for x in ints):
+                diag["n_reconstruct_failed"] += 1
+                continue
+            # 整体变号是同一个关系，统一归一到「首个非零元为正」
+            first_nz = next((x for x in ints if x != 0), 0)
+            if first_nz < 0:
+                ints = [-x for x in ints]
+            seen[tuple(ints)] = seen.get(tuple(ints), 0) + 1
+    cands = sorted(seen.items(), key=lambda kv: -kv[1])
+    return [([int(x) for x in k], c) for k, c in cands], diag
+
+
 def discover_polynomial_recurrence(terms: List[int],
                                    discovery_len: int = DISCOVERY_LEN,
                                    max_order: int = P_ORDER_MAX,
@@ -1008,11 +1181,6 @@ def discover_polynomial_recurrence(terms: List[int],
     """
     out: List[Dict[str, Any]] = []
     n_total = len(terms)
-    if max(abs(t) for t in terms[:discovery_len]) > P_TERM_ABS_BOUND:
-        return [{"channel": "prec", "skipped": True,
-                 "reason": (f"发现集内项的绝对值超过 {P_TERM_ABS_BOUND:.0e}，"
-                            "精确有理消元会爆掉，本通道跳过（不是'找不到'）"),
-                 "evidence": "L2"}]
     if discovery_len >= n_total:
         discovery_len = max(max_order + 6, n_total - 6)
     if discovery_len < 8:
@@ -1024,70 +1192,68 @@ def discover_polynomial_recurrence(terms: List[int],
             n_eq = discovery_len - k
             if n_eq < n_unk + 4:      # 留出余量，宁可欠报也不过拟合
                 continue
-            A: List[List[Fraction]] = []
+            A: List[List[int]] = []
             for n in range(k, discovery_len):
-                row: List[Fraction] = []
+                row: List[int] = []
                 for i in range(k + 1):
-                    a = Fraction(terms[n - i])
-                    for j in range(deg + 1):
-                        row.append(a * Fraction(n) ** j)
+                    a = terms[n - i]
+                    row.extend(a * n ** j for j in range(deg + 1))
                 A.append(row)
-            basis = _nullspace(A)
-            if len(basis) != 1:
-                continue
-            v = basis[0]
-            if not all(_coef_ok(x) for x in v):
-                continue
-            # 整数化 + 约简 + 定符号
-            den = 1
-            for x in v:
-                den = den * x.denominator // _gcd(den, x.denominator)
-            ints = [int(x * den) for x in v]
-            g = 0
-            for x in ints:
-                g = _gcd(g, abs(x))
-            if g == 0:
-                continue
-            ints = [x // g for x in ints]
-            polys = [ints[i * (deg + 1):(i + 1) * (deg + 1)] for i in range(k + 1)]
-            if all(x == 0 for x in polys[0]):
-                continue   # p_0 ≡ 0：解不出 a(n)，不是递推
-            first_nz = next((x for x in ints if x != 0), 0)
-            if first_nz < 0:
-                polys = [[-x for x in p] for p in polys]
+            vecs, diag = _prec_nullspace_candidates(A, n_unk)
+            for ints, n_agree in vecs:
+                polys = [ints[i * (deg + 1):(i + 1) * (deg + 1)]
+                         for i in range(k + 1)]
+                if all(x == 0 for x in polys[0]):
+                    continue   # p_0 ≡ 0：解不出 a(n)，不是递推
 
-            # 外推检验：发现集之外的每一项都必须让 Σ p_i(n)·a(n-i) 恰为 0
-            failed_at = None
-            n_check = 0
-            for n in range(discovery_len, n_total):
-                s = 0
-                for i in range(k + 1):
-                    pv = sum(polys[i][j] * n ** j for j in range(deg + 1))
-                    s += pv * terms[n - i]
-                n_check += 1
-                if s != 0:
-                    failed_at = {"n": n, "detail": f"Σ p_i(n)·a(n-i) = {s} ≠ 0"}
-                    break
-            parts = []
-            for i in range(k + 1):
-                ps = _poly_str(polys[i])
-                if ps == "0":
+                def _resid(n: int) -> int:
+                    s = 0
+                    for i in range(k + 1):
+                        pv = sum(polys[i][j] * n ** j for j in range(deg + 1))
+                        s += pv * terms[n - i]
+                    return s
+
+                # 精确复核（发现集内）。模消元只保证 mod p 相容；是否真在 ℚ 上
+                # 成立必须用整数重算一遍，算不过就丢。这一步是把「不猜」落到实处的
+                # 地方：Fermat 逆、有理重建都可能失真，但整数复核不会。
+                if any(_resid(n) != 0 for n in range(k, discovery_len)):
                     continue
-                parts.append(f"({ps})·a(n-{i})" if i else f"({ps})·a(n)")
-            out.append({
-                "channel": "prec", "order": k, "deg": deg,
-                "polys": polys,
-                "statement": " + ".join(parts).replace("+ -", "- ") + " = 0",
-                "discovery_len": discovery_len,
-                "n_equations": n_eq,
-                "n_extrapolation_checks": n_check,
-                "survived_extrapolation": failed_at is None,
-                "first_failure": failed_at,
-                # 所有 p_i 都是常数多项式时，这条 C4 其实退化成 C1（常系数）
-                "subsumes_linear": all(all(x == 0 for x in p[1:]) for p in polys),
-                "recognition": _recognize_prec(polys),
-                "evidence": "L2",
-            })
+
+                # 外推检验：发现集之外的每一项都必须让 Σ p_i(n)·a(n-i) 恰为 0
+                failed_at = None
+                n_check = 0
+                for n in range(discovery_len, n_total):
+                    s = _resid(n)
+                    n_check += 1
+                    if s != 0:
+                        failed_at = {"n": n,
+                                     "detail": f"Σ p_i(n)·a(n-i) = {s} ≠ 0"}
+                        break
+                parts = []
+                for i in range(k + 1):
+                    ps = _poly_str(polys[i])
+                    if ps == "0":
+                        continue
+                    parts.append(f"({ps})·a(n-{i})" if i else f"({ps})·a(n)")
+                out.append({
+                    "channel": "prec", "order": k, "deg": deg,
+                    "polys": polys,
+                    "statement": (" + ".join(parts).replace("+ -", "- ")
+                                  + " = 0"),
+                    "discovery_len": discovery_len,
+                    "n_equations": n_eq,
+                    "n_extrapolation_checks": n_check,
+                    "survived_extrapolation": failed_at is None,
+                    "first_failure": failed_at,
+                    # 所有 p_i 都是常数多项式时，这条 C4 其实退化成 C1（常系数）
+                    "subsumes_linear": all(all(x == 0 for x in p[1:])
+                                           for p in polys),
+                    "recognition": _recognize_prec(polys),
+                    "solver": ("modular-elimination + rational-reconstruction "
+                               "+ exact-integer-recheck"),
+                    "n_primes_agreeing": n_agree,
+                    "evidence": "L2",
+                })
     return _dedup_prec(out)
 
 
@@ -1148,6 +1314,145 @@ def _recognize_prec(polys: List[List[int]]) -> Optional[Dict[str, str]]:
             return {"known_id": rec["id"], "known_name": rec["name"],
                     "note": "教科书已知的多项式系数递推，由搜索独立重新发现（校准件）"}
     return None
+
+
+# ===========================================================================
+# 6.7 变换算子下的封闭性（S9 的"套娃"层）
+# ===========================================================================
+# 把序列空间看成**对象**，把经典变换看成**算子**，问两个问题：
+#   Q1 封闭性：若 a 有性质 P（C-finite / P-recursive），变换后是否还能**找到** P？
+#   Q2 不动点：哪些序列在某个变换下不变？
+#
+# 教科书结论（只引用，不证明）：C-finite 与 P-recursive（holonomic）类在
+# 差分、部分和、二项变换下都是**封闭**的。所以：
+#   · 变换后**找不到**，不是"性质丢失"，而是**我的搜索失败了**——
+#     这恰恰是本层最该报出来的东西，因为它暴露搜索能力的边界。
+#   · 变换后**找到了**，才是封闭性的正面证据。
+TRANSFORMS: Dict[str, Any] = {
+    "diff": ("差分 Δa(n)=a(n+1)−a(n)", lambda a: [a[i + 1] - a[i] for i in range(len(a) - 1)]),
+    "prefix_sum": ("部分和 S(n)=Σ_{k≤n} a(k)",
+                   lambda a: [sum(a[:i + 1]) for i in range(len(a))]),
+    "binomial": ("二项变换 b(n)=Σ_k C(n,k)a(k)",
+                 lambda a: [sum(math.comb(n, k) * a[k] for k in range(n + 1))
+                            for n in range(len(a))]),
+    "inv_binomial": ("逆二项变换 b(n)=Σ_k (−1)^(n−k)C(n,k)a(k)",
+                     lambda a: [sum((-1) ** (n - k) * math.comb(n, k) * a[k]
+                                    for k in range(n + 1))
+                                for n in range(len(a))]),
+    "even_subseq": ("偶数项子序列 b(n)=a(2n)", lambda a: a[::2]),
+    "multiply_n": ("乘自变量 b(n)=n·a(n)",
+                   lambda a: [n * a[n] for n in range(len(a))]),
+}
+
+# 这三个变换在理论上对 C-finite / P-recursive **都封闭**；
+# 其余（偶数项子序列、乘 n）只对部分子类封闭，不作为封闭性判据。
+CLOSED_TRANSFORMS = {"diff", "prefix_sum", "binomial"}
+
+
+def _has(terms: List[int], channel: str) -> bool:
+    if channel == "linear":
+        return any(c.get("survived_extrapolation")
+                   for c in discover_linear(terms))
+    return any(c.get("survived_extrapolation")
+               for c in discover_polynomial_recurrence(terms))
+
+
+def transform_closure(n_terms: int = N_TERMS) -> Dict[str, Any]:
+    """对每个序列施加每个变换，检查性质是否被**找到**、以及是否不动。"""
+    seqs = build_sequences(n_terms + 2)
+    rows: List[Dict[str, Any]] = []
+    for s in seqs:
+        base_lin = _has(s["terms"], "linear")
+        base_prec = _has(s["terms"], "prec")
+        for tf, (_cn, fn) in TRANSFORMS.items():
+            try:
+                tv = fn(s["terms"])
+            except (IndexError, ValueError, OverflowError):
+                continue
+            if len(tv) < 20:      # 项数太少，搜索无意义
+                continue
+            after_lin = _has(tv, "linear")
+            after_prec = _has(tv, "prec")
+            # 输出可能**退化**：逆二项变换会把多项式型序列打成几乎全零
+            # （Σ(−1)^(n−k)C(n,k)·k^d = 0 对 n > d 成立）。这类输出不是
+            # "性质丢失"，是"输出本身没内容了"，必须分开记。
+            tail = tv[len(tv) // 2:]
+            degenerate_out = (all(x == 0 for x in tail)
+                              or len(set(tail)) <= 2)
+            # 变换常使递推阶数上升（部分和 +1 阶、乘 n 可翻倍）。
+            # 所以对"丢失"的项用**放宽的阶数上限**再搜一次：
+            # 若放宽后找到了，根因就是阶数上限，不是性质丢失。
+            relaxed_lin = None
+            relaxed_prec = None
+            if base_lin and not after_lin and not degenerate_out:
+                relaxed_lin = any(c.get("survived_extrapolation")
+                                  for c in discover_linear(tv, max_order=MAX_ORDER + 3))
+            if base_prec and not after_prec and not degenerate_out:
+                relaxed_prec = any(c.get("survived_extrapolation")
+                                   for c in discover_polynomial_recurrence(
+                                       tv, max_order=P_ORDER_MAX + 2))
+            m = min(len(s["terms"]), len(tv))
+            rows.append({
+                "seq": s["id"], "transform": tf,
+                "before": {"cfinite": base_lin, "precursive": base_prec},
+                "after": {"cfinite": after_lin, "precursive": after_prec},
+                "degenerate_output": degenerate_out,
+                "relaxed_order_recovered": {"cfinite": relaxed_lin,
+                                            "precursive": relaxed_prec},
+                "is_fixed_point": s["terms"][:m] == tv[:m],
+                "cfinite_lost": (base_lin and not after_lin
+                                 and not degenerate_out and not relaxed_lin),
+                "precursive_lost": (base_prec and not after_prec
+                                    and not degenerate_out and not relaxed_prec),
+            })
+
+    per_tf: Dict[str, Any] = {}
+    for tf, (cn, _fn) in TRANSFORMS.items():
+        rs = [r for r in rows if r["transform"] == tf]
+        if not rs:
+            continue
+        lost_c = [r["seq"] for r in rs if r["cfinite_lost"]]
+        lost_p = [r["seq"] for r in rs if r["precursive_lost"]]
+        gained_c = [r["seq"] for r in rs
+                    if not r["before"]["cfinite"] and r["after"]["cfinite"]]
+        degen = [r["seq"] for r in rs if r["degenerate_output"]]
+        recov = [r["seq"] for r in rs
+                 if r["relaxed_order_recovered"]["cfinite"]
+                 or r["relaxed_order_recovered"]["precursive"]]
+        per_tf[tf] = {
+            "cn": cn, "n_tested": len(rs),
+            "n_fixed_points": sum(1 for r in rs if r["is_fixed_point"]),
+            "fixed_points": [r["seq"] for r in rs if r["is_fixed_point"]],
+            "cfinite_lost": lost_c, "precursive_lost": lost_p,
+            "cfinite_gained": gained_c,
+            "degenerate_output": degen,
+            "recovered_by_relaxed_order": recov,
+            "degenerate_note": ("变换后输出几乎全零（逆二项变换会把多项式型序列打零），"
+                                "不计入「丢失」——那是输出没内容，不是性质丢了。"),
+            "relaxed_note": ("放宽阶数上限后又能找到 ⇒ 根因是**阶数上限**，"
+                             "不是性质丢失；这类同样不计入「丢失」。"),
+            "is_closed_by_theory": tf in CLOSED_TRANSFORMS,
+            "closure_verdict": (
+                "理论封闭；本轮搜索在其上" +
+                ("全部保持" if not (lost_c or lost_p)
+                 else f"丢失 {len(lost_c)} 条 C-finite / {len(lost_p)} 条 P-recursive"
+                      "——这是**搜索失败**的证据，不是性质丢失")
+                if tf in CLOSED_TRANSFORMS else
+                "该变换在理论上不对全类封闭，本层只记录观测，不作封闭性判据"),
+        }
+
+    return {
+        "scope": ("变换只作用于**已生成的前 n_terms 项**；变换后序列同样是有限项，"
+                  "所有「找到 / 没找到」都只在这有限项上有意义。"),
+        "evidence": "L2",
+        "n_transforms": len(TRANSFORMS),
+        "n_rows": len(rows),
+        "per_transform": per_tf,
+        "rows": rows,
+        "reading_note": (
+            "「丢失」一栏要反着读：对理论封闭的变换，丢失 = 我的搜索没跟上，"
+            "它是**搜索能力的探针**，不是数学结论。"),
+    }
 
 
 # ===========================================================================
@@ -1255,13 +1560,42 @@ def meta_test_falsification(n_terms: int = 60,
 # ===========================================================================
 # 7. 单序列分析 + 总入口
 # ===========================================================================
+def _mark_redundant(lin: List[Dict[str, Any]], hyp: List[Dict[str, Any]],
+                    prec: List[Dict[str, Any]]) -> None:
+    """把 C4 报出的、实为 C1/C2 推论的形式标记出来，**不**当作新候选。
+
+    不这么做的话候选数会虚高（实测 4 → 17），而其中 14 条只是把 C1 已经
+    找到的常系数递推用 deg=0 的多项式重写了一遍。形式变了，信息量没变。
+    """
+    has_lin = any(c.get("survived_extrapolation") for c in lin)
+    has_hyp = any(c.get("survived_extrapolation") for c in hyp)
+    for c in prec:
+        if c.get("skipped"):
+            continue
+        if c.get("subsumes_linear") and has_lin:
+            c["redundant"] = "CONSEQUENCE_OF_C1"
+            c["redundant_note"] = (
+                "C4 在 deg=0 时退化成常系数齐次递推；该序列的常系数递推"
+                "已由 C1 报出，此条是它的推论，不重复计数")
+        elif c.get("order") == 1 and has_hyp:
+            c["redundant"] = "CONSEQUENCE_OF_C2"
+            c["redundant_note"] = (
+                "一阶 P-recursive 与一阶有理（超几何）闭式是同一件事的两种写法："
+                "a(n+1)/a(n)=P/Q ⟺ Q(n)·a(n+1) − P(n)·a(n) = 0；"
+                "该序列的 C2 闭式已报出，此条不重复计数")
+
+
 def _classify(cand: Dict[str, Any]) -> str:
     if not cand.get("survived_extrapolation"):
         return "FALSIFIED_BY_EXTRAPOLATION"
     if cand.get("degenerate"):
         return "DEGENERATE"
+    # 已知形式优先于冗余判定：catalan / central_binomial / factorial 的 C4 形式
+    # 既是教科书已知、又是 C2 的推论，若先判冗余就会丢掉 5 条里的 3 条召回。
     if cand.get("recognition"):
         return "KNOWN_RECURRENCE_REDISCOVERED"
+    if cand.get("redundant"):
+        return cand["redundant"]
     return "CANDIDATE_UNVERIFIED"
 
 
@@ -1281,6 +1615,7 @@ def analyze_sequence(seq: Dict[str, Any]) -> Dict[str, Any]:
     for c in stress_prec:
         c["is_stress_test"] = True
 
+    _mark_redundant(lin, hyp, prec)
     allc = lin + hyp + prec
     for c in allc:
         c["status"] = _classify(c)
@@ -1336,21 +1671,39 @@ def analyze_all(n_terms: int = N_TERMS) -> Dict[str, Any]:
                     if r["growth_vs_recurrence"].get("agrees") is False]
     rec_resolved = [r["id"] for r in results
                     if r["growth_vs_recurrence"].get("resolves_subexp_warning")]
+    # 同一条递推可能被两条通道各自认领一次（如 catalan 的 C2 闭式与 C4 闭式），
+    # 所以「按候选计」与「按序列计」必须分开报，否则会重复计数。
+    n_seq_with_known = sum(1 for r in results if r["n_known_rediscovered"] > 0)
+    n_redundant = sum(1 for r in results for c in r["prec"] if c.get("redundant"))
 
     # 校准：期望阳性的序列是否被召回？期望阴性的序列是否确实没找到？
     expected_pos = {rec["seq"] for rec in KNOWN_RECURRENCES}
-    recalled = {r["id"] for r in results if r["n_known_rediscovered"] > 0}
+    # 只统计 C1/C2 通道的认领。初版用 n_known_rediscovered（含 C4），
+    # 于是 derangements / motzkin 被算进 C1/C2 的召回，算出 **1.2** 这种
+    # 大于 1 的召回率。召回率超过 1 本身就是口径错了的信号。
+    recalled = {r["id"] for r in results
+                if any(c.get("recognition") for c in r["linear"] + r["hyper"])}
     missed = sorted(expected_pos - recalled)
     # 未列入校准表但已知有递推的序列：机器若独立发现，进人工复核队列
     unlisted_found = {r["id"]: UNLISTED_POSITIVE[r["id"]]
                       for r in results if r["id"] in UNLISTED_POSITIVE
                       and (r["linear"] or r["hyper"])}
     unlisted_missed = sorted(set(UNLISTED_POSITIVE) - set(unlisted_found))
+    # 注意用 n_accepted_c12：EXPECTED_NEGATIVE 是**对 C1/C2** 定义的
     false_alarm = sorted(r["id"] for r in results
-                         if r["id"] in EXPECTED_NEGATIVE
-                         and (r["n_accepted"] > 0))
+                         if r["id"] in EXPECTED_NEGATIVE and r["n_accepted_c12"] > 0)
     true_negative = sorted(r["id"] for r in results
-                           if r["id"] in EXPECTED_NEGATIVE and r["n_accepted"] == 0)
+                           if r["id"] in EXPECTED_NEGATIVE and r["n_accepted_c12"] == 0)
+
+    # C4 校准：期望阳性 = 教科书里的 P-recursive 递推；期望阴性 = 非 D-finite
+    prec_expected = {rec["seq"] for rec in KNOWN_PRECURENCES}
+    prec_recalled = {r["id"] for r in results
+                     if any(c.get("recognition") for c in r["prec"])}
+    prec_missed = sorted(prec_expected - prec_recalled)
+    prec_cand = {r["id"] for r in results
+                 if any(c["status"] == "CANDIDATE_UNVERIFIED" for c in r["prec"])}
+    prec_false_alarm = sorted(prec_cand & P_RECURSIVE_NEGATIVE)
+    prec_true_negative = sorted(P_RECURSIVE_NEGATIVE - prec_cand - prec_recalled)
 
     return {
         "scope": SCOPE_NOTE,
@@ -1377,13 +1730,37 @@ def analyze_all(n_terms: int = N_TERMS) -> Dict[str, Any]:
             "false_alarm_note": (
                 "在期望阴性的序列上若报出 CANDIDATE_UNVERIFIED，通常是**小样本巧合**，"
                 "本表把它们单列出来，因为那意味着搜索空间仍需收窄。"),
+            "scope_warning": (
+                "「期望阴性」必须写明是对**哪个通道**阴性。derangements / motzkin "
+                "对 C1/C2 阴性，但对 C4 阳性——初版笼统地把它们归入阴性集，"
+                "加上 C4 后即自相矛盾。现已按通道分开登记。"),
+            "c4": {
+                "expected_positive": sorted(prec_expected),
+                "recalled": sorted(prec_recalled),
+                "missed": prec_missed,
+                "recall_rate": (round(len(prec_recalled) / len(prec_expected), 4)
+                                if prec_expected else 0.0),
+                "expected_negative": sorted(P_RECURSIVE_NEGATIVE),
+                "true_negative": prec_true_negative,
+                "false_alarm": prec_false_alarm,
+                "note": (
+                    "C4 的期望阴性不是「我猜它找不到」，而是**有理由认为它不存在**："
+                    "序列 P-recursive ⟺ 其普通生成函数 D-finite；贝尔数的指数生成函数 "
+                    "e^(e^x−1) 与划分数的生成函数 1/(q;q)_∞ 都不是 D-finite。"
+                    "所以 C4 在它们身上报不出东西是**正确结果**。"),
+            },
         },
         "summary": {
             "n_sequences": len(results),
             "n_known_rediscovered": n_known,
+            "n_sequences_with_known": n_seq_with_known,
             "n_candidates": n_cand,
+            "n_redundant_marked": n_redundant,
             "n_falsified_main": n_false,
             "n_falsified_stress": n_stress,
+            "counting_note": (
+                "n_known_rediscovered 按**候选**计，同一条递推被两条通道各自认领时"
+                "会重复；n_sequences_with_known 按**序列**计，看总量用后者。"),
         },
         "growth_reconciliation": {
             "n_reconcilable": len(rec_avail),
@@ -1405,6 +1782,8 @@ __all__ = [
     "build_sequences", "discover_linear", "discover_hypergeometric",
     "estimate_growth", "analyze_sequence", "analyze_all",
     "characteristic_polynomial", "polynomial_roots", "growth_from_recurrence",
-    "reconcile_growth",
-    "KNOWN_RECURRENCES", "EXPECTED_NEGATIVE",
+    "reconcile_growth", "discover_polynomial_recurrence", "meta_test_falsification",
+    "transform_closure", "TRANSFORMS", "CLOSED_TRANSFORMS",
+    "KNOWN_RECURRENCES", "EXPECTED_NEGATIVE", "KNOWN_PRECURENCES",
+    "P_RECURSIVE_NEGATIVE",
 ]

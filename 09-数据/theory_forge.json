@@ -9469,11 +9469,57 @@
         "note": "主元/自由列的划分依赖**当前对象库**：换一批对象结论就会变。因此这里的'独立基'是库内概念，不是理论的独立性判定。"
       },
       "stress": {
-        "extended_objects": 26,
+        "extended_objects": 31,
         "n_tested": 54,
-        "n_survived": 54,
-        "n_falsified": 0,
-        "falsified_details": [],
+        "n_survived": 51,
+        "n_falsified": 3,
+        "falsified_details": [
+          {
+            "statement": "class_number ≤ center_size+proper_subgroup_order_types",
+            "channel": "inequality",
+            "status_before": "CANDIDATE_UNVERIFIED",
+            "n_extended_objects": 31,
+            "n_skipped": 0,
+            "n_violations": 1,
+            "survived": false,
+            "examples": [
+              {
+                "object": "group:D7",
+                "detail": "D7: 5 > 4"
+              }
+            ]
+          },
+          {
+            "statement": "involutions ≤ min_generators+proper_subgroup_order_types",
+            "channel": "inequality",
+            "status_before": "CANDIDATE_UNVERIFIED",
+            "n_extended_objects": 31,
+            "n_skipped": 0,
+            "n_violations": 1,
+            "survived": false,
+            "examples": [
+              {
+                "object": "group:D7",
+                "detail": "D7: 7 > 5"
+              }
+            ]
+          },
+          {
+            "statement": "involutions ≤ min_generators·proper_subgroup_order_types",
+            "channel": "inequality",
+            "status_before": "CANDIDATE_UNVERIFIED",
+            "n_extended_objects": 31,
+            "n_skipped": 0,
+            "n_violations": 1,
+            "survived": false,
+            "examples": [
+              {
+                "object": "group:D7",
+                "detail": "D7: 7 > 6"
+              }
+            ]
+          }
+        ],
         "extended_note": "扩展库：整数 ≤ 160，划分 ≤ 11，图/群/复形族追加更大实例"
       }
     },
@@ -18073,10 +18119,10 @@
     "candidates": 411,
     "accepted": 343,
     "stress_tested": 343,
-    "stress_survived": 317
+    "stress_survived": 314
   },
   "meta": {
-    "generated_at": "2026-09-19T18:37:26",
+    "generated_at": "2026-09-19T21:39:12",
     "generator": "06-AI自动化/01-工作流/openmath_theory.py",
     "evidence_level": "L2",
     "provenance": {
@@ -18127,7 +18173,7 @@
     ],
     "total_checks": 6,
     "violations": 0,
-    "generated_at": "2026-09-19T18:37:26",
+    "generated_at": "2026-09-19T21:39:12",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"

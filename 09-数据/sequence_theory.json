@@ -32,9 +32,11 @@
       ],
       "linear": [],
       "hyper": [],
+      "prec": [],
       "stress": {
         "linear": [],
         "hyper": [],
+        "prec": [],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -60,6 +62,7 @@
         "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
       },
       "n_accepted": 0,
+      "n_accepted_c12": 0,
       "n_known_rediscovered": 0,
       "n_falsified": 0,
       "found_anything": false
@@ -86,9 +89,11 @@
       ],
       "linear": [],
       "hyper": [],
+      "prec": [],
       "stress": {
         "linear": [],
         "hyper": [],
+        "prec": [],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -114,6 +119,7 @@
         "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
       },
       "n_accepted": 0,
+      "n_accepted_c12": 0,
       "n_known_rediscovered": 0,
       "n_falsified": 0,
       "found_anything": false
@@ -140,9 +146,11 @@
       ],
       "linear": [],
       "hyper": [],
+      "prec": [],
       "stress": {
         "linear": [],
         "hyper": [],
+        "prec": [],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -168,6 +176,7 @@
         "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
       },
       "n_accepted": 0,
+      "n_accepted_c12": 0,
       "n_known_rediscovered": 0,
       "n_falsified": 0,
       "found_anything": false
@@ -194,9 +203,11 @@
       ],
       "linear": [],
       "hyper": [],
+      "prec": [],
       "stress": {
         "linear": [],
         "hyper": [],
+        "prec": [],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -222,6 +233,7 @@
         "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
       },
       "n_accepted": 0,
+      "n_accepted_c12": 0,
       "n_known_rediscovered": 0,
       "n_falsified": 0,
       "found_anything": false
@@ -248,9 +260,11 @@
       ],
       "linear": [],
       "hyper": [],
+      "prec": [],
       "stress": {
         "linear": [],
         "hyper": [],
+        "prec": [],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -276,6 +290,7 @@
         "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
       },
       "n_accepted": 0,
+      "n_accepted_c12": 0,
       "n_known_rediscovered": 0,
       "n_falsified": 0,
       "found_anything": false
@@ -302,9 +317,11 @@
       ],
       "linear": [],
       "hyper": [],
+      "prec": [],
       "stress": {
         "linear": [],
         "hyper": [],
+        "prec": [],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -330,6 +347,7 @@
         "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
       },
       "n_accepted": 0,
+      "n_accepted_c12": 0,
       "n_known_rediscovered": 0,
       "n_falsified": 0,
       "found_anything": false
@@ -356,9 +374,11 @@
       ],
       "linear": [],
       "hyper": [],
+      "prec": [],
       "stress": {
         "linear": [],
         "hyper": [],
+        "prec": [],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -384,6 +404,7 @@
         "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
       },
       "n_accepted": 0,
+      "n_accepted_c12": 0,
       "n_known_rediscovered": 0,
       "n_falsified": 0,
       "found_anything": false
@@ -410,9 +431,11 @@
       ],
       "linear": [],
       "hyper": [],
+      "prec": [],
       "stress": {
         "linear": [],
         "hyper": [],
+        "prec": [],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -426,6 +449,7 @@
         "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
       },
       "n_accepted": 0,
+      "n_accepted_c12": 0,
       "n_known_rediscovered": 0,
       "n_falsified": 0,
       "found_anything": false
@@ -452,9 +476,11 @@
       ],
       "linear": [],
       "hyper": [],
+      "prec": [],
       "stress": {
         "linear": [],
         "hyper": [],
+        "prec": [],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -480,6 +506,7 @@
         "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
       },
       "n_accepted": 0,
+      "n_accepted_c12": 0,
       "n_known_rediscovered": 0,
       "n_falsified": 0,
       "found_anything": false
@@ -530,6 +557,38 @@
         }
       ],
       "hyper": [],
+      "prec": [
+        {
+          "channel": "prec",
+          "order": 2,
+          "deg": 0,
+          "polys": [
+            [
+              1
+            ],
+            [
+              -1
+            ],
+            [
+              -1
+            ]
+          ],
+          "statement": "(1)·a(n) + (-1)·a(n-1) + (-1)·a(n-2) = 0",
+          "discovery_len": 30,
+          "n_equations": 28,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "subsumes_linear": true,
+          "recognition": null,
+          "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+          "n_primes_agreeing": 4,
+          "evidence": "L2",
+          "redundant": "CONSEQUENCE_OF_C1",
+          "redundant_note": "C4 在 deg=0 时退化成常系数齐次递推；该序列的常系数递推已由 C1 报出，此条是它的推论，不重复计数",
+          "status": "CONSEQUENCE_OF_C1"
+        }
+      ],
       "stress": {
         "linear": [
           {
@@ -557,6 +616,36 @@
           }
         ],
         "hyper": [],
+        "prec": [
+          {
+            "channel": "prec",
+            "order": 2,
+            "deg": 0,
+            "polys": [
+              [
+                1
+              ],
+              [
+                -1
+              ],
+              [
+                -1
+              ]
+            ],
+            "statement": "(1)·a(n) + (-1)·a(n-1) + (-1)·a(n-2) = 0",
+            "discovery_len": 15,
+            "n_equations": 13,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "subsumes_linear": true,
+            "recognition": null,
+            "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+            "n_primes_agreeing": 4,
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -608,6 +697,7 @@
         "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
       },
       "n_accepted": 0,
+      "n_accepted_c12": 0,
       "n_known_rediscovered": 1,
       "n_falsified": 0,
       "found_anything": true
@@ -658,6 +748,38 @@
         }
       ],
       "hyper": [],
+      "prec": [
+        {
+          "channel": "prec",
+          "order": 2,
+          "deg": 0,
+          "polys": [
+            [
+              1
+            ],
+            [
+              -1
+            ],
+            [
+              -1
+            ]
+          ],
+          "statement": "(1)·a(n) + (-1)·a(n-1) + (-1)·a(n-2) = 0",
+          "discovery_len": 30,
+          "n_equations": 28,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "subsumes_linear": true,
+          "recognition": null,
+          "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+          "n_primes_agreeing": 4,
+          "evidence": "L2",
+          "redundant": "CONSEQUENCE_OF_C1",
+          "redundant_note": "C4 在 deg=0 时退化成常系数齐次递推；该序列的常系数递推已由 C1 报出，此条是它的推论，不重复计数",
+          "status": "CONSEQUENCE_OF_C1"
+        }
+      ],
       "stress": {
         "linear": [
           {
@@ -685,6 +807,36 @@
           }
         ],
         "hyper": [],
+        "prec": [
+          {
+            "channel": "prec",
+            "order": 2,
+            "deg": 0,
+            "polys": [
+              [
+                1
+              ],
+              [
+                -1
+              ],
+              [
+                -1
+              ]
+            ],
+            "statement": "(1)·a(n) + (-1)·a(n-1) + (-1)·a(n-2) = 0",
+            "discovery_len": 15,
+            "n_equations": 13,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "subsumes_linear": true,
+            "recognition": null,
+            "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+            "n_primes_agreeing": 4,
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -736,6 +888,7 @@
         "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
       },
       "n_accepted": 0,
+      "n_accepted_c12": 0,
       "n_known_rediscovered": 1,
       "n_falsified": 0,
       "found_anything": true
@@ -787,6 +940,41 @@
         }
       ],
       "hyper": [],
+      "prec": [
+        {
+          "channel": "prec",
+          "order": 3,
+          "deg": 0,
+          "polys": [
+            [
+              1
+            ],
+            [
+              -1
+            ],
+            [
+              -1
+            ],
+            [
+              -1
+            ]
+          ],
+          "statement": "(1)·a(n) + (-1)·a(n-1) + (-1)·a(n-2) + (-1)·a(n-3) = 0",
+          "discovery_len": 30,
+          "n_equations": 27,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "subsumes_linear": true,
+          "recognition": null,
+          "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+          "n_primes_agreeing": 4,
+          "evidence": "L2",
+          "redundant": "CONSEQUENCE_OF_C1",
+          "redundant_note": "C4 在 deg=0 时退化成常系数齐次递推；该序列的常系数递推已由 C1 报出，此条是它的推论，不重复计数",
+          "status": "CONSEQUENCE_OF_C1"
+        }
+      ],
       "stress": {
         "linear": [
           {
@@ -815,6 +1003,39 @@
           }
         ],
         "hyper": [],
+        "prec": [
+          {
+            "channel": "prec",
+            "order": 3,
+            "deg": 0,
+            "polys": [
+              [
+                1
+              ],
+              [
+                -1
+              ],
+              [
+                -1
+              ],
+              [
+                -1
+              ]
+            ],
+            "statement": "(1)·a(n) + (-1)·a(n-1) + (-1)·a(n-2) + (-1)·a(n-3) = 0",
+            "discovery_len": 15,
+            "n_equations": 12,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "subsumes_linear": true,
+            "recognition": null,
+            "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+            "n_primes_agreeing": 4,
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -868,6 +1089,7 @@
         "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
       },
       "n_accepted": 0,
+      "n_accepted_c12": 0,
       "n_known_rediscovered": 1,
       "n_falsified": 0,
       "found_anything": true
@@ -943,6 +1165,35 @@
           "status": "KNOWN_RECURRENCE_REDISCOVERED"
         }
       ],
+      "prec": [
+        {
+          "channel": "prec",
+          "order": 1,
+          "deg": 0,
+          "polys": [
+            [
+              1
+            ],
+            [
+              -2
+            ]
+          ],
+          "statement": "(1)·a(n) + (-2)·a(n-1) = 0",
+          "discovery_len": 30,
+          "n_equations": 29,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "subsumes_linear": true,
+          "recognition": null,
+          "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+          "n_primes_agreeing": 4,
+          "evidence": "L2",
+          "redundant": "CONSEQUENCE_OF_C1",
+          "redundant_note": "C4 在 deg=0 时退化成常系数齐次递推；该序列的常系数递推已由 C1 报出，此条是它的推论，不重复计数",
+          "status": "CONSEQUENCE_OF_C1"
+        }
+      ],
       "stress": {
         "linear": [
           {
@@ -991,6 +1242,33 @@
               "known_name": "等比：a(n+1)/a(n)=2（由定义直接可得）",
               "note": "教科书已知的超几何闭式，由搜索独立重新发现（机制校准件）"
             },
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
+        "prec": [
+          {
+            "channel": "prec",
+            "order": 1,
+            "deg": 0,
+            "polys": [
+              [
+                1
+              ],
+              [
+                -2
+              ]
+            ],
+            "statement": "(1)·a(n) + (-2)·a(n-1) = 0",
+            "discovery_len": 15,
+            "n_equations": 14,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "subsumes_linear": true,
+            "recognition": null,
+            "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+            "n_primes_agreeing": 4,
             "evidence": "L2",
             "is_stress_test": true
           }
@@ -1044,6 +1322,7 @@
         "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
       },
       "n_accepted": 0,
+      "n_accepted_c12": 0,
       "n_known_rediscovered": 2,
       "n_falsified": 0,
       "found_anything": true
@@ -1093,6 +1372,38 @@
         }
       ],
       "hyper": [],
+      "prec": [
+        {
+          "channel": "prec",
+          "order": 2,
+          "deg": 0,
+          "polys": [
+            [
+              1
+            ],
+            [
+              -3
+            ],
+            [
+              2
+            ]
+          ],
+          "statement": "(1)·a(n) + (-3)·a(n-1) + (2)·a(n-2) = 0",
+          "discovery_len": 30,
+          "n_equations": 28,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "subsumes_linear": true,
+          "recognition": null,
+          "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+          "n_primes_agreeing": 4,
+          "evidence": "L2",
+          "redundant": "CONSEQUENCE_OF_C1",
+          "redundant_note": "C4 在 deg=0 时退化成常系数齐次递推；该序列的常系数递推已由 C1 报出，此条是它的推论，不重复计数",
+          "status": "CONSEQUENCE_OF_C1"
+        }
+      ],
       "stress": {
         "linear": [
           {
@@ -1119,6 +1430,36 @@
           }
         ],
         "hyper": [],
+        "prec": [
+          {
+            "channel": "prec",
+            "order": 2,
+            "deg": 0,
+            "polys": [
+              [
+                1
+              ],
+              [
+                -3
+              ],
+              [
+                2
+              ]
+            ],
+            "statement": "(1)·a(n) + (-3)·a(n-1) + (2)·a(n-2) = 0",
+            "discovery_len": 15,
+            "n_equations": 13,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "subsumes_linear": true,
+            "recognition": null,
+            "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+            "n_primes_agreeing": 4,
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -1168,6 +1509,7 @@
         "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
       },
       "n_accepted": 0,
+      "n_accepted_c12": 0,
       "n_known_rediscovered": 1,
       "n_falsified": 0,
       "found_anything": true
@@ -1247,6 +1589,72 @@
           "status": "KNOWN_RECURRENCE_REDISCOVERED"
         }
       ],
+      "prec": [
+        {
+          "channel": "prec",
+          "order": 1,
+          "deg": 2,
+          "polys": [
+            [
+              1,
+              -2,
+              1
+            ],
+            [
+              0,
+              0,
+              -1
+            ]
+          ],
+          "statement": "(1 - 2n + n^2)·a(n) + (-n^2)·a(n-1) = 0",
+          "discovery_len": 30,
+          "n_equations": 29,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "subsumes_linear": false,
+          "recognition": null,
+          "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+          "n_primes_agreeing": 4,
+          "evidence": "L2",
+          "redundant": "CONSEQUENCE_OF_C2",
+          "redundant_note": "一阶 P-recursive 与一阶有理（超几何）闭式是同一件事的两种写法：a(n+1)/a(n)=P/Q ⟺ Q(n)·a(n+1) − P(n)·a(n) = 0；该序列的 C2 闭式已报出，此条不重复计数",
+          "status": "CONSEQUENCE_OF_C2"
+        },
+        {
+          "channel": "prec",
+          "order": 3,
+          "deg": 0,
+          "polys": [
+            [
+              1
+            ],
+            [
+              -3
+            ],
+            [
+              3
+            ],
+            [
+              -1
+            ]
+          ],
+          "statement": "(1)·a(n) + (-3)·a(n-1) + (3)·a(n-2) + (-1)·a(n-3) = 0",
+          "discovery_len": 30,
+          "n_equations": 27,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "subsumes_linear": true,
+          "recognition": null,
+          "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+          "n_primes_agreeing": 4,
+          "evidence": "L2",
+          "redundant": "CONSEQUENCE_OF_C1",
+          "redundant_note": "C4 在 deg=0 时退化成常系数齐次递推；该序列的常系数递推已由 C1 报出，此条是它的推论，不重复计数",
+          "status": "CONSEQUENCE_OF_C1"
+        }
+      ],
       "stress": {
         "linear": [
           {
@@ -1299,6 +1707,68 @@
               "known_name": "a(n+1)/a(n)=(n+1)^2/n^2（由定义直接可得）",
               "note": "教科书已知的超几何闭式，由搜索独立重新发现（机制校准件）"
             },
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
+        "prec": [
+          {
+            "channel": "prec",
+            "order": 1,
+            "deg": 2,
+            "polys": [
+              [
+                1,
+                -2,
+                1
+              ],
+              [
+                0,
+                0,
+                -1
+              ]
+            ],
+            "statement": "(1 - 2n + n^2)·a(n) + (-n^2)·a(n-1) = 0",
+            "discovery_len": 15,
+            "n_equations": 14,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "subsumes_linear": false,
+            "recognition": null,
+            "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+            "n_primes_agreeing": 4,
+            "evidence": "L2",
+            "is_stress_test": true
+          },
+          {
+            "channel": "prec",
+            "order": 3,
+            "deg": 0,
+            "polys": [
+              [
+                1
+              ],
+              [
+                -3
+              ],
+              [
+                3
+              ],
+              [
+                -1
+              ]
+            ],
+            "statement": "(1)·a(n) + (-3)·a(n-1) + (3)·a(n-2) + (-1)·a(n-3) = 0",
+            "discovery_len": 15,
+            "n_equations": 12,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "subsumes_linear": true,
+            "recognition": null,
+            "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+            "n_primes_agreeing": 4,
             "evidence": "L2",
             "is_stress_test": true
           }
@@ -1356,6 +1826,7 @@
         "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
       },
       "n_accepted": 0,
+      "n_accepted_c12": 0,
       "n_known_rediscovered": 2,
       "n_falsified": 0,
       "found_anything": true
@@ -1433,6 +1904,70 @@
           "status": "KNOWN_RECURRENCE_REDISCOVERED"
         }
       ],
+      "prec": [
+        {
+          "channel": "prec",
+          "order": 1,
+          "deg": 1,
+          "polys": [
+            [
+              1,
+              -1
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "statement": "(1 - n)·a(n) + (1 + n)·a(n-1) = 0",
+          "discovery_len": 30,
+          "n_equations": 29,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "subsumes_linear": false,
+          "recognition": null,
+          "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+          "n_primes_agreeing": 4,
+          "evidence": "L2",
+          "redundant": "CONSEQUENCE_OF_C2",
+          "redundant_note": "一阶 P-recursive 与一阶有理（超几何）闭式是同一件事的两种写法：a(n+1)/a(n)=P/Q ⟺ Q(n)·a(n+1) − P(n)·a(n) = 0；该序列的 C2 闭式已报出，此条不重复计数",
+          "status": "CONSEQUENCE_OF_C2"
+        },
+        {
+          "channel": "prec",
+          "order": 3,
+          "deg": 0,
+          "polys": [
+            [
+              1
+            ],
+            [
+              -3
+            ],
+            [
+              3
+            ],
+            [
+              -1
+            ]
+          ],
+          "statement": "(1)·a(n) + (-3)·a(n-1) + (3)·a(n-2) + (-1)·a(n-3) = 0",
+          "discovery_len": 30,
+          "n_equations": 27,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "subsumes_linear": true,
+          "recognition": null,
+          "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+          "n_primes_agreeing": 4,
+          "evidence": "L2",
+          "redundant": "CONSEQUENCE_OF_C1",
+          "redundant_note": "C4 在 deg=0 时退化成常系数齐次递推；该序列的常系数递推已由 C1 报出，此条是它的推论，不重复计数",
+          "status": "CONSEQUENCE_OF_C1"
+        }
+      ],
       "stress": {
         "linear": [
           {
@@ -1483,6 +2018,66 @@
               "known_name": "a(n+1)/a(n)=(n+2)/n（由定义直接可得）",
               "note": "教科书已知的超几何闭式，由搜索独立重新发现（机制校准件）"
             },
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
+        "prec": [
+          {
+            "channel": "prec",
+            "order": 1,
+            "deg": 1,
+            "polys": [
+              [
+                1,
+                -1
+              ],
+              [
+                1,
+                1
+              ]
+            ],
+            "statement": "(1 - n)·a(n) + (1 + n)·a(n-1) = 0",
+            "discovery_len": 15,
+            "n_equations": 14,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "subsumes_linear": false,
+            "recognition": null,
+            "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+            "n_primes_agreeing": 4,
+            "evidence": "L2",
+            "is_stress_test": true
+          },
+          {
+            "channel": "prec",
+            "order": 3,
+            "deg": 0,
+            "polys": [
+              [
+                1
+              ],
+              [
+                -3
+              ],
+              [
+                3
+              ],
+              [
+                -1
+              ]
+            ],
+            "statement": "(1)·a(n) + (-3)·a(n-1) + (3)·a(n-2) + (-1)·a(n-3) = 0",
+            "discovery_len": 15,
+            "n_equations": 12,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "subsumes_linear": true,
+            "recognition": null,
+            "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+            "n_primes_agreeing": 4,
             "evidence": "L2",
             "is_stress_test": true
           }
@@ -1540,6 +2135,7 @@
         "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
       },
       "n_accepted": 0,
+      "n_accepted_c12": 0,
       "n_known_rediscovered": 2,
       "n_falsified": 0,
       "found_anything": true
@@ -1593,6 +2189,41 @@
           "status": "KNOWN_RECURRENCE_REDISCOVERED"
         }
       ],
+      "prec": [
+        {
+          "channel": "prec",
+          "order": 1,
+          "deg": 1,
+          "polys": [
+            [
+              1,
+              0
+            ],
+            [
+              0,
+              -1
+            ]
+          ],
+          "statement": "(1)·a(n) + (-n)·a(n-1) = 0",
+          "discovery_len": 30,
+          "n_equations": 29,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "subsumes_linear": false,
+          "recognition": {
+            "known_id": "factorial_prec",
+            "known_name": "阶乘 a(n) = n·a(n−1)",
+            "note": "教科书已知的多项式系数递推，由搜索独立重新发现（校准件）"
+          },
+          "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+          "n_primes_agreeing": 4,
+          "evidence": "L2",
+          "redundant": "CONSEQUENCE_OF_C2",
+          "redundant_note": "一阶 P-recursive 与一阶有理（超几何）闭式是同一件事的两种写法：a(n+1)/a(n)=P/Q ⟺ Q(n)·a(n+1) − P(n)·a(n) = 0；该序列的 C2 闭式已报出，此条不重复计数",
+          "status": "KNOWN_RECURRENCE_REDISCOVERED"
+        }
+      ],
       "stress": {
         "linear": [],
         "hyper": [
@@ -1623,6 +2254,39 @@
             "is_stress_test": true
           }
         ],
+        "prec": [
+          {
+            "channel": "prec",
+            "order": 1,
+            "deg": 1,
+            "polys": [
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                -1
+              ]
+            ],
+            "statement": "(1)·a(n) + (-n)·a(n-1) = 0",
+            "discovery_len": 15,
+            "n_equations": 14,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "subsumes_linear": false,
+            "recognition": {
+              "known_id": "factorial_prec",
+              "known_name": "阶乘 a(n) = n·a(n−1)",
+              "note": "教科书已知的多项式系数递推，由搜索独立重新发现（校准件）"
+            },
+            "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+            "n_primes_agreeing": 4,
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -1648,7 +2312,8 @@
         "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
       },
       "n_accepted": 0,
-      "n_known_rediscovered": 1,
+      "n_accepted_c12": 0,
+      "n_known_rediscovered": 2,
       "n_falsified": 0,
       "found_anything": true
     },
@@ -1701,6 +2366,41 @@
           "status": "KNOWN_RECURRENCE_REDISCOVERED"
         }
       ],
+      "prec": [
+        {
+          "channel": "prec",
+          "order": 1,
+          "deg": 1,
+          "polys": [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              -4
+            ]
+          ],
+          "statement": "(1 + n)·a(n) + (2 - 4n)·a(n-1) = 0",
+          "discovery_len": 30,
+          "n_equations": 29,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "subsumes_linear": false,
+          "recognition": {
+            "known_id": "catalan_prec",
+            "known_name": "卡特兰数 (n+1)C(n) = 2(2n−1)C(n−1)",
+            "note": "教科书已知的多项式系数递推，由搜索独立重新发现（校准件）"
+          },
+          "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+          "n_primes_agreeing": 4,
+          "evidence": "L2",
+          "redundant": "CONSEQUENCE_OF_C2",
+          "redundant_note": "一阶 P-recursive 与一阶有理（超几何）闭式是同一件事的两种写法：a(n+1)/a(n)=P/Q ⟺ Q(n)·a(n+1) − P(n)·a(n) = 0；该序列的 C2 闭式已报出，此条不重复计数",
+          "status": "KNOWN_RECURRENCE_REDISCOVERED"
+        }
+      ],
       "stress": {
         "linear": [],
         "hyper": [
@@ -1731,6 +2431,39 @@
             "is_stress_test": true
           }
         ],
+        "prec": [
+          {
+            "channel": "prec",
+            "order": 1,
+            "deg": 1,
+            "polys": [
+              [
+                1,
+                1
+              ],
+              [
+                2,
+                -4
+              ]
+            ],
+            "statement": "(1 + n)·a(n) + (2 - 4n)·a(n-1) = 0",
+            "discovery_len": 15,
+            "n_equations": 14,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "subsumes_linear": false,
+            "recognition": {
+              "known_id": "catalan_prec",
+              "known_name": "卡特兰数 (n+1)C(n) = 2(2n−1)C(n−1)",
+              "note": "教科书已知的多项式系数递推，由搜索独立重新发现（校准件）"
+            },
+            "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+            "n_primes_agreeing": 4,
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -1755,7 +2488,8 @@
         "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
       },
       "n_accepted": 0,
-      "n_known_rediscovered": 1,
+      "n_accepted_c12": 0,
+      "n_known_rediscovered": 2,
       "n_falsified": 0,
       "found_anything": true
     },
@@ -1808,6 +2542,41 @@
           "status": "KNOWN_RECURRENCE_REDISCOVERED"
         }
       ],
+      "prec": [
+        {
+          "channel": "prec",
+          "order": 1,
+          "deg": 1,
+          "polys": [
+            [
+              0,
+              1
+            ],
+            [
+              2,
+              -4
+            ]
+          ],
+          "statement": "(n)·a(n) + (2 - 4n)·a(n-1) = 0",
+          "discovery_len": 30,
+          "n_equations": 29,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "subsumes_linear": false,
+          "recognition": {
+            "known_id": "central_binomial_prec",
+            "known_name": "中心二项式 n·C(n) = 2(2n−1)C(n−1)",
+            "note": "教科书已知的多项式系数递推，由搜索独立重新发现（校准件）"
+          },
+          "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+          "n_primes_agreeing": 4,
+          "evidence": "L2",
+          "redundant": "CONSEQUENCE_OF_C2",
+          "redundant_note": "一阶 P-recursive 与一阶有理（超几何）闭式是同一件事的两种写法：a(n+1)/a(n)=P/Q ⟺ Q(n)·a(n+1) − P(n)·a(n) = 0；该序列的 C2 闭式已报出，此条不重复计数",
+          "status": "KNOWN_RECURRENCE_REDISCOVERED"
+        }
+      ],
       "stress": {
         "linear": [],
         "hyper": [
@@ -1838,6 +2607,39 @@
             "is_stress_test": true
           }
         ],
+        "prec": [
+          {
+            "channel": "prec",
+            "order": 1,
+            "deg": 1,
+            "polys": [
+              [
+                0,
+                1
+              ],
+              [
+                2,
+                -4
+              ]
+            ],
+            "statement": "(n)·a(n) + (2 - 4n)·a(n-1) = 0",
+            "discovery_len": 15,
+            "n_equations": 14,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "subsumes_linear": false,
+            "recognition": {
+              "known_id": "central_binomial_prec",
+              "known_name": "中心二项式 n·C(n) = 2(2n−1)C(n−1)",
+              "note": "教科书已知的多项式系数递推，由搜索独立重新发现（校准件）"
+            },
+            "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+            "n_primes_agreeing": 4,
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -1862,7 +2664,8 @@
         "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
       },
       "n_accepted": 0,
-      "n_known_rediscovered": 1,
+      "n_accepted_c12": 0,
+      "n_known_rediscovered": 2,
       "n_falsified": 0,
       "found_anything": true
     },
@@ -1888,9 +2691,83 @@
       ],
       "linear": [],
       "hyper": [],
+      "prec": [
+        {
+          "channel": "prec",
+          "order": 2,
+          "deg": 1,
+          "polys": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              -1
+            ],
+            [
+              1,
+              -1
+            ]
+          ],
+          "statement": "(1)·a(n) + (1 - n)·a(n-1) + (1 - n)·a(n-2) = 0",
+          "discovery_len": 30,
+          "n_equations": 28,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "subsumes_linear": false,
+          "recognition": {
+            "known_id": "derangements_prec",
+            "known_name": "错排数 D(n) = (n−1)·(D(n−1)+D(n−2))",
+            "note": "教科书已知的多项式系数递推，由搜索独立重新发现（校准件）"
+          },
+          "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+          "n_primes_agreeing": 4,
+          "evidence": "L2",
+          "status": "KNOWN_RECURRENCE_REDISCOVERED"
+        }
+      ],
       "stress": {
         "linear": [],
         "hyper": [],
+        "prec": [
+          {
+            "channel": "prec",
+            "order": 2,
+            "deg": 1,
+            "polys": [
+              [
+                1,
+                0
+              ],
+              [
+                1,
+                -1
+              ],
+              [
+                1,
+                -1
+              ]
+            ],
+            "statement": "(1)·a(n) + (1 - n)·a(n-1) + (1 - n)·a(n-2) = 0",
+            "discovery_len": 15,
+            "n_equations": 13,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "subsumes_linear": false,
+            "recognition": {
+              "known_id": "derangements_prec",
+              "known_name": "错排数 D(n) = (n−1)·(D(n−1)+D(n−2))",
+              "note": "教科书已知的多项式系数递推，由搜索独立重新发现（校准件）"
+            },
+            "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+            "n_primes_agreeing": 4,
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -1916,9 +2793,10 @@
         "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
       },
       "n_accepted": 0,
-      "n_known_rediscovered": 0,
+      "n_accepted_c12": 0,
+      "n_known_rediscovered": 1,
       "n_falsified": 0,
-      "found_anything": false
+      "found_anything": true
     },
     {
       "id": "motzkin",
@@ -1942,9 +2820,83 @@
       ],
       "linear": [],
       "hyper": [],
+      "prec": [
+        {
+          "channel": "prec",
+          "order": 2,
+          "deg": 1,
+          "polys": [
+            [
+              2,
+              1
+            ],
+            [
+              -1,
+              -2
+            ],
+            [
+              3,
+              -3
+            ]
+          ],
+          "statement": "(2 + n)·a(n) + (-1 - 2n)·a(n-1) + (3 - 3n)·a(n-2) = 0",
+          "discovery_len": 30,
+          "n_equations": 28,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "subsumes_linear": false,
+          "recognition": {
+            "known_id": "motzkin_prec",
+            "known_name": "莫茨金数 (n+2)M(n) = (2n+1)M(n−1) + (3n−3)M(n−2)",
+            "note": "教科书已知的多项式系数递推，由搜索独立重新发现（校准件）"
+          },
+          "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+          "n_primes_agreeing": 4,
+          "evidence": "L2",
+          "status": "KNOWN_RECURRENCE_REDISCOVERED"
+        }
+      ],
       "stress": {
         "linear": [],
         "hyper": [],
+        "prec": [
+          {
+            "channel": "prec",
+            "order": 2,
+            "deg": 1,
+            "polys": [
+              [
+                2,
+                1
+              ],
+              [
+                -1,
+                -2
+              ],
+              [
+                3,
+                -3
+              ]
+            ],
+            "statement": "(2 + n)·a(n) + (-1 - 2n)·a(n-1) + (3 - 3n)·a(n-2) = 0",
+            "discovery_len": 15,
+            "n_equations": 13,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "subsumes_linear": false,
+            "recognition": {
+              "known_id": "motzkin_prec",
+              "known_name": "莫茨金数 (n+2)M(n) = (2n+1)M(n−1) + (3n−3)M(n−2)",
+              "note": "教科书已知的多项式系数递推，由搜索独立重新发现（校准件）"
+            },
+            "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+            "n_primes_agreeing": 4,
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -1969,9 +2921,10 @@
         "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
       },
       "n_accepted": 0,
-      "n_known_rediscovered": 0,
+      "n_accepted_c12": 0,
+      "n_known_rediscovered": 1,
       "n_falsified": 0,
-      "found_anything": false
+      "found_anything": true
     },
     {
       "id": "bell",
@@ -1995,9 +2948,11 @@
       ],
       "linear": [],
       "hyper": [],
+      "prec": [],
       "stress": {
         "linear": [],
         "hyper": [],
+        "prec": [],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -2023,6 +2978,7 @@
         "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
       },
       "n_accepted": 0,
+      "n_accepted_c12": 0,
       "n_known_rediscovered": 0,
       "n_falsified": 0,
       "found_anything": false
@@ -2049,9 +3005,11 @@
       ],
       "linear": [],
       "hyper": [],
+      "prec": [],
       "stress": {
         "linear": [],
         "hyper": [],
+        "prec": [],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -2077,6 +3035,7 @@
         "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
       },
       "n_accepted": 0,
+      "n_accepted_c12": 0,
       "n_known_rediscovered": 0,
       "n_falsified": 0,
       "found_anything": false
@@ -2103,9 +3062,11 @@
       ],
       "linear": [],
       "hyper": [],
+      "prec": [],
       "stress": {
         "linear": [],
         "hyper": [],
+        "prec": [],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -2131,6 +3092,7 @@
         "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
       },
       "n_accepted": 0,
+      "n_accepted_c12": 0,
       "n_known_rediscovered": 0,
       "n_falsified": 0,
       "found_anything": false
@@ -2178,6 +3140,41 @@
         }
       ],
       "hyper": [],
+      "prec": [
+        {
+          "channel": "prec",
+          "order": 3,
+          "deg": 0,
+          "polys": [
+            [
+              1
+            ],
+            [
+              0
+            ],
+            [
+              -1
+            ],
+            [
+              -1
+            ]
+          ],
+          "statement": "(1)·a(n) + (-1)·a(n-2) + (-1)·a(n-3) = 0",
+          "discovery_len": 30,
+          "n_equations": 27,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "subsumes_linear": true,
+          "recognition": null,
+          "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+          "n_primes_agreeing": 4,
+          "evidence": "L2",
+          "redundant": "CONSEQUENCE_OF_C1",
+          "redundant_note": "C4 在 deg=0 时退化成常系数齐次递推；该序列的常系数递推已由 C1 报出，此条是它的推论，不重复计数",
+          "status": "CONSEQUENCE_OF_C1"
+        }
+      ],
       "stress": {
         "linear": [
           {
@@ -2202,6 +3199,39 @@
           }
         ],
         "hyper": [],
+        "prec": [
+          {
+            "channel": "prec",
+            "order": 3,
+            "deg": 0,
+            "polys": [
+              [
+                1
+              ],
+              [
+                0
+              ],
+              [
+                -1
+              ],
+              [
+                -1
+              ]
+            ],
+            "statement": "(1)·a(n) + (-1)·a(n-2) + (-1)·a(n-3) = 0",
+            "discovery_len": 15,
+            "n_equations": 12,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "subsumes_linear": true,
+            "recognition": null,
+            "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+            "n_primes_agreeing": 4,
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -2257,6 +3287,7 @@
         "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
       },
       "n_accepted": 1,
+      "n_accepted_c12": 1,
       "n_known_rediscovered": 0,
       "n_falsified": 0,
       "found_anything": true
@@ -2304,6 +3335,41 @@
         }
       ],
       "hyper": [],
+      "prec": [
+        {
+          "channel": "prec",
+          "order": 3,
+          "deg": 0,
+          "polys": [
+            [
+              1
+            ],
+            [
+              0
+            ],
+            [
+              -1
+            ],
+            [
+              -1
+            ]
+          ],
+          "statement": "(1)·a(n) + (-1)·a(n-2) + (-1)·a(n-3) = 0",
+          "discovery_len": 30,
+          "n_equations": 27,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "subsumes_linear": true,
+          "recognition": null,
+          "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+          "n_primes_agreeing": 4,
+          "evidence": "L2",
+          "redundant": "CONSEQUENCE_OF_C1",
+          "redundant_note": "C4 在 deg=0 时退化成常系数齐次递推；该序列的常系数递推已由 C1 报出，此条是它的推论，不重复计数",
+          "status": "CONSEQUENCE_OF_C1"
+        }
+      ],
       "stress": {
         "linear": [
           {
@@ -2328,6 +3394,39 @@
           }
         ],
         "hyper": [],
+        "prec": [
+          {
+            "channel": "prec",
+            "order": 3,
+            "deg": 0,
+            "polys": [
+              [
+                1
+              ],
+              [
+                0
+              ],
+              [
+                -1
+              ],
+              [
+                -1
+              ]
+            ],
+            "statement": "(1)·a(n) + (-1)·a(n-2) + (-1)·a(n-3) = 0",
+            "discovery_len": 15,
+            "n_equations": 12,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "subsumes_linear": true,
+            "recognition": null,
+            "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+            "n_primes_agreeing": 4,
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -2383,6 +3482,7 @@
         "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
       },
       "n_accepted": 1,
+      "n_accepted_c12": 1,
       "n_known_rediscovered": 0,
       "n_falsified": 0,
       "found_anything": true
@@ -2429,6 +3529,38 @@
         }
       ],
       "hyper": [],
+      "prec": [
+        {
+          "channel": "prec",
+          "order": 2,
+          "deg": 0,
+          "polys": [
+            [
+              1
+            ],
+            [
+              -1
+            ],
+            [
+              -2
+            ]
+          ],
+          "statement": "(1)·a(n) + (-1)·a(n-1) + (-2)·a(n-2) = 0",
+          "discovery_len": 30,
+          "n_equations": 28,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "subsumes_linear": true,
+          "recognition": null,
+          "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+          "n_primes_agreeing": 4,
+          "evidence": "L2",
+          "redundant": "CONSEQUENCE_OF_C1",
+          "redundant_note": "C4 在 deg=0 时退化成常系数齐次递推；该序列的常系数递推已由 C1 报出，此条是它的推论，不重复计数",
+          "status": "CONSEQUENCE_OF_C1"
+        }
+      ],
       "stress": {
         "linear": [
           {
@@ -2452,6 +3584,36 @@
           }
         ],
         "hyper": [],
+        "prec": [
+          {
+            "channel": "prec",
+            "order": 2,
+            "deg": 0,
+            "polys": [
+              [
+                1
+              ],
+              [
+                -1
+              ],
+              [
+                -2
+              ]
+            ],
+            "statement": "(1)·a(n) + (-1)·a(n-1) + (-2)·a(n-2) = 0",
+            "discovery_len": 15,
+            "n_equations": 13,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "subsumes_linear": true,
+            "recognition": null,
+            "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+            "n_primes_agreeing": 4,
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -2503,6 +3665,7 @@
         "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
       },
       "n_accepted": 1,
+      "n_accepted_c12": 1,
       "n_known_rediscovered": 0,
       "n_falsified": 0,
       "found_anything": true
@@ -2549,6 +3712,41 @@
         }
       ],
       "hyper": [],
+      "prec": [
+        {
+          "channel": "prec",
+          "order": 3,
+          "deg": 0,
+          "polys": [
+            [
+              1
+            ],
+            [
+              -2
+            ],
+            [
+              0
+            ],
+            [
+              1
+            ]
+          ],
+          "statement": "(1)·a(n) + (-2)·a(n-1) + (1)·a(n-3) = 0",
+          "discovery_len": 30,
+          "n_equations": 27,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "subsumes_linear": true,
+          "recognition": null,
+          "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+          "n_primes_agreeing": 4,
+          "evidence": "L2",
+          "redundant": "CONSEQUENCE_OF_C1",
+          "redundant_note": "C4 在 deg=0 时退化成常系数齐次递推；该序列的常系数递推已由 C1 报出，此条是它的推论，不重复计数",
+          "status": "CONSEQUENCE_OF_C1"
+        }
+      ],
       "stress": {
         "linear": [
           {
@@ -2572,6 +3770,39 @@
           }
         ],
         "hyper": [],
+        "prec": [
+          {
+            "channel": "prec",
+            "order": 3,
+            "deg": 0,
+            "polys": [
+              [
+                1
+              ],
+              [
+                -2
+              ],
+              [
+                0
+              ],
+              [
+                1
+              ]
+            ],
+            "statement": "(1)·a(n) + (-2)·a(n-1) + (1)·a(n-3) = 0",
+            "discovery_len": 15,
+            "n_equations": 12,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "subsumes_linear": true,
+            "recognition": null,
+            "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+            "n_primes_agreeing": 4,
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -2623,6 +3854,7 @@
         "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
       },
       "n_accepted": 1,
+      "n_accepted_c12": 1,
       "n_known_rediscovered": 0,
       "n_falsified": 0,
       "found_anything": true
@@ -2649,9 +3881,11 @@
       ],
       "linear": [],
       "hyper": [],
+      "prec": [],
       "stress": {
         "linear": [],
         "hyper": [],
+        "prec": [],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -2676,6 +3910,7 @@
         "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
       },
       "n_accepted": 0,
+      "n_accepted_c12": 0,
       "n_known_rediscovered": 0,
       "n_falsified": 0,
       "found_anything": false
@@ -2702,9 +3937,11 @@
       ],
       "linear": [],
       "hyper": [],
+      "prec": [],
       "stress": {
         "linear": [],
         "hyper": [],
+        "prec": [],
         "n_falsified": 0,
         "falsified_samples": []
       },
@@ -2729,6 +3966,7 @@
         "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
       },
       "n_accepted": 0,
+      "n_accepted_c12": 0,
       "n_known_rediscovered": 0,
       "n_falsified": 0,
       "found_anything": false
@@ -2765,10 +4003,8 @@
       "bell",
       "bigomega",
       "collatz_steps",
-      "derangements",
       "euler_phi",
       "mobius",
-      "motzkin",
       "omega",
       "partition",
       "phi_prefix_sum",
@@ -2783,10 +4019,8 @@
       "bell",
       "bigomega",
       "collatz_steps",
-      "derangements",
       "euler_phi",
       "mobius",
-      "motzkin",
       "omega",
       "partition",
       "phi_prefix_sum",
@@ -2812,14 +4046,70 @@
     },
     "unlisted_missed": [],
     "unlisted_note": "这些序列已知满足常系数递推，但**故意不写进校准表**，用来检验机器能否独立发现；发现结果进人工复核队列。",
-    "false_alarm_note": "在期望阴性的序列上若报出 CANDIDATE_UNVERIFIED，通常是**小样本巧合**，本表把它们单列出来，因为那意味着搜索空间仍需收窄。"
+    "false_alarm_note": "在期望阴性的序列上若报出 CANDIDATE_UNVERIFIED，通常是**小样本巧合**，本表把它们单列出来，因为那意味着搜索空间仍需收窄。",
+    "scope_warning": "「期望阴性」必须写明是对**哪个通道**阴性。derangements / motzkin 对 C1/C2 阴性，但对 C4 阳性——初版笼统地把它们归入阴性集，加上 C4 后即自相矛盾。现已按通道分开登记。",
+    "c4": {
+      "expected_positive": [
+        "catalan",
+        "central_binomial",
+        "derangements",
+        "factorial",
+        "motzkin"
+      ],
+      "recalled": [
+        "catalan",
+        "central_binomial",
+        "derangements",
+        "factorial",
+        "motzkin"
+      ],
+      "missed": [],
+      "recall_rate": 1.0,
+      "expected_negative": [
+        "bell",
+        "bigomega",
+        "collatz_steps",
+        "euler_phi",
+        "mobius",
+        "omega",
+        "partition",
+        "phi_prefix_sum",
+        "prime_gaps",
+        "primes_count",
+        "radical",
+        "sigma",
+        "tau",
+        "tau_prefix_sum"
+      ],
+      "true_negative": [
+        "bell",
+        "bigomega",
+        "collatz_steps",
+        "euler_phi",
+        "mobius",
+        "omega",
+        "partition",
+        "phi_prefix_sum",
+        "prime_gaps",
+        "primes_count",
+        "radical",
+        "sigma",
+        "tau",
+        "tau_prefix_sum"
+      ],
+      "false_alarm": [],
+      "note": "C4 的期望阴性不是「我猜它找不到」，而是**有理由认为它不存在**：序列 P-recursive ⟺ 其普通生成函数 D-finite；贝尔数的指数生成函数 e^(e^x−1) 与划分数的生成函数 1/(q;q)_∞ 都不是 D-finite。所以 C4 在它们身上报不出东西是**正确结果**。"
+    }
   },
   "summary": {
     "n_sequences": 30,
-    "n_known_rediscovered": 13,
+    "n_known_rediscovered": 18,
+    "n_sequences_with_known": 12,
     "n_candidates": 4,
+    "n_redundant_marked": 16,
     "n_falsified_main": 0,
-    "n_falsified_stress": 0
+    "n_falsified_stress": 0,
+    "counting_note": "n_known_rediscovered 按**候选**计，同一条递推被两条通道各自认领时会重复；n_sequences_with_known 按**序列**计，看总量用后者。"
   },
   "growth_reconciliation": {
     "n_reconcilable": 11,
@@ -2834,7 +4124,7 @@
     "note": "同一序列的增长率用两条**互相独立**的路径各算一次：C3 在尾部窗口上做对数拟合（数值、有窗口偏差），C1 由递推的特征多项式求根（结构决定、但求根仍是数值）。一致不代表正确，不一致则说明至少一方有问题。"
   },
   "meta": {
-    "generated_at": "2026-09-19T18:38:32",
+    "generated_at": "2026-09-19T21:41:01",
     "generator": "06-AI自动化/01-工作流/openmath_sequences.py",
     "evidence_level": "L2",
     "provenance": {
@@ -2846,12 +4136,136 @@
   "independent_audit": {
     "name": "sequences",
     "note": "序列引擎：① 教科书/OEIS 首项对照（外部参照，不取自本仓库代码）；② 每条被报出的递推用**另一份实现**重算一遍全量项；③ 增长率类型与理论底数对照（只断言有把握的条目）",
-    "checks": 379,
+    "checks": 466,
     "failures": [],
-    "passed": 379,
+    "passed": 466,
     "ok": true,
     "n_terms": 60,
     "n_reference_terms_checked": 300,
+    "falsification_meta_test": {
+      "why": "C1/C2 只在发现集上精确相容且解唯一时才报候选，因此真实序列上「外推证伪」恒为 0——那是**没有候选进入检验**，不是没有过拟合。本节用必然破功的合成序列检验该通道本身是否可达。",
+      "n_cases": 8,
+      "n_located_exactly": 8,
+      "all_passed": true,
+      "cases": [
+        {
+          "case": "syn_ord2/once/break@40",
+          "recurrence": "a(n)=a(n-1)+2a(n-2)+1",
+          "break_at": 40,
+          "mode": "once",
+          "n_candidates": 1,
+          "n_falsified": 1,
+          "located_exactly": true,
+          "reported_first_failure": {
+            "n": 40,
+            "expected": 1099511627777,
+            "predicted": "1099511627776"
+          }
+        },
+        {
+          "case": "syn_ord2/once/break@55",
+          "recurrence": "a(n)=a(n-1)+2a(n-2)+1",
+          "break_at": 55,
+          "mode": "once",
+          "n_candidates": 1,
+          "n_falsified": 1,
+          "located_exactly": true,
+          "reported_first_failure": {
+            "n": 55,
+            "expected": 36028797018963968,
+            "predicted": "36028797018963967"
+          }
+        },
+        {
+          "case": "syn_ord2/persistent/break@40",
+          "recurrence": "a(n)=a(n-1)+2a(n-2)+1",
+          "break_at": 40,
+          "mode": "persistent",
+          "n_candidates": 1,
+          "n_falsified": 1,
+          "located_exactly": true,
+          "reported_first_failure": {
+            "n": 40,
+            "expected": 1099511627777,
+            "predicted": "1099511627776"
+          }
+        },
+        {
+          "case": "syn_ord2/persistent/break@55",
+          "recurrence": "a(n)=a(n-1)+2a(n-2)+1",
+          "break_at": 55,
+          "mode": "persistent",
+          "n_candidates": 1,
+          "n_falsified": 1,
+          "located_exactly": true,
+          "reported_first_failure": {
+            "n": 55,
+            "expected": 36028797018963968,
+            "predicted": "36028797018963967"
+          }
+        },
+        {
+          "case": "syn_ord3/once/break@40",
+          "recurrence": "a(n)=a(n-1)+a(n-2)+a(n-3)",
+          "break_at": 40,
+          "mode": "once",
+          "n_candidates": 1,
+          "n_falsified": 1,
+          "located_exactly": true,
+          "reported_first_failure": {
+            "n": 40,
+            "expected": 12960201917,
+            "predicted": "12960201916"
+          }
+        },
+        {
+          "case": "syn_ord3/once/break@55",
+          "recurrence": "a(n)=a(n-1)+a(n-2)+a(n-3)",
+          "break_at": 55,
+          "mode": "once",
+          "n_candidates": 1,
+          "n_falsified": 1,
+          "located_exactly": true,
+          "reported_first_failure": {
+            "n": 55,
+            "expected": 120879712950777,
+            "predicted": "120879712950776"
+          }
+        },
+        {
+          "case": "syn_ord3/persistent/break@40",
+          "recurrence": "a(n)=a(n-1)+a(n-2)+a(n-3)",
+          "break_at": 40,
+          "mode": "persistent",
+          "n_candidates": 1,
+          "n_falsified": 1,
+          "located_exactly": true,
+          "reported_first_failure": {
+            "n": 40,
+            "expected": 12960201917,
+            "predicted": "12960201916"
+          }
+        },
+        {
+          "case": "syn_ord3/persistent/break@55",
+          "recurrence": "a(n)=a(n-1)+a(n-2)+a(n-3)",
+          "break_at": 55,
+          "mode": "persistent",
+          "n_candidates": 1,
+          "n_falsified": 1,
+          "located_exactly": true,
+          "reported_first_failure": {
+            "n": 55,
+            "expected": 120879712950777,
+            "predicted": "120879712950776"
+          }
+        }
+      ],
+      "verdict": "证伪通道可达且定位准确",
+      "evidence": "L2"
+    },
+    "noise_candidates": 0,
+    "zero_falsified_note": "真实序列上「外推证伪 0」的正确解读是**没有候选进入外推检验**（C1/C2 只报发现集上精确相容且解唯一的解），不是「没有过拟合」。证伪通道本身由 ⑤ 的合成序列元检验确认可达。",
     "n_reconciled": 11,
     "n_reconcile_type_mismatch": 0,
     "characteristic_roots": {
@@ -2878,8 +4292,17 @@
     },
     "char_root_note": "主特征根由递推系数经 Durand–Kerner 求根得到，与教科书常数（φ、tribonacci 常数、塑性数）逐条对照。系数错一个数字，特征根就会跑到别处，所以这条查的是**系数本身**而非拟合质量。",
     "sequences_without_reference": [],
-    "n_recurrence_candidates": 17,
+    "n_recurrence_candidates": 35,
     "n_independent_disagreements": 0,
+    "c4_solver_crosscheck": {
+      "engine_solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+      "reference_solver": "exact Fraction Gaussian elimination （即 C4 换掉的那套，保留为参照）",
+      "n_sequences_compared": 28,
+      "n_disagreements": 0,
+      "disagreement_details": [],
+      "size_bound_used": 10000000000000000000000000,
+      "note": "换求解器是**可以用注意力掩饰过去**的改动：结果不变看起来就没事。所以这里用被换掉的那套当参照，两边必须给出同一组递推。项太大的序列不参与（Fraction 分母会爆），这部分由 ⑥-d 的多素数一致 + ② 的全量精确复核兜底。"
+    },
     "disagreements": [],
     "growth_observed": {
       "primes_count": "neither",
@@ -3176,6 +4599,3727 @@
       }
     ]
   },
+  "transform_closure": {
+    "scope": "变换只作用于**已生成的前 n_terms 项**；变换后序列同样是有限项，所有「找到 / 没找到」都只在这有限项上有意义。",
+    "evidence": "L2",
+    "n_transforms": 6,
+    "n_rows": 180,
+    "per_transform": {
+      "diff": {
+        "cn": "差分 Δa(n)=a(n+1)−a(n)",
+        "n_tested": 30,
+        "n_fixed_points": 1,
+        "fixed_points": [
+          "powers_of_two"
+        ],
+        "cfinite_lost": [],
+        "precursive_lost": [],
+        "cfinite_gained": [],
+        "degenerate_output": [
+          "primes_count"
+        ],
+        "recovered_by_relaxed_order": [],
+        "degenerate_note": "变换后输出几乎全零（逆二项变换会把多项式型序列打零），不计入「丢失」——那是输出没内容，不是性质丢了。",
+        "relaxed_note": "放宽阶数上限后又能找到 ⇒ 根因是**阶数上限**，不是性质丢失；这类同样不计入「丢失」。",
+        "is_closed_by_theory": true,
+        "closure_verdict": "理论封闭；本轮搜索在其上全部保持"
+      },
+      "prefix_sum": {
+        "cn": "部分和 S(n)=Σ_{k≤n} a(k)",
+        "n_tested": 30,
+        "n_fixed_points": 0,
+        "fixed_points": [],
+        "cfinite_lost": [],
+        "precursive_lost": [],
+        "cfinite_gained": [],
+        "degenerate_output": [],
+        "recovered_by_relaxed_order": [
+          "tribonacci",
+          "perrin"
+        ],
+        "degenerate_note": "变换后输出几乎全零（逆二项变换会把多项式型序列打零），不计入「丢失」——那是输出没内容，不是性质丢了。",
+        "relaxed_note": "放宽阶数上限后又能找到 ⇒ 根因是**阶数上限**，不是性质丢失；这类同样不计入「丢失」。",
+        "is_closed_by_theory": true,
+        "closure_verdict": "理论封闭；本轮搜索在其上全部保持"
+      },
+      "binomial": {
+        "cn": "二项变换 b(n)=Σ_k C(n,k)a(k)",
+        "n_tested": 30,
+        "n_fixed_points": 0,
+        "fixed_points": [],
+        "cfinite_lost": [],
+        "precursive_lost": [],
+        "cfinite_gained": [],
+        "degenerate_output": [],
+        "recovered_by_relaxed_order": [],
+        "degenerate_note": "变换后输出几乎全零（逆二项变换会把多项式型序列打零），不计入「丢失」——那是输出没内容，不是性质丢了。",
+        "relaxed_note": "放宽阶数上限后又能找到 ⇒ 根因是**阶数上限**，不是性质丢失；这类同样不计入「丢失」。",
+        "is_closed_by_theory": true,
+        "closure_verdict": "理论封闭；本轮搜索在其上全部保持"
+      },
+      "inv_binomial": {
+        "cn": "逆二项变换 b(n)=Σ_k (−1)^(n−k)C(n,k)a(k)",
+        "n_tested": 30,
+        "n_fixed_points": 0,
+        "fixed_points": [],
+        "cfinite_lost": [],
+        "precursive_lost": [],
+        "cfinite_gained": [],
+        "degenerate_output": [
+          "powers_of_two",
+          "mersenne",
+          "squares",
+          "triangular"
+        ],
+        "recovered_by_relaxed_order": [],
+        "degenerate_note": "变换后输出几乎全零（逆二项变换会把多项式型序列打零），不计入「丢失」——那是输出没内容，不是性质丢了。",
+        "relaxed_note": "放宽阶数上限后又能找到 ⇒ 根因是**阶数上限**，不是性质丢失；这类同样不计入「丢失」。",
+        "is_closed_by_theory": false,
+        "closure_verdict": "该变换在理论上不对全类封闭，本层只记录观测，不作封闭性判据"
+      },
+      "even_subseq": {
+        "cn": "偶数项子序列 b(n)=a(2n)",
+        "n_tested": 30,
+        "n_fixed_points": 0,
+        "fixed_points": [],
+        "cfinite_lost": [],
+        "precursive_lost": [],
+        "cfinite_gained": [],
+        "degenerate_output": [
+          "omega"
+        ],
+        "recovered_by_relaxed_order": [],
+        "degenerate_note": "变换后输出几乎全零（逆二项变换会把多项式型序列打零），不计入「丢失」——那是输出没内容，不是性质丢了。",
+        "relaxed_note": "放宽阶数上限后又能找到 ⇒ 根因是**阶数上限**，不是性质丢失；这类同样不计入「丢失」。",
+        "is_closed_by_theory": false,
+        "closure_verdict": "该变换在理论上不对全类封闭，本层只记录观测，不作封闭性判据"
+      },
+      "multiply_n": {
+        "cn": "乘自变量 b(n)=n·a(n)",
+        "n_tested": 30,
+        "n_fixed_points": 0,
+        "fixed_points": [],
+        "cfinite_lost": [],
+        "precursive_lost": [],
+        "cfinite_gained": [],
+        "degenerate_output": [],
+        "recovered_by_relaxed_order": [
+          "tribonacci",
+          "motzkin",
+          "perrin",
+          "padovan",
+          "fib_prefix_sum"
+        ],
+        "degenerate_note": "变换后输出几乎全零（逆二项变换会把多项式型序列打零），不计入「丢失」——那是输出没内容，不是性质丢了。",
+        "relaxed_note": "放宽阶数上限后又能找到 ⇒ 根因是**阶数上限**，不是性质丢失；这类同样不计入「丢失」。",
+        "is_closed_by_theory": false,
+        "closure_verdict": "该变换在理论上不对全类封闭，本层只记录观测，不作封闭性判据"
+      }
+    },
+    "rows": [
+      {
+        "seq": "primes_count",
+        "transform": "diff",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": true,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "primes_count",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "primes_count",
+        "transform": "binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "primes_count",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "primes_count",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "primes_count",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "prime_gaps",
+        "transform": "diff",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "prime_gaps",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "prime_gaps",
+        "transform": "binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "prime_gaps",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "prime_gaps",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "prime_gaps",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "euler_phi",
+        "transform": "diff",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "euler_phi",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "euler_phi",
+        "transform": "binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "euler_phi",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "euler_phi",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "euler_phi",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "sigma",
+        "transform": "diff",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "sigma",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "sigma",
+        "transform": "binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "sigma",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "sigma",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "sigma",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "tau",
+        "transform": "diff",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "tau",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "tau",
+        "transform": "binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "tau",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "tau",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "tau",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "omega",
+        "transform": "diff",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "omega",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "omega",
+        "transform": "binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "omega",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "omega",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": true,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "omega",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "bigomega",
+        "transform": "diff",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "bigomega",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "bigomega",
+        "transform": "binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "bigomega",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "bigomega",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "bigomega",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "mobius",
+        "transform": "diff",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "mobius",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "mobius",
+        "transform": "binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "mobius",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "mobius",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "mobius",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "radical",
+        "transform": "diff",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "radical",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "radical",
+        "transform": "binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "radical",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "radical",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "radical",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "fibonacci",
+        "transform": "diff",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "fibonacci",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "fibonacci",
+        "transform": "binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "fibonacci",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "fibonacci",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "fibonacci",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "lucas",
+        "transform": "diff",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "lucas",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "lucas",
+        "transform": "binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "lucas",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "lucas",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "lucas",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "tribonacci",
+        "transform": "diff",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "tribonacci",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": true
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "tribonacci",
+        "transform": "binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "tribonacci",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "tribonacci",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "tribonacci",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "powers_of_two",
+        "transform": "diff",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": true,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "powers_of_two",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "powers_of_two",
+        "transform": "binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "powers_of_two",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": true,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "powers_of_two",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "powers_of_two",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "mersenne",
+        "transform": "diff",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "mersenne",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "mersenne",
+        "transform": "binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "mersenne",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": true,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "mersenne",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "mersenne",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "squares",
+        "transform": "diff",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "squares",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "squares",
+        "transform": "binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "squares",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": true,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "squares",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "squares",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "triangular",
+        "transform": "diff",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "triangular",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "triangular",
+        "transform": "binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "triangular",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": true,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "triangular",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "triangular",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "factorial",
+        "transform": "diff",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "factorial",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "factorial",
+        "transform": "binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "factorial",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "factorial",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "factorial",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "catalan",
+        "transform": "diff",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "catalan",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "catalan",
+        "transform": "binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "catalan",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "catalan",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "catalan",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "central_binomial",
+        "transform": "diff",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "central_binomial",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "central_binomial",
+        "transform": "binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "central_binomial",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "central_binomial",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "central_binomial",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "derangements",
+        "transform": "diff",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "derangements",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "derangements",
+        "transform": "binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "derangements",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "derangements",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "derangements",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "motzkin",
+        "transform": "diff",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "motzkin",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "motzkin",
+        "transform": "binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "motzkin",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "motzkin",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "motzkin",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": true
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "bell",
+        "transform": "diff",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "bell",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "bell",
+        "transform": "binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "bell",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "bell",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "bell",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "collatz_steps",
+        "transform": "diff",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "collatz_steps",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "collatz_steps",
+        "transform": "binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "collatz_steps",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "collatz_steps",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "collatz_steps",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "partition",
+        "transform": "diff",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "partition",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "partition",
+        "transform": "binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "partition",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "partition",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "partition",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "perrin",
+        "transform": "diff",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "perrin",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": true
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "perrin",
+        "transform": "binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "perrin",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "perrin",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "perrin",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": true,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "padovan",
+        "transform": "diff",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "padovan",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "padovan",
+        "transform": "binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "padovan",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "padovan",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "padovan",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": true,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "jacobsthal",
+        "transform": "diff",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "jacobsthal",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "jacobsthal",
+        "transform": "binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "jacobsthal",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "jacobsthal",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "jacobsthal",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "fib_prefix_sum",
+        "transform": "diff",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "fib_prefix_sum",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "fib_prefix_sum",
+        "transform": "binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "fib_prefix_sum",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "fib_prefix_sum",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "fib_prefix_sum",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": true,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": true,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "phi_prefix_sum",
+        "transform": "diff",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "phi_prefix_sum",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "phi_prefix_sum",
+        "transform": "binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "phi_prefix_sum",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "phi_prefix_sum",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "phi_prefix_sum",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "tau_prefix_sum",
+        "transform": "diff",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "tau_prefix_sum",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "tau_prefix_sum",
+        "transform": "binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "tau_prefix_sum",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "tau_prefix_sum",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "tau_prefix_sum",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": false
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      }
+    ],
+    "reading_note": "「丢失」一栏要反着读：对理论封闭的变换，丢失 = 我的搜索没跟上，它是**搜索能力的探针**，不是数学结论。"
+  },
   "self_audit": {
     "checks": [
       {
@@ -3233,15 +8377,27 @@
         "why": "递推特征根与窗口拟合若给出不同类型，至少一方有 bug；这是两条独立路径的交叉检验"
       },
       {
-        "check": "关系网成员数一致（网内 17 / 存活 17）",
+        "check": "关系网成员数一致（网内 17 / C1C2 存活 17）",
         "passed": true,
         "violations": [],
         "why": "网若漏掉存活项，说明聚合口径与筛选口径不一致"
+      },
+      {
+        "check": "理论封闭的变换上无性质丢失（3 个变换）",
+        "passed": true,
+        "violations": [],
+        "why": "差分/部分和/二项变换对 C-finite 与 P-recursive 都封闭；若报出丢失，只能是我的搜索没跟上，属于必须修的缺陷"
+      },
+      {
+        "check": "C4 的常系数退化形式均已标冗余",
+        "passed": true,
+        "violations": [],
+        "why": "deg=0 的 C4 就是 C1，不标冗余会让候选数虚高（实测会 4 → 17）"
       }
     ],
-    "total_checks": 10,
+    "total_checks": 12,
     "violations": 0,
-    "generated_at": "2026-09-19T18:38:32",
+    "generated_at": "2026-09-19T21:41:01",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"
