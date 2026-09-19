@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-09-19T15:07:05",
+    "generated_at": "2026-09-19T18:37:26",
     "generator": "openmath_theory.py",
     "evidence_level": "L2",
     "provenance": {
@@ -159,26 +159,7 @@
           "reverified_exactly": true
         }
       ],
-      "parsimonious_expressions": [
-        {
-          "invariant": "conjugate_distinct",
-          "via_relation": "conjugate_distinct - distinct_parts = 0",
-          "rhs": {
-            "distinct_parts": "1"
-          },
-          "constant": "0",
-          "support_size": 1
-        },
-        {
-          "invariant": "distinct_parts",
-          "via_relation": "conjugate_distinct - distinct_parts = 0",
-          "rhs": {
-            "conjugate_distinct": "1"
-          },
-          "constant": "0",
-          "support_size": 1
-        }
-      ],
+      "parsimonious_expressions": [],
       "note": "主元/自由列的划分依赖**当前对象库**：换一批对象结论就会变。因此这里的'独立基'是库内概念，不是理论的独立性判定。"
     },
     "complex": {

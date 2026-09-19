@@ -177,19 +177,32 @@ class Parser:
         return node
 
     def parse_factor(self) -> _Node:
-        node = self.parse_unary()
-        t = self.peek()
-        if t[0] == "OP" and t[1] == "^":
-            self.next()
-            node = BinOp("^", node, self.parse_factor())
-        return node
+        # 保留旧名以维持调用链（term -> factor -> unary）；乘方已在 parse_power 中处理
+        return self.parse_unary()
 
     def parse_unary(self) -> _Node:
+        """
+        一元层：符号的作用域是**乘方**，而不是整个项。
+
+        写法 `-x^2` 在数学上恒等于 -(x^2)，不是 (-x)^2。旧实现把 `-` 绑定到
+        parse_unary() 之后再做乘方，于是 `-x^2` 被算成 (-x)^2 = x^2，
+        对含负号的任何多项式都是**静默错误**（2026-09-19 审计中发现并修正）。
+        连续符号（如 `--x`、`3 - -2`）仍由递归处理。
+        """
         t = self.peek()
         if t[0] == "OP" and t[1] in ("+", "-"):
             self.next()
             return UnaryOp(t[1], self.parse_unary())
-        return self.parse_atom()
+        return self.parse_power()
+
+    def parse_power(self) -> _Node:
+        """乘方层：底数是原子，指数允许带一元号（如 `2^-1`），右结合。"""
+        node = self.parse_atom()
+        t = self.peek()
+        if t[0] == "OP" and t[1] == "^":
+            self.next()
+            node = BinOp("^", node, self.parse_unary())
+        return node
 
     def parse_atom(self) -> _Node:
         t = self.next()
@@ -244,6 +257,11 @@ def _call_func(name: str, args: list[float]) -> float:
     if name == "exp":
         return m.exp(args[0])
     if name in ("ln", "log"):
+        # 负实数的对数在复数域有定义（ln(-x) = ln x + i*pi），回退到 cmath 而非报错。
+        # 旧实现直接抛 math domain error，使 `arccoth(z) = (ln(-1-z)-ln(1-z))/2`
+        # 这类在 |z|>1 上完全成立的恒等式被判成"不可求值"（2026-09-19 审计修正）。
+        if not cx and any(a < 0 for a in args):
+            m = cmath
         if len(args) == 1:
             return m.log(args[0])
         return m.log(args[0]) / m.log(args[1])  # log(base, x)

@@ -1,7 +1,7 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_synthesis.py",
-    "generated_at": "2026-09-19T12:25:46",
+    "generated_at": "2026-09-19T16:08:47",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"
@@ -97,9 +97,9 @@
       "domain": "有限集 {素数 p ≤ 100000}",
       "result": 9592,
       "evidence": {
-        "li_x": 9630.04,
+        "li_x": 9629.81,
         "x_over_ln_x": 8685.89,
-        "rel_err_li": 0.003966,
+        "rel_err_li": 0.003942,
         "rel_err_x_over_ln": 0.094465
       },
       "does_not_imply": "素数定理（无限极限命题）。此处仅给出单点精确值。注意：li 与 π 的差值在有限处很小，**不排除**其在更大 x 处变号（Littlewood 定理，见 Skewes 型警告）。"

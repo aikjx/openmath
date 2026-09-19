@@ -2036,9 +2036,9 @@
       "channel_counts": {
         "linear": 2,
         "monomial": 0,
-        "inequality_raw": 633,
-        "inequality_after_pareto": 81,
-        "inequality_dominated_removed": 552
+        "inequality_raw": 644,
+        "inequality_after_pareto": 80,
+        "inequality_dominated_removed": 564
       },
       "candidates": [
         {
@@ -2062,7 +2062,8 @@
           "recognition": {
             "known_id": "handshaking",
             "known_name": "握手定理",
-            "note": "Σ deg(v) = 2|E|。"
+            "note": "Σ deg(v) = 2|E|。",
+            "proof": null
           },
           "test": {
             "n_test_objects": 15,
@@ -2351,32 +2352,6 @@
         {
           "family": "graph",
           "channel": "inequality",
-          "statement": "chromatic_number ≤ clique_number+spanning_trees",
-          "lhs": "chromatic_number",
-          "rhs_terms": [
-            "clique_number",
-            "spanning_trees"
-          ],
-          "rhs_kind": "sum",
-          "sharp_on_discovery": true,
-          "min_slack_on_discovery": "1",
-          "n_discovery_objects": 46,
-          "degenerate_on_discovery_set": false,
-          "definitional": null,
-          "recognition": null,
-          "test": {
-            "n_test_objects": 15,
-            "n_failures": 0,
-            "survived": true,
-            "counterexamples": []
-          },
-          "evidence_level": "L2（精确有理算术，有限对象库）",
-          "notes": "所有关系仅在被检验的有限对象上成立（精确有理算术），属 L2 证据；有限集合上的无反例不构成任何证明。",
-          "status": "CANDIDATE_UNVERIFIED"
-        },
-        {
-          "family": "graph",
-          "channel": "inequality",
           "statement": "clique_number ≤ chromatic_number",
           "lhs": "clique_number",
           "rhs_terms": [
@@ -2391,7 +2366,8 @@
           "recognition": {
             "known_id": "chi_ge_omega",
             "known_name": "χ(G) ≥ ω(G)（色数不小于团数）",
-            "note": "最大团中每点异色，经典且显然。"
+            "note": "最大团中每点异色，经典且显然。",
+            "proof": null
           },
           "test": {
             "n_test_objects": 15,
@@ -2540,6 +2516,31 @@
         {
           "family": "graph",
           "channel": "inequality",
+          "statement": "connected ≤ spanning_trees",
+          "lhs": "connected",
+          "rhs_terms": [
+            "spanning_trees"
+          ],
+          "rhs_kind": "sum",
+          "sharp_on_discovery": true,
+          "min_slack_on_discovery": "2",
+          "n_discovery_objects": 46,
+          "degenerate_on_discovery_set": false,
+          "definitional": null,
+          "recognition": null,
+          "test": {
+            "n_test_objects": 15,
+            "n_failures": 0,
+            "survived": true,
+            "counterexamples": []
+          },
+          "evidence_level": "L2（精确有理算术，有限对象库）",
+          "notes": "所有关系仅在被检验的有限对象上成立（精确有理算术），属 L2 证据；有限集合上的无反例不构成任何证明。",
+          "status": "CANDIDATE_UNVERIFIED"
+        },
+        {
+          "family": "graph",
+          "channel": "inequality",
           "statement": "connected ≤ bipartite+diameter",
           "lhs": "connected",
           "rhs_terms": [
@@ -2571,32 +2572,6 @@
           "rhs_terms": [
             "bipartite",
             "min_degree"
-          ],
-          "rhs_kind": "sum",
-          "sharp_on_discovery": true,
-          "min_slack_on_discovery": "1",
-          "n_discovery_objects": 46,
-          "degenerate_on_discovery_set": false,
-          "definitional": null,
-          "recognition": null,
-          "test": {
-            "n_test_objects": 15,
-            "n_failures": 0,
-            "survived": true,
-            "counterexamples": []
-          },
-          "evidence_level": "L2（精确有理算术，有限对象库）",
-          "notes": "所有关系仅在被检验的有限对象上成立（精确有理算术），属 L2 证据；有限集合上的无反例不构成任何证明。",
-          "status": "CANDIDATE_UNVERIFIED"
-        },
-        {
-          "family": "graph",
-          "channel": "inequality",
-          "statement": "connected ≤ bipartite+spanning_trees",
-          "lhs": "connected",
-          "rhs_terms": [
-            "bipartite",
-            "spanning_trees"
           ],
           "rhs_kind": "sum",
           "sharp_on_discovery": true,
@@ -3106,32 +3081,6 @@
         {
           "family": "graph",
           "channel": "inequality",
-          "statement": "triangles ≤ edges+spanning_trees",
-          "lhs": "triangles",
-          "rhs_terms": [
-            "edges",
-            "spanning_trees"
-          ],
-          "rhs_kind": "sum",
-          "sharp_on_discovery": true,
-          "min_slack_on_discovery": "2",
-          "n_discovery_objects": 46,
-          "degenerate_on_discovery_set": false,
-          "definitional": null,
-          "recognition": null,
-          "test": {
-            "n_test_objects": 15,
-            "n_failures": 0,
-            "survived": true,
-            "counterexamples": []
-          },
-          "evidence_level": "L2（精确有理算术，有限对象库）",
-          "notes": "所有关系仅在被检验的有限对象上成立（精确有理算术），属 L2 证据；有限集合上的无反例不构成任何证明。",
-          "status": "CANDIDATE_UNVERIFIED"
-        },
-        {
-          "family": "graph",
-          "channel": "inequality",
           "statement": "avg_degree ≤ chromatic_number·clique_number",
           "lhs": "avg_degree",
           "rhs_terms": [
@@ -3492,6 +3441,32 @@
           "rhs_kind": "product",
           "sharp_on_discovery": true,
           "min_slack_on_discovery": "1",
+          "n_discovery_objects": 46,
+          "degenerate_on_discovery_set": false,
+          "definitional": null,
+          "recognition": null,
+          "test": {
+            "n_test_objects": 15,
+            "n_failures": 0,
+            "survived": true,
+            "counterexamples": []
+          },
+          "evidence_level": "L2（精确有理算术，有限对象库）",
+          "notes": "所有关系仅在被检验的有限对象上成立（精确有理算术），属 L2 证据；有限集合上的无反例不构成任何证明。",
+          "status": "CANDIDATE_UNVERIFIED"
+        },
+        {
+          "family": "graph",
+          "channel": "inequality",
+          "statement": "connected ≤ components·spanning_trees",
+          "lhs": "connected",
+          "rhs_terms": [
+            "components",
+            "spanning_trees"
+          ],
+          "rhs_kind": "product",
+          "sharp_on_discovery": true,
+          "min_slack_on_discovery": "2",
           "n_discovery_objects": 46,
           "degenerate_on_discovery_set": false,
           "definitional": null,
@@ -4252,7 +4227,8 @@
           "recognition": {
             "known_id": "n_le_alpha_chi",
             "known_name": "α(G)·χ(G) ≥ |V|",
-            "note": "按颜色类划分：每色类为独立集，故 |V| ≤ α·χ。"
+            "note": "按颜色类划分：每色类为独立集，故 |V| ≤ α·χ。",
+            "proof": null
           },
           "test": {
             "n_test_objects": 15,
@@ -4307,10 +4283,6 @@
           "dominated_by": "avg_degree ≤ degree_sum"
         },
         {
-          "statement": "avg_degree ≤ degree_sum+spanning_trees",
-          "dominated_by": "avg_degree ≤ degree_sum"
-        },
-        {
           "statement": "avg_degree ≤ degree_sum+triangles",
           "dominated_by": "avg_degree ≤ degree_sum"
         },
@@ -4332,10 +4304,6 @@
         },
         {
           "statement": "avg_degree ≤ edges+min_degree",
-          "dominated_by": "avg_degree ≤ edges"
-        },
-        {
-          "statement": "avg_degree ≤ edges+spanning_trees",
           "dominated_by": "avg_degree ≤ edges"
         },
         {
@@ -4379,6 +4347,10 @@
           "dominated_by": "bipartite ≤ components"
         },
         {
+          "statement": "bipartite ≤ spanning_trees",
+          "dominated_by": "bipartite ≤ connected"
+        },
+        {
           "statement": "bipartite ≤ vertices",
           "dominated_by": "bipartite ≤ chromatic_number"
         },
@@ -4401,6 +4373,10 @@
         {
           "statement": "bipartite ≤ avg_degree+independent_number",
           "dominated_by": "bipartite ≤ chromatic_number"
+        },
+        {
+          "statement": "bipartite ≤ avg_degree+spanning_trees",
+          "dominated_by": "bipartite ≤ connected"
         },
         {
           "statement": "bipartite ≤ avg_degree+vertices",
@@ -4428,10 +4404,6 @@
         },
         {
           "statement": "bipartite ≤ chromatic_number+min_degree",
-          "dominated_by": "bipartite ≤ chromatic_number"
-        },
-        {
-          "statement": "bipartite ≤ chromatic_number+spanning_trees",
           "dominated_by": "bipartite ≤ chromatic_number"
         },
         {
@@ -4463,10 +4435,6 @@
           "dominated_by": "bipartite ≤ chromatic_number"
         },
         {
-          "statement": "bipartite ≤ clique_number+spanning_trees",
-          "dominated_by": "bipartite ≤ chromatic_number"
-        },
-        {
           "statement": "bipartite ≤ clique_number+triangles",
           "dominated_by": "bipartite ≤ clique_number"
         },
@@ -4492,10 +4460,6 @@
         },
         {
           "statement": "bipartite ≤ components+min_degree",
-          "dominated_by": "bipartite ≤ components"
-        },
-        {
-          "statement": "bipartite ≤ components+spanning_trees",
           "dominated_by": "bipartite ≤ components"
         },
         {
@@ -4539,12 +4503,20 @@
           "dominated_by": "bipartite ≤ chromatic_number"
         },
         {
+          "statement": "bipartite ≤ degree_sum+spanning_trees",
+          "dominated_by": "bipartite ≤ chromatic_number"
+        },
+        {
           "statement": "bipartite ≤ degree_sum+vertices",
           "dominated_by": "bipartite ≤ chromatic_number"
         },
         {
           "statement": "bipartite ≤ diameter+independent_number",
           "dominated_by": "bipartite ≤ components"
+        },
+        {
+          "statement": "bipartite ≤ diameter+spanning_trees",
+          "dominated_by": "bipartite ≤ connected"
         },
         {
           "statement": "bipartite ≤ diameter+vertices",
@@ -4555,11 +4527,19 @@
           "dominated_by": "bipartite ≤ chromatic_number"
         },
         {
+          "statement": "bipartite ≤ edges+spanning_trees",
+          "dominated_by": "bipartite ≤ chromatic_number"
+        },
+        {
           "statement": "bipartite ≤ edges+vertices",
           "dominated_by": "bipartite ≤ chromatic_number"
         },
         {
           "statement": "bipartite ≤ girth+independent_number",
+          "dominated_by": "bipartite ≤ components"
+        },
+        {
+          "statement": "bipartite ≤ girth+spanning_trees",
           "dominated_by": "bipartite ≤ components"
         },
         {
@@ -4575,11 +4555,11 @@
           "dominated_by": "bipartite ≤ components"
         },
         {
-          "statement": "bipartite ≤ independent_number+spanning_trees",
+          "statement": "bipartite ≤ independent_number+triangles",
           "dominated_by": "bipartite ≤ components"
         },
         {
-          "statement": "bipartite ≤ independent_number+triangles",
+          "statement": "bipartite ≤ max_degree+spanning_trees",
           "dominated_by": "bipartite ≤ components"
         },
         {
@@ -4587,12 +4567,16 @@
           "dominated_by": "bipartite ≤ chromatic_number"
         },
         {
+          "statement": "bipartite ≤ min_degree+spanning_trees",
+          "dominated_by": "bipartite ≤ connected"
+        },
+        {
           "statement": "bipartite ≤ min_degree+vertices",
           "dominated_by": "bipartite ≤ chromatic_number"
         },
         {
-          "statement": "bipartite ≤ spanning_trees+vertices",
-          "dominated_by": "bipartite ≤ chromatic_number"
+          "statement": "bipartite ≤ spanning_trees+triangles",
+          "dominated_by": "bipartite ≤ connected"
         },
         {
           "statement": "bipartite ≤ triangles+vertices",
@@ -4643,6 +4627,10 @@
           "dominated_by": "chromatic_number ≤ avg_degree+components"
         },
         {
+          "statement": "chromatic_number ≤ clique_number+spanning_trees",
+          "dominated_by": "chromatic_number ≤ clique_number+connected"
+        },
+        {
           "statement": "chromatic_number ≤ components+degree_sum",
           "dominated_by": "chromatic_number ≤ vertices"
         },
@@ -4667,6 +4655,10 @@
           "dominated_by": "chromatic_number ≤ vertices"
         },
         {
+          "statement": "chromatic_number ≤ degree_sum+spanning_trees",
+          "dominated_by": "chromatic_number ≤ vertices"
+        },
+        {
           "statement": "chromatic_number ≤ degree_sum+vertices",
           "dominated_by": "chromatic_number ≤ vertices"
         },
@@ -4677,6 +4669,10 @@
         {
           "statement": "chromatic_number ≤ edges+independent_number",
           "dominated_by": "chromatic_number ≤ vertices"
+        },
+        {
+          "statement": "chromatic_number ≤ edges+spanning_trees",
+          "dominated_by": "chromatic_number ≤ avg_degree+components"
         },
         {
           "statement": "chromatic_number ≤ edges+vertices",
@@ -4696,10 +4692,6 @@
         },
         {
           "statement": "chromatic_number ≤ min_degree+vertices",
-          "dominated_by": "chromatic_number ≤ vertices"
-        },
-        {
-          "statement": "chromatic_number ≤ spanning_trees+vertices",
           "dominated_by": "chromatic_number ≤ vertices"
         },
         {
@@ -4803,6 +4795,10 @@
           "dominated_by": "clique_number ≤ chromatic_number"
         },
         {
+          "statement": "clique_number ≤ degree_sum+spanning_trees",
+          "dominated_by": "clique_number ≤ chromatic_number"
+        },
+        {
           "statement": "clique_number ≤ degree_sum+vertices",
           "dominated_by": "clique_number ≤ chromatic_number"
         },
@@ -4812,6 +4808,10 @@
         },
         {
           "statement": "clique_number ≤ edges+independent_number",
+          "dominated_by": "clique_number ≤ chromatic_number"
+        },
+        {
+          "statement": "clique_number ≤ edges+spanning_trees",
           "dominated_by": "clique_number ≤ chromatic_number"
         },
         {
@@ -4832,10 +4832,6 @@
         },
         {
           "statement": "clique_number ≤ min_degree+vertices",
-          "dominated_by": "clique_number ≤ chromatic_number"
-        },
-        {
-          "statement": "clique_number ≤ spanning_trees+vertices",
           "dominated_by": "clique_number ≤ chromatic_number"
         },
         {
@@ -4903,10 +4899,6 @@
           "dominated_by": "components ≤ chromatic_number"
         },
         {
-          "statement": "components ≤ chromatic_number+spanning_trees",
-          "dominated_by": "components ≤ chromatic_number"
-        },
-        {
           "statement": "components ≤ chromatic_number+triangles",
           "dominated_by": "components ≤ chromatic_number"
         },
@@ -4932,10 +4924,6 @@
         },
         {
           "statement": "components ≤ clique_number+min_degree",
-          "dominated_by": "components ≤ chromatic_number"
-        },
-        {
-          "statement": "components ≤ clique_number+spanning_trees",
           "dominated_by": "components ≤ chromatic_number"
         },
         {
@@ -4967,6 +4955,10 @@
           "dominated_by": "components ≤ chromatic_number"
         },
         {
+          "statement": "components ≤ degree_sum+spanning_trees",
+          "dominated_by": "components ≤ chromatic_number"
+        },
+        {
           "statement": "components ≤ degree_sum+vertices",
           "dominated_by": "components ≤ chromatic_number"
         },
@@ -4983,12 +4975,20 @@
           "dominated_by": "components ≤ chromatic_number"
         },
         {
+          "statement": "components ≤ edges+spanning_trees",
+          "dominated_by": "components ≤ chromatic_number"
+        },
+        {
           "statement": "components ≤ edges+vertices",
           "dominated_by": "components ≤ chromatic_number"
         },
         {
           "statement": "components ≤ girth+independent_number",
           "dominated_by": "components ≤ independent_number"
+        },
+        {
+          "statement": "components ≤ girth+spanning_trees",
+          "dominated_by": "components ≤ bipartite+girth"
         },
         {
           "statement": "components ≤ girth+vertices",
@@ -5011,15 +5011,15 @@
           "dominated_by": "components ≤ independent_number"
         },
         {
+          "statement": "components ≤ max_degree+spanning_trees",
+          "dominated_by": "components ≤ bipartite+max_degree"
+        },
+        {
           "statement": "components ≤ max_degree+vertices",
           "dominated_by": "components ≤ chromatic_number"
         },
         {
           "statement": "components ≤ min_degree+vertices",
-          "dominated_by": "components ≤ chromatic_number"
-        },
-        {
-          "statement": "components ≤ spanning_trees+vertices",
           "dominated_by": "components ≤ chromatic_number"
         },
         {
@@ -5063,6 +5063,10 @@
           "dominated_by": "connected ≤ chromatic_number"
         },
         {
+          "statement": "connected ≤ avg_degree+spanning_trees",
+          "dominated_by": "connected ≤ spanning_trees"
+        },
+        {
           "statement": "connected ≤ avg_degree+vertices",
           "dominated_by": "connected ≤ chromatic_number"
         },
@@ -5091,6 +5095,10 @@
           "dominated_by": "connected ≤ components"
         },
         {
+          "statement": "connected ≤ bipartite+spanning_trees",
+          "dominated_by": "connected ≤ spanning_trees"
+        },
+        {
           "statement": "connected ≤ chromatic_number+degree_sum",
           "dominated_by": "connected ≤ chromatic_number"
         },
@@ -5112,10 +5120,6 @@
         },
         {
           "statement": "connected ≤ chromatic_number+min_degree",
-          "dominated_by": "connected ≤ chromatic_number"
-        },
-        {
-          "statement": "connected ≤ chromatic_number+spanning_trees",
           "dominated_by": "connected ≤ chromatic_number"
         },
         {
@@ -5147,10 +5151,6 @@
           "dominated_by": "connected ≤ chromatic_number"
         },
         {
-          "statement": "connected ≤ clique_number+spanning_trees",
-          "dominated_by": "connected ≤ chromatic_number"
-        },
-        {
           "statement": "connected ≤ clique_number+triangles",
           "dominated_by": "connected ≤ clique_number"
         },
@@ -5179,15 +5179,15 @@
           "dominated_by": "connected ≤ components"
         },
         {
-          "statement": "connected ≤ components+spanning_trees",
-          "dominated_by": "connected ≤ components"
-        },
-        {
           "statement": "connected ≤ components+triangles",
           "dominated_by": "connected ≤ components"
         },
         {
           "statement": "connected ≤ degree_sum+independent_number",
+          "dominated_by": "connected ≤ chromatic_number"
+        },
+        {
+          "statement": "connected ≤ degree_sum+spanning_trees",
           "dominated_by": "connected ≤ chromatic_number"
         },
         {
@@ -5199,6 +5199,10 @@
           "dominated_by": "connected ≤ components"
         },
         {
+          "statement": "connected ≤ diameter+spanning_trees",
+          "dominated_by": "connected ≤ spanning_trees"
+        },
+        {
           "statement": "connected ≤ diameter+vertices",
           "dominated_by": "connected ≤ chromatic_number"
         },
@@ -5207,11 +5211,19 @@
           "dominated_by": "connected ≤ chromatic_number"
         },
         {
+          "statement": "connected ≤ edges+spanning_trees",
+          "dominated_by": "connected ≤ chromatic_number"
+        },
+        {
           "statement": "connected ≤ edges+vertices",
           "dominated_by": "connected ≤ chromatic_number"
         },
         {
           "statement": "connected ≤ girth+independent_number",
+          "dominated_by": "connected ≤ components"
+        },
+        {
+          "statement": "connected ≤ girth+spanning_trees",
           "dominated_by": "connected ≤ components"
         },
         {
@@ -5227,11 +5239,11 @@
           "dominated_by": "connected ≤ components"
         },
         {
-          "statement": "connected ≤ independent_number+spanning_trees",
+          "statement": "connected ≤ independent_number+triangles",
           "dominated_by": "connected ≤ components"
         },
         {
-          "statement": "connected ≤ independent_number+triangles",
+          "statement": "connected ≤ max_degree+spanning_trees",
           "dominated_by": "connected ≤ components"
         },
         {
@@ -5239,12 +5251,16 @@
           "dominated_by": "connected ≤ chromatic_number"
         },
         {
+          "statement": "connected ≤ min_degree+spanning_trees",
+          "dominated_by": "connected ≤ spanning_trees"
+        },
+        {
           "statement": "connected ≤ min_degree+vertices",
           "dominated_by": "connected ≤ chromatic_number"
         },
         {
-          "statement": "connected ≤ spanning_trees+vertices",
-          "dominated_by": "connected ≤ chromatic_number"
+          "statement": "connected ≤ spanning_trees+triangles",
+          "dominated_by": "connected ≤ spanning_trees"
         },
         {
           "statement": "connected ≤ triangles+vertices",
@@ -5283,10 +5299,6 @@
           "dominated_by": "diameter ≤ degree_sum"
         },
         {
-          "statement": "diameter ≤ degree_sum+spanning_trees",
-          "dominated_by": "diameter ≤ degree_sum"
-        },
-        {
           "statement": "diameter ≤ degree_sum+triangles",
           "dominated_by": "diameter ≤ degree_sum"
         },
@@ -5300,10 +5312,6 @@
         },
         {
           "statement": "diameter ≤ edges+min_degree",
-          "dominated_by": "diameter ≤ edges"
-        },
-        {
-          "statement": "diameter ≤ edges+spanning_trees",
           "dominated_by": "diameter ≤ edges"
         },
         {
@@ -5328,10 +5336,6 @@
         },
         {
           "statement": "edges ≤ degree_sum+min_degree",
-          "dominated_by": "edges ≤ degree_sum"
-        },
-        {
-          "statement": "edges ≤ degree_sum+spanning_trees",
           "dominated_by": "edges ≤ degree_sum"
         },
         {
@@ -5379,10 +5383,6 @@
           "dominated_by": "girth ≤ degree_sum"
         },
         {
-          "statement": "girth ≤ degree_sum+spanning_trees",
-          "dominated_by": "girth ≤ degree_sum"
-        },
-        {
           "statement": "girth ≤ degree_sum+triangles",
           "dominated_by": "girth ≤ degree_sum"
         },
@@ -5396,10 +5396,6 @@
         },
         {
           "statement": "girth ≤ edges+min_degree",
-          "dominated_by": "girth ≤ edges"
-        },
-        {
-          "statement": "girth ≤ edges+spanning_trees",
           "dominated_by": "girth ≤ edges"
         },
         {
@@ -5455,12 +5451,20 @@
           "dominated_by": "independent_number ≤ bipartite+edges"
         },
         {
+          "statement": "independent_number ≤ degree_sum+spanning_trees",
+          "dominated_by": "independent_number ≤ vertices"
+        },
+        {
           "statement": "independent_number ≤ degree_sum+vertices",
           "dominated_by": "independent_number ≤ vertices"
         },
         {
           "statement": "independent_number ≤ diameter+vertices",
           "dominated_by": "independent_number ≤ vertices"
+        },
+        {
+          "statement": "independent_number ≤ edges+spanning_trees",
+          "dominated_by": "independent_number ≤ bipartite+edges"
         },
         {
           "statement": "independent_number ≤ edges+vertices",
@@ -5476,10 +5480,6 @@
         },
         {
           "statement": "independent_number ≤ min_degree+vertices",
-          "dominated_by": "independent_number ≤ vertices"
-        },
-        {
-          "statement": "independent_number ≤ spanning_trees+vertices",
           "dominated_by": "independent_number ≤ vertices"
         },
         {
@@ -5515,10 +5515,6 @@
           "dominated_by": "max_degree ≤ degree_sum"
         },
         {
-          "statement": "max_degree ≤ degree_sum+spanning_trees",
-          "dominated_by": "max_degree ≤ degree_sum"
-        },
-        {
           "statement": "max_degree ≤ degree_sum+triangles",
           "dominated_by": "max_degree ≤ degree_sum"
         },
@@ -5532,10 +5528,6 @@
         },
         {
           "statement": "max_degree ≤ edges+min_degree",
-          "dominated_by": "max_degree ≤ edges"
-        },
-        {
-          "statement": "max_degree ≤ edges+spanning_trees",
           "dominated_by": "max_degree ≤ edges"
         },
         {
@@ -5627,10 +5619,6 @@
           "dominated_by": "min_degree ≤ avg_degree"
         },
         {
-          "statement": "min_degree ≤ degree_sum+spanning_trees",
-          "dominated_by": "min_degree ≤ avg_degree"
-        },
-        {
           "statement": "min_degree ≤ degree_sum+triangles",
           "dominated_by": "min_degree ≤ avg_degree"
         },
@@ -5648,10 +5636,6 @@
         },
         {
           "statement": "min_degree ≤ edges+max_degree",
-          "dominated_by": "min_degree ≤ avg_degree"
-        },
-        {
-          "statement": "min_degree ≤ edges+spanning_trees",
           "dominated_by": "min_degree ≤ avg_degree"
         },
         {
@@ -5704,10 +5688,6 @@
         },
         {
           "statement": "triangles ≤ degree_sum+min_degree",
-          "dominated_by": "triangles ≤ degree_sum"
-        },
-        {
-          "statement": "triangles ≤ degree_sum+spanning_trees",
           "dominated_by": "triangles ≤ degree_sum"
         },
         {
@@ -5827,6 +5807,10 @@
           "dominated_by": "bipartite ≤ chromatic_number·components"
         },
         {
+          "statement": "bipartite ≤ chromatic_number·spanning_trees",
+          "dominated_by": "bipartite ≤ chromatic_number·connected"
+        },
+        {
           "statement": "bipartite ≤ chromatic_number·vertices",
           "dominated_by": "bipartite ≤ chromatic_number·clique_number"
         },
@@ -5843,11 +5827,19 @@
           "dominated_by": "bipartite ≤ chromatic_number·components"
         },
         {
+          "statement": "bipartite ≤ clique_number·spanning_trees",
+          "dominated_by": "bipartite ≤ chromatic_number·connected"
+        },
+        {
           "statement": "bipartite ≤ clique_number·vertices",
           "dominated_by": "bipartite ≤ chromatic_number·clique_number"
         },
         {
           "statement": "bipartite ≤ components·independent_number",
+          "dominated_by": "bipartite ≤ components·connected"
+        },
+        {
+          "statement": "bipartite ≤ components·spanning_trees",
           "dominated_by": "bipartite ≤ components·connected"
         },
         {
@@ -5859,12 +5851,24 @@
           "dominated_by": "bipartite ≤ components·connected"
         },
         {
+          "statement": "bipartite ≤ connected·spanning_trees",
+          "dominated_by": "bipartite ≤ components·connected"
+        },
+        {
           "statement": "bipartite ≤ connected·vertices",
           "dominated_by": "bipartite ≤ chromatic_number·connected"
         },
         {
+          "statement": "bipartite ≤ independent_number·spanning_trees",
+          "dominated_by": "bipartite ≤ components·connected"
+        },
+        {
           "statement": "bipartite ≤ independent_number·vertices",
           "dominated_by": "bipartite ≤ chromatic_number·components"
+        },
+        {
+          "statement": "bipartite ≤ spanning_trees·vertices",
+          "dominated_by": "bipartite ≤ chromatic_number·connected"
         },
         {
           "statement": "chromatic_number ≤ clique_number·vertices",
@@ -5919,12 +5923,20 @@
           "dominated_by": "connected ≤ chromatic_number·components"
         },
         {
+          "statement": "connected ≤ chromatic_number·spanning_trees",
+          "dominated_by": "connected ≤ clique_number·spanning_trees"
+        },
+        {
           "statement": "connected ≤ chromatic_number·vertices",
           "dominated_by": "connected ≤ chromatic_number·clique_number"
         },
         {
           "statement": "connected ≤ clique_number·independent_number",
           "dominated_by": "connected ≤ chromatic_number·components"
+        },
+        {
+          "statement": "connected ≤ clique_number·spanning_trees",
+          "dominated_by": "connected ≤ components·spanning_trees"
         },
         {
           "statement": "connected ≤ clique_number·vertices",
@@ -5935,8 +5947,16 @@
           "dominated_by": "connected ≤ chromatic_number·components"
         },
         {
+          "statement": "connected ≤ independent_number·spanning_trees",
+          "dominated_by": "connected ≤ components·spanning_trees"
+        },
+        {
           "statement": "connected ≤ independent_number·vertices",
           "dominated_by": "connected ≤ chromatic_number·components"
+        },
+        {
+          "statement": "connected ≤ spanning_trees·vertices",
+          "dominated_by": "connected ≤ chromatic_number·spanning_trees"
         },
         {
           "statement": "degree_sum ≤ chromatic_number·edges",
@@ -6471,11 +6491,15 @@
           "dominated_by": "vertices ≤ bipartite+degree_sum"
         },
         {
+          "statement": "vertices ≤ degree_sum+spanning_trees",
+          "dominated_by": "vertices ≤ bipartite+degree_sum"
+        },
+        {
           "statement": "vertices ≤ edges+independent_number",
           "dominated_by": "vertices ≤ components+edges"
         }
       ],
-      "accepted_count": 70,
+      "accepted_count": 69,
       "theory_net": {
         "family": "graph",
         "n_objects": 61,
@@ -6514,8 +6538,8 @@
       },
       "stress": {
         "extended_objects": 84,
-        "n_tested": 70,
-        "n_survived": 57,
+        "n_tested": 69,
+        "n_survived": 56,
         "n_falsified": 13,
         "falsified_details": [
           {
@@ -9501,8 +9525,20 @@
           "definitional": null,
           "implied_by_definitions": false,
           "library_artifact_risk": false,
-          "implied_using_known": false,
-          "recognition": null,
+          "implied_using_known": true,
+          "recognition": {
+            "known_id": "partition_distinct_parts_conjugate_invariant",
+            "known_name": "λ 与 λ' 的不同部大小个数相等",
+            "note": "2026-09-19 由本引擎作为**候选**发现（当时在 n≤20 的全部 2713 个划分上穷举无反例，但只标为 CANDIDATE_UNVERIFIED）；同日给出下面的证明。**这是杨图共轭的直接推论，属教科书级别的简单事实，不是新数学**——收录在此是为了让它成为搜索机制的校准件：机器能重新发现它，说明搜索通道没有只在产生垃圾。",
+            "proof": [
+              "记 λ 的互异部大小为 v_1 > v_2 > ... > v_m，各值的重数为 c_1, ..., c_m，部数 k = c_1 + ... + c_m。所求即证 |D(λ')| = m。",
+              "由共轭定义 λ'_i = #{j : λ_j ≥ i}。",
+              "对任意 i，若 v_{t+1} < i ≤ v_t（约定 v_{m+1} = 0），则恰有前 t 组的部分满足 λ_j ≥ i，故 λ'_i = c_1 + ... + c_t =: C_t。",
+              "对每个 t，区间 (v_{t+1}, v_t] 非空（因 v_t > v_{t+1} 且取整数 i = v_t 即可），所以每个 C_t 都确实作为 λ' 的某一项出现，即 D(λ') = {C_1, ..., C_m}。",
+              "又因每个 c_t ≥ 1，故 C_1 < C_2 < ... < C_m 严格递增，m 个值两两互异。",
+              "于是 |D(λ')| = m = |D(λ)|。证毕。"
+            ]
+          },
           "test": {
             "n_test_objects": 16,
             "n_failures": 0,
@@ -9511,7 +9547,7 @@
           },
           "evidence_level": "L2（精确有理算术，有限对象库）",
           "notes": "所有关系仅在被检验的有限对象上成立（精确有理算术），属 L2 证据；有限集合上的无反例不构成任何证明。",
-          "status": "CANDIDATE_UNVERIFIED"
+          "status": "KNOWN_THEOREM_REDISCOVERED"
         },
         {
           "family": "partition",
@@ -9534,7 +9570,8 @@
           "recognition": {
             "known_id": "partition_conjugate_length",
             "known_name": "λ' 的最大部等于 λ 的部数",
-            "note": "共轭的定义直接推论。"
+            "note": "共轭的定义直接推论。",
+            "proof": null
           },
           "test": {
             "n_test_objects": 16,
@@ -9567,7 +9604,8 @@
           "recognition": {
             "known_id": "partition_rank_conjugate",
             "known_name": "划分共轭反号 rank(λ') = -rank(λ)",
-            "note": "杨图共轭互换最大部与部数，故秩变号。"
+            "note": "杨图共轭互换最大部与部数，故秩变号。",
+            "proof": null
           },
           "test": {
             "n_test_objects": 16,
@@ -12025,7 +12063,7 @@
           "dominated_by": "self_conjugate ≤ conjugate_distinct·conjugate_length"
         }
       ],
-      "accepted_count": 63,
+      "accepted_count": 62,
       "theory_net": {
         "family": "partition",
         "n_objects": 66,
@@ -12080,32 +12118,13 @@
             "reverified_exactly": true
           }
         ],
-        "parsimonious_expressions": [
-          {
-            "invariant": "conjugate_distinct",
-            "via_relation": "conjugate_distinct - distinct_parts = 0",
-            "rhs": {
-              "distinct_parts": "1"
-            },
-            "constant": "0",
-            "support_size": 1
-          },
-          {
-            "invariant": "distinct_parts",
-            "via_relation": "conjugate_distinct - distinct_parts = 0",
-            "rhs": {
-              "conjugate_distinct": "1"
-            },
-            "constant": "0",
-            "support_size": 1
-          }
-        ],
+        "parsimonious_expressions": [],
         "note": "主元/自由列的划分依赖**当前对象库**：换一批对象结论就会变。因此这里的'独立基'是库内概念，不是理论的独立性判定。"
       },
       "stress": {
         "extended_objects": 194,
-        "n_tested": 63,
-        "n_survived": 59,
+        "n_tested": 62,
+        "n_survived": 58,
         "n_falsified": 4,
         "falsified_details": [
           {
@@ -12304,7 +12323,8 @@
           "recognition": {
             "known_id": "euler_poincare",
             "known_name": "欧拉-庞加莱公式（有限 CW 复形）",
-            "note": "有限 CW 复形的链群交错和等于 Betti 数交错和；挠元不计入欧拉示性数。"
+            "note": "有限 CW 复形的链群交错和等于 Betti 数交错和；挠元不计入欧拉示性数。",
+            "proof": null
           },
           "test": {
             "n_test_objects": 3,
@@ -18050,13 +18070,13 @@
     }
   },
   "summary": {
-    "candidates": 412,
-    "accepted": 345,
-    "stress_tested": 345,
-    "stress_survived": 319
+    "candidates": 411,
+    "accepted": 343,
+    "stress_tested": 343,
+    "stress_survived": 317
   },
   "meta": {
-    "generated_at": "2026-09-19T15:07:05",
+    "generated_at": "2026-09-19T18:37:26",
     "generator": "06-AI自动化/01-工作流/openmath_theory.py",
     "evidence_level": "L2",
     "provenance": {
@@ -18107,7 +18127,7 @@
     ],
     "total_checks": 6,
     "violations": 0,
-    "generated_at": "2026-09-19T15:07:05",
+    "generated_at": "2026-09-19T18:37:26",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"

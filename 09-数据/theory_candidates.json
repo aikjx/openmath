@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-09-19T15:07:05",
+    "generated_at": "2026-09-19T18:37:26",
     "generator": "openmath_theory.py",
     "evidence_level": "L2",
     "provenance": {
@@ -1175,7 +1175,8 @@
           "recognition": {
             "known_id": "handshaking",
             "known_name": "握手定理",
-            "note": "Σ deg(v) = 2|E|。"
+            "note": "Σ deg(v) = 2|E|。",
+            "proof": null
           },
           "definitional": null,
           "implied_by_definitions": false,
@@ -1424,27 +1425,6 @@
         {
           "family": "graph",
           "channel": "inequality",
-          "statement": "chromatic_number ≤ clique_number+spanning_trees",
-          "status": "CANDIDATE_UNVERIFIED",
-          "status_cn": "待验证候选（L2）",
-          "evidence_level": "L2（精确有理算术，有限对象库）",
-          "recognition": null,
-          "definitional": null,
-          "implied_by_definitions": null,
-          "library_artifact_risk": null,
-          "test": {
-            "n_test_objects": 15,
-            "n_failures": 0,
-            "survived": true,
-            "counterexamples": []
-          },
-          "scale_stress": {
-            "survived": true
-          }
-        },
-        {
-          "family": "graph",
-          "channel": "inequality",
           "statement": "clique_number ≤ chromatic_number",
           "status": "KNOWN_THEOREM_REDISCOVERED",
           "status_cn": "已知定理的重发现（校准件）",
@@ -1452,7 +1432,8 @@
           "recognition": {
             "known_id": "chi_ge_omega",
             "known_name": "χ(G) ≥ ω(G)（色数不小于团数）",
-            "note": "最大团中每点异色，经典且显然。"
+            "note": "最大团中每点异色，经典且显然。",
+            "proof": null
           },
           "definitional": null,
           "implied_by_definitions": null,
@@ -1582,6 +1563,27 @@
         {
           "family": "graph",
           "channel": "inequality",
+          "statement": "connected ≤ spanning_trees",
+          "status": "CANDIDATE_UNVERIFIED",
+          "status_cn": "待验证候选（L2）",
+          "evidence_level": "L2（精确有理算术，有限对象库）",
+          "recognition": null,
+          "definitional": null,
+          "implied_by_definitions": null,
+          "library_artifact_risk": null,
+          "test": {
+            "n_test_objects": 15,
+            "n_failures": 0,
+            "survived": true,
+            "counterexamples": []
+          },
+          "scale_stress": {
+            "survived": true
+          }
+        },
+        {
+          "family": "graph",
+          "channel": "inequality",
           "statement": "connected ≤ bipartite+diameter",
           "status": "CANDIDATE_UNVERIFIED",
           "status_cn": "待验证候选（L2）",
@@ -1604,27 +1606,6 @@
           "family": "graph",
           "channel": "inequality",
           "statement": "connected ≤ bipartite+min_degree",
-          "status": "CANDIDATE_UNVERIFIED",
-          "status_cn": "待验证候选（L2）",
-          "evidence_level": "L2（精确有理算术，有限对象库）",
-          "recognition": null,
-          "definitional": null,
-          "implied_by_definitions": null,
-          "library_artifact_risk": null,
-          "test": {
-            "n_test_objects": 15,
-            "n_failures": 0,
-            "survived": true,
-            "counterexamples": []
-          },
-          "scale_stress": {
-            "survived": true
-          }
-        },
-        {
-          "family": "graph",
-          "channel": "inequality",
-          "statement": "connected ≤ bipartite+spanning_trees",
           "status": "CANDIDATE_UNVERIFIED",
           "status_cn": "待验证候选（L2）",
           "evidence_level": "L2（精确有理算术，有限对象库）",
@@ -2071,27 +2052,6 @@
         {
           "family": "graph",
           "channel": "inequality",
-          "statement": "triangles ≤ edges+spanning_trees",
-          "status": "CANDIDATE_UNVERIFIED",
-          "status_cn": "待验证候选（L2）",
-          "evidence_level": "L2（精确有理算术，有限对象库）",
-          "recognition": null,
-          "definitional": null,
-          "implied_by_definitions": null,
-          "library_artifact_risk": null,
-          "test": {
-            "n_test_objects": 15,
-            "n_failures": 0,
-            "survived": true,
-            "counterexamples": []
-          },
-          "scale_stress": {
-            "survived": true
-          }
-        },
-        {
-          "family": "graph",
-          "channel": "inequality",
           "statement": "avg_degree ≤ chromatic_number·clique_number",
           "status": "CANDIDATE_UNVERIFIED",
           "status_cn": "待验证候选（L2）",
@@ -2387,6 +2347,27 @@
           "family": "graph",
           "channel": "inequality",
           "statement": "connected ≤ components·independent_number",
+          "status": "CANDIDATE_UNVERIFIED",
+          "status_cn": "待验证候选（L2）",
+          "evidence_level": "L2（精确有理算术，有限对象库）",
+          "recognition": null,
+          "definitional": null,
+          "implied_by_definitions": null,
+          "library_artifact_risk": null,
+          "test": {
+            "n_test_objects": 15,
+            "n_failures": 0,
+            "survived": true,
+            "counterexamples": []
+          },
+          "scale_stress": {
+            "survived": true
+          }
+        },
+        {
+          "family": "graph",
+          "channel": "inequality",
+          "statement": "connected ≤ components·spanning_trees",
           "status": "CANDIDATE_UNVERIFIED",
           "status_cn": "待验证候选（L2）",
           "evidence_level": "L2（精确有理算术，有限对象库）",
@@ -3018,7 +2999,8 @@
           "recognition": {
             "known_id": "n_le_alpha_chi",
             "known_name": "α(G)·χ(G) ≥ |V|",
-            "note": "按颜色类划分：每色类为独立集，故 |V| ≤ α·χ。"
+            "note": "按颜色类划分：每色类为独立集，故 |V| ≤ α·χ。",
+            "proof": null
           },
           "definitional": null,
           "implied_by_definitions": null,
@@ -4387,10 +4369,22 @@
           "family": "partition",
           "channel": "linear",
           "statement": "conjugate_distinct - distinct_parts = 0",
-          "status": "CANDIDATE_UNVERIFIED",
-          "status_cn": "待验证候选（L2）",
+          "status": "KNOWN_THEOREM_REDISCOVERED",
+          "status_cn": "已知定理的重发现（校准件）",
           "evidence_level": "L2（精确有理算术，有限对象库）",
-          "recognition": null,
+          "recognition": {
+            "known_id": "partition_distinct_parts_conjugate_invariant",
+            "known_name": "λ 与 λ' 的不同部大小个数相等",
+            "note": "2026-09-19 由本引擎作为**候选**发现（当时在 n≤20 的全部 2713 个划分上穷举无反例，但只标为 CANDIDATE_UNVERIFIED）；同日给出下面的证明。**这是杨图共轭的直接推论，属教科书级别的简单事实，不是新数学**——收录在此是为了让它成为搜索机制的校准件：机器能重新发现它，说明搜索通道没有只在产生垃圾。",
+            "proof": [
+              "记 λ 的互异部大小为 v_1 > v_2 > ... > v_m，各值的重数为 c_1, ..., c_m，部数 k = c_1 + ... + c_m。所求即证 |D(λ')| = m。",
+              "由共轭定义 λ'_i = #{j : λ_j ≥ i}。",
+              "对任意 i，若 v_{t+1} < i ≤ v_t（约定 v_{m+1} = 0），则恰有前 t 组的部分满足 λ_j ≥ i，故 λ'_i = c_1 + ... + c_t =: C_t。",
+              "对每个 t，区间 (v_{t+1}, v_t] 非空（因 v_t > v_{t+1} 且取整数 i = v_t 即可），所以每个 C_t 都确实作为 λ' 的某一项出现，即 D(λ') = {C_1, ..., C_m}。",
+              "又因每个 c_t ≥ 1，故 C_1 < C_2 < ... < C_m 严格递增，m 个值两两互异。",
+              "于是 |D(λ')| = m = |D(λ)|。证毕。"
+            ]
+          },
           "definitional": null,
           "implied_by_definitions": false,
           "library_artifact_risk": false,
@@ -4414,7 +4408,8 @@
           "recognition": {
             "known_id": "partition_conjugate_length",
             "known_name": "λ' 的最大部等于 λ 的部数",
-            "note": "共轭的定义直接推论。"
+            "note": "共轭的定义直接推论。",
+            "proof": null
           },
           "definitional": "涉及本 module 自行定义的派生量 conjugate_length（非数学发现）",
           "implied_by_definitions": true,
@@ -4439,7 +4434,8 @@
           "recognition": {
             "known_id": "partition_rank_conjugate",
             "known_name": "划分共轭反号 rank(λ') = -rank(λ)",
-            "note": "杨图共轭互换最大部与部数，故秩变号。"
+            "note": "杨图共轭互换最大部与部数，故秩变号。",
+            "proof": null
           },
           "definitional": "涉及本 module 自行定义的派生量 conjugate_rank（非数学发现）",
           "implied_by_definitions": true,
@@ -5941,7 +5937,8 @@
           "recognition": {
             "known_id": "euler_poincare",
             "known_name": "欧拉-庞加莱公式（有限 CW 复形）",
-            "note": "有限 CW 复形的链群交错和等于 Betti 数交错和；挠元不计入欧拉示性数。"
+            "note": "有限 CW 复形的链群交错和等于 Betti 数交错和；挠元不计入欧拉示性数。",
+            "proof": null
           },
           "definitional": null,
           "implied_by_definitions": false,

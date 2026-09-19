@@ -922,6 +922,29 @@ KNOWN_RELATIONS: List[Dict[str, Any]] = [
         "coeffs": {"conjugate_length": 1, "largest_part": -1},
         "note": "共轭的定义直接推论。",
     },
+    {
+        "id": "partition_distinct_parts_conjugate_invariant",
+        "name": "λ 与 λ' 的不同部大小个数相等",
+        "family": "partition", "channel": "linear",
+        "coeffs": {"conjugate_distinct": 1, "distinct_parts": -1},
+        "note": ("2026-09-19 由本引擎作为**候选**发现（当时在 n≤20 的全部 2713 个划分上"
+                 "穷举无反例，但只标为 CANDIDATE_UNVERIFIED）；同日给出下面的证明。"
+                 "**这是杨图共轭的直接推论，属教科书级别的简单事实，不是新数学**——"
+                 "收录在此是为了让它成为搜索机制的校准件："
+                 "机器能重新发现它，说明搜索通道没有只在产生垃圾。"),
+        "proof": [
+            "记 λ 的互异部大小为 v_1 > v_2 > ... > v_m，各值的重数为 c_1, ..., c_m，"
+            "部数 k = c_1 + ... + c_m。所求即证 |D(λ')| = m。",
+            "由共轭定义 λ'_i = #{j : λ_j ≥ i}。",
+            "对任意 i，若 v_{t+1} < i ≤ v_t（约定 v_{m+1} = 0），"
+            "则恰有前 t 组的部分满足 λ_j ≥ i，故 λ'_i = c_1 + ... + c_t =: C_t。",
+            "对每个 t，区间 (v_{t+1}, v_t] 非空（因 v_t > v_{t+1} 且取整数 i = v_t 即可），"
+            "所以每个 C_t 都确实作为 λ' 的某一项出现，即 D(λ') = {C_1, ..., C_m}。",
+            "又因每个 c_t ≥ 1，故 C_1 < C_2 < ... < C_m 严格递增，m 个值两两互异。",
+            "于是 |D(λ')| = m = |D(λ)|。证毕。",
+        ],
+        "proof_status": "已证明（人工核验前的草稿，见诚实红线五）",
+    },
 ]
 
 DEFINITIONAL: Dict[str, List[Dict[str, Any]]] = {
@@ -976,21 +999,22 @@ def recognize_known(family: str, channel: str, coeffs: Dict[str, int],
         if channel == "linear":
             want = dict(k.get("coeffs") or {})
             if want and _norm_coeffs(coeffs) == _norm_coeffs(want):
-                return {"known_id": k["id"], "known_name": k["name"], "note": k["note"]}
+                return {"known_id": k["id"], "known_name": k["name"], "note": k["note"],
+                        "proof": k.get("proof")}
         elif channel == "monomial":
             want = dict(k.get("exponents") or {})
             want.update(k.get("extra") or {})
             if want and _norm_coeffs(exponents or {}) == _norm_coeffs(want):
                 if k.get("constant") is None or Fraction(k["constant"]) == constant:
                     return {"known_id": k["id"], "known_name": k["name"],
-                            "note": k["note"]}
+                            "note": k["note"], "proof": k.get("proof")}
         elif channel == "inequality":
             want = k.get("form")
             if want is not None and ineq_form is not None:
                 if (want[0] == ineq_form[0] and want[1] == ineq_form[1]
                         and set(want[2]) == set(ineq_form[2])):
                     return {"known_id": k["id"], "known_name": k["name"],
-                            "note": k["note"]}
+                            "note": k["note"], "proof": k.get("proof")}
     return None
 
 

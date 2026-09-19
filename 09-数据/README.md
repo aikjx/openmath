@@ -101,6 +101,11 @@
 | **`theory_forge.json`** | `openmath_theory.py` | 关系发现全量结果：候选、反例台账、被剔除的支配项 | L2 |
 | **`theory_candidates.json`** | `openmath_theory.py` | 通过主筛选的候选 + 规模外推存活情况 | L2 |
 | **`theory_net.json`** | `openmath_theory.py` | 各对象族不变量的理论体系网（库内独立基与表出） | L2 |
+| **`audit_report.json`** | `openmath_audit.py` | 独立审计：用不同算法重算本目录其它产物所依赖的每个数字 | L2 |
+
+**读取 `audit_report.json` 的注意事项**：`failed_checks = 0` 只表示
+「在给定对象集与给定独立算法下没有发现差异」，**不表示被审结论正确**。
+报告里单列了审计自身的局限，以及本轮发现并已修复的缺陷清单。
 
 **读取 `theory_*.json` 的注意事项**：其中每条关系的成立范围**仅为被检验的有限对象集合**。
 `status` 字段只会出现

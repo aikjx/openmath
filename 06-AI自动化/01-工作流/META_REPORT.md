@@ -1,6 +1,6 @@
 # OpenMath 元层分析报告：处理方法知识库 · 套娃递归 · 维度矩阵
 
-> 生成时间：2026-09-19T15:07:04　|　生成者：`06-AI自动化/01-工作流/openmath_meta.py`
+> 生成时间：2026-09-19T18:33:47　|　生成者：`06-AI自动化/01-工作流/openmath_meta.py`
 
 > **诚实声明**：本文所有内容为 **L0/L2 级整理与有限域计算**，**不证明任何未解猜想**；知识库为策展式收集，**不是**人类方法的穷尽清单。
 
@@ -40,9 +40,9 @@
 
 ### 2.1 流水线自身的套娃不动点
 
-从唯一初始输入 `A_remote` 出发，反复应用 6 个阶段，**第 4 轮后到达不动点**，闭包含 **24** 类 artifact。
+从唯一初始输入 `A_remote` 出发，反复应用 6 个阶段，**第 4 轮后到达不动点**，闭包含 **28** 类 artifact。
 
-- 第 1 轮：触发 `S1_ingest, S3_experiments, S7_theory`　新增 `A_cd, A_exp, A_expr, A_forge, A_papers, A_theory_cands, A_theory_net`
+- 第 1 轮：触发 `S1_ingest, S3_experiments, S7_theory, S8_audit, S9_sequences`　新增 `A_audit, A_cd, A_exp, A_expr, A_forge, A_papers, A_seq_cands, A_seq_net, A_sequences, A_theory_cands, A_theory_net`
 - 第 2 轮：触发 `S2_analyze`　新增 `A_conjectures, A_gaps, A_methods, A_numeric, A_taxonomy`
 - 第 3 轮：触发 `S4_coalition, S5_synthesis`　新增 `A_coalition, A_dims, A_finite, A_paradigms, A_roadmap, A_space, A_verification`
 - 第 4 轮：触发 `S6_meta`　新增 `A_dimmatrix, A_kb, A_meta_roadmap, A_recursion`

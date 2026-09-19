@@ -7,6 +7,8 @@
   scheduler     算法联盟调度器（含最高权限处理模式）
   structure     有限群与有限链复形的结构计算
   theoryforge   有限对象库上的关系发现与两级反例搜索
+  sequences     整数序列上的递推/超几何闭式/增长率发现（含特征根对账）
+  audit         独立审计：用不同算法重算本仓库自己算出的每个数字
   system        总编排器
 """
 from .models import (
@@ -27,6 +29,14 @@ from .theoryforge import (
     pareto_filter_inequalities, recognize_known, stress_test, theory_net,
     forge_all, KNOWN_RELATIONS, DEFINITIONAL_LINEAR,
 )
+from .audit import run_audit, SCOPE_NOTE as AUDIT_SCOPE_NOTE
+from .sequences import (
+    build_sequences, discover_linear, discover_hypergeometric, estimate_growth,
+    analyze_sequence, analyze_all, characteristic_polynomial, polynomial_roots,
+    growth_from_recurrence, reconcile_growth,
+    KNOWN_RECURRENCES, EXPECTED_NEGATIVE,
+    SCOPE_NOTE as SEQ_SCOPE_NOTE, EVIDENCE_NOTE as SEQ_EVIDENCE_NOTE,
+)
 from .system import OpenMathProcessor
 
 __all__ = [
@@ -40,4 +50,10 @@ __all__ = [
     "build_sites", "discover_linear", "discover_monomial", "discover_inequality",
     "pareto_filter_inequalities", "recognize_known", "stress_test", "theory_net",
     "forge_all", "KNOWN_RELATIONS", "DEFINITIONAL_LINEAR",
+    "run_audit", "AUDIT_SCOPE_NOTE",
+    "build_sequences", "discover_linear", "discover_hypergeometric",
+    "estimate_growth", "analyze_sequence", "analyze_all",
+    "characteristic_polynomial", "polynomial_roots", "growth_from_recurrence",
+    "reconcile_growth", "KNOWN_RECURRENCES", "EXPECTED_NEGATIVE",
+    "SEQ_SCOPE_NOTE", "SEQ_EVIDENCE_NOTE",
 ]

@@ -120,8 +120,34 @@ L2/L3 失败或 Hound 找到反例
 
 **关键观察**：自动化环节（3–6）在分钟级；人工环节（8–9）在周级。**瓶颈在人类复核**，这决定了本库的扩展策略：优先自动化能自动化的，把人类精力集中在真正需要判断的地方。
 
+## 每日自动流水线脚本（S1–S9）
+
+这些脚本**已经**实现了上面的编排，由每日 09:00 的自动化任务串联执行。
+命名规则 `openmath_<阶段>.py`，报告同名大写（`THEORY_REPORT.md` 等）。
+
+| 阶段 | 脚本 | 做什么 | 主要产物 |
+| --- | --- | --- | --- |
+| S1 | `openmath_ingest.py` | 抓 CD 与 arXiv，四维分析 | `math_taxonomy` 等 |
+| S2 | `openmath_analyze.py` | 分类、缺口、猜想登记、方法体系、数值兜底 | `conjectures`、`numeric_solutions` |
+| S3 | `openmath_experiments.py` | 数论计算实验（ABC / 哥德巴赫 / 孪生素数 / π(x) / Collatz） | `nt_experiments` |
+| S4 | `openmath_coalition.py` | 算法联盟、突破路线图、可能性空间 | `breakthrough_roadmap` |
+| S5 | `openmath_synthesis.py` | 处理范式、有限化定理、扩展维度 | `finite_theorems` |
+| S6 | `openmath_meta.py` | 人类方法知识库、套娃递归分析、结构实验 | `human_methods_kb` |
+| S7 | `openmath_theory.py` | 理论锻造：关系发现 + 两级反例搜索 | `theory_forge`、`theory_candidates` |
+| **S8** | **`openmath_audit.py`** | **独立审计：用不同算法重算各阶段的每个可复核数字** | `audit_report` |
+| **S9** | **`openmath_sequences.py`** | **序列理论：递推 / 超几何闭式 / 增长率 + 特征根对账** | `sequence_theory`、`sequence_candidates` |
+
+S8 与其它阶段不同：它**不消费任何上游 artifact**，审计的是**代码里的算法**本身。
+因此它发现的问题是实现层的，与流水线有没有跑过无关。
+S9 同样不消费上游 artifact：它的对象是**自己构造的**整数序列库。
+S7 找同一对象内部不变量的**静态**关系，S9 找沿参数 n 演化的**动态**关系，两者互补。
+
+每个脚本末尾都会跑一份自核验（把审计方法用在自己的产物上），
+并把违规项数打印出来；违规不为 0 时应视为该阶段产物不可用。
+
 ## 待办
 
-- [ ] 实现流水线编排（目前各步骤手动执行）
+- [x] 实现流水线编排（S1–S9 脚本已就位并由自动化串联）
+- [ ] 实现"反例 → 自动标 FALSIFIED 候选"的流程
 - [ ] 实现"反例 → 自动标 FALSIFIED 候选"的流程
 - [ ] 实现 PR 模板自动检查（红线自检清单）

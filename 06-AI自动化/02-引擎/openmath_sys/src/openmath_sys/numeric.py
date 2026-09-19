@@ -72,6 +72,101 @@ ALLOWED_MULTICHAR_VARS = frozenset()
 # 求值器内置的常量名（此处的 e 与 pi 指自然常数与圆周率，i 指虚数单位）
 CONSTANT_NAMES = frozenset({"e", "pi", "i"})
 
+# 备用抽样域：|z|>1。arcsec/arccsc/arccoth 这类函数要求自变量落在单位圆外才有实/主值，
+# 在 [0.05,0.95] 上判不出结果属**定义域问题**，不是式子错，故允许补试一次。
+ALT_LO, ALT_HI = 1.2, 5.0
+
+
+# 用于隐式乘法检测的函数名选择支（长名优先，避免 `arc` 抢在 `arcsin` 之前匹配）
+_FUNC_ALT = "|".join(sorted(KNOWN_FUNC_NAMES, key=len, reverse=True))
+
+
+def _word_at(text: str, i: int) -> str:
+    """返回 text[i] 所在的**完整连续字母串**，用于判断标识符边界。"""
+    j = i
+    while j > 0 and text[j - 1].isalpha():
+        j -= 1
+    k = i
+    while k < len(text) and text[k].isalpha():
+        k += 1
+    return text[j:k]
+
+
+def normalize_implicit_mul(raw: str) -> tuple:
+    """
+    把文本中**高置信度**的隐式乘法补成显式 `*`，返回 `(新文本, 改动说明列表)`。
+
+    定位：这是 screen_identity 拒答之后的**补救手段**，且规范化后必须重新走一遍筛查。
+    因此即便此处判断有误，后果也只是"继续拒答"，不会凭空造出 holds/fails。
+
+    启用的三条规则（都要求紧邻且边界明确）：
+
+    - R1 数字紧跟标识符或左括号：`2z` → `2*z`，`2(1+z)` → `2*(1+z)`
+    - R1b 数字**隔空白**紧邻函数/左括号：`2 ln(x)` → `2*ln(x)`
+      （实测：不补的话求值器会把整条式子静默截断成常数 `2`，这是 arcsech 假阴性的根因）
+    - R2 右括号紧跟标识符/数字/左括号：`(1+z)w` → `(1+z)*w`，`(a)(b)` → `(a)*(b)`
+    - R3 独立出现的单字母 `i` 与相邻标识符：`iz` → `i*z`（前提是 `i` 在式中另有独立出现，
+      说明它确实是虚数单位或变量，而不是 `pi`/`is` 这类词的一部分）
+    - R4 单字母标识符**隔空白**紧邻函数：`-i ln(x)` → `-i*ln(x)`
+
+    刻意**不**处理 `f(x)` 这种"单字母紧邻左括号"的形态——那更可能是函数调用而非乘积，
+    误插会直接制造假阴性。这是本函数保守性的关键取舍。
+    """
+    text = raw
+    changes: list = []
+    before = text
+
+    # R1：数字紧跟标识符/左括号
+    text = re.sub(r"(?<![A-Za-z0-9_.])(\d+(?:\.\d+)?)(?=[A-Za-z(])", r"\1*", text)
+    if text != before:
+        changes.append("R1 数字与标识符之间的隐式乘法")
+
+    # R1b：数字 + 空白 + 函数名/LaTeX 命令/左括号
+    before = text
+    text = re.sub(r"(?<![A-Za-z0-9_.])(\d+(?:\.\d+)?)\s+(?=(?:" + _FUNC_ALT +
+                  r")\s*\(|\\[A-Za-z]+\s*\(|\()", r"\1*", text)
+    if text != before:
+        changes.append("R1b 数字与后续函数之间的隐式乘法")
+
+    # R2：右括号紧跟标识符/数字/左括号
+    before = text
+    text = re.sub(r"\)(?=[A-Za-z0-9(])", ")*", text)
+    if text != before:
+        changes.append("R2 右括号与后续因子之间的隐式乘法")
+
+    # R4：单字母标识符 + 空白 + 函数名/LaTeX 命令
+    before = text
+    text = re.sub(r"(?<![A-Za-z0-9_.])([A-Za-z])\s+(?=(?:" + _FUNC_ALT +
+                  r")\s*\(|\\[A-Za-z]+\s*\()", r"\1*", text)
+    if text != before:
+        changes.append("R4 变量与后续函数之间的隐式乘法")
+
+    # R3：独立单字母 i 的隐式乘法（仅在 i 另有独立出现时才启用）
+    if re.search(r"(?<![A-Za-z0-9_.])i(?![A-Za-z0-9_.])", text):
+        before = text
+
+        def _r3fwd(m):
+            w = _word_at(text, m.start())
+            if w in PROSE_STOPWORDS or w in KNOWN_FUNC_NAMES:
+                return "i"          # `is`/`in`/`int` 这类散文词，不是乘法
+            return "i*"
+
+        def _r3bwd(m):
+            w = _word_at(text, m.start())
+            # 只接受"恰好两个字母且末位为 i"的形态，且排除 pi/ei 等常量名
+            if len(w) != 2 or w[1] != "i" or w in CONSTANT_NAMES:
+                return "i"
+            if w in PROSE_STOPWORDS or w in KNOWN_FUNC_NAMES:
+                return "i"
+            return "*i"
+
+        text = re.sub(r"(?<![A-Za-z0-9_.])i(?=[A-Za-z])", _r3fwd, text)
+        text = re.sub(r"(?<=[A-Za-z])i(?![A-Za-z0-9_.])", _r3bwd, text)
+        if text != before:
+            changes.append("R3 虚数单位 i 与相邻标识符之间的隐式乘法")
+
+    return text, changes
+
 
 def screen_identity(raw: str) -> dict:
     """
@@ -149,6 +244,9 @@ def screen_identity(raw: str) -> dict:
         suspect.append((m.group(), "数字紧邻字母：求值器按常量处理，隐式乘法不会被拆开"))
     for m in re.finditer(r"[A-Za-z][A-Za-z]", cleaned):
         suspect.append((m.group(), "字母紧邻字母：求值器合成一个标识符，隐式乘法不会被拆开"))
+    for m in re.finditer(r"[0-9]\s+[A-Za-z\\(]", cleaned):
+        suspect.append((m.group().strip(),
+                        "数字隔空白紧邻标识符：求值器会把式子静默截断成该常数"))
     for m in re.finditer(r"\b[A-Za-z][A-Za-z0-9_]*\s+[A-Za-z\\(]", cleaned):
         suspect.append((m.group().strip(),
                         "标识符后接空白再接表达式：求值器只解释为函数调用，疑为隐式乘法"))
@@ -161,7 +259,8 @@ def screen_identity(raw: str) -> dict:
 
 
 def verify_identity(raw: str, trials: int = 25, lo: float = 0.05, hi: float = 0.95,
-                    seed: int = 20260919, tol: float = 1e-6) -> dict:
+                    seed: int = 20260919, tol: float = 1e-6,
+                    _alt_tried: bool = False) -> dict:
     """
     对**代数恒等式** lhs=rhs 做随机抽样数值验证（而非求根）。
 
@@ -172,6 +271,16 @@ def verify_identity(raw: str, trials: int = 25, lo: float = 0.05, hi: float = 0.
     import random
     screen = screen_identity(raw)
     if not screen["decidable"]:
+        # 补救：先尝试把隐式乘法补成显式的，再重新筛查。
+        # 若规范化后仍不可判定，才维持拒答——**不会**因为规范化而放宽判准。
+        norm, changes = normalize_implicit_mul(raw)
+        if changes and norm != raw and screen_identity(norm)["decidable"]:
+            out = verify_identity(norm, trials=trials, lo=lo, hi=hi, seed=seed, tol=tol)
+            out["normalized_from"] = raw
+            out["normalizations"] = changes
+            out["caveat"] = (out.get("caveat", "") +
+                             " 判定前已把原文中的隐式乘法补成显式（" + "；".join(changes) + "）。")
+            return out
         return {
             "status": "not_decidable",
             "scope": screen["scope"],
@@ -233,6 +342,27 @@ def verify_identity(raw: str, trials: int = 25, lo: float = 0.05, hi: float = 0.
                      "reason": f"{trials} 次抽样中有 {errors} 次无法求值，判定不可靠"})
         return base
     base.update({"status": "holds" if maxdiff <= tol else "fails"})
+
+    # 多值函数在 |z|>1 分支上抽样才可能吻合（arcsec/arccsc/arccoth 要求 |z|>1）。
+    # 这里**只在默认域判不出 holds 时**补试一个域，且要求补试域上零求值错误，
+    # 否则维持原判定：宁可少判一条，也不把"换个域碰巧对上"说成恒成立。
+    if (base["status"] != "holds" and not _alt_tried
+            and re.search(r"arc(sin|cos|tan|sec|csc|cot)", raw, re.I)):
+        alt = verify_identity(raw, trials=trials, lo=ALT_LO, hi=ALT_HI, seed=seed, tol=tol,
+                              _alt_tried=True)
+        if alt.get("status") == "holds" and alt.get("eval_errors", 1) == 0:
+            alt["verified_domain"] = [ALT_LO, ALT_HI]
+            alt["domain_note"] = (
+                f"默认域 [{lo},{hi}] 上不成立，而在 |z|>1 的域 [{ALT_LO},{ALT_HI}] 上吻合；"
+                f"反三角/反双曲函数在单位区间内取值落在另一分支，属定义域差异而非式子错。"
+                f"默认域的判定为 {base['status']}（最大相对差 {maxdiff:.3e}），一并保留。"
+            )
+            alt["default_domain_verdict"] = base["status"]
+            alt["default_domain_max_relative_diff"] = maxdiff
+            return alt
+        base["alt_domain_verdict"] = alt.get("status")
+        base["alt_domain_max_relative_diff"] = alt.get("max_relative_diff")
+
     if base["status"] == "fails" and re.search(r"\b(arc|ar)?(sin|cos|tan|sec|csc|cot)", raw, re.I):
         base["branch_warning"] = (
             "本条含多值（反三角/反双曲）函数：差异**可能**只是分支约定不同"

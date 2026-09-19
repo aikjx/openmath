@@ -1,0 +1,338 @@
+{
+  "scope": "本模块只审计**有限、可枚举、有独立参照**的计算：数论函数、素数计数、划分函数、图不变量、有限群、有限链复形同调、恒等式验证器。它不审计任何关于未解猜想的论断，也不把'审计通过'解释成'结论正确'。",
+  "method": "每个数字都用与被测代码不同的算法重算，或对照教科书已知值；审计只报告差异，不修改被审对象。",
+  "summary": {
+    "sections": 9,
+    "total_checks": 1798,
+    "failed_checks": 0,
+    "passed_checks": 1798,
+    "all_ok": true
+  },
+  "sections": [
+    {
+      "name": "arithmetic",
+      "note": "算术函数 φ/τ/σ/rad：库内实现 vs 暴力定义（互素计数、除数枚举、质因数分解）",
+      "checks": 480,
+      "failures": [],
+      "passed": 480,
+      "ok": true,
+      "n_max": 120
+    },
+    {
+      "name": "primes",
+      "note": "素数计数 π(x) 对照教科书已知值",
+      "checks": 5,
+      "failures": [],
+      "passed": 5,
+      "ok": true,
+      "known_values": {
+        "10": 4,
+        "100": 25,
+        "1000": 168,
+        "10000": 1229,
+        "100000": 9592
+      }
+    },
+    {
+      "name": "logarithmic_integral",
+      "note": "li(x)：库内 Simpson 积分 vs Ei 幂级数（完全不同的算法）",
+      "checks": 8,
+      "failures": [],
+      "details": [
+        {
+          "x": 2.5,
+          "li": 1.667294667506325,
+          "ei": 1.6672946675063236,
+          "rel_err": 7.990594917110745e-16
+        },
+        {
+          "x": 5.0,
+          "li": 3.63458831003267,
+          "ei": 3.6345883100326515,
+          "rel_err": 5.131735762814653e-15
+        },
+        {
+          "x": 10.0,
+          "li": 6.165599504787822,
+          "ei": 6.165599504787295,
+          "rel_err": 8.542394011697073e-14
+        },
+        {
+          "x": 100.0,
+          "li": 30.126141584104722,
+          "ei": 30.126141584079644,
+          "rel_err": 8.324532960405951e-13
+        },
+        {
+          "x": 1000.0,
+          "li": 177.60965799021608,
+          "ei": 177.60965799015224,
+          "rel_err": 3.5941265865298164e-13
+        },
+        {
+          "x": 10000.0,
+          "li": 1246.137215899595,
+          "ei": 1246.1372158993886,
+          "rel_err": 1.6567621500128892e-13
+        },
+        {
+          "x": 100000.0,
+          "li": 9629.809001051728,
+          "ei": 9629.809001050802,
+          "rel_err": 9.614579129282945e-14
+        },
+        {
+          "x": 1000000.0,
+          "li": 78627.54915946761,
+          "ei": 78627.54915946217,
+          "rel_err": 6.921767692862461e-14
+        }
+      ],
+      "passed": 8,
+      "ok": true
+    },
+    {
+      "name": "partitions",
+      "note": "划分数 p(n)：直接生成 vs 欧拉五边形数递推；并校验共轭是对合",
+      "checks": 42,
+      "failures": [],
+      "passed": 42,
+      "ok": true,
+      "n_max": 40,
+      "conjugate_failures": 0
+    },
+    {
+      "name": "graphs",
+      "note": "图不变量：库内实现 vs 独立暴力（位掩码枚举独立集/团、回溯染色、BFS 围长与直径、Bareiss 生成树）",
+      "checks": 549,
+      "failures": [],
+      "passed": 549,
+      "ok": true,
+      "objects": 61,
+      "exhaustive_up_to_vertices": 12
+    },
+    {
+      "name": "groups",
+      "note": "有限群：中心/共轭类/子群数 vs 独立暴力枚举；并逐元素核对元素阶",
+      "checks": 271,
+      "failures": [],
+      "passed": 271,
+      "ok": true,
+      "objects": 26,
+      "order_cap": 12
+    },
+    {
+      "name": "homology",
+      "note": "有限链复形同调：库内 summary vs 独立 GF(p) 高斯消元",
+      "checks": 42,
+      "failures": [],
+      "passed": 42,
+      "ok": true,
+      "complexes": 7
+    },
+    {
+      "name": "identity_verifier",
+      "note": "判准率只统计'在能力范围内'的式子；对超出范围的式子，正确的行为是**拒答**而不是给出 holds/fails。",
+      "checks": 22,
+      "failures": [],
+      "passed": 22,
+      "ok": true,
+      "true_identities_correct": "12/12",
+      "false_identities_correct": "6/6"
+    },
+    {
+      "name": "sequences",
+      "note": "序列引擎：① 教科书/OEIS 首项对照（外部参照，不取自本仓库代码）；② 每条被报出的递推用**另一份实现**重算一遍全量项；③ 增长率类型与理论底数对照（只断言有把握的条目）",
+      "checks": 379,
+      "failures": [],
+      "passed": 379,
+      "ok": true,
+      "n_terms": 60,
+      "n_reference_terms_checked": 300,
+      "n_reconciled": 11,
+      "n_reconcile_type_mismatch": 0,
+      "characteristic_roots": {
+        "fibonacci": 1.61803399,
+        "lucas": 1.61803399,
+        "tribonacci": 1.83928676,
+        "powers_of_two": 2.0,
+        "mersenne": 2.0,
+        "perrin": 1.32471796,
+        "padovan": 1.32471796,
+        "jacobsthal": 2.0,
+        "fib_prefix_sum": 1.61803399
+      },
+      "char_root_expect": {
+        "fibonacci": 1.618033988749895,
+        "lucas": 1.618033988749895,
+        "fib_prefix_sum": 1.618033988749895,
+        "tribonacci": 1.8392867552141612,
+        "powers_of_two": 2.0,
+        "mersenne": 2.0,
+        "jacobsthal": 2.0,
+        "perrin": 1.324717957244746,
+        "padovan": 1.324717957244746
+      },
+      "char_root_note": "主特征根由递推系数经 Durand–Kerner 求根得到，与教科书常数（φ、tribonacci 常数、塑性数）逐条对照。系数错一个数字，特征根就会跑到别处，所以这条查的是**系数本身**而非拟合质量。",
+      "sequences_without_reference": [],
+      "n_recurrence_candidates": 17,
+      "n_independent_disagreements": 0,
+      "disagreements": [],
+      "growth_observed": {
+        "primes_count": "neither",
+        "prime_gaps": "neither",
+        "euler_phi": "neither",
+        "sigma": "neither",
+        "tau": "neither",
+        "omega": "neither",
+        "bigomega": "neither",
+        "mobius": "unknown",
+        "radical": "neither",
+        "fibonacci": "exponential",
+        "lucas": "exponential",
+        "tribonacci": "exponential",
+        "powers_of_two": "exponential",
+        "mersenne": "exponential",
+        "squares": "polynomial_like",
+        "triangular": "polynomial_like",
+        "factorial": "super_exponential",
+        "catalan": "exponential",
+        "central_binomial": "exponential",
+        "derangements": "super_exponential",
+        "motzkin": "exponential",
+        "bell": "super_exponential",
+        "collatz_steps": "neither",
+        "partition": "exponential",
+        "perrin": "exponential",
+        "padovan": "exponential",
+        "jacobsthal": "exponential",
+        "fib_prefix_sum": "exponential",
+        "phi_prefix_sum": "polynomial_like",
+        "tau_prefix_sum": "polynomial_like"
+      },
+      "growth_base_bias": {
+        "catalan": {
+          "theoretical": 4.0,
+          "observed": 3.881428,
+          "relative_deficit": 0.0296
+        },
+        "central_binomial": {
+          "theoretical": 4.0,
+          "observed": 3.959676,
+          "relative_deficit": 0.0101
+        },
+        "motzkin": {
+          "theoretical": 3.0,
+          "observed": 2.912586,
+          "relative_deficit": 0.0291
+        }
+      },
+      "growth_base_bias_note": "λ^n·n^α 型序列在有限窗口上拟合出的底数必然低于理论值（多项式因子被吸收进指数项）。这是**窗口偏差**，不是引擎缺陷；但读报告的人若把观测底数当结论用就会错，所以单列出来。",
+      "n_missing_subexp_warning": 0,
+      "unchecked_growth_ids": [
+        "bigomega",
+        "collatz_steps",
+        "euler_phi",
+        "omega",
+        "partition",
+        "prime_gaps",
+        "primes_count",
+        "radical",
+        "sigma",
+        "tau",
+        "tau_prefix_sum"
+      ],
+      "unchecked_growth_note": "这些序列的增长类型我不给出断言（真实增长属于中间型或我无把握），它们的类型由引擎给出但**未经审计确认**，见 growth_observed。"
+    }
+  ],
+  "meta": {
+    "generated_at": "2026-09-19T18:38:26",
+    "generator": "06-AI自动化/01-工作流/openmath_audit.py",
+    "evidence_level": "L2",
+    "provenance": {
+      "ai_assisted": true,
+      "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"
+    }
+  },
+  "recorded_fixes": [
+    {
+      "id": "F1",
+      "severity": "高",
+      "where": "numeric.verify_identity（S2 数值验证）",
+      "symptom": "33 条 CD 公式里有 14 条被判「恒等式不成立」，结论写进了 conjecture_verification / numeric_solutions 两个产物。",
+      "root_cause": "把超出能力范围的式子也判了真伪：英文散文词 the 被当成变量、函数名 sin 被当成变量、iz 与 2z 这类隐式乘法被静默处理成单个标识符或常量、待解方程 a*x^2+b*x+c=0 被当成恒等式抽样。",
+      "fix": "新增 numeric.screen_identity 准入筛查，先用范围判定（级数/积分/微分/集合/量词）、变量合理性、隐式乘法检测、待解方程识别把不能验的式子挡掉，抽样阶段再统计求值错误率，只要有一个点求不出值就判 inconclusive。",
+      "effect": "14 条假阴性降到 1 条（且该条已标注为分支约定问题，不是反例）；同时用 18 条带标准答案的测试集确认在能力范围内判准率 100%。"
+    },
+    {
+      "id": "F2",
+      "severity": "中",
+      "where": "theoryforge.graph_invariants（S7 理论锻造）",
+      "symptom": "单点图 P1 / K1 / S1 的生成树数为 0。",
+      "root_cause": "基尔霍夫矩阵树定理的实现里写了 nv>=2 才取余子式，nv=1 掉进 else 分支返回 0；而平凡图有恰好 1 棵生成树（空树）。",
+      "fix": "改为先判连通性，连通且 nv==1 时显式返回 1。",
+      "effect": "图族 549 项独立复核全部通过（此前 3 项失败）。"
+    },
+    {
+      "id": "F3",
+      "severity": "中",
+      "where": "numbertheory.logarithmic_integral（S3 数论实验）",
+      "symptom": "x=1e5 处 li(x) 相对误差 2.4e-5（用 Ei 幂级数独立复核发现）。",
+      "root_cause": "对 [10, x] 只做一次均匀 Simpson，x 大时步长约 25，分辨率不足。",
+      "fix": "改为按 10 倍几何分段加密。",
+      "effect": "相对误差降到 1e-13 量级；π(x) 与 li(x) 的对比结论不再受积分误差污染。"
+    },
+    {
+      "id": "F4",
+      "severity": "提示",
+      "where": "审计自身（非生产代码）",
+      "symptom": "审计第一轮报 li(x) 系统性偏大 1.045，一度被当作 bug。",
+      "root_cause": "参考值记错了：5.120 是 ∫₂¹⁰ dt/ln t，而 li(10)=6.1656。",
+      "fix": "改用 Ei 幂级数作为独立参考，不再依赖记忆中的数值。",
+      "effect": "提醒：审计的参考值必须来自独立算法或教科书，不能来自印象。"
+    }
+  ],
+  "self_audit": {
+    "checks": [
+      {
+        "check": "每个审计维度的检查数必须大于 0",
+        "passed": true,
+        "violations": [],
+        "why": "空转的维度会给人「已审计」的错觉，比不审计更危险"
+      },
+      {
+        "check": "每条失败都必须给出 项/实测值/参考值 三项",
+        "passed": true,
+        "violations": [],
+        "why": "否则无法复核，等于只是喊了一声不一致"
+      },
+      {
+        "check": "审计必须覆盖全部已实现的能力维度",
+        "passed": true,
+        "violations": [],
+        "why": "漏掉的维度在报告里不会显示为空，只会不存在"
+      },
+      {
+        "check": "验证器必须同时通过判准测试与拒答测试",
+        "passed": true,
+        "violations": [],
+        "why": "只会判准、不会拒答的验证器在真实语料上必然制造假阴性"
+      },
+      {
+        "check": "报告必须保留已修复缺陷的记录",
+        "passed": true,
+        "violations": [],
+        "why": "让每日报告都能看到这套流水线曾经错在哪"
+      },
+      {
+        "check": "审计产物中不得出现绝对化措辞",
+        "passed": true,
+        "violations": [],
+        "why": "诚实红线：审计通过只说明在给定对象集下没发现差异"
+      }
+    ],
+    "total_checks": 6,
+    "violations": 0,
+    "generated_at": "2026-09-19T18:38:26"
+  }
+}

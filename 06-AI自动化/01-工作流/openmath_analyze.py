@@ -752,6 +752,7 @@ def main():
     #   因此本阶段主操作为 verify_identity；find_roots_numeric 仅用于真正的单变量方程。
     num_rows, prev_fail = [], 0
     n_hold = n_fail = n_skip = n_uneval = n_roots = 0
+    n_not_dec = n_inconc = 0
     for r in analysis.get("results", []):
         if not r.get("is_equation"):
             continue
@@ -760,7 +761,9 @@ def main():
         prev_fail += 1
         raw = r.get("raw", "")
         ident = verify_identity(raw)  # 先在单位区间（主分支一致）验证
-        if ident.get("status") != "holds":
+        # 只在**可判定但不符合**时放宽抽样域重试；
+        # not_decidable 是解析/范围层面的问题，换区间重试没有意义。
+        if ident.get("status") in ("fails", "inconclusive"):
             wider = verify_identity(raw, lo=0.1, hi=5.0)  # 再放宽，标记更宽的验证域
             if wider.get("status") == "holds":
                 wider["verified_on_wider_range"] = [0.1, 5.0]
@@ -770,6 +773,10 @@ def main():
             n_hold += 1
         elif st == "fails":
             n_fail += 1
+        elif st == "not_decidable":
+            n_not_dec += 1
+        elif st == "inconclusive":
+            n_inconc += 1
         elif st == "skip":
             n_skip += 1
         else:
@@ -797,16 +804,34 @@ def main():
                 "单变量式子另做 find_roots_numeric 数值求根。"
                 "所有结果均为 L2 数值证据：'holds' 只是有限抽样吻合，绝非证明；"
                 "'fails' 也可能源于求值器局限或抽样域不匹配，不等于找到反例。"
+                "2026-09-19 审计后新增**准入筛查**：超出能力范围的式子一律给出 "
+                "not_decidable 而**不再**给出 holds/fails——因为那类结论反映的是"
+                "求值器的局限，不是式子的数学性质。"
             ),
         },
         "summary": {
             "symbolic_failed": prev_fail,
+            "identity_decidable": n_hold + n_fail,
             "identity_holds": n_hold,
             "identity_fails": n_fail,
+            "not_decidable": n_not_dec,
+            "inconclusive": n_inconc,
             "skipped_non_algebraic": n_skip,
             "unevaluable": n_uneval,
             "numeric_roots_found": n_roots,
+            # 口径修正（2026-09-19）：
+            # 旧口径把「恒等式通过数 + 求根成功数」除以「全部符号失败数」，
+            # 分子分母来自不同的判定通道，且把不该判的条目也算进分母。
+            # 现在只保留一个含义明确的比率：恒等式判定的通过率。
+            "identity_pass_rate": round(n_hold / (n_hold + n_fail), 4)
+            if (n_hold + n_fail) else 0.0,
             "resolution_rate": round((n_hold + n_roots) / prev_fail, 4) if prev_fail else 0.0,
+            "rate_note": (
+                "identity_pass_rate 的分母是**可判定条数**（holds+fails），含义单一；"
+                "resolution_rate 沿用了旧口径（分子含数值求根，分母是全部符号失败条目），"
+                "保留它只是为了与历史报告对照。两个比率**不要混用**，"
+                "也不要把其中任何一个读成「这些式子被解决了」。"
+            ),
         },
         "solutions": num_rows,
     }
@@ -925,8 +950,17 @@ def write_report(tax_doc, gaps_doc, con_doc, method_doc, numeric_doc):
     lines.append(f"- 恒等式抽样**验证通过 {ns['identity_holds']} 条**")
     lines.append(f"- 单变量**数值求根成功 {ns['numeric_roots_found']} 条**")
     lines.append(f"- 非代数形式（含逻辑连接词）跳过 {ns['skipped_non_algebraic']} 条")
-    lines.append(f"- 抽样未通过 {ns['identity_fails']} 条 / 不可求值 {ns['unevaluable']} 条")
-    lines.append(f"- **合计处置率 {ns['resolution_rate']:.0%}**\n")
+    lines.append(f"- 抽样未通过 {ns['identity_fails']} 条（含多值函数分支约定造成的差异，"
+                 f"**不等于找到反例**）/ 不可求值 {ns['unevaluable']} 条")
+    lines.append(f"- **超出验证能力、主动拒答 {ns['not_decidable']} 条**"
+                 f"（另有 {ns['inconclusive']} 条因抽样点求值失败而判为不确定）")
+    lines.append(f"- 恒等式判定通过率 {ns['identity_pass_rate']:.0%}"
+                 f"（分母＝可判定的 {ns['identity_decidable']} 条；"
+                 f"另有旧口径处置率 {ns['resolution_rate']:.0%}，分母是全部 "
+                 f"{ns['symbolic_failed']} 条符号失败条目，仅供历史对照）\n")
+    lines.append("> 口径说明：2026-09-19 审计前，超出能力的式子也会被给出 holds/fails，")
+    lines.append("> 制造了大量假阴性。现在它们单独记为 not_decidable，")
+    lines.append("> 既不算通过也不算失败。\n")
     hold = [r for r in numeric_doc["solutions"]
             if r["identity"].get("status") == "holds"]
     if hold:

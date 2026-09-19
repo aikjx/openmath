@@ -393,6 +393,14 @@ STAGES = [
     # S7 不消费上游 artifact：它的对象是**自己构造的**有限对象库，与网络来源无关
     {"id": "S7_theory", "consumes": [],
      "produces": ["A_forge", "A_theory_net", "A_theory_cands"]},
+    # S8 同样不消费上游 artifact：它审计的是**代码里的算法**，不是产物里的数字。
+    # 这一点很关键——它意味着 S8 发现的问题是「实现层」的，与流水线跑没跑过无关。
+    {"id": "S8_audit", "consumes": [],
+     "produces": ["A_audit"]},
+    # S9 也不消费上游 artifact：它的对象是**自己构造的**整数序列库。
+    # 与 S7 互补：S7 找同一对象内部不变量的静态关系，S9 找沿 n 演化的动态关系。
+    {"id": "S9_sequences", "consumes": [],
+     "produces": ["A_sequences", "A_seq_net", "A_seq_cands"]},
 ]
 
 AR_GLOSSARY = {
@@ -410,6 +418,10 @@ AR_GLOSSARY = {
     "A_forge": "理论锻造全量结果（候选 + 反例台账）",
     "A_theory_net": "各对象族的不变量理论体系网",
     "A_theory_cands": "通过主筛选的候选关系清单",
+    "A_audit": "独立审计结果（用不同算法重算全部可复核数字）",
+    "A_sequences": "序列理论全量结果（递推 / 超几何闭式 / 增长率 + 对账）",
+    "A_seq_net": "序列关系网（同一递推解空间里的成员聚合）",
+    "A_seq_cands": "序列候选清单 + 人工复核队列",
 }
 
 

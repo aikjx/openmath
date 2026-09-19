@@ -1,22 +1,27 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_analyze.py",
-    "generated_at": "2026-09-19T12:19:58",
+    "generated_at": "2026-09-19T16:07:46",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理基于 openmath_sys 引擎与已下载 OpenMath/arXiv 数据自动生成，未经人类复核，不得作为 L3+ 证据。"
     },
     "honesty": "本系列文件为 L0/L2 级数据处理与计算校验产物，非证明。方程求解、猜想的可计算实验均为计算验证(L2)，不构成对未解猜想的证明。预印本与猜想状态均标 UNVERIFIED/UNSOLVED。",
-    "note": "对符号求解器判定失败的式子做数值兜底。主操作 verify_identity 为**随机抽样验证代数恒等式**（多在正实数域）；单变量式子另做 find_roots_numeric 数值求根。所有结果均为 L2 数值证据：'holds' 只是有限抽样吻合，绝非证明；'fails' 也可能源于求值器局限或抽样域不匹配，不等于找到反例。"
+    "note": "对符号求解器判定失败的式子做数值兜底。主操作 verify_identity 为**随机抽样验证代数恒等式**（多在正实数域）；单变量式子另做 find_roots_numeric 数值求根。所有结果均为 L2 数值证据：'holds' 只是有限抽样吻合，绝非证明；'fails' 也可能源于求值器局限或抽样域不匹配，不等于找到反例。2026-09-19 审计后新增**准入筛查**：超出能力范围的式子一律给出 not_decidable 而**不再**给出 holds/fails——因为那类结论反映的是求值器的局限，不是式子的数学性质。"
   },
   "summary": {
     "symbolic_failed": 33,
+    "identity_decidable": 10,
     "identity_holds": 9,
-    "identity_fails": 14,
-    "skipped_non_algebraic": 3,
-    "unevaluable": 7,
+    "identity_fails": 1,
+    "not_decidable": 21,
+    "inconclusive": 0,
+    "skipped_non_algebraic": 0,
+    "unevaluable": 2,
     "numeric_roots_found": 6,
-    "resolution_rate": 0.4545
+    "identity_pass_rate": 0.9,
+    "resolution_rate": 0.4545,
+    "rate_note": "identity_pass_rate 的分母是**可判定条数**（holds+fails），含义单一；resolution_rate 沿用了旧口径（分子含数值求根，分母是全部符号失败条目），保留它只是为了与历史报告对照。两个比率**不要混用**，也不要把其中任何一个读成「这些式子被解决了」。"
   },
   "solutions": [
     {
@@ -24,18 +29,17 @@
       "source": "CD:arith1/lcm",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "fails",
-        "trials_checked": 17,
-        "max_relative_diff": 0.6359876336484922,
-        "worst_case_env": {
-          "a": "0.5334118965965641",
-          "b": "0.6824226618755403"
-        },
-        "variables": [
-          "a",
-          "b"
+        "status": "not_decidable",
+        "scope": "parse_suspect",
+        "reason": "解析结构不可信，抽样验证的将不是原式",
+        "suspect_variables": [
+          {
+            "name": "a",
+            "why": "英文散文词被当作变量"
+          }
         ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "trials_checked": 0,
+        "caveat": "未做抽样：本条超出随机抽样验证的能力范围。此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"
       },
       "numeric_roots": null
     },
@@ -46,6 +50,7 @@
       "identity": {
         "status": "unevaluable",
         "trials_checked": 0,
+        "eval_errors": 25,
         "reason": "抽样点均无法求值（超出定义域或函数不被求值器支持）",
         "variables": [
           "e",
@@ -60,9 +65,12 @@
       "source": "CD:bigfloat1/bigfloatprec",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "skip",
+        "status": "not_decidable",
+        "scope": "logic",
         "reason": "含逻辑连接词/蕴含，非纯代数恒等式",
-        "trials_checked": 0
+        "suspect_variables": [],
+        "trials_checked": 0,
+        "caveat": "未做抽样：本条超出随机抽样验证的能力范围。此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"
       },
       "numeric_roots": null
     },
@@ -71,18 +79,12 @@
       "source": "CD:nums1/e",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "fails",
-        "trials_checked": 25,
-        "max_relative_diff": 0.7213478025397765,
-        "worst_case_env": {
-          "e": "0.0712009663935298",
-          "the": "0.7925487689333063"
-        },
-        "variables": [
-          "e",
-          "the"
-        ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "status": "not_decidable",
+        "scope": "non_elementary",
+        "reason": "含级数/积分/微分/集合/量词记号，超出抽样验证能力",
+        "suspect_variables": [],
+        "trials_checked": 0,
+        "caveat": "未做抽样：本条超出随机抽样验证的能力范围。此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"
       },
       "numeric_roots": null
     },
@@ -91,18 +93,12 @@
       "source": "CD:nums1/pi",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "fails",
-        "trials_checked": 25,
-        "max_relative_diff": 3.297393872894516,
-        "worst_case_env": {
-          "pi": "0.3362238923464484",
-          "the": "0.908404441310241"
-        },
-        "variables": [
-          "pi",
-          "the"
-        ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "status": "not_decidable",
+        "scope": "non_elementary",
+        "reason": "含级数/积分/微分/集合/量词记号，超出抽样验证能力",
+        "suspect_variables": [],
+        "trials_checked": 0,
+        "caveat": "未做抽样：本条超出随机抽样验证的能力范围。此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"
       },
       "numeric_roots": null
     },
@@ -111,9 +107,12 @@
       "source": "CD:relation1/eq",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "skip",
+        "status": "not_decidable",
+        "scope": "logic",
         "reason": "含逻辑连接词/蕴含，非纯代数恒等式",
-        "trials_checked": 0
+        "suspect_variables": [],
+        "trials_checked": 0,
+        "caveat": "未做抽样：本条超出随机抽样验证的能力范围。此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"
       },
       "numeric_roots": null
     },
@@ -122,15 +121,12 @@
       "source": "CD:relation3/class",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "unevaluable",
+        "status": "not_decidable",
+        "scope": "non_elementary",
+        "reason": "含级数/积分/微分/集合/量词记号，超出抽样验证能力",
+        "suspect_variables": [],
         "trials_checked": 0,
-        "reason": "抽样点均无法求值（超出定义域或函数不被求值器支持）",
-        "variables": [
-          "R",
-          "S",
-          "a",
-          "b"
-        ]
+        "caveat": "未做抽样：本条超出随机抽样验证的能力范围。此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"
       },
       "numeric_roots": null
     },
@@ -139,13 +135,12 @@
       "source": "CD:s_dist1/mean",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "unevaluable",
+        "status": "not_decidable",
+        "scope": "non_elementary",
+        "reason": "含级数/积分/微分/集合/量词记号，超出抽样验证能力",
+        "suspect_variables": [],
         "trials_checked": 0,
-        "reason": "抽样点均无法求值（超出定义域或函数不被求值器支持）",
-        "variables": [
-          "X",
-          "x"
-        ]
+        "caveat": "未做抽样：本条超出随机抽样验证的能力范围。此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"
       },
       "numeric_roots": null
     },
@@ -154,9 +149,12 @@
       "source": "CD:transc1/log",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "skip",
+        "status": "not_decidable",
+        "scope": "logic",
         "reason": "含逻辑连接词/蕴含，非纯代数恒等式",
-        "trials_checked": 0
+        "suspect_variables": [],
+        "trials_checked": 0,
+        "caveat": "未做抽样：本条超出随机抽样验证的能力范围。此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"
       },
       "numeric_roots": null
     },
@@ -165,18 +163,29 @@
       "source": "CD:transc1/sin",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "fails",
-        "trials_checked": 25,
-        "max_relative_diff": 0.7977862900687387,
-        "worst_case_env": {
-          "ix": "0.9182348173519913",
-          "x": "0.2578835068733363"
-        },
-        "variables": [
-          "ix",
-          "x"
+        "status": "not_decidable",
+        "scope": "parse_suspect",
+        "reason": "解析结构不可信，抽样验证的将不是原式",
+        "suspect_variables": [
+          {
+            "name": "ix",
+            "why": "多字符标识符（求值器不支持隐式乘法，疑为未拆开的乘积）"
+          },
+          {
+            "name": "2i",
+            "why": "数字紧邻字母：求值器按常量处理，隐式乘法不会被拆开"
+          },
+          {
+            "name": "ix",
+            "why": "字母紧邻字母：求值器合成一个标识符，隐式乘法不会被拆开"
+          },
+          {
+            "name": "ix",
+            "why": "字母紧邻字母：求值器合成一个标识符，隐式乘法不会被拆开"
+          }
         ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "trials_checked": 0,
+        "caveat": "未做抽样：本条超出随机抽样验证的能力范围。此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"
       },
       "numeric_roots": null
     },
@@ -185,20 +194,21 @@
       "source": "CD:transc1/sin",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "fails",
-        "trials_checked": 25,
-        "max_relative_diff": 0.8761436602519123,
-        "worst_case_env": {
-          "A": "0.3362238923464484",
-          "B": "0.908404441310241",
-          "sin": "0.07113346938058636"
-        },
-        "variables": [
-          "A",
-          "B",
-          "sin"
+        "status": "not_decidable",
+        "scope": "parse_suspect",
+        "reason": "解析结构不可信，抽样验证的将不是原式",
+        "suspect_variables": [
+          {
+            "name": "A",
+            "why": "英文散文词被当作变量"
+          },
+          {
+            "name": "sin",
+            "why": "函数名未被识别，降级为变量"
+          }
         ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "trials_checked": 0,
+        "caveat": "未做抽样：本条超出随机抽样验证的能力范围。此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"
       },
       "numeric_roots": null
     },
@@ -207,18 +217,25 @@
       "source": "CD:transc1/cos",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "fails",
-        "trials_checked": 25,
-        "max_relative_diff": 0.7364035552134882,
-        "worst_case_env": {
-          "ix": "0.9397984581719694",
-          "x": "0.7396826692276427"
-        },
-        "variables": [
-          "ix",
-          "x"
+        "status": "not_decidable",
+        "scope": "parse_suspect",
+        "reason": "解析结构不可信，抽样验证的将不是原式",
+        "suspect_variables": [
+          {
+            "name": "ix",
+            "why": "多字符标识符（求值器不支持隐式乘法，疑为未拆开的乘积）"
+          },
+          {
+            "name": "ix",
+            "why": "字母紧邻字母：求值器合成一个标识符，隐式乘法不会被拆开"
+          },
+          {
+            "name": "ix",
+            "why": "字母紧邻字母：求值器合成一个标识符，隐式乘法不会被拆开"
+          }
         ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "trials_checked": 0,
+        "caveat": "未做抽样：本条超出随机抽样验证的能力范围。此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"
       },
       "numeric_roots": null
     },
@@ -227,18 +244,25 @@
       "source": "CD:transc1/arcsin",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "fails",
-        "trials_checked": 25,
-        "max_relative_diff": 1.3554274355577611,
-        "worst_case_env": {
-          "i": "1j",
-          "z": "0.7925487689333063"
-        },
-        "variables": [
-          "i",
-          "z"
+        "status": "not_decidable",
+        "scope": "parse_suspect",
+        "reason": "解析结构不可信，抽样验证的将不是原式",
+        "suspect_variables": [
+          {
+            "name": "iz",
+            "why": "原文中的标识符未被解析到（可能被求值器静默丢弃）"
+          },
+          {
+            "name": "iz",
+            "why": "字母紧邻字母：求值器合成一个标识符，隐式乘法不会被拆开"
+          },
+          {
+            "name": "i   (",
+            "why": "标识符后接空白再接表达式：求值器只解释为函数调用，疑为隐式乘法"
+          }
         ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "trials_checked": 0,
+        "caveat": "未做抽样：本条超出随机抽样验证的能力范围。此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"
       },
       "numeric_roots": null
     },
@@ -247,18 +271,21 @@
       "source": "CD:transc1/arccos",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "fails",
-        "trials_checked": 25,
-        "max_relative_diff": 1.4084969091650767,
-        "worst_case_env": {
-          "i": "1j",
-          "z": "0.5334118965965641"
-        },
-        "variables": [
-          "i",
-          "z"
+        "status": "not_decidable",
+        "scope": "parse_suspect",
+        "reason": "解析结构不可信，抽样验证的将不是原式",
+        "suspect_variables": [
+          {
+            "name": "i  (",
+            "why": "标识符后接空白再接表达式：求值器只解释为函数调用，疑为隐式乘法"
+          },
+          {
+            "name": "i  (",
+            "why": "标识符后接空白再接表达式：求值器只解释为函数调用，疑为隐式乘法"
+          }
         ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "trials_checked": 0,
+        "caveat": "未做抽样：本条超出随机抽样验证的能力范围。此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"
       },
       "numeric_roots": null
     },
@@ -267,18 +294,25 @@
       "source": "CD:transc1/arctan",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "fails",
-        "trials_checked": 25,
-        "max_relative_diff": 0.9050297713068239,
-        "worst_case_env": {
-          "i": "1j",
-          "z": "0.9397984581719694"
-        },
-        "variables": [
-          "i",
-          "z"
+        "status": "not_decidable",
+        "scope": "parse_suspect",
+        "reason": "解析结构不可信，抽样验证的将不是原式",
+        "suspect_variables": [
+          {
+            "name": "iz",
+            "why": "原文中的标识符未被解析到（可能被求值器静默丢弃）"
+          },
+          {
+            "name": "iz",
+            "why": "字母紧邻字母：求值器合成一个标识符，隐式乘法不会被拆开"
+          },
+          {
+            "name": "iz",
+            "why": "字母紧邻字母：求值器合成一个标识符，隐式乘法不会被拆开"
+          }
         ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "trials_checked": 0,
+        "caveat": "未做抽样：本条超出随机抽样验证的能力范围。此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"
       },
       "numeric_roots": null
     },
@@ -287,18 +321,21 @@
       "source": "CD:transc1/arcsec",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "fails",
-        "trials_checked": 25,
-        "max_relative_diff": 0.7239166834590911,
-        "worst_case_env": {
-          "i": "1j",
-          "z": "0.053415096049552205"
-        },
-        "variables": [
-          "i",
-          "z"
+        "status": "not_decidable",
+        "scope": "parse_suspect",
+        "reason": "解析结构不可信，抽样验证的将不是原式",
+        "suspect_variables": [
+          {
+            "name": "i  (",
+            "why": "标识符后接空白再接表达式：求值器只解释为函数调用，疑为隐式乘法"
+          },
+          {
+            "name": "i  (",
+            "why": "标识符后接空白再接表达式：求值器只解释为函数调用，疑为隐式乘法"
+          }
         ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "trials_checked": 0,
+        "caveat": "未做抽样：本条超出随机抽样验证的能力范围。此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"
       },
       "numeric_roots": null
     },
@@ -307,18 +344,17 @@
       "source": "CD:transc1/arccsc",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "fails",
-        "trials_checked": 25,
-        "max_relative_diff": 1.367567393071158,
-        "worst_case_env": {
-          "i": "1j",
-          "z": "0.5543487917795156"
-        },
-        "variables": [
-          "i",
-          "z"
+        "status": "not_decidable",
+        "scope": "parse_suspect",
+        "reason": "解析结构不可信，抽样验证的将不是原式",
+        "suspect_variables": [
+          {
+            "name": "i  (",
+            "why": "标识符后接空白再接表达式：求值器只解释为函数调用，疑为隐式乘法"
+          }
         ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "trials_checked": 0,
+        "caveat": "未做抽样：本条超出随机抽样验证的能力范围。此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"
       },
       "numeric_roots": null
     },
@@ -327,15 +363,16 @@
       "source": "CD:transc1/arccsc",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "holds",
         "trials_checked": 25,
+        "eval_errors": 0,
         "max_relative_diff": 0.0,
         "worst_case_env": null,
         "variables": [
           "i",
           "z"
         ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'holds' 只是有限抽样证据，**绝非证明**。",
+        "status": "holds"
       },
       "numeric_roots": null
     },
@@ -344,8 +381,8 @@
       "source": "CD:transc1/arccsc",
       "symbolic_reason": "transcendental function arccsc",
       "identity": {
-        "status": "fails",
         "trials_checked": 25,
+        "eval_errors": 0,
         "max_relative_diff": 1.8348853652216646,
         "worst_case_env": {
           "z": "0.053415096049552205"
@@ -353,7 +390,9 @@
         "variables": [
           "z"
         ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'holds' 只是有限抽样证据，**绝非证明**。",
+        "status": "fails",
+        "branch_warning": "本条含多值（反三角/反双曲）函数：差异**可能**只是分支约定不同（尤其在分支切割 |z|>1 上，奇性都可能不保持），因此这里的 'fails' **不等于找到反例**，也不说明 CD 写错了。"
       },
       "numeric_roots": [
         -20.0,
@@ -1885,14 +1924,15 @@
       "source": "CD:transc1/arccot",
       "symbolic_reason": "transcendental function arccot",
       "identity": {
-        "status": "holds",
         "trials_checked": 25,
+        "eval_errors": 0,
         "max_relative_diff": 0.0,
         "worst_case_env": null,
         "variables": [
           "z"
         ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'holds' 只是有限抽样证据，**绝非证明**。",
+        "status": "holds"
       },
       "numeric_roots": [
         -20.0,
@@ -3502,8 +3542,8 @@
       "source": "CD:transc1/arccot",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "holds",
         "trials_checked": 25,
+        "eval_errors": 0,
         "max_relative_diff": 2.117718665326165e-16,
         "worst_case_env": {
           "i": "1j",
@@ -3513,7 +3553,8 @@
           "i",
           "x"
         ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'holds' 只是有限抽样证据，**绝非证明**。",
+        "status": "holds"
       },
       "numeric_roots": null
     },
@@ -3522,8 +3563,8 @@
       "source": "CD:transc1/arcsinh",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "holds",
         "trials_checked": 25,
+        "eval_errors": 0,
         "max_relative_diff": 1.1102230246251565e-16,
         "worst_case_env": {
           "i": "1j",
@@ -3533,7 +3574,8 @@
           "i",
           "z"
         ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'holds' 只是有限抽样证据，**绝非证明**。",
+        "status": "holds"
       },
       "numeric_roots": null
     },
@@ -3542,8 +3584,8 @@
       "source": "CD:transc1/arccosh",
       "symbolic_reason": "transcendental function arccosh",
       "identity": {
-        "status": "holds",
         "trials_checked": 25,
+        "eval_errors": 0,
         "max_relative_diff": 1.9373183463404088e-16,
         "worst_case_env": {
           "z": "0.41200389525440284"
@@ -3551,7 +3593,8 @@
         "variables": [
           "z"
         ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'holds' 只是有限抽样证据，**绝非证明**。",
+        "status": "holds"
       },
       "numeric_roots": [
         1.0,
@@ -4373,8 +4416,8 @@
       "source": "CD:transc1/arctanh",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "holds",
         "trials_checked": 25,
+        "eval_errors": 0,
         "max_relative_diff": 2.0593077905495226e-16,
         "worst_case_env": {
           "i": "1j",
@@ -4384,7 +4427,8 @@
           "i",
           "z"
         ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'holds' 只是有限抽样证据，**绝非证明**。",
+        "status": "holds"
       },
       "numeric_roots": null
     },
@@ -4393,16 +4437,21 @@
       "source": "CD:transc1/arcsech",
       "symbolic_reason": "transcendental function arcsech",
       "identity": {
-        "status": "fails",
-        "trials_checked": 25,
-        "max_relative_diff": 1.6439509243212087,
-        "worst_case_env": {
-          "z": "0.9397984581719694"
-        },
-        "variables": [
-          "z"
+        "status": "not_decidable",
+        "scope": "parse_suspect",
+        "reason": "解析结构不可信，抽样验证的将不是原式",
+        "suspect_variables": [
+          {
+            "name": "2z",
+            "why": "数字紧邻字母：求值器按常量处理，隐式乘法不会被拆开"
+          },
+          {
+            "name": "2z",
+            "why": "数字紧邻字母：求值器按常量处理，隐式乘法不会被拆开"
+          }
         ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "trials_checked": 0,
+        "caveat": "未做抽样：本条超出随机抽样验证的能力范围。此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"
       },
       "numeric_roots": [
         0.2658022288
@@ -4413,8 +4462,8 @@
       "source": "CD:transc1/arccsch",
       "symbolic_reason": "transcendental function arccsch",
       "identity": {
-        "status": "holds",
         "trials_checked": 25,
+        "eval_errors": 0,
         "max_relative_diff": 2.1509483460014623e-16,
         "worst_case_env": {
           "z": "0.2578835068733363"
@@ -4422,7 +4471,8 @@
         "variables": [
           "z"
         ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'holds' 只是有限抽样证据，**绝非证明**。",
+        "status": "holds"
       },
       "numeric_roots": [
         -20.0,
@@ -6655,8 +6705,8 @@
       "source": "CD:transc1/arccsch",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "holds",
         "trials_checked": 25,
+        "eval_errors": 0,
         "max_relative_diff": 2.0009041427423817e-16,
         "worst_case_env": {
           "i": "1j",
@@ -6666,7 +6716,8 @@
           "i",
           "z"
         ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'holds' 只是有限抽样证据，**绝非证明**。",
+        "status": "holds"
       },
       "numeric_roots": null
     },
@@ -6677,6 +6728,7 @@
       "identity": {
         "status": "unevaluable",
         "trials_checked": 0,
+        "eval_errors": 25,
         "reason": "抽样点均无法求值（超出定义域或函数不被求值器支持）",
         "variables": [
           "z"
@@ -7720,13 +7772,12 @@
       "source": "CD:veccalc1/grad",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "unevaluable",
+        "status": "not_decidable",
+        "scope": "non_elementary",
+        "reason": "含级数/积分/微分/集合/量词记号，超出抽样验证能力",
+        "suspect_variables": [],
         "trials_checked": 0,
-        "reason": "抽样点均无法求值（超出定义域或函数不被求值器支持）",
-        "variables": [
-          "F",
-          "x_1"
-        ]
+        "caveat": "未做抽样：本条超出随机抽样验证的能力范围。此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"
       },
       "numeric_roots": null
     },
@@ -7735,13 +7786,12 @@
       "source": "CD:veccalc1/curl",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "unevaluable",
+        "status": "not_decidable",
+        "scope": "non_elementary",
+        "reason": "含级数/积分/微分/集合/量词记号，超出抽样验证能力",
+        "suspect_variables": [],
         "trials_checked": 0,
-        "reason": "抽样点均无法求值（超出定义域或函数不被求值器支持）",
-        "variables": [
-          "F",
-          "i"
-        ]
+        "caveat": "未做抽样：本条超出随机抽样验证的能力范围。此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"
       },
       "numeric_roots": null
     },
@@ -7750,13 +7800,12 @@
       "source": "CD:veccalc1/Laplacian",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "unevaluable",
+        "status": "not_decidable",
+        "scope": "non_elementary",
+        "reason": "含级数/积分/微分/集合/量词记号，超出抽样验证能力",
+        "suspect_variables": [],
         "trials_checked": 0,
-        "reason": "抽样点均无法求值（超出定义域或函数不被求值器支持）",
-        "variables": [
-          "F",
-          "partial"
-        ]
+        "caveat": "未做抽样：本条超出随机抽样验证的能力范围。此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"
       },
       "numeric_roots": null
     },
@@ -7765,22 +7814,12 @@
       "source": "seed(内置示例)",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "fails",
-        "trials_checked": 25,
-        "max_relative_diff": 1.0,
-        "worst_case_env": {
-          "a": "0.9397984581719694",
-          "b": "0.7396826692276427",
-          "c": "0.41200389525440284",
-          "x": "0.5543487917795156"
-        },
-        "variables": [
-          "a",
-          "b",
-          "c",
-          "x"
-        ],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "status": "not_decidable",
+        "scope": "equation",
+        "reason": "右侧为常数 0：这是待解方程，不是恒等式",
+        "suspect_variables": [],
+        "trials_checked": 0,
+        "caveat": "未做抽样：本条超出随机抽样验证的能力范围。此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"
       },
       "numeric_roots": null
     },
@@ -7789,12 +7828,13 @@
       "source": "seed(内置示例)",
       "symbolic_reason": "多变量方程，超出本演示求解范围",
       "identity": {
-        "status": "holds",
         "trials_checked": 25,
+        "eval_errors": 0,
         "max_relative_diff": 0.0,
         "worst_case_env": null,
         "variables": [],
-        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'fails' 也可能是求值器局限所致，**不等于找到反例**；'holds' 也只是有限抽样证据，**绝非证明**。"
+        "caveat": "仅在 [0.05,0.95] 正实数域随机抽样(L2)；未覆盖负数与特殊点。'holds' 只是有限抽样证据，**绝非证明**。",
+        "status": "holds"
       },
       "numeric_roots": null
     }

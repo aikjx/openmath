@@ -1,0 +1,3250 @@
+{
+  "scope": "本模块在**有限项整数序列**上搜索递推形式。所有结论的论域严格是'已生成的这些项'：通过外推检验只说明在给定长度内没有找到反例，**不证明**该递推对所有 n 成立（检验集之外永远是未知）。",
+  "evidence": "证据等级 L2（计算证据）。C1/C2 的系数由精确有理高斯消元得到，外推检验是精确整数比较（相等即相等，无容差）；C3 增长率是浮点数值估计，只给区间与稳定性，不给确定值。",
+  "generated_at_note": "由 sequences.analyze_all 生成",
+  "parameters": {
+    "n_terms": 60,
+    "discovery_len": 30,
+    "stress_len": 15,
+    "max_order": 4,
+    "coef_bound": 1000000
+  },
+  "sequences": [
+    {
+      "id": "primes_count",
+      "cn": "素数计数 π(n)",
+      "note": "不大于 n 的素数个数",
+      "index_base": 0,
+      "n_terms": 60,
+      "first_terms": [
+        0,
+        0,
+        1,
+        2,
+        2,
+        3,
+        3,
+        4,
+        4,
+        4,
+        4,
+        5
+      ],
+      "linear": [],
+      "hyper": [],
+      "stress": {
+        "linear": [],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.01661192,
+        "sse_polynomial_model": 0.01387122,
+        "total_variance_sst": 0.14672162,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "neither",
+        "relative_residual_of_better_model": 0.0945,
+        "slightly_better": "polynomial",
+        "note": "两个模型都不拟合（残差占总方差 > 5%），常见于 n/log n、exp(sqrt n) 一类的中间型增长"
+      },
+      "growth_vs_recurrence": {
+        "available": false,
+        "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 0,
+      "n_falsified": 0,
+      "found_anything": false
+    },
+    {
+      "id": "prime_gaps",
+      "cn": "相邻素数间隙",
+      "note": "第 n 个与第 n+1 个素数之差",
+      "index_base": 1,
+      "n_terms": 60,
+      "first_terms": [
+        1,
+        2,
+        2,
+        4,
+        2,
+        4,
+        2,
+        4,
+        6,
+        2,
+        6,
+        4
+      ],
+      "linear": [],
+      "hyper": [],
+      "stress": {
+        "linear": [],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 8.20394134,
+        "sse_polynomial_model": 8.20564018,
+        "total_variance_sst": 8.20564274,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "neither",
+        "relative_residual_of_better_model": 0.9998,
+        "slightly_better": "exponential",
+        "note": "两个模型都不拟合（残差占总方差 > 5%），常见于 n/log n、exp(sqrt n) 一类的中间型增长"
+      },
+      "growth_vs_recurrence": {
+        "available": false,
+        "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 0,
+      "n_falsified": 0,
+      "found_anything": false
+    },
+    {
+      "id": "euler_phi",
+      "cn": "欧拉函数 φ(n)",
+      "note": "不超过 n 且与 n 互素的正整数个数",
+      "index_base": 1,
+      "n_terms": 60,
+      "first_terms": [
+        1,
+        1,
+        2,
+        2,
+        4,
+        2,
+        6,
+        4,
+        6,
+        4,
+        10,
+        4
+      ],
+      "linear": [],
+      "hyper": [],
+      "stress": {
+        "linear": [],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 3.64121953,
+        "sse_polynomial_model": 3.63943364,
+        "total_variance_sst": 3.71950957,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "neither",
+        "relative_residual_of_better_model": 0.9785,
+        "slightly_better": "polynomial",
+        "note": "两个模型都不拟合（残差占总方差 > 5%），常见于 n/log n、exp(sqrt n) 一类的中间型增长"
+      },
+      "growth_vs_recurrence": {
+        "available": false,
+        "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 0,
+      "n_falsified": 0,
+      "found_anything": false
+    },
+    {
+      "id": "sigma",
+      "cn": "约数和 σ(n)",
+      "note": "n 的全部正约数之和",
+      "index_base": 1,
+      "n_terms": 60,
+      "first_terms": [
+        1,
+        3,
+        4,
+        7,
+        6,
+        12,
+        8,
+        15,
+        13,
+        18,
+        12,
+        28
+      ],
+      "linear": [],
+      "hyper": [],
+      "stress": {
+        "linear": [],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 2.08594567,
+        "sse_polynomial_model": 2.08373974,
+        "total_variance_sst": 2.59548836,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "neither",
+        "relative_residual_of_better_model": 0.8028,
+        "slightly_better": "polynomial",
+        "note": "两个模型都不拟合（残差占总方差 > 5%），常见于 n/log n、exp(sqrt n) 一类的中间型增长"
+      },
+      "growth_vs_recurrence": {
+        "available": false,
+        "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 0,
+      "n_falsified": 0,
+      "found_anything": false
+    },
+    {
+      "id": "tau",
+      "cn": "约数个数 τ(n)",
+      "note": "n 的正约数个数",
+      "index_base": 1,
+      "n_terms": 60,
+      "first_terms": [
+        1,
+        2,
+        2,
+        3,
+        2,
+        4,
+        2,
+        4,
+        3,
+        4,
+        2,
+        6
+      ],
+      "linear": [],
+      "hyper": [],
+      "stress": {
+        "linear": [],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 6.25432542,
+        "sse_polynomial_model": 6.24818968,
+        "total_variance_sst": 6.43790392,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "neither",
+        "relative_residual_of_better_model": 0.9705,
+        "slightly_better": "polynomial",
+        "note": "两个模型都不拟合（残差占总方差 > 5%），常见于 n/log n、exp(sqrt n) 一类的中间型增长"
+      },
+      "growth_vs_recurrence": {
+        "available": false,
+        "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 0,
+      "n_falsified": 0,
+      "found_anything": false
+    },
+    {
+      "id": "omega",
+      "cn": "不同素因子个数 ω(n)",
+      "note": "计重数为 1",
+      "index_base": 1,
+      "n_terms": 60,
+      "first_terms": [
+        0,
+        1,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        1,
+        2,
+        1,
+        2
+      ],
+      "linear": [],
+      "hyper": [],
+      "stress": {
+        "linear": [],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 14,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.28170314,
+        "sse_polynomial_model": 0.28082194,
+        "total_variance_sst": 0.28183192,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "neither",
+        "relative_residual_of_better_model": 0.9964,
+        "slightly_better": "polynomial",
+        "note": "两个模型都不拟合（残差占总方差 > 5%），常见于 n/log n、exp(sqrt n) 一类的中间型增长"
+      },
+      "growth_vs_recurrence": {
+        "available": false,
+        "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 0,
+      "n_falsified": 0,
+      "found_anything": false
+    },
+    {
+      "id": "bigomega",
+      "cn": "带重数素因子个数 Ω(n)",
+      "note": "计重数",
+      "index_base": 1,
+      "n_terms": 60,
+      "first_terms": [
+        0,
+        1,
+        1,
+        2,
+        1,
+        2,
+        1,
+        3,
+        2,
+        2,
+        1,
+        3
+      ],
+      "linear": [],
+      "hyper": [],
+      "stress": {
+        "linear": [],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 15,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 1.42015225,
+        "sse_polynomial_model": 1.41973948,
+        "total_variance_sst": 1.42088353,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "neither",
+        "relative_residual_of_better_model": 0.9992,
+        "slightly_better": "polynomial",
+        "note": "两个模型都不拟合（残差占总方差 > 5%），常见于 n/log n、exp(sqrt n) 一类的中间型增长"
+      },
+      "growth_vs_recurrence": {
+        "available": false,
+        "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 0,
+      "n_falsified": 0,
+      "found_anything": false
+    },
+    {
+      "id": "mobius",
+      "cn": "莫比乌斯函数 μ(n)",
+      "note": "含平方因子时为 0，否则 (-1)^(素因子个数)",
+      "index_base": 1,
+      "n_terms": 60,
+      "first_terms": [
+        1,
+        -1,
+        -1,
+        0,
+        -1,
+        1,
+        -1,
+        0,
+        0,
+        1,
+        -1,
+        0
+      ],
+      "linear": [],
+      "hyper": [],
+      "stress": {
+        "linear": [],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "type": "unknown",
+        "reason": "尾部可用于取对数的项不足 5 个（含零项或过小）",
+        "evidence": "L2"
+      },
+      "growth_vs_recurrence": {
+        "available": false,
+        "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 0,
+      "n_falsified": 0,
+      "found_anything": false
+    },
+    {
+      "id": "radical",
+      "cn": "根式 rad(n)",
+      "note": "n 的不同素因子之积",
+      "index_base": 1,
+      "n_terms": 60,
+      "first_terms": [
+        1,
+        2,
+        3,
+        2,
+        5,
+        6,
+        7,
+        2,
+        3,
+        10,
+        11,
+        6
+      ],
+      "linear": [],
+      "hyper": [],
+      "stress": {
+        "linear": [],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 12.3171787,
+        "sse_polynomial_model": 12.3710863,
+        "total_variance_sst": 12.46169469,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "neither",
+        "relative_residual_of_better_model": 0.9884,
+        "slightly_better": "exponential",
+        "note": "两个模型都不拟合（残差占总方差 > 5%），常见于 n/log n、exp(sqrt n) 一类的中间型增长"
+      },
+      "growth_vs_recurrence": {
+        "available": false,
+        "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 0,
+      "n_falsified": 0,
+      "found_anything": false
+    },
+    {
+      "id": "fibonacci",
+      "cn": "斐波那契数列",
+      "note": "F(0)=0, F(1)=1",
+      "index_base": 0,
+      "n_terms": 60,
+      "first_terms": [
+        0,
+        1,
+        1,
+        2,
+        3,
+        5,
+        8,
+        13,
+        21,
+        34,
+        55,
+        89
+      ],
+      "linear": [
+        {
+          "channel": "linear",
+          "order": 2,
+          "affine": true,
+          "coeffs": [
+            "1",
+            "1"
+          ],
+          "const": "0",
+          "statement": "a(n) = a(n-1) + a(n-2)",
+          "discovery_len": 30,
+          "n_equations": 28,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "recognition": {
+            "known_id": "fib_rec",
+            "known_name": "斐波那契递推 F(n)=F(n-1)+F(n-2)",
+            "note": "该递推是教科书已知结果，此处由搜索独立重新发现（机制校准件）"
+          },
+          "evidence": "L2",
+          "status": "KNOWN_RECURRENCE_REDISCOVERED"
+        }
+      ],
+      "hyper": [],
+      "stress": {
+        "linear": [
+          {
+            "channel": "linear",
+            "order": 2,
+            "affine": true,
+            "coeffs": [
+              "1",
+              "1"
+            ],
+            "const": "0",
+            "statement": "a(n) = a(n-1) + a(n-2)",
+            "discovery_len": 15,
+            "n_equations": 13,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "recognition": {
+              "known_id": "fib_rec",
+              "known_name": "斐波那契递推 F(n)=F(n-1)+F(n-2)",
+              "note": "该递推是教科书已知结果，此处由搜索独立重新发现（机制校准件）"
+            },
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.0,
+        "sse_polynomial_model": 0.42340053,
+        "total_variance_sst": 153.99060568,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "exponential",
+        "base_lambda": 1.618034,
+        "residual_ratio": 4.79217795634795e+27
+      },
+      "growth_vs_recurrence": {
+        "available": true,
+        "recurrence_used": "a(n) = a(n-1) + a(n-2)",
+        "recurrence_implied": {
+          "evidence": "L2",
+          "method": "由 a(n)=c₁a(n-1)+…+c_k a(n-k)(+d) 的特征多项式 x^k−c₁x^(k−1)−…−c_k 求根（Durand–Kerner），取最大模为主项",
+          "characteristic_polynomial_high_first": [
+            1.0,
+            -1.0,
+            -1.0
+          ],
+          "root_moduli": [
+            1.61803399,
+            0.61803399
+          ],
+          "caveat": "根由**数值迭代**得到，是近似值（不是精确代数数）；递推系数本身是精确有理的，但求根步骤不是。",
+          "type": "exponential",
+          "base_exact_from_recurrence": 1.61803399,
+          "note": "主项由递推结构唯一确定，不依赖尾部窗口拟合"
+        },
+        "window_estimate_type": "exponential",
+        "evidence": "L2",
+        "agrees": true,
+        "detail": {
+          "base_from_recurrence": 1.61803399,
+          "base_from_window": 1.618034,
+          "relative_gap": 0.0
+        },
+        "resolves_subexp_warning": false,
+        "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 1,
+      "n_falsified": 0,
+      "found_anything": true
+    },
+    {
+      "id": "lucas",
+      "cn": "卢卡斯数列",
+      "note": "L(0)=2, L(1)=1",
+      "index_base": 0,
+      "n_terms": 60,
+      "first_terms": [
+        2,
+        1,
+        3,
+        4,
+        7,
+        11,
+        18,
+        29,
+        47,
+        76,
+        123,
+        199
+      ],
+      "linear": [
+        {
+          "channel": "linear",
+          "order": 2,
+          "affine": true,
+          "coeffs": [
+            "1",
+            "1"
+          ],
+          "const": "0",
+          "statement": "a(n) = a(n-1) + a(n-2)",
+          "discovery_len": 30,
+          "n_equations": 28,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "recognition": {
+            "known_id": "fib_rec",
+            "known_name": "斐波那契递推 F(n)=F(n-1)+F(n-2)",
+            "note": "该递推是教科书已知结果，此处由搜索独立重新发现（机制校准件）"
+          },
+          "evidence": "L2",
+          "status": "KNOWN_RECURRENCE_REDISCOVERED"
+        }
+      ],
+      "hyper": [],
+      "stress": {
+        "linear": [
+          {
+            "channel": "linear",
+            "order": 2,
+            "affine": true,
+            "coeffs": [
+              "1",
+              "1"
+            ],
+            "const": "0",
+            "statement": "a(n) = a(n-1) + a(n-2)",
+            "discovery_len": 15,
+            "n_equations": 13,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "recognition": {
+              "known_id": "fib_rec",
+              "known_name": "斐波那契递推 F(n)=F(n-1)+F(n-2)",
+              "note": "该递推是教科书已知结果，此处由搜索独立重新发现（机制校准件）"
+            },
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.0,
+        "sse_polynomial_model": 0.42340053,
+        "total_variance_sst": 153.99060568,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "exponential",
+        "base_lambda": 1.618034,
+        "residual_ratio": 2.5804035149565926e+27
+      },
+      "growth_vs_recurrence": {
+        "available": true,
+        "recurrence_used": "a(n) = a(n-1) + a(n-2)",
+        "recurrence_implied": {
+          "evidence": "L2",
+          "method": "由 a(n)=c₁a(n-1)+…+c_k a(n-k)(+d) 的特征多项式 x^k−c₁x^(k−1)−…−c_k 求根（Durand–Kerner），取最大模为主项",
+          "characteristic_polynomial_high_first": [
+            1.0,
+            -1.0,
+            -1.0
+          ],
+          "root_moduli": [
+            1.61803399,
+            0.61803399
+          ],
+          "caveat": "根由**数值迭代**得到，是近似值（不是精确代数数）；递推系数本身是精确有理的，但求根步骤不是。",
+          "type": "exponential",
+          "base_exact_from_recurrence": 1.61803399,
+          "note": "主项由递推结构唯一确定，不依赖尾部窗口拟合"
+        },
+        "window_estimate_type": "exponential",
+        "evidence": "L2",
+        "agrees": true,
+        "detail": {
+          "base_from_recurrence": 1.61803399,
+          "base_from_window": 1.618034,
+          "relative_gap": 0.0
+        },
+        "resolves_subexp_warning": false,
+        "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 1,
+      "n_falsified": 0,
+      "found_anything": true
+    },
+    {
+      "id": "tribonacci",
+      "cn": "三项斐波那契",
+      "note": "T(0)=0, T(1)=0, T(2)=1",
+      "index_base": 0,
+      "n_terms": 60,
+      "first_terms": [
+        0,
+        0,
+        1,
+        1,
+        2,
+        4,
+        7,
+        13,
+        24,
+        44,
+        81,
+        149
+      ],
+      "linear": [
+        {
+          "channel": "linear",
+          "order": 3,
+          "affine": true,
+          "coeffs": [
+            "1",
+            "1",
+            "1"
+          ],
+          "const": "0",
+          "statement": "a(n) = a(n-1) + a(n-2) + a(n-3)",
+          "discovery_len": 30,
+          "n_equations": 27,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "recognition": {
+            "known_id": "trib_rec",
+            "known_name": "三项递推 T(n)=T(n-1)+T(n-2)+T(n-3)",
+            "note": "该递推是教科书已知结果，此处由搜索独立重新发现（机制校准件）"
+          },
+          "evidence": "L2",
+          "status": "KNOWN_RECURRENCE_REDISCOVERED"
+        }
+      ],
+      "hyper": [],
+      "stress": {
+        "linear": [
+          {
+            "channel": "linear",
+            "order": 3,
+            "affine": true,
+            "coeffs": [
+              "1",
+              "1",
+              "1"
+            ],
+            "const": "0",
+            "statement": "a(n) = a(n-1) + a(n-2) + a(n-3)",
+            "discovery_len": 15,
+            "n_equations": 12,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "recognition": {
+              "known_id": "trib_rec",
+              "known_name": "三项递推 T(n)=T(n-1)+T(n-2)+T(n-3)",
+              "note": "该递推是教科书已知结果，此处由搜索独立重新发现（机制校准件）"
+            },
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.0,
+        "sse_polynomial_model": 0.67897246,
+        "total_variance_sst": 246.942018,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "exponential",
+        "base_lambda": 1.839287,
+        "residual_ratio": 3.164337670502913e+27
+      },
+      "growth_vs_recurrence": {
+        "available": true,
+        "recurrence_used": "a(n) = a(n-1) + a(n-2) + a(n-3)",
+        "recurrence_implied": {
+          "evidence": "L2",
+          "method": "由 a(n)=c₁a(n-1)+…+c_k a(n-k)(+d) 的特征多项式 x^k−c₁x^(k−1)−…−c_k 求根（Durand–Kerner），取最大模为主项",
+          "characteristic_polynomial_high_first": [
+            1.0,
+            -1.0,
+            -1.0,
+            -1.0
+          ],
+          "root_moduli": [
+            1.83928676,
+            0.73735271,
+            0.73735271
+          ],
+          "caveat": "根由**数值迭代**得到，是近似值（不是精确代数数）；递推系数本身是精确有理的，但求根步骤不是。",
+          "type": "exponential",
+          "base_exact_from_recurrence": 1.83928676,
+          "note": "主项由递推结构唯一确定，不依赖尾部窗口拟合"
+        },
+        "window_estimate_type": "exponential",
+        "evidence": "L2",
+        "agrees": true,
+        "detail": {
+          "base_from_recurrence": 1.83928676,
+          "base_from_window": 1.839287,
+          "relative_gap": 0.0
+        },
+        "resolves_subexp_warning": false,
+        "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 1,
+      "n_falsified": 0,
+      "found_anything": true
+    },
+    {
+      "id": "powers_of_two",
+      "cn": "2 的幂",
+      "note": "a(n)=2^n",
+      "index_base": 0,
+      "n_terms": 60,
+      "first_terms": [
+        1,
+        2,
+        4,
+        8,
+        16,
+        32,
+        64,
+        128,
+        256,
+        512,
+        1024,
+        2048
+      ],
+      "linear": [
+        {
+          "channel": "linear",
+          "order": 1,
+          "affine": true,
+          "coeffs": [
+            "2"
+          ],
+          "const": "0",
+          "statement": "a(n) = 2·a(n-1)",
+          "discovery_len": 30,
+          "n_equations": 29,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "recognition": {
+            "known_id": "pow2_rec",
+            "known_name": "等比递推 a(n)=2a(n-1)",
+            "note": "该递推是教科书已知结果，此处由搜索独立重新发现（机制校准件）"
+          },
+          "evidence": "L2",
+          "status": "KNOWN_RECURRENCE_REDISCOVERED"
+        }
+      ],
+      "hyper": [
+        {
+          "channel": "hyper",
+          "degP": 0,
+          "degQ": 1,
+          "P": [
+            2
+          ],
+          "Q": [
+            1,
+            0
+          ],
+          "statement": "a(n+1)/a(n) = (2) / (1)",
+          "discovery_len": 30,
+          "n_equations": 29,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "recognition": {
+            "known_id": "pow2_hyp",
+            "known_name": "等比：a(n+1)/a(n)=2（由定义直接可得）",
+            "note": "教科书已知的超几何闭式，由搜索独立重新发现（机制校准件）"
+          },
+          "evidence": "L2",
+          "status": "KNOWN_RECURRENCE_REDISCOVERED"
+        }
+      ],
+      "stress": {
+        "linear": [
+          {
+            "channel": "linear",
+            "order": 1,
+            "affine": true,
+            "coeffs": [
+              "2"
+            ],
+            "const": "0",
+            "statement": "a(n) = 2·a(n-1)",
+            "discovery_len": 15,
+            "n_equations": 14,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "recognition": {
+              "known_id": "pow2_rec",
+              "known_name": "等比递推 a(n)=2a(n-1)",
+              "note": "该递推是教科书已知结果，此处由搜索独立重新发现（机制校准件）"
+            },
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
+        "hyper": [
+          {
+            "channel": "hyper",
+            "degP": 0,
+            "degQ": 1,
+            "P": [
+              2
+            ],
+            "Q": [
+              1,
+              0
+            ],
+            "statement": "a(n+1)/a(n) = (2) / (1)",
+            "discovery_len": 15,
+            "n_equations": 14,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "recognition": {
+              "known_id": "pow2_hyp",
+              "known_name": "等比：a(n+1)/a(n)=2（由定义直接可得）",
+              "note": "教科书已知的超几何闭式，由搜索独立重新发现（机制校准件）"
+            },
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.0,
+        "sse_polynomial_model": 0.87847566,
+        "total_variance_sst": 319.50125426,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "exponential",
+        "base_lambda": 2.0,
+        "residual_ratio": 2.784000498235561e+27
+      },
+      "growth_vs_recurrence": {
+        "available": true,
+        "recurrence_used": "a(n) = 2·a(n-1)",
+        "recurrence_implied": {
+          "evidence": "L2",
+          "method": "由 a(n)=c₁a(n-1)+…+c_k a(n-k)(+d) 的特征多项式 x^k−c₁x^(k−1)−…−c_k 求根（Durand–Kerner），取最大模为主项",
+          "characteristic_polynomial_high_first": [
+            1.0,
+            -2.0
+          ],
+          "root_moduli": [
+            2.0
+          ],
+          "caveat": "根由**数值迭代**得到，是近似值（不是精确代数数）；递推系数本身是精确有理的，但求根步骤不是。",
+          "type": "exponential",
+          "base_exact_from_recurrence": 2.0,
+          "note": "主项由递推结构唯一确定，不依赖尾部窗口拟合"
+        },
+        "window_estimate_type": "exponential",
+        "evidence": "L2",
+        "agrees": true,
+        "detail": {
+          "base_from_recurrence": 2.0,
+          "base_from_window": 2.0,
+          "relative_gap": 0.0
+        },
+        "resolves_subexp_warning": false,
+        "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 2,
+      "n_falsified": 0,
+      "found_anything": true
+    },
+    {
+      "id": "mersenne",
+      "cn": "梅森数",
+      "note": "a(n)=2^n-1",
+      "index_base": 0,
+      "n_terms": 60,
+      "first_terms": [
+        0,
+        1,
+        3,
+        7,
+        15,
+        31,
+        63,
+        127,
+        255,
+        511,
+        1023,
+        2047
+      ],
+      "linear": [
+        {
+          "channel": "linear",
+          "order": 1,
+          "affine": true,
+          "coeffs": [
+            "2"
+          ],
+          "const": "1",
+          "statement": "a(n) = 2·a(n-1) + 1",
+          "discovery_len": 30,
+          "n_equations": 29,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "recognition": {
+            "known_id": "mersenne_rec",
+            "known_name": "非齐次递推 a(n)=2a(n-1)+1",
+            "note": "该递推是教科书已知结果，此处由搜索独立重新发现（机制校准件）"
+          },
+          "evidence": "L2",
+          "status": "KNOWN_RECURRENCE_REDISCOVERED"
+        }
+      ],
+      "hyper": [],
+      "stress": {
+        "linear": [
+          {
+            "channel": "linear",
+            "order": 1,
+            "affine": true,
+            "coeffs": [
+              "2"
+            ],
+            "const": "1",
+            "statement": "a(n) = 2·a(n-1) + 1",
+            "discovery_len": 15,
+            "n_equations": 14,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "recognition": {
+              "known_id": "mersenne_rec",
+              "known_name": "非齐次递推 a(n)=2a(n-1)+1",
+              "note": "该递推是教科书已知结果，此处由搜索独立重新发现（机制校准件）"
+            },
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.0,
+        "sse_polynomial_model": 0.87847566,
+        "total_variance_sst": 319.50125426,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "exponential",
+        "base_lambda": 2.0,
+        "residual_ratio": 1.520979293177491e+24
+      },
+      "growth_vs_recurrence": {
+        "available": true,
+        "recurrence_used": "a(n) = 2·a(n-1) + 1",
+        "recurrence_implied": {
+          "evidence": "L2",
+          "method": "由 a(n)=c₁a(n-1)+…+c_k a(n-k)(+d) 的特征多项式 x^k−c₁x^(k−1)−…−c_k 求根（Durand–Kerner），取最大模为主项",
+          "characteristic_polynomial_high_first": [
+            1.0,
+            -2.0
+          ],
+          "root_moduli": [
+            2.0
+          ],
+          "caveat": "根由**数值迭代**得到，是近似值（不是精确代数数）；递推系数本身是精确有理的，但求根步骤不是。",
+          "type": "exponential",
+          "base_exact_from_recurrence": 2.0,
+          "note": "主项由递推结构唯一确定，不依赖尾部窗口拟合"
+        },
+        "window_estimate_type": "exponential",
+        "evidence": "L2",
+        "agrees": true,
+        "detail": {
+          "base_from_recurrence": 2.0,
+          "base_from_window": 2.0,
+          "relative_gap": 0.0
+        },
+        "resolves_subexp_warning": false,
+        "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 1,
+      "n_falsified": 0,
+      "found_anything": true
+    },
+    {
+      "id": "squares",
+      "cn": "平方数",
+      "note": "a(n)=n^2",
+      "index_base": 0,
+      "n_terms": 60,
+      "first_terms": [
+        0,
+        1,
+        4,
+        9,
+        16,
+        25,
+        36,
+        49,
+        64,
+        81,
+        100,
+        121
+      ],
+      "linear": [
+        {
+          "channel": "linear",
+          "order": 2,
+          "affine": true,
+          "coeffs": [
+            "2",
+            "-1"
+          ],
+          "const": "2",
+          "statement": "a(n) = 2·a(n-1) - a(n-2) + 2",
+          "discovery_len": 30,
+          "n_equations": 28,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "recognition": {
+            "known_id": "sq_rec",
+            "known_name": "二阶差分恒为 2：a(n)=2a(n-1)-a(n-2)+2",
+            "note": "该递推是教科书已知结果，此处由搜索独立重新发现（机制校准件）"
+          },
+          "evidence": "L2",
+          "status": "KNOWN_RECURRENCE_REDISCOVERED"
+        }
+      ],
+      "hyper": [
+        {
+          "channel": "hyper",
+          "degP": 2,
+          "degQ": 2,
+          "P": [
+            1,
+            2,
+            1
+          ],
+          "Q": [
+            0,
+            0,
+            1
+          ],
+          "statement": "a(n+1)/a(n) = (1 + 2n + n^2) / (n^2)",
+          "discovery_len": 30,
+          "n_equations": 29,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "recognition": {
+            "known_id": "sq_hyp",
+            "known_name": "a(n+1)/a(n)=(n+1)^2/n^2（由定义直接可得）",
+            "note": "教科书已知的超几何闭式，由搜索独立重新发现（机制校准件）"
+          },
+          "evidence": "L2",
+          "status": "KNOWN_RECURRENCE_REDISCOVERED"
+        }
+      ],
+      "stress": {
+        "linear": [
+          {
+            "channel": "linear",
+            "order": 2,
+            "affine": true,
+            "coeffs": [
+              "2",
+              "-1"
+            ],
+            "const": "2",
+            "statement": "a(n) = 2·a(n-1) - a(n-2) + 2",
+            "discovery_len": 15,
+            "n_equations": 13,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "recognition": {
+              "known_id": "sq_rec",
+              "known_name": "二阶差分恒为 2：a(n)=2a(n-1)-a(n-2)+2",
+              "note": "该递推是教科书已知结果，此处由搜索独立重新发现（机制校准件）"
+            },
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
+        "hyper": [
+          {
+            "channel": "hyper",
+            "degP": 2,
+            "degQ": 2,
+            "P": [
+              1,
+              2,
+              1
+            ],
+            "Q": [
+              0,
+              0,
+              1
+            ],
+            "statement": "a(n+1)/a(n) = (1 + 2n + n^2) / (n^2)",
+            "discovery_len": 15,
+            "n_equations": 14,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "recognition": {
+              "known_id": "sq_hyp",
+              "known_name": "a(n+1)/a(n)=(n+1)^2/n^2（由定义直接可得）",
+              "note": "教科书已知的超几何闭式，由搜索独立重新发现（机制校准件）"
+            },
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.00304276,
+        "sse_polynomial_model": 0.0,
+        "total_variance_sst": 1.10665163,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "polynomial_like",
+        "degree_estimate": 2.0,
+        "residual_ratio": Infinity
+      },
+      "growth_vs_recurrence": {
+        "available": true,
+        "recurrence_used": "a(n) = 2·a(n-1) - a(n-2) + 2",
+        "recurrence_implied": {
+          "evidence": "L2",
+          "method": "由 a(n)=c₁a(n-1)+…+c_k a(n-k)(+d) 的特征多项式 x^k−c₁x^(k−1)−…−c_k 求根（Durand–Kerner），取最大模为主项",
+          "characteristic_polynomial_high_first": [
+            1.0,
+            -2.0,
+            1.0
+          ],
+          "root_moduli": [
+            1.0,
+            1.0
+          ],
+          "caveat": "根由**数值迭代**得到，是近似值（不是精确代数数）；递推系数本身是精确有理的，但求根步骤不是。",
+          "type": "polynomial_like",
+          "degree_from_recurrence": 2,
+          "multiplicity_of_root_1": 2,
+          "affine_const_nonzero": true,
+          "note": "主根模为 1：齐次情形 ~ n^(m−1)，带非零常数项时 ~ n^m（m 为 1 的重数）"
+        },
+        "window_estimate_type": "polynomial_like",
+        "evidence": "L2",
+        "agrees": true,
+        "detail": {
+          "degree_from_recurrence": 2,
+          "degree_from_window": 2.0,
+          "absolute_gap": 0.0
+        },
+        "resolves_subexp_warning": false,
+        "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 2,
+      "n_falsified": 0,
+      "found_anything": true
+    },
+    {
+      "id": "triangular",
+      "cn": "三角形数",
+      "note": "a(n)=n(n+1)/2",
+      "index_base": 0,
+      "n_terms": 60,
+      "first_terms": [
+        0,
+        1,
+        3,
+        6,
+        10,
+        15,
+        21,
+        28,
+        36,
+        45,
+        55,
+        66
+      ],
+      "linear": [
+        {
+          "channel": "linear",
+          "order": 2,
+          "affine": true,
+          "coeffs": [
+            "2",
+            "-1"
+          ],
+          "const": "1",
+          "statement": "a(n) = 2·a(n-1) - a(n-2) + 1",
+          "discovery_len": 30,
+          "n_equations": 28,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "recognition": {
+            "known_id": "tri_rec",
+            "known_name": "二阶差分恒为 1：a(n)=2a(n-1)-a(n-2)+1",
+            "note": "该递推是教科书已知结果，此处由搜索独立重新发现（机制校准件）"
+          },
+          "evidence": "L2",
+          "status": "KNOWN_RECURRENCE_REDISCOVERED"
+        }
+      ],
+      "hyper": [
+        {
+          "channel": "hyper",
+          "degP": 1,
+          "degQ": 1,
+          "P": [
+            2,
+            1
+          ],
+          "Q": [
+            0,
+            1
+          ],
+          "statement": "a(n+1)/a(n) = (2 + n) / (n)",
+          "discovery_len": 30,
+          "n_equations": 29,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "recognition": {
+            "known_id": "tri_hyp",
+            "known_name": "a(n+1)/a(n)=(n+2)/n（由定义直接可得）",
+            "note": "教科书已知的超几何闭式，由搜索独立重新发现（机制校准件）"
+          },
+          "evidence": "L2",
+          "status": "KNOWN_RECURRENCE_REDISCOVERED"
+        }
+      ],
+      "stress": {
+        "linear": [
+          {
+            "channel": "linear",
+            "order": 2,
+            "affine": true,
+            "coeffs": [
+              "2",
+              "-1"
+            ],
+            "const": "1",
+            "statement": "a(n) = 2·a(n-1) - a(n-2) + 1",
+            "discovery_len": 15,
+            "n_equations": 13,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "recognition": {
+              "known_id": "tri_rec",
+              "known_name": "二阶差分恒为 1：a(n)=2a(n-1)-a(n-2)+1",
+              "note": "该递推是教科书已知结果，此处由搜索独立重新发现（机制校准件）"
+            },
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
+        "hyper": [
+          {
+            "channel": "hyper",
+            "degP": 1,
+            "degQ": 1,
+            "P": [
+              2,
+              1
+            ],
+            "Q": [
+              0,
+              1
+            ],
+            "statement": "a(n+1)/a(n) = (2 + n) / (n)",
+            "discovery_len": 15,
+            "n_equations": 14,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "recognition": {
+              "known_id": "tri_hyp",
+              "known_name": "a(n+1)/a(n)=(n+2)/n（由定义直接可得）",
+              "note": "教科书已知的超几何闭式，由搜索独立重新发现（机制校准件）"
+            },
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.00292235,
+        "sse_polynomial_model": 3e-07,
+        "total_variance_sst": 1.08443591,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "polynomial_like",
+        "degree_estimate": 1.9798,
+        "residual_ratio": 9733.173
+      },
+      "growth_vs_recurrence": {
+        "available": true,
+        "recurrence_used": "a(n) = 2·a(n-1) - a(n-2) + 1",
+        "recurrence_implied": {
+          "evidence": "L2",
+          "method": "由 a(n)=c₁a(n-1)+…+c_k a(n-k)(+d) 的特征多项式 x^k−c₁x^(k−1)−…−c_k 求根（Durand–Kerner），取最大模为主项",
+          "characteristic_polynomial_high_first": [
+            1.0,
+            -2.0,
+            1.0
+          ],
+          "root_moduli": [
+            1.0,
+            1.0
+          ],
+          "caveat": "根由**数值迭代**得到，是近似值（不是精确代数数）；递推系数本身是精确有理的，但求根步骤不是。",
+          "type": "polynomial_like",
+          "degree_from_recurrence": 2,
+          "multiplicity_of_root_1": 2,
+          "affine_const_nonzero": true,
+          "note": "主根模为 1：齐次情形 ~ n^(m−1)，带非零常数项时 ~ n^m（m 为 1 的重数）"
+        },
+        "window_estimate_type": "polynomial_like",
+        "evidence": "L2",
+        "agrees": true,
+        "detail": {
+          "degree_from_recurrence": 2,
+          "degree_from_window": 1.9798,
+          "absolute_gap": 0.0202
+        },
+        "resolves_subexp_warning": false,
+        "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 2,
+      "n_falsified": 0,
+      "found_anything": true
+    },
+    {
+      "id": "factorial",
+      "cn": "阶乘",
+      "note": "a(n)=n!",
+      "index_base": 0,
+      "n_terms": 60,
+      "first_terms": [
+        1,
+        1,
+        2,
+        6,
+        24,
+        120,
+        720,
+        5040,
+        40320,
+        362880,
+        3628800,
+        39916800
+      ],
+      "linear": [],
+      "hyper": [
+        {
+          "channel": "hyper",
+          "degP": 1,
+          "degQ": 1,
+          "P": [
+            1,
+            1
+          ],
+          "Q": [
+            1,
+            0
+          ],
+          "statement": "a(n+1)/a(n) = (1 + n) / (1)",
+          "discovery_len": 30,
+          "n_equations": 29,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "recognition": {
+            "known_id": "fact_hyp",
+            "known_name": "超几何闭式 a(n+1)/a(n)=n+1",
+            "note": "教科书已知的超几何闭式，由搜索独立重新发现（机制校准件）"
+          },
+          "evidence": "L2",
+          "status": "KNOWN_RECURRENCE_REDISCOVERED"
+        }
+      ],
+      "stress": {
+        "linear": [],
+        "hyper": [
+          {
+            "channel": "hyper",
+            "degP": 1,
+            "degQ": 1,
+            "P": [
+              1,
+              1
+            ],
+            "Q": [
+              1,
+              0
+            ],
+            "statement": "a(n+1)/a(n) = (1 + n) / (1)",
+            "discovery_len": 15,
+            "n_equations": 14,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "recognition": {
+              "known_id": "fact_hyp",
+              "known_name": "超几何闭式 a(n+1)/a(n)=n+1",
+              "note": "教科书已知的超几何闭式，由搜索独立重新发现（机制校准件）"
+            },
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 1.77766659,
+        "sse_polynomial_model": 43.7614066,
+        "total_variance_sst": 10158.11766658,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "super_exponential",
+        "log_over_n_first_half": 2.8569,
+        "log_over_n_second_half": 3.0505,
+        "note": "增长快于任何 λ^n（如 n!、贝尔数）"
+      },
+      "growth_vs_recurrence": {
+        "available": false,
+        "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 1,
+      "n_falsified": 0,
+      "found_anything": true
+    },
+    {
+      "id": "catalan",
+      "cn": "卡特兰数",
+      "note": "C(n)=1/(n+1)·binomial(2n,n)",
+      "index_base": 0,
+      "n_terms": 60,
+      "first_terms": [
+        1,
+        1,
+        2,
+        5,
+        14,
+        42,
+        132,
+        429,
+        1430,
+        4862,
+        16796,
+        58786
+      ],
+      "linear": [],
+      "hyper": [
+        {
+          "channel": "hyper",
+          "degP": 1,
+          "degQ": 1,
+          "P": [
+            2,
+            4
+          ],
+          "Q": [
+            2,
+            1
+          ],
+          "statement": "a(n+1)/a(n) = (2 + 4n) / (2 + n)",
+          "discovery_len": 30,
+          "n_equations": 29,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "recognition": {
+            "known_id": "cat_hyp",
+            "known_name": "超几何闭式 a(n+1)/a(n)=(4n+2)/(n+2)",
+            "note": "教科书已知的超几何闭式，由搜索独立重新发现（机制校准件）"
+          },
+          "evidence": "L2",
+          "status": "KNOWN_RECURRENCE_REDISCOVERED"
+        }
+      ],
+      "stress": {
+        "linear": [],
+        "hyper": [
+          {
+            "channel": "hyper",
+            "degP": 1,
+            "degQ": 1,
+            "P": [
+              2,
+              4
+            ],
+            "Q": [
+              2,
+              1
+            ],
+            "statement": "a(n+1)/a(n) = (2 + 4n) / (2 + n)",
+            "discovery_len": 15,
+            "n_equations": 14,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "recognition": {
+              "known_id": "cat_hyp",
+              "known_name": "超几何闭式 a(n+1)/a(n)=(4n+2)/(n+2)",
+              "note": "教科书已知的超几何闭式，由搜索独立重新发现（机制校准件）"
+            },
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.00161013,
+        "sse_polynomial_model": 3.51158644,
+        "total_variance_sst": 1223.12759,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "exponential",
+        "base_lambda": 3.881428,
+        "residual_ratio": 2180.935
+      },
+      "growth_vs_recurrence": {
+        "available": false,
+        "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 1,
+      "n_falsified": 0,
+      "found_anything": true
+    },
+    {
+      "id": "central_binomial",
+      "cn": "中心二项式系数",
+      "note": "binomial(2n,n)",
+      "index_base": 0,
+      "n_terms": 60,
+      "first_terms": [
+        1,
+        2,
+        6,
+        20,
+        70,
+        252,
+        924,
+        3432,
+        12870,
+        48620,
+        184756,
+        705432
+      ],
+      "linear": [],
+      "hyper": [
+        {
+          "channel": "hyper",
+          "degP": 1,
+          "degQ": 1,
+          "P": [
+            2,
+            4
+          ],
+          "Q": [
+            1,
+            1
+          ],
+          "statement": "a(n+1)/a(n) = (2 + 4n) / (1 + n)",
+          "discovery_len": 30,
+          "n_equations": 29,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "recognition": {
+            "known_id": "cen_hyp",
+            "known_name": "超几何闭式 a(n+1)/a(n)=(4n+2)/(n+1)",
+            "note": "教科书已知的超几何闭式，由搜索独立重新发现（机制校准件）"
+          },
+          "evidence": "L2",
+          "status": "KNOWN_RECURRENCE_REDISCOVERED"
+        }
+      ],
+      "stress": {
+        "linear": [],
+        "hyper": [
+          {
+            "channel": "hyper",
+            "degP": 1,
+            "degQ": 1,
+            "P": [
+              2,
+              4
+            ],
+            "Q": [
+              1,
+              1
+            ],
+            "statement": "a(n+1)/a(n) = (2 + 4n) / (1 + n)",
+            "discovery_len": 15,
+            "n_equations": 14,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "recognition": {
+              "known_id": "cen_hyp",
+              "known_name": "超几何闭式 a(n+1)/a(n)=(4n+2)/(n+1)",
+              "note": "教科书已知的超几何闭式，由搜索独立重新发现（机制校准件）"
+            },
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.00018627,
+        "sse_polynomial_model": 3.51363576,
+        "total_variance_sst": 1259.39212172,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "exponential",
+        "base_lambda": 3.959676,
+        "residual_ratio": 18862.735
+      },
+      "growth_vs_recurrence": {
+        "available": false,
+        "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 1,
+      "n_falsified": 0,
+      "found_anything": true
+    },
+    {
+      "id": "derangements",
+      "cn": "错排数",
+      "note": "D(n)=n·D(n-1)+(-1)^n",
+      "index_base": 0,
+      "n_terms": 60,
+      "first_terms": [
+        1,
+        0,
+        1,
+        2,
+        9,
+        44,
+        265,
+        1854,
+        14833,
+        133496,
+        1334961,
+        14684570
+      ],
+      "linear": [],
+      "hyper": [],
+      "stress": {
+        "linear": [],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 1.77766659,
+        "sse_polynomial_model": 43.7614066,
+        "total_variance_sst": 10158.11766658,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "super_exponential",
+        "log_over_n_first_half": 2.8344,
+        "log_over_n_second_half": 3.0321,
+        "note": "增长快于任何 λ^n（如 n!、贝尔数）"
+      },
+      "growth_vs_recurrence": {
+        "available": false,
+        "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 0,
+      "n_falsified": 0,
+      "found_anything": false
+    },
+    {
+      "id": "motzkin",
+      "cn": "莫茨金数",
+      "note": "组合数学中的经典非 C-有限序列",
+      "index_base": 0,
+      "n_terms": 60,
+      "first_terms": [
+        1,
+        1,
+        2,
+        4,
+        9,
+        21,
+        51,
+        127,
+        323,
+        835,
+        2188,
+        5798
+      ],
+      "linear": [],
+      "hyper": [],
+      "stress": {
+        "linear": [],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.00150155,
+        "sse_polynomial_model": 2.2029961,
+        "total_variance_sst": 759.99658234,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "exponential",
+        "base_lambda": 2.912586,
+        "residual_ratio": 1467.144
+      },
+      "growth_vs_recurrence": {
+        "available": false,
+        "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 0,
+      "n_falsified": 0,
+      "found_anything": false
+    },
+    {
+      "id": "bell",
+      "cn": "贝尔数",
+      "note": "集合划分数",
+      "index_base": 0,
+      "n_terms": 60,
+      "first_terms": [
+        1,
+        1,
+        2,
+        5,
+        15,
+        52,
+        203,
+        877,
+        4140,
+        21147,
+        115975,
+        678570
+      ],
+      "linear": [],
+      "hyper": [],
+      "stress": {
+        "linear": [],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.99895397,
+        "sse_polynomial_model": 23.51902184,
+        "total_variance_sst": 5397.72170261,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "super_exponential",
+        "log_over_n_first_half": 2.0964,
+        "log_over_n_second_half": 2.235,
+        "note": "增长快于任何 λ^n（如 n!、贝尔数）"
+      },
+      "growth_vs_recurrence": {
+        "available": false,
+        "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 0,
+      "n_falsified": 0,
+      "found_anything": false
+    },
+    {
+      "id": "collatz_steps",
+      "cn": "Collatz 停时",
+      "note": "从 n 出发回到 1 所需步数",
+      "index_base": 1,
+      "n_terms": 60,
+      "first_terms": [
+        0,
+        1,
+        7,
+        2,
+        5,
+        8,
+        16,
+        3,
+        19,
+        6,
+        14,
+        9
+      ],
+      "linear": [],
+      "hyper": [],
+      "stress": {
+        "linear": [],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 12.92699063,
+        "sse_polynomial_model": 12.93333952,
+        "total_variance_sst": 12.96943566,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "neither",
+        "relative_residual_of_better_model": 0.9967,
+        "slightly_better": "exponential",
+        "note": "两个模型都不拟合（残差占总方差 > 5%），常见于 n/log n、exp(sqrt n) 一类的中间型增长"
+      },
+      "growth_vs_recurrence": {
+        "available": false,
+        "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 0,
+      "n_falsified": 0,
+      "found_anything": false
+    },
+    {
+      "id": "partition",
+      "cn": "划分数 p(n)",
+      "note": "n 的整数拆分个数",
+      "index_base": 0,
+      "n_terms": 60,
+      "first_terms": [
+        1,
+        1,
+        2,
+        3,
+        5,
+        7,
+        11,
+        15,
+        22,
+        30,
+        42,
+        56
+      ],
+      "linear": [],
+      "hyper": [],
+      "stress": {
+        "linear": [],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.00945508,
+        "sse_polynomial_model": 0.01526461,
+        "total_variance_sst": 17.71001231,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "exponential",
+        "base_lambda": 1.177211,
+        "residual_ratio": 1.614,
+        "subexponential_warning": "估计底数 λ≈1.177 接近 1：窗口内无法区分'真指数增长'与exp(sqrt n)、n^(log n) 这类次指数增长，此处不应当作结论使用"
+      },
+      "growth_vs_recurrence": {
+        "available": false,
+        "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 0,
+      "n_falsified": 0,
+      "found_anything": false
+    },
+    {
+      "id": "perrin",
+      "cn": "Perrin 序列",
+      "note": "P(0)=3, P(1)=0, P(2)=2",
+      "index_base": 0,
+      "n_terms": 60,
+      "first_terms": [
+        3,
+        0,
+        2,
+        3,
+        2,
+        5,
+        5,
+        7,
+        10,
+        12,
+        17,
+        22
+      ],
+      "linear": [
+        {
+          "channel": "linear",
+          "order": 3,
+          "affine": true,
+          "coeffs": [
+            "0",
+            "1",
+            "1"
+          ],
+          "const": "0",
+          "statement": "a(n) = a(n-2) + a(n-3)",
+          "discovery_len": 30,
+          "n_equations": 27,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "recognition": null,
+          "evidence": "L2",
+          "status": "CANDIDATE_UNVERIFIED"
+        }
+      ],
+      "hyper": [],
+      "stress": {
+        "linear": [
+          {
+            "channel": "linear",
+            "order": 3,
+            "affine": true,
+            "coeffs": [
+              "0",
+              "1",
+              "1"
+            ],
+            "const": "0",
+            "statement": "a(n) = a(n-2) + a(n-3)",
+            "discovery_len": 15,
+            "n_equations": 12,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "recognition": null,
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.0,
+        "sse_polynomial_model": 0.14457995,
+        "total_variance_sst": 52.58367871,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "exponential",
+        "base_lambda": 1.324718,
+        "residual_ratio": 12673778427381.732,
+        "subexponential_warning": "估计底数 λ≈1.325 接近 1：窗口内无法区分'真指数增长'与exp(sqrt n)、n^(log n) 这类次指数增长，此处不应当作结论使用"
+      },
+      "growth_vs_recurrence": {
+        "available": true,
+        "recurrence_used": "a(n) = a(n-2) + a(n-3)",
+        "recurrence_implied": {
+          "evidence": "L2",
+          "method": "由 a(n)=c₁a(n-1)+…+c_k a(n-k)(+d) 的特征多项式 x^k−c₁x^(k−1)−…−c_k 求根（Durand–Kerner），取最大模为主项",
+          "characteristic_polynomial_high_first": [
+            1.0,
+            -0.0,
+            -1.0,
+            -1.0
+          ],
+          "root_moduli": [
+            1.32471796,
+            0.86883696,
+            0.86883696
+          ],
+          "caveat": "根由**数值迭代**得到，是近似值（不是精确代数数）；递推系数本身是精确有理的，但求根步骤不是。",
+          "type": "exponential",
+          "base_exact_from_recurrence": 1.32471796,
+          "note": "主项由递推结构唯一确定，不依赖尾部窗口拟合"
+        },
+        "window_estimate_type": "exponential",
+        "evidence": "L2",
+        "agrees": true,
+        "detail": {
+          "base_from_recurrence": 1.32471796,
+          "base_from_window": 1.324718,
+          "relative_gap": 0.0
+        },
+        "resolves_subexp_warning": true,
+        "resolution_note": "窗口估计的次指数警告在此消解：递推 a(n) = a(n-2) + a(n-3) 的特征根给出确定底数 1.32471796，增长确为指数型。（警告本身没错——单看数值窗口确实分不出来；是递推证据补上了缺口。）",
+        "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
+      },
+      "n_accepted": 1,
+      "n_known_rediscovered": 0,
+      "n_falsified": 0,
+      "found_anything": true
+    },
+    {
+      "id": "padovan",
+      "cn": "Padovan 序列",
+      "note": "P(0)=1, P(1)=P(2)=0",
+      "index_base": 0,
+      "n_terms": 60,
+      "first_terms": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        1,
+        2,
+        2,
+        3,
+        4
+      ],
+      "linear": [
+        {
+          "channel": "linear",
+          "order": 3,
+          "affine": true,
+          "coeffs": [
+            "0",
+            "1",
+            "1"
+          ],
+          "const": "0",
+          "statement": "a(n) = a(n-2) + a(n-3)",
+          "discovery_len": 30,
+          "n_equations": 27,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "recognition": null,
+          "evidence": "L2",
+          "status": "CANDIDATE_UNVERIFIED"
+        }
+      ],
+      "hyper": [],
+      "stress": {
+        "linear": [
+          {
+            "channel": "linear",
+            "order": 3,
+            "affine": true,
+            "coeffs": [
+              "0",
+              "1",
+              "1"
+            ],
+            "const": "0",
+            "statement": "a(n) = a(n-2) + a(n-3)",
+            "discovery_len": 15,
+            "n_equations": 12,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "recognition": null,
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.0,
+        "sse_polynomial_model": 0.14457991,
+        "total_variance_sst": 52.58367932,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "exponential",
+        "base_lambda": 1.324718,
+        "residual_ratio": 2320955914483.396,
+        "subexponential_warning": "估计底数 λ≈1.325 接近 1：窗口内无法区分'真指数增长'与exp(sqrt n)、n^(log n) 这类次指数增长，此处不应当作结论使用"
+      },
+      "growth_vs_recurrence": {
+        "available": true,
+        "recurrence_used": "a(n) = a(n-2) + a(n-3)",
+        "recurrence_implied": {
+          "evidence": "L2",
+          "method": "由 a(n)=c₁a(n-1)+…+c_k a(n-k)(+d) 的特征多项式 x^k−c₁x^(k−1)−…−c_k 求根（Durand–Kerner），取最大模为主项",
+          "characteristic_polynomial_high_first": [
+            1.0,
+            -0.0,
+            -1.0,
+            -1.0
+          ],
+          "root_moduli": [
+            1.32471796,
+            0.86883696,
+            0.86883696
+          ],
+          "caveat": "根由**数值迭代**得到，是近似值（不是精确代数数）；递推系数本身是精确有理的，但求根步骤不是。",
+          "type": "exponential",
+          "base_exact_from_recurrence": 1.32471796,
+          "note": "主项由递推结构唯一确定，不依赖尾部窗口拟合"
+        },
+        "window_estimate_type": "exponential",
+        "evidence": "L2",
+        "agrees": true,
+        "detail": {
+          "base_from_recurrence": 1.32471796,
+          "base_from_window": 1.324718,
+          "relative_gap": 0.0
+        },
+        "resolves_subexp_warning": true,
+        "resolution_note": "窗口估计的次指数警告在此消解：递推 a(n) = a(n-2) + a(n-3) 的特征根给出确定底数 1.32471796，增长确为指数型。（警告本身没错——单看数值窗口确实分不出来；是递推证据补上了缺口。）",
+        "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
+      },
+      "n_accepted": 1,
+      "n_known_rediscovered": 0,
+      "n_falsified": 0,
+      "found_anything": true
+    },
+    {
+      "id": "jacobsthal",
+      "cn": "Jacobsthal 序列",
+      "note": "J(0)=0, J(1)=1",
+      "index_base": 0,
+      "n_terms": 60,
+      "first_terms": [
+        0,
+        1,
+        1,
+        3,
+        5,
+        11,
+        21,
+        43,
+        85,
+        171,
+        341,
+        683
+      ],
+      "linear": [
+        {
+          "channel": "linear",
+          "order": 2,
+          "affine": true,
+          "coeffs": [
+            "1",
+            "2"
+          ],
+          "const": "0",
+          "statement": "a(n) = a(n-1) + 2·a(n-2)",
+          "discovery_len": 30,
+          "n_equations": 28,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "recognition": null,
+          "evidence": "L2",
+          "status": "CANDIDATE_UNVERIFIED"
+        }
+      ],
+      "hyper": [],
+      "stress": {
+        "linear": [
+          {
+            "channel": "linear",
+            "order": 2,
+            "affine": true,
+            "coeffs": [
+              "1",
+              "2"
+            ],
+            "const": "0",
+            "statement": "a(n) = a(n-1) + 2·a(n-2)",
+            "discovery_len": 15,
+            "n_equations": 13,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "recognition": null,
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.0,
+        "sse_polynomial_model": 0.87847566,
+        "total_variance_sst": 319.50125426,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "exponential",
+        "base_lambda": 2.0,
+        "residual_ratio": 8.483978260521669e+23
+      },
+      "growth_vs_recurrence": {
+        "available": true,
+        "recurrence_used": "a(n) = a(n-1) + 2·a(n-2)",
+        "recurrence_implied": {
+          "evidence": "L2",
+          "method": "由 a(n)=c₁a(n-1)+…+c_k a(n-k)(+d) 的特征多项式 x^k−c₁x^(k−1)−…−c_k 求根（Durand–Kerner），取最大模为主项",
+          "characteristic_polynomial_high_first": [
+            1.0,
+            -1.0,
+            -2.0
+          ],
+          "root_moduli": [
+            2.0,
+            1.0
+          ],
+          "caveat": "根由**数值迭代**得到，是近似值（不是精确代数数）；递推系数本身是精确有理的，但求根步骤不是。",
+          "type": "exponential",
+          "base_exact_from_recurrence": 2.0,
+          "note": "主项由递推结构唯一确定，不依赖尾部窗口拟合"
+        },
+        "window_estimate_type": "exponential",
+        "evidence": "L2",
+        "agrees": true,
+        "detail": {
+          "base_from_recurrence": 2.0,
+          "base_from_window": 2.0,
+          "relative_gap": 0.0
+        },
+        "resolves_subexp_warning": false,
+        "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
+      },
+      "n_accepted": 1,
+      "n_known_rediscovered": 0,
+      "n_falsified": 0,
+      "found_anything": true
+    },
+    {
+      "id": "fib_prefix_sum",
+      "cn": "斐波那契前缀和",
+      "note": "Σ_{k≤n} F(k)",
+      "index_base": 0,
+      "n_terms": 60,
+      "first_terms": [
+        0,
+        1,
+        2,
+        4,
+        7,
+        12,
+        20,
+        33,
+        54,
+        88,
+        143,
+        232
+      ],
+      "linear": [
+        {
+          "channel": "linear",
+          "order": 2,
+          "affine": true,
+          "coeffs": [
+            "1",
+            "1"
+          ],
+          "const": "1",
+          "statement": "a(n) = a(n-1) + a(n-2) + 1",
+          "discovery_len": 30,
+          "n_equations": 28,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "recognition": null,
+          "evidence": "L2",
+          "status": "CANDIDATE_UNVERIFIED"
+        }
+      ],
+      "hyper": [],
+      "stress": {
+        "linear": [
+          {
+            "channel": "linear",
+            "order": 2,
+            "affine": true,
+            "coeffs": [
+              "1",
+              "1"
+            ],
+            "const": "1",
+            "statement": "a(n) = a(n-1) + a(n-2) + 1",
+            "discovery_len": 15,
+            "n_equations": 13,
+            "n_extrapolation_checks": 45,
+            "survived_extrapolation": true,
+            "first_failure": null,
+            "recognition": null,
+            "evidence": "L2",
+            "is_stress_test": true
+          }
+        ],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.0,
+        "sse_polynomial_model": 0.42340052,
+        "total_variance_sst": 153.99060576,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "exponential",
+        "base_lambda": 1.618034,
+        "residual_ratio": 4.7865494252216344e+16
+      },
+      "growth_vs_recurrence": {
+        "available": true,
+        "recurrence_used": "a(n) = a(n-1) + a(n-2) + 1",
+        "recurrence_implied": {
+          "evidence": "L2",
+          "method": "由 a(n)=c₁a(n-1)+…+c_k a(n-k)(+d) 的特征多项式 x^k−c₁x^(k−1)−…−c_k 求根（Durand–Kerner），取最大模为主项",
+          "characteristic_polynomial_high_first": [
+            1.0,
+            -1.0,
+            -1.0
+          ],
+          "root_moduli": [
+            1.61803399,
+            0.61803399
+          ],
+          "caveat": "根由**数值迭代**得到，是近似值（不是精确代数数）；递推系数本身是精确有理的，但求根步骤不是。",
+          "type": "exponential",
+          "base_exact_from_recurrence": 1.61803399,
+          "note": "主项由递推结构唯一确定，不依赖尾部窗口拟合"
+        },
+        "window_estimate_type": "exponential",
+        "evidence": "L2",
+        "agrees": true,
+        "detail": {
+          "base_from_recurrence": 1.61803399,
+          "base_from_window": 1.618034,
+          "relative_gap": 0.0
+        },
+        "resolves_subexp_warning": false,
+        "note": "两条独立路径（尾部窗口拟合 vs 递推特征根）是否指向同一结论；一致不代表正确，但**不一致一定有问题**。"
+      },
+      "n_accepted": 1,
+      "n_known_rediscovered": 0,
+      "n_falsified": 0,
+      "found_anything": true
+    },
+    {
+      "id": "phi_prefix_sum",
+      "cn": "φ 的前缀和",
+      "note": "Σ_{k≤n} φ(k)",
+      "index_base": 1,
+      "n_terms": 60,
+      "first_terms": [
+        1,
+        2,
+        4,
+        6,
+        10,
+        12,
+        18,
+        22,
+        28,
+        32,
+        42,
+        46
+      ],
+      "linear": [],
+      "hyper": [],
+      "stress": {
+        "linear": [],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.00457072,
+        "sse_polynomial_model": 0.00163258,
+        "total_variance_sst": 1.02080156,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "polynomial_like",
+        "degree_estimate": 1.9193,
+        "residual_ratio": 2.8
+      },
+      "growth_vs_recurrence": {
+        "available": false,
+        "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 0,
+      "n_falsified": 0,
+      "found_anything": false
+    },
+    {
+      "id": "tau_prefix_sum",
+      "cn": "τ 的前缀和",
+      "note": "Σ_{k≤n} τ(k)（除数求和问题）",
+      "index_base": 1,
+      "n_terms": 60,
+      "first_terms": [
+        1,
+        3,
+        5,
+        8,
+        10,
+        14,
+        16,
+        20,
+        23,
+        27,
+        29,
+        35
+      ],
+      "linear": [],
+      "hyper": [],
+      "stress": {
+        "linear": [],
+        "hyper": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.00232772,
+        "sse_polynomial_model": 0.00120969,
+        "total_variance_sst": 0.4068729,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "polynomial_like",
+        "degree_estimate": 1.2109,
+        "residual_ratio": 1.924
+      },
+      "growth_vs_recurrence": {
+        "available": false,
+        "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
+      },
+      "n_accepted": 0,
+      "n_known_rediscovered": 0,
+      "n_falsified": 0,
+      "found_anything": false
+    }
+  ],
+  "calibration": {
+    "expected_positive": [
+      "catalan",
+      "central_binomial",
+      "factorial",
+      "fibonacci",
+      "lucas",
+      "mersenne",
+      "powers_of_two",
+      "squares",
+      "triangular",
+      "tribonacci"
+    ],
+    "recalled": [
+      "catalan",
+      "central_binomial",
+      "factorial",
+      "fibonacci",
+      "lucas",
+      "mersenne",
+      "powers_of_two",
+      "squares",
+      "triangular",
+      "tribonacci"
+    ],
+    "missed": [],
+    "recall_rate": 1.0,
+    "expected_negative": [
+      "bell",
+      "bigomega",
+      "collatz_steps",
+      "derangements",
+      "euler_phi",
+      "mobius",
+      "motzkin",
+      "omega",
+      "partition",
+      "phi_prefix_sum",
+      "prime_gaps",
+      "primes_count",
+      "radical",
+      "sigma",
+      "tau",
+      "tau_prefix_sum"
+    ],
+    "true_negative": [
+      "bell",
+      "bigomega",
+      "collatz_steps",
+      "derangements",
+      "euler_phi",
+      "mobius",
+      "motzkin",
+      "omega",
+      "partition",
+      "phi_prefix_sum",
+      "prime_gaps",
+      "primes_count",
+      "radical",
+      "sigma",
+      "tau",
+      "tau_prefix_sum"
+    ],
+    "false_alarm": [],
+    "unlisted_positive": [
+      "fib_prefix_sum",
+      "jacobsthal",
+      "padovan",
+      "perrin"
+    ],
+    "unlisted_found": {
+      "perrin": "Perrin 序列 a(n)=a(n-2)+a(n-3)",
+      "padovan": "Padovan 序列 a(n)=a(n-2)+a(n-3)",
+      "jacobsthal": "Jacobsthal 序列 a(n)=a(n-1)+2a(n-2)",
+      "fib_prefix_sum": "斐波那契前缀和，满足非齐次递推 a(n)=a(n-1)+a(n-2)+1"
+    },
+    "unlisted_missed": [],
+    "unlisted_note": "这些序列已知满足常系数递推，但**故意不写进校准表**，用来检验机器能否独立发现；发现结果进人工复核队列。",
+    "false_alarm_note": "在期望阴性的序列上若报出 CANDIDATE_UNVERIFIED，通常是**小样本巧合**，本表把它们单列出来，因为那意味着搜索空间仍需收窄。"
+  },
+  "summary": {
+    "n_sequences": 30,
+    "n_known_rediscovered": 13,
+    "n_candidates": 4,
+    "n_falsified_main": 0,
+    "n_falsified_stress": 0
+  },
+  "growth_reconciliation": {
+    "n_reconcilable": 11,
+    "n_agree": 11,
+    "n_disagree": 0,
+    "disagreeing": [],
+    "n_subexp_warning_resolved": 2,
+    "resolved": [
+      "perrin",
+      "padovan"
+    ],
+    "note": "同一序列的增长率用两条**互相独立**的路径各算一次：C3 在尾部窗口上做对数拟合（数值、有窗口偏差），C1 由递推的特征多项式求根（结构决定、但求根仍是数值）。一致不代表正确，不一致则说明至少一方有问题。"
+  },
+  "meta": {
+    "generated_at": "2026-09-19T18:38:32",
+    "generator": "06-AI自动化/01-工作流/openmath_sequences.py",
+    "evidence_level": "L2",
+    "provenance": {
+      "ai_assisted": true,
+      "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"
+    },
+    "honesty": "所有结论的论域严格是「已生成的这些项」。通过外推检验只表示在该长度内没有找到反例，**不证明**递推对所有 n 成立。"
+  },
+  "independent_audit": {
+    "name": "sequences",
+    "note": "序列引擎：① 教科书/OEIS 首项对照（外部参照，不取自本仓库代码）；② 每条被报出的递推用**另一份实现**重算一遍全量项；③ 增长率类型与理论底数对照（只断言有把握的条目）",
+    "checks": 379,
+    "failures": [],
+    "passed": 379,
+    "ok": true,
+    "n_terms": 60,
+    "n_reference_terms_checked": 300,
+    "n_reconciled": 11,
+    "n_reconcile_type_mismatch": 0,
+    "characteristic_roots": {
+      "fibonacci": 1.61803399,
+      "lucas": 1.61803399,
+      "tribonacci": 1.83928676,
+      "powers_of_two": 2.0,
+      "mersenne": 2.0,
+      "perrin": 1.32471796,
+      "padovan": 1.32471796,
+      "jacobsthal": 2.0,
+      "fib_prefix_sum": 1.61803399
+    },
+    "char_root_expect": {
+      "fibonacci": 1.618033988749895,
+      "lucas": 1.618033988749895,
+      "fib_prefix_sum": 1.618033988749895,
+      "tribonacci": 1.8392867552141612,
+      "powers_of_two": 2.0,
+      "mersenne": 2.0,
+      "jacobsthal": 2.0,
+      "perrin": 1.324717957244746,
+      "padovan": 1.324717957244746
+    },
+    "char_root_note": "主特征根由递推系数经 Durand–Kerner 求根得到，与教科书常数（φ、tribonacci 常数、塑性数）逐条对照。系数错一个数字，特征根就会跑到别处，所以这条查的是**系数本身**而非拟合质量。",
+    "sequences_without_reference": [],
+    "n_recurrence_candidates": 17,
+    "n_independent_disagreements": 0,
+    "disagreements": [],
+    "growth_observed": {
+      "primes_count": "neither",
+      "prime_gaps": "neither",
+      "euler_phi": "neither",
+      "sigma": "neither",
+      "tau": "neither",
+      "omega": "neither",
+      "bigomega": "neither",
+      "mobius": "unknown",
+      "radical": "neither",
+      "fibonacci": "exponential",
+      "lucas": "exponential",
+      "tribonacci": "exponential",
+      "powers_of_two": "exponential",
+      "mersenne": "exponential",
+      "squares": "polynomial_like",
+      "triangular": "polynomial_like",
+      "factorial": "super_exponential",
+      "catalan": "exponential",
+      "central_binomial": "exponential",
+      "derangements": "super_exponential",
+      "motzkin": "exponential",
+      "bell": "super_exponential",
+      "collatz_steps": "neither",
+      "partition": "exponential",
+      "perrin": "exponential",
+      "padovan": "exponential",
+      "jacobsthal": "exponential",
+      "fib_prefix_sum": "exponential",
+      "phi_prefix_sum": "polynomial_like",
+      "tau_prefix_sum": "polynomial_like"
+    },
+    "growth_base_bias": {
+      "catalan": {
+        "theoretical": 4.0,
+        "observed": 3.881428,
+        "relative_deficit": 0.0296
+      },
+      "central_binomial": {
+        "theoretical": 4.0,
+        "observed": 3.959676,
+        "relative_deficit": 0.0101
+      },
+      "motzkin": {
+        "theoretical": 3.0,
+        "observed": 2.912586,
+        "relative_deficit": 0.0291
+      }
+    },
+    "growth_base_bias_note": "λ^n·n^α 型序列在有限窗口上拟合出的底数必然低于理论值（多项式因子被吸收进指数项）。这是**窗口偏差**，不是引擎缺陷；但读报告的人若把观测底数当结论用就会错，所以单列出来。",
+    "n_missing_subexp_warning": 0,
+    "unchecked_growth_ids": [
+      "bigomega",
+      "collatz_steps",
+      "euler_phi",
+      "omega",
+      "partition",
+      "prime_gaps",
+      "primes_count",
+      "radical",
+      "sigma",
+      "tau",
+      "tau_prefix_sum"
+    ],
+    "unchecked_growth_note": "这些序列的增长类型我不给出断言（真实增长属于中间型或我无把握），它们的类型由引擎给出但**未经审计确认**，见 growth_observed。"
+  },
+  "sequence_net": {
+    "note": "同一条递推式下的不同初值即不同序列；这里按递推式聚合。成员数 ≥ 2 的条目说明该递推的解空间里不止一个知名序列。",
+    "n_recurrences": 15,
+    "n_multi_member": 2,
+    "recurrences": [
+      {
+        "statement": "a(n) = a(n-1) + a(n-2)",
+        "channel": "linear",
+        "recognition": "斐波那契递推 F(n)=F(n-1)+F(n-2)",
+        "is_known": true,
+        "members": [
+          {
+            "seq": "fibonacci",
+            "cn": "斐波那契数列",
+            "status": "KNOWN_RECURRENCE_REDISCOVERED",
+            "index_base": 0
+          },
+          {
+            "seq": "lucas",
+            "cn": "卢卡斯数列",
+            "status": "KNOWN_RECURRENCE_REDISCOVERED",
+            "index_base": 0
+          }
+        ]
+      },
+      {
+        "statement": "a(n) = a(n-2) + a(n-3)",
+        "channel": "linear",
+        "recognition": null,
+        "is_known": false,
+        "members": [
+          {
+            "seq": "perrin",
+            "cn": "Perrin 序列",
+            "status": "CANDIDATE_UNVERIFIED",
+            "index_base": 0
+          },
+          {
+            "seq": "padovan",
+            "cn": "Padovan 序列",
+            "status": "CANDIDATE_UNVERIFIED",
+            "index_base": 0
+          }
+        ]
+      },
+      {
+        "statement": "a(n) = 2·a(n-1)",
+        "channel": "linear",
+        "recognition": "等比递推 a(n)=2a(n-1)",
+        "is_known": true,
+        "members": [
+          {
+            "seq": "powers_of_two",
+            "cn": "2 的幂",
+            "status": "KNOWN_RECURRENCE_REDISCOVERED",
+            "index_base": 0
+          }
+        ]
+      },
+      {
+        "statement": "a(n) = 2·a(n-1) + 1",
+        "channel": "linear",
+        "recognition": "非齐次递推 a(n)=2a(n-1)+1",
+        "is_known": true,
+        "members": [
+          {
+            "seq": "mersenne",
+            "cn": "梅森数",
+            "status": "KNOWN_RECURRENCE_REDISCOVERED",
+            "index_base": 0
+          }
+        ]
+      },
+      {
+        "statement": "a(n) = 2·a(n-1) - a(n-2) + 1",
+        "channel": "linear",
+        "recognition": "二阶差分恒为 1：a(n)=2a(n-1)-a(n-2)+1",
+        "is_known": true,
+        "members": [
+          {
+            "seq": "triangular",
+            "cn": "三角形数",
+            "status": "KNOWN_RECURRENCE_REDISCOVERED",
+            "index_base": 0
+          }
+        ]
+      },
+      {
+        "statement": "a(n) = 2·a(n-1) - a(n-2) + 2",
+        "channel": "linear",
+        "recognition": "二阶差分恒为 2：a(n)=2a(n-1)-a(n-2)+2",
+        "is_known": true,
+        "members": [
+          {
+            "seq": "squares",
+            "cn": "平方数",
+            "status": "KNOWN_RECURRENCE_REDISCOVERED",
+            "index_base": 0
+          }
+        ]
+      },
+      {
+        "statement": "a(n) = a(n-1) + 2·a(n-2)",
+        "channel": "linear",
+        "recognition": null,
+        "is_known": false,
+        "members": [
+          {
+            "seq": "jacobsthal",
+            "cn": "Jacobsthal 序列",
+            "status": "CANDIDATE_UNVERIFIED",
+            "index_base": 0
+          }
+        ]
+      },
+      {
+        "statement": "a(n) = a(n-1) + a(n-2) + 1",
+        "channel": "linear",
+        "recognition": null,
+        "is_known": false,
+        "members": [
+          {
+            "seq": "fib_prefix_sum",
+            "cn": "斐波那契前缀和",
+            "status": "CANDIDATE_UNVERIFIED",
+            "index_base": 0
+          }
+        ]
+      },
+      {
+        "statement": "a(n) = a(n-1) + a(n-2) + a(n-3)",
+        "channel": "linear",
+        "recognition": "三项递推 T(n)=T(n-1)+T(n-2)+T(n-3)",
+        "is_known": true,
+        "members": [
+          {
+            "seq": "tribonacci",
+            "cn": "三项斐波那契",
+            "status": "KNOWN_RECURRENCE_REDISCOVERED",
+            "index_base": 0
+          }
+        ]
+      },
+      {
+        "statement": "a(n+1)/a(n) = (1 + 2n + n^2) / (n^2)",
+        "channel": "hyper",
+        "recognition": "a(n+1)/a(n)=(n+1)^2/n^2（由定义直接可得）",
+        "is_known": true,
+        "members": [
+          {
+            "seq": "squares",
+            "cn": "平方数",
+            "status": "KNOWN_RECURRENCE_REDISCOVERED",
+            "index_base": 0
+          }
+        ]
+      },
+      {
+        "statement": "a(n+1)/a(n) = (1 + n) / (1)",
+        "channel": "hyper",
+        "recognition": "超几何闭式 a(n+1)/a(n)=n+1",
+        "is_known": true,
+        "members": [
+          {
+            "seq": "factorial",
+            "cn": "阶乘",
+            "status": "KNOWN_RECURRENCE_REDISCOVERED",
+            "index_base": 0
+          }
+        ]
+      },
+      {
+        "statement": "a(n+1)/a(n) = (2 + 4n) / (1 + n)",
+        "channel": "hyper",
+        "recognition": "超几何闭式 a(n+1)/a(n)=(4n+2)/(n+1)",
+        "is_known": true,
+        "members": [
+          {
+            "seq": "central_binomial",
+            "cn": "中心二项式系数",
+            "status": "KNOWN_RECURRENCE_REDISCOVERED",
+            "index_base": 0
+          }
+        ]
+      },
+      {
+        "statement": "a(n+1)/a(n) = (2 + 4n) / (2 + n)",
+        "channel": "hyper",
+        "recognition": "超几何闭式 a(n+1)/a(n)=(4n+2)/(n+2)",
+        "is_known": true,
+        "members": [
+          {
+            "seq": "catalan",
+            "cn": "卡特兰数",
+            "status": "KNOWN_RECURRENCE_REDISCOVERED",
+            "index_base": 0
+          }
+        ]
+      },
+      {
+        "statement": "a(n+1)/a(n) = (2 + n) / (n)",
+        "channel": "hyper",
+        "recognition": "a(n+1)/a(n)=(n+2)/n（由定义直接可得）",
+        "is_known": true,
+        "members": [
+          {
+            "seq": "triangular",
+            "cn": "三角形数",
+            "status": "KNOWN_RECURRENCE_REDISCOVERED",
+            "index_base": 0
+          }
+        ]
+      },
+      {
+        "statement": "a(n+1)/a(n) = (2) / (1)",
+        "channel": "hyper",
+        "recognition": "等比：a(n+1)/a(n)=2（由定义直接可得）",
+        "is_known": true,
+        "members": [
+          {
+            "seq": "powers_of_two",
+            "cn": "2 的幂",
+            "status": "KNOWN_RECURRENCE_REDISCOVERED",
+            "index_base": 0
+          }
+        ]
+      }
+    ]
+  },
+  "self_audit": {
+    "checks": [
+      {
+        "check": "留出集非空（n_terms > discovery_len）",
+        "passed": true,
+        "violations": [],
+        "why": "发现集若等于全量，外推检验就是自证，等于没有检验"
+      },
+      {
+        "check": "候选均通过外推检验",
+        "passed": true,
+        "violations": [],
+        "why": "未通过外推的东西若被标成候选，说明状态机与检验逻辑脱钩"
+      },
+      {
+        "check": "重发现均带 known_id",
+        "passed": true,
+        "violations": [],
+        "why": "没有出处的重发现无法复核，等于自封"
+      },
+      {
+        "check": "校准表条目均在序列库中",
+        "passed": true,
+        "violations": [],
+        "why": "校准表指向不存在的序列会让召回率虚高"
+      },
+      {
+        "check": "期望阳性与期望阴性不相交",
+        "passed": true,
+        "violations": [],
+        "why": "同一序列既要求找得到又要求找不到，校准就失去意义"
+      },
+      {
+        "check": "校准召回无遗漏",
+        "passed": true,
+        "violations": [],
+        "why": "漏掉已知的递推说明搜索空间或阶数上限不够"
+      },
+      {
+        "check": "期望阴性上无假警报",
+        "passed": true,
+        "violations": [],
+        "why": "在不该有递推的序列上报出候选，说明过拟合没被挡住"
+      },
+      {
+        "check": "独立重算与引擎判定一致",
+        "passed": true,
+        "violations": [],
+        "why": "审计用另一份实现重算，若与引擎结论不一致，至少一方有 bug"
+      },
+      {
+        "check": "C1↔C3 对账无分歧（11/11）",
+        "passed": true,
+        "violations": [],
+        "why": "递推特征根与窗口拟合若给出不同类型，至少一方有 bug；这是两条独立路径的交叉检验"
+      },
+      {
+        "check": "关系网成员数一致（网内 17 / 存活 17）",
+        "passed": true,
+        "violations": [],
+        "why": "网若漏掉存活项，说明聚合口径与筛选口径不一致"
+      }
+    ],
+    "total_checks": 10,
+    "violations": 0,
+    "generated_at": "2026-09-19T18:38:32",
+    "provenance": {
+      "ai_assisted": true,
+      "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"
+    }
+  }
+}

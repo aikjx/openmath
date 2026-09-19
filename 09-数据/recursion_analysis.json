@@ -1,7 +1,7 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_meta.py",
-    "generated_at": "2026-09-19T15:07:04",
+    "generated_at": "2026-09-19T18:33:47",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"
@@ -124,14 +124,20 @@
         "fired": [
           "S1_ingest",
           "S3_experiments",
-          "S7_theory"
+          "S7_theory",
+          "S8_audit",
+          "S9_sequences"
         ],
         "new_artifacts": [
+          "A_audit",
           "A_cd",
           "A_exp",
           "A_expr",
           "A_forge",
           "A_papers",
+          "A_seq_cands",
+          "A_seq_net",
+          "A_sequences",
           "A_theory_cands",
           "A_theory_net"
         ]
@@ -186,6 +192,7 @@
     ],
     "rounds_to_fixed_point": 4,
     "fixed_point_artifacts": [
+      "A_audit",
       "A_cd",
       "A_coalition",
       "A_conjectures",
@@ -205,13 +212,16 @@
       "A_recursion",
       "A_remote",
       "A_roadmap",
+      "A_seq_cands",
+      "A_seq_net",
+      "A_sequences",
       "A_space",
       "A_taxonomy",
       "A_theory_cands",
       "A_theory_net",
       "A_verification"
     ],
-    "closure_size": 24,
+    "closure_size": 28,
     "self_application_present": true,
     "self_application_note": "S6_meta（以及不吃任何上游产物的 S7_theory）的输出不被**任何**阶段消费，因此算子在第 4 轮（S6 触发）后停住 —— 这就是套娃的**不动点**。真正的自指只有一处：S6 分析的对象（STAGES 描述）包含 S6 自身，即'把套娃了自己一圈的流水线作为输入'。但这只是**结构自洽性**操作，不产生任何新的数学真值。注意 S7_theory 虽然在第 1 轮就能触发（它不依赖任何上游产物），但它同样无人消费，因此对不动点的轮次没有贡献——**多加一个阶段并不自动多加一层套娃**。"
   },
@@ -278,7 +288,11 @@
     "A_meta_roadmap": "元路线图",
     "A_forge": "理论锻造全量结果（候选 + 反例台账）",
     "A_theory_net": "各对象族的不变量理论体系网",
-    "A_theory_cands": "通过主筛选的候选关系清单"
+    "A_theory_cands": "通过主筛选的候选关系清单",
+    "A_audit": "独立审计结果（用不同算法重算全部可复核数字）",
+    "A_sequences": "序列理论全量结果（递推 / 超几何闭式 / 增长率 + 对账）",
+    "A_seq_net": "序列关系网（同一递推解空间里的成员聚合）",
+    "A_seq_cands": "序列候选清单 + 人工复核队列"
   },
   "diminishing_returns_note": "层级每上一阶，可执行的方法条数骤降（见 layer_profile），而'缺失一层的代价'急剧上升：L1 缺一项只影响对应题型，L2 缺一项（如方法选择）会让**所有**已实现的 L1 方法无法被自动调度。这正是当前最大的结构性短板。"
 }
