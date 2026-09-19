@@ -10,7 +10,8 @@ import sys
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
 _REPO = os.path.dirname(_HERE)
-sys.path.insert(0, os.path.join(os.path.dirname(_REPO), "openmath_sys", "src"))
+# 引擎已收纳进本仓库：06-AI自动化/02-引擎/openmath_sys/
+sys.path.insert(0, os.path.join(_REPO, "06-AI自动化", "02-引擎", "openmath_sys", "src"))
 
 from openmath_sys.fetcher import fetch_openmath_cd_raw, parse_ocd  # noqa: E402
 

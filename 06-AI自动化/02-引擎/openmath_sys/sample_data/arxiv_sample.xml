@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <entry>
+    <id>http://arxiv.org/abs/2101.00001</id>
+    <title>OpenMath Content Dictionaries for Computer Algebra Systems</title>
+    <summary>This paper studies the use of OpenMath content dictionaries to interoperate between computer algebra systems. We present a semantic layer that maps symbolic expressions to formal definitions and enables cross-system verification of algebraic identities.</summary>
+    <author><name>A. Mathematician</name></author>
+    <published>2021-03-12T00:00:00Z</published>
+    <category term="cs.SC"/>
+    <category term="math.LO"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2101.00001"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2205.12345</id>
+    <title>Four-Dimensional Logical Frameworks for Symbolic Computation</title>
+    <summary>We propose a four-dimensional reasoning framework separating syntactic, semantic, structural and computational concerns when processing mathematical equations. The method improves reliability of automated theorem proving over polynomial equations.</summary>
+    <author><name>B. Logician</name></author>
+    <author><name>C. Algebraist</name></author>
+    <published>2022-08-01T00:00:00Z</published>
+    <category term="math.LO"/>
+    <category term="cs.LO"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2205.12345"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2309.99999</id>
+    <title>A Unified Scheduler for Mathematical Algorithm Alliances</title>
+    <summary>We describe an authority-graded scheduler that coordinates parsing, solving and simplification algorithms under a single safe execution model. Permissions are logical, never operating-system level, ensuring reproducible and contained computation.</summary>
+    <author><name>D. Engineer</name></author>
+    <published>2023-11-20T00:00:00Z</published>
+    <category term="cs.DC"/>
+    <category term="cs.SC"/>
+    <link title="pdf" href="http://arxiv.org/pdf/2309.99999"/>
+  </entry>
+</feed>

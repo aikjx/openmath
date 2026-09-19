@@ -1,0 +1,146 @@
+[
+  {
+    "paper_id": "http://arxiv.org/abs/1803.01592v1",
+    "title": "OpenMath and SMT-LIB",
+    "authors": [
+      "James H. Davenport",
+      "Matthew England",
+      "Roberto Sebastiani",
+      "Patrick Trentin"
+    ],
+    "summary": "OpenMath and SMT-LIB are languages with very different origins, but both \"represent mathematics\". We describe SMT-LIB for the OpenMath community and consider adaptations for both languages to support the growing SC-Square initiative.",
+    "url": "http://arxiv.org/abs/1803.01592v1",
+    "pdf_url": "https://arxiv.org/pdf/1803.01592v1",
+    "published": "2018-03-05T10:33:50Z",
+    "categories": [
+      "cs.SC",
+      "cs.MS"
+    ],
+    "score": 0.0
+  },
+  {
+    "paper_id": "http://arxiv.org/abs/1006.4057v1",
+    "title": "Towards OpenMath Content Dictionaries as Linked Data",
+    "authors": [
+      "Christoph Lange"
+    ],
+    "summary": "\"The term 'Linked Data' refers to a set of best practices for publishing and connecting structured data on the web\". Linked Data make the Semantic Web work practically, which means that information can be retrieved without complicated lookup mechanisms, that a lightweight semantics enables scalable reasoning, and that the decentral nature of the Web is respected. OpenMath Content Dictionaries (CDs) have the same characteristics - in principle, but not yet in practice. The Linking Open Data movement has made a considerable practical impact: Governments, broadcasting stations, scientific publishers, and many more actors are already contributing to the \"Web of Data\". Queries can be answered in a distributed way, and services aggregating data from different sources are replacing hard-coded mashups. However, these services are currently entirely lacking mathematical functionality. I will discuss real-world scenarios, where today's RDF-based Linked Data do not quite get their job done, but where an integration of OpenMath would help - were it not for certain conceptual and practical restrictions. I will point out conceptual shortcomings in the OpenMath 2 specification and common bad practices in publishing CDs and then propose concrete steps to overcome them and to contribute OpenMath CDs to the Web of Data.",
+    "url": "http://arxiv.org/abs/1006.4057v1",
+    "pdf_url": "https://arxiv.org/pdf/1006.4057v1",
+    "published": "2010-06-21T13:00:22Z",
+    "categories": [
+      "cs.DL",
+      "cs.MS"
+    ],
+    "score": 0.0
+  },
+  {
+    "paper_id": "http://arxiv.org/abs/2405.10578v3",
+    "title": "Jacobi Stability Analysis for Systems of ODEs Using Symbolic Computation",
+    "authors": [
+      "Bo Huang",
+      "Dongming Wang",
+      "Jing Yang"
+    ],
+    "summary": "The classical theory of Kosambi-Cartan-Chern (KCC) developed in differential geometry provides a powerful method for analyzing the behaviors of dynamical systems. In the KCC theory, the properties of a dynamical system are described in terms of five geometrical invariants, of which the second corresponds to the so-called Jacobi stability of the system. Different from that of the Lyapunov stability that has been studied extensively in the literature, the analysis of the Jacobi stability has been investigated more recently using geometrical concepts and tools. It turns out that the existing work on the Jacobi stability analysis remains theoretical and the problem of algorithmic and symbolic treatment of Jacobi stability analysis has yet to be addressed. In this paper, we initiate our study on the problem for a class of ODE systems of arbitrary dimension and propose two algorithmic schemes using symbolic computation to check whether a nonlinear dynamical system may exhibit Jacobi stability. The first scheme, based on the construction of the complex root structure of a characteristic polynomial and on the method of quantifier elimination, is capable of detecting the existence of the Jacobi stability of the given dynamical system. The second algorithmic scheme exploits the method of semi-algebraic system solving and allows one to determine conditions on the parameters for a given dynamical system to have a prescribed number of Jacobi stable fixed points. Several examples are presented to demonstrate the effectiveness of the proposed algorithmic schemes.",
+    "url": "http://arxiv.org/abs/2405.10578v3",
+    "pdf_url": "https://arxiv.org/pdf/2405.10578v3",
+    "published": "2024-05-17T07:05:21Z",
+    "categories": [
+      "cs.SC"
+    ],
+    "score": 0.0
+  },
+  {
+    "paper_id": "http://arxiv.org/abs/2305.11109v1",
+    "title": "Using Symbolic Computation to Analyze Zero-Hopf Bifurcations of Polynomial Differential Systems",
+    "authors": [
+      "Bo Huang"
+    ],
+    "summary": "This paper is devoted to the study of infinitesimal limit cycles that can bifurcate from zero-Hopf equilibria of differential systems based on the averaging method. We develop an efficient symbolic program using Maple for computing the averaged functions of any order for continuous differential systems in arbitrary dimension. The program allows us to systematically analyze zero-Hopf bifurcations of polynomial differential systems using symbolic computation methods. We show that for the first-order averaging, $\\ell\\in\\{0,1,\\ldots,2^{n-3}\\}$ limit cycles can bifurcate from the zero-Hopf equilibrium for the general class of perturbed differential systems and up to the second-order averaging, the maximum number of limit cycles can be determined by computing the mixed volume of a polynomial system obtained from the averaged functions. A number of examples are presented to demonstrate the effectiveness of the proposed algorithmic approach.",
+    "url": "http://arxiv.org/abs/2305.11109v1",
+    "pdf_url": "https://arxiv.org/pdf/2305.11109v1",
+    "published": "2023-05-18T16:52:56Z",
+    "categories": [
+      "cs.SC",
+      "math.DS"
+    ],
+    "score": 0.0
+  },
+  {
+    "paper_id": "http://arxiv.org/abs/2004.02193v1",
+    "title": "A Method of Verifying Partition Congruences by Symbolic Computation",
+    "authors": [
+      "Cristian-Silviu Radu",
+      "Nicolas Allen Smoot"
+    ],
+    "summary": "Conjectures involving infinite families of restricted partition congruences can be difficult to verify for a number of individual cases, even with a computer. We demonstrate how the machinery of Radu's algorithm may be modified and employed to efficiently check a very large number of cases of such conjectures. This allows substantial evidence to be collected for a given conjecture, before a complete proof is attempted.",
+    "url": "http://arxiv.org/abs/2004.02193v1",
+    "pdf_url": "https://arxiv.org/pdf/2004.02193v1",
+    "published": "2020-04-05T13:07:51Z",
+    "categories": [
+      "math.NT"
+    ],
+    "score": 0.0
+  },
+  {
+    "paper_id": "http://arxiv.org/abs/2605.04978v1",
+    "title": "Exhaustive Symbolic Integration: Integration by Differentiation and the Landscape of Symbolic Integrability",
+    "authors": [
+      "Harry Desmond"
+    ],
+    "summary": "We introduce Exhaustive Symbolic Integration (ESI), a method that enumerates all symbolic functions up to a given complexity $k$ within a specified operator basis and determines which admit closed-form antiderivatives within the same class. This allows us to compute the \"integrability fraction\" $ρ(k)$ (the fraction of functions whose derivatives lie within the same class), which we do for five operator bases including combinations of rational functions, powers, exponentials, logarithms and trigonometric functions. We find that $ρ(k)$ declines at high complexity and that the operator basis has a dramatic effect -- in particular, adding the logarithm boosts $ρ(k)$ by a factor of $\\sim$3 and produces or exacerbates a clear peak at $k=6$. We also deploy ESI as a novel integration algorithm, identifying three integrals that resist SymPy, Mathematica, RUBI, FriCAS, Maxima and Giac under all tested strategies. When an antiderivative can be found by multiple methods, ESI often returns the simplest form. These results reveal that the landscape of symbolic integrability is shaped primarily by the choice of operators, and that exhaustive enumeration can systematically discover integrable forms -- including novel ones -- that elude computer albegra systems.",
+    "url": "http://arxiv.org/abs/2605.04978v1",
+    "pdf_url": "https://arxiv.org/pdf/2605.04978v1",
+    "published": "2026-05-06T14:32:05Z",
+    "categories": [
+      "cs.SC",
+      "cs.LO"
+    ],
+    "score": 0.0
+  },
+  {
+    "paper_id": "http://arxiv.org/abs/1902.04882v1",
+    "title": "Identifying the Parametric Occurrence of Multiple Steady States for some Biological Networks",
+    "authors": [
+      "R. Bradford",
+      "J. H. Davenport",
+      "M. England",
+      "H. Errami",
+      "V. Gerdt",
+      "D. Grigoriev",
+      "C. Hoyt",
+      "M. Kosta",
+      "O. Radulescu",
+      "T. Sturm",
+      "A. Weber"
+    ],
+    "summary": "We consider a problem from biological network analysis of determining regions in a parameter space over which there are multiple steady states for positive real values of variables and parameters. We describe multiple approaches to address the problem using tools from Symbolic Computation. We describe how progress was made to achieve semi-algebraic descriptions of the multistationarity regions of parameter space, and compare symbolic results to numerical methods. The biological networks studied are models of the mitogen-activated protein kinases (MAPK) network which has already consumed considerable effort using special insights into its structure of corresponding models. Our main example is a model with 11 equations in 11 variables and 19 parameters, 3 of which are of interest for symbolic treatment. The model also imposes positivity conditions on all variables and parameters. We apply combinations of symbolic computation methods designed for mixed equality/inequality systems, specifically virtual substitution, lazy real triangularization and cylindrical algebraic decomposition, as well as a simplification technique adapted from Gaussian elimination and graph theory. We are able to determine multistationarity of our main example over a 2-dimensional parameter space. We also study a second MAPK model and a symbolic grid sampling technique which can locate such regions in 3-dimensional parameter space.",
+    "url": "http://arxiv.org/abs/1902.04882v1",
+    "pdf_url": "https://arxiv.org/pdf/1902.04882v1",
+    "published": "2019-02-13T13:12:34Z",
+    "categories": [
+      "cs.SC"
+    ],
+    "score": 0.0
+  },
+  {
+    "paper_id": "http://arxiv.org/abs/cs/0004015v2",
+    "title": "Introduction to the GiNaC Framework for Symbolic Computation within the C++ Programming Language",
+    "authors": [
+      "Christian Bauer",
+      "Alexander Frink",
+      "Richard Kreckel"
+    ],
+    "summary": "The traditional split-up into a low level language and a high level language in the design of computer algebra systems may become obsolete with the advent of more versatile computer languages. We describe GiNaC, a special-purpose system that deliberately denies the need for such a distinction. It is entirely written in C++ and the user can interact with it directly in that language. It was designed to provide efficient handling of multivariate polynomials, algebras and special functions that are needed for loop calculations in theoretical quantum field theory. It also bears some potential to become a more general purpose symbolic package.",
+    "url": "http://arxiv.org/abs/cs/0004015v2",
+    "pdf_url": "https://arxiv.org/pdf/cs/0004015v2",
+    "published": "2000-04-27T10:30:58Z",
+    "categories": [
+      "cs.SC",
+      "hep-ph",
+      "physics.comp-ph"
+    ],
+    "score": 0.0
+  }
+]

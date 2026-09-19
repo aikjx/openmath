@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "generated_by": "06-AI自动化/01-工作流/openmath_synthesis.py",
+    "generated_at": "2026-09-19T11:32:08",
+    "provenance": {
+      "ai_assisted": true,
+      "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"
+    },
+    "honesty": "本文件为 L0/L2 级整理与计算产物。有限域穷举结论在其论域内严格，但**不蕴含**任何无限域猜想的证明。",
+    "critical_distinction": "**穷举演绎证明**（exhaustive_deductive）：论域有限且被**逐一**检验，结论在该论域内逻辑严格，是真正的证明。\n**抽样数值验证**（sampled_numerical）：只检验部分样本，无论样本多少都**不是证明**，仅为支持性证据。\n本体系产生的所有'定理'均属前者（有限论域），且**无一蕴含**对应的无限域猜想。",
+    "why_finite_is_not_enough": "从有限到无限是**量词层面的跳跃**：有限定理是∀n∈S（S 有限），猜想是 ∀n∈ℕ（无限）。在经典逻辑中，对有限多个实例的验证永远无法演绎出全称命题——这不是'证据不够多'的问题，而是**推理形式本身不允许**。"
+  },
+  "summary": {
+    "theorems": 5,
+    "all_exhaustive": true,
+    "none_implies_conjecture": true
+  },
+  "theorems": [
+    {
+      "id": "FT-GC-10000",
+      "name": "哥德巴赫猜想的有限化（n ≤ 10000）",
+      "statement": "对所有偶数 n，4 ≤ n ≤ 10000，存在素数 p, q 使得 n = p + q。",
+      "proof_type": "exhaustive_deductive",
+      "is_proof": true,
+      "method": "对区间内每一个偶数逐一检验（素数表由埃拉托斯特尼筛精确构造）",
+      "domain": "有限集 {n 偶数 : 4 ≤ n ≤ 10000}",
+      "result": true,
+      "evidence": {
+        "limit": 10000,
+        "min_partitions": {
+          "n": 4,
+          "count": 1
+        }
+      },
+      "does_not_imply": "哥德巴赫猜想（对所有偶数）。有限论域之外无任何断言。"
+    },
+    {
+      "id": "FT-ABC-3000",
+      "name": "ABC 三元组质量的有限化上界（c ≤ 3000）",
+      "statement": "在所有满足 a+b=c、gcd(a,b)=1、c ≤ 3000 的三元组中，quality q = ln c / ln rad(abc) 的最大值为 1.455673，在 (a,b,c)=(1,2400,2401) 处取得。",
+      "proof_type": "exhaustive_deductive",
+      "is_proof": true,
+      "method": "枚举全部 (a,c) 组合并用筛法预计算 rad 表，完整穷举论域",
+      "domain": "有限集 {三元组 : c ≤ 3000}",
+      "result": 1.455673,
+      "evidence": {
+        "triples_with_q_above_1": 57,
+        "top": {
+          "a": 1,
+          "b": 2400,
+          "c": 2401,
+          "rad": 210,
+          "quality": 1.455673
+        }
+      },
+      "does_not_imply": "ABC 猜想。已知更高 quality 的例子存在于更大 c（如 q≈1.6299），故本上界**不是**全局上界，仅是论域内的精确值。"
+    },
+    {
+      "id": "FT-COLLATZ-20000",
+      "name": "Collatz 迭代的有限化（n ≤ 20000）",
+      "statement": "对所有 n，1 ≤ n ≤ 20000，Collatz 迭代序列在有限步内到达 1。",
+      "proof_type": "exhaustive_deductive",
+      "is_proof": true,
+      "method": "逐个计算总停止时间（带记忆化），全部有限终止",
+      "domain": "有限集 {n : 1 ≤ n ≤ 20000}",
+      "result": true,
+      "evidence": {
+        "n_max": 20000,
+        "overall_mean_steps": 91.7317
+      },
+      "does_not_imply": "Collatz 猜想。已知的验证上限远高于此（~10^20 量级），但**任何**有限上限都不构成证明。"
+    },
+    {
+      "id": "FT-TWIN-200000",
+      "name": "孪生素数的有限化精确计数（≤ 200000）",
+      "statement": "在区间 [1, 200000] 内，孪生素数对恰有 2160 对。",
+      "proof_type": "exhaustive_deductive",
+      "is_proof": true,
+      "method": "埃拉托斯特尼筛精确构造素数表后逐点计数",
+      "domain": "有限集 {p ≤ 200000 : p 与 p+2 均为素数}",
+      "result": 2160,
+      "evidence": {
+        "largest_pair": [
+          199931,
+          199933
+        ]
+      },
+      "does_not_imply": "孪生素数猜想（有无穷多对）。计数结果只描述有限区间。"
+    },
+    {
+      "id": "FT-PI-100000",
+      "name": "素数计数的精确值（x = 10^5）",
+      "statement": "π(100000) = 9592。",
+      "proof_type": "exhaustive_deductive",
+      "is_proof": true,
+      "method": "筛法精确计数（非估计）",
+      "domain": "有限集 {素数 p ≤ 100000}",
+      "result": 9592,
+      "evidence": {
+        "li_x": 9630.04,
+        "x_over_ln_x": 8685.89,
+        "rel_err_li": 0.003966,
+        "rel_err_x_over_ln": 0.094465
+      },
+      "does_not_imply": "素数定理（无限极限命题）。此处仅给出单点精确值。注意：li 与 π 的差值在有限处很小，**不排除**其在更大 x 处变号（Littlewood 定理，见 Skewes 型警告）。"
+    }
+  ]
+}

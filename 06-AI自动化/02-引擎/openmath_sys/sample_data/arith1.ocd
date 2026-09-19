@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CD>
+  <CDName>arith1</CDName>
+  <CDBase>http://www.openmath.org/cd</CDBase>
+  <Description>Common arithmetic functions (bundled sample for offline demo).</Description>
+
+  <CDDefinition>
+    <Name>plus</Name>
+    <Description>The symbol representing an n-ary commutative function for addition.</Description>
+    <CMP>n-ary addition is commutative.</CMP>
+  </CDDefinition>
+
+  <CDDefinition>
+    <Name>minus</Name>
+    <Description>The symbol representing a binary minus function.</Description>
+    <CMP>x - 0 = x</CMP>
+  </CDDefinition>
+
+  <CDDefinition>
+    <Name>times</Name>
+    <Description>The symbol representing an n-ary multiplication function.</Description>
+    <CMP>n-ary multiplication is commutative.</CMP>
+  </CDDefinition>
+
+  <CDDefinition>
+    <Name>divide</Name>
+    <Description>The symbol representing a (binary) division function.</Description>
+    <CMP>Division is the inverse of multiplication.</CMP>
+  </CDDefinition>
+
+  <CDDefinition>
+    <Name>power</Name>
+    <Description>The symbol representing a power function.</Description>
+    <CMP>x^0 = 1</CMP>
+  </CDDefinition>
+
+  <CDDefinition>
+    <Name>abs</Name>
+    <Description>The symbol representing the absolute value function.</Description>
+    <CMP>abs(x) &gt;= 0</CMP>
+  </CDDefinition>
+
+  <CDDefinition>
+    <Name>root</Name>
+    <Description>The symbol representing a binary root function.</Description>
+    <CMP>root(x, 2) = sqrt(x)</CMP>
+  </CDDefinition>
+
+  <CDDefinition>
+    <Name>gcd</Name>
+    <Description>The symbol representing the n-ary greatest common divisor.</Description>
+    <CMP>gcd(a, b) divides both a and b.</CMP>
+  </CDDefinition>
+
+  <CDDefinition>
+    <Name>lcm</Name>
+    <Description>The symbol representing the n-ary least common multiple.</Description>
+    <CMP>lcm(a, b) = a * b / gcd(a, b)</CMP>
+  </CDDefinition>
+
+  <CDDefinition>
+    <Name>sum</Name>
+    <Description>The symbol representing a bound summation.</Description>
+    <CMP>sum over a range of a constant is count times constant.</CMP>
+  </CDDefinition>
+
+  <CDDefinition>
+    <Name>product</Name>
+    <Description>The symbol representing a bound product.</Description>
+    <CMP>empty product equals 1.</CMP>
+  </CDDefinition>
+</CD>

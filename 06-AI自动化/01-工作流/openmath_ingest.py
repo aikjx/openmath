@@ -40,7 +40,8 @@ _HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = _HERE
 for _ in range(2):  # 06-AI自动化/01-工作流 -> openmath 仓库根
     REPO = os.path.dirname(REPO)
-sys.path.insert(0, os.path.join(os.path.dirname(REPO), "openmath_sys", "src"))
+# 引擎已收纳进本仓库：06-AI自动化/02-引擎/openmath_sys/
+sys.path.insert(0, os.path.join(REPO, "06-AI自动化", "02-引擎", "openmath_sys", "src"))
 
 from openmath_sys.fetcher import (  # noqa: E402
     fetch_openmath_cd_raw, fetch_arxiv, parse_ocd, rank_papers,

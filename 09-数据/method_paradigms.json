@@ -1,0 +1,195 @@
+{
+  "meta": {
+    "generated_by": "06-AI自动化/01-工作流/openmath_synthesis.py",
+    "generated_at": "2026-09-19T11:32:08",
+    "provenance": {
+      "ai_assisted": true,
+      "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"
+    },
+    "honesty": "本文件为 L0/L2 级整理与计算产物。有限域穷举结论在其论域内严格，但**不蕴含**任何无限域猜想的证明。",
+    "note": "按**处理逻辑范式**（我们能做哪一类操作）而非数学领域归类。同一范式可跨多个数学领域复用；范式层面的空白比领域层面的空白更致命，因为它意味着'这一类操作根本不会做'。"
+  },
+  "summary": {
+    "paradigms": 12,
+    "methods_classified": 34,
+    "fully_blank_paradigms": [
+      "analogy",
+      "structure_computation",
+      "transform"
+    ]
+  },
+  "paradigms": [
+    {
+      "paradigm": "construction",
+      "name": "构造",
+      "description": "生成满足条件的数学对象或集合",
+      "methods_total": 3,
+      "methods_implemented": 3,
+      "implemented_ids": [
+        "prime_sieve",
+        "sieve_theory",
+        "rad_computation"
+      ],
+      "missing_ids": [],
+      "coverage": 1.0
+    },
+    {
+      "paradigm": "evaluation",
+      "name": "求值",
+      "description": "代入具体数值/参数计算结果",
+      "methods_total": 3,
+      "methods_implemented": 2,
+      "implemented_ids": [
+        "arith_eval",
+        "transc_eval"
+      ],
+      "missing_ids": [
+        "l_function_evaluation"
+      ],
+      "coverage": 0.6667
+    },
+    {
+      "paradigm": "search",
+      "name": "搜索",
+      "description": "在（可能无限的）空间中寻找目标点/根/解",
+      "methods_total": 3,
+      "methods_implemented": 2,
+      "implemented_ids": [
+        "exhaustive_search",
+        "numeric_root"
+      ],
+      "missing_ids": [
+        "numeric_zero_search"
+      ],
+      "coverage": 0.6667
+    },
+    {
+      "paradigm": "solving",
+      "name": "求解",
+      "description": "求出未知量的精确或数值解",
+      "methods_total": 3,
+      "methods_implemented": 2,
+      "implemented_ids": [
+        "linear_solve",
+        "quadratic_formula"
+      ],
+      "missing_ids": [
+        "gaussian_elimination"
+      ],
+      "coverage": 0.6667
+    },
+    {
+      "paradigm": "approximation",
+      "name": "逼近",
+      "description": "给出渐近式或上/下界估计",
+      "methods_total": 4,
+      "methods_implemented": 1,
+      "implemented_ids": [
+        "asymptotic_estimation"
+      ],
+      "missing_ids": [
+        "limit_computation",
+        "circle_method",
+        "energy_estimate"
+      ],
+      "coverage": 0.25
+    },
+    {
+      "paradigm": "decision",
+      "name": "判定",
+      "description": "判断对象属于哪个类别或是否具有某性质",
+      "methods_total": 1,
+      "methods_implemented": 1,
+      "implemented_ids": [
+        "poly_classify"
+      ],
+      "missing_ids": [],
+      "coverage": 1.0
+    },
+    {
+      "paradigm": "reduction",
+      "name": "归约",
+      "description": "把问题化归到另一（已知）问题或缩小论域",
+      "methods_total": 2,
+      "methods_implemented": 1,
+      "implemented_ids": [
+        "modular_analysis"
+      ],
+      "missing_ids": [
+        "complexity_reduction"
+      ],
+      "coverage": 0.5
+    },
+    {
+      "paradigm": "representation",
+      "name": "表示",
+      "description": "把对象编码为可机器处理的形式（解析/建模）",
+      "methods_total": 1,
+      "methods_implemented": 1,
+      "implemented_ids": [
+        "ast_parse"
+      ],
+      "missing_ids": [],
+      "coverage": 1.0
+    },
+    {
+      "paradigm": "simulation",
+      "name": "模拟",
+      "description": "按规则演化系统并观察统计行为",
+      "methods_total": 4,
+      "methods_implemented": 1,
+      "implemented_ids": [
+        "map_iteration"
+      ],
+      "missing_ids": [
+        "pde_numerical_simulation",
+        "lattice_qcd_numeric",
+        "ricci_flow_analysis"
+      ],
+      "coverage": 0.25
+    },
+    {
+      "paradigm": "analogy",
+      "name": "类比",
+      "description": "把对象映射到另一领域，借用其已知结构",
+      "methods_total": 1,
+      "methods_implemented": 0,
+      "implemented_ids": [],
+      "missing_ids": [
+        "random_matrix_analogy"
+      ],
+      "coverage": 0.0
+    },
+    {
+      "paradigm": "structure_computation",
+      "name": "结构计算",
+      "description": "计算代数/拓扑不变量（秩、上同调等）",
+      "methods_total": 3,
+      "methods_implemented": 0,
+      "implemented_ids": [],
+      "missing_ids": [
+        "elliptic_curve_computation",
+        "cohomology_computation",
+        "algebraic_complexity"
+      ],
+      "coverage": 0.0
+    },
+    {
+      "paradigm": "transform",
+      "name": "变换",
+      "description": "把对象等价改写为另一形式",
+      "methods_total": 6,
+      "methods_implemented": 0,
+      "implemented_ids": [],
+      "missing_ids": [
+        "factorization",
+        "grobner_basis",
+        "eigen_decomposition",
+        "symbolic_diff",
+        "symbolic_int",
+        "renormalization"
+      ],
+      "coverage": 0.0
+    }
+  ]
+}

@@ -1,0 +1,814 @@
+{
+  "symbols": [
+    {
+      "name": "lcm",
+      "cd": "arith1",
+      "description": "The symbol to represent the n-ary function to return the least common multiple of its arguments.",
+      "properties": [
+        "lcm(a,b) = a*b/gcd(a,b)",
+        "for all integers a,b | There does not exist a c>0 such that c/a is an Integer and c/b is an Integer and lcm(a,b) > c."
+      ]
+    },
+    {
+      "name": "gcd",
+      "cd": "arith1",
+      "description": "The symbol to represent the n-ary function to return the gcd (greatest common divisor) of its arguments.",
+      "properties": [
+        "for all integers a,b | There does not exist a c such that a/c is an Integer and b/c is an Integer and c > gcd(a,b). Note that this implies that gcd(a,b) > 0"
+      ]
+    },
+    {
+      "name": "plus",
+      "cd": "arith1",
+      "description": "The symbol representing an n-ary commutative function plus.",
+      "properties": [
+        "for all a,b | a + b = b + a"
+      ]
+    },
+    {
+      "name": "unary_minus",
+      "cd": "arith1",
+      "description": "This symbol denotes unary minus, i.e. the additive inverse.",
+      "properties": [
+        "for all a | a + (-a) = 0"
+      ]
+    },
+    {
+      "name": "minus",
+      "cd": "arith1",
+      "description": "The symbol representing a binary minus function. This is equivalent to adding the additive inverse.",
+      "properties": [
+        "for all a,b | a - b = a + (-b)"
+      ]
+    },
+    {
+      "name": "times",
+      "cd": "arith1",
+      "description": "The symbol representing an n-ary multiplication function.",
+      "properties": [
+        "for all a,b | a * 0 = 0 and a * b = a * (b - 1) + a",
+        "for all a,b,c | a*(b+c) = a*b + a*c"
+      ]
+    },
+    {
+      "name": "divide",
+      "cd": "arith1",
+      "description": "This symbol represents a (binary) division function denoting the first argument right-divided by the second, i.e. divide(a,b)=a*inverse(b). It is the inverse of the multiplication function defined by the symbol times in this CD.",
+      "properties": [
+        "whenever not(a=0) then a/a = 1"
+      ]
+    },
+    {
+      "name": "power",
+      "cd": "arith1",
+      "description": "This symbol represents a power function. The first argument is raised to the power of the second argument. When the second argument is not an integer, powering is defined in terms of exponentials and logarithms for the complex and real numbers. This operator can represent general powering.",
+      "properties": [
+        "x\\in C implies x^a = exp(a ln x)",
+        "if n is an integer then x^0 = 1, x^n = x * x^(n-1)"
+      ]
+    },
+    {
+      "name": "abs",
+      "cd": "arith1",
+      "description": "A unary operator which represents the absolute value of its argument. The argument should be numerically valued. In the complex case this is often referred to as the modulus.",
+      "properties": [
+        "for all x,y | abs(x) + abs(y) >= abs(x+y)"
+      ]
+    },
+    {
+      "name": "root",
+      "cd": "arith1",
+      "description": "A binary operator which represents its first argument \"lowered\" to its n'th root where n is the second argument. This is the inverse of the operation represented by the power symbol defined in this CD. Care should be taken as to the precise meaning of this operator, in particular which root is represented, however it is here to represent the general notion of taking n'th roots. As inferred by the signature relevant to this symbol, the function represented by this symbol is the single valued function, the specific root returned is the one indicated by the first CMP. Note also that the converse of the second CMP is not valid in general.",
+      "properties": [
+        "x\\in C implies root(x,n) = exp(ln(x)/n)",
+        "for all a,n | power(root(a,n),n) = a (if the root exists!)"
+      ]
+    },
+    {
+      "name": "sum",
+      "cd": "arith1",
+      "description": "An operator taking two arguments, the first being the range of summation, e.g. an integral interval, the second being the function to be summed. Note that the sum may be over an infinite interval.",
+      "properties": []
+    },
+    {
+      "name": "product",
+      "cd": "arith1",
+      "description": "An operator taking two arguments, the first being the range of multiplication e.g. an integral interval, the second being the function to be multiplied. Note that the product may be over an infinite interval.",
+      "properties": []
+    },
+    {
+      "name": "eq",
+      "cd": "relation1",
+      "description": "This symbol represents the binary equality function.",
+      "properties": [
+        "a=b and b=c implies a=c"
+      ]
+    },
+    {
+      "name": "lt",
+      "cd": "relation1",
+      "description": "This symbol represents the binary less than function which returns true if the first argument is less than the second, it returns false otherwise.",
+      "properties": [
+        "a<b and b<c implies a<c"
+      ]
+    },
+    {
+      "name": "gt",
+      "cd": "relation1",
+      "description": "This symbol represents the binary greater than function which returns true if the first argument is greater than the second, it returns false otherwise.",
+      "properties": [
+        "a>b and b>c implies a>c"
+      ]
+    },
+    {
+      "name": "neq",
+      "cd": "relation1",
+      "description": "This symbol represents the binary inequality function.",
+      "properties": [
+        "it is not true that a=/b and b=/c implies a=/c"
+      ]
+    },
+    {
+      "name": "leq",
+      "cd": "relation1",
+      "description": "This symbol represents the binary less than or equal to function which returns true if the first argument is less than or equal to the second, it returns false otherwise.",
+      "properties": [
+        "a<=b and b<=c implies a<=c"
+      ]
+    },
+    {
+      "name": "geq",
+      "cd": "relation1",
+      "description": "This symbol represents the binary greater than or equal to function which returns true if the first argument is greater than or equal to the second, it returns false otherwise.",
+      "properties": [
+        "a>=b and b>=c implies a>=c"
+      ]
+    },
+    {
+      "name": "approx",
+      "cd": "relation1",
+      "description": "This symbol is used to denote the approximate equality of its two arguments.",
+      "properties": []
+    },
+    {
+      "name": "log",
+      "cd": "transc1",
+      "description": "This symbol represents a binary log function; the first argument is the base, to which the second argument is log'ed. It is defined in Abramowitz and Stegun, Handbook of Mathematical Functions, section 4.1",
+      "properties": [
+        "a^b = c implies log_a c = b"
+      ]
+    },
+    {
+      "name": "ln",
+      "cd": "transc1",
+      "description": "This symbol represents the ln function (natural logarithm) as described in Abramowitz and Stegun, section 4.1. It takes one argument. Note the description in the CMP/FMP of the branch cut. If signed zeros are in use, the inequality needs to be non-strict.",
+      "properties": [
+        "-pi < Im ln x <= pi"
+      ]
+    },
+    {
+      "name": "exp",
+      "cd": "transc1",
+      "description": "This symbol represents the exponentiation function as described in Abramowitz and Stegun, section 4.2. It takes one argument.",
+      "properties": [
+        "for all k if k is an integer then e^(z+2*pi*k*i)=e^z"
+      ]
+    },
+    {
+      "name": "sin",
+      "cd": "transc1",
+      "description": "This symbol represents the sin function as described in Abramowitz and Stegun, section 4.3. It takes one argument.",
+      "properties": [
+        "sin(x) = (exp(ix)-exp(-ix))/2i",
+        "sin(A + B) = sin A cos B + cos A sin B",
+        "sin A = - sin(-A)"
+      ]
+    },
+    {
+      "name": "cos",
+      "cd": "transc1",
+      "description": "This symbol represents the cos function as described in Abramowitz and Stegun, section 4.3. It takes one argument.",
+      "properties": [
+        "cos(x) = (exp(ix)+exp(-ix))/2",
+        "cos 2A = cos^2 A - sin^2 A",
+        "cos A = cos(-A)"
+      ]
+    },
+    {
+      "name": "tan",
+      "cd": "transc1",
+      "description": "This symbol represents the tan function as described in Abramowitz and Stegun, section 4.3. It takes one argument.",
+      "properties": [
+        "tan A = sin A / cos A"
+      ]
+    },
+    {
+      "name": "sec",
+      "cd": "transc1",
+      "description": "This symbol represents the sec function as described in Abramowitz and Stegun, section 4.3. It takes one argument.",
+      "properties": [
+        "sec A = 1/cos A"
+      ]
+    },
+    {
+      "name": "csc",
+      "cd": "transc1",
+      "description": "This symbol represents the csc function as described in Abramowitz and Stegun, section 4.3. It takes one argument.",
+      "properties": [
+        "csc A = 1/sin A"
+      ]
+    },
+    {
+      "name": "cot",
+      "cd": "transc1",
+      "description": "This symbol represents the cot function as described in Abramowitz and Stegun, section 4.3. It takes one argument.",
+      "properties": [
+        "cot A = 1/tan A"
+      ]
+    },
+    {
+      "name": "sinh",
+      "cd": "transc1",
+      "description": "This symbol represents the sinh function as described in Abramowitz and Stegun, section 4.5. It takes one argument.",
+      "properties": [
+        "sinh A = 1/2 * (e^A - e^(-A))"
+      ]
+    },
+    {
+      "name": "cosh",
+      "cd": "transc1",
+      "description": "This symbol represents the cosh function as described in Abramowitz and Stegun, section 4.5. It takes one argument.",
+      "properties": [
+        "cosh A = 1/2 * (e^A + e^(-A))"
+      ]
+    },
+    {
+      "name": "tanh",
+      "cd": "transc1",
+      "description": "This symbol represents the tanh function as described in Abramowitz and Stegun, section 4.5. It takes one argument.",
+      "properties": [
+        "tanh A = sinh A / cosh A"
+      ]
+    },
+    {
+      "name": "sech",
+      "cd": "transc1",
+      "description": "This symbol represents the sech function as described in Abramowitz and Stegun, section 4.5. It takes one argument.",
+      "properties": [
+        "sech A = 1/cosh A"
+      ]
+    },
+    {
+      "name": "csch",
+      "cd": "transc1",
+      "description": "This symbol represents the csch function as described in Abramowitz and Stegun, section 4.5. It takes one argument.",
+      "properties": [
+        "csch A = 1/sinh A"
+      ]
+    },
+    {
+      "name": "coth",
+      "cd": "transc1",
+      "description": "This symbol represents the coth function as described in Abramowitz and Stegun, section 4.5. It takes one argument.",
+      "properties": [
+        "coth A = 1/tanh A"
+      ]
+    },
+    {
+      "name": "arcsin",
+      "cd": "transc1",
+      "description": "This symbol represents the arcsin function. This is the inverse of the sin function as described in Abramowitz and Stegun, section 4.4. It takes one argument.",
+      "properties": [
+        "arcsin(z) = -i ln (sqrt(1-z^2)+iz)",
+        "x in [-(pi/2),(pi/2)] implies arcsin(sin x) = x"
+      ]
+    },
+    {
+      "name": "arccos",
+      "cd": "transc1",
+      "description": "This symbol represents the arccos function. This is the inverse of the cos function as described in Abramowitz and Stegun, section 4.4. It takes one argument.",
+      "properties": [
+        "arccos(z) = -i ln(z+i \\sqrt(1-z^2))",
+        "x in [0,pi] implies arccos(cos x) = x"
+      ]
+    },
+    {
+      "name": "arctan",
+      "cd": "transc1",
+      "description": "This symbol represents the arctan function. This is the inverse of the tan function as described in Abramowitz and Stegun, section 4.4. It takes one argument.",
+      "properties": [
+        "arctan(z) = (i/2)ln((1-iz)/(1+iz))",
+        "x in (-(pi/2),(pi/2)) implies arctan(tan x) = x"
+      ]
+    },
+    {
+      "name": "arcsec",
+      "cd": "transc1",
+      "description": "This symbol represents the arcsec function as described in Abramowitz and Stegun, section 4.4.",
+      "properties": [
+        "arcsec(z) = -i ln(1/z + i \\sqrt(1-1/z^2))",
+        "for all z | arcsec z = i * arcsech z"
+      ]
+    },
+    {
+      "name": "arccsc",
+      "cd": "transc1",
+      "description": "This symbol represents the arccsc function as described in Abramowitz and Stegun, section 4.4.",
+      "properties": [
+        "arccsc(z) = -i ln(i/z + \\sqrt(1 - 1/z^2))",
+        "arccsc(z) = i * arccsch(i * z)",
+        "arccsc(-z) = - arccsc(z)"
+      ]
+    },
+    {
+      "name": "arccot",
+      "cd": "transc1",
+      "description": "This symbol represents the arccot function as described in Abramowitz and Stegun, section 4.4.",
+      "properties": [
+        "arccot(-z) = - arccot(z)",
+        "arccot(x) = (i/2) * ln ((x - i)/(x + i))"
+      ]
+    },
+    {
+      "name": "arcsinh",
+      "cd": "transc1",
+      "description": "This symbol represents the arcsinh function as described in Abramowitz and Stegun, section 4.6.",
+      "properties": [
+        "arcsinh z = ln(z + \\sqrt(1+z^2))",
+        "arcsinh(z) = - i * arcsin(i * z)"
+      ]
+    },
+    {
+      "name": "arccosh",
+      "cd": "transc1",
+      "description": "This symbol represents the arccosh function as described in Abramowitz and Stegun, section 4.6.",
+      "properties": [
+        "arccosh(z) = 2*ln(\\sqrt((z+1)/2) + \\sqrt((z-1)/2))",
+        "arccosh z = i * (pi - arccos z)"
+      ]
+    },
+    {
+      "name": "arctanh",
+      "cd": "transc1",
+      "description": "This symbol represents the arctanh function as described in Abramowitz and Stegun, section 4.6.",
+      "properties": [
+        "arctanh(z) = - i * arctan(i * z)",
+        "for all x where 0 <= x^2 < 1 | arctanh(x) = 1/2 * ln((1 + x)/(1 - x))"
+      ]
+    },
+    {
+      "name": "arcsech",
+      "cd": "transc1",
+      "description": "This symbol represents the arcsech function as described in Abramowitz and Stegun, section 4.6.",
+      "properties": [
+        "arcsech(z) = 2 ln(\\sqrt((1+z)/(2z)) + \\sqrt((1-z)/(2z)))",
+        "for all x in (0..1] | arcsech x = ln(1/x + (1/(x^2) - 1)^(1/2))"
+      ]
+    },
+    {
+      "name": "arccsch",
+      "cd": "transc1",
+      "description": "This symbol represents the arccsch function as described in Abramowitz and Stegun, section 4.6.",
+      "properties": [
+        "arccsch(z) = ln(1/z + \\sqrt(1+(1/z)^2))",
+        "arccsch(z) = i * arccsc(i * z)"
+      ]
+    },
+    {
+      "name": "arccoth",
+      "cd": "transc1",
+      "description": "This symbol represents the arccoth function as described in Abramowitz and Stegun, section 4.6.",
+      "properties": [
+        "arccoth(z) = (ln(-1-z)-ln(1-z))/2",
+        "for all z | if z is not zero then arccoth(z) = i * arccot(i * z)"
+      ]
+    }
+  ],
+  "records": [
+    {
+      "raw": "2*x + 3 = 7",
+      "facets": [
+        {
+          "dimension": "D1",
+          "title": "句法维度 (Syntactic)",
+          "summary": "成功构建抽象语法树并提取表层结构",
+          "details": {
+            "ast_type": "Relation",
+            "variables": [
+              "x"
+            ],
+            "operators": [
+              "*",
+              "+"
+            ],
+            "functions": [],
+            "is_equation": true
+          }
+        },
+        {
+          "dimension": "D2",
+          "title": "语义维度 (Semantic)",
+          "summary": "将符号链接到 OpenMath 内容字典语义并做类型推断",
+          "details": {
+            "links": [
+              {
+                "symbol": "x",
+                "cd": null,
+                "meaning": "未登记于已加载的 OpenMath CD（视为自由变量/参数）"
+              }
+            ],
+            "inferred_type": "real-valued"
+          }
+        },
+        {
+          "dimension": "D3",
+          "title": "结构维度 (Structural)",
+          "summary": "识别为 linear 形态",
+          "details": {
+            "form": "linear",
+            "relation": "=",
+            "degree_by_var": {
+              "x": 0
+            },
+            "variable_count": 1
+          }
+        },
+        {
+          "dimension": "D4",
+          "title": "计算维度 (Computational)",
+          "summary": "执行求值与（若适用）方程求解",
+          "details": {
+            "sample_eval": {
+              "x=1.0": false,
+              "x=2.0": true,
+              "x=3.0": false
+            },
+            "solve": {
+              "solvable": true,
+              "roots": [
+                2.0
+              ]
+            },
+            "evaluable": true
+          }
+        }
+      ],
+      "conclusions": [
+        "句法上含 1 个变量、可构成 AST；",
+        "结构上判定为 linear 形态；",
+        "计算维度已求得根：[2.0]；",
+        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
+      ]
+    },
+    {
+      "raw": "x^2 - 5*x + 6 = 0",
+      "facets": [
+        {
+          "dimension": "D1",
+          "title": "句法维度 (Syntactic)",
+          "summary": "成功构建抽象语法树并提取表层结构",
+          "details": {
+            "ast_type": "Relation",
+            "variables": [
+              "x"
+            ],
+            "operators": [
+              "*",
+              "+",
+              "-",
+              "^"
+            ],
+            "functions": [],
+            "is_equation": true
+          }
+        },
+        {
+          "dimension": "D2",
+          "title": "语义维度 (Semantic)",
+          "summary": "将符号链接到 OpenMath 内容字典语义并做类型推断",
+          "details": {
+            "links": [
+              {
+                "symbol": "x",
+                "cd": null,
+                "meaning": "未登记于已加载的 OpenMath CD（视为自由变量/参数）"
+              }
+            ],
+            "inferred_type": "real-valued"
+          }
+        },
+        {
+          "dimension": "D3",
+          "title": "结构维度 (Structural)",
+          "summary": "识别为 quadratic 形态",
+          "details": {
+            "form": "quadratic",
+            "relation": "=",
+            "degree_by_var": {
+              "x": 0
+            },
+            "variable_count": 1
+          }
+        },
+        {
+          "dimension": "D4",
+          "title": "计算维度 (Computational)",
+          "summary": "执行求值与（若适用）方程求解",
+          "details": {
+            "sample_eval": {
+              "x=1.0": false,
+              "x=2.0": true,
+              "x=3.0": true
+            },
+            "solve": {
+              "solvable": true,
+              "roots": [
+                3.0,
+                2.0
+              ]
+            },
+            "evaluable": true
+          }
+        }
+      ],
+      "conclusions": [
+        "句法上含 1 个变量、可构成 AST；",
+        "结构上判定为 quadratic 形态；",
+        "计算维度已求得根：[3.0, 2.0]；",
+        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
+      ]
+    },
+    {
+      "raw": "a*x^2 + b*x + c = 0",
+      "facets": [
+        {
+          "dimension": "D1",
+          "title": "句法维度 (Syntactic)",
+          "summary": "成功构建抽象语法树并提取表层结构",
+          "details": {
+            "ast_type": "Relation",
+            "variables": [
+              "a",
+              "b",
+              "c",
+              "x"
+            ],
+            "operators": [
+              "*",
+              "+",
+              "^"
+            ],
+            "functions": [],
+            "is_equation": true
+          }
+        },
+        {
+          "dimension": "D2",
+          "title": "语义维度 (Semantic)",
+          "summary": "将符号链接到 OpenMath 内容字典语义并做类型推断",
+          "details": {
+            "links": [
+              {
+                "symbol": "a",
+                "cd": null,
+                "meaning": "未登记于已加载的 OpenMath CD（视为自由变量/参数）"
+              },
+              {
+                "symbol": "b",
+                "cd": null,
+                "meaning": "未登记于已加载的 OpenMath CD（视为自由变量/参数）"
+              },
+              {
+                "symbol": "c",
+                "cd": null,
+                "meaning": "未登记于已加载的 OpenMath CD（视为自由变量/参数）"
+              },
+              {
+                "symbol": "x",
+                "cd": null,
+                "meaning": "未登记于已加载的 OpenMath CD（视为自由变量/参数）"
+              }
+            ],
+            "inferred_type": "real-valued"
+          }
+        },
+        {
+          "dimension": "D3",
+          "title": "结构维度 (Structural)",
+          "summary": "识别为 quadratic 形态",
+          "details": {
+            "form": "quadratic",
+            "relation": "=",
+            "degree_by_var": {
+              "a": 0,
+              "b": 0,
+              "c": 0,
+              "x": 0
+            },
+            "variable_count": 4
+          }
+        },
+        {
+          "dimension": "D4",
+          "title": "计算维度 (Computational)",
+          "summary": "执行求值与（若适用）方程求解",
+          "details": {
+            "sample_eval": {
+              "a=1.0": null,
+              "a=2.0": null,
+              "a=3.0": null
+            },
+            "solve": {
+              "solvable": false,
+              "reason": "多变量方程，超出本演示求解范围"
+            },
+            "evaluable": true
+          }
+        }
+      ],
+      "conclusions": [
+        "句法上含 4 个变量、可构成 AST；",
+        "结构上判定为 quadratic 形态；",
+        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
+        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
+      ]
+    },
+    {
+      "raw": "power(2, 3) + sqrt(16)",
+      "facets": [
+        {
+          "dimension": "D1",
+          "title": "句法维度 (Syntactic)",
+          "summary": "成功构建抽象语法树并提取表层结构",
+          "details": {
+            "ast_type": "BinOp",
+            "variables": [],
+            "operators": [
+              "+"
+            ],
+            "functions": [
+              "power",
+              "sqrt"
+            ],
+            "is_equation": false
+          }
+        },
+        {
+          "dimension": "D2",
+          "title": "语义维度 (Semantic)",
+          "summary": "将符号链接到 OpenMath 内容字典语义并做类型推断",
+          "details": {
+            "links": [],
+            "inferred_type": "real-valued (transcendental involved)"
+          }
+        },
+        {
+          "dimension": "D3",
+          "title": "结构维度 (Structural)",
+          "summary": "识别为 constant 形态",
+          "details": {
+            "form": "constant",
+            "relation": null,
+            "degree_by_var": {},
+            "variable_count": 0
+          }
+        },
+        {
+          "dimension": "D4",
+          "title": "计算维度 (Computational)",
+          "summary": "执行求值与（若适用）方程求解",
+          "details": {
+            "evaluable": true
+          }
+        }
+      ],
+      "conclusions": [
+        "句法上含 0 个变量、可构成 AST；",
+        "结构上判定为 constant 形态；",
+        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
+      ]
+    },
+    {
+      "raw": "gcd(12, 18)",
+      "facets": [
+        {
+          "dimension": "D1",
+          "title": "句法维度 (Syntactic)",
+          "summary": "成功构建抽象语法树并提取表层结构",
+          "details": {
+            "ast_type": "FuncCall",
+            "variables": [],
+            "operators": [],
+            "functions": [
+              "gcd"
+            ],
+            "is_equation": false
+          }
+        },
+        {
+          "dimension": "D2",
+          "title": "语义维度 (Semantic)",
+          "summary": "将符号链接到 OpenMath 内容字典语义并做类型推断",
+          "details": {
+            "links": [],
+            "inferred_type": "real-valued (transcendental involved)"
+          }
+        },
+        {
+          "dimension": "D3",
+          "title": "结构维度 (Structural)",
+          "summary": "识别为 constant 形态",
+          "details": {
+            "form": "constant",
+            "relation": null,
+            "degree_by_var": {},
+            "variable_count": 0
+          }
+        },
+        {
+          "dimension": "D4",
+          "title": "计算维度 (Computational)",
+          "summary": "执行求值与（若适用）方程求解",
+          "details": {
+            "evaluable": true
+          }
+        }
+      ],
+      "conclusions": [
+        "句法上含 0 个变量、可构成 AST；",
+        "结构上判定为 constant 形态；",
+        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
+      ]
+    },
+    {
+      "raw": "sin(x) + cos(x)",
+      "facets": [
+        {
+          "dimension": "D1",
+          "title": "句法维度 (Syntactic)",
+          "summary": "成功构建抽象语法树并提取表层结构",
+          "details": {
+            "ast_type": "BinOp",
+            "variables": [
+              "x"
+            ],
+            "operators": [
+              "+"
+            ],
+            "functions": [
+              "cos",
+              "sin"
+            ],
+            "is_equation": false
+          }
+        },
+        {
+          "dimension": "D2",
+          "title": "语义维度 (Semantic)",
+          "summary": "将符号链接到 OpenMath 内容字典语义并做类型推断",
+          "details": {
+            "links": [
+              {
+                "symbol": "x",
+                "cd": null,
+                "meaning": "未登记于已加载的 OpenMath CD（视为自由变量/参数）"
+              }
+            ],
+            "inferred_type": "real-valued (transcendental involved)"
+          }
+        },
+        {
+          "dimension": "D3",
+          "title": "结构维度 (Structural)",
+          "summary": "识别为 transcendental 形态",
+          "details": {
+            "form": "transcendental",
+            "relation": null,
+            "degree_by_var": {
+              "x": "inf"
+            },
+            "variable_count": 1
+          }
+        },
+        {
+          "dimension": "D4",
+          "title": "计算维度 (Computational)",
+          "summary": "执行求值与（若适用）方程求解",
+          "details": {
+            "sample_eval": {
+              "x=1.0": 1.3817732906760363,
+              "x=2.0": 0.4931505902785393,
+              "x=3.0": -0.8488724885405782
+            },
+            "evaluable": true
+          }
+        }
+      ],
+      "conclusions": [
+        "句法上含 1 个变量、可构成 AST；",
+        "结构上判定为 transcendental 形态；",
+        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
+      ]
+    }
+  ]
+}

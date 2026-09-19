@@ -1,0 +1,228 @@
+{
+  "meta": {
+    "generated_by": "06-AI自动化/01-工作流/openmath_synthesis.py",
+    "generated_at": "2026-09-19T11:32:08",
+    "provenance": {
+      "ai_assisted": true,
+      "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"
+    },
+    "honesty": "本文件为 L0/L2 级整理与计算产物。有限域穷举结论在其论域内严格，但**不蕴含**任何无限域猜想的证明。",
+    "disclaimer": "**本流水线未破解任何未解猜想。** 下表如实记录每条猜想实际做过的验证，并给出'为什么不构成证明'的具体逻辑缺口。"
+  },
+  "gap_typology": {
+    "finiteness": {
+      "name": "有限性鸿沟",
+      "explanation": "穷举/验证只覆盖有限子集，而猜想是**无限域的全称命题**。任何有限证据在逻辑上都无法排除'更大的反例'。"
+    },
+    "skewes_warning": {
+      "name": "Skewes 型警告",
+      "explanation": "存在**已被严格证明**的先例：π(x)<li(x) 在天文数字范围内恒成立，但 Littlewood 证明了差值会无穷次变号（首个变号点小于 Skewes 数 ~10^316）。这**严格证明**了'长期数值吻合不能推出无限结论'。"
+    },
+    "precision": {
+      "name": "精度鸿沟",
+      "explanation": "浮点/数值方法存在截断与分支切割误差；本流水线已实测到复变分支切割导致的'假阴性'（atanh 恒等式在 |z|>1 时虚部反号）。"
+    },
+    "structure": {
+      "name": "结构鸿沟",
+      "explanation": "数值证据只触及可计算的实例，未触及猜想所断言的**底层结构**（如谱解释、上同调类、复杂性类分离），无法转化为结构性论证。"
+    },
+    "uncomputable_aspect": {
+      "name": "不可计算成分",
+      "explanation": "猜想的实质内容包含当前无算法可判定的部分，计算能力再强也不产生证明。"
+    }
+  },
+  "verifications": [
+    {
+      "id": "RH",
+      "name": "黎曼猜想 Riemann Hypothesis",
+      "status": "UNSOLVED",
+      "proof_claimed": false,
+      "verification_done": "未做任何零点搜索（numeric_zero_search 未实现）。仅实现了 asymptotic_estimation，可对照 π(x) 与 li(x)。",
+      "verification_type": "无直接验证",
+      "constitutes_proof": false,
+      "gap_types": [
+        "finiteness",
+        "skewes_warning",
+        "structure"
+      ],
+      "gap_explanations": [
+        "穷举/验证只覆盖有限子集，而猜想是**无限域的全称命题**。任何有限证据在逻辑上都无法排除'更大的反例'。",
+        "存在**已被严格证明**的先例：π(x)<li(x) 在天文数字范围内恒成立，但 Littlewood 证明了差值会无穷次变号（首个变号点小于 Skewes 数 ~10^316）。这**严格证明**了'长期数值吻合不能推出无限结论'。",
+        "数值证据只触及可计算的实例，未触及猜想所断言的**底层结构**（如谱解释、上同调类、复杂性类分离），无法转化为结构性论证。"
+      ],
+      "is_our_result": true
+    },
+    {
+      "id": "GC",
+      "name": "哥德巴赫猜想 Goldbach's Conjecture",
+      "status": "UNSOLVED",
+      "proof_claimed": false,
+      "verification_done": "穷举验证：n ≤ 10000 的每个偶数都有哥德巴赫分拆。",
+      "verification_type": "有限域穷举（演绎严格，但论域有限）",
+      "constitutes_proof": false,
+      "gap_types": [
+        "finiteness",
+        "structure"
+      ],
+      "gap_explanations": [
+        "穷举/验证只覆盖有限子集，而猜想是**无限域的全称命题**。任何有限证据在逻辑上都无法排除'更大的反例'。",
+        "数值证据只触及可计算的实例，未触及猜想所断言的**底层结构**（如谱解释、上同调类、复杂性类分离），无法转化为结构性论证。"
+      ],
+      "is_our_result": true
+    },
+    {
+      "id": "TPC",
+      "name": "孪生素数猜想 Twin Prime Conjecture",
+      "status": "UNSOLVED",
+      "proof_claimed": false,
+      "verification_done": "筛法精确计数：≤ 200000 内孪生素数 2160 对。",
+      "verification_type": "有限域精确计数（只说明'存在多少'，不说明'无穷多'）",
+      "constitutes_proof": false,
+      "gap_types": [
+        "finiteness"
+      ],
+      "gap_explanations": [
+        "穷举/验证只覆盖有限子集，而猜想是**无限域的全称命题**。任何有限证据在逻辑上都无法排除'更大的反例'。"
+      ],
+      "is_our_result": true
+    },
+    {
+      "id": "COLLATZ",
+      "name": "角谷/考拉兹猜想 3n+1",
+      "status": "UNSOLVED",
+      "proof_claimed": false,
+      "verification_done": "穷举验证：n ≤ 20000 全部迭代到 1；并按 mod 6 统计停止时间。",
+      "verification_type": "有限域穷举（演绎严格，但论域有限）",
+      "constitutes_proof": false,
+      "gap_types": [
+        "finiteness",
+        "structure"
+      ],
+      "gap_explanations": [
+        "穷举/验证只覆盖有限子集，而猜想是**无限域的全称命题**。任何有限证据在逻辑上都无法排除'更大的反例'。",
+        "数值证据只触及可计算的实例，未触及猜想所断言的**底层结构**（如谱解释、上同调类、复杂性类分离），无法转化为结构性论证。"
+      ],
+      "is_our_result": true
+    },
+    {
+      "id": "BSD",
+      "name": "BSD 猜想 Birch–Swinnerton-Dyer",
+      "status": "UNSOLVED",
+      "proof_claimed": false,
+      "verification_done": "无（椭圆曲线计算、L 函数求值均未实现）。",
+      "verification_type": "无",
+      "constitutes_proof": false,
+      "gap_types": [
+        "structure",
+        "uncomputable_aspect"
+      ],
+      "gap_explanations": [
+        "数值证据只触及可计算的实例，未触及猜想所断言的**底层结构**（如谱解释、上同调类、复杂性类分离），无法转化为结构性论证。",
+        "猜想的实质内容包含当前无算法可判定的部分，计算能力再强也不产生证明。"
+      ],
+      "is_our_result": true
+    },
+    {
+      "id": "HODGE",
+      "name": "霍奇猜想 Hodge Conjecture",
+      "status": "UNSOLVED",
+      "proof_claimed": false,
+      "verification_done": "无（上同调计算未实现）。",
+      "verification_type": "无",
+      "constitutes_proof": false,
+      "gap_types": [
+        "structure",
+        "uncomputable_aspect"
+      ],
+      "gap_explanations": [
+        "数值证据只触及可计算的实例，未触及猜想所断言的**底层结构**（如谱解释、上同调类、复杂性类分离），无法转化为结构性论证。",
+        "猜想的实质内容包含当前无算法可判定的部分，计算能力再强也不产生证明。"
+      ],
+      "is_our_result": true
+    },
+    {
+      "id": "NS",
+      "name": "纳维–斯托克斯存在性与光滑性",
+      "status": "UNSOLVED",
+      "proof_claimed": false,
+      "verification_done": "无（PDE 数值模拟、能量估计均未实现）。",
+      "verification_type": "无",
+      "constitutes_proof": false,
+      "gap_types": [
+        "structure",
+        "precision"
+      ],
+      "gap_explanations": [
+        "数值证据只触及可计算的实例，未触及猜想所断言的**底层结构**（如谱解释、上同调类、复杂性类分离），无法转化为结构性论证。",
+        "浮点/数值方法存在截断与分支切割误差；本流水线已实测到复变分支切割导致的'假阴性'（atanh 恒等式在 |z|>1 时虚部反号）。"
+      ],
+      "is_our_result": true
+    },
+    {
+      "id": "PNP",
+      "name": "P vs NP",
+      "status": "UNSOLVED",
+      "proof_claimed": false,
+      "verification_done": "无（复杂性归约、代数复杂性均未实现）。",
+      "verification_type": "无",
+      "constitutes_proof": false,
+      "gap_types": [
+        "structure",
+        "uncomputable_aspect"
+      ],
+      "gap_explanations": [
+        "数值证据只触及可计算的实例，未触及猜想所断言的**底层结构**（如谱解释、上同调类、复杂性类分离），无法转化为结构性论证。",
+        "猜想的实质内容包含当前无算法可判定的部分，计算能力再强也不产生证明。"
+      ],
+      "is_our_result": true
+    },
+    {
+      "id": "YM",
+      "name": "杨–米尔斯质量间隙",
+      "status": "UNSOLVED",
+      "proof_claimed": false,
+      "verification_done": "无（格点数值模拟、重整化均未实现）。",
+      "verification_type": "无",
+      "constitutes_proof": false,
+      "gap_types": [
+        "structure",
+        "precision"
+      ],
+      "gap_explanations": [
+        "数值证据只触及可计算的实例，未触及猜想所断言的**底层结构**（如谱解释、上同调类、复杂性类分离），无法转化为结构性论证。",
+        "浮点/数值方法存在截断与分支切割误差；本流水线已实测到复变分支切割导致的'假阴性'（atanh 恒等式在 |z|>1 时虚部反号）。"
+      ],
+      "is_our_result": true
+    },
+    {
+      "id": "POINCARE",
+      "name": "庞加莱猜想 Poincaré Conjecture",
+      "status": "SOLVED",
+      "proof_claimed": true,
+      "verification_done": "本流水线未做验证。该猜想已由**人类数学家**解决（Perelman, 2003，属 L4 级人类证明），此处列出仅为登记表完整性，**不是本体系的成果**。",
+      "verification_type": "非本体系成果",
+      "constitutes_proof": false,
+      "gap_types": [],
+      "gap_explanations": [],
+      "is_our_result": false
+    },
+    {
+      "id": "ABC",
+      "name": "ABC 猜想",
+      "status": "DISPUTED",
+      "proof_claimed": false,
+      "verification_done": "穷举搜索：c ≤ 3000 内 quality>1 的三元组 57 个，最高 q=1.4557。",
+      "verification_type": "有限域穷举（且猜想本身状态为 DISPUTED）",
+      "constitutes_proof": false,
+      "gap_types": [
+        "finiteness",
+        "structure"
+      ],
+      "gap_explanations": [
+        "穷举/验证只覆盖有限子集，而猜想是**无限域的全称命题**。任何有限证据在逻辑上都无法排除'更大的反例'。",
+        "数值证据只触及可计算的实例，未触及猜想所断言的**底层结构**（如谱解释、上同调类、复杂性类分离），无法转化为结构性论证。"
+      ],
+      "is_our_result": true
+    }
+  ]
+}

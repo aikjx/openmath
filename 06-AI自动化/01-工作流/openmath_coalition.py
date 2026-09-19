@@ -37,8 +37,8 @@ REPO = _HERE
 for _ in range(2):  # 06-AI自动化/01-工作流 -> openmath 仓库根
     REPO = os.path.dirname(REPO)
 
-# openmath_sys 与 openmath 同级，位于 my_lib 下
-sys.path.insert(0, os.path.join(os.path.dirname(REPO), "openmath_sys", "src"))
+# 引擎已收纳进本仓库：06-AI自动化/02-引擎/openmath_sys/
+sys.path.insert(0, os.path.join(REPO, "06-AI自动化", "02-引擎", "openmath_sys", "src"))
 
 DATA_DIR = os.path.join(REPO, "09-数据")
 OUT_DIR = DATA_DIR

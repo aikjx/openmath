@@ -23,8 +23,8 @@ import datetime
 HERE = os.path.dirname(os.path.abspath(__file__))
 AI_AUTO = os.path.dirname(HERE)
 OPENMATH = os.path.dirname(AI_AUTO)
-REPO_PARENT = os.path.dirname(OPENMATH)
-SYS_SRC = os.path.join(REPO_PARENT, "openmath_sys", "src")
+# 引擎已收纳进本仓库：06-AI自动化/02-引擎/openmath_sys/
+SYS_SRC = os.path.join(OPENMATH, "06-AI自动化", "02-引擎", "openmath_sys", "src")
 if SYS_SRC not in sys.path:
     sys.path.insert(0, SYS_SRC)
 
