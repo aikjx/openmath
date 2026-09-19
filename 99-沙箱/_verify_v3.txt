@@ -1,0 +1,14 @@
+catalog: ai_assisted=True evidence_proof=L4-NOT_ACHIEVED
+analysis: ai_assisted=True evidence_proof=L4-NOT_ACHIEVED
+arxiv: ai_assisted=True evidence_proof=L4-NOT_ACHIEVED
+catalog.coverage = {"official_total": 38, "from_network": 38, "from_local_snapshot": 0, "missing": 0, "xml_parse_failed": 0, "note": "官方全量清单由 GitHub API 探测得到；联网失败者回退本地快照，两者皆无才记为 missing；解析失败如实记录，不静默丢弃。"}
+symbols_total = 294
+cds_total = 38
+missing = []
+local_fallback = []
+parse_error = []
+zero_symbol_cds = []
+analysis.coverage = {"cmp_total": 179, "cmp_equation_like": 135, "cmp_parsed": 133, "parsed_rate": 0.743, "parsed_rate_equation_like": 0.9852}
+unparsed_capped = 2
+equations_analyzed = 140
+papers = 32

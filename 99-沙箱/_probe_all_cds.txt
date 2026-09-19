@@ -1,0 +1,306 @@
+[
+  {
+    "name": "alg1",
+    "fetched": true,
+    "bytes": 6347,
+    "symbols": 2,
+    "props": 6,
+    "error": null
+  },
+  {
+    "name": "altenc",
+    "fetched": true,
+    "bytes": 5130,
+    "symbols": 2,
+    "props": 0,
+    "error": null
+  },
+  {
+    "name": "arith1",
+    "fetched": true,
+    "bytes": 22550,
+    "symbols": 12,
+    "props": 14,
+    "error": null
+  },
+  {
+    "name": "bigfloat1",
+    "fetched": true,
+    "bytes": 4887,
+    "symbols": 2,
+    "props": 2,
+    "error": null
+  },
+  {
+    "name": "calculus1",
+    "fetched": true,
+    "bytes": 17618,
+    "symbols": 6,
+    "props": 5,
+    "error": null
+  },
+  {
+    "name": "complex1",
+    "fetched": true,
+    "bytes": 12596,
+    "symbols": 6,
+    "props": 10,
+    "error": null
+  },
+  {
+    "name": "error",
+    "fetched": true,
+    "bytes": 4570,
+    "symbols": 3,
+    "props": 0,
+    "error": null
+  },
+  {
+    "name": "fns1",
+    "fetched": true,
+    "bytes": 12990,
+    "symbols": 11,
+    "props": 7,
+    "error": null
+  },
+  {
+    "name": "fns2",
+    "fetched": true,
+    "bytes": 9155,
+    "symbols": 4,
+    "props": 2,
+    "error": null
+  },
+  {
+    "name": "integer1",
+    "fetched": true,
+    "bytes": 9678,
+    "symbols": 4,
+    "props": 4,
+    "error": null
+  },
+  {
+    "name": "interval1",
+    "fetched": true,
+    "bytes": 11912,
+    "symbols": 7,
+    "props": 0,
+    "error": null
+  },
+  {
+    "name": "limit1",
+    "fetched": true,
+    "bytes": 6259,
+    "symbols": 5,
+    "props": 0,
+    "error": null
+  },
+  {
+    "name": "linalg1",
+    "fetched": false,
+    "bytes": 0,
+    "symbols": null,
+    "props": null,
+    "error": null
+  },
+  {
+    "name": "linalg2",
+    "fetched": true,
+    "bytes": 4319,
+    "symbols": 3,
+    "props": 0,
+    "error": null
+  },
+  {
+    "name": "list1",
+    "fetched": true,
+    "bytes": 5322,
+    "symbols": 3,
+    "props": 0,
+    "error": null
+  },
+  {
+    "name": "logic1",
+    "fetched": true,
+    "bytes": 14499,
+    "symbols": 11,
+    "props": 15,
+    "error": null
+  },
+  {
+    "name": "mathmlattr",
+    "fetched": true,
+    "bytes": 4976,
+    "symbols": 6,
+    "props": 0,
+    "error": null
+  },
+  {
+    "name": "mathmltypes",
+    "fetched": true,
+    "bytes": 9765,
+    "symbols": 12,
+    "props": 0,
+    "error": null
+  },
+  {
+    "name": "meta",
+    "fetched": true,
+    "bytes": 8019,
+    "symbols": 18,
+    "props": 0,
+    "error": null
+  },
+  {
+    "name": "metagrp",
+    "fetched": true,
+    "bytes": 6051,
+    "symbols": 10,
+    "props": 0,
+    "error": null
+  },
+  {
+    "name": "metasig",
+    "fetched": true,
+    "bytes": 5254,
+    "symbols": 5,
+    "props": 0,
+    "error": null
+  },
+  {
+    "name": "minmax1",
+    "fetched": true,
+    "bytes": 3778,
+    "symbols": 2,
+    "props": 0,
+    "error": null
+  },
+  {
+    "name": "multiset1",
+    "fetched": true,
+    "bytes": 14357,
+    "symbols": 13,
+    "props": 8,
+    "error": null
+  },
+  {
+    "name": "nums1",
+    "fetched": true,
+    "bytes": 11758,
+    "symbols": 9,
+    "props": 6,
+    "error": null
+  },
+  {
+    "name": "piece1",
+    "fetched": true,
+    "bytes": 5637,
+    "symbols": 3,
+    "props": 0,
+    "error": null
+  },
+  {
+    "name": "quant1",
+    "fetched": true,
+    "bytes": 5860,
+    "symbols": 2,
+    "props": 0,
+    "error": null
+  },
+  {
+    "name": "relation1",
+    "fetched": true,
+    "bytes": 10041,
+    "symbols": 7,
+    "props": 6,
+    "error": null
+  },
+  {
+    "name": "relation3",
+    "fetched": true,
+    "bytes": 13108,
+    "symbols": 11,
+    "props": 8,
+    "error": null
+  },
+  {
+    "name": "rounding1",
+    "fetched": true,
+    "bytes": 9274,
+    "symbols": 4,
+    "props": 6,
+    "error": null
+  },
+  {
+    "name": "s_data1",
+    "fetched": true,
+    "bytes": 10145,
+    "symbols": 6,
+    "props": 4,
+    "error": null
+  },
+  {
+    "name": "s_dist1",
+    "fetched": true,
+    "bytes": 7614,
+    "symbols": 4,
+    "props": 4,
+    "error": null
+  },
+  {
+    "name": "scscp1",
+    "fetched": true,
+    "bytes": 19629,
+    "symbols": 17,
+    "props": 0,
+    "error": null
+  },
+  {
+    "name": "scscp2",
+    "fetched": true,
+    "bytes": 23851,
+    "symbols": 14,
+    "props": 0,
+    "error": null
+  },
+  {
+    "name": "set1",
+    "fetched": false,
+    "bytes": 0,
+    "symbols": null,
+    "props": null,
+    "error": null
+  },
+  {
+    "name": "setname1",
+    "fetched": true,
+    "bytes": 14167,
+    "symbols": 6,
+    "props": 7,
+    "error": null
+  },
+  {
+    "name": "sts",
+    "fetched": true,
+    "bytes": 8459,
+    "symbols": 11,
+    "props": 0,
+    "error": null
+  },
+  {
+    "name": "transc1",
+    "fetched": true,
+    "bytes": 43536,
+    "symbols": 27,
+    "props": 44,
+    "error": null
+  },
+  {
+    "name": "veccalc1",
+    "fetched": true,
+    "bytes": 6020,
+    "symbols": 4,
+    "props": 4,
+    "error": null
+  }
+]

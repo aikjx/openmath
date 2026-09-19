@@ -1,0 +1,528 @@
+{
+  "meta": {
+    "generated_by": "06-AI自动化/01-工作流/openmath_analyze.py",
+    "generated_at": "2026-09-19T10:19:02",
+    "provenance": {
+      "ai_assisted": true,
+      "note": "由 AI 代理基于 openmath_sys 引擎与已下载 OpenMath/arXiv 数据自动生成，未经人类复核，不得作为 L3+ 证据。"
+    },
+    "honesty": "本系列文件为 L0/L2 级数据处理与计算校验产物，非证明。方程求解、猜想的可计算实验均为计算验证(L2)，不构成对未解猜想的证明。预印本与猜想状态均标 UNVERIFIED/UNSOLVED。",
+    "note": "方法清单为标准数学方法的**整理性汇编**（KNOWN_L4 常识级）；`implemented` 字段严格表示本流水线当前是否真能执行，共 10/34 项已实现。对未解猜想，即便全部适用方法齐备也仍未被解决，故 can_resolve 除已解决的庞加莱外恒为 False，绝不暗示本系统或现有方法足以证明它们。"
+  },
+  "summary": {
+    "methods_total": 34,
+    "methods_implemented": 10,
+    "methods_missing": 24,
+    "conjectures_linked": 11,
+    "conjectures_with_zero_implemented_direction": 6
+  },
+  "methods": [
+    {
+      "id": "ast_parse",
+      "name": "句法解析(AST)",
+      "domain": "通用/句法",
+      "implemented": true,
+      "where": "openmath_sys/parser.py",
+      "description": "把数学文本解析成语法树(D1 句法维度)。",
+      "limitation": "仅支持 + - * / ^ 与含参函数、比较运算符；不支持 LaTeX/积分号等高级记法。"
+    },
+    {
+      "id": "arith_eval",
+      "name": "表达式求值",
+      "domain": "通用/计算",
+      "implemented": true,
+      "where": "openmath_sys/parser.py",
+      "description": "代入变量数值求结果(D4 计算维度)。",
+      "limitation": "纯数值，不做符号化简。"
+    },
+    {
+      "id": "transc_eval",
+      "name": "超越函数求值（三角/反三角/双曲/复数）",
+      "domain": "超越函数",
+      "implemented": true,
+      "where": "openmath_sys/parser.py (_call_func)",
+      "description": "evaluate 支持 sin/cos/tan/sec/csc/cot、对应反函数与双曲/反双曲，且**复数感知**（参数为复数或实数域溢出时回落 cmath）。",
+      "limitation": "不支持 \\partial 偏导、grad/curl/laplacian 等向量分析算子；多值函数在 |z|>1 处会因主分支约定出现'虚假不符'（非反例）。"
+    },
+    {
+      "id": "poly_classify",
+      "name": "方程形态分类",
+      "domain": "代数",
+      "implemented": true,
+      "where": "openmath_sys/parser.py",
+      "description": "判定 linear/quadratic/transcendental 等(D3 结构维度)。",
+      "limitation": "仅按变量次数分类，不识别更深结构（如可约性、对称性）。"
+    },
+    {
+      "id": "linear_solve",
+      "name": "一元一次方程求解",
+      "domain": "代数",
+      "implemented": true,
+      "where": "openmath_sys/parser.py",
+      "description": "解形如 ax+b=0 的方程。",
+      "limitation": "仅单变量、仅一次。"
+    },
+    {
+      "id": "quadratic_formula",
+      "name": "一元二次求根公式",
+      "domain": "代数",
+      "implemented": true,
+      "where": "openmath_sys/parser.py",
+      "description": "解 ax²+bx+c=0（含复数根）。",
+      "limitation": "仅单变量二次。"
+    },
+    {
+      "id": "prime_sieve",
+      "name": "埃拉托斯特尼筛",
+      "domain": "数论",
+      "implemented": true,
+      "where": "本脚本 (primes_upto)",
+      "description": "求出 ≤N 的全部素数。",
+      "limitation": "受内存与时间限制，N 不能过大。"
+    },
+    {
+      "id": "exhaustive_search",
+      "name": "穷举验证",
+      "domain": "组合/数论",
+      "implemented": true,
+      "where": "本脚本 (goldbach_check / collatz_check)",
+      "description": "在有限范围内逐一验证命题成立。",
+      "limitation": "只能给出有限区间内的证据，永远无法由此得到证明。"
+    },
+    {
+      "id": "map_iteration",
+      "name": "迭代映射",
+      "domain": "动力系统",
+      "implemented": true,
+      "where": "本脚本 (collatz_check)",
+      "description": "迭代给定映射并记录收敛性。",
+      "limitation": "长轨道需大量计算，且迭代本身不证明收敛性。"
+    },
+    {
+      "id": "factorization",
+      "name": "因式分解",
+      "domain": "代数",
+      "implemented": false,
+      "where": null,
+      "description": "把多项式分解为不可约因子。",
+      "limitation": "未实现：无符号多项式代数，导致大量 CD 恒等式无法机器处理。"
+    },
+    {
+      "id": "grobner_basis",
+      "name": "Gröbner 基",
+      "domain": "代数几何",
+      "implemented": false,
+      "where": null,
+      "description": "解多元多项式方程组的标准算法。",
+      "limitation": "未实现：这是当前求解无法覆盖多变量的关键缺失。"
+    },
+    {
+      "id": "gaussian_elimination",
+      "name": "高斯消元",
+      "domain": "线性代数",
+      "implemented": false,
+      "where": null,
+      "description": "解线性方程组、求秩。",
+      "limitation": "未实现。"
+    },
+    {
+      "id": "eigen_decomposition",
+      "name": "特征值/谱分解",
+      "domain": "线性代数",
+      "implemented": false,
+      "where": null,
+      "description": "矩阵特征值与对角化。",
+      "limitation": "未实现。"
+    },
+    {
+      "id": "symbolic_diff",
+      "name": "符号微分",
+      "domain": "微积分",
+      "implemented": false,
+      "where": null,
+      "description": "对表达式求解析导数。",
+      "limitation": "未实现：导致 calculus1 的微分性质无法验证。"
+    },
+    {
+      "id": "symbolic_int",
+      "name": "符号积分",
+      "domain": "微积分",
+      "implemented": false,
+      "where": null,
+      "description": "求不定/定积分的解析形式。",
+      "limitation": "未实现。"
+    },
+    {
+      "id": "limit_computation",
+      "name": "极限计算",
+      "domain": "微积分",
+      "implemented": false,
+      "where": null,
+      "description": "解析求极限。",
+      "limitation": "未实现。"
+    },
+    {
+      "id": "numeric_root",
+      "name": "数值求根",
+      "domain": "数值分析",
+      "implemented": true,
+      "where": "openmath_sys/numeric.py",
+      "description": "区间扫描+二分，求任意单变量方程的数值根（超越方程亦可）。",
+      "limitation": "仅单变量；受 [lo,hi] 区间与步长限制可能漏根；结果为 L2 数值证据，非解析解、非证明。"
+    },
+    {
+      "id": "numeric_zero_search",
+      "name": "数值零点搜索",
+      "domain": "解析数论",
+      "implemented": false,
+      "where": null,
+      "description": "沿临界线搜索 ζ 函数零点（如 Riemann–Siegel 公式）。",
+      "limitation": "未实现：故本流水线无法独立复核黎曼猜想的数值进展，仅能引用外部文献。"
+    },
+    {
+      "id": "asymptotic_estimation",
+      "name": "渐近估计",
+      "domain": "解析数论",
+      "implemented": false,
+      "where": null,
+      "description": "对计数函数做渐近展开。",
+      "limitation": "未实现。"
+    },
+    {
+      "id": "circle_method",
+      "name": "圆法",
+      "domain": "解析数论",
+      "implemented": false,
+      "where": null,
+      "description": "Hardy–Littlewood 圆法，处理加性数论问题。",
+      "limitation": "未实现。"
+    },
+    {
+      "id": "sieve_theory",
+      "name": "筛法（解析）",
+      "domain": "解析数论",
+      "implemented": false,
+      "where": null,
+      "description": "Selberg/大筛法等，用于孪生素数、哥德巴赫类问题。",
+      "limitation": "未实现。"
+    },
+    {
+      "id": "modular_analysis",
+      "name": "模类分析",
+      "domain": "数论",
+      "implemented": false,
+      "where": null,
+      "description": "按剩余类化简分析问题。",
+      "limitation": "未实现。"
+    },
+    {
+      "id": "elliptic_curve_computation",
+      "name": "椭圆曲线计算",
+      "domain": "代数几何/数论",
+      "implemented": false,
+      "where": null,
+      "description": "计算椭圆曲线的秩、挠子群等。",
+      "limitation": "未实现。"
+    },
+    {
+      "id": "l_function_evaluation",
+      "name": "L 函数求值",
+      "domain": "解析数论",
+      "implemented": false,
+      "where": null,
+      "description": "计算 L(s) 及其在临界点的导数。",
+      "limitation": "未实现。"
+    },
+    {
+      "id": "cohomology_computation",
+      "name": "上同调计算",
+      "domain": "代数几何",
+      "implemented": false,
+      "where": null,
+      "description": "计算代数簇的上同调群。",
+      "limitation": "未实现。"
+    },
+    {
+      "id": "pde_numerical_simulation",
+      "name": "PDE 数值模拟",
+      "domain": "偏微分方程",
+      "implemented": false,
+      "where": null,
+      "description": "有限差分/谱方法求解 PDE。",
+      "limitation": "未实现。"
+    },
+    {
+      "id": "energy_estimate",
+      "name": "能量估计",
+      "domain": "偏微分方程",
+      "implemented": false,
+      "where": null,
+      "description": "a priori 能量估计，用于正则性分析。",
+      "limitation": "未实现。"
+    },
+    {
+      "id": "complexity_reduction",
+      "name": "复杂性归约",
+      "domain": "计算复杂性",
+      "implemented": false,
+      "where": null,
+      "description": "多项式时间归约与完备性分析。",
+      "limitation": "未实现。"
+    },
+    {
+      "id": "algebraic_complexity",
+      "name": "代数复杂性(GCT)",
+      "domain": "计算复杂性",
+      "implemented": false,
+      "where": null,
+      "description": "几何复杂性理论路线。",
+      "limitation": "未实现。"
+    },
+    {
+      "id": "lattice_qcd_numeric",
+      "name": "格点数值模拟",
+      "domain": "数学物理",
+      "implemented": false,
+      "where": null,
+      "description": "格点 QCD 给出质量间隙的数值证据。",
+      "limitation": "未实现。"
+    },
+    {
+      "id": "renormalization",
+      "name": "重整化",
+      "domain": "数学物理",
+      "implemented": false,
+      "where": null,
+      "description": "重整化群的严格构造。",
+      "limitation": "未实现。"
+    },
+    {
+      "id": "rad_computation",
+      "name": "rad 计算",
+      "domain": "数论",
+      "implemented": false,
+      "where": null,
+      "description": "计算 rad(n)（互素素因子之积）用于 ABC 猜想检验。",
+      "limitation": "未实现。"
+    },
+    {
+      "id": "random_matrix_analogy",
+      "name": "随机矩阵类比",
+      "domain": "解析数论/数学物理",
+      "implemented": false,
+      "where": null,
+      "description": "以随机矩阵特征值统计类比 ζ 零点分布。",
+      "limitation": "未实现。"
+    },
+    {
+      "id": "ricci_flow_analysis",
+      "name": "Ricci 流几何化分析",
+      "domain": "几何/拓扑",
+      "implemented": false,
+      "where": null,
+      "description": "以 Ricci 流做流形几何化与奇点分析（佩雷尔曼路线）。",
+      "limitation": "未实现。"
+    }
+  ],
+  "linkage": [
+    {
+      "conjecture_id": "RH",
+      "conjecture_name": "黎曼猜想 Riemann Hypothesis",
+      "status": "UNSOLVED",
+      "applicable_methods": [
+        "numeric_zero_search",
+        "asymptotic_estimation",
+        "random_matrix_analogy"
+      ],
+      "implemented_applicable": [],
+      "missing_methods": [
+        "numeric_zero_search",
+        "asymptotic_estimation",
+        "random_matrix_analogy"
+      ],
+      "method_coverage": 0.0,
+      "can_resolve": false,
+      "direction_note": "缺失方向：本质困难在于零点的'全局分布'与素数分布的关联缺少可机器化的结构性桥梁。现有路线（显式公式、随机矩阵类比、ζ 函数的谱解释）均未能把数值规律提升为解析证明。可探索的开放方向：将零点分布编码为某自伴算子的谱（Hilbert–Pólya 路线）并构造该算子。"
+    },
+    {
+      "conjecture_id": "GC",
+      "conjecture_name": "哥德巴赫猜想 Goldbach's Conjecture",
+      "status": "UNSOLVED",
+      "applicable_methods": [
+        "prime_sieve",
+        "exhaustive_search",
+        "circle_method",
+        "sieve_theory"
+      ],
+      "implemented_applicable": [
+        "prime_sieve",
+        "exhaustive_search"
+      ],
+      "missing_methods": [
+        "circle_method",
+        "sieve_theory"
+      ],
+      "method_coverage": 0.5,
+      "can_resolve": false,
+      "direction_note": "缺失方向：筛法（陈氏定理等）能证明'1 个素数 + 1 个殆素数'，但跨过'殆素数→素数'的最后一步缺乏普适工具。开放方向：圆法（Hardy–Littlewood）的误差项控制、或筛权函数的本质改进。"
+    },
+    {
+      "conjecture_id": "TPC",
+      "conjecture_name": "孪生素数猜想 Twin Prime Conjecture",
+      "status": "UNSOLVED",
+      "applicable_methods": [
+        "prime_sieve",
+        "exhaustive_search",
+        "sieve_theory",
+        "asymptotic_estimation"
+      ],
+      "implemented_applicable": [
+        "prime_sieve",
+        "exhaustive_search"
+      ],
+      "missing_methods": [
+        "sieve_theory",
+        "asymptotic_estimation"
+      ],
+      "method_coverage": 0.5,
+      "can_resolve": false,
+      "direction_note": "缺失方向：张益唐(2013)证明存在无穷多对差 < 7000 万的素数，界限已被降到 246；但逼近 2 需突破 GPY 筛法的'奇偶障碍'(parity problem)。开放方向：借助更精细的权重或分布级数假设(DHL)进一步压缩界。"
+    },
+    {
+      "conjecture_id": "COLLATZ",
+      "conjecture_name": "角谷/考拉兹猜想 3n+1",
+      "status": "UNSOLVED",
+      "applicable_methods": [
+        "map_iteration",
+        "exhaustive_search",
+        "modular_analysis"
+      ],
+      "implemented_applicable": [
+        "map_iteration",
+        "exhaustive_search"
+      ],
+      "missing_methods": [
+        "modular_analysis"
+      ],
+      "method_coverage": 0.6667,
+      "can_resolve": false,
+      "direction_note": "缺失方向：该问题缺乏自然的代数结构，现有攻击（停止时间分布、模类分析、概率启发式）都无法排除极长轨道或循环的存在。开放方向：将其嵌入更广的动力系统类并寻找不变量，或证明其'几乎必然'归 1 作为中间目标。"
+    },
+    {
+      "conjecture_id": "BSD",
+      "conjecture_name": "BSD 猜想 Birch–Swinnerton-Dyer",
+      "status": "UNSOLVED",
+      "applicable_methods": [
+        "elliptic_curve_computation",
+        "l_function_evaluation"
+      ],
+      "implemented_applicable": [],
+      "missing_methods": [
+        "elliptic_curve_computation",
+        "l_function_evaluation"
+      ],
+      "method_coverage": 0.0,
+      "can_resolve": false,
+      "direction_note": "缺失方向：需把'算术信息'(秩、Shafarevich–Tate 群)与'分析信息'(L 函数)通过某种'高度配对'联系起来。开放方向：Iwasawa 理论、欧拉系的构造。"
+    },
+    {
+      "conjecture_id": "HODGE",
+      "conjecture_name": "霍奇猜想 Hodge Conjecture",
+      "status": "UNSOLVED",
+      "applicable_methods": [
+        "cohomology_computation"
+      ],
+      "implemented_applicable": [],
+      "missing_methods": [
+        "cohomology_computation"
+      ],
+      "method_coverage": 0.0,
+      "can_resolve": false,
+      "direction_note": "缺失方向：代数闭链与拓扑上同调之间的'可表示性'判据缺失。开放方向：借助motivic 上同调或更弱的代数几何不变量重构问题。"
+    },
+    {
+      "conjecture_id": "NS",
+      "conjecture_name": "纳维–斯托克斯存在性与光滑性",
+      "status": "UNSOLVED",
+      "applicable_methods": [
+        "pde_numerical_simulation",
+        "energy_estimate"
+      ],
+      "implemented_applicable": [],
+      "missing_methods": [
+        "pde_numerical_simulation",
+        "energy_estimate"
+      ],
+      "method_coverage": 0.0,
+      "can_resolve": false,
+      "direction_note": "缺失方向：从弱解到强解的正则性跨越缺少控制机制；湍流级联的能量转移无法被现有估计封顶。开放方向：新的 a priori 估计、或证明有限时间奇点不存在的构造性方法。"
+    },
+    {
+      "conjecture_id": "PNP",
+      "conjecture_name": "P vs NP",
+      "status": "UNSOLVED",
+      "applicable_methods": [
+        "complexity_reduction",
+        "algebraic_complexity"
+      ],
+      "implemented_applicable": [],
+      "missing_methods": [
+        "complexity_reduction",
+        "algebraic_complexity"
+      ],
+      "method_coverage": 0.0,
+      "can_resolve": false,
+      "direction_note": "缺失方向：缺乏区分'搜索'与'验证'复杂度的代数不变量；对角化与 relativization障碍使经典方法失效。开放方向：代数几何/逻辑（几何复杂性理论 GCT）路线。"
+    },
+    {
+      "conjecture_id": "YM",
+      "conjecture_name": "杨–米尔斯质量间隙",
+      "status": "UNSOLVED",
+      "applicable_methods": [
+        "lattice_qcd_numeric",
+        "renormalization"
+      ],
+      "implemented_applicable": [],
+      "missing_methods": [
+        "lattice_qcd_numeric",
+        "renormalization"
+      ],
+      "method_coverage": 0.0,
+      "can_resolve": false,
+      "direction_note": "缺失方向：构造满足 Wightman 公理的严格量子场论框架本身未解决；需把物理直觉转为可证数学对象。开放方向：严格的构造性 QFT 与重整化收剑性证明。"
+    },
+    {
+      "conjecture_id": "POINCARE",
+      "conjecture_name": "庞加莱猜想 Poincaré Conjecture",
+      "status": "SOLVED",
+      "applicable_methods": [
+        "ricci_flow_analysis"
+      ],
+      "implemented_applicable": [],
+      "missing_methods": [
+        "ricci_flow_analysis"
+      ],
+      "method_coverage": 0.0,
+      "can_resolve": true,
+      "direction_note": "已解决，作为'处理思维'的正面范例：把拓扑问题转为几何流( Ricci 流)的奇点分析，开创了几何化纲领。其方法论（几何化 + 奇点 surgery）可迁移到其他流形分类问题。"
+    },
+    {
+      "conjecture_id": "ABC",
+      "conjecture_name": "ABC 猜想",
+      "status": "DISPUTED",
+      "applicable_methods": [
+        "rad_computation",
+        "exhaustive_search"
+      ],
+      "implemented_applicable": [
+        "exhaustive_search"
+      ],
+      "missing_methods": [
+        "rad_computation"
+      ],
+      "method_coverage": 0.5,
+      "can_resolve": false,
+      "direction_note": "缺失方向：即便接受 IUTT，其可机器化验证路径仍不成熟；社区对证明正确性无共识。开放方向：寻找更可被检验的替代证明，或把 IUTT 形式化（Lean/Coq）以便机器核查。"
+    }
+  ]
+}

@@ -1,0 +1,184 @@
+{
+  "meta": {
+    "generated_by": "06-AI自动化/01-工作流/openmath_analyze.py",
+    "generated_at": "2026-09-19T10:19:02",
+    "provenance": {
+      "ai_assisted": true,
+      "note": "由 AI 代理基于 openmath_sys 引擎与已下载 OpenMath/arXiv 数据自动生成，未经人类复核，不得作为 L3+ 证据。"
+    },
+    "honesty": "本系列文件为 L0/L2 级数据处理与计算校验产物，非证明。方程求解、猜想的可计算实验均为计算验证(L2)，不构成对未解猜想的证明。预印本与猜想状态均标 UNVERIFIED/UNSOLVED。",
+    "disclaimer": "本文件为猜想的'分析与登记'。除已解决的庞加莱猜想(SOLVED/VERIFIED_L4，proof_claimed=true)外，其余未解/争议条目 proof_claimed 均为 false，状态标 UNSOLVED/UNVERIFIED/DISPUTED。可计算实验(our_l2_results)仅为 L2 数值证据，不构成对任一猜想的证明。"
+  },
+  "conjectures": [
+    {
+      "id": "RH",
+      "name": "黎曼猜想 Riemann Hypothesis",
+      "domain": "解析数论",
+      "statement": "黎曼 ζ 函数的所有非平凡零点实部均为 1/2。",
+      "status": "UNSOLVED",
+      "evidence_grade": "UNVERIFIED",
+      "proof_claimed": false,
+      "computable_aspects": [
+        "文献：前 10^13 个非平凡零点已数值验证落在临界线上（L2，外部计算，非证明）。",
+        "平凡零点 ζ(-2n)=0 可由函数方程直接推出（L4 已知结论，非猜想本身）。"
+      ],
+      "our_l2_results": null,
+      "theoretical_gap": "缺失方向：本质困难在于零点的'全局分布'与素数分布的关联缺少可机器化的结构性桥梁。现有路线（显式公式、随机矩阵类比、ζ 函数的谱解释）均未能把数值规律提升为解析证明。可探索的开放方向：将零点分布编码为某自伴算子的谱（Hilbert–Pólya 路线）并构造该算子。"
+    },
+    {
+      "id": "GC",
+      "name": "哥德巴赫猜想 Goldbach's Conjecture",
+      "domain": "数论",
+      "statement": "任一大于 2 的偶数都可写成两个素数之和。",
+      "status": "UNSOLVED",
+      "evidence_grade": "UNVERIFIED",
+      "proof_claimed": false,
+      "computable_aspects": [
+        "对有限范围做穷举求和验证（L2）。"
+      ],
+      "our_l2_results": {
+        "limit": 20000,
+        "holds": true,
+        "counterexamples": [],
+        "checked_evens": 10000
+      },
+      "theoretical_gap": "缺失方向：筛法（陈氏定理等）能证明'1 个素数 + 1 个殆素数'，但跨过'殆素数→素数'的最后一步缺乏普适工具。开放方向：圆法（Hardy–Littlewood）的误差项控制、或筛权函数的本质改进。"
+    },
+    {
+      "id": "TPC",
+      "name": "孪生素数猜想 Twin Prime Conjecture",
+      "domain": "数论",
+      "statement": "存在无穷多对相差 2 的素数。",
+      "status": "UNSOLVED",
+      "evidence_grade": "UNVERIFIED",
+      "proof_claimed": false,
+      "computable_aspects": [
+        "统计有限范围内的孪生素数对数量（L2）。"
+      ],
+      "our_l2_results": {
+        "limit": 200000,
+        "twin_pairs": 2160
+      },
+      "theoretical_gap": "缺失方向：张益唐(2013)证明存在无穷多对差 < 7000 万的素数，界限已被降到 246；但逼近 2 需突破 GPY 筛法的'奇偶障碍'(parity problem)。开放方向：借助更精细的权重或分布级数假设(DHL)进一步压缩界。"
+    },
+    {
+      "id": "COLLATZ",
+      "name": "角谷/考拉兹猜想 3n+1",
+      "domain": "动力系统 / 离散数学",
+      "statement": "对任意正整数 n，迭代 n→n/2(n偶) 或 3n+1(n奇) 终将到达 1。",
+      "status": "UNSOLVED",
+      "evidence_grade": "UNVERIFIED",
+      "proof_claimed": false,
+      "computable_aspects": [
+        "对有限范围穷举迭代验证是否归 1（L2）。"
+      ],
+      "our_l2_results": {
+        "limit": 100000,
+        "all_reach_1": true,
+        "exceptions": [],
+        "max_steps_observed": 350
+      },
+      "theoretical_gap": "缺失方向：该问题缺乏自然的代数结构，现有攻击（停止时间分布、模类分析、概率启发式）都无法排除极长轨道或循环的存在。开放方向：将其嵌入更广的动力系统类并寻找不变量，或证明其'几乎必然'归 1 作为中间目标。"
+    },
+    {
+      "id": "BSD",
+      "name": "BSD 猜想 Birch–Swinnerton-Dyer",
+      "domain": "代数几何 / 数论",
+      "statement": "椭圆曲线的秩等于其 L 函数在 s=1 处零点的阶。",
+      "status": "UNSOLVED",
+      "evidence_grade": "UNVERIFIED",
+      "proof_claimed": false,
+      "computable_aspects": [
+        "对具体椭圆曲线数值计算秩与 L 导数（需符号计算库，本次未跑）。"
+      ],
+      "our_l2_results": null,
+      "theoretical_gap": "缺失方向：需把'算术信息'(秩、Shafarevich–Tate 群)与'分析信息'(L 函数)通过某种'高度配对'联系起来。开放方向：Iwasawa 理论、欧拉系的构造。"
+    },
+    {
+      "id": "HODGE",
+      "name": "霍奇猜想 Hodge Conjecture",
+      "domain": "代数几何",
+      "statement": "非奇异复射影代数簇上的某类上同调类可由代数闭链表示。",
+      "status": "UNSOLVED",
+      "evidence_grade": "UNVERIFIED",
+      "proof_claimed": false,
+      "computable_aspects": [
+        "无通用可计算判据（属纯存在性/结构问题）。"
+      ],
+      "our_l2_results": null,
+      "theoretical_gap": "缺失方向：代数闭链与拓扑上同调之间的'可表示性'判据缺失。开放方向：借助motivic 上同调或更弱的代数几何不变量重构问题。"
+    },
+    {
+      "id": "NS",
+      "name": "纳维–斯托克斯存在性与光滑性",
+      "domain": "偏微分方程 / 数学物理",
+      "statement": "三维不可压 N-S 方程在给定初值下是否存在全局光滑解。",
+      "status": "UNSOLVED",
+      "evidence_grade": "UNVERIFIED",
+      "proof_claimed": false,
+      "computable_aspects": [
+        "数值模拟（非证明）；能量方法仅得弱解。"
+      ],
+      "our_l2_results": null,
+      "theoretical_gap": "缺失方向：从弱解到强解的正则性跨越缺少控制机制；湍流级联的能量转移无法被现有估计封顶。开放方向：新的 a priori 估计、或证明有限时间奇点不存在的构造性方法。"
+    },
+    {
+      "id": "PNP",
+      "name": "P vs NP",
+      "domain": "计算复杂性理论",
+      "statement": "是否所有 NP 问题都能在多项式时间内求解（P=NP）。",
+      "status": "UNSOLVED",
+      "evidence_grade": "UNVERIFIED",
+      "proof_claimed": false,
+      "computable_aspects": [
+        "无（属相对性/存在性判定，非数值实验）。"
+      ],
+      "our_l2_results": null,
+      "theoretical_gap": "缺失方向：缺乏区分'搜索'与'验证'复杂度的代数不变量；对角化与 relativization障碍使经典方法失效。开放方向：代数几何/逻辑（几何复杂性理论 GCT）路线。"
+    },
+    {
+      "id": "YM",
+      "name": "杨–米尔斯质量间隙",
+      "domain": "数学物理 / 量子场论",
+      "statement": "四维杨–米尔斯理论存在质量间隙（谱下界 > 0）。",
+      "status": "UNSOLVED",
+      "evidence_grade": "UNVERIFIED",
+      "proof_claimed": false,
+      "computable_aspects": [
+        "格点 QCD 数值给出质量间隙证据（L2，非证明）。"
+      ],
+      "our_l2_results": null,
+      "theoretical_gap": "缺失方向：构造满足 Wightman 公理的严格量子场论框架本身未解决；需把物理直觉转为可证数学对象。开放方向：严格的构造性 QFT 与重整化收剑性证明。"
+    },
+    {
+      "id": "POINCARE",
+      "name": "庞加莱猜想 Poincaré Conjecture",
+      "domain": "拓扑学",
+      "statement": "单连通的三维闭流形同胚于三维球面。",
+      "status": "SOLVED",
+      "evidence_grade": "VERIFIED_L4",
+      "proof_claimed": true,
+      "proof_by": "Grigori Perelman (2003，基于 Hamilton 的 Ricci 流)",
+      "computable_aspects": [
+        "无（已证明）。"
+      ],
+      "our_l2_results": null,
+      "theoretical_gap": "已解决，作为'处理思维'的正面范例：把拓扑问题转为几何流( Ricci 流)的奇点分析，开创了几何化纲领。其方法论（几何化 + 奇点 surgery）可迁移到其他流形分类问题。"
+    },
+    {
+      "id": "ABC",
+      "name": "ABC 猜想",
+      "domain": "数论",
+      "statement": "对互素正整数 a+b=c，rad(abc) 与 c 的关系存在一致上界。",
+      "status": "DISPUTED",
+      "evidence_grade": "UNVERIFIED",
+      "proof_claimed": false,
+      "proof_note": "Mochizuki(2012) 的'宇宙際 Teichmüller 理论'证明至今未被广泛接受。",
+      "computable_aspects": [
+        "对有限范围数值检验 rad 上界（L2）。"
+      ],
+      "our_l2_results": null,
+      "theoretical_gap": "缺失方向：即便接受 IUTT，其可机器化验证路径仍不成熟；社区对证明正确性无共识。开放方向：寻找更可被检验的替代证明，或把 IUTT 形式化（Lean/Coq）以便机器核查。"
+    }
+  ]
+}
