@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import math
 import cmath
+import re
 from typing import Any
 
 from .models import MathExpr
@@ -102,7 +103,7 @@ _BUILTIN_FUNC_NAMES = frozenset({
     "sec", "csc", "cot", "sinh", "cosh", "tanh", "sech", "csch", "coth",
     "arcsinh", "asinh", "arccosh", "acosh", "arctanh", "atanh",
     "arcsech", "asech", "arccsch", "acsch", "arccoth", "acoth",
-    "gcd", "lcm",
+    "gcd", "lcm", "max", "min", "floor", "ceil", "mod",
 })
 _NAMED_CONSTANTS = frozenset({"pi", "e", "tau", "phi", "inf", "nan"})
 # 允许参与连写切分的"单位"名（见 split_letter_runs 的判据说明）
@@ -417,6 +418,12 @@ class Parser:
             if t[0] == "JUXTA":
                 self.next()
                 node = BinOp("*", node, self.parse_power())
+            elif t[0] == "VAR" and t[1].lower() in _BUILTIN_FUNC_NAMES:
+                # 内置函数名紧随其后：`insert_implicit_mul` 因为它是函数名而没插乘号，
+                # 于是这里会残留记号。这些写法本应读作连写：
+                #   `sin A cos B` -> sin(A)*cos(B)；`2 sin x` -> 2*sin(x)
+                # 限定只对内置函数名生效，散文词连写（保护规则）不受影响。
+                node = BinOp("*", node, self.parse_power())
             else:
                 break
         return node
@@ -430,6 +437,13 @@ class Parser:
         if t[0] == "NUM":
             return Num(t[1])
         if t[0] == "VAR":
+            # 标准记号的**并列函数应用**：`sin A` 读作 sin(A)，而不是乘积 sin·A。
+            # 仅对内置函数名生效；普通多字母词相邻（如 "not true"、"factorial n"）
+            # 仍不插入乘号——那是刻意设计，用来避免把英文散文误判成乘积，不可放开。
+            nxt = self.peek()
+            if t[1].lower() in _BUILTIN_FUNC_NAMES and nxt[0] in ("NUM", "VAR", "FUNC"):
+                # 作用域取到乘方层：`sin A^2` 读作 sin(A^2)
+                return FuncCall(t[1], [self.parse_power()])
             return Var(t[1])
         if t[0] == "FUNC":
             self.next()  # 消费 '('
@@ -544,10 +558,33 @@ def _call_func(name: str, args: list[float]) -> float:
         return _f("atanh", 1 / args[0])
 
     if name == "gcd":
-        return float(math.gcd(int(round(args[0])), int(round(args[1]))))
+        # 逐次取 gcd，支持 n 元；自变量经 int(round()) 取整（gcd 只在整数上有定义）
+        g = 0
+        for x in args:
+            g = math.gcd(g, int(round(x)))
+        return float(g)
     if name == "lcm":
-        a, b = int(round(args[0])), int(round(args[1]))
-        return float(a * b // math.gcd(a, b)) if a and b else 0.0
+        # lcm 同样支持 n 元：lcm(a,b,c) = lcm(lcm(a,b),c)
+        v = 1
+        for x in args:
+            xi = int(round(x))
+            v = v * xi // math.gcd(v, xi) if (v and xi) else 0
+        return float(v)
+    # max/min：numeric.KNOWN_FUNC_NAMES 早就声明了这两个名字，但求值器没有实现，
+    # 于是调用时抛 unknown function，整条式子退化成 unevaluable。
+    # 声明与实现不一致是比"不支持"更糟的状态——筛查层以为支持、执行层才炸。
+    if name in ("max", "min"):
+        if not args:
+            raise ValueError(f"{name} requires at least one argument")
+        return float(max(args) if name == "max" else min(args))
+    if name == "mod":
+        if args[1] == 0:
+            raise ValueError("mod by zero")
+        return float(int(round(args[0])) % int(round(args[1])))
+    if name == "floor":
+        return float(math.floor(args[0]))
+    if name == "ceil":
+        return float(math.ceil(args[0]))
     raise ValueError(f"unknown function {name}")
 
 
@@ -745,16 +782,69 @@ def solve_poly(coeffs: dict, var: str) -> dict:
 # ---------------------------------------------------------------------------
 # 对外入口
 # ---------------------------------------------------------------------------
+# OpenMath 内容字典(CMP)惯用全称量词前缀，形如：
+#   "for all a | a + 0 = a"
+#   "for all integers a,b | lcm(a,b) = a*b/gcd(a,b)"
+# 解析器不含量词语法：'for'/'all' 会被词法扫描当成变量并触发隐式乘法，
+# 而 '|' 因不在运算符表内被静默跳过，最终报「表达式后面还有未消费的记号」。
+# 故在入口处识别并剥离该前缀，约束变量记入 MathExpr.quantified 以免语义丢失。
+_QUANT_PREFIX_RE = re.compile(r"^\s*for\s+all\s+(?P<vars>[^|]*?)\s*\|\s*", re.I)
+
+# 变量声明里常见的类型/修饰词，提取约束变量时剔除
+# （注意：不含 a/an 等可作为变量名的单词）
+_QUANT_TYPE_WORDS = frozenset({
+    "integer", "integers", "real", "reals", "rational", "rationals",
+    "complex", "natural", "number", "numbers", "positive", "negative",
+    "nonzero", "non-zero", "in", "set", "such", "that",
+})
+
+
+def split_quantifier(raw: str) -> tuple[str, list[str]]:
+    """拆分 OpenMath 全称量词前缀，返回 (剩余语句, 约束变量列表)。
+
+    无前缀时原样返回 (raw, [])。启发式处理：仅剥离前缀以便做 L2 计算校验，
+    不构造量词语义，不构成证明(L4)。
+    """
+    m = _QUANT_PREFIX_RE.match(raw)
+    if not m:
+        return raw, []
+    body = raw[m.end():]
+    variables: list[str] = []
+    for part in m.group("vars").replace(";", ",").split(","):
+        for tok in part.split():
+            tok = tok.strip("().")
+            if not tok or not re.fullmatch(r"[A-Za-z_]\w*", tok):
+                continue
+            if tok.lower() in _QUANT_TYPE_WORDS:
+                continue
+            if tok not in variables:
+                variables.append(tok)
+    return body, variables
+
+
+# CMP 常以句子标点结尾（"a + 0 = a." / "x^2 = 4,"）。孤立的 '.' 会被词法扫描
+# 当成数字记号，进而抛 "could not convert string to float: '.'"；
+# 结尾的逗号/分号则会成为未消费记号。这里统一剥掉结尾的句子标点。
+# 注意只处理**结尾**，不影响 ".5" 这类合法小数。
+_SENTENCE_TAIL_RE = re.compile(r"[\s.,;]+$")
+
+
 def parse_text(raw: str, context: set | None = None) -> MathExpr:
     raw = raw.strip()
+    body, quantified = split_quantifier(raw)
+    body = _SENTENCE_TAIL_RE.sub("", body)
     try:
-        tokens, ws = scan_tokens(raw)
+        tokens, ws = scan_tokens(body)
         tokens, ws = split_letter_runs(tokens, ws, context_letters=context)
         tokens = insert_implicit_mul(tokens, ws)
         tree = Parser(tokens).parse()
         variables = sorted({n.name for n in _walk(tree) if isinstance(n, Var)})
+        funcs = sorted({n.name.lower() for n in _walk(tree)
+                        if isinstance(n, FuncCall)})
         is_eq = isinstance(tree, Relation) and tree.op == "="
         return MathExpr(raw=raw, ast=tree, variables=variables,
-                        is_equation=is_eq, parse_ok=True)
+                        functions=funcs, is_equation=is_eq, parse_ok=True,
+                        quantified=quantified)
     except Exception as e:  # noqa: BLE001
-        return MathExpr(raw=raw, parse_ok=False, error=str(e))
+        return MathExpr(raw=raw, parse_ok=False, error=str(e),
+                        quantified=quantified)

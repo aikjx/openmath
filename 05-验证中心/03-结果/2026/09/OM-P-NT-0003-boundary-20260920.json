@@ -1,0 +1,87 @@
+{
+  "target_id": "OM-P-NT-0003",
+  "conjecture_status": "OPEN",
+  "provenance": {
+    "ai_assisted": true,
+    "independent_human_review": false
+  },
+  "timestamp": "2026-09-20T14:06:27.720148+00:00",
+  "environment": {
+    "python": "3.8.8",
+    "numpy": "1.24.3"
+  },
+  "source_sha256": {
+    "goldbach_coalition_boundary.py": "87801b5ada59a12712087a68e2d41107fddcca3bcb8b3d3cdd9c6f8958233c78",
+    "pwcv_goldbach_l2.py": "66ad9f457708e607056aa58fd7e2409c3bbfbcc1c4a40c1307a4bb2ce87461d5"
+  },
+  "arithmetic": "exact integers for new checks; inherited anchor engine uses floating cube-root phase boundary and diagnostic ratios",
+  "conditioning": "not applicable to new exact-integer checks",
+  "scope": {
+    "all_even_N_from": 4,
+    "all_even_N_to": 2000,
+    "even_N_count": 999,
+    "separate_anchor_N": [
+      1000000,
+      10000000
+    ]
+  },
+  "goldbach_search": {
+    "counterexamples": [],
+    "search_upper_bound": 2000
+  },
+  "central_zero_N": [
+    4
+  ],
+  "central_identity_max_integer_residual": 0,
+  "prime_power_contamination_max": {
+    "N": 1592,
+    "ordered_count": 30
+  },
+  "ordered_unordered_and_contamination_checks": "PASS",
+  "anchor_structure_checks": "PASS",
+  "anchors": [
+    {
+      "E": 1000000,
+      "G_unordered": 5402,
+      "G_anchor": 5402,
+      "resid_G": 0,
+      "S_recursive": 5382,
+      "H_direct_primepairs": 5382,
+      "resid_survive_minus_direct": 0,
+      "all_survivors_prime_pairs": true,
+      "K_killed_full_prime_phase": 7426,
+      "k_nonprime_counterexamples": 0,
+      "n_prime": 5818,
+      "n_semiprime": 1608,
+      "semi_frac": 0.216536,
+      "semiprime_over_H": 0.298774,
+      "q1_le_zprev_counterexamples": 0,
+      "c1_p50": 0.4258,
+      "c1_max": 0.4965
+    },
+    {
+      "E": 10000000,
+      "G_unordered": 38807,
+      "G_anchor": 38807,
+      "resid_G": 0,
+      "S_recursive": 38763,
+      "H_direct_primepairs": 38763,
+      "resid_survive_minus_direct": 0,
+      "all_survivors_prime_pairs": true,
+      "K_killed_full_prime_phase": 56353,
+      "k_nonprime_counterexamples": 0,
+      "n_prime": 44214,
+      "n_semiprime": 12139,
+      "semi_frac": 0.21541,
+      "semiprime_over_H": 0.313159,
+      "q1_le_zprev_counterexamples": 0,
+      "c1_p50": 0.4297,
+      "c1_max": 0.4985
+    }
+  ],
+  "limitations": [
+    "No all-even coverage between 2000 and the two anchors.",
+    "No weighted logarithmic correlation bound was checked or proved.",
+    "No L4 build; no proof of infinite positivity."
+  ]
+}

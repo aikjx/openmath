@@ -36,11 +36,13 @@ from fractions import Fraction
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 try:  # 包内相对导入
+    from . import structure as st
     from .structure import (
         ChainComplex, STANDARD_COMPLEXES, analyze_group,
         cyclic_additive_group, dihedral_group, symmetric_group, homology_summary,
     )
 except Exception:  # noqa: BLE001  # 作为顶层脚本被直接使用时的兜底
+    import structure as st  # type: ignore
     from structure import (  # type: ignore  # noqa: F401
         ChainComplex, STANDARD_COMPLEXES, analyze_group,
         cyclic_additive_group, dihedral_group, symmetric_group, homology_summary,
@@ -633,7 +635,7 @@ def build_group_library(extended: bool = False) -> List[Dict[str, Any]]:
     objs: List[Dict[str, Any]] = []
 
     def add(name, table):
-        inv = group_invariants(table, max_order=15 if extended else 12)
+        inv = group_invariants(table, max_order=16 if extended else 12)
         objs.append({"id": f"group:{name}", "label": name, "raw": table, "inv": inv})
 
     for n in range(1, 13):
@@ -651,13 +653,17 @@ def build_group_library(extended: bool = False) -> List[Dict[str, Any]]:
     if extended:
         # 旧写的 extended 分支里 `a*b <= 12` 把 (2,8)/(4,4)/(3,5)… 全过滤掉了，
         # 于是 extended=True **一个群也没多加**——一个看起来在工作、其实空转的开关。
-        # 现改为真正扩到 13–15 阶（16 阶子群枚举在库内实现上要 2.8s/群，暂不纳入）。
         for n in range(13, 16):
             add(f"Z{n}", cyclic_additive_group(n))
         t_d7, _ = dihedral_group(7)          # 14 阶
         add("D7", t_d7)
         add("Z3xZ5", _direct_product(cyclic_additive_group(3),
                                      cyclic_additive_group(5)))   # 15 阶
+        # 16 阶：子群枚举换成「循环子群的 join 闭包」后不再是 2.8 s/群，可以纳入。
+        # 14 个构造**不声称**是同构分类的完备列表，审计只验「两两可区分」与
+        # 「与教科书计数 14 相符」。
+        for name, t16 in st.order16_library():
+            add(f"{name}(16)", t16)
     return objs
 
 

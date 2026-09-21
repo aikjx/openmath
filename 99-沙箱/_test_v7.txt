@@ -1,0 +1,52 @@
+=== 1. 并列函数应用（修复目标）===
+PASS sin A                                        
+PASS cos A                                        
+PASS tan A                                        
+PASS sec A                                        
+PASS abs x                                        
+PASS ln x                                         
+PASS sqrt 2                                       
+PASS sin A cos B                                  
+PASS tan A = sin A / cos A                        
+PASS sec A = 1/cos A                              
+PASS sin A = - sin(-A)                            
+PASS cos A = cos(-A)                              
+PASS sin(A + B) = sin A cos B + cos A sin B       
+
+=== 2. 语义结构：必须是函数应用而非乘积 ===
+PASS sin A -> FuncCall(sin,[A])                   FuncCall
+PASS a b -> BinOp(*,a,b) 乘积仍成立                    BinOp
+PASS tan A = ... -> Relation(=)                   Relation
+PASS sin A cos B -> sin(A)*cos(B)                 BinOp
+
+=== 3. 散文保护不得放开（必须仍失败）===
+PASS 仍应失败: factorial n                            
+PASS 仍应失败: not true                               
+PASS 仍应失败: not false = true                       
+PASS 仍应失败: There does not exist a c               
+
+=== 4. 回归 ===
+PASS 2*x + 3 = 7                                  
+PASS x^2 - 5*x + 6 = 0                            
+PASS a*x^2 + b*x + c = 0                          
+PASS power(2, 3) + sqrt(16)                       
+PASS gcd(12, 18)                                  
+PASS sin(x) + cos(x)                              
+PASS lcm(4, 6) = 12                               
+PASS 2 ln(x + 1)                                  
+PASS x >= 3                                       
+PASS a != b                                       
+PASS x^2 + y^2 = z^2                              
+PASS (a+b)*(a-b) = a^2 - b^2                      
+PASS for all a | a + 0 = a                        
+PASS a + 0 = a.                                   
+PASS 0.5 + 1 = 1.5                                
+
+=== 5. 不得影响：内置名作独立变量/作函数用法 ===
+PASS sin 单独仍是 Var                                 
+PASS sin(x) 仍是 FuncCall                           
+
+=== 6. CMP 可解析率（本地快照实测）===
+cmp_total=176  equation_like=128  parsed=59  rate=0.4609
+
+FAILURES=0

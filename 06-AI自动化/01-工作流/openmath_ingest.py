@@ -91,8 +91,8 @@ CANONICAL_SEED = [
     "lcm(4, 6) = 12",
 ]
 
-# 未解析 CMP 反例样本保留上限（避免产物过大）
-UNPARSED_SAMPLE_CAP = 30
+# 未解析 CMP 反例样本保留上限（调高以便诊断引擎解析回归；每条为短文本）
+UNPARSED_SAMPLE_CAP = 120
 
 
 def _stamp() -> str:
@@ -155,6 +155,10 @@ def _read_local(name: str) -> str | None:
             return f.read()
     except Exception:  # noqa: BLE001
         return None
+
+
+# 量词前缀（"for all a | ..."）已由引擎统一处理，不再在此重复剥离。
+# 见 06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/parser.py :: split_quantifier
 
 
 # ---------------------------------------------------------------------------
@@ -277,6 +281,7 @@ def analyze(cds_catalog: dict, engine: FourDimLogicEngine) -> dict:
             return
         # 仅通过「含关系运算符且含字母」筛选的 CMP 计为方程型候选
         cmp_equation_like += 1
+        # 量词前缀由引擎 parse_text 处理；仍失败者如实记为反例
         rec = parse_text(raw)
         if not rec.parse_ok:
             # 保留反例样本（诚实红线：不静默删除）
@@ -287,20 +292,41 @@ def analyze(cds_catalog: dict, engine: FourDimLogicEngine) -> dict:
         seen_raw.add(raw)
         equations.append({"raw": raw, "source": source})
 
-    # 优先读本地快照，离线也可重跑；本地缺失再回退联网
+    # 优先读本地快照，离线也可重跑；本地缺失再回退联网。
+    # 注意：任何跳过都必须登记原因——旧的 `continue` 是静默的，
+    # 会让 cmp_total 无声缩水，而报告却照常显示「XML 解析失败 0」。
+    skipped: list[dict] = []
     for cd in cds_catalog["cds"]:
         name = cd["name"]
         raw = _read_local(name) or fetch_openmath_cd_raw(name, timeout=10)
         if not raw:
+            skipped.append({"name": name, "reason": "no_content"})
             continue
         try:
             syms = parse_ocd(raw)
-        except Exception:  # noqa: BLE001
+        except Exception as e:  # noqa: BLE001
+            skipped.append({
+                "name": name,
+                "reason": f"parse_error: {type(e).__name__}: {e}",
+            })
             continue
         for s in syms:
             cmp_total += len(s.properties)
             for prop in s.properties:
                 try_add(prop, f"CD:{name}/{s.name}")
+
+    # 一致性校验：catalog 登记的性质总数 vs 本阶段实际统计的 cmp_total。
+    # 两者应相等；不等即说明有 CD 被跳过或两侧读取内容不一致，须先排查再引用指标。
+    catalog_props = sum(c["property_count"] for c in cds_catalog["cds"])
+    consistency = {
+        "catalog_property_total": catalog_props,
+        "analysis_cmp_total": cmp_total,
+        "match": catalog_props == cmp_total,
+        "note": (
+            "两者应相等；不等说明 analyze 阶段跳过了某些 CD（见 cds_skipped），"
+            "或 catalog 与 analyze 读到的内容不一致，须排查后再引用本指标。"
+        ),
+    }
 
     # 合并内置种子
     for raw in CANONICAL_SEED:
@@ -346,6 +372,12 @@ def analyze(cds_catalog: dict, engine: FourDimLogicEngine) -> dict:
             "samples": unparsed_samples,
             "note": "解析失败的 CMP 反例样本（上限截断），按诚实红线保留并标注，不静默删除。",
         },
+        "cds_skipped": {
+            "count": len(skipped),
+            "items": skipped,
+            "note": "analyze 阶段被跳过的 CD 及原因（旧实现为静默 continue）。一律登记，不隐藏。",
+        },
+        "consistency": consistency,
         "equations_analyzed": len(results),
         "results": results,
     }
@@ -377,6 +409,40 @@ def _load_prev_stats() -> dict | None:
     return prev
 
 
+def _dump_analysis_guarded(analysis: dict, path: str) -> None:
+    """写 `openmath_4d_analysis.json`，但**不许把好产物覆写成坏产物**。
+
+    2026-09-20 真实事故：解析器一次静默失效（`MathExpr` 少了 `functions` 字段，
+    `parse_text` 的 except 把 TypeError 吞掉，所有式子都变成 parse_ok=False）
+    让 `cmp_parsed` 从 137 掉到 0。这一个数字顺着流水线往下传，
+    ② 阶段于是"没有符号求解失败的式子"可兜底，产出 0 条恒等式——
+    全程没有一行报错，只有产物悄悄空了。
+
+    解析器回归属于**上游缺陷**，不该由下游产物承担后果。因此：本轮
+    `cmp_parsed` 相对上一轮暴跌（不足一半）时，写盘改为旁路 + 显式告警，
+    旧文件保持不动。要强制覆盖，先删掉旧文件。
+    """
+    prev_parsed = None
+    try:
+        with open(path, encoding="utf-8") as f:
+            prev_parsed = json.load(f)["coverage"]["cmp_parsed"]
+    except Exception:  # noqa: BLE001
+        pass
+
+    cur = analysis["coverage"]["cmp_parsed"]
+    if prev_parsed and cur < prev_parsed * 0.5:
+        side = path + ".rejected"
+        _dump(analysis, side)
+        raise SystemExit(
+            f"\n[闸门] 拒绝覆盖 {os.path.basename(path)}：\n"
+            f"  本轮 cmp_parsed={cur}，上一轮为 {prev_parsed}（不足一半）。\n"
+            f"  这种量级的骤降几乎总是解析器回归，而不是数据真的变了。\n"
+            f"  本轮结果已旁路写入 {os.path.basename(side)} 供排查，旧文件保持原样。\n"
+            f"  确认退化是有意为之后，请先删除旧文件再重跑。\n"
+        )
+    _dump(analysis, path)
+
+
 def main() -> int:
     print("[流水线] 启动 OpenMath 自动摄取（AI 辅助，需人类复核）")
     engine = FourDimLogicEngine()
@@ -404,7 +470,8 @@ def main() -> int:
     # 写盘
     _dump(cds, os.path.join(_cds_dir(), "catalog.json"))
     _dump(papers, os.path.join(REPO, "10-文献与索引", "arxiv_index.json"))
-    _dump(analysis, os.path.join(REPO, "09-数据", "openmath_4d_analysis.json"))
+    _dump_analysis_guarded(analysis,
+                           os.path.join(REPO, "09-数据", "openmath_4d_analysis.json"))
 
     _write_report(cds, papers, analysis, prev)
     print("[完成] 产物已写入 09-数据/ 与 10-文献与索引/，报告见 06-AI自动化/01-工作流/RUN_REPORT.md")
@@ -413,6 +480,7 @@ def main() -> int:
 
 def _write_report(cds: dict, papers: dict, analysis: dict, prev: dict | None) -> None:
     cov = cds["meta"]["coverage"]
+    cons = analysis.get("consistency", {})
     lines = [
         "# OpenMath 自动摄取 · 运行报告",
         "",
@@ -453,6 +521,16 @@ def _write_report(cds: dict, papers: dict, analysis: dict, prev: dict | None) ->
         f"- 共分析方程 {analysis['equations_analyzed']} 条（含内置种子）。",
         f"- 未解析 CMP 反例保留 {len(analysis['unparsed_samples']['samples'])} 条"
         f"（上限 {analysis['unparsed_samples']['cap']}），按诚实红线保留并标注。",
+        f"- 一致性校验：catalog 登记 {cons.get('catalog_property_total', '?')} 条性质"
+        f" vs 分析统计 {cons.get('analysis_cmp_total', '?')} 条 → "
+        + ("一致" if cons.get("match") else "**不一致，须排查后再引用本指标**") + "。",
+    ]
+    skipped = analysis.get("cds_skipped", {})
+    if skipped.get("count"):
+        lines.append(
+            f"- 被跳过的 CD（{skipped['count']} 个，已登记原因）："
+            + "；".join(f"{i['name']}({i['reason']})" for i in skipped["items"]))
+    lines += [
         "- 方程求解为计算校验(L2)，非证明(L4)。",
         "",
         "## 4. 与上一轮对比（增量）",

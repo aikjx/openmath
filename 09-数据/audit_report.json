@@ -2,10 +2,10 @@
   "scope": "本模块只审计**有限、可枚举、有独立参照**的计算：数论函数、素数计数、划分函数、图不变量、有限群、有限链复形同调、恒等式验证器。它不审计任何关于未解猜想的论断，也不把'审计通过'解释成'结论正确'。",
   "method": "每个数字都用与被测代码不同的算法重算，或对照教科书已知值；审计只报告差异，不修改被审对象。",
   "summary": {
-    "sections": 9,
-    "total_checks": 3739,
+    "sections": 10,
+    "total_checks": 4452,
     "failed_checks": 0,
-    "passed_checks": 3739,
+    "passed_checks": 4452,
     "all_ok": true
   },
   "sections": [
@@ -121,12 +121,14 @@
     {
       "name": "groups",
       "note": "有限群：中心/共轭类/子群数 vs 独立暴力枚举；并逐元素核对元素阶",
-      "checks": 383,
+      "checks": 716,
       "failures": [],
-      "passed": 383,
+      "passed": 716,
       "ok": true,
-      "objects": 31,
-      "order_cap": 15
+      "objects": 45,
+      "order_cap": 16,
+      "order16_constructions": 14,
+      "cross_method_disagreements": 0
     },
     {
       "name": "homology",
@@ -140,29 +142,29 @@
     {
       "name": "identity_verifier",
       "note": "判准率只统计'在能力范围内'的式子；对超出范围的式子，正确的行为是**拒答**而不是给出 holds/fails。",
-      "checks": 38,
+      "checks": 117,
       "failures": [],
-      "passed": 38,
+      "passed": 117,
       "ok": true,
-      "true_identities_correct": "18/18",
-      "false_identities_correct": "6/6",
+      "true_identities_correct": "35/35",
+      "false_identities_correct": "11/11",
       "parser": {
         "tight_vs_parenthesized": "-0.5j vs -0.5j",
         "tight_vs_loose": "-0.5j vs 0.5j",
-        "builtin_names_handled": 48,
-        "builtin_names_declared": 48,
+        "builtin_names_handled": 53,
+        "builtin_names_declared": 53,
         "note": "紧贴乘法（无空白）比 `*` 和 `/` 结合更紧，隔空白乘法与显式 `*` 同优先级。这是 `1/2x` 的经典歧义，本仓库选这条约定是因为它让欧拉公式那条真恒等式判对；持有相反约定的人应直接改这里，测试集会立刻变红。"
       }
     },
     {
       "name": "sequences",
       "note": "序列引擎：① 教科书/OEIS 首项对照（外部参照，不取自本仓库代码）；② 每条被报出的递推用**另一份实现**重算一遍全量项；③ 增长率类型与理论底数对照（只断言有把握的条目）",
-      "checks": 466,
+      "checks": 479,
       "failures": [],
-      "passed": 466,
+      "passed": 479,
       "ok": true,
       "n_terms": 60,
-      "n_reference_terms_checked": 300,
+      "n_reference_terms_checked": 310,
       "falsification_meta_test": {
         "why": "C1/C2 只在发现集上精确相容且解唯一时才报候选，因此真实序列上「外推证伪」恒为 0——那是**没有候选进入检验**，不是没有过拟合。本节用必然破功的合成序列检验该通道本身是否可达。",
         "n_cases": 8,
@@ -313,7 +315,7 @@
       },
       "char_root_note": "主特征根由递推系数经 Durand–Kerner 求根得到，与教科书常数（φ、tribonacci 常数、塑性数）逐条对照。系数错一个数字，特征根就会跑到别处，所以这条查的是**系数本身**而非拟合质量。",
       "sequences_without_reference": [],
-      "n_recurrence_candidates": 35,
+      "n_recurrence_candidates": 36,
       "n_independent_disagreements": 0,
       "c4_solver_crosscheck": {
         "engine_solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
@@ -347,6 +349,7 @@
         "central_binomial": "exponential",
         "derangements": "super_exponential",
         "motzkin": "exponential",
+        "apery": "exponential",
         "bell": "super_exponential",
         "collatz_steps": "neither",
         "partition": "exponential",
@@ -377,6 +380,7 @@
       "growth_base_bias_note": "λ^n·n^α 型序列在有限窗口上拟合出的底数必然低于理论值（多项式因子被吸收进指数项）。这是**窗口偏差**，不是引擎缺陷；但读报告的人若把观测底数当结论用就会错，所以单列出来。",
       "n_missing_subexp_warning": 0,
       "unchecked_growth_ids": [
+        "apery",
         "bigomega",
         "collatz_steps",
         "euler_phi",
@@ -390,10 +394,78 @@
         "tau_prefix_sum"
       ],
       "unchecked_growth_note": "这些序列的增长类型我不给出断言（真实增长属于中间型或我无把握），它们的类型由引擎给出但**未经审计确认**，见 growth_observed。"
+    },
+    {
+      "name": "millennium",
+      "note": "本段**不审计任何关于未解猜想的论断**——那些论断的诚实性由 M9 的结构检查管（开放叶、影子不蕴含、不得出现证明性措辞）。计算层只保证：这些数字用另一套算法重算还是同一个数。",
+      "checks": 288,
+      "failures": [],
+      "details": [
+        {
+          "t": 0.0,
+          "zeta_em": "(-1.4603545088095935+0j)",
+          "zeta_eta": "(-1.4603545088095862-0j)",
+          "abs_diff": 7.327471962526033e-15
+        },
+        {
+          "t": 5.0,
+          "zeta_em": "(0.7018123711656882+0.23103800839141758j)",
+          "zeta_eta": "(0.7018123711656863+0.23103800839142002j)",
+          "abs_diff": 3.0867394805640034e-15
+        },
+        {
+          "t": 14.134725142,
+          "zeta_em": "(-3.308782238614573e-11+2.0781291958719082e-10j)",
+          "zeta_eta": "(-3.308181831926664e-11+2.0781351257528084e-10j)",
+          "abs_diff": 6.033278873336297e-15
+        },
+        {
+          "t": 25.0,
+          "zeta_em": "(0.004984593364045809-0.014012301962582872j)",
+          "zeta_eta": "(0.004984593364029075-0.014012301962583663j)",
+          "abs_diff": 1.6752696072200537e-14
+        },
+        {
+          "t": 37.586178159,
+          "zeta_em": "(9.826906204734909e-11+3.2311315355642665e-10j)",
+          "zeta_eta": "(9.780331323864406e-11+3.2311322629274875e-10j)",
+          "abs_diff": 4.657488143846716e-13
+        },
+        {
+          "t": 50.0,
+          "zeta_em": "(-0.08171210831090911+0.3307921940371168j)",
+          "zeta_eta": "(-0.08171210832096823+0.33079219403865184j)",
+          "abs_diff": 1.0175572581225492e-11
+        }
+      ],
+      "passed": 288,
+      "ok": true,
+      "T": 600.0,
+      "zeros_counted": 341,
+      "N_via_argument": 341.0,
+      "N_argument_deviation_from_integer": 0.0,
+      "S_via_argument": 0.260502,
+      "S_reported_by_lab": 0.2605,
+      "ec_brute_pairs_checked": 82,
+      "sat_brute_pairs_checked": 40,
+      "xi_points_recomputed": 4,
+      "xi_skipped_points_reason": "Re s < 0 的点未用 η 路径复核：Euler 变换要求 (k+1)^{-s} → 0，该区域不收敛",
+      "zeta_methods": [
+        "Euler–Maclaurin（被测）",
+        "η 函数 + Euler 变换（独立）"
+      ],
+      "theta_methods": [
+        "Stirling 闭式（被测）",
+        "θ' 的 Simpson 求积（独立）"
+      ],
+      "zero_count_methods": [
+        "Hardy Z 符号变号计数（被测）",
+        "辐角原理 S(T)（独立）"
+      ]
     }
   ],
   "meta": {
-    "generated_at": "2026-09-19T21:40:37",
+    "generated_at": "2026-09-21T10:32:34",
     "generator": "06-AI自动化/01-工作流/openmath_audit.py",
     "evidence_level": "L2",
     "provenance": {
@@ -480,6 +552,6 @@
     ],
     "total_checks": 6,
     "violations": 0,
-    "generated_at": "2026-09-19T21:40:37"
+    "generated_at": "2026-09-21T10:32:34"
   }
 }

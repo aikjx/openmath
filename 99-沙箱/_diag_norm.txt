@@ -1,0 +1,4 @@
+cmp_total            = 179
+quantifier_prefix    = 53
+before: eqlike=137 parsed=24 rate=0.1752
+after : eqlike=137 parsed=42 rate=0.3066

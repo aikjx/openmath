@@ -1,7 +1,7 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_ingest.py",
-    "generated_at": "2026-09-19T16:12:15",
+    "generated_at": "2026-09-21T09:30:42",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理基于 openmath_sys 引擎自动生成，未经人类复核，不得作为 L3+ 证据。"
@@ -16,41 +16,356 @@
   },
   "coverage": {
     "cmp_total": 179,
-    "cmp_equation_like": 135,
-    "cmp_parsed": 133,
-    "parsed_rate": 0.743,
-    "parsed_rate_equation_like": 0.9852,
+    "cmp_equation_like": 137,
+    "cmp_parsed": 60,
+    "parsed_rate": 0.3352,
+    "parsed_rate_equation_like": 0.438,
     "note": "parsed_rate 分母为全部 CMP（含自然语言描述型），故偏低；parsed_rate_equation_like 仅统计通过「含关系运算符且含字母」筛选的方程型 CMP，更能反映解析器真实能力。两者均不代表被证明(L4)。"
   },
   "unparsed_samples": {
-    "count_capped": 2,
-    "cap": 30,
+    "count_capped": 77,
+    "cap": 120,
     "samples": [
+      {
+        "raw": "for all integers a,b | There does not exist a c>0 such that c/a is an Integer and c/b is an Integer and lcm(a,b) > c.",
+        "source": "CD:arith1/lcm"
+      },
+      {
+        "raw": "for all integers a,b | There does not exist a c such that a/c is an Integer and b/c is an Integer and c > gcd(a,b). Note that this implies that gcd(a,b) > 0",
+        "source": "CD:arith1/gcd"
+      },
+      {
+        "raw": "for all a,b | a * 0 = 0 and a * b = a * (b - 1) + a",
+        "source": "CD:arith1/times"
+      },
+      {
+        "raw": "whenever not(a=0) then a/a = 1",
+        "source": "CD:arith1/divide"
+      },
+      {
+        "raw": "x\\in C implies x^a = exp(a ln x)",
+        "source": "CD:arith1/power"
+      },
+      {
+        "raw": "if n is an integer then x^0 = 1, x^n = x * x^(n-1)",
+        "source": "CD:arith1/power"
+      },
+      {
+        "raw": "x\\in C implies root(x,n) = exp(ln(x)/n)",
+        "source": "CD:arith1/root"
+      },
+      {
+        "raw": "for all a,n | power(root(a,n),n) = a (if the root exists!)",
+        "source": "CD:arith1/root"
+      },
+      {
+        "raw": "bigfloatprec(f,r,p)=f However, if converted to radix r, only p digits in that radix are significant. This usually means that it originated in radix r, and has since (e.g. for display purposes) been converted into its current radix. For exposition, f = m*r^e.",
+        "source": "CD:bigfloat1/bigfloatprec"
+      },
+      {
+        "raw": "diff(lambda y:a(y) + b(y))(x) = diff(lambda y:a(y))(x) + diff(lambda y:b(y))(x)",
+        "source": "CD:calculus1/diff"
+      },
+      {
+        "raw": "diff(lambda y:a(y) * b(y))(x) = diff(lambda y:a(y))(x) * b(x) + a(x) * diff(lambda y:b(y))(x)",
+        "source": "CD:calculus1/diff"
+      },
+      {
+        "raw": "application of integrate followed by differentiate is the identity function, that is: diff(lambda y:integral(lambda z:f(z))(y)) = f",
+        "source": "CD:calculus1/int"
+      },
+      {
+        "raw": "for all a,b | integral from a to b = -integral from b to a",
+        "source": "CD:calculus1/defint"
+      },
+      {
+        "raw": "for all a < b < c | integral over [a,c] = integral over [a,b] + integral over [b,c]",
+        "source": "CD:calculus1/defint"
+      },
+      {
+        "raw": "for all x,y,r,a | (r sin a = y and r cos a = x) implies (complex_polar(r,a) = complex_cartesian(x,y)",
+        "source": "CD:complex1/complex_polar"
+      },
+      {
+        "raw": "for all x | if a is a real number and k is an integer then complex_polar(x,a) = complex_polar(x,a+2*pi*k)",
+        "source": "CD:complex1/complex_polar"
+      },
+      {
+        "raw": "the argument of x+i*y = arctan(y/x) (if x is positive)",
+        "source": "CD:complex1/argument"
+      },
+      {
+        "raw": "the argument of x+i*y = arctan(y,x) (two-argument arctan from transc2)",
+        "source": "CD:complex1/argument"
+      },
+      {
+        "raw": "x is in the domain of f if and only if there exists a y in the range of f and f(x) = y",
+        "source": "CD:fns1/domain"
+      },
+      {
+        "raw": "(inverse(f))(f(x)) = x if f is injective, that is (for all x,y | f(x) = f(y) implies x=y) implies (inverse(f))(f(z)) = z",
+        "source": "CD:fns1/inverse"
+      },
+      {
+        "raw": "f(inverse(f(y))=y if f is defined at inverse(f)(y) that is, if there exists an x s.t. inverse(f)(y) = x then this implies f(inverse(f)(y)) = y",
+        "source": "CD:fns1/inverse"
+      },
+      {
+        "raw": "x in the kernal of f implies that f(x) = 0",
+        "source": "CD:fns2/kernel"
+      },
+      {
+        "raw": "b is a factor of a iff remainder of a divided by b = 0",
+        "source": "CD:integer1/factorof"
+      },
+      {
+        "raw": "factorial n = product [1..n]",
+        "source": "CD:integer1/factorial"
+      },
+      {
+        "raw": "for all a,b with a,b Integers | a = b * quotient(a,b) + remainder(a,b) and abs(remainder(a,b)) is less than abs(b) and a*remainder(a,b) >= 0",
+        "source": "CD:integer1/quotient"
+      },
+      {
+        "raw": "for all a,b with a,b Integers | a = b * quotient(a,b) + remainder(a,b) and abs(remainder(a,b)) is less than abs(b) and a*remainder(a,b) >= 0",
+        "source": "CD:integer1/remainder"
+      },
+      {
+        "raw": "if we write a as [a_1,a_2,a_3] and b as [b_1,b_2,b_3] then the vector product denoted a x b = [a_2b_3 - a_3b_2 , a_3b_1 - a_1b_3 , a_1b_2 - a_2b_1]",
+        "source": "CD:linalg1/vectorproduct"
+      },
+      {
+        "raw": "a.b = |a| * |b| * cos(\\theta), where \\theta is the angle between the two vectors that is |atan(a_2/a_1)-atan(b_2/b_1)|. N.B. The FMP displays the two dimensional case only.",
+        "source": "CD:linalg1/scalarproduct"
+      },
+      {
+        "raw": "outerproduct(a,b)_{i,j} = a_i * b_j",
+        "source": "CD:linalg1/outerproduct"
+      },
+      {
+        "raw": "for all x | x and not(x) = false",
+        "source": "CD:logic1/and"
+      },
+      {
+        "raw": "for all x | x nand not(x) = true",
+        "source": "CD:logic1/nand"
+      },
+      {
+        "raw": "for all x | x xor x = false",
+        "source": "CD:logic1/xor"
+      },
+      {
+        "raw": "for all x | x xor not(x) = true",
+        "source": "CD:logic1/xor"
+      },
+      {
+        "raw": "for all x | x xnor x = true",
+        "source": "CD:logic1/xnor"
+      },
+      {
+        "raw": "for all x | x xnor not(x) = false",
+        "source": "CD:logic1/xnor"
+      },
+      {
+        "raw": "for all x | x or not(x) = true",
+        "source": "CD:logic1/or"
+      },
+      {
+        "raw": "for all a,b | not(a and b)= (not(a) or not(b))",
+        "source": "CD:logic1/or"
+      },
+      {
+        "raw": "for all x | x nor not(x) = false",
+        "source": "CD:logic1/nor"
+      },
+      {
+        "raw": "for all a,b | a and b = (not(a) nor not(b))",
+        "source": "CD:logic1/nor"
+      },
+      {
+        "raw": "not true = false",
+        "source": "CD:logic1/true"
+      },
+      {
+        "raw": "not false = true",
+        "source": "CD:logic1/false"
+      },
+      {
+        "raw": "for all sets A,B and C union(A,intersect(B,C)) = intersect(union(A,B),union(A,C))",
+        "source": "CD:multiset1/union"
+      },
+      {
+        "raw": "if x is a real number then x < infinity",
+        "source": "CD:nums1/infinity"
+      },
+      {
+        "raw": "e = the sum as j ranges from 0 to infinity of 1/(j!)",
+        "source": "CD:nums1/e"
+      },
+      {
+        "raw": "pi = 4 * the sum as j ranges from 0 to infinity of ((1/(4j+1))-(1/(4j+3)))",
+        "source": "CD:nums1/pi"
+      },
       {
         "raw": "gamma = limit_(m -> infinity)(sum_(j ranges from 1 to m)(1/j) - ln m)",
         "source": "CD:nums1/gamma"
       },
       {
+        "raw": "a=b and b=c implies a=c",
+        "source": "CD:relation1/eq"
+      },
+      {
+        "raw": "a<b and b<c implies a<c",
+        "source": "CD:relation1/lt"
+      },
+      {
+        "raw": "a>b and b>c implies a>c",
+        "source": "CD:relation1/gt"
+      },
+      {
+        "raw": "it is not true that a=/b and b=/c implies a=/c",
+        "source": "CD:relation1/neq"
+      },
+      {
+        "raw": "a<=b and b<=c implies a<=c",
+        "source": "CD:relation1/leq"
+      },
+      {
+        "raw": "a>=b and b>=c implies a>=c",
+        "source": "CD:relation1/geq"
+      },
+      {
+        "raw": "class(S,R,a) = {b in S | (a,b) in R}.",
+        "source": "CD:relation3/class"
+      },
+      {
+        "raw": "for all x | ceiling(x)-1 < x <= ceiling x",
+        "source": "CD:rounding1/ceiling"
+      },
+      {
+        "raw": "for all x | floor(x) <= x < floor(x)+1",
+        "source": "CD:rounding1/floor"
+      },
+      {
+        "raw": "for all x | trunc(x) <= x < trunc(x)+1 (x>0)",
+        "source": "CD:rounding1/trunc"
+      },
+      {
+        "raw": "for all x | trunc(x) >= x > trunc(x)-1 (x<0)",
+        "source": "CD:rounding1/trunc"
+      },
+      {
+        "raw": "for all x | x <= round(x)+1/2 and x >= round(x)-1/2",
+        "source": "CD:rounding1/round"
+      },
+      {
+        "raw": "mean(f(X)) = int(x*f(x)) w.r.t. x over the range [-infinity,infinity]",
+        "source": "CD:s_dist1/mean"
+      },
+      {
+        "raw": "the i'th moment of f(X) about c = integral of (x-c)^i*f(x) with respect to x, over the interval (-infinity,infinity)",
+        "source": "CD:s_dist1/moment"
+      },
+      {
+        "raw": "for all sets A,B and C union(A,intersect(B,C)) = intersect(union(A,B),union(A,C))",
+        "source": "CD:set1/union"
+      },
+      {
+        "raw": "A is a proper subset of B implies that A is a subset of B and A not= B",
+        "source": "CD:set1/prsubset"
+      },
+      {
+        "raw": "for all n | n is a positive prime number is equivalent to: n is a natural number and n > 1 and ((n=a*b and a and b are natural numbers) implies ((a=1 and b=n) or (b=1 and a=n)))",
+        "source": "CD:setname1/P"
+      },
+      {
+        "raw": "for all n | n in the natural numbers is equivalent to saying n=0 or n-1 is a natural number",
+        "source": "CD:setname1/N"
+      },
+      {
+        "raw": "for all z where z is a rational, there exists integers p and q with q > 1 and p/q = z",
+        "source": "CD:setname1/Q"
+      },
+      {
+        "raw": "for all a,b | a,b rational with a<b implies there exists rational a,c s.t. a<c and c<b",
+        "source": "CD:setname1/Q"
+      },
+      {
+        "raw": "S \\subset R and exists y in R : forall x in S x <= y) implies exists z in R such that (( forall x in S x <= z) and ((forall x in S x <= w) implies z <= w)",
+        "source": "CD:setname1/R"
+      },
+      {
+        "raw": "for all z | if z is complex then there exist reals x,y s.t. z = x + i * y",
+        "source": "CD:setname1/C"
+      },
+      {
+        "raw": "a^b = c implies log_a c = b",
+        "source": "CD:transc1/log"
+      },
+      {
+        "raw": "-pi < Im ln x <= pi",
+        "source": "CD:transc1/ln"
+      },
+      {
+        "raw": "for all k if k is an integer then e^(z+2*pi*k*i)=e^z",
+        "source": "CD:transc1/exp"
+      },
+      {
+        "raw": "x in [-(pi/2),(pi/2)] implies arcsin(sin x) = x",
+        "source": "CD:transc1/arcsin"
+      },
+      {
+        "raw": "x in [0,pi] implies arccos(cos x) = x",
+        "source": "CD:transc1/arccos"
+      },
+      {
+        "raw": "for all z | if z is not zero then arccoth(z) = i * arccot(i * z)",
+        "source": "CD:transc1/arccoth"
+      },
+      {
         "raw": "divergence(F) = \\partial(F_(x_1))/\\partial(x_1) + ... + \\partial(F_(x_n))/\\partial(x_n)",
         "source": "CD:veccalc1/divergence"
+      },
+      {
+        "raw": "grad(F) = (\\partial(F)/\\partial(x_1), ... ,\\partial(F)/partial(x_n))",
+        "source": "CD:veccalc1/grad"
+      },
+      {
+        "raw": "laplacian(F) = \\partial^2(F)/\\partial(x_1)^2 + ... + \\partial^2(F)/\\partial(x_n)^2",
+        "source": "CD:veccalc1/Laplacian"
       }
     ],
     "note": "解析失败的 CMP 反例样本（上限截断），按诚实红线保留并标注，不静默删除。"
   },
-  "equations_analyzed": 140,
+  "cds_skipped": {
+    "count": 0,
+    "items": [],
+    "note": "analyze 阶段被跳过的 CD 及原因（旧实现为静默 continue）。一律登记，不隐藏。"
+  },
+  "consistency": {
+    "catalog_property_total": 179,
+    "analysis_cmp_total": 179,
+    "match": true,
+    "note": "两者应相等；不等说明 analyze 阶段跳过了某些 CD（见 cds_skipped），或 catalog 与 analyze 读到的内容不一致，须排查后再引用本指标。"
+  },
+  "equations_analyzed": 67,
   "results": [
     {
       "raw": "for all a | a + 0 = a",
       "source": "CD:alg1/zero",
       "variables": [
-        "for"
+        "a"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "暂不支持 0 次及以上的通用求解"
+      },
       "conclusions": [
         "句法上含 1 个变量、可构成 AST；",
         "结构上判定为 linear 形态；",
+        "计算维度暂未求解：暂不支持 0 次及以上的通用求解；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -58,14 +373,18 @@
       "raw": "for all a | 0 * a = 0",
       "source": "CD:alg1/zero",
       "variables": [
-        "for"
+        "a"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "暂不支持 0 次及以上的通用求解"
+      },
       "conclusions": [
         "句法上含 1 个变量、可构成 AST；",
         "结构上判定为 linear 形态；",
+        "计算维度暂未求解：暂不支持 0 次及以上的通用求解；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -73,14 +392,18 @@
       "raw": "for all a | 1 * a = a",
       "source": "CD:alg1/one",
       "variables": [
-        "for"
+        "a"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "暂不支持 0 次及以上的通用求解"
+      },
       "conclusions": [
         "句法上含 1 个变量、可构成 AST；",
         "结构上判定为 linear 形态；",
+        "计算维度暂未求解：暂不支持 0 次及以上的通用求解；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -88,14 +411,18 @@
       "raw": "for all a | a * 1 = a",
       "source": "CD:alg1/one",
       "variables": [
-        "for"
+        "a"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "暂不支持 0 次及以上的通用求解"
+      },
       "conclusions": [
         "句法上含 1 个变量、可构成 AST；",
         "结构上判定为 linear 形态；",
+        "计算维度暂未求解：暂不支持 0 次及以上的通用求解；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -120,47 +447,22 @@
       ]
     },
     {
-      "raw": "for all integers a,b | There does not exist a c>0 such that c/a is an Integer and c/b is an Integer and lcm(a,b) > c.",
-      "source": "CD:arith1/lcm",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all integers a,b | There does not exist a c such that a/c is an Integer and b/c is an Integer and c > gcd(a,b). Note that this implies that gcd(a,b) > 0",
-      "source": "CD:arith1/gcd",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
       "raw": "for all a,b | a + b = b + a",
       "source": "CD:arith1/plus",
       "variables": [
-        "for"
+        "a",
+        "b"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "多变量方程，超出本演示求解范围"
+      },
       "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
+        "句法上含 2 个变量、可构成 AST；",
         "结构上判定为 linear 形态；",
+        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -168,14 +470,18 @@
       "raw": "for all a | a + (-a) = 0",
       "source": "CD:arith1/unary_minus",
       "variables": [
-        "for"
+        "a"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "暂不支持 0 次及以上的通用求解"
+      },
       "conclusions": [
         "句法上含 1 个变量、可构成 AST；",
         "结构上判定为 linear 形态；",
+        "计算维度暂未求解：暂不支持 0 次及以上的通用求解；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -183,29 +489,19 @@
       "raw": "for all a,b | a - b = a + (-b)",
       "source": "CD:arith1/minus",
       "variables": [
-        "for"
+        "a",
+        "b"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "多变量方程，超出本演示求解范围"
+      },
       "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
+        "句法上含 2 个变量、可构成 AST；",
         "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all a,b | a * 0 = 0 and a * b = a * (b - 1) + a",
-      "source": "CD:arith1/times",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -213,59 +509,20 @@
       "raw": "for all a,b,c | a*(b+c) = a*b + a*c",
       "source": "CD:arith1/times",
       "variables": [
-        "for"
+        "a",
+        "b",
+        "c"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "多变量方程，超出本演示求解范围"
+      },
       "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
+        "句法上含 3 个变量、可构成 AST；",
         "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "whenever not(a=0) then a/a = 1",
-      "source": "CD:arith1/divide",
-      "variables": [
-        "whenever"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "x\\in C implies x^a = exp(a ln x)",
-      "source": "CD:arith1/power",
-      "variables": [
-        "x"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "if n is an integer then x^0 = 1, x^n = x * x^(n-1)",
-      "source": "CD:arith1/power",
-      "variables": [
-        "if"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -273,44 +530,15 @@
       "raw": "for all x,y | abs(x) + abs(y) >= abs(x+y)",
       "source": "CD:arith1/abs",
       "variables": [
-        "for"
+        "x",
+        "y"
       ],
       "is_equation": false,
       "classification": null,
       "solve": null,
       "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "x\\in C implies root(x,n) = exp(ln(x)/n)",
-      "source": "CD:arith1/root",
-      "variables": [
-        "x"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all a,n | power(root(a,n),n) = a (if the root exists!)",
-      "source": "CD:arith1/root",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "句法上含 2 个变量、可构成 AST；",
+        "结构上判定为 other 形态；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -336,12 +564,12 @@
       ]
     },
     {
-      "raw": "bigfloatprec(f,r,p)=f However, if converted to radix r, only p digits in that radix are significant. This usually means that it originated in radix r, and has since (e.g. for display purposes) been converted into its current radix. For exposition, f = m*r^e.",
-      "source": "CD:bigfloat1/bigfloatprec",
+      "raw": "for all x,y | complex_cartesian(x,y) = x + iy",
+      "source": "CD:complex1/complex_cartesian",
       "variables": [
-        "f",
-        "p",
-        "r"
+        "i",
+        "x",
+        "y"
       ],
       "is_equation": true,
       "classification": null,
@@ -357,643 +585,11 @@
       ]
     },
     {
-      "raw": "diff(lambda y:a(y) + b(y))(x) = diff(lambda y:a(y))(x) + diff(lambda y:b(y))(x)",
-      "source": "CD:calculus1/diff",
-      "variables": [
-        "lambda"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 transcendental 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "diff(lambda y:a(y) * b(y))(x) = diff(lambda y:a(y))(x) * b(x) + a(x) * diff(lambda y:b(y))(x)",
-      "source": "CD:calculus1/diff",
-      "variables": [
-        "lambda"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 transcendental 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "application of integrate followed by differentiate is the identity function, that is: diff(lambda y:integral(lambda z:f(z))(y)) = f",
-      "source": "CD:calculus1/int",
-      "variables": [
-        "application"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all a,b | integral from a to b = -integral from b to a",
-      "source": "CD:calculus1/defint",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all a < b < c | integral over [a,c] = integral over [a,b] + integral over [b,c]",
-      "source": "CD:calculus1/defint",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all x,y | complex_cartesian(x,y) = x + iy",
-      "source": "CD:complex1/complex_cartesian",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
       "raw": "for all x,y | x = real(x+iy)",
       "source": "CD:complex1/real",
       "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all x,y | y = imaginary(x+iy)",
-      "source": "CD:complex1/imaginary",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all r,a | complex_polar(r,a) = r*e^(a*i)",
-      "source": "CD:complex1/complex_polar",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all x,y,r,a | (r sin a = y and r cos a = x) implies (complex_polar(r,a) = complex_cartesian(x,y)",
-      "source": "CD:complex1/complex_polar",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all x | if a is a real number and k is an integer then complex_polar(x,a) = complex_polar(x,a+2*pi*k)",
-      "source": "CD:complex1/complex_polar",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all r,a | argument(complex_polar(r,a)=a)",
-      "source": "CD:complex1/argument",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "the argument of x+i*y = arctan(y/x) (if x is positive)",
-      "source": "CD:complex1/argument",
-      "variables": [
-        "the"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "the argument of x+i*y = arctan(y,x) (two-argument arctan from transc2)",
-      "source": "CD:complex1/argument",
-      "variables": [
-        "the"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "x is in the domain of f if and only if there exists a y in the range of f and f(x) = y",
-      "source": "CD:fns1/domain",
-      "variables": [
+        "iy",
         "x"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all x | identity(x)=x",
-      "source": "CD:fns1/identity",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "(inverse(f))(f(x)) = x if f is injective, that is (for all x,y | f(x) = f(y) implies x=y) implies (inverse(f))(f(z)) = z",
-      "source": "CD:fns1/inverse",
-      "variables": [
-        "f"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 transcendental 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "f(inverse(f(y))=y if f is defined at inverse(f)(y) that is, if there exists an x s.t. inverse(f)(y) = x then this implies f(inverse(f)(y)) = y",
-      "source": "CD:fns1/inverse",
-      "variables": [
-        "y"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 transcendental 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all f,g,x | left_compose(f,g)(x) = f(g(x))",
-      "source": "CD:fns1/left_compose",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "x in the kernal of f implies that f(x) = 0",
-      "source": "CD:fns2/kernel",
-      "variables": [
-        "x"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "right_compose(f,g)(x) = g(f(x))",
-      "source": "CD:fns2/right_compose",
-      "variables": [
-        "f",
-        "g"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 2 个变量、可构成 AST；",
-        "结构上判定为 transcendental 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "b is a factor of a iff remainder of a divided by b = 0",
-      "source": "CD:integer1/factorof",
-      "variables": [
-        "b"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "factorial n = product [1..n]",
-      "source": "CD:integer1/factorial",
-      "variables": [
-        "factorial"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all a,b with a,b Integers | a = b * quotient(a,b) + remainder(a,b) and abs(remainder(a,b)) is less than abs(b) and a*remainder(a,b) >= 0",
-      "source": "CD:integer1/quotient",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "if we write a as [a_1,a_2,a_3] and b as [b_1,b_2,b_3] then the vector product denoted a x b = [a_2b_3 - a_3b_2 , a_3b_1 - a_1b_3 , a_1b_2 - a_2b_1]",
-      "source": "CD:linalg1/vectorproduct",
-      "variables": [
-        "if"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "a.b = |a| * |b| * cos(\\theta), where \\theta is the angle between the two vectors that is |atan(a_2/a_1)-atan(b_2/b_1)|. N.B. The FMP displays the two dimensional case only.",
-      "source": "CD:linalg1/scalarproduct",
-      "variables": [
-        "a"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "outerproduct(a,b)_{i,j} = a_i * b_j",
-      "source": "CD:linalg1/outerproduct",
-      "variables": [
-        "a",
-        "b"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 2 个变量、可构成 AST；",
-        "结构上判定为 transcendental 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all x | not(not(x))=x",
-      "source": "CD:logic1/not",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all x | x and not(x) = false",
-      "source": "CD:logic1/and",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all x | x nand not(x) = true",
-      "source": "CD:logic1/nand",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all x | x xor x = false",
-      "source": "CD:logic1/xor",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all x | x xor not(x) = true",
-      "source": "CD:logic1/xor",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all x | x xnor x = true",
-      "source": "CD:logic1/xnor",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all x | x xnor not(x) = false",
-      "source": "CD:logic1/xnor",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all x | x or not(x) = true",
-      "source": "CD:logic1/or",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all a,b | not(a and b)= (not(a) or not(b))",
-      "source": "CD:logic1/or",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all x | x nor not(x) = false",
-      "source": "CD:logic1/nor",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all a,b | a and b = (not(a) nor not(b))",
-      "source": "CD:logic1/nor",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "not true = false",
-      "source": "CD:logic1/true",
-      "variables": [
-        "not"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "not false = true",
-      "source": "CD:logic1/false",
-      "variables": [
-        "not"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all sets A,B and C union(A,intersect(B,C)) = intersect(union(A,B),union(A,C))",
-      "source": "CD:multiset1/union",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "if x is a real number then x < infinity",
-      "source": "CD:nums1/infinity",
-      "variables": [
-        "if"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "e = the sum as j ranges from 0 to infinity of 1/(j!)",
-      "source": "CD:nums1/e",
-      "variables": [
-        "e",
-        "the"
       ],
       "is_equation": true,
       "classification": null,
@@ -1003,8 +599,147 @@
       },
       "conclusions": [
         "句法上含 2 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "结构上判定为 transcendental 形态；",
         "计算维度暂未求解：多变量方程，超出本演示求解范围；",
+        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
+      ]
+    },
+    {
+      "raw": "for all x,y | y = imaginary(x+iy)",
+      "source": "CD:complex1/imaginary",
+      "variables": [
+        "i",
+        "x",
+        "y"
+      ],
+      "is_equation": true,
+      "classification": null,
+      "solve": {
+        "solvable": false,
+        "reason": "多变量方程，超出本演示求解范围"
+      },
+      "conclusions": [
+        "句法上含 3 个变量、可构成 AST；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
+        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
+      ]
+    },
+    {
+      "raw": "for all r,a | complex_polar(r,a) = r*e^(a*i)",
+      "source": "CD:complex1/complex_polar",
+      "variables": [
+        "a",
+        "e",
+        "i",
+        "r"
+      ],
+      "is_equation": true,
+      "classification": null,
+      "solve": {
+        "solvable": false,
+        "reason": "多变量方程，超出本演示求解范围"
+      },
+      "conclusions": [
+        "句法上含 4 个变量、可构成 AST；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
+        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
+      ]
+    },
+    {
+      "raw": "for all r,a | argument(complex_polar(r,a)=a)",
+      "source": "CD:complex1/argument",
+      "variables": [
+        "a",
+        "r"
+      ],
+      "is_equation": false,
+      "classification": null,
+      "solve": null,
+      "conclusions": [
+        "句法上含 2 个变量、可构成 AST；",
+        "结构上判定为 transcendental 形态；",
+        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
+      ]
+    },
+    {
+      "raw": "for all x | identity(x)=x",
+      "source": "CD:fns1/identity",
+      "variables": [
+        "x"
+      ],
+      "is_equation": true,
+      "classification": null,
+      "solve": {
+        "solvable": false,
+        "reason": "transcendental function identity"
+      },
+      "conclusions": [
+        "句法上含 1 个变量、可构成 AST；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：transcendental function identity；",
+        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
+      ]
+    },
+    {
+      "raw": "for all f,g,x | left_compose(f,g)(x) = f(g(x))",
+      "source": "CD:fns1/left_compose",
+      "variables": [
+        "f",
+        "g",
+        "x"
+      ],
+      "is_equation": true,
+      "classification": null,
+      "solve": {
+        "solvable": false,
+        "reason": "多变量方程，超出本演示求解范围"
+      },
+      "conclusions": [
+        "句法上含 3 个变量、可构成 AST；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
+        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
+      ]
+    },
+    {
+      "raw": "right_compose(f,g)(x) = g(f(x))",
+      "source": "CD:fns2/right_compose",
+      "variables": [
+        "f",
+        "g",
+        "x"
+      ],
+      "is_equation": true,
+      "classification": null,
+      "solve": {
+        "solvable": false,
+        "reason": "多变量方程，超出本演示求解范围"
+      },
+      "conclusions": [
+        "句法上含 3 个变量、可构成 AST；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
+        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
+      ]
+    },
+    {
+      "raw": "for all x | not(not(x))=x",
+      "source": "CD:logic1/not",
+      "variables": [
+        "x"
+      ],
+      "is_equation": true,
+      "classification": null,
+      "solve": {
+        "solvable": false,
+        "reason": "transcendental function not"
+      },
+      "conclusions": [
+        "句法上含 1 个变量、可构成 AST；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：transcendental function not；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -1032,418 +767,10 @@
       ]
     },
     {
-      "raw": "pi = 4 * the sum as j ranges from 0 to infinity of ((1/(4j+1))-(1/(4j+3)))",
-      "source": "CD:nums1/pi",
-      "variables": [
-        "pi",
-        "the"
-      ],
-      "is_equation": true,
-      "classification": null,
-      "solve": {
-        "solvable": false,
-        "reason": "多变量方程，超出本演示求解范围"
-      },
-      "conclusions": [
-        "句法上含 2 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "a=b and b=c implies a=c",
-      "source": "CD:relation1/eq",
-      "variables": [
-        "a",
-        "b"
-      ],
-      "is_equation": true,
-      "classification": null,
-      "solve": {
-        "solvable": false,
-        "reason": "多变量方程，超出本演示求解范围"
-      },
-      "conclusions": [
-        "句法上含 2 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "a<b and b<c implies a<c",
-      "source": "CD:relation1/lt",
-      "variables": [
-        "a",
-        "b"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 2 个变量、可构成 AST；",
-        "结构上判定为 other 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "a>b and b>c implies a>c",
-      "source": "CD:relation1/gt",
-      "variables": [
-        "a",
-        "b"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 2 个变量、可构成 AST；",
-        "结构上判定为 other 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "it is not true that a=/b and b=/c implies a=/c",
-      "source": "CD:relation1/neq",
-      "variables": [
-        "it"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "a<=b and b<=c implies a<=c",
-      "source": "CD:relation1/leq",
-      "variables": [
-        "a",
-        "b"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 2 个变量、可构成 AST；",
-        "结构上判定为 other 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "a>=b and b>=c implies a>=c",
-      "source": "CD:relation1/geq",
-      "variables": [
-        "a",
-        "b"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 2 个变量、可构成 AST；",
-        "结构上判定为 other 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "class(S,R,a) = {b in S | (a,b) in R}.",
-      "source": "CD:relation3/class",
-      "variables": [
-        "R",
-        "S",
-        "a",
-        "b"
-      ],
-      "is_equation": true,
-      "classification": null,
-      "solve": {
-        "solvable": false,
-        "reason": "多变量方程，超出本演示求解范围"
-      },
-      "conclusions": [
-        "句法上含 4 个变量、可构成 AST；",
-        "结构上判定为 transcendental 形态；",
-        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all x | ceiling(x)-1 < x <= ceiling x",
-      "source": "CD:rounding1/ceiling",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all x | floor(x) <= x < floor(x)+1",
-      "source": "CD:rounding1/floor",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all x | trunc(x) <= x < trunc(x)+1 (x>0)",
-      "source": "CD:rounding1/trunc",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all x | trunc(x) >= x > trunc(x)-1 (x<0)",
-      "source": "CD:rounding1/trunc",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all x | x <= round(x)+1/2 and x >= round(x)-1/2",
-      "source": "CD:rounding1/round",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "mean(f(X)) = int(x*f(x)) w.r.t. x over the range [-infinity,infinity]",
-      "source": "CD:s_dist1/mean",
-      "variables": [
-        "X",
-        "x"
-      ],
-      "is_equation": true,
-      "classification": null,
-      "solve": {
-        "solvable": false,
-        "reason": "多变量方程，超出本演示求解范围"
-      },
-      "conclusions": [
-        "句法上含 2 个变量、可构成 AST；",
-        "结构上判定为 transcendental 形态；",
-        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "the i'th moment of f(X) about c = integral of (x-c)^i*f(x) with respect to x, over the interval (-infinity,infinity)",
-      "source": "CD:s_dist1/moment",
-      "variables": [
-        "the"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "A is a proper subset of B implies that A is a subset of B and A not= B",
-      "source": "CD:set1/prsubset",
-      "variables": [
-        "A"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all n | n is a positive prime number is equivalent to: n is a natural number and n > 1 and ((n=a*b and a and b are natural numbers) implies ((a=1 and b=n) or (b=1 and a=n)))",
-      "source": "CD:setname1/P",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all n | n in the natural numbers is equivalent to saying n=0 or n-1 is a natural number",
-      "source": "CD:setname1/N",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all z where z is a rational, there exists integers p and q with q > 1 and p/q = z",
-      "source": "CD:setname1/Q",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all a,b | a,b rational with a<b implies there exists rational a,c s.t. a<c and c<b",
-      "source": "CD:setname1/Q",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "S \\subset R and exists y in R : forall x in S x <= y) implies exists z in R such that (( forall x in S x <= z) and ((forall x in S x <= w) implies z <= w)",
-      "source": "CD:setname1/R",
-      "variables": [
-        "S"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all z | if z is complex then there exist reals x,y s.t. z = x + i * y",
-      "source": "CD:setname1/C",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "a^b = c implies log_a c = b",
-      "source": "CD:transc1/log",
-      "variables": [
-        "a",
-        "b",
-        "c"
-      ],
-      "is_equation": true,
-      "classification": null,
-      "solve": {
-        "solvable": false,
-        "reason": "多变量方程，超出本演示求解范围"
-      },
-      "conclusions": [
-        "句法上含 3 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "-pi < Im ln x <= pi",
-      "source": "CD:transc1/ln",
-      "variables": [
-        "Im",
-        "pi"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 2 个变量、可构成 AST；",
-        "结构上判定为 other 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "for all k if k is an integer then e^(z+2*pi*k*i)=e^z",
-      "source": "CD:transc1/exp",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
       "raw": "sin(x) = (exp(ix)-exp(-ix))/2i",
       "source": "CD:transc1/sin",
       "variables": [
-        "ix",
+        "i",
         "x"
       ],
       "is_equation": true,
@@ -1464,8 +791,7 @@
       "source": "CD:transc1/sin",
       "variables": [
         "A",
-        "B",
-        "sin"
+        "B"
       ],
       "is_equation": true,
       "classification": null,
@@ -1474,7 +800,7 @@
         "reason": "多变量方程，超出本演示求解范围"
       },
       "conclusions": [
-        "句法上含 3 个变量、可构成 AST；",
+        "句法上含 2 个变量、可构成 AST；",
         "结构上判定为 transcendental 形态；",
         "计算维度暂未求解：多变量方程，超出本演示求解范围；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
@@ -1484,14 +810,18 @@
       "raw": "sin A = - sin(-A)",
       "source": "CD:transc1/sin",
       "variables": [
-        "sin"
+        "A"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "transcendental function sin"
+      },
       "conclusions": [
         "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：transcendental function sin；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -1499,7 +829,7 @@
       "raw": "cos(x) = (exp(ix)+exp(-ix))/2",
       "source": "CD:transc1/cos",
       "variables": [
-        "ix",
+        "i",
         "x"
       ],
       "is_equation": true,
@@ -1519,14 +849,20 @@
       "raw": "cos 2A = cos^2 A - sin^2 A",
       "source": "CD:transc1/cos",
       "variables": [
-        "cos"
+        "A",
+        "cos",
+        "sin"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "多变量方程，超出本演示求解范围"
+      },
       "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "句法上含 3 个变量、可构成 AST；",
+        "结构上判定为 quadratic 形态；",
+        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -1534,14 +870,18 @@
       "raw": "cos A = cos(-A)",
       "source": "CD:transc1/cos",
       "variables": [
-        "cos"
+        "A"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "transcendental function cos"
+      },
       "conclusions": [
         "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：transcendental function cos；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -1549,14 +889,18 @@
       "raw": "tan A = sin A / cos A",
       "source": "CD:transc1/tan",
       "variables": [
-        "tan"
+        "A"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "transcendental function tan"
+      },
       "conclusions": [
         "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：transcendental function tan；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -1564,14 +908,18 @@
       "raw": "sec A = 1/cos A",
       "source": "CD:transc1/sec",
       "variables": [
-        "sec"
+        "A"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "transcendental function sec"
+      },
       "conclusions": [
         "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：transcendental function sec；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -1579,14 +927,18 @@
       "raw": "csc A = 1/sin A",
       "source": "CD:transc1/csc",
       "variables": [
-        "csc"
+        "A"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "transcendental function csc"
+      },
       "conclusions": [
         "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：transcendental function csc；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -1594,14 +946,18 @@
       "raw": "cot A = 1/tan A",
       "source": "CD:transc1/cot",
       "variables": [
-        "cot"
+        "A"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "transcendental function cot"
+      },
       "conclusions": [
         "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：transcendental function cot；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -1609,14 +965,19 @@
       "raw": "sinh A = 1/2 * (e^A - e^(-A))",
       "source": "CD:transc1/sinh",
       "variables": [
-        "sinh"
+        "A",
+        "e"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "多变量方程，超出本演示求解范围"
+      },
       "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "句法上含 2 个变量、可构成 AST；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -1624,14 +985,19 @@
       "raw": "cosh A = 1/2 * (e^A + e^(-A))",
       "source": "CD:transc1/cosh",
       "variables": [
-        "cosh"
+        "A",
+        "e"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "多变量方程，超出本演示求解范围"
+      },
       "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "句法上含 2 个变量、可构成 AST；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -1639,14 +1005,18 @@
       "raw": "tanh A = sinh A / cosh A",
       "source": "CD:transc1/tanh",
       "variables": [
-        "tanh"
+        "A"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "transcendental function tanh"
+      },
       "conclusions": [
         "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：transcendental function tanh；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -1654,14 +1024,18 @@
       "raw": "sech A = 1/cosh A",
       "source": "CD:transc1/sech",
       "variables": [
-        "sech"
+        "A"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "transcendental function sech"
+      },
       "conclusions": [
         "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：transcendental function sech；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -1669,14 +1043,18 @@
       "raw": "csch A = 1/sinh A",
       "source": "CD:transc1/csch",
       "variables": [
-        "csch"
+        "A"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "transcendental function csch"
+      },
       "conclusions": [
         "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：transcendental function csch；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -1684,14 +1062,18 @@
       "raw": "coth A = 1/tanh A",
       "source": "CD:transc1/coth",
       "variables": [
-        "coth"
+        "A"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "transcendental function coth"
+      },
       "conclusions": [
         "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：transcendental function coth；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -1716,21 +1098,6 @@
       ]
     },
     {
-      "raw": "x in [-(pi/2),(pi/2)] implies arcsin(sin x) = x",
-      "source": "CD:transc1/arcsin",
-      "variables": [
-        "x"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
       "raw": "arccos(z) = -i ln(z+i \\sqrt(1-z^2))",
       "source": "CD:transc1/arccos",
       "variables": [
@@ -1747,21 +1114,6 @@
         "句法上含 2 个变量、可构成 AST；",
         "结构上判定为 transcendental 形态；",
         "计算维度暂未求解：多变量方程，超出本演示求解范围；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "x in [0,pi] implies arccos(cos x) = x",
-      "source": "CD:transc1/arccos",
-      "variables": [
-        "x"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -1789,14 +1141,20 @@
       "raw": "x in (-(pi/2),(pi/2)) implies arctan(tan x) = x",
       "source": "CD:transc1/arctan",
       "variables": [
+        "implies",
+        "pi",
         "x"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "多变量方程，超出本演示求解范围"
+      },
       "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "句法上含 3 个变量、可构成 AST；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -1824,14 +1182,19 @@
       "raw": "for all z | arcsec z = i * arcsech z",
       "source": "CD:transc1/arcsec",
       "variables": [
-        "for"
+        "i",
+        "z"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "多变量方程，超出本演示求解范围"
+      },
       "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "句法上含 2 个变量、可构成 AST；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -1937,14 +1300,18 @@
       "raw": "arcsinh z = ln(z + \\sqrt(1+z^2))",
       "source": "CD:transc1/arcsinh",
       "variables": [
-        "arcsinh"
+        "z"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "transcendental function arcsinh"
+      },
       "conclusions": [
         "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：transcendental function arcsinh；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -1991,14 +1358,20 @@
       "raw": "arccosh z = i * (pi - arccos z)",
       "source": "CD:transc1/arccosh",
       "variables": [
-        "arccosh"
+        "i",
+        "pi",
+        "z"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "多变量方程，超出本演示求解范围"
+      },
       "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "句法上含 3 个变量、可构成 AST；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -2026,14 +1399,18 @@
       "raw": "for all x where 0 <= x^2 < 1 | arctanh(x) = 1/2 * ln((1 + x)/(1 - x))",
       "source": "CD:transc1/arctanh",
       "variables": [
-        "for"
+        "x"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "transcendental function arctanh"
+      },
       "conclusions": [
         "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：transcendental function arctanh；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -2060,14 +1437,18 @@
       "raw": "for all x in (0..1] | arcsech x = ln(1/x + (1/(x^2) - 1)^(1/2))",
       "source": "CD:transc1/arcsech",
       "variables": [
-        "for"
+        "x"
       ],
-      "is_equation": false,
+      "is_equation": true,
       "classification": null,
-      "solve": null,
+      "solve": {
+        "solvable": false,
+        "reason": "transcendental function arcsech"
+      },
       "conclusions": [
         "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：transcendental function arcsech；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },
@@ -2130,46 +1511,16 @@
       ]
     },
     {
-      "raw": "for all z | if z is not zero then arccoth(z) = i * arccot(i * z)",
-      "source": "CD:transc1/arccoth",
-      "variables": [
-        "for"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "grad(F) = (\\partial(F)/\\partial(x_1), ... ,\\partial(F)/partial(x_n))",
-      "source": "CD:veccalc1/grad",
-      "variables": [
-        "F",
-        "x_1"
-      ],
-      "is_equation": true,
-      "classification": null,
-      "solve": {
-        "solvable": false,
-        "reason": "多变量方程，超出本演示求解范围"
-      },
-      "conclusions": [
-        "句法上含 2 个变量、可构成 AST；",
-        "结构上判定为 transcendental 形态；",
-        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
       "raw": "curl(F) = i X \\partial(F)/\\partial(x) + j X \\partial(F)/\\partial(y) + j X \\partial(F)/\\partial(Z)",
       "source": "CD:veccalc1/curl",
       "variables": [
         "F",
-        "i"
+        "X",
+        "Z",
+        "i",
+        "j",
+        "x",
+        "y"
       ],
       "is_equation": true,
       "classification": null,
@@ -2178,27 +1529,7 @@
         "reason": "多变量方程，超出本演示求解范围"
       },
       "conclusions": [
-        "句法上含 2 个变量、可构成 AST；",
-        "结构上判定为 transcendental 形态；",
-        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "laplacian(F) = \\partial^2(F)/\\partial(x_1)^2 + ... + \\partial^2(F)/\\partial(x_n)^2",
-      "source": "CD:veccalc1/Laplacian",
-      "variables": [
-        "F",
-        "partial"
-      ],
-      "is_equation": true,
-      "classification": null,
-      "solve": {
-        "solvable": false,
-        "reason": "多变量方程，超出本演示求解范围"
-      },
-      "conclusions": [
-        "句法上含 2 个变量、可构成 AST；",
+        "句法上含 7 个变量、可构成 AST；",
         "结构上判定为 transcendental 形态；",
         "计算维度暂未求解：多变量方程，超出本演示求解范围；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"

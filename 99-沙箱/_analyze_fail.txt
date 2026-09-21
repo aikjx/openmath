@@ -1,0 +1,90 @@
+总计未解析样本 = 95
+
+=== 失败模式统计（可重叠）===
+  尾随句点/逗号                                        4
+  量词变体(for all无| / for every / there exists)    36
+  标准量词前缀但仍有|残留                                  32
+  含 LaTeX 反斜杠                                    8
+  含绝对值竖线                                         1
+  含 lambda                                       3
+  含下标 a_1                                        5
+  含区间 [1..n]                                     1
+  含逻辑/条件连接词                                     44
+  含系动词/散文                                       24
+  含 HTML/OM 标签残留                                 0
+  多个句子(句号>=2)                                   11
+  前导散文后接方程(如 the X of ...)                       6
+
+未被任何模式覆盖 = 21
+
+=== 各类样例（每类最多 3 条）===
+
+[尾随句点/逗号]  n=4
+   'for all integers a,b | There does not exist a c>0 such that c/a is an Integer and c/b is an Integer and lcm(a,b) > c.'
+   'bigfloatprec(f,r,p)=f However, if converted to radix r, only p digits in that radix are significant. This usually means that it originated in radix r,'
+   'a.b = |a| * |b| * cos(\\theta), where \\theta is the angle between the two vectors that is |atan(a_2/a_1)-atan(b_2/b_1)|. N.B. The FMP displays the two '
+
+[量词变体(for all无| / for every / there exists)]  n=36
+   'for all integers a,b | There does not exist a c>0 such that c/a is an Integer and c/b is an Integer and lcm(a,b) > c.'
+   'for all integers a,b | There does not exist a c such that a/c is an Integer and b/c is an Integer and c > gcd(a,b). Note that this implies that gcd(a,'
+   'for all a,b | a * 0 = 0 and a * b = a * (b - 1) + a'
+
+[标准量词前缀但仍有|残留]  n=32
+   'for all integers a,b | There does not exist a c>0 such that c/a is an Integer and c/b is an Integer and lcm(a,b) > c.'
+   'for all integers a,b | There does not exist a c such that a/c is an Integer and b/c is an Integer and c > gcd(a,b). Note that this implies that gcd(a,'
+   'for all a,b | a * 0 = 0 and a * b = a * (b - 1) + a'
+
+[含 LaTeX 反斜杠]  n=8
+   'x\\in C implies x^a = exp(a ln x)'
+   'x\\in C implies root(x,n) = exp(ln(x)/n)'
+   'a.b = |a| * |b| * cos(\\theta), where \\theta is the angle between the two vectors that is |atan(a_2/a_1)-atan(b_2/b_1)|. N.B. The FMP displays the two '
+
+[含绝对值竖线]  n=1
+   'a.b = |a| * |b| * cos(\\theta), where \\theta is the angle between the two vectors that is |atan(a_2/a_1)-atan(b_2/b_1)|. N.B. The FMP displays the two '
+
+[含 lambda]  n=3
+   'diff(lambda y:a(y) + b(y))(x) = diff(lambda y:a(y))(x) + diff(lambda y:b(y))(x)'
+   'diff(lambda y:a(y) * b(y))(x) = diff(lambda y:a(y))(x) * b(x) + a(x) * diff(lambda y:b(y))(x)'
+   'application of integrate followed by differentiate is the identity function, that is: diff(lambda y:integral(lambda z:f(z))(y)) = f'
+
+[含下标 a_1]  n=5
+   'if we write a as [a_1,a_2,a_3] and b as [b_1,b_2,b_3] then the vector product denoted a x b = [a_2b_3 - a_3b_2 , a_3b_1 - a_1b_3 , a_1b_2 - a_2b_1]'
+   'a.b = |a| * |b| * cos(\\theta), where \\theta is the angle between the two vectors that is |atan(a_2/a_1)-atan(b_2/b_1)|. N.B. The FMP displays the two '
+   'divergence(F) = \\partial(F_(x_1))/\\partial(x_1) + ... + \\partial(F_(x_n))/\\partial(x_n)'
+
+[含区间 [1..n]]  n=1
+   'factorial n = product [1..n]'
+
+[含逻辑/条件连接词]  n=44
+   'for all integers a,b | There does not exist a c>0 such that c/a is an Integer and c/b is an Integer and lcm(a,b) > c.'
+   'for all integers a,b | There does not exist a c such that a/c is an Integer and b/c is an Integer and c > gcd(a,b). Note that this implies that gcd(a,'
+   'for all a,b | a * 0 = 0 and a * b = a * (b - 1) + a'
+
+[含系动词/散文]  n=24
+   'for all integers a,b | There does not exist a c>0 such that c/a is an Integer and c/b is an Integer and lcm(a,b) > c.'
+   'for all integers a,b | There does not exist a c such that a/c is an Integer and b/c is an Integer and c > gcd(a,b). Note that this implies that gcd(a,'
+   'if n is an integer then x^0 = 1, x^n = x * x^(n-1)'
+
+[多个句子(句号>=2)]  n=11
+   'bigfloatprec(f,r,p)=f However, if converted to radix r, only p digits in that radix are significant. This usually means that it originated in radix r,'
+   'f(inverse(f(y))=y if f is defined at inverse(f)(y) that is, if there exists an x s.t. inverse(f)(y) = x then this implies f(inverse(f)(y)) = y'
+   'factorial n = product [1..n]'
+
+[前导散文后接方程(如 the X of ...)]  n=6
+   'if n is an integer then x^0 = 1, x^n = x * x^(n-1)'
+   'the argument of x+i*y = arctan(y/x) (if x is positive)'
+   'the argument of x+i*y = arctan(y,x) (two-argument arctan from transc2)'
+
+=== 未覆盖样例（最多 12 条）===
+   'outerproduct(a,b)_{i,j} = a_i * b_j'
+   'not true = false'
+   'not false = true'
+   'e = the sum as j ranges from 0 to infinity of 1/(j!)'
+   'pi = 4 * the sum as j ranges from 0 to infinity of ((1/(4j+1))-(1/(4j+3)))'
+   'gamma = limit_(m -> infinity)(sum_(j ranges from 1 to m)(1/j) - ln m)'
+   '-pi < Im ln x <= pi'
+   'sin(A + B) = sin A cos B + cos A sin B'
+   'sin A = - sin(-A)'
+   'cos A = cos(-A)'
+   'tan A = sin A / cos A'
+   'sec A = 1/cos A'

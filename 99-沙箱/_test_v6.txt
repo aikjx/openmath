@@ -1,0 +1,39 @@
+=== 1. 量词前缀 ===
+PASS 'for all a | a + 0 = a'                        ok=True  q=['a']      err=
+PASS 'for all a,b | a + b = b + a'                  ok=True  q=['a', 'b'] err=
+PASS 'for all integers a,b | lcm(a,b) = a*b/gcd(a,' ok=True  q=['a', 'b'] err=
+PASS 'for all real x | sin(x)^2 + cos(x)^2 = 1'     ok=True  q=['x']      err=
+PASS 'For All a | a * 1 = a'                        ok=True  q=['a']      err=
+PASS 'for all a | 0 * a = 0'                        ok=True  q=['a']      err=
+
+=== 2. 尾随句读（本次修复目标）===
+PASS 'a + 0 = a.'                                   ok=True  q=[]         err=
+PASS 'x^2 = 4,'                                     ok=True  q=[]         err=
+PASS 'a + b = b + a;'                               ok=True  q=[]         err=
+PASS 'for all a | a + 0 = a.'                       ok=True  q=['a']      err=
+PASS 'sin(x) = 1.'                                  ok=True  q=[]         err=
+
+=== 3. 回归：既有表达式必须仍可解析 ===
+PASS '2*x + 3 = 7'                                  ok=True  q=[]         err=
+PASS 'x^2 - 5*x + 6 = 0'                            ok=True  q=[]         err=
+PASS 'a*x^2 + b*x + c = 0'                          ok=True  q=[]         err=
+PASS 'power(2, 3) + sqrt(16)'                       ok=True  q=[]         err=
+PASS 'gcd(12, 18)'                                  ok=True  q=[]         err=
+PASS 'sin(x) + cos(x)'                              ok=True  q=[]         err=
+PASS 'lcm(4, 6) = 12'                               ok=True  q=[]         err=
+PASS '2 ln(x + 1)'                                  ok=True  q=[]         err=
+PASS 'x >= 3'                                       ok=True  q=[]         err=
+PASS 'a != b'                                       ok=True  q=[]         err=
+PASS 'x^2 + y^2 = z^2'                              ok=True  q=[]         err=
+PASS '(a+b)*(a-b) = a^2 - b^2'                      ok=True  q=[]         err=
+
+=== 4. 不得误剥合法小数/逗号 ===
+PASS '0.5 + 1 = 1.5'                                ok=True  q=[]         err=
+PASS 'a + 0 = a'                                    ok=True  q=[]         err=
+PASS 'f(x, y) = x + y'                              ok=True  q=[]         err=
+PASS 'forall(x)'                                    ok=True  q=[]         err=
+
+=== 5. CMP 可解析率（本地快照实测）===
+cmp_total=179  equation_like=137  parsed=42  rate=0.3066
+
+FAILURES=0

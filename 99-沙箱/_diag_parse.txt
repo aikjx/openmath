@@ -1,0 +1,40 @@
+unparsed_samples = 30
+
+=== 失败的 CMP 样本（取前 8 条）===
+source: CD:alg1/zero
+raw: 'for all a | a + 0 = a'
+  parse_ok=False error=表达式后面还有未消费的记号：[('VAR', 'all'), ('VAR', 'a'), ('OP', '*'), ('VAR', 'a')]
+
+source: CD:alg1/zero
+raw: 'for all a | 0 * a = 0'
+  parse_ok=False error=表达式后面还有未消费的记号：[('VAR', 'all'), ('VAR', 'a'), ('OP', '*'), ('NUM', '0')]
+
+source: CD:alg1/one
+raw: 'for all a | 1 * a = a'
+  parse_ok=False error=表达式后面还有未消费的记号：[('VAR', 'all'), ('VAR', 'a'), ('OP', '*'), ('NUM', '1')]
+
+source: CD:alg1/one
+raw: 'for all a | a * 1 = a'
+  parse_ok=False error=表达式后面还有未消费的记号：[('VAR', 'all'), ('VAR', 'a'), ('OP', '*'), ('VAR', 'a')]
+
+source: CD:arith1/lcm
+raw: 'lcm(a,b) = a*b/gcd(a,b)'
+  parse_ok=True error=None
+
+source: CD:arith1/lcm
+raw: 'for all integers a,b | There does not exist a c>0 such that c/a is an Integer and c/b is an Integer and lcm(a,b) > c.'
+  parse_ok=False error=表达式后面还有未消费的记号：[('VAR', 'all'), ('VAR', 'integers'), ('VAR', 'a'), ('COMMA', ',')]
+
+source: CD:arith1/gcd
+raw: 'for all integers a,b | There does not exist a c such that a/c is an Integer and b/c is an Integer and c > gcd(a,b). Note that this implies that gcd(a,b) > 0'
+  parse_ok=False error=表达式后面还有未消费的记号：[('VAR', 'all'), ('VAR', 'integers'), ('VAR', 'a'), ('COMMA', ',')]
+
+source: CD:arith1/plus
+raw: 'for all a,b | a + b = b + a'
+  parse_ok=False error=表达式后面还有未消费的记号：[('VAR', 'all'), ('VAR', 'a'), ('COMMA', ','), ('VAR', 'b')]
+
+=== 内置种子（对照组）===
+seed='2*x + 3 = 7' parse_ok=True error=None
+seed='gcd(12, 18)' parse_ok=True error=None
+seed='lcm(4, 6) = 12' parse_ok=True error=None
+seed='x^2 - 5*x + 6 = 0' parse_ok=True error=None

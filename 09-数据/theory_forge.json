@@ -9469,23 +9469,84 @@
         "note": "主元/自由列的划分依赖**当前对象库**：换一批对象结论就会变。因此这里的'独立基'是库内概念，不是理论的独立性判定。"
       },
       "stress": {
-        "extended_objects": 31,
+        "extended_objects": 45,
         "n_tested": 54,
-        "n_survived": 51,
-        "n_falsified": 3,
+        "n_survived": 38,
+        "n_falsified": 16,
         "falsified_details": [
           {
-            "statement": "class_number ≤ center_size+proper_subgroup_order_types",
+            "statement": "abelian ≤ min_generators+subgroups_only_trivial",
             "channel": "inequality",
             "status_before": "CANDIDATE_UNVERIFIED",
-            "n_extended_objects": 31,
+            "n_extended_objects": 45,
             "n_skipped": 0,
             "n_violations": 1,
             "survived": false,
             "examples": [
               {
+                "object": "group:Z2^4(16)",
+                "detail": "Z2^4(16): 1 > -1"
+              }
+            ]
+          },
+          {
+            "statement": "class_number ≤ center_size+proper_subgroup_order_types",
+            "channel": "inequality",
+            "status_before": "CANDIDATE_UNVERIFIED",
+            "n_extended_objects": 45,
+            "n_skipped": 0,
+            "n_violations": 10,
+            "survived": false,
+            "examples": [
+              {
                 "object": "group:D7",
                 "detail": "D7: 5 > 4"
+              },
+              {
+                "object": "group:D16(16)",
+                "detail": "D16(16): 7 > 6"
+              },
+              {
+                "object": "group:SD16(16)",
+                "detail": "SD16(16): 7 > 6"
+              }
+            ]
+          },
+          {
+            "statement": "class_number ≤ elements_at_exponent+max_element_order",
+            "channel": "inequality",
+            "status_before": "CANDIDATE_UNVERIFIED",
+            "n_extended_objects": 45,
+            "n_skipped": 0,
+            "n_violations": 2,
+            "survived": false,
+            "examples": [
+              {
+                "object": "group:Z4xZ2xZ2(16)",
+                "detail": "Z4xZ2xZ2(16): 16 > 12"
+              },
+              {
+                "object": "group:D4xZ2(16)",
+                "detail": "D4xZ2(16): 10 > 8"
+              }
+            ]
+          },
+          {
+            "statement": "elements_at_exponent ≤ center_size+max_element_order",
+            "channel": "inequality",
+            "status_before": "CANDIDATE_UNVERIFIED",
+            "n_extended_objects": 45,
+            "n_skipped": 0,
+            "n_violations": 2,
+            "survived": false,
+            "examples": [
+              {
+                "object": "group:Q8xZ2(16)",
+                "detail": "Q8xZ2(16): 12 > 8"
+              },
+              {
+                "object": "group:C4:C4(16)",
+                "detail": "C4:C4(16): 12 > 8"
               }
             ]
           },
@@ -9493,14 +9554,97 @@
             "statement": "involutions ≤ min_generators+proper_subgroup_order_types",
             "channel": "inequality",
             "status_before": "CANDIDATE_UNVERIFIED",
-            "n_extended_objects": 31,
+            "n_extended_objects": 45,
             "n_skipped": 0,
-            "n_violations": 1,
+            "n_violations": 5,
             "survived": false,
             "examples": [
               {
                 "object": "group:D7",
                 "detail": "D7: 7 > 5"
+              },
+              {
+                "object": "group:Z2^4(16)",
+                "detail": "Z2^4(16): 15 > 3"
+              },
+              {
+                "object": "group:D16(16)",
+                "detail": "D16(16): 9 > 6"
+              }
+            ]
+          },
+          {
+            "statement": "proper_subgroup_order_types ≤ max_element_order",
+            "channel": "inequality",
+            "status_before": "CANDIDATE_UNVERIFIED",
+            "n_extended_objects": 45,
+            "n_skipped": 0,
+            "n_violations": 1,
+            "survived": false,
+            "examples": [
+              {
+                "object": "group:Z2^4(16)",
+                "detail": "Z2^4(16): 4 > 2"
+              }
+            ]
+          },
+          {
+            "statement": "proper_subgroup_order_types ≤ center_size+involutions",
+            "channel": "inequality",
+            "status_before": "CANDIDATE_UNVERIFIED",
+            "n_extended_objects": 45,
+            "n_skipped": 0,
+            "n_violations": 1,
+            "survived": false,
+            "examples": [
+              {
+                "object": "group:Q16(16)",
+                "detail": "Q16(16): 4 > 3"
+              }
+            ]
+          },
+          {
+            "statement": "center_size ≤ exponent·max_element_order",
+            "channel": "inequality",
+            "status_before": "CANDIDATE_UNVERIFIED",
+            "n_extended_objects": 45,
+            "n_skipped": 0,
+            "n_violations": 1,
+            "survived": false,
+            "examples": [
+              {
+                "object": "group:Z2^4(16)",
+                "detail": "Z2^4(16): 16 > 4"
+              }
+            ]
+          },
+          {
+            "statement": "class_number ≤ exponent·max_element_order",
+            "channel": "inequality",
+            "status_before": "CANDIDATE_UNVERIFIED",
+            "n_extended_objects": 45,
+            "n_skipped": 0,
+            "n_violations": 1,
+            "survived": false,
+            "examples": [
+              {
+                "object": "group:Z2^4(16)",
+                "detail": "Z2^4(16): 16 > 4"
+              }
+            ]
+          },
+          {
+            "statement": "elements_at_exponent ≤ exponent·max_element_order",
+            "channel": "inequality",
+            "status_before": "CANDIDATE_UNVERIFIED",
+            "n_extended_objects": 45,
+            "n_skipped": 0,
+            "n_violations": 1,
+            "survived": false,
+            "examples": [
+              {
+                "object": "group:Z2^4(16)",
+                "detail": "Z2^4(16): 15 > 4"
               }
             ]
           },
@@ -9508,14 +9652,105 @@
             "statement": "involutions ≤ min_generators·proper_subgroup_order_types",
             "channel": "inequality",
             "status_before": "CANDIDATE_UNVERIFIED",
-            "n_extended_objects": 31,
+            "n_extended_objects": 45,
             "n_skipped": 0,
-            "n_violations": 1,
+            "n_violations": 3,
             "survived": false,
             "examples": [
               {
                 "object": "group:D7",
                 "detail": "D7: 7 > 6"
+              },
+              {
+                "object": "group:Z2^4(16)",
+                "detail": "Z2^4(16): 15 > -4"
+              },
+              {
+                "object": "group:D16(16)",
+                "detail": "D16(16): 9 > 8"
+              }
+            ]
+          },
+          {
+            "statement": "order ≤ exponent·max_element_order",
+            "channel": "inequality",
+            "status_before": "CANDIDATE_UNVERIFIED",
+            "n_extended_objects": 45,
+            "n_skipped": 0,
+            "n_violations": 1,
+            "survived": false,
+            "examples": [
+              {
+                "object": "group:Z2^4(16)",
+                "detail": "Z2^4(16): 16 > 4"
+              }
+            ]
+          },
+          {
+            "statement": "proper_subgroup_order_types ≤ max_element_order·min_generators",
+            "channel": "inequality",
+            "status_before": "CANDIDATE_UNVERIFIED",
+            "n_extended_objects": 45,
+            "n_skipped": 0,
+            "n_violations": 1,
+            "survived": false,
+            "examples": [
+              {
+                "object": "group:Z2^4(16)",
+                "detail": "Z2^4(16): 4 > -2"
+              }
+            ]
+          },
+          {
+            "statement": "proper_subgroup_order_types ≤ min_generators·proper_subgroups_count",
+            "channel": "inequality",
+            "status_before": "CANDIDATE_UNVERIFIED",
+            "n_extended_objects": 45,
+            "n_skipped": 0,
+            "n_violations": 1,
+            "survived": false,
+            "examples": [
+              {
+                "object": "group:Z2^4(16)",
+                "detail": "Z2^4(16): 4 > -66"
+              }
+            ]
+          },
+          {
+            "statement": "proper_subgroups_count ≤ max_element_order·proper_subgroup_order_types",
+            "channel": "inequality",
+            "status_before": "CANDIDATE_UNVERIFIED",
+            "n_extended_objects": 45,
+            "n_skipped": 0,
+            "n_violations": 6,
+            "survived": false,
+            "examples": [
+              {
+                "object": "group:Z4xZ2xZ2(16)",
+                "detail": "Z4xZ2xZ2(16): 26 > 16"
+              },
+              {
+                "object": "group:Z2^4(16)",
+                "detail": "Z2^4(16): 66 > 8"
+              },
+              {
+                "object": "group:D4xZ2(16)",
+                "detail": "D4xZ2(16): 34 > 16"
+              }
+            ]
+          },
+          {
+            "statement": "proper_subgroups_count ≤ min_generators·order",
+            "channel": "inequality",
+            "status_before": "CANDIDATE_UNVERIFIED",
+            "n_extended_objects": 45,
+            "n_skipped": 0,
+            "n_violations": 1,
+            "survived": false,
+            "examples": [
+              {
+                "object": "group:Z2^4(16)",
+                "detail": "Z2^4(16): 66 > -16"
               }
             ]
           }
@@ -18119,10 +18354,10 @@
     "candidates": 411,
     "accepted": 343,
     "stress_tested": 343,
-    "stress_survived": 314
+    "stress_survived": 301
   },
   "meta": {
-    "generated_at": "2026-09-19T21:39:12",
+    "generated_at": "2026-09-21T09:32:57",
     "generator": "06-AI自动化/01-工作流/openmath_theory.py",
     "evidence_level": "L2",
     "provenance": {
@@ -18173,7 +18408,7 @@
     ],
     "total_checks": 6,
     "violations": 0,
-    "generated_at": "2026-09-19T21:39:12",
+    "generated_at": "2026-09-21T09:32:57",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"

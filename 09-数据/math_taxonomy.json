@@ -1,13 +1,13 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_analyze.py",
-    "generated_at": "2026-09-19T21:45:42",
+    "generated_at": "2026-09-21T09:31:21",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理基于 openmath_sys 引擎与已下载 OpenMath/arXiv 数据自动生成，未经人类复核，不得作为 L3+ 证据。"
     },
     "honesty": "本系列文件为 L0/L2 级数据处理与计算校验产物，非证明。方程求解、猜想的可计算实验均为计算验证(L2)，不构成对未解猜想的证明。预印本与猜想状态均标 UNVERIFIED/UNSOLVED。",
-    "scope_note": "以本次实际下载的 38 个 OpenMath 官方 CD（294 符号、179 条 CMP 性质、32 条已分析方程）与论文索引为地基构建的分类骨架。它是对数学理论体系的'结构化索引'，而非穷尽全部数学。OpenMath 官方 CD 全集共 38 个，本次已覆盖其中大部分高价值 CD；但即便全集也不包含群论、拓扑、概率、微分几何等众多领域，这些属已知且无法通过增补 OpenMath CD 消除的盲区。"
+    "scope_note": "以本次实际下载的 38 个 OpenMath 官方 CD（294 符号、179 条 CMP 性质、58 条已分析方程）与论文索引为地基构建的分类骨架。它是对数学理论体系的'结构化索引'，而非穷尽全部数学。OpenMath 官方 CD 全集共 38 个，本次已覆盖其中大部分高价值 CD；但即便全集也不包含群论、拓扑、概率、微分几何等众多领域，这些属已知且无法通过增补 OpenMath CD 消除的盲区。"
   },
   "domains": [
     {
@@ -362,11 +362,11 @@
         }
       ],
       "sample_equations": [
-        "a^b = c implies log_a c = b",
         "sin(x) = (exp(ix)-exp(-ix))/2i",
         "sin(A + B) = sin A cos B + cos A sin B",
+        "sin A = - sin(-A)",
         "cos(x) = (exp(ix)+exp(-ix))/2",
-        "arcsin(z) = -i ln (sqrt(1-z^2)+iz)"
+        "cos 2A = cos^2 A - sin^2 A"
       ]
     },
     {
@@ -701,7 +701,11 @@
           "n_properties": 1
         }
       ],
-      "sample_equations": []
+      "sample_equations": [
+        "for all x | identity(x)=x",
+        "for all f,g,x | left_compose(f,g)(x) = f(g(x))",
+        "right_compose(f,g)(x) = g(f(x))"
+      ]
     },
     {
       "domain": "scscp2",
@@ -887,9 +891,7 @@
         }
       ],
       "sample_equations": [
-        "e = the sum as j ranges from 0 to infinity of 1/(j!)",
-        "i^2 = -1",
-        "pi = 4 * the sum as j ranges from 0 to infinity of ((1/(4j+1))-(1/(4j+3)))"
+        "i^2 = -1"
       ]
     },
     {
@@ -974,7 +976,11 @@
         }
       ],
       "sample_equations": [
-        "lcm(a,b) = a*b/gcd(a,b)"
+        "lcm(a,b) = a*b/gcd(a,b)",
+        "for all a,b | a + b = b + a",
+        "for all a | a + (-a) = 0",
+        "for all a,b | a - b = a + (-b)",
+        "for all a,b,c | a*(b+c) = a*b + a*c"
       ]
     },
     {
@@ -1213,7 +1219,9 @@
           "n_properties": 1
         }
       ],
-      "sample_equations": []
+      "sample_equations": [
+        "for all x | not(not(x))=x"
+      ]
     },
     {
       "domain": "relation3",
@@ -1290,9 +1298,7 @@
           "n_properties": 2
         }
       ],
-      "sample_equations": [
-        "class(S,R,a) = {b in S | (a,b) in R}."
-      ]
+      "sample_equations": []
     },
     {
       "domain": "sts",
@@ -1578,9 +1584,7 @@
           "n_properties": 0
         }
       ],
-      "sample_equations": [
-        "a=b and b=c implies a=c"
-      ]
+      "sample_equations": []
     },
     {
       "domain": "interval1",
@@ -1680,7 +1684,12 @@
           "n_properties": 1
         }
       ],
-      "sample_equations": []
+      "sample_equations": [
+        "for all x,y | complex_cartesian(x,y) = x + iy",
+        "for all x,y | x = real(x+iy)",
+        "for all x,y | y = imaginary(x+iy)",
+        "for all r,a | complex_polar(r,a) = r*e^(a*i)"
+      ]
     },
     {
       "domain": "mathmlattr",
@@ -1932,9 +1941,7 @@
           "n_properties": 1
         }
       ],
-      "sample_equations": [
-        "mean(f(X)) = int(x*f(x)) w.r.t. x over the range [-infinity,infinity]"
-      ]
+      "sample_equations": []
     },
     {
       "domain": "向量微积分 Vector Calculus",
@@ -1970,9 +1977,7 @@
         }
       ],
       "sample_equations": [
-        "grad(F) = (\\partial(F)/\\partial(x_1), ... ,\\partial(F)/partial(x_n))",
-        "curl(F) = i X \\partial(F)/\\partial(x) + j X \\partial(F)/\\partial(y) + j X \\partial(F)/\\partial(Z)",
-        "laplacian(F) = \\partial^2(F)/\\partial(x_1)^2 + ... + \\partial^2(F)/\\partial(x_n)^2"
+        "curl(F) = i X \\partial(F)/\\partial(x) + j X \\partial(F)/\\partial(y) + j X \\partial(F)/\\partial(Z)"
       ]
     },
     {
@@ -2083,7 +2088,12 @@
           "n_properties": 3
         }
       ],
-      "sample_equations": []
+      "sample_equations": [
+        "for all a | a + 0 = a",
+        "for all a | 0 * a = 0",
+        "for all a | 1 * a = a",
+        "for all a | a * 1 = a"
+      ]
     },
     {
       "domain": "altenc",
@@ -2130,8 +2140,7 @@
         }
       ],
       "sample_equations": [
-        "bigfloat(m,r,e)=m*r^e",
-        "bigfloatprec(f,r,p)=f However, if converted to radix r, only p digits in that radix are significant. This usually means that it originated in radix r, and has since (e.g. for display purposes) been converted into its current radix. For exposition, f = m*r^e."
+        "bigfloat(m,r,e)=m*r^e"
       ]
     },
     {
@@ -2162,7 +2171,7 @@
     "cds": 38,
     "symbols": 294,
     "properties": 179,
-    "equations_analyzed": 32
+    "equations_analyzed": 58
   },
   "papers_summary": {
     "total": 32,

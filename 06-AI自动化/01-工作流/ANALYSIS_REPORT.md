@@ -1,6 +1,6 @@
 # OpenMath 综合分析报告（AI 辅助，需人类复核）
 
-- 生成时间：`2026-09-19T21:45:42`
+- 生成时间：`2026-09-21T09:31:21`
 - 产物：`09-数据/math_taxonomy.json`、`09-数据/math_gaps.json`、`09-数据/conjectures.json`
 
 > ⚠️ **诚实红线**：本报告为 L0/L2 级数据处理与计算校验产物，**非证明**。
@@ -8,7 +8,7 @@
 
 ## 0. 范围与边界（先说清不能做什么）
 
-以本次实际下载的 38 个 OpenMath 官方 CD（294 符号、179 条 CMP 性质、32 条已分析方程）与论文索引为地基构建的分类骨架。它是对数学理论体系的'结构化索引'，而非穷尽全部数学。OpenMath 官方 CD 全集共 38 个，本次已覆盖其中大部分高价值 CD；但即便全集也不包含群论、拓扑、概率、微分几何等众多领域，这些属已知且无法通过增补 OpenMath CD 消除的盲区。
+以本次实际下载的 38 个 OpenMath 官方 CD（294 符号、179 条 CMP 性质、58 条已分析方程）与论文索引为地基构建的分类骨架。它是对数学理论体系的'结构化索引'，而非穷尽全部数学。OpenMath 官方 CD 全集共 38 个，本次已覆盖其中大部分高价值 CD；但即便全集也不包含群论、拓扑、概率、微分几何等众多领域，这些属已知且无法通过增补 OpenMath CD 消除的盲区。
 
 - 不声称'穷尽全部数学'：仅以 10 个 CD 为骨架。
 - 不声称'解决'任何未解猜想：仅做可计算子问题的 L2 实验并登记开放方向。
@@ -16,7 +16,7 @@
 
 ## 1. 数学理论体系分类（按领域）
 
-合计：**38 个 CD / 294 个符号 / 179 条性质 / 32 条已分析方程**。
+合计：**38 个 CD / 294 个符号 / 179 条性质 / 58 条已分析方程**。
 
 | 领域 | CD | 符号 | 性质 | 示例方程数 |
 |---|---|---|---|---|
@@ -24,33 +24,33 @@
 | 超越函数 Transcendental Functions | transc1 | 27 | 44 | 5 |
 | meta | meta | 18 | 0 | 0 |
 | scscp1 | scscp1 | 17 | 0 | 0 |
-| 函数 Functions | fns1, fns2 | 15 | 9 | 0 |
+| 函数 Functions | fns1, fns2 | 15 | 9 | 3 |
 | scscp2 | scscp2 | 14 | 0 | 0 |
-| 数系与常数 Numbers | integer1, nums1 | 13 | 10 | 3 |
-| 算术 Arithmetic | arith1 | 12 | 14 | 1 |
+| 数系与常数 Numbers | integer1, nums1 | 13 | 10 | 1 |
+| 算术 Arithmetic | arith1 | 12 | 14 | 5 |
 | mathmltypes | mathmltypes | 12 | 0 | 0 |
 | 微积分 Calculus | calculus1, limit1 | 11 | 5 | 0 |
-| 逻辑 Logic | logic1 | 11 | 15 | 0 |
-| relation3 | relation3 | 11 | 8 | 1 |
+| 逻辑 Logic | logic1 | 11 | 15 | 1 |
+| relation3 | relation3 | 11 | 8 | 0 |
 | sts | sts | 11 | 0 | 0 |
 | 线性代数 Linear Algebra | linalg1, linalg2 | 10 | 4 | 0 |
 | metagrp | metagrp | 10 | 0 | 0 |
-| 关系与序 Relation/Order | minmax1, relation1 | 9 | 6 | 1 |
+| 关系与序 Relation/Order | minmax1, relation1 | 9 | 6 | 0 |
 | interval1 | interval1 | 7 | 0 | 0 |
-| 复数 Complex Numbers | complex1 | 6 | 10 | 0 |
+| 复数 Complex Numbers | complex1 | 6 | 10 | 4 |
 | mathmlattr | mathmlattr | 6 | 0 | 0 |
 | 集合与数系 Sets/Number Systems | setname1 | 6 | 7 | 0 |
 | s_data1 | s_data1 | 6 | 4 | 0 |
 | metasig | metasig | 5 | 0 | 0 |
 | rounding1 | rounding1 | 4 | 6 | 0 |
-| s_dist1 | s_dist1 | 4 | 4 | 1 |
-| 向量微积分 Vector Calculus | veccalc1 | 4 | 4 | 3 |
+| s_dist1 | s_dist1 | 4 | 4 | 0 |
+| 向量微积分 Vector Calculus | veccalc1 | 4 | 4 | 1 |
 | error | error | 3 | 0 | 0 |
 | 列表与数据结构 Lists | list1 | 3 | 0 | 0 |
 | piece1 | piece1 | 3 | 0 | 0 |
-| 代数结构 Algebra | alg1 | 2 | 6 | 0 |
+| 代数结构 Algebra | alg1 | 2 | 6 | 4 |
 | altenc | altenc | 2 | 0 | 0 |
-| bigfloat1 | bigfloat1 | 2 | 2 | 2 |
+| bigfloat1 | bigfloat1 | 2 | 2 | 1 |
 | quant1 | quant1 | 2 | 0 | 0 |
 
 ## 2. 结构缺口与开放方向（'没有方向的处理思路逻辑'）
@@ -73,9 +73,12 @@
 - **[HIGH] empty_properties** → `scscp2`：scscp2 已下载 14 个符号但 0 条 CMP 性质，无法抽取方程/恒等式，是明显的结构空洞。
 - **[HIGH] empty_properties** → `sts`：sts 已下载 11 个符号但 0 条 CMP 性质，无法抽取方程/恒等式，是明显的结构空洞。
 - **[MEDIUM] no_equations** → `altenc`：altenc 有 2 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
+- **[MEDIUM] no_equations** → `calculus1`：calculus1 有 6 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
 - **[MEDIUM] no_equations** → `error`：error 有 3 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
+- **[MEDIUM] no_equations** → `integer1`：integer1 有 4 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
 - **[MEDIUM] no_equations** → `interval1`：interval1 有 7 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
 - **[MEDIUM] no_equations** → `limit1`：limit1 有 5 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
+- **[MEDIUM] no_equations** → `linalg1`：linalg1 有 7 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
 - **[MEDIUM] no_equations** → `linalg2`：linalg2 有 3 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
 - **[MEDIUM] no_equations** → `list1`：list1 有 3 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
 - **[MEDIUM] no_equations** → `mathmlattr`：mathmlattr 有 6 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
@@ -84,12 +87,19 @@
 - **[MEDIUM] no_equations** → `metagrp`：metagrp 有 10 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
 - **[MEDIUM] no_equations** → `metasig`：metasig 有 5 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
 - **[MEDIUM] no_equations** → `minmax1`：minmax1 有 2 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
+- **[MEDIUM] no_equations** → `multiset1`：multiset1 有 13 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
 - **[MEDIUM] no_equations** → `piece1`：piece1 有 3 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
 - **[MEDIUM] no_equations** → `quant1`：quant1 有 2 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
+- **[MEDIUM] no_equations** → `relation1`：relation1 有 7 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
+- **[MEDIUM] no_equations** → `relation3`：relation3 有 11 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
+- **[MEDIUM] no_equations** → `rounding1`：rounding1 有 4 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
 - **[MEDIUM] no_equations** → `scscp1`：scscp1 有 17 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
 - **[MEDIUM] no_equations** → `scscp2`：scscp2 有 14 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
+- **[MEDIUM] no_equations** → `set1`：set1 有 15 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
+- **[MEDIUM] no_equations** → `setname1`：setname1 有 6 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
 - **[MEDIUM] no_equations** → `sts`：sts 有 11 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
 - **[MEDIUM] no_equations** → `s_data1`：s_data1 有 6 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
+- **[MEDIUM] no_equations** → `s_dist1`：s_dist1 有 4 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。
 - **[INFO] cross_dependency_gap** → `linalg2`：linalg2 本身仍仅 3 个构造符号、0 性质（官方上游 CD 如此），但'线性代数'领域已由 linalg1 提供 4 条性质，结构性断点已缓解。
 - **[INFO] coverage_blindspot** → `OpenMath CD 全集`：本次摄取 38/38 个官方 CD。需特别注意：OpenMath 官方 CD 全集本身体量有限（共 38 个），并不覆盖群论、拓扑、测度、概率、图论、微分几何等众多数学领域；这些超出 OpenMath 现有覆盖范围，若需覆盖须引入其他知识源，而非简单'多下几个 CD'。
 - **[INFO] method_blindspot** → `方程求解器`：当前求解仅覆盖单变量多项式(线性/二次)；缺 Gröbner 基、常/偏微分方程、符号积分等方法，限制了'方法'维度的完整性。
@@ -130,7 +140,7 @@
 
 ## 5. 方法体系与'有无处理方向'的判定
 
-方法清单共 **36 条**（均为标准数学方法的整理性汇编，KNOWN_L4），其中本流水线**实际能执行 17 条**、未实现 19 条。`implemented` 严格区分，不冒领能力。
+方法清单共 **46 条**（均为标准数学方法的整理性汇编，KNOWN_L4），其中本流水线**实际能执行 27 条**、未实现 19 条。`implemented` 严格区分，不冒领能力。
 
 | 猜想 | 状态 | 适用方法 | 其中已实现 | 方法覆盖 |
 |---|---|---|---|---|
@@ -155,13 +165,13 @@
 
 **认知纠偏**：CD 的 CMP 性质绝大多数是**多变量代数恒等式**（`lcm(a,b)=a*b/gcd(a,b)`、`sin(A+B)=sinA cosB+cosA sinB` 等），而非待求根的方程。此前把它们一律当作'求解'处理是方向性错误；对恒等式应做**数值抽样验证**，单变量方程才做**数值求根**。
 
-符号求解器失败的式子共 **33 条**，经数值兜底后：
-- 恒等式抽样**验证通过 19 条**
-- 单变量**数值求根成功 6 条**
+符号求解器失败的式子共 **59 条**，经数值兜底后：
+- 恒等式抽样**验证通过 40 条**
+- 单变量**数值求根成功 22 条**
 - 非代数形式（含逻辑连接词）跳过 0 条
-- 抽样未通过 0 条（含多值函数分支约定造成的差异，**不等于找到反例**）/ 不可求值 1 条
-- **超出验证能力、主动拒答 13 条**（另有 0 条因抽样点求值失败而判为不确定）
-- 恒等式判定通过率 100%（分母＝可判定的 19 条；另有旧口径处置率 76%，分母是全部 33 条符号失败条目，仅供历史对照）
+- 抽样未通过 3 条（含多值函数分支约定造成的差异，**不等于找到反例**）/ 不可求值 2 条
+- **超出验证能力、主动拒答 14 条**（另有 0 条因抽样点求值失败而判为不确定）
+- 恒等式判定通过率 93%（分母＝可判定的 43 条；另有旧口径处置率 105%，分母是全部 59 条符号失败条目，仅供历史对照）
 
 > 口径说明：2026-09-19 审计前，超出能力的式子也会被给出 holds/fails，
 > 制造了大量假阴性。现在它们单独记为 not_decidable，
@@ -171,14 +181,14 @@
 
 | 恒等式 | 抽样次数 | 最大相对误差 |
 |---|---|---|
-| `sin(x) = (exp(ix)-exp(-ix))/2i` | 25 | 0.00e+00 |
-| `cos(x) = (exp(ix)+exp(-ix))/2` | 25 | 0.00e+00 |
-| `arcsin(z) = -i ln (sqrt(1-z^2)+iz)` | 25 | 1.92e-16 |
-| `arccos(z) = -i ln(z+i \sqrt(1-z^2))` | 25 | 2.22e-16 |
-| `arctan(z) = (i/2)ln((1-iz)/(1+iz))` | 25 | 1.24e-16 |
-| `arcsec(z) = -i ln(1/z + i \sqrt(1-1/z^2))` | 25 | 1.65e-16 |
-| `arccsc(z) = -i ln(i/z + \sqrt(1 - 1/z^2))` | 25 | 1.39e-16 |
-| `arccsc(z) = i * arccsch(i * z)` | 25 | 0.00e+00 |
+| `for all a | a + 0 = a` | 25 | 0.00e+00 |
+| `for all a | 0 * a = 0` | 25 | 0.00e+00 |
+| `for all a | 1 * a = a` | 25 | 0.00e+00 |
+| `for all a | a * 1 = a` | 25 | 0.00e+00 |
+| `lcm(a,b) = a*b/gcd(a,b)` | 25 | 0.00e+00 |
+| `for all a,b | a + b = b + a` | 25 | 0.00e+00 |
+| `for all a | a + (-a) = 0` | 25 | 0.00e+00 |
+| `for all a,b | a - b = a + (-b)` | 25 | 0.00e+00 |
 
 > 诚实说明：'验证通过'的含义是'在随机抽样点上两侧数值吻合，**不是证明**'；抽样在正实数域进行，未覆盖负数与特殊点。'抽样未通过'同样不等于找到反例——可能只是求值器局限或抽样域不匹配。
 

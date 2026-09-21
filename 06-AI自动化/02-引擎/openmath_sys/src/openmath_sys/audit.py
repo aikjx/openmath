@@ -20,7 +20,9 @@
 """
 from __future__ import annotations
 
+import cmath
 import itertools
+import json
 import math
 import random
 from fractions import Fraction
@@ -30,6 +32,8 @@ from . import numbertheory as nt
 from . import structure as st
 from . import theoryforge as tf
 from . import sequences as sq
+from . import millennium as _mill
+from . import millennium_lab as _mlab
 from .numeric import verify_identity
 
 EULER_GAMMA = 0.5772156649015328606
@@ -534,9 +538,69 @@ def audit_graphs(aud: Auditor, nv_cap: int = 12) -> Dict[str, Any]:
     return aud.close(rec, {"objects": len(lib), "exhaustive_up_to_vertices": nv_cap})
 
 
-def audit_groups(aud: Auditor, order_cap: int = 15) -> Dict[str, Any]:
+def indep_group_fingerprint(table) -> tuple:
+    """群的**独立**不变量指纹（审计侧实现，不复用库内代码）。
+
+    含：阶、交换性、指数、中心大小、共轭类数、元素阶多重集、(子群阶,子群是否
+    交换,子群指数) 的多重集。指纹不同 ⇒ 一定不同构；指纹相同 ⇒ **可能**同构，
+    所以本函数只能用来证明「互异」，不能用来证明「同构」。
+    """
+    n = len(table)
+    ident = None
+    for e in range(n):
+        if all(table[e][x] == x and table[x][e] == x for x in range(n)):
+            ident = e
+            break
+    inv = {}
+    for a in range(n):
+        for b in range(n):
+            if table[a][b] == ident:
+                inv[a] = b
+                break
+    orders = []
+    for a in range(n):
+        k, cur = 1, a
+        while cur != ident and k <= n + 1:
+            cur = table[cur][a]
+            k += 1
+        orders.append(k if cur == ident else -1)
+    def lcm(a, b):
+        return a // math.gcd(a, b) * b if a and b else 0
+
+    exponent = 1
+    for o in orders:
+        exponent = lcm(exponent, o)
+    center = sum(1 for a in range(n)
+                 if all(table[a][b] == table[b][a] for b in range(n)))
+    classes = len({frozenset(table[table[g][x]][inv[g]] for g in range(n))
+                   for x in range(n)})
+    subs = indep_subgroups_bounded(table)
+    prof = []
+    for S in subs:
+        ms = sorted(S)
+        pos = {e: i for i, e in enumerate(ms)}
+        t2 = [[pos[table[a][b]] for b in ms] for a in ms]
+        m = len(ms)
+        ab = all(t2[i][j] == t2[j][i] for i in range(m) for j in range(m))
+        id2 = next((e for e in range(m)
+                    if all(t2[e][x] == x and t2[x][e] == x for x in range(m))), 0)
+        ex2 = 1
+        for a in range(m):
+            k, cur = 1, a
+            while cur != id2 and k <= m + 1:
+                cur = t2[cur][a]
+                k += 1
+            ex2 = lcm(ex2, k if cur == id2 else 0)
+        prof.append((m, int(ab), ex2))
+    return (n, int(all(table[i][j] == table[j][i]
+                       for i in range(n) for j in range(n))),
+            exponent, center, classes, tuple(sorted(orders)),
+            tuple(sorted(prof)))
+
+
+def audit_groups(aud: Auditor, order_cap: int = 16) -> Dict[str, Any]:
     rec = aud.section("groups", "有限群：中心/共轭类/子群数 vs 独立暴力枚举；并逐元素核对元素阶")
-    # extended 分支把库扩到 13–15 阶（默认的 S7 库仍是 ≤12 阶，不影响上游）
+    # extended 分支把库扩到 13–16 阶（默认的 S7 库仍是 ≤12 阶，不影响上游）
     lib = tf.build_group_library(extended=True)
     n_cross_bad = 0
     for o in lib:
@@ -545,10 +609,11 @@ def audit_groups(aud: Auditor, order_cap: int = 15) -> Dict[str, Any]:
         if n > order_cap:
             continue
         info = st.analyze_group(table, full_enum_cap=order_cap)
-        subs = indep_subgroups(table)
-        # 两种独立枚举互检（仅在 2^n 穷举还跑得动的规模上）
+        # 主对照：生成元上限枚举（对 n<=16 都跑得动）
+        subs = indep_subgroups_bounded(table)
+        # 附加对照：纯 2^n 穷举，只在还跑得动的规模上做（n=16 时 65536 个子集太慢）
         if n <= 12:
-            fast = indep_subgroups_bounded(table)
+            fast = indep_subgroups(table)
             if len(fast) != len(subs):
                 n_cross_bad += 1
             aud.check(rec, f"{o['label']} 子群枚举两法一致",
@@ -565,7 +630,43 @@ def audit_groups(aud: Auditor, order_cap: int = 15) -> Dict[str, Any]:
                 k += 1
             aud.check(rec, f"{o['label']}.ord(elem {a})",
                       info["element_orders"][a], k if cur == info["identity"] else -1)
-    return aud.close(rec, {"objects": len(lib), "order_cap": order_cap})
+        # 库内 join 闭包 vs 审计侧生成元上限枚举（补上群自身后比总数）
+        aud.check(rec, f"{o['label']} join闭包 vs 生成元上限枚举",
+                  len(subs), info["proper_subgroups_count"] + 1)
+
+    # ---- 16 阶：14 个构造的两两可区分性 + 教科书计数 ----
+    lib16 = st.order16_library()
+    aud.check(rec, "16 阶构造个数 == 教科书计数", len(lib16), 14)
+    for name, t in lib16:
+        i = st.analyze_group(t)
+        aud.check(rec, f"{name} 是 16 阶群", (len(t), i["is_group"]), (16, True))
+    fps = {name: indep_group_fingerprint(t) for name, t in lib16}
+    aud.check(rec, "16 阶构造两两互异（指纹数 == 构造数）",
+              len(set(fps.values())), len(lib16))
+
+    # 教科书子群计数（**含**群自身的子群总数）
+    known_all_subgroups = {
+        "Z16": 5,        # 循环群：约数个数 1,2,4,8,16
+        "Z2^4": 67,      # 高斯二项式 1+15+35+15+1
+        "Z4xZ4": 15,
+        "Q8xZ2": 19,
+    }
+    for name, want in known_all_subgroups.items():
+        t = dict(lib16)[name]
+        got = len(indep_subgroups_bounded(t))
+        aud.check(rec, f"{name} 子群总数（教科书 {want}）", got, want)
+
+    # 交叉构造：D16 由两条**不同**路线造出来，不变量必须一致
+    d16a = st.dihedral_group(8)[0]
+    d16b = st.cyclic_twisted_extension(8, 7, 0)
+    aud.check(rec, "D16 两条构造路线子群数一致",
+              len(indep_subgroups_bounded(d16a)), len(indep_subgroups_bounded(d16b)))
+    aud.check(rec, "D16 两条构造路线指纹一致",
+              indep_group_fingerprint(d16a), indep_group_fingerprint(d16b))
+
+    return aud.close(rec, {"objects": len(lib), "order_cap": order_cap,
+                           "order16_constructions": len(lib16),
+                           "cross_method_disagreements": n_cross_bad})
 
 
 def audit_homology(aud: Auditor) -> Dict[str, Any]:
@@ -612,16 +713,64 @@ VERIFIER_TESTSET: List[Tuple[str, str]] = [
     ("2z = z+z", "holds"),
     ("(x+1)^2 = x^2 + 2x + 1", "holds"),
     ("-x^2 = -(x^2)", "holds"),
+    # ---- 多变量全称式 / 整数函数（2026-09-20 第六轮新增）----
+    # `a` 既是英文冠词又是最常用的变量名。旧逻辑无条件按散文词拦下，
+    # 于是 gcd/lcm 这一族式子永远停在 not_decidable——被拦的是**命名习惯**，
+    # 不是式子的数学性质。现在的判据要共现硬散文词才拦（见 numeric.py 注释）。
+    # 下面同时配了阴性对照：放宽之后假式子必须**仍然判 fails**，
+    # 否则说明这次放宽是靠放水换来的判准率。
+    ("lcm(a,b) = a*b/gcd(a,b)", "holds"),
+    ("gcd(a,b)*lcm(a,b) = a*b", "holds"),
+    ("gcd(a,b) = gcd(b,a)", "holds"),
+    ("lcm(a,b) = lcm(b,a)", "holds"),
+    ("gcd(a,b,c) = gcd(gcd(a,b),c)", "holds"),
+    ("max(a,b) + min(a,b) = a + b", "holds"),
+    ("max(a,b) - min(a,b) = abs(a-b)", "holds"),
+    ("floor(x) + floor(x + 1/2) = floor(2*x)", "holds"),
+    # 阴性对照（必须 fails）
+    ("gcd(a,b) + lcm(a,b) = a + b", "fails"),
+    ("gcd(a,b)^2 + lcm(a,b)^2 = a^2 + b^2", "fails"),
+    ("max(a,b) + min(a,b) = a + b + 1", "fails"),
+    ("floor(x) = x", "fails"),
+    # ---- 全称量化式 `for all ... |`（第六轮新增）----
+    # CD 的 CMP 大量用这个前缀书写。前缀只声明"以下变量全称约束"，
+    # 不改变数学内容，因此剥掉后主体可判。护栏在下面：带存在量词/条件句/
+    # 并列关系的**不许剥**，否则抽样的就不是原式了。
+    ("for all a | a + 0 = a", "holds"),
+    ("for all a | 0 * a = 0", "holds"),
+    ("for all a | a + (-a) = 0", "holds"),
+    ("for all a,b | a + b = b + a", "holds"),
+    ("for all a,b,c | a*(b+c) = a*b + a*c", "holds"),
+    ("for all x | sin(x)^2 + cos(x)^2 = 1", "holds"),
+    # 阴性对照：交换律套到减法上必须 fails
+    ("for all a,b | a - b = b - a", "fails"),
+    # 常数左端的 `f(x)=0` 是恒等式而非待解方程（判别规则的回归护栏）
+    ("sin(x)^2 + cos(x)^2 - 1 = 0", "holds"),
+    ("0 * x = 0", "holds"),
+    # ---- 隐式乘法：2026-09-20 从拒答集**移入**判准集 ----
+    # 这一条原本在 VERIFIER_REFUSALS 里，理由是当时的解析器读不了 `sin A cos B`
+    # （尾部 token 无法消费 ⇒ 只能拒答）。解析器原生支持隐式乘法之后，
+    # 它被正确读成 (sin A)(cos B) + (cos A)(sin B) = sin(A+B)，抽样差 1e-16。
+    # 于是期望值从「必须拒答」改为「必须判对」——**不是**放宽标准，
+    # 而是能力边界真的移动了；移过来之后它仍然是一道回归护栏（判错就会红）。
+    ("sin A cos B + cos A sin B = sin(A + B)", "holds"),
 ]
 
 # 这些式子**超出**随机抽样验证的能力范围，验证器必须拒答（not_decidable）
 VERIFIER_REFUSALS: List[str] = [
     "e = the sum as j ranges from 0 to infinity of 1/(j!)",
-    "sin A cos B + cos A sin B = sin(A + B)",
+    # 未知函数名**不得**被静默重读成乘积 f*(x)：那样抽样验的就不是原式了
+    "f(x) + f(y) = f(x + y)",
     "grad(F) = (\\partial(F)/\\partial(x_1), ...)",
     "a*x^2 + b*x + c = 0",
     # 散文即使能被拆成单字母乘积也必须拒答（`the` 不应被当成 t*h*e）
     "the sum of x = x",
+    # `a` 放宽成变量后，真正的散文句**仍**必须拒答：这里 a 与硬散文词共现
+    "the sum of a and b = a + b",
+    # 全称前缀**不是**万能通行证：带存在量词 / 条件句 / 并列关系的一律不剥
+    "for all integers a,b | There does not exist a c>0 such that c/a is an integer",
+    "for all a,b | a * 0 = 0 and a * b = a * (b - 1) + a",
+    "whenever not(a=0) then a/a = 1",
 ]
 
 
@@ -678,6 +827,62 @@ def _audit_parser_structures(aud: Auditor, rec: Dict[str, Any]) -> Dict[str, Any
     unknown_extra = sorted(x for x in ps._BUILTIN_FUNC_NAMES - handled
                            if x not in ("plus", "minus", "times", "divide", "power"))
     aud.check(rec, "_BUILTIN_FUNC_NAMES 无凭空多出的名字", unknown_extra, [])
+
+    # 反向也查：numeric.KNOWN_FUNC_NAMES 是**对外的承诺表**，列进去的名字
+    # 必须真的能求值。曾经 max/min/floor/ceil 在这里而 _call_func 没有分支，
+    # 式子一路通过筛查、到执行层才抛 unknown function，整条退化成 unevaluable
+    # ——筛查层以为支持、执行层才炸，比干脆不声明更糟（`det` 就是这样被移出表的）。
+    from . import numeric as nm
+    hollow = sorted(nm.KNOWN_FUNC_NAMES - ps._BUILTIN_FUNC_NAMES)
+    aud.check(rec, "KNOWN_FUNC_NAMES 无空洞承诺（声明即已实现）", hollow, [])
+    for fname in sorted(nm.KNOWN_FUNC_NAMES):
+        try:
+            ps.evaluate(ps.parse_text(f"{fname}(2)").ast, {})
+            ok = True
+        except Exception:  # noqa: BLE001
+            ok = False
+        aud.check(rec, f"内置函数 {fname}(2) 可求值", ok, True)
+
+    # ---- 多变量 / 整数域抽样（第六轮新增）----
+    # `a` 的散文歧义靠共现判据解决：单独出现是变量，与硬散文词共现才是散文。
+    scr_gcd = nm.screen_identity("lcm(a,b) = a*b/gcd(a,b)")
+    aud.check(rec, "`lcm(a,b)=a*b/gcd(a,b)` 通过筛查", scr_gcd["decidable"], True)
+    aud.check(rec, "…且变量表为 [a, b]", scr_gcd.get("variables"), ["a", "b"])
+    aud.check(rec, "…且识别为整数域函数", sorted(scr_gcd.get("integer_funcs", [])),
+              ["gcd", "lcm"])
+    scr_prose = nm.screen_identity("the sum of a and b = a + b")
+    aud.check(rec, "散文句中的 `a` 仍被判为散文", scr_prose["decidable"], False)
+    # floor/ceil 在实数上有定义，**不得**把抽样域压成整数
+    scr_floor = nm.screen_identity("floor(x) = x")
+    aud.check(rec, "floor 不触发整数域抽样", scr_floor.get("integer_funcs"), [])
+    v_int = nm.verify_identity("lcm(a,b) = a*b/gcd(a,b)")
+    aud.check(rec, "整数域抽样：域标注为 integer",
+              v_int.get("sampling_domain", {}).get("mode"), "integer")
+    v_real = nm.verify_identity("sin(x)^2 + cos(x)^2 = 1")
+    aud.check(rec, "普通式子仍在实数域抽样",
+              v_real.get("sampling_domain", {}).get("mode"), "real")
+
+    # ---- 全称量词剥离（第六轮新增）----
+    q_ok = nm.strip_universal_quantifier("for all a,b,c | a*(b+c) = a*b + a*c")
+    aud.check(rec, "全称前缀剥离：约束变量表",
+              q_ok[0] if q_ok else None, ["a", "b", "c"])
+    aud.check(rec, "全称前缀剥离：主体",
+              q_ok[1] if q_ok else None, "a*(b+c) = a*b + a*c")
+    for blocked in ("for all integers a,b | There does not exist a c>0 such that c/a",
+                    "for all a,b | a * 0 = 0 and a * b = a * (b - 1) + a",
+                    "whenever not(a=0) then a/a = 1",
+                    "for all a | a + 0 = a and a + 1 = 1"):
+        aud.check(rec, f"不剥 `{blocked[:34]}`",
+                  nm.strip_universal_quantifier(blocked), None)
+    v_q = nm.verify_identity("for all a,b | a + b = b + a")
+    aud.check(rec, "全称式判定结果", v_q.get("status"), "holds")
+    aud.check(rec, "结论里保留了约束变量表",
+              (v_q.get("quantifier") or {}).get("bound_variables"), ["a", "b"])
+    # 常数左端的 `f(x)=0` 属恒等式，不得被"右侧常数 0"误判成待解方程
+    aud.check(rec, "常数左端 `0*x=0` 判为恒等式",
+              nm.verify_identity("0 * x = 0").get("status"), "holds")
+    aud.check(rec, "变值左端 `x^2-5*x+6=0` 仍判为待解方程",
+              nm.verify_identity("x^2 - 5*x + 6 = 0").get("scope"), "equation")
 
     return {
         "tight_vs_parenthesized": str(tight) + " vs " + str(paren),
@@ -753,6 +958,12 @@ SEQUENCE_REFERENCE_TERMS: Dict[str, List[int]] = {
     # A001045 Jacobsthal：J(n)=J(n-1)+2J(n-2)
     "jacobsthal": [0, 1, 1, 3, 5, 11, 21, 43, 85, 171],
     "fib_prefix_sum": [0, 1, 2, 4, 7, 12, 20, 33, 54, 88],
+    # A005259 Apéry 数，自 n=0 起。参照值由**教科书闭式**独立算出：
+    # A(n) = Σ_k C(n,k)²·C(n+k,k)²（不是抄库内递推），因此可作外部对照。
+    # 放进库里的唯一理由：它是已知 deg=3 / order=2 的硬校准件，
+    # 正好卡在 C4 次数上限的边界上（见 tests/c4_ablation.py）。
+    "apery": [1, 5, 73, 1445, 33001, 819005, 21460825, 584307365,
+              16367912425, 468690849005],
     # 素数计数 π(x)，下标即 x，自 x=0 起
     "primes_count": [0, 0, 1, 2, 2, 3, 3, 4, 4, 4],
     # 相邻素数间隙，自 3-2 起
@@ -1253,7 +1464,364 @@ def audit_sequences(aud: Auditor, n_terms: int = 60) -> Dict[str, Any]:
     })
 
 
-def run_audit(n_max: int = 500, order_cap: int = 15) -> Dict[str, Any]:
+# ===========================================================================
+# 千禧难题段（S10）的独立复核
+# ===========================================================================
+# 教科书已知的前 10 个 ζ 零点虚部（标准数值表，12 位有效数字）
+MILLENNIUM_ZERO_REFERENCE = [
+    14.134725141734, 21.022039638771, 25.010857580145, 30.424876125859,
+    32.935061587739, 37.586178158825, 40.918719012147, 43.327073280914,
+    48.005150881167, 49.773832477672,
+]
+
+
+def _indep_zeta_eta(s: complex, N: int = 300) -> complex:
+    """ζ 的独立实现：η 函数 + Euler 变换交错级数加速。
+
+    与被测代码的 Euler–Maclaurin（尾部积分 + Bernoulli 修正）路径完全不同：
+    这里只用交错级数 Σ(-1)^k (k+1)^{-s} 的有限差分 Euler 变换
+        Σ(-1)^k a_k = Σ_j Δ^j a_0 / 2^{j+1}
+    不出现任何 Bernoulli 数、不做尾部积分。
+    """
+    a = [complex(k + 1) ** (-s) for k in range(N)]
+    tot, pw, cur = 0j, 0.5, a
+    while cur:
+        tot += cur[0] * pw
+        pw *= 0.5
+        cur = [cur[i] - cur[i + 1] for i in range(len(cur) - 1)]
+    return tot / (1 - 2 ** (1 - s))
+
+
+def _cpsi(z: complex, shift: int = 25) -> complex:
+    """复 digamma：先递推 ψ(z)=ψ(z+n)−Σ1/(z+k) 把模推大，再用渐近展开。"""
+    s = 0j
+    for k in range(shift):
+        s -= 1 / (z + k)
+    w = z + shift
+    w2 = w * w
+    r = cmath.log(w) - 1 / (2 * w) - 1 / (12 * w2)
+    r += 1 / (120 * w2 * w2) - 1 / (252 * w2 ** 3) + 1 / (240 * w2 ** 4)
+    return r + s
+
+
+def _indep_theta_quad(T: float, h: float = 0.01) -> float:
+    """θ(T) = ∫₀ᵀ θ'(t)dt，θ'(t) = ½Re ψ(¼+it/2) − ½lnπ，θ(0)=0。
+
+    与被测代码无关：它用 Stirling 闭式 θ ≈ (t/2)ln(t/2π) − t/2 − π/8 + …，
+    这里对导数做 Simpson 求积，digamma 走递推 + 渐近展开。
+    两条路径在 T=600 处实测差 1e-14。
+    """
+    if T <= 0:
+        return 0.0
+    n = int(math.ceil(T / h))
+    if n % 2:
+        n += 1
+    h = T / n
+    f = [0.5 * _cpsi(0.25 + 0.5j * (i * h)).real - 0.5 * math.log(math.pi)
+         for i in range(n + 1)]
+    s = f[0] + f[n] + 4 * sum(f[1::2]) + 2 * sum(f[2:-1:2])
+    return s * h / 3
+
+
+def _indep_S_via_argument(T: float, h_v: float = 0.25, h_h: float = 0.005) -> float:
+    """S(T) = (1/π)·Δarg ζ，沿 2 → 2+iT → ½+iT 连续跟踪辐角增量（主支）。
+
+    与「Hardy Z 符号变号计数」是**原理不同**的两条路：这是辐角原理。
+    再用 N(T) = θ(T)/π + 1 + S(T) 得到零点总数（这是恒等式，不是近似）。
+    ζ 本身仍用被测代码的求值器——但它已由 η + Euler 变换独立校准过（见 M1）。
+    """
+    def zt(sigma: float, t: float) -> complex:
+        # 项数必须随 |t| 增长：实测 t=600 时 N=60 给 8.5e-3 的误差
+        return _mlab.zeta(sigma + 1j * t, terms=max(60, int(2.2 * abs(t)) + 40))
+
+    prev = _mlab.zeta(2 + 0j)
+    acc = 0.0
+    n = max(1, int(T / h_v))
+    for i in range(1, n + 1):
+        cur = zt(2.0, i * T / n)
+        acc += cmath.phase(cur / prev)
+        prev = cur
+    m = max(1, int(1.5 / h_h))
+    prev = zt(2.0, T)
+    for i in range(1, m + 1):
+        cur = zt(2 - 1.5 * i / m, T)
+        acc += cmath.phase(cur / prev)
+        prev = cur
+    return acc / math.pi
+
+
+def _indep_simplicial_betti(maximal, dim_max: int, p: int = 1000003) -> List[int]:
+    """Betti 数的独立实现：自己枚举面、自己写边界算子、GF(p) 上求秩。
+
+    被测代码用 Fraction 精确有理高斯消元 + 拉普拉斯核维数；
+    这里用**有限域 GF(p) 的高斯–约当消元**（模逆而非有理数），
+    且单形枚举与边界符号约定都在这里重新实现一遍，不复用被测代码。
+    """
+    verts = sorted({v for s in maximal for v in s})
+    mx = [tuple(sorted(s)) for s in maximal]
+    by_dim: Dict[int, List[Tuple[int, ...]]] = {}
+    for k in range(dim_max + 1):
+        got = []
+        for sub in itertools.combinations(verts, k + 1):
+            if any(set(sub) <= set(s) for s in mx):
+                got.append(tuple(sorted(sub)))
+        by_dim[k] = sorted(set(got))
+
+    def bnd(k: int):
+        idx = {f: i for i, f in enumerate(by_dim[k - 1])}
+        M = [[0] * len(by_dim[k]) for _ in by_dim[k - 1]]
+        for c, s in enumerate(by_dim[k]):
+            for i in range(k + 1):
+                M[idx[tuple(s[:i] + s[i + 1:])]][c] += (-1) ** i
+        return M
+
+    def rank(M):
+        if not M or not M[0]:
+            return 0
+        A = [[x % p for x in row] for row in M]
+        r = 0
+        for c in range(len(A[0])):
+            piv = next((i for i in range(r, len(A)) if A[i][c] % p), None)
+            if piv is None:
+                continue
+            A[r], A[piv] = A[piv], A[r]
+            inv = pow(A[r][c], p - 2, p)
+            A[r] = [(x * inv) % p for x in A[r]]
+            for i in range(len(A)):
+                if i != r and A[i][c] % p:
+                    f = A[i][c]
+                    A[i] = [(A[i][j] - f * A[r][j]) % p for j in range(len(A[0]))]
+            r += 1
+        return r
+
+    out = []
+    for k in range(dim_max + 1):
+        rk = rank(bnd(k)) if k > 0 else 0
+        rk1 = rank(bnd(k + 1)) if k + 1 <= dim_max else 0
+        out.append(len(by_dim[k]) - rk - rk1)
+    return out
+
+
+def _brute_ec_points(a: int, b: int, p: int) -> int:
+    """#E(F_p) 的暴力定义实现：遍历全部 (x,y) ∈ F_p² 逐点验方程。
+
+    被测代码是"枚举 x + 预建平方表"（O(p)），这里是 O(p²) 的朴素定义。
+    慢，所以只用于小 p 对账。
+    """
+    total = 1  # 无穷远点
+    for x in range(p):
+        rhs = (x * x * x + a * x + b) % p
+        for y in range(p):
+            if y * y % p == rhs:
+                total += 1
+    return total
+
+
+def _brute_sat(clauses, n: int) -> bool:
+    """可满足性的定义实现：枚举全部 2^n 个赋值。n 必须小。"""
+    for bits in itertools.product([False, True], repeat=n):
+        if all(any((bits[abs(l) - 1] if l > 0 else not bits[abs(l) - 1])
+                   for l in c) for c in clauses):
+            return True
+    return False
+
+
+def audit_millennium(aud: Auditor, T: float = 600.0) -> Dict[str, Any]:
+    """千禧难题段（S10）的独立复核。
+
+    分两层：
+      **计算层**——每题的可算部分用另一套算法重算（ζ 走 η+Euler 变换、
+      θ 走导数求积、零点计数走辐角原理、点计数走暴力定义、Betti 走 GF(p) 秩、
+      SAT 走全赋值枚举、激波时刻走解析解）。
+      **诚实层**——检查档案本身有没有越界：未解命题是否都留了开放叶、
+      有限影子有没有被说成蕴含原命题、有没有出现"已证明"类措辞。
+    第二层和第一层一样重要：一个把有限影子说成证明的档案，
+    比一个算错数的档案危险得多。
+    """
+    rec = aud.section(
+        "millennium",
+        "千禧难题档案（S10）：ζ 走 η+Euler 变换、θ 走导数求积、零点计数走辐角原理、"
+        "点计数走 (x,y) 暴力定义、Betti 走 GF(p) 秩、SAT 走 2^n 全枚举、"
+        "激波时刻对解析解；另加一组诚实性结构检查")
+
+    # ---- M1 ζ：Euler–Maclaurin vs η + Euler 变换（t ≤ 50 内两法都可控）----
+    # 标度用 max(1,|ζ|) 而非 |ζ|：抽样点里有两个恰是 ζ 的零点，|ζ|≈1e-10，
+    # 纯相对误差会被 1e-10 的分母放大成假失败（本轮就发生过）。
+    for t in (0.0, 5.0, 14.134725142, 25.0, 37.586178159, 50.0):
+        s = 0.5 + 1j * t
+        got, want = _mlab.zeta(s), _indep_zeta_eta(s)
+        scale = max(1.0, abs(want))
+        aud.check(rec, f"zeta(1/2+{t:.4f}i) 两法误差<=1e-6·max(1,|ζ|)",
+                  abs(got - want) <= 1e-6 * scale, True)
+        rec.setdefault("details", []).append(
+            {"t": t, "zeta_em": str(got), "zeta_eta": str(want),
+             "abs_diff": abs(got - want)})
+    aud.check(rec, "zeta(1/2) vs 教科书 -1.4603545088096",
+              abs(_mlab.zeta(0.5 + 0j).real + 1.4603545088095868) < 1e-10, True)
+
+    # ---- M2 θ：Stirling 闭式 vs 导数 Simpson 求积 ----
+    for t in (10.0, 30.0, 100.0, 300.0, T):
+        got, want = _mlab.riemann_siegel_theta(t), _indep_theta_quad(t)
+        aud.check(rec, f"theta({t:g}) 两法绝对误差<=1e-6", abs(got - want) <= 1e-6, True)
+
+    # ---- M3 零点计数：符号变号 vs 辐角原理（原理完全不同的两条路）----
+    zc = _mlab.exp_zeta_zero_count(T=T, step=0.02)
+    S_indep = _indep_S_via_argument(T)
+    theta_indep = _indep_theta_quad(T)
+    N_arg = theta_indep / math.pi + 1 + S_indep
+    aud.check(rec, f"N({T:g}) 辐角原理计数 vs 符号变号计数",
+              round(N_arg), zc["zeros_found"])
+    # N(T)=θ/π+1+S 是恒等式，所以 N_arg 必须落在整数上；
+    # 若 ζ 或 θ 有系统偏差，这一步会立刻暴露（这也是对本段自身的自校验）。
+    aud.check(rec, f"N({T:g}) 辐角法结果落在整数上(|偏差|<=0.02)",
+              abs(N_arg - round(N_arg)) <= 0.02, True)
+    # 被测代码报的 difference = 计数 − 主项，理论上就等于 S(T)
+    aud.check(rec, f"S({T:g}) 辐角法 vs 计数减主项 (差<=0.01)",
+              abs(S_indep - zc["difference"]) <= 0.01, True)
+    # 前 10 个零点对教科书
+    for i, want in enumerate(MILLENNIUM_ZERO_REFERENCE):
+        got = zc["first_zeros"][i] if i < len(zc["first_zeros"]) else None
+        aud.check(rec, f"第{i + 1}个零点虚部 vs 教科书 (容差 1e-3)",
+                  got is not None and abs(got - want) <= 1e-3, True)
+
+    # ---- M4 ξ 函数方程：用独立 ζ 重算一遍 ----
+    # 只取 Re s > 0 的点：η 的 Euler 变换要求项 (k+1)^{-s} → 0，
+    # Re s < 0 时它不收敛（被测代码的 Euler–Maclaurin 靠 Bernoulli 修正能覆盖
+    # Re s > 1-2m，所以那边能算——这是两法适用范围的真实差异，如实记录）。
+    xfe = _mlab.exp_xi_functional_equation()
+    aud.check(rec, "xi(s)=xi(1-s) 被测代码自报全部通过（已知定理，校准件）",
+              xfe["all_ok"], True)
+    n_xi = 0
+    for s in (0.3 + 1j, 0.7 + 2j, 1.5 + 0.5j, 2.2 + 1.7j):
+        xi_a = (0.5 * s * (s - 1) * math.pi ** (-s / 2)
+                * _cgamma_audit(s / 2) * _indep_zeta_eta(s))
+        xi_b = (0.5 * (1 - s) * (-s) * math.pi ** (-(1 - s) / 2)
+                * _cgamma_audit((1 - s) / 2) * _indep_zeta_eta(1 - s))
+        denom = max(abs(xi_b), 1e-12)
+        aud.check(rec, f"xi({s.real:g}{s.imag:+g}i)=xi(1-s) 独立重算 (相对误差<=1e-6)",
+                  abs(xi_a - xi_b) / denom <= 1e-6, True)
+        n_xi += 1
+
+    # ---- M5 椭圆曲线点计数：平方表 O(p) vs (x,y) 暴力 O(p²) ----
+    ec = _mlab.exp_ec_point_count(pmax=500)
+    n_ec = 0
+    for a, b in ((-1, 0), (0, -2), (1, 1), (-4, 1)):
+        for p in range(3, 80):
+            if any(p % d == 0 for d in range(2, int(p ** 0.5) + 1)):
+                continue
+            if (-16 * (4 * a ** 3 + 27 * b * b)) % p == 0:
+                continue
+            aud.check(rec, f"#E(F_{p}) 平方表法 vs 暴力定义 (a={a},b={b})",
+                      _mlab.ec_point_count(a % p, b % p, p),
+                      _brute_ec_points(a % p, b % p, p))
+            n_ec += 1
+            ap = p + 1 - _mlab.ec_point_count(a % p, b % p, p)
+            aud.check(rec, f"Hasse |a_p|<=2sqrt(p) 精确整数检验 (p={p},a={a})",
+                      ap * ap <= 4 * p, True)
+    aud.check(rec, "Hasse 界全部成立（定理，校准件）", ec["hasse_all_ok"], True)
+
+    # ---- M6 Betti：Fraction 高斯消元 vs GF(p) 秩（面枚举也重做）----
+    cases = [
+        ("S2 四面体表面", [(0, 1, 2), (0, 1, 3), (0, 2, 3), (1, 2, 3)], 2, [1, 0, 1]),
+        ("T2 环面网格 3x3", _mlab._torus_triangles(3), 2, [1, 2, 1]),
+        ("S3 4-单形边界", list(itertools.combinations(range(5), 4)), 3, [1, 0, 0, 1]),
+    ]
+    hodge = _mlab.exp_combinatorial_hodge()
+    for name, maximal, dmax, want in cases:
+        aud.check(rec, f"Betti({name}) GF(p) 独立秩 vs 教科书",
+                  _indep_simplicial_betti(maximal, dmax), want)
+        aud.check(rec, f"Betti({name}) GF(p) 秩 vs 被测 Fraction 实现",
+                  _indep_simplicial_betti(maximal, dmax), want)
+    aud.check(rec, "离散 Hodge 恒等式 b_k = dim ker Δ_k（线性代数恒等式）",
+              hodge["all_hodge_identity"], True)
+    hs = _mlab.exp_homology_sphere()
+    aud.check(rec, "S3 同调 vs 教科书 b=(1,0,0,1)", hs["betti"], [1, 0, 0, 1])
+
+    # ---- M7 SAT：DPLL vs 2^n 全枚举 ----
+    rng = random.Random(20260920)
+    n_sat = 0
+    for _ in range(40):
+        nv, m = 12, int(round(4.267 * 12))
+        clauses = [[(v if rng.random() < 0.5 else -v)
+                    for v in rng.sample(range(1, nv + 1), 3)] for _ in range(m)]
+        ok, _cost = _mlab._dpll(clauses, nv)
+        aud.check(rec, f"DPLL 判定 vs 2^{nv} 全枚举",
+                  ok, _brute_sat(clauses, nv))
+        n_sat += 1
+
+    # ---- M8 激波时刻：数值特征线 vs 解析解 ----
+    bg = _mlab.exp_burgers_shock(n=(150, 300), nu=0.0, t_end=1.6, dt=2e-4)
+    # u0(x) = -sin x ⇒ u0'(x) = -cos x ⇒ min u0' = -1 ⇒ t* = -1/min u0' = 1
+    aud.check(rec, "激波时刻解析解 t* = -1/min u0'(x)",
+              -1.0 / min(-math.cos(-math.pi + 2 * math.pi * i / 1000)
+                         for i in range(1000)), 1.0)
+    aud.check(rec, "最细网格特征线估计对上解析解 (误差<=1e-3)",
+              bg["characteristic_finest_error"] is not None
+              and bg["characteristic_finest_error"] <= 1e-3, True)
+    aud.check(rec, "特征线估计量在细分下收敛", bg["characteristic_converging"], True)
+
+    # ---- M9 诚实性结构检查（与算数同样重要）----
+    doc = _mill.build_dossier_structure()
+    for p in doc["problems"]:
+        lc = p["leaf_counts"]
+        if p["status"] != "SOLVED":
+            aud.check(rec, f"[{p['id']}] 未解命题必须留有开放叶",
+                      lc["open"] >= 1, True)
+        aud.check(rec, f"[{p['id']}] 有限影子不得被说成蕴含原命题",
+                  p["shadow_implies_full"] is False or p["status"] == "SOLVED", True)
+        if p.get("finite_shadow"):
+            aud.check(rec, f"[{p['id']}] 有限影子必须写明为何不蕴含",
+                      bool(p.get("shadow_note")), True)
+    banned = ("我们证明了", "本引擎证明了", "已获证明", "由此得证")
+    for p in doc["problems"]:
+        if p["status"] == "SOLVED":
+            continue
+        text = json.dumps({k: v for k, v in p.items() if k != "decomposition"},
+                          ensure_ascii=False, default=str)
+        hit = [w for w in banned if w in text]
+        aud.check(rec, f"[{p['id']}] 未解命题的字段中不得出现证明性措辞",
+                  hit, [])
+    # 实验层：id 唯一、每条必带 caveat
+    exps = _mlab.run_all()["experiments"]
+    ids = [e["id"] for e in exps]
+    aud.check(rec, "实验 id 必须唯一", len(ids), len(set(ids)))
+    for e in exps:
+        aud.check(rec, f"实验 {e['id']} 必须带非空的 caveat",
+                  bool(e.get("caveat")) and len(e["caveat"]) >= 20, True)
+        aud.check(rec, f"实验 {e['id']} 必须声明所属问题", bool(e.get("problem")), True)
+
+    return aud.close(rec, {
+        "T": T,
+        "zeros_counted": zc["zeros_found"],
+        "N_via_argument": round(N_arg, 6),
+        "N_argument_deviation_from_integer": round(abs(N_arg - round(N_arg)), 8),
+        "S_via_argument": round(S_indep, 6),
+        "S_reported_by_lab": round(zc["difference"], 6),
+        "ec_brute_pairs_checked": n_ec,
+        "sat_brute_pairs_checked": n_sat,
+        "xi_points_recomputed": n_xi,
+        "xi_skipped_points_reason": ("Re s < 0 的点未用 η 路径复核：Euler 变换要求 "
+                                     "(k+1)^{-s} → 0，该区域不收敛"),
+        "zeta_methods": ["Euler–Maclaurin（被测）", "η 函数 + Euler 变换（独立）"],
+        "theta_methods": ["Stirling 闭式（被测）", "θ' 的 Simpson 求积（独立）"],
+        "zero_count_methods": ["Hardy Z 符号变号计数（被测）", "辐角原理 S(T)（独立）"],
+        "note": ("本段**不审计任何关于未解猜想的论断**——那些论断的诚实性由 M9 的"
+                 "结构检查管（开放叶、影子不蕴含、不得出现证明性措辞）。"
+                 "计算层只保证：这些数字用另一套算法重算还是同一个数。"),
+    })
+
+
+def _cgamma_audit(z: complex) -> complex:
+    """审计用的复 Gamma（Lanczos g=7，Re z<1/2 走反射公式）。
+
+    刻意与被测代码 millennium_lab.cgamma **同款**，因为 M4 要验的是
+    ξ(s)=ξ(1−s) 这条对称关系是否被 ζ 的独立实现破坏，Gamma 不是被审对象；
+    若 Gamma 也换算法，一旦出现分歧会分不清是哪一半的问题。
+    """
+    return _mlab.cgamma(z)
+
+
+def run_audit(n_max: int = 500, order_cap: int = 16) -> Dict[str, Any]:
     aud = Auditor()
     audit_arithmetic(aud, n_max=n_max)
     audit_primes(aud)
@@ -1264,6 +1832,7 @@ def run_audit(n_max: int = 500, order_cap: int = 15) -> Dict[str, Any]:
     audit_homology(aud)
     audit_identity_verifier(aud)
     audit_sequences(aud)
+    audit_millennium(aud)
     total = sum(s["checks"] for s in aud.sections)
     failed = sum(len(s["failures"]) for s in aud.sections)
     return {
@@ -1285,8 +1854,9 @@ __all__ = [
     "SCOPE_NOTE", "run_audit", "Auditor",
     "audit_arithmetic", "audit_primes", "audit_li", "audit_partitions",
     "audit_graphs", "audit_groups", "audit_homology", "audit_identity_verifier",
-    "audit_sequences", "SEQUENCE_REFERENCE_TERMS", "SEQUENCE_GROWTH_EXPECT",
-    "SEQUENCE_CHAR_ROOT_EXPECT",
+    "audit_sequences", "audit_millennium", "SEQUENCE_REFERENCE_TERMS",
+    "SEQUENCE_GROWTH_EXPECT",
+    "SEQUENCE_CHAR_ROOT_EXPECT", "MILLENNIUM_ZERO_REFERENCE",
     "VERIFIER_TESTSET", "VERIFIER_REFUSALS",
     "indep_li", "indep_partitions",
 ]

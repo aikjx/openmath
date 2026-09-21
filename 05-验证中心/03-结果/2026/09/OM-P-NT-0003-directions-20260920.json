@@ -1,0 +1,142 @@
+{
+  "target": "OM-P-NT-0003",
+  "conjecture_status": "OPEN",
+  "provenance": {
+    "ai_assisted": true,
+    "independent_human_review": false
+  },
+  "timestamp": "2026-09-20T14:35:33.810039+00:00",
+  "python": "3.8.8",
+  "arithmetic": "exact integers and rational ratios",
+  "source_sha256": {
+    "goldbach_directions.py": "e7b0b95215787ad0d7fcbdfd9609e7090f274a857c1c4545c4ea315e3d3bb2ca",
+    "test_goldbach_directions.py": "10e841644a737b3c7d7499290756d4935453db833a90e4cd4d69821395383564",
+    "pwcv_goldbach_l2.py": "66ad9f457708e607056aa58fd7e2409c3bbfbcc1c4a40c1307a4bb2ce87461d5"
+  },
+  "convolution": {
+    "all_even_from": 4,
+    "all_even_to": 100000,
+    "even_count": 49999,
+    "goldbach_counterexamples": [],
+    "candidate": "P(N) * bit_length(N)^2 >= N",
+    "candidate_counterexamples": [],
+    "bands": [
+      {
+        "from": 4,
+        "to": 100,
+        "minimum_ratio_N": 6,
+        "ordered_pairs": 1,
+        "min_P_bitlength_squared_over_N": "3/2"
+      },
+      {
+        "from": 102,
+        "to": 1000,
+        "minimum_ratio_N": 992,
+        "ordered_pairs": 26,
+        "min_P_bitlength_squared_over_N": "325/124"
+      },
+      {
+        "from": 1002,
+        "to": 10000,
+        "minimum_ratio_N": 1718,
+        "ordered_pairs": 41,
+        "min_P_bitlength_squared_over_N": "4961/1718"
+      },
+      {
+        "from": 10002,
+        "to": 100000,
+        "minimum_ratio_N": 15788,
+        "ordered_pairs": 250,
+        "min_P_bitlength_squared_over_N": "12250/3947"
+      }
+    ],
+    "direct_crosscheck_N_count": 1004
+  },
+  "transport": {
+    "all_even_from": 6,
+    "all_even_to": 99998,
+    "mod3_equivalence_checked_N_count": 16666,
+    "infinite_family_formula": "N = 30*k + 8, k >= 1",
+    "family_members_in_search": 3333,
+    "zero_transfer_count": 11860,
+    "first_zero_transfer": {
+      "N": 38,
+      "unordered_pairs": [
+        [
+          7,
+          31
+        ],
+        [
+          19,
+          19
+        ]
+      ],
+      "next_unordered_pairs": [
+        [
+          3,
+          37
+        ],
+        [
+          11,
+          29
+        ],
+        [
+          17,
+          23
+        ]
+      ]
+    },
+    "last_zero_transfer_N": 99998,
+    "first_ten_zero_transfer_N": [
+      38,
+      68,
+      80,
+      98,
+      122,
+      128,
+      146,
+      158,
+      164,
+      188
+    ],
+    "G_monotonicity_failure_count": 23958,
+    "first_monotonicity_failure_N": 10
+  },
+  "sieve": {
+    "all_even_from": 6,
+    "all_even_to": 5000,
+    "candidate": "killed_p <= ceil(rho_p * survivors_before / p)",
+    "candidate_failing_layers": 4088,
+    "first_failure": {
+      "N": 152,
+      "p": 7,
+      "rho": 2,
+      "survivors_before": [
+        13,
+        19,
+        31,
+        43,
+        49,
+        61,
+        73
+      ],
+      "killed": [
+        19,
+        49,
+        61
+      ],
+      "proposed_cap": 2
+    },
+    "union_bound_positive_N_count": 4,
+    "first_union_bound_inconclusive": {
+      "N": 10,
+      "union_lower_bound": 0,
+      "actual_central_pairs": 1
+    }
+  },
+  "limits": [
+    "Finite experiments only; successful candidates remain unproved.",
+    "Falsified auxiliary inequalities are not counterexamples to Goldbach.",
+    "No L4 formalization or independent expert review."
+  ]
+}

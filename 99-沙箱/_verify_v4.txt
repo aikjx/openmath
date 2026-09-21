@@ -1,0 +1,25 @@
+catalog.coverage = {"official_total": 38, "from_network": 38, "from_local_snapshot": 0, "missing": 0, "xml_parse_failed": 0, "note": "官方全量清单由 GitHub API 探测得到；联网失败者回退本地快照，两者皆无才记为 missing；解析失败如实记录，不静默丢弃。"}
+symbols_total = 293
+analysis.coverage = {"cmp_total": 176, "cmp_equation_like": 128, "cmp_parsed": 41, "parsed_rate": 0.233, "parsed_rate_equation_like": 0.3203}
+equations_analyzed = 48
+unparsed_recorded = 87 (cap 120)
+
+=== 残余失败归类（可重叠，按首个命中计）===
+  量词前缀未匹配(其他量词/写法): 32
+  存在量词/there does not exist: 0
+  such that 从句: 1
+  自然语言尾注(Note that/implies): 16
+  仍带 for all 前缀: 0
+  其他: 38
+
+=== 其他类样本（前 10 条，最可能是引擎真实缺陷）===
+  [CD:bigfloat1/bigfloatprec] 'bigfloatprec(f,r,p)=f However, if converted to radix r, only p digits in that radix are significant. This usua'
+  [CD:calculus1/diff] 'diff(lambda y:a(y) + b(y))(x) = diff(lambda y:a(y))(x) + diff(lambda y:b(y))(x)'
+  [CD:calculus1/diff] 'diff(lambda y:a(y) * b(y))(x) = diff(lambda y:a(y))(x) * b(x) + a(x) * diff(lambda y:b(y))(x)'
+  [CD:calculus1/int] 'application of integrate followed by differentiate is the identity function, that is: diff(lambda y:integral(l'
+  [CD:complex1/argument] 'the argument of x+i*y = arctan(y/x) (if x is positive)'
+  [CD:complex1/argument] 'the argument of x+i*y = arctan(y,x) (two-argument arctan from transc2)'
+  [CD:fns1/domain] 'x is in the domain of f if and only if there exists a y in the range of f and f(x) = y'
+  [CD:integer1/factorial] 'factorial n = product [1..n]'
+  [CD:linalg1/vectorproduct] 'if we write a as [a_1,a_2,a_3] and b as [b_1,b_2,b_3] then the vector product denoted a x b = [a_2b_3 - a_3b_2'
+  [CD:linalg1/scalarproduct] 'a.b = |a| * |b| * cos(\\theta), where \\theta is the angle between the two vectors that is |atan(a_2/a_1)-atan(b'

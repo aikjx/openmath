@@ -1,7 +1,7 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_analyze.py",
-    "generated_at": "2026-09-19T21:45:42",
+    "generated_at": "2026-09-21T09:31:21",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理基于 openmath_sys 引擎与已下载 OpenMath/arXiv 数据自动生成，未经人类复核，不得作为 L3+ 证据。"
@@ -120,8 +120,20 @@
     {
       "type": "no_equations",
       "severity": "medium",
+      "target": "calculus1",
+      "note": "calculus1 有 6 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
       "target": "error",
       "note": "error 有 3 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
+      "target": "integer1",
+      "note": "integer1 有 4 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
     },
     {
       "type": "no_equations",
@@ -134,6 +146,12 @@
       "severity": "medium",
       "target": "limit1",
       "note": "limit1 有 5 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
+      "target": "linalg1",
+      "note": "linalg1 有 7 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
     },
     {
       "type": "no_equations",
@@ -186,6 +204,12 @@
     {
       "type": "no_equations",
       "severity": "medium",
+      "target": "multiset1",
+      "note": "multiset1 有 13 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
       "target": "piece1",
       "note": "piece1 有 3 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
     },
@@ -194,6 +218,24 @@
       "severity": "medium",
       "target": "quant1",
       "note": "quant1 有 2 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
+      "target": "relation1",
+      "note": "relation1 有 7 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
+      "target": "relation3",
+      "note": "relation3 有 11 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
+      "target": "rounding1",
+      "note": "rounding1 有 4 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
     },
     {
       "type": "no_equations",
@@ -210,6 +252,18 @@
     {
       "type": "no_equations",
       "severity": "medium",
+      "target": "set1",
+      "note": "set1 有 15 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
+      "target": "setname1",
+      "note": "setname1 有 6 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
       "target": "sts",
       "note": "sts 有 11 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
     },
@@ -218,6 +272,12 @@
       "severity": "medium",
       "target": "s_data1",
       "note": "s_data1 有 6 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
+    },
+    {
+      "type": "no_equations",
+      "severity": "medium",
+      "target": "s_dist1",
+      "note": "s_dist1 有 4 个符号但本次未抽取到任何可解析方程，需补充性质文本或手工录入示例。"
     },
     {
       "type": "cross_dependency_gap",

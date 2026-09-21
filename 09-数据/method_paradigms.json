@@ -1,7 +1,7 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_synthesis.py",
-    "generated_at": "2026-09-19T16:08:47",
+    "generated_at": "2026-09-21T09:32:34",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"
@@ -11,13 +11,38 @@
   },
   "summary": {
     "paradigms": 12,
-    "methods_classified": 36,
+    "methods_classified": 46,
     "fully_blank_paradigms": [
       "analogy",
       "transform"
     ]
   },
   "paradigms": [
+    {
+      "paradigm": "evaluation",
+      "name": "求值",
+      "description": "代入具体数值/参数计算结果",
+      "methods_total": 13,
+      "methods_implemented": 12,
+      "implemented_ids": [
+        "arith_eval",
+        "transc_eval",
+        "holonomic_recurrence_discovery",
+        "millennium_formalization",
+        "millennium_nesting",
+        "finite_shadow",
+        "hardy_z_zero_count",
+        "argument_principle_count",
+        "ec_point_count_finite",
+        "combinatorial_hodge",
+        "burgers_finite_difference",
+        "sat_phase_transition"
+      ],
+      "missing_ids": [
+        "l_function_evaluation"
+      ],
+      "coverage": 0.9231
+    },
     {
       "paradigm": "construction",
       "name": "构造",
@@ -45,21 +70,6 @@
       ],
       "missing_ids": [],
       "coverage": 1.0
-    },
-    {
-      "paradigm": "evaluation",
-      "name": "求值",
-      "description": "代入具体数值/参数计算结果",
-      "methods_total": 3,
-      "methods_implemented": 2,
-      "implemented_ids": [
-        "arith_eval",
-        "transc_eval"
-      ],
-      "missing_ids": [
-        "l_function_evaluation"
-      ],
-      "coverage": 0.6667
     },
     {
       "paradigm": "search",

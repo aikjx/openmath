@@ -1,17 +1,17 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_analyze.py",
-    "generated_at": "2026-09-19T21:45:42",
+    "generated_at": "2026-09-21T09:31:21",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理基于 openmath_sys 引擎与已下载 OpenMath/arXiv 数据自动生成，未经人类复核，不得作为 L3+ 证据。"
     },
     "honesty": "本系列文件为 L0/L2 级数据处理与计算校验产物，非证明。方程求解、猜想的可计算实验均为计算验证(L2)，不构成对未解猜想的证明。预印本与猜想状态均标 UNVERIFIED/UNSOLVED。",
-    "note": "方法清单为标准数学方法的**整理性汇编**（KNOWN_L4 常识级）；`implemented` 字段严格表示本流水线当前是否真能执行，共 17/36 项已实现。对未解猜想，即便全部适用方法齐备也仍未被解决，故 can_resolve 除已解决的庞加莱外恒为 False，绝不暗示本系统或现有方法足以证明它们。"
+    "note": "方法清单为标准数学方法的**整理性汇编**（KNOWN_L4 常识级）；`implemented` 字段严格表示本流水线当前是否真能执行，共 27/46 项已实现。对未解猜想，即便全部适用方法齐备也仍未被解决，故 can_resolve 除已解决的庞加莱外恒为 False，绝不暗示本系统或现有方法足以证明它们。"
   },
   "summary": {
-    "methods_total": 36,
-    "methods_implemented": 17,
+    "methods_total": 46,
+    "methods_implemented": 27,
     "methods_missing": 19,
     "conjectures_linked": 11,
     "conjectures_with_zero_implemented_direction": 5
@@ -249,7 +249,7 @@
       "implemented": true,
       "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/structure.py",
       "description": "由 Cayley 表判定群公理，求单位元/逆元/元素阶/中心/交换性/子群（含 Lagrange 检验）。",
-      "limitation": "仅**有限群且以 Cayley 表给出**；不处理无限群、不处理群表示论。子群枚举在阶 ≤14 时完备，否则仅枚举由 ≤3 个元素生成的子群（结果标记 partial）。"
+      "limitation": "仅**有限群且以 Cayley 表给出**；不处理无限群、不处理群表示论。子群枚举用**循环子群 join 闭包**（`_subgroup_join_closure`），完备性来自恒等式 H = join_{h∈H}⟨h⟩ 而非规模上限，故与阶数无关；已在 n≤14 的库内群上与旧的指数级子集枚举逐群对账，0 分歧。库内 16 阶群给出 14 个构造（与教科书计数相符），但这是**构造出来的** 14 个，不等于证明了只有 14 个。"
     },
     {
       "id": "homology_computation",
@@ -331,6 +331,96 @@
       "where": null,
       "description": "以随机矩阵特征值统计类比 ζ 零点分布。",
       "limitation": "未实现。"
+    },
+    {
+      "id": "holonomic_recurrence_discovery",
+      "name": "P-recursive 递推发现（holonomic）",
+      "domain": "组合/符号计算",
+      "implemented": true,
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/sequences.py",
+      "description": "对给定整数序列搜索 Σ_i p_i(n)·a(n−i)=0 形式的多项式系数递推：在多个大素数上做模消元求零空间，有理重建出系数，再做精确整数复核，最后在**留出段**上做外推检验。",
+      "limitation": "只报**发现集上精确相容且解唯一**的解，因此「外推证伪=0」**不得**读成「没有过拟合」——不相容的序列连候选都报不出。搜索受 max_order=4 / max_deg=4 限制（由对照实验定），超出者会漏报。生成函数非 D-finite 的序列（贝尔数、划分数）报不出是**正确结果**不是失败。另：这是**有限项上的候选**，通过外推检验不等于对所有 n 成立，不构成发现。"
+    },
+    {
+      "id": "millennium_formalization",
+      "name": "命题形式化（量词/主词/谓词/否定）",
+      "domain": "数理逻辑",
+      "implemented": true,
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/millennium.py",
+      "description": "把七道千禧难题写成可机器处理的逻辑方程：量词结构、约束域、谓词、以及**否定式**（反例长什么样）。",
+      "limitation": "形式化是**措辞的整理**，不承担任何证明责任；把自然语言命题改写成一阶句式时可能丢失原意的细微差别。"
+    },
+    {
+      "id": "millennium_nesting",
+      "name": "无穷套娃分解（递归子命题树）",
+      "domain": "数理逻辑",
+      "implemented": true,
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/millennium.py",
+      "description": "把每个命题递归分解为子命题树，叶节点分三类：已证定理 / 本引擎可算的有限检验 / 开放叶。开放叶**如实保留**，并记录递归在该处停止。",
+      "limitation": "递归在开放叶处停止是**事实陈述**而非闭合；树深度 2–3 受人工编写限制，不保证覆盖所有已知路线，也不保证分解是最优的。"
+    },
+    {
+      "id": "finite_shadow",
+      "name": "有限影子命题（及其不蕴含性判定）",
+      "domain": "数理逻辑",
+      "implemented": true,
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/millennium.py",
+      "description": "为每个无限命题配一个**有限截断版本**（如 RH 截到 |Im ρ| ≤ T），并显式判定「影子 ⟹ 原命题」是否成立。",
+      "limitation": "**所有七题的影子都不蕴含原命题**（n_shadow_implies_full = 0），这是刻意保留的结论：有限截断与证明之间存在本质鸿沟。"
+    },
+    {
+      "id": "hardy_z_zero_count",
+      "name": "Hardy Z 函数零点计数",
+      "domain": "解析数论",
+      "implemented": true,
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/millennium_lab.py",
+      "description": "用 Z(t)=e^{iθ(t)}ζ(½+it) 的符号变号数统计临界线零点，与 Riemann–von Mangoldt 主项对账，前 10 个零点对教科书值校准。",
+      "limitation": "只数**临界线上**的符号变号，不排除临界线外的零点；符号变号计数在零点成对时可能漏计；T=600 是本轮跑到的高度，不是能力上限，也**不是**对 RH 的证据——RH 要求全部零点。"
+    },
+    {
+      "id": "argument_principle_count",
+      "name": "辐角原理零点计数（S(T) 展开）",
+      "domain": "解析数论",
+      "implemented": true,
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/audit.py",
+      "description": "沿 2 → 2+iT → ½+iT 连续跟踪 arg ζ 的增量求 S(T)，再用 N(T)=θ(T)/π+1+S(T) 得零点总数——与符号变号计数**原理不同**。",
+      "limitation": "依赖被测代码的 ζ 求值器（已由 η+Euler 变换独立校准）；路径若恰好穿过零点会导致辐角展开失败，本轮未做该情形的处理。"
+    },
+    {
+      "id": "ec_point_count_finite",
+      "name": "有限域椭圆曲线点计数",
+      "domain": "算术几何",
+      "implemented": true,
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/millennium_lab.py",
+      "description": "算 #E(F_p) 与 a_p = p+1−#E，检验 Hasse 界 |a_p| ≤ 2√p（定理，校准件）。",
+      "limitation": "Hasse 界是**已证定理**，能对上只说明点计数代码正确；BSD 讲的是 ord_{s=1}L(E,s) = rank E(Q)，本实验**没有算 L 函数、也没有算代数秩**，故对 BSD **零证据**。"
+    },
+    {
+      "id": "combinatorial_hodge",
+      "name": "有限复形上的组合 Hodge",
+      "domain": "代数拓扑",
+      "implemented": true,
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/millennium_lab.py",
+      "description": "在有限单纯复形上用精确有理线性代数算 Betti 数 b_k 与调和形式维数 dim ker Δ_k，并做 b_k = dim ker Δ_k 的对账。",
+      "limitation": "这是**离散类比**不是霍奇猜想：有限复形上没有 (p,p) 型分解，也没有代数闭链的概念；该等式是线性代数恒等式（必成立），能对上只说明链复形与拉普拉斯的代码正确。"
+    },
+    {
+      "id": "burgers_finite_difference",
+      "name": "一维 Burgers 有限差分（迎风 + 特征线）",
+      "domain": "偏微分方程数值解",
+      "implemented": true,
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/millennium_lab.py",
+      "description": "迎风格式演化 u_t + u u_x = ν u_xx，用特征线法估计激波时刻，与解析解 t* = −1/min u₀′ 对账，并给出网格细分下的收敛性。",
+      "limitation": "一维 Burgers **不是**三维 Navier–Stokes：没有涡量拉伸项、没有不可压缩约束，且 ν>0 时已知全局正则。对千禧难题**零证据**。另：阈值型估计量在细分下**并不收敛**（离散梯度 ~1/dx），这一负面结果已如实记录，不得隐去。"
+    },
+    {
+      "id": "sat_phase_transition",
+      "name": "随机 3-SAT 相变实验",
+      "domain": "计算复杂性",
+      "implemented": true,
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/millennium_lab.py",
+      "description": "在 α=m/n 网格上测可满足率与 DPLL 决策数，并用 2^n 全枚举对账判定。",
+      "limitation": "**对 P vs NP 本身证据为零**：有限规模的曲线既不蕴含 P≠NP 也不蕴含 P=NP。列出它的唯一理由是它是同域内本引擎能真跑的计算。"
     },
     {
       "id": "ricci_flow_analysis",

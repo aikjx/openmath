@@ -58,11 +58,42 @@ PROSE_STOPWORDS = frozenset(
     "bigfloat bigfloatprec infinity int div grad curl laplacian".split()
 )
 
+# 散文词分成两档，因为 `a` / `an` 同时是**最常用的数学变量名**。
+#
+# 旧逻辑把 `a` 无条件当散文词，于是 `lcm(a,b) = a*b/gcd(a,b)` 这类式子永远停在
+# not_decidable——被拦下的不是"数学上不可判"，而是"英文冠词恰好和变量名同形"。
+# 这是把**求值器的命名习惯**误当成了**式子的性质**。
+#
+# 现在的判据需要**共现证据**：`a` 只有在同一条原文里还出现了"硬散文词"
+# （the / such / that / sum / of …）时才判为散文；否则按变量处理。
+# `the sum of x = x` 仍然被拒（the/sum/of 都在硬档里），不会被这次放宽漏过去。
+AMBIGUOUS_PROSE_WORDS = frozenset({"a", "an"})
+HARD_PROSE_WORDS = PROSE_STOPWORDS - AMBIGUOUS_PROSE_WORDS
+
+# 需要**整数**自变量的函数。gcd/lcm 的定义域是整数：在 [0.05,0.95] 上抽实数，
+# int(round(x)) 只会得到 0 或 1，gcd 恒为 0、分母为 0，式子直接变成 unevaluable。
+# 检测到这些函数时，抽样域必须整体切到正整数，并在结论里如实标注。
+# 注意：floor/ceil/round **不在**这张表里——它们在实数上有定义，
+# 恒等式 `floor(x)+floor(x+1/2) = floor(2x)` 需要实数抽样才能验，
+# 把它们归进"整数函数"反而会把这类式子的抽样域压成整数，验不出东西。
+INTEGER_FUNC_NAMES = frozenset({"gcd", "lcm", "mod", "factorial", "binom",
+                                "choose"})
+
+# 整数域抽样的范围（闭区间，正整数）。选 1..60：足够大以使 gcd/lcm 的取值有区分度，
+# 又足够小以避免 a*b 溢出 float 精度（60*60=3600，远小于 2^53）。
+INT_LO, INT_HI = 1, 60
+
 # 出现在"变量表"里 → 说明函数名未被求值器识别，被降级成了变量
+# 这张表是**承诺表**：列进去的名字必须真的被 parser._call_func 实现。
+# 曾经 max/min/floor/ceil 在这里但求值器没实现，式子走到执行层才抛
+# unknown function，整条退化成 unevaluable——筛查层以为支持、执行层才炸，
+# 比干脆不声明更糟。`det` 因求值器没有矩阵类型而移出本表：
+# 未声明的 det 会在筛查阶段就被拦下（解析成多字符标识符 → parse_suspect），
+# 拒答原因明确，好过执行时炸。审计 §⑦ 有一条检查保证这里不再出现空洞承诺。
 KNOWN_FUNC_NAMES = frozenset(
     "sin cos tan sec csc cot sinh cosh tanh sech csch coth arcsin arccos arctan "
     "arcsec arccsc arccot arcsinh arccosh arctanh arcsech arccsch arccoth "
-    "exp ln log sqrt abs gcd lcm max min floor ceil det".split()
+    "exp ln log sqrt abs gcd lcm max min floor ceil".split()
 )
 
 # 允许出现的非常量多字符标识符（目前为空：求值器不支持隐式乘法，
@@ -168,6 +199,51 @@ def normalize_implicit_mul(raw: str) -> tuple:
     return text, changes
 
 
+# `for all a,b | a*(b+c) = a*b + a*c` 这类**全称量化式**在 CD 里大量出现
+# （实测 30 条未解析样本里有 10 条纯粹是被 `for all ... |` 前缀卡住的）。
+# 前缀本身不改变式子的数学内容——它只是声明"以下变量是全称约束的"。
+# 所以这里把它剥掉、把**约束变量表一并留下**，剩下的主体按普通恒等式抽样。
+#
+# 只认 `for all <变量表> |` 这一种形式，且主体必须干净：
+# 出现存在量词 / 蕴含 / 条件句 / 并列关系，一律不剥（那是另一回事，
+# 剥了以后抽样验证的将是**别的东西**）。
+_QUANT_PREFIX_RE = re.compile(
+    r"^\s*(?:for\s+all|forall)\s+"
+    r"(?:(?:integers?|reals?|complex|natural|positive|non-?zero|nonzero)\s+)*"
+    r"([A-Za-z][A-Za-z0-9_]*(?:\s*,\s*[A-Za-z][A-Za-z0-9_]*)*)\s*(?:\||:)\s*",
+    re.I,
+)
+# 主体里出现这些 → 不是"纯全称代数恒等式"，不剥
+_QUANT_BODY_BLOCKERS = (
+    "there exist", "there does not exist", "there is no", "implies", "whenever",
+    " if ", " then ", " and ", " or ", "such that", "iff",
+)
+
+
+def strip_universal_quantifier(raw: str) -> tuple | None:
+    """剥掉 `for all ... |` 全称前缀，返回 (约束变量表, 主体)；不适用则返回 None。
+
+    返回的**主体**可以直接交给 screen_identity / verify_identity；
+    约束变量表要一起记进结论——它说明的是"这条式子主张对所有这些变量成立"，
+    而抽样只覆盖了**主体里真正出现的**那些变量（没出现的变量不影响等式真假，
+    但结论里必须写清楚，不能让读者以为全部约束变量都被抽到了）。
+    """
+    m = _QUANT_PREFIX_RE.match(raw)
+    if not m:
+        return None
+    body = raw[m.end():].strip()
+    if not body:
+        return None
+    low = body.lower()
+    if any(b in low for b in _QUANT_BODY_BLOCKERS):
+        return None
+    bound = [v.strip() for v in m.group(1).split(",")]
+    # 主体必须是**单个**等式：存在第二个关系运算符说明这是并列命题
+    if len(re.findall(r"=|<=|>=|!=|<|>", body)) != 1:
+        return None
+    return bound, body
+
+
 def screen_identity(raw: str) -> dict:
     """
     判定一条式子**是否适合**用随机抽样验证，返回筛查结论。
@@ -198,23 +274,49 @@ def screen_identity(raw: str) -> dict:
 
     vars_ = sorted(set(left.variables) | set(right.variables))
 
-    # 先区分"待解方程"与"恒等式"：形如 f(x)=0 的是求解对象，不是恒真命题
+    # 先区分"待解方程"与"恒等式"：形如 f(x)=0 的是求解对象，不是恒真命题。
+    #
+    # 判据不能只看"右侧是 0"——`for all a | 0*a = 0` 和 `for all a | a+(-a) = 0`
+    # 的右侧同样是 0，但它们是**恒等式**（左侧恒等于 0），不是待解方程。
+    # 旧逻辑只看右侧，把这两类一起误杀。真正的判据是左侧**是否随变量变化**：
+    # 取几个抽样点，左侧取值不变 → 它是常数左端，属恒等式；左侧取值变了 →
+    # 才是"求哪些 x 使 f(x)=0"。这条判据用数值证据，不靠形式猜测。
     rhs_probe = parse_text(rhs_s)
     if rhs_probe.parse_ok and not rhs_probe.variables and vars_:
         try:
-            rv = evaluate(rhs_probe.ast, {v: 1.0 for v in vars_})
-            if abs(float(rv)) < 1e-12:
-                return {"decidable": False, "scope": "equation",
-                        "reason": "右侧为常数 0：这是待解方程，不是恒等式",
-                        "suspect_variables": []}
+            rv = float(evaluate(rhs_probe.ast, {v: 1.0 for v in vars_}))
         except Exception:  # noqa: BLE001
-            pass
+            rv = None
+        if rv is not None and abs(rv) < 1e-12:
+            lhs_probe = parse_text(lhs_s, ctx)
+            lhs_constant = False
+            if lhs_probe.parse_ok:
+                probes = []
+                for t in (0.3, 1.7, 4.1):
+                    env_p = {v: (1j if v == "i" else t) for v in vars_}
+                    try:
+                        probes.append(complex(evaluate(lhs_probe.ast, env_p)))
+                    except Exception:  # noqa: BLE001
+                        probes.append(None)
+                if all(p is not None for p in probes):
+                    lhs_constant = all(abs(p - probes[0]) < 1e-9 for p in probes)
+            if not lhs_constant:
+                return {"decidable": False, "scope": "equation",
+                        "reason": "右侧为常数 0 且左侧随变量变化：这是待解方程，不是恒等式",
+                        "suspect_variables": []}
+
+    # `a` / `an` 是歧义档：必须找到**同句共现的硬散文词**才判为散文，
+    # 否则它就是一个普通的变量名（见 AMBIGUOUS_PROSE_WORDS 的注释）。
+    raw_words = set(re.findall(r"[A-Za-z][A-Za-z0-9_]*", lower))
+    prose_context = bool(raw_words & HARD_PROSE_WORDS)
 
     suspect = []
     for v in vars_:
         vl = v.lower()
-        if vl in PROSE_STOPWORDS:
+        if vl in HARD_PROSE_WORDS:
             suspect.append((v, "英文散文词被当作变量"))
+        elif vl in AMBIGUOUS_PROSE_WORDS and prose_context:
+            suspect.append((v, "英文散文词被当作变量（同句另有散文词，疑为叙述句而非公式）"))
         elif vl in KNOWN_FUNC_NAMES:
             suspect.append((v, "函数名未被识别，降级为变量"))
         elif len(v) >= 2 and v not in ALLOWED_MULTICHAR_VARS:
@@ -277,8 +379,13 @@ def screen_identity(raw: str) -> dict:
     if suspect:
         return {"decidable": False, "scope": "parse_suspect",
                 "reason": "解析结构不可信，抽样验证的将不是原式", "suspect_variables": suspect}
+
+    # 整数函数（gcd/lcm/…）要求自变量是整数：继续用实数抽样只会得到 0/0。
+    int_funcs = sorted((set(left.functions) | set(right.functions)) & INTEGER_FUNC_NAMES)
     return {"decidable": True, "scope": "elementary", "reason": "可抽样判定",
-            "suspect_variables": [], "variables": vars_}
+            "suspect_variables": [], "variables": vars_,
+            "integer_funcs": int_funcs,
+            "n_variables": len(vars_)}
 
 
 def verify_identity(raw: str, trials: int = 25, lo: float = 0.05, hi: float = 0.95,
@@ -292,6 +399,32 @@ def verify_identity(raw: str, trials: int = 25, lo: float = 0.05, hi: float = 0.
     虚部符号相反），在单位区间内主分支一致，判定更可靠。调用方可放宽再试。
     """
     import random
+    quant = None
+    stripped = strip_universal_quantifier(raw)
+    if stripped is not None:
+        bound, body = stripped
+        pre = screen_identity(body)
+        if not pre["decidable"]:
+            # 前缀剥掉了主体仍不可判：如实给出**主体**的拒答原因，
+            # 而不是笼统甩一句"含量词"——后者听上去像量词本身不可处理，
+            # 实际上真正卡住的是主体。
+            return {
+                "status": "not_decidable",
+                "scope": pre["scope"],
+                "reason": pre["reason"],
+                "suspect_variables": [{"name": v, "why": w}
+                                      for v, w in pre["suspect_variables"]],
+                "quantifier": {"bound_variables": bound, "body": body},
+                "trials_checked": 0,
+                "caveat": ("已剥掉全称量词前缀，但**主体**仍超出抽样验证的能力范围，故拒答。"
+                           "此处不给 holds/fails，因为那样的结论反映的是求值器局限而非数学真伪。"),
+            }
+        quant = {"bound_variables": bound, "body": body,
+                 "sampled_variables": pre["variables"],
+                 "note": ("全称量词前缀已剥离；抽样只覆盖**主体中实际出现**的变量，"
+                          "未在主体中出现的约束变量不影响等式真假，但也**没有被抽到**。")}
+        raw = body
+
     screen = screen_identity(raw)
     if not screen["decidable"]:
         # 补救：先尝试把隐式乘法补成显式的，再重新筛查。
@@ -319,13 +452,21 @@ def verify_identity(raw: str, trials: int = 25, lo: float = 0.05, hi: float = 0.
     left = parse_text(lhs_s, ctx)
     right = parse_text(rhs_s, ctx)
     vars_ = screen["variables"]
+    # gcd/lcm 之类只在整数上有意义，切成整数抽样域（见 INTEGER_FUNC_NAMES 注释）
+    int_mode = bool(screen.get("integer_funcs"))
+    slo, shi = (INT_LO, INT_HI) if int_mode else (lo, hi)
     rng = random.Random(seed)
     checked, errors, maxdiff, worst = 0, 0, 0.0, None
     for _ in range(trials):
         env = {}
         for vv in vars_:
             # CD 公式里的 i 通常是虚数单位，赋 1j 才是作者的意图
-            env[vv] = 1j if vv == "i" else rng.uniform(lo, hi)
+            if vv == "i":
+                env[vv] = 1j
+            elif int_mode:
+                env[vv] = float(rng.randint(slo, shi))
+            else:
+                env[vv] = rng.uniform(slo, shi)
         try:
             lv = evaluate(left.ast, env)
             rv = evaluate(right.ast, env)
@@ -351,15 +492,31 @@ def verify_identity(raw: str, trials: int = 25, lo: float = 0.05, hi: float = 0.
     if checked == 0:
         return {"status": "unevaluable", "trials_checked": 0, "eval_errors": errors,
                 "reason": "抽样点均无法求值（超出定义域或函数不被求值器支持）", "variables": vars_}
+    if int_mode:
+        domain_desc = f"[{slo},{shi}] 正整数"
+        caveat = (f"仅在 {domain_desc}域随机抽样(L2)；未覆盖 0、负数与大整数，"
+                  f"也未覆盖自变量为 0 的退化情形。"
+                  f"因为式中含 {'/'.join(screen['integer_funcs'])} 等只对整数有定义的函数，"
+                  f"实数抽样会退化成 0/0，故改用整数域。"
+                  f"'holds' 只是有限抽样证据，**绝非证明**。")
+    else:
+        domain_desc = f"[{slo},{shi}] 正实数"
+        caveat = (f"仅在 {domain_desc}域随机抽样(L2)；未覆盖负数与特殊点。"
+                  f"'holds' 只是有限抽样证据，**绝非证明**。")
     base = {
         "trials_checked": checked,
         "eval_errors": errors,
         "max_relative_diff": maxdiff,
         "worst_case_env": worst,
         "variables": vars_,
-        "caveat": (f"仅在 [{lo},{hi}] 正实数域随机抽样(L2)；未覆盖负数与特殊点。"
-                   f"'holds' 只是有限抽样证据，**绝非证明**。"),
+        "sampling_domain": {"mode": "integer" if int_mode else "real",
+                            "lo": slo, "hi": shi,
+                            "integer_funcs": screen.get("integer_funcs", []),
+                            "n_variables": len(vars_)},
+        "caveat": caveat,
     }
+    if quant:
+        base["quantifier"] = quant
     # 只要有一个抽样点求值失败，结论就不能算可靠：可能是定义域问题，不是式子错
     if errors > 0:
         base.update({"status": "inconclusive",

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-09-19T21:41:01",
+    "generated_at": "2026-09-21T09:36:13",
     "generator": "openmath_sequences.py",
     "evidence_level": "L2",
     "provenance": {
@@ -954,6 +954,42 @@
         "type": "exponential",
         "base_lambda": 2.912586,
         "residual_ratio": 1467.144
+      },
+      "findings": []
+    },
+    {
+      "id": "apery",
+      "cn": "Apéry 数（ζ(3)）",
+      "index_base": 0,
+      "first_terms": [
+        1,
+        5,
+        73,
+        1445,
+        33001,
+        819005,
+        21460825,
+        584307365,
+        16367912425,
+        468690849005,
+        13657436403073,
+        403676083788125
+      ],
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.00167242,
+        "sse_polynomial_model": 22.72351071,
+        "total_variance_sst": 8123.53315651,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "exponential",
+        "base_lambda": 32.954115,
+        "residual_ratio": 13587.23
       },
       "findings": []
     },

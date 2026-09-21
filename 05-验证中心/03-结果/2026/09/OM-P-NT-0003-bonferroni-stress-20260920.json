@@ -1,0 +1,211 @@
+{
+  "target_id": "OM-P-NT-0003",
+  "conjecture_status": "OPEN",
+  "provenance": {
+    "ai_assisted": true,
+    "independent_review": false
+  },
+  "timestamp": "2026-09-20T15:07:12.237295+00:00",
+  "arithmetic": "exact integers",
+  "scope": "four anchors, not all even N up to 10^7",
+  "rows": [
+    {
+      "N": 10000,
+      "central_pairs": 125,
+      "multiplicity_histogram": [
+        125,
+        722,
+        1120,
+        1243,
+        1083,
+        440,
+        156,
+        11
+      ],
+      "bonferroni": {
+        "1": {
+          "lower": -9336,
+          "tail": 9461
+        },
+        "3": {
+          "lower": -4498,
+          "tail": 4623
+        },
+        "5": {
+          "lower": -97,
+          "tail": 222
+        },
+        "7": {
+          "lower": 125,
+          "tail": 0
+        },
+        "9": {
+          "lower": 125,
+          "tail": 0
+        },
+        "11": {
+          "lower": 125,
+          "tail": 0
+        }
+      }
+    },
+    {
+      "N": 100000,
+      "central_pairs": 800,
+      "multiplicity_histogram": [
+        800,
+        4985,
+        10161,
+        10924,
+        11408,
+        7081,
+        3262,
+        1003,
+        60
+      ],
+      "bonferroni": {
+        "1": {
+          "lower": -116505,
+          "tail": 117305
+        },
+        "3": {
+          "lower": -93712,
+          "tail": 94512
+        },
+        "5": {
+          "lower": -9740,
+          "tail": 10540
+        },
+        "7": {
+          "lower": 740,
+          "tail": 60
+        },
+        "9": {
+          "lower": 800,
+          "tail": 0
+        },
+        "11": {
+          "lower": 800,
+          "tail": 0
+        }
+      }
+    },
+    {
+      "N": 1000000,
+      "central_pairs": 5382,
+      "multiplicity_histogram": [
+        5382,
+        37442,
+        86773,
+        103379,
+        108703,
+        86789,
+        44349,
+        21295,
+        4655,
+        233
+      ],
+      "bonferroni": {
+        "1": {
+          "lower": -1345378,
+          "tail": 1350760
+        },
+        "3": {
+          "lower": -1495840,
+          "tail": 1501222
+        },
+        "5": {
+          "lower": -277540,
+          "tail": 282922
+        },
+        "7": {
+          "lower": -1137,
+          "tail": 6519
+        },
+        "9": {
+          "lower": 5382,
+          "tail": 0
+        },
+        "11": {
+          "lower": 5382,
+          "tail": 0
+        }
+      }
+    },
+    {
+      "N": 10000000,
+      "central_pairs": 38763,
+      "multiplicity_histogram": [
+        38763,
+        283974,
+        745153,
+        984330,
+        1023948,
+        935958,
+        564036,
+        290986,
+        111902,
+        17057,
+        727,
+        4
+      ],
+      "bonferroni": {
+        "1": {
+          "lower": -14983175,
+          "tail": 15021938
+        },
+        "3": {
+          "lower": -21122407,
+          "tail": 21161170
+        },
+        "5": {
+          "lower": -5668933,
+          "tail": 5707696
+        },
+        "7": {
+          "lower": -236247,
+          "tail": 275010
+        },
+        "9": {
+          "lower": 37996,
+          "tail": 767
+        },
+        "11": {
+          "lower": 38763,
+          "tail": 0
+        }
+      }
+    }
+  ],
+  "pigeonhole": [
+    {
+      "N": 10,
+      "odd_prime_count": 3,
+      "odd_slots": 3,
+      "pigeonhole_lower": 3
+    },
+    {
+      "N": 100,
+      "odd_prime_count": 24,
+      "odd_slots": 48,
+      "pigeonhole_lower": 0
+    },
+    {
+      "N": 1000,
+      "odd_prime_count": 167,
+      "odd_slots": 498,
+      "pigeonhole_lower": -164
+    },
+    {
+      "N": 10000,
+      "odd_prime_count": 1228,
+      "odd_slots": 4998,
+      "pigeonhole_lower": -2542
+    }
+  ],
+  "source_sha256": {
+    "goldbach_bonferroni_stress.py": "2536a04a154ad6bd657613e19ceb167d437768887687f2f756c03da97a14747b",
+    "goldbach_new_methods.py": "58c52fb86be01d59e7a0b379f508ee58e59ae9f2e87f8a6d488779f6416fa27d",
+    "pwcv_goldbach_l2.py": "66ad9f457708e607056aa58fd7e2409c3bbfbcc1c4a40c1307a4bb2ce87461d5"
+  }
+}

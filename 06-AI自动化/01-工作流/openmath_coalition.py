@@ -92,7 +92,9 @@ def _tier_for_method(m: dict) -> str:
     if any(k in dom for k in ("数值", "计算", "求值", "验证", "判定", "统计")):
         return "COMPUTE"
     # 句法/语义/检索 -> READ
-    if any(k in dom for k in ("句法", "语义", "解析", "检索", "索引", "通用")):
+    # （"逻辑"加入此处：命题形式化 / 套娃分解 / 有限影子都是**改写句式**，
+    #   不产生新数值，给它们 TRANSFORM 权限会夸大其能力）
+    if any(k in dom for k in ("句法", "语义", "解析", "检索", "索引", "通用", "逻辑")):
         return "READ"
     return "COMPUTE"
 
@@ -113,6 +115,10 @@ def _tags_for_method(m: dict) -> list[str]:
         tags.append("transform")
     if any(k in dom for k in ("验证", "判定")) or "verify" in mid:
         tags.append("verification")
+    if "逻辑" in dom or "formal" in mid or "nesting" in mid or "shadow" in mid:
+        tags.append("formalization")
+    if any(k in dom for k in ("解析数论", "算术几何", "代数拓扑", "复杂性")):
+        tags.append("millennium")
     return tags or ["analysis"]
 
 

@@ -1,7 +1,7 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_meta.py",
-    "generated_at": "2026-09-19T18:33:47",
+    "generated_at": "2026-09-21T09:32:46",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"
@@ -229,7 +229,7 @@
         2,
         3
       ],
-      "subgroup_enumeration_mode": "complete_subset_enumeration",
+      "subgroup_enumeration_mode": "complete_join_closure_of_cyclic_subgroups",
       "lagrange_checked": true,
       "matches_known": true,
       "mismatched_fields": []
@@ -260,7 +260,7 @@
         2,
         4
       ],
-      "subgroup_enumeration_mode": "complete_subset_enumeration",
+      "subgroup_enumeration_mode": "complete_join_closure_of_cyclic_subgroups",
       "lagrange_checked": true,
       "matches_known": true,
       "mismatched_fields": []
@@ -289,7 +289,7 @@
         2,
         3
       ],
-      "subgroup_enumeration_mode": "complete_subset_enumeration",
+      "subgroup_enumeration_mode": "complete_join_closure_of_cyclic_subgroups",
       "lagrange_checked": true,
       "matches_known": true,
       "mismatched_fields": []
@@ -320,7 +320,7 @@
         2,
         4
       ],
-      "subgroup_enumeration_mode": "complete_subset_enumeration",
+      "subgroup_enumeration_mode": "complete_join_closure_of_cyclic_subgroups",
       "lagrange_checked": true,
       "matches_known": true,
       "mismatched_fields": []

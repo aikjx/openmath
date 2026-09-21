@@ -1,0 +1,15 @@
+CASE                                                 OK     ERROR
+'sin(A + B) = sin A cos B + cos A sin B'             False  表达式后面还有未消费的记号：[('VAR', 'A'), ('VAR', 'cos'), ('VAR', 'B'), ('OP', '+')]
+'sin A = - sin(-A)'                                  False  表达式后面还有未消费的记号：[('VAR', 'A'), ('OP', '='), ('OP', '-'), ('FUNC', 'sin')]
+'cos A = cos(-A)'                                    False  表达式后面还有未消费的记号：[('VAR', 'A'), ('OP', '='), ('FUNC', 'cos'), ('PAREN', '(')]
+'tan A = sin A / cos A'                              False  表达式后面还有未消费的记号：[('VAR', 'A'), ('OP', '='), ('VAR', 'sin'), ('VAR', 'A')]
+'sec A = 1/cos A'                                    False  表达式后面还有未消费的记号：[('VAR', 'A'), ('OP', '='), ('NUM', '1'), ('OP', '/')]
+'not true = false'                                   False  表达式后面还有未消费的记号：[('VAR', 'true'), ('OP', '='), ('VAR', 'false')]
+'not false = true'                                   False  表达式后面还有未消费的记号：[('VAR', 'false'), ('OP', '='), ('VAR', 'true')]
+'-pi < Im ln x <= pi'                                False  表达式后面还有未消费的记号：[('VAR', 'ln'), ('VAR', 'x'), ('OP', '<='), ('VAR', 'pi')]
+'a + 0 = a.'                                         False  could not convert string to float: '.'
+'x^2 = 4,'                                           False  表达式后面还有未消费的记号：[('COMMA', ',')]
+'outerproduct(a,b)_{i,j} = a_i * b_j'                False  表达式后面还有未消费的记号：[('COMMA', ','), ('VAR', 'j'), ('OP', '='), ('VAR', 'a')]
+'factorial n = product [1..n]'                       False  表达式后面还有未消费的记号：[('VAR', 'n'), ('OP', '='), ('VAR', 'product'), ('OP', '*')]
+'sin(x) + cos(x) = 1'                                True   
+'2*x + 3 = 7'                                        True   

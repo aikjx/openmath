@@ -1,0 +1,10 @@
+total=38  identical=37  DIFFERENT=0  fetch_failed=1  no_local=0
+
+=== 与上游不一致的本地快照（陈旧）===
+  （无）
+
+=== 本次抓取失败（将回退本地陈旧快照）===
+  scscp2
+
+=== 各 CD 性质总数（上游口径）===
+  fresh 口径 CMP 总数 = 179

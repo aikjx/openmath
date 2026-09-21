@@ -1,0 +1,18 @@
+=== 解析结果 ===
+'a b'            ok=True  err=
+'a b = c'        ok=True  err=
+'2 x'            ok=True  err=
+'x y'            ok=True  err=
+'sin A'          ok=False err=表达式后面还有未消费的记号：[('VAR', 'A')]
+'a*b'            ok=True  err=
+'a b c'          ok=True  err=
+'2*x'            ok=True  err=
+'a  b'           ok=True  err=
+'factorial n'    ok=False err=表达式后面还有未消费的记号：[('VAR', 'n')]
+'not true'       ok=False err=表达式后面还有未消费的记号：[('VAR', 'true')]
+
+=== 记号流（含隐式乘插入后）===
+'a b'      -> [('VAR', 'a'), ('OP', '*'), ('VAR', 'b')]
+'sin A'    -> [('VAR', 'sin'), ('VAR', 'A')]
+'2 x'      -> [('NUM', '2'), ('OP', '*'), ('VAR', 'x')]
+'a*b'      -> [('VAR', 'a'), ('OP', '*'), ('VAR', 'b')]

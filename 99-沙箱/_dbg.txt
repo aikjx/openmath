@@ -1,0 +1,15 @@
+raw   = 'sin A cos B'
+tokens= [('VAR', 'sin'), ('VAR', 'A'), ('VAR', 'cos'), ('VAR', 'B')]
+ok=False err=表达式后面还有未消费的记号：[('VAR', 'cos'), ('VAR', 'B')]
+
+raw   = 'sin A'
+tokens= [('VAR', 'sin'), ('VAR', 'A')]
+ok=True err=
+
+raw   = 'a b c'
+tokens= [('VAR', 'a'), ('OP', '*'), ('VAR', 'b'), ('OP', '*'), ('VAR', 'c')]
+ok=True err=
+
+raw   = 'sin A * cos B'
+tokens= [('VAR', 'sin'), ('VAR', 'A'), ('OP', '*'), ('VAR', 'cos'), ('VAR', 'B')]
+ok=True err=

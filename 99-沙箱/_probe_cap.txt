@@ -1,0 +1,40 @@
+未解析样本总数 = 77
+
+=== 模式分布（可重叠）===
+  链式关系(>=2个关系运算符)                 32
+    └ 其中不含散文词                      7
+  and 连接                          27
+  绝对值竖线 |..|                       1
+  下标 _ 记号                          9
+  LaTeX 反斜杠                        7
+  lambda                           3
+  区间 [1..n]                        1
+  含散文词(疑非方程)                      41
+  不含散文词(潜在可解析)                    36
+
+=== 潜在可解析（不含散文词）样本，共 36 条 ===
+   'for all a,b | a * 0 = 0 and a * b = a * (b - 1) + a'
+   'diff(lambda y:a(y) + b(y))(x) = diff(lambda y:a(y))(x) + diff(lambda y:b(y))(x)'
+   'diff(lambda y:a(y) * b(y))(x) = diff(lambda y:a(y))(x) * b(x) + a(x) * diff(lambda y:b(y))(x)'
+   'for all a,b | integral from a to b = -integral from b to a'
+   'for all a < b < c | integral over [a,c] = integral over [a,b] + integral over [b,c]'
+   'the argument of x+i*y = arctan(y,x) (two-argument arctan from transc2)'
+   'factorial n = product [1..n]'
+   'outerproduct(a,b)_{i,j} = a_i * b_j'
+   'for all x | x and not(x) = false'
+   'for all x | x nand not(x) = true'
+   'for all x | x xor x = false'
+   'for all x | x xor not(x) = true'
+   'for all x | x xnor x = true'
+   'for all x | x xnor not(x) = false'
+   'for all x | x or not(x) = true'
+   'for all a,b | not(a and b)= (not(a) or not(b))'
+   'for all x | x nor not(x) = false'
+   'for all a,b | a and b = (not(a) nor not(b))'
+   'not true = false'
+   'not false = true'
+   'for all sets A,B and C union(A,intersect(B,C)) = intersect(union(A,B),union(A,C))'
+   'e = the sum as j ranges from 0 to infinity of 1/(j!)'
+   'pi = 4 * the sum as j ranges from 0 to infinity of ((1/(4j+1))-(1/(4j+3)))'
+   'gamma = limit_(m -> infinity)(sum_(j ranges from 1 to m)(1/j) - ln m)'
+   'class(S,R,a) = {b in S | (a,b) in R}.'

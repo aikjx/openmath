@@ -2927,6 +2927,104 @@
       "found_anything": true
     },
     {
+      "id": "apery",
+      "cn": "Apéry 数（ζ(3)）",
+      "note": "A(n)=Σ_k C(n,k)^2 C(n+k,k)^2；P-recursive，order 2 / deg 3",
+      "index_base": 0,
+      "n_terms": 60,
+      "first_terms": [
+        1,
+        5,
+        73,
+        1445,
+        33001,
+        819005,
+        21460825,
+        584307365,
+        16367912425,
+        468690849005,
+        13657436403073,
+        403676083788125
+      ],
+      "linear": [],
+      "hyper": [],
+      "prec": [
+        {
+          "channel": "prec",
+          "order": 2,
+          "deg": 3,
+          "polys": [
+            [
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              5,
+              -27,
+              51,
+              -34
+            ],
+            [
+              -1,
+              3,
+              -3,
+              1
+            ]
+          ],
+          "statement": "(n^3)·a(n) + (5 - 27n + 51n^2 - 34n^3)·a(n-1) + (-1 + 3n - 3n^2 + n^3)·a(n-2) = 0",
+          "discovery_len": 30,
+          "n_equations": 28,
+          "n_extrapolation_checks": 30,
+          "survived_extrapolation": true,
+          "first_failure": null,
+          "subsumes_linear": false,
+          "recognition": {
+            "known_id": "apery_prec",
+            "known_name": "Apéry 数 n^3·A(n) = (34n^3−51n^2+27n−5)·A(n−1) − (n−1)^3·A(n−2)",
+            "note": "教科书已知的多项式系数递推，由搜索独立重新发现（校准件）"
+          },
+          "solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
+          "n_primes_agreeing": 4,
+          "evidence": "L2",
+          "status": "KNOWN_RECURRENCE_REDISCOVERED"
+        }
+      ],
+      "stress": {
+        "linear": [],
+        "hyper": [],
+        "prec": [],
+        "n_falsified": 0,
+        "falsified_samples": []
+      },
+      "growth": {
+        "n_points": 20,
+        "window": [
+          40,
+          59
+        ],
+        "sse_exponential_model": 0.00167242,
+        "sse_polynomial_model": 22.72351071,
+        "total_variance_sst": 8123.53315651,
+        "evidence": "L2",
+        "method": "尾部项分别拟合 log a(n)~n（指数）与 log a(n)~log n（多项式），比较残差平方和；再用 log a(n)/n 的走向识别超指数型",
+        "caveat": "有限窗口内的数值比较：两模型残差接近时结论不可靠；拟合优度不足时本模块宁可判 'neither'，也不硬给一个类型。",
+        "type": "exponential",
+        "base_lambda": 32.954115,
+        "residual_ratio": 13587.23
+      },
+      "growth_vs_recurrence": {
+        "available": false,
+        "reason": "该序列没有通过外推检验的 C1 递推，无法用结构推演对账"
+      },
+      "n_accepted": 0,
+      "n_accepted_c12": 0,
+      "n_known_rediscovered": 1,
+      "n_falsified": 0,
+      "found_anything": true
+    },
+    {
       "id": "bell",
       "cn": "贝尔数",
       "note": "集合划分数",
@@ -4050,6 +4148,7 @@
     "scope_warning": "「期望阴性」必须写明是对**哪个通道**阴性。derangements / motzkin 对 C1/C2 阴性，但对 C4 阳性——初版笼统地把它们归入阴性集，加上 C4 后即自相矛盾。现已按通道分开登记。",
     "c4": {
       "expected_positive": [
+        "apery",
         "catalan",
         "central_binomial",
         "derangements",
@@ -4057,6 +4156,7 @@
         "motzkin"
       ],
       "recalled": [
+        "apery",
         "catalan",
         "central_binomial",
         "derangements",
@@ -4102,9 +4202,9 @@
     }
   },
   "summary": {
-    "n_sequences": 30,
-    "n_known_rediscovered": 18,
-    "n_sequences_with_known": 12,
+    "n_sequences": 31,
+    "n_known_rediscovered": 19,
+    "n_sequences_with_known": 13,
     "n_candidates": 4,
     "n_redundant_marked": 16,
     "n_falsified_main": 0,
@@ -4124,7 +4224,7 @@
     "note": "同一序列的增长率用两条**互相独立**的路径各算一次：C3 在尾部窗口上做对数拟合（数值、有窗口偏差），C1 由递推的特征多项式求根（结构决定、但求根仍是数值）。一致不代表正确，不一致则说明至少一方有问题。"
   },
   "meta": {
-    "generated_at": "2026-09-19T21:41:01",
+    "generated_at": "2026-09-21T09:36:13",
     "generator": "06-AI自动化/01-工作流/openmath_sequences.py",
     "evidence_level": "L2",
     "provenance": {
@@ -4136,12 +4236,12 @@
   "independent_audit": {
     "name": "sequences",
     "note": "序列引擎：① 教科书/OEIS 首项对照（外部参照，不取自本仓库代码）；② 每条被报出的递推用**另一份实现**重算一遍全量项；③ 增长率类型与理论底数对照（只断言有把握的条目）",
-    "checks": 466,
+    "checks": 479,
     "failures": [],
-    "passed": 466,
+    "passed": 479,
     "ok": true,
     "n_terms": 60,
-    "n_reference_terms_checked": 300,
+    "n_reference_terms_checked": 310,
     "falsification_meta_test": {
       "why": "C1/C2 只在发现集上精确相容且解唯一时才报候选，因此真实序列上「外推证伪」恒为 0——那是**没有候选进入检验**，不是没有过拟合。本节用必然破功的合成序列检验该通道本身是否可达。",
       "n_cases": 8,
@@ -4292,7 +4392,7 @@
     },
     "char_root_note": "主特征根由递推系数经 Durand–Kerner 求根得到，与教科书常数（φ、tribonacci 常数、塑性数）逐条对照。系数错一个数字，特征根就会跑到别处，所以这条查的是**系数本身**而非拟合质量。",
     "sequences_without_reference": [],
-    "n_recurrence_candidates": 35,
+    "n_recurrence_candidates": 36,
     "n_independent_disagreements": 0,
     "c4_solver_crosscheck": {
       "engine_solver": "modular-elimination + rational-reconstruction + exact-integer-recheck",
@@ -4326,6 +4426,7 @@
       "central_binomial": "exponential",
       "derangements": "super_exponential",
       "motzkin": "exponential",
+      "apery": "exponential",
       "bell": "super_exponential",
       "collatz_steps": "neither",
       "partition": "exponential",
@@ -4356,6 +4457,7 @@
     "growth_base_bias_note": "λ^n·n^α 型序列在有限窗口上拟合出的底数必然低于理论值（多项式因子被吸收进指数项）。这是**窗口偏差**，不是引擎缺陷；但读报告的人若把观测底数当结论用就会错，所以单列出来。",
     "n_missing_subexp_warning": 0,
     "unchecked_growth_ids": [
+      "apery",
       "bigomega",
       "collatz_steps",
       "euler_phi",
@@ -4603,11 +4705,11 @@
     "scope": "变换只作用于**已生成的前 n_terms 项**；变换后序列同样是有限项，所有「找到 / 没找到」都只在这有限项上有意义。",
     "evidence": "L2",
     "n_transforms": 6,
-    "n_rows": 180,
+    "n_rows": 186,
     "per_transform": {
       "diff": {
         "cn": "差分 Δa(n)=a(n+1)−a(n)",
-        "n_tested": 30,
+        "n_tested": 31,
         "n_fixed_points": 1,
         "fixed_points": [
           "powers_of_two"
@@ -4626,17 +4728,14 @@
       },
       "prefix_sum": {
         "cn": "部分和 S(n)=Σ_{k≤n} a(k)",
-        "n_tested": 30,
+        "n_tested": 31,
         "n_fixed_points": 0,
         "fixed_points": [],
         "cfinite_lost": [],
         "precursive_lost": [],
         "cfinite_gained": [],
         "degenerate_output": [],
-        "recovered_by_relaxed_order": [
-          "tribonacci",
-          "perrin"
-        ],
+        "recovered_by_relaxed_order": [],
         "degenerate_note": "变换后输出几乎全零（逆二项变换会把多项式型序列打零），不计入「丢失」——那是输出没内容，不是性质丢了。",
         "relaxed_note": "放宽阶数上限后又能找到 ⇒ 根因是**阶数上限**，不是性质丢失；这类同样不计入「丢失」。",
         "is_closed_by_theory": true,
@@ -4644,7 +4743,7 @@
       },
       "binomial": {
         "cn": "二项变换 b(n)=Σ_k C(n,k)a(k)",
-        "n_tested": 30,
+        "n_tested": 31,
         "n_fixed_points": 0,
         "fixed_points": [],
         "cfinite_lost": [],
@@ -4659,7 +4758,7 @@
       },
       "inv_binomial": {
         "cn": "逆二项变换 b(n)=Σ_k (−1)^(n−k)C(n,k)a(k)",
-        "n_tested": 30,
+        "n_tested": 31,
         "n_fixed_points": 0,
         "fixed_points": [],
         "cfinite_lost": [],
@@ -4679,11 +4778,13 @@
       },
       "even_subseq": {
         "cn": "偶数项子序列 b(n)=a(2n)",
-        "n_tested": 30,
+        "n_tested": 31,
         "n_fixed_points": 0,
         "fixed_points": [],
         "cfinite_lost": [],
-        "precursive_lost": [],
+        "precursive_lost": [
+          "apery"
+        ],
         "cfinite_gained": [],
         "degenerate_output": [
           "omega"
@@ -4696,7 +4797,7 @@
       },
       "multiply_n": {
         "cn": "乘自变量 b(n)=n·a(n)",
-        "n_tested": 30,
+        "n_tested": 31,
         "n_fixed_points": 0,
         "fixed_points": [],
         "cfinite_lost": [],
@@ -4705,7 +4806,6 @@
         "degenerate_output": [],
         "recovered_by_relaxed_order": [
           "tribonacci",
-          "motzkin",
           "perrin",
           "padovan",
           "fib_prefix_sum"
@@ -6066,12 +6166,12 @@
         },
         "after": {
           "cfinite": true,
-          "precursive": false
+          "precursive": true
         },
         "degenerate_output": false,
         "relaxed_order_recovered": {
           "cfinite": null,
-          "precursive": true
+          "precursive": null
         },
         "is_fixed_point": false,
         "cfinite_lost": false,
@@ -6146,12 +6246,12 @@
         },
         "after": {
           "cfinite": false,
-          "precursive": false
+          "precursive": true
         },
         "degenerate_output": false,
         "relaxed_order_recovered": {
           "cfinite": true,
-          "precursive": true
+          "precursive": null
         },
         "is_fixed_point": false,
         "cfinite_lost": false,
@@ -7226,12 +7326,132 @@
         },
         "after": {
           "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "apery",
+        "transform": "diff",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "apery",
+        "transform": "prefix_sum",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "apery",
+        "transform": "binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "apery",
+        "transform": "inv_binomial",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": false
+      },
+      {
+        "seq": "apery",
+        "transform": "even_subseq",
+        "before": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "after": {
+          "cfinite": false,
           "precursive": false
         },
         "degenerate_output": false,
         "relaxed_order_recovered": {
           "cfinite": null,
+          "precursive": false
+        },
+        "is_fixed_point": false,
+        "cfinite_lost": false,
+        "precursive_lost": true
+      },
+      {
+        "seq": "apery",
+        "transform": "multiply_n",
+        "before": {
+          "cfinite": false,
           "precursive": true
+        },
+        "after": {
+          "cfinite": false,
+          "precursive": true
+        },
+        "degenerate_output": false,
+        "relaxed_order_recovered": {
+          "cfinite": null,
+          "precursive": null
         },
         "is_fixed_point": false,
         "cfinite_lost": false,
@@ -7626,12 +7846,12 @@
         },
         "after": {
           "cfinite": true,
-          "precursive": false
+          "precursive": true
         },
         "degenerate_output": false,
         "relaxed_order_recovered": {
           "cfinite": null,
-          "precursive": true
+          "precursive": null
         },
         "is_fixed_point": false,
         "cfinite_lost": false,
@@ -8397,7 +8617,7 @@
     ],
     "total_checks": 12,
     "violations": 0,
-    "generated_at": "2026-09-19T21:41:01",
+    "generated_at": "2026-09-21T09:36:13",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"

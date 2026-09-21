@@ -1,12 +1,12 @@
 # OpenMath 理论锻造报告：关系发现 · 反例搜索 · 理论体系网
-> 生成时间：2026-09-19T21:39:12　|　生成者：`06-AI自动化/01-工作流/openmath_theory.py`（S7）
+> 生成时间：2026-09-21T09:32:57　|　生成者：`06-AI自动化/01-工作流/openmath_theory.py`（S7）
 > **诚实声明**：本报告全部内容为 **L2 级候选关系**与有限对象上的精确计算，**不证明任何命题、不宣称发现新定理**。每一条关系的成立范围都仅限于被检验的对象集合。
 
 ## 0. 一句话结论
 1. 机器在五族对象上共生成 **411** 条候选关系；通过留出集者 **343** 条。
-2. 把这批通过者拿到**更大的对象库**上做外推检验，**29** 条当场被具体反例证伪——它们是本报告最有价值的部分。
+2. 把这批通过者拿到**更大的对象库**上做外推检验，**42** 条当场被具体反例证伪——它们是本报告最有价值的部分。
 3. 机器重发现 **5** 条已知定理（握手定理、χ≥ω、欧拉–庞加莱、α·χ≥|V|），这构成对搜索机制本身的**校准**。
-4. 留出集直接证伪 **34** 条、另有 29 条在外推阶段证伪；所有反例均**保留**。
+4. 留出集直接证伪 **34** 条、另有 42 条在外推阶段证伪；所有反例均**保留**。
 5. **没有证明任何东西**。被大规模检验洗过的候选里，只有第 7 节那一条例证充足到值得人工复核。
 
 ## 1. 方法：发现 -> 留出 -> 外推 -> 三层降噪
@@ -156,9 +156,22 @@
 | 有限简单图 | `min_degree ≤ clique_number·diameter` | graph:K5x5 | K5x5: 5 > 4 |
 | 有限简单图 | `triangles ≤ avg_degree·max_degree` | graph:K9 | K9: 84 > 64 |
 | 有限简单图 | `triangles ≤ clique_number·min_degree` | graph:K9 | K9: 84 > 72 |
+| 有限群 | `abelian ≤ min_generators+subgroups_only_trivial` | group:Z2^4(16) | Z2^4(16): 1 > -1 |
 | 有限群 | `class_number ≤ center_size+proper_subgroup_order_types` | group:D7 | D7: 5 > 4 |
+| 有限群 | `class_number ≤ elements_at_exponent+max_element_order` | group:Z4xZ2xZ2(16) | Z4xZ2xZ2(16): 16 > 12 |
+| 有限群 | `elements_at_exponent ≤ center_size+max_element_order` | group:Q8xZ2(16) | Q8xZ2(16): 12 > 8 |
 | 有限群 | `involutions ≤ min_generators+proper_subgroup_order_types` | group:D7 | D7: 7 > 5 |
+| 有限群 | `proper_subgroup_order_types ≤ max_element_order` | group:Z2^4(16) | Z2^4(16): 4 > 2 |
+| 有限群 | `proper_subgroup_order_types ≤ center_size+involutions` | group:Q16(16) | Q16(16): 4 > 3 |
+| 有限群 | `center_size ≤ exponent·max_element_order` | group:Z2^4(16) | Z2^4(16): 16 > 4 |
+| 有限群 | `class_number ≤ exponent·max_element_order` | group:Z2^4(16) | Z2^4(16): 16 > 4 |
+| 有限群 | `elements_at_exponent ≤ exponent·max_element_order` | group:Z2^4(16) | Z2^4(16): 15 > 4 |
 | 有限群 | `involutions ≤ min_generators·proper_subgroup_order_types` | group:D7 | D7: 7 > 6 |
+| 有限群 | `order ≤ exponent·max_element_order` | group:Z2^4(16) | Z2^4(16): 16 > 4 |
+| 有限群 | `proper_subgroup_order_types ≤ max_element_order·min_generators` | group:Z2^4(16) | Z2^4(16): 4 > -2 |
+| 有限群 | `proper_subgroup_order_types ≤ min_generators·proper_subgroups_count` | group:Z2^4(16) | Z2^4(16): 4 > -66 |
+| 有限群 | `proper_subgroups_count ≤ max_element_order·proper_subgroup_order_types` | group:Z4xZ2xZ2(16) | Z4xZ2xZ2(16): 26 > 16 |
+| 有限群 | `proper_subgroups_count ≤ min_generators·order` | group:Z2^4(16) | Z2^4(16): 66 > -16 |
 | 整数划分 | `conjugate_distinct ≤ durfee+ones` | part:(4+3+2) | λ⊢9:(4+3+2): 3 > 2 |
 | 整数划分 | `distinct_parts ≤ durfee+ones` | part:(4+3+2) | λ⊢9:(4+3+2): 3 > 2 |
 | 整数划分 | `durfee ≤ conjugate_distinct+distinct_parts` | part:(3+3+3) | λ⊢9:(3+3+3): 3 > 2 |
@@ -225,6 +238,6 @@
 
 ## 10. 结论
 1. **5 条已知定理被重发现**，说明这套「枚举不变量 + 精确关系检验」的机器是能工作的。
-2. **29 条候选在规模外推时被反例打掉**，说明「在自己的小库里自洽」几乎不值钱；两级反例搜索缺一不可。
+2. **42 条候选在规模外推时被反例打掉**，说明「在自己的小库里自洽」几乎不值钱；两级反例搜索缺一不可。
 3. 剔除定义式与退化项后，真正留给人类看的候选不超过个位数，其中只有第 7 节那一条例证足够扎实到值得复核。
 4. 这条流水线的产出类型是 **L2 候选供给**，不是定理产出。把两者的距离压缩掉才是进步，把两者的距离说没了就是违规。

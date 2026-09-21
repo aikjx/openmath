@@ -61,6 +61,7 @@ SECTION_CN = {
     "groups": "有限群结构",
     "homology": "有限链复形同调",
     "identity_verifier": "恒等式验证器",
+    "millennium": "千禧难题档案（S10）",
 }
 
 # 本轮（2026-09-19）审计发现并已修复的缺陷。留在这里是为了让每日报告都能看到
@@ -214,6 +215,19 @@ def write_report(res: dict, checks: list) -> None:
         if sec["name"] == "identity_verifier":
             A(f"- 真恒等式判准：{sec.get('true_identities_correct')}")
             A(f"- 假恒等式判准：{sec.get('false_identities_correct')}")
+            A(f"- {sec.get('note', '')}\n")
+        if sec["name"] == "millennium":
+            A(f"- 零点计数（T={sec.get('T')}）：Hardy Z 符号变号法 **{sec.get('zeros_counted')}** 个；"
+              f"辐角原理独立复核 **N = {sec.get('N_via_argument')}**"
+              f"（偏离整数 {sec.get('N_argument_deviation_from_integer')}）")
+            A(f"- S(T)：辐角法 {sec.get('S_via_argument')} vs 被测「计数减主项」"
+              f"{sec.get('S_reported_by_lab')}")
+            A(f"- ζ 两法：{' vs '.join(sec.get('zeta_methods', []))}")
+            A(f"- θ 两法：{' vs '.join(sec.get('theta_methods', []))}")
+            A(f"- 点计数暴力对账 {sec.get('ec_brute_pairs_checked')} 组；"
+              f"SAT 2^n 全枚举对账 {sec.get('sat_brute_pairs_checked')} 例")
+            A(f"- ξ 独立重算 {sec.get('xi_points_recomputed')} 个点；"
+              f"跳过的点：{sec.get('xi_skipped_points_reason')}")
             A(f"- {sec.get('note', '')}\n")
         if sec["name"] == "primes":
             A("- 对照值：" + "，".join(f"π({k})={v}" for k, v in sec["known_values"].items()) + "\n")

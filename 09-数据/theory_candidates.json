@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-09-19T21:39:12",
+    "generated_at": "2026-09-21T09:32:57",
     "generator": "openmath_theory.py",
     "evidence_level": "L2",
     "provenance": {
@@ -3106,7 +3106,11 @@
             "counterexamples": []
           },
           "scale_stress": {
-            "survived": true
+            "survived": false,
+            "counterexample": {
+              "object": "group:Z2^4(16)",
+              "detail": "Z2^4(16): 1 > -1"
+            }
           }
         },
         {
@@ -3194,7 +3198,11 @@
             "counterexamples": []
           },
           "scale_stress": {
-            "survived": true
+            "survived": false,
+            "counterexample": {
+              "object": "group:Z4xZ2xZ2(16)",
+              "detail": "Z4xZ2xZ2(16): 16 > 12"
+            }
           }
         },
         {
@@ -3236,7 +3244,11 @@
             "counterexamples": []
           },
           "scale_stress": {
-            "survived": true
+            "survived": false,
+            "counterexample": {
+              "object": "group:Q8xZ2(16)",
+              "detail": "Q8xZ2(16): 12 > 8"
+            }
           }
         },
         {
@@ -3562,7 +3574,11 @@
             "counterexamples": []
           },
           "scale_stress": {
-            "survived": true
+            "survived": false,
+            "counterexample": {
+              "object": "group:Z2^4(16)",
+              "detail": "Z2^4(16): 4 > 2"
+            }
           }
         },
         {
@@ -3604,7 +3620,11 @@
             "counterexamples": []
           },
           "scale_stress": {
-            "survived": true
+            "survived": false,
+            "counterexample": {
+              "object": "group:Q16(16)",
+              "detail": "Q16(16): 4 > 3"
+            }
           }
         },
         {
@@ -3793,7 +3813,11 @@
             "counterexamples": []
           },
           "scale_stress": {
-            "survived": true
+            "survived": false,
+            "counterexample": {
+              "object": "group:Z2^4(16)",
+              "detail": "Z2^4(16): 16 > 4"
+            }
           }
         },
         {
@@ -3835,7 +3859,11 @@
             "counterexamples": []
           },
           "scale_stress": {
-            "survived": true
+            "survived": false,
+            "counterexample": {
+              "object": "group:Z2^4(16)",
+              "detail": "Z2^4(16): 16 > 4"
+            }
           }
         },
         {
@@ -3877,7 +3905,11 @@
             "counterexamples": []
           },
           "scale_stress": {
-            "survived": true
+            "survived": false,
+            "counterexample": {
+              "object": "group:Z2^4(16)",
+              "detail": "Z2^4(16): 15 > 4"
+            }
           }
         },
         {
@@ -4126,7 +4158,11 @@
             "counterexamples": []
           },
           "scale_stress": {
-            "survived": true
+            "survived": false,
+            "counterexample": {
+              "object": "group:Z2^4(16)",
+              "detail": "Z2^4(16): 16 > 4"
+            }
           }
         },
         {
@@ -4238,7 +4274,11 @@
             "counterexamples": []
           },
           "scale_stress": {
-            "survived": true
+            "survived": false,
+            "counterexample": {
+              "object": "group:Z2^4(16)",
+              "detail": "Z2^4(16): 4 > -2"
+            }
           }
         },
         {
@@ -4259,7 +4299,11 @@
             "counterexamples": []
           },
           "scale_stress": {
-            "survived": true
+            "survived": false,
+            "counterexample": {
+              "object": "group:Z2^4(16)",
+              "detail": "Z2^4(16): 4 > -66"
+            }
           }
         },
         {
@@ -4280,7 +4324,11 @@
             "counterexamples": []
           },
           "scale_stress": {
-            "survived": true
+            "survived": false,
+            "counterexample": {
+              "object": "group:Z4xZ2xZ2(16)",
+              "detail": "Z4xZ2xZ2(16): 26 > 16"
+            }
           }
         },
         {
@@ -4301,7 +4349,11 @@
             "counterexamples": []
           },
           "scale_stress": {
-            "survived": true
+            "survived": false,
+            "counterexample": {
+              "object": "group:Z2^4(16)",
+              "detail": "Z2^4(16): 66 > -16"
+            }
           }
         },
         {

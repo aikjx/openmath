@@ -50,9 +50,17 @@ class MathExpr:
     raw: str
     ast: Any = None
     variables: list[str] = field(default_factory=list)
+    # 式中实际出现的函数调用名（小写）。用来把「函数名被当成变量」和
+    # 「真正的自由变量」区分开——筛查层据此判断式子结构是否可信。
+    functions: list[str] = field(default_factory=list)
     is_equation: bool = False
     parse_ok: bool = False
     error: str | None = None
+    # OpenMath CMP 常见全称量词前缀（"for all a,b | a+b=b+a"）。
+    # 解析器不理解量词语法，会把 for/all 当变量做隐式乘法而失败，
+    # 故 parse_text 会先剥离前缀再解析；被剥离的约束变量记录在此，
+    # 以免全称语义被静默丢弃。仅作标注用途，不构成形式化证明。
+    quantified: list[str] = field(default_factory=list)
 
 
 @dataclass
