@@ -1,7 +1,7 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_synthesis.py",
-    "generated_at": "2026-09-21T09:32:34",
+    "generated_at": "2026-09-21T17:01:02",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"
@@ -11,7 +11,7 @@
   },
   "summary": {
     "paradigms": 12,
-    "methods_classified": 46,
+    "methods_classified": 47,
     "fully_blank_paradigms": [
       "analogy",
       "transform"
@@ -22,8 +22,8 @@
       "paradigm": "evaluation",
       "name": "求值",
       "description": "代入具体数值/参数计算结果",
-      "methods_total": 13,
-      "methods_implemented": 12,
+      "methods_total": 14,
+      "methods_implemented": 13,
       "implemented_ids": [
         "arith_eval",
         "transc_eval",
@@ -36,12 +36,13 @@
         "ec_point_count_finite",
         "combinatorial_hodge",
         "burgers_finite_difference",
-        "sat_phase_transition"
+        "sat_phase_transition",
+        "identity_sampling_verifier"
       ],
       "missing_ids": [
         "l_function_evaluation"
       ],
-      "coverage": 0.9231
+      "coverage": 0.9286
     },
     {
       "paradigm": "construction",

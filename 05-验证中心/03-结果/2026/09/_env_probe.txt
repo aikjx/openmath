@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import numpy, sys; print('numpy', numpy.__version__); print('py', sys.version)
+    ^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'numpy'

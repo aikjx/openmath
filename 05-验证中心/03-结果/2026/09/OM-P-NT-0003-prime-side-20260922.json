@@ -1,0 +1,239 @@
+{
+  "target_id": "OM-P-NT-0003",
+  "check_date": "2026-09-22",
+  "X": 2000000,
+  "view": "素数侧（生成式/反推）",
+  "arrival": {
+    "n_evens": 999999,
+    "n_unrepresentable": 0,
+    "unrepresentable_head": [],
+    "max_lambda": 1000537,
+    "argmax_lambda_N": 1999718,
+    "delta_at_argmax_lambda": 678,
+    "max_delta": 1515,
+    "argmax_delta_N": 1872236,
+    "count_N_with_2lambda_eq_N": 78498,
+    "examples_2p": [
+      4,
+      6,
+      10,
+      14,
+      22,
+      26,
+      34,
+      38,
+      46,
+      58
+    ],
+    "lemmaH_all_hold": true
+  },
+  "delta_by_decade": [
+    {
+      "decade": 0,
+      "max_delta": 1,
+      "N": 8,
+      "lambda": 5
+    },
+    {
+      "decade": 1,
+      "max_delta": 15,
+      "N": 92,
+      "lambda": 61
+    },
+    {
+      "decade": 2,
+      "max_delta": 75,
+      "N": 688,
+      "lambda": 419
+    },
+    {
+      "decade": 3,
+      "max_delta": 228,
+      "N": 7102,
+      "lambda": 3779
+    },
+    {
+      "decade": 4,
+      "max_delta": 621,
+      "N": 80144,
+      "lambda": 40693
+    },
+    {
+      "decade": 5,
+      "max_delta": 1281,
+      "N": 742856,
+      "lambda": 372709
+    },
+    {
+      "decade": 6,
+      "max_delta": 1515,
+      "N": 1872236,
+      "lambda": 937633
+    }
+  ],
+  "certificate_339_recheck": {
+    "N_T": 1999718,
+    "lambda": 1000537,
+    "delta_at_argmax": 678,
+    "window_width": 678,
+    "certificate_count_odd": 339,
+    "note": "与上一轮破译的 339 一致"
+  },
+  "harvest": {
+    "partition_identity_holds": true,
+    "sum_h": 999999,
+    "n_evens": 999999,
+    "n_primes": 148933,
+    "n_primes_with_harvest": 78522,
+    "n_primes_zero_harvest": 70411,
+    "pct_zero_harvest": 47.28,
+    "top10_harvest": [
+      {
+        "q": 237683,
+        "h": 33
+      },
+      {
+        "q": 854729,
+        "h": 32
+      },
+      {
+        "q": 523403,
+        "h": 30
+      },
+      {
+        "q": 357517,
+        "h": 30
+      },
+      {
+        "q": 863561,
+        "h": 29
+      },
+      {
+        "q": 676861,
+        "h": 29
+      },
+      {
+        "q": 538019,
+        "h": 29
+      },
+      {
+        "q": 416147,
+        "h": 29
+      },
+      {
+        "q": 194471,
+        "h": 29
+      },
+      {
+        "q": 960637,
+        "h": 28
+      }
+    ],
+    "count_h_eq_1": 11
+  },
+  "frontier": {
+    "n_advancing_primes": 11102,
+    "n_primes": 148933,
+    "pct_advancing": 7.45,
+    "spot": [
+      {
+        "q": 31,
+        "C": 54,
+        "2q": 62,
+        "Delta": 8
+      },
+      {
+        "q": 101,
+        "C": 180,
+        "2q": 202,
+        "Delta": 22
+      },
+      {
+        "q": 1009,
+        "C": 1920,
+        "2q": 2018,
+        "Delta": 98
+      },
+      {
+        "q": 10007,
+        "C": 19802,
+        "2q": 20014,
+        "Delta": 212
+      },
+      {
+        "q": 100003,
+        "C": 199562,
+        "2q": 200006,
+        "Delta": 444
+      },
+      {
+        "q": 500009,
+        "C": 999270,
+        "2q": 1000018,
+        "Delta": 748
+      },
+      {
+        "q": 999983,
+        "C": 1999134,
+        "2q": 1999966,
+        "Delta": 832
+      },
+      {
+        "q": 1000039,
+        "C": 1999326,
+        "2q": 2000078,
+        "Delta": 752
+      },
+      {
+        "q": 1000537,
+        "C": 2000000,
+        "2q": 2001074,
+        "Delta": 1074
+      }
+    ]
+  },
+  "max_gap": {
+    "max_gap_le_X": {
+      "gap": 132,
+      "after": 1357201,
+      "next": 1357333,
+      "min_evens_waiting": 65
+    }
+  },
+  "waiting_zone": {
+    "top_zone_lemmaG": {
+      "q_star": 1000537,
+      "k_star": 78539,
+      "p_prev": 1000507,
+      "zone": [
+        2001044,
+        2001074
+      ],
+      "width": 30,
+      "gap": 30,
+      "n_evens": 14,
+      "unreachable_verified": true
+    },
+    "bottom_cert_lemmaA": {
+      "N_T": 1999718,
+      "lambda": 1000537,
+      "window": [
+        999181,
+        999859
+      ],
+      "width": 678,
+      "certificates": 339,
+      "prime_p": 42,
+      "composite_p": 297,
+      "no_violation": true
+    }
+  },
+  "conclusion": {
+    "lemmaH": "λ(N)>=N/2, 等号 iff N=2p（本轮 78498 个等号点，恰为 ≤1e6 的素数个数）",
+    "lemmaG": "素数间隙=顶部等待区宽度; 间隙无界⇒等待区无界",
+    "partition": "Σ h(q) = #evens (verified)",
+    "pct_frontier_primes": 7.45,
+    "pct_primes_nonempty_harvest": 52.72,
+    "missing_step": "所有等待区最终被抽空 ⇔ Goldbach（未证）"
+  }
+}

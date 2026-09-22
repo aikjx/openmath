@@ -1,7 +1,7 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_ingest.py",
-    "generated_at": "2026-09-21T09:30:30",
+    "generated_at": "2026-09-21T16:50:07",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理基于 openmath_sys 引擎自动生成，未经人类复核，不得作为 L3+ 证据。"
@@ -15,8 +15,8 @@
     "honesty": "本文件为 L0/L2 级数据处理产物，非证明；方程求解为计算校验(L2)。CD 性质(CMP)解析成功不代表被证明；arXiv 论文为预印本，状态 UNVERIFIED。",
     "coverage": {
       "official_total": 38,
-      "from_network": 38,
-      "from_local_snapshot": 0,
+      "from_network": 28,
+      "from_local_snapshot": 10,
       "missing": 0,
       "xml_parse_failed": 0,
       "note": "官方全量清单由 GitHub API 探测得到；联网失败者回退本地快照，两者皆无才记为 missing；解析失败如实记录，不静默丢弃。"
@@ -27,7 +27,7 @@
       "name": "alg1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/alg1.ocd",
       "fetched": true,
-      "origin": "network",
+      "origin": "local_snapshot",
       "symbols": [
         {
           "name": "zero",
@@ -48,7 +48,7 @@
       "name": "altenc",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/altenc.ocd",
       "fetched": true,
-      "origin": "network",
+      "origin": "local_snapshot",
       "symbols": [
         {
           "name": "MathML_encoding",
@@ -202,7 +202,7 @@
       "name": "complex1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/complex1.ocd",
       "fetched": true,
-      "origin": "network",
+      "origin": "local_snapshot",
       "symbols": [
         {
           "name": "complex_cartesian",
@@ -577,7 +577,7 @@
       "name": "logic1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/logic1.ocd",
       "fetched": true,
-      "origin": "network",
+      "origin": "local_snapshot",
       "symbols": [
         {
           "name": "equivalent",
@@ -974,7 +974,7 @@
       "name": "multiset1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/multiset1.ocd",
       "fetched": true,
-      "origin": "network",
+      "origin": "local_snapshot",
       "symbols": [
         {
           "name": "size",
@@ -1050,7 +1050,7 @@
       "name": "nums1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/nums1.ocd",
       "fetched": true,
-      "origin": "network",
+      "origin": "local_snapshot",
       "symbols": [
         {
           "name": "based_integer",
@@ -1265,7 +1265,7 @@
       "name": "rounding1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/rounding1.ocd",
       "fetched": true,
-      "origin": "network",
+      "origin": "local_snapshot",
       "symbols": [
         {
           "name": "ceiling",
@@ -1337,7 +1337,7 @@
       "name": "s_dist1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/s_dist1.ocd",
       "fetched": true,
-      "origin": "network",
+      "origin": "local_snapshot",
       "symbols": [
         {
           "name": "mean",
@@ -1368,7 +1368,7 @@
       "name": "scscp1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/scscp1.ocd",
       "fetched": true,
-      "origin": "network",
+      "origin": "local_snapshot",
       "symbols": [
         {
           "name": "procedure_call",
@@ -1545,7 +1545,7 @@
       "name": "set1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/set1.ocd",
       "fetched": true,
-      "origin": "network",
+      "origin": "local_snapshot",
       "symbols": [
         {
           "name": "cartesian_product",

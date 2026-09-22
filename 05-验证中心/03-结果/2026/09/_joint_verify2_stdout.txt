@@ -1,0 +1,33 @@
+== A1: N=172 ==
+{"N": 172, "primes": [3, 5, 7, 11, 13], "|X|": 36, "singletons_recomputed": {"3": 24, "5": 15, "7": 10, "11": 6, "13": 5}, "singletons_matches_paper": true, "pairs_recomputed": {"3,5": 10, "3,7": 7, "3,11": 4, "3,13": 3, "5,7": 4, "5,11": 2, "5,13": 2, "7,11": 1, "7,13": 2, "11,13": 2}, "graph_edges": [[3, 5], [3, 7], [3, 11], [5, 13], [7, 11], [7, 13]], "bound_order2_graph": 2, "bound_order2_graph_equals_2": true, "non_forest_patterns_over_all_32": [[3, 7, 11], [3, 5, 7, 11], [3, 5, 7, 13], [3, 7, 11, 13], [3, 5, 7, 11, 13]], "forest_condition_holds_on_all_patterns": false, "model_172_total": 36, "model_total_equals_|X|": true, "model_singletons_match": true, "model_pairs_match": true, "model_empty_pattern_weight": 0, "model_survivors": 0, "model_is_valid_antimodel": true, "H_true_172": 5}
+== A2: N=800 ==
+{"N": 800, "primes": [3, 5, 7, 11, 13, 17, 19, 23], "|X|": 186, "n_nonzero_coefficients": 60, "max_violation_P_minus_target": 0, "violation_count_over_256": 0, "pointwise_condition_holds": true, "contribution_order0": 186, "contribution_order1": -334, "contribution_order2_selected20pairs": 208, "contribution_order3_neg28": -45, "contribution_order3_pos3": 2, "contribution_order3_total": -43, "total": 17, "total_equals_17": true, "declared_string": "186-334+208-43 = 17", "H_true_800": 19, "bound_le_true": true, "allpairs_S1_S2_S3": [334, 243, 89], "naive_order3_truncation_bound": 6}
+== B: 涓夐樁 Bonferroni L3 鎵弿 ==
+  L3 scan up to 2000
+  L3 scan up to 4000
+  L3 scan up to 6000
+  L3 scan up to 8000
+  L3 scan up to 10000
+  L3 scan up to 12000
+  L3 scan up to 14000
+  L3 scan up to 16000
+  L3 scan up to 18000
+  L3 scan up to 20000
+{"range": "6 <= N <= 20000, 姝ラ暱 2", "scanned": 9998, "count_L3_positive": 534, "last_N_with_L3_positive": 6930, "samples": [], "table_head": [{"N": 6, "|X|": 1, "k_primes": 0, "L3": 1}, {"N": 8, "|X|": 1, "k_primes": 0, "L3": 1}, {"N": 10, "|X|": 1, "k_primes": 1, "L3": 1}, {"N": 12, "|X|": 1, "k_primes": 1, "L3": 1}, {"N": 14, "|X|": 2, "k_primes": 1, "L3": 1}, {"N": 16, "|X|": 2, "k_primes": 1, "L3": 1}, {"N": 18, "|X|": 3, "k_primes": 1, "L3": 2}, {"N": 20, "|X|": 3, "k_primes": 1, "L3": 1}, {"N": 22, "|X|": 4, "k_primes": 1, "L3": 2}, {"N": 24, "|X|": 4, "k_primes": 1, "L3": 3}, {"N": 26, "|X|": 4, "k_primes": 2, "L3": 2}, {"N": 28, "|X|": 4, "k_primes": 2, "L3": 1}], "last_positive_record": {"N": 6930, "|X|": 1691, "k_primes": 22, "S1": 3035, "S2": 2531, "S3": 1170, "L3": 17}}
+== C: 浜岄樁璐績鍥捐瘉涔?==
+{"N": 172, "|X|": 36, "k_primes": 5, "S1": 60, "edges_added": 5, "candidate_pairs": 10, "S2_selected": 10, "S2_all_pairs": 37, "bound_order2_greedy": -14, "bound_positive": false, "H_true": 5}
+{"N": 800, "|X|": 186, "k_primes": 8, "S1": 334, "edges_added": 15, "candidate_pairs": 28, "S2_selected": 66, "S2_all_pairs": 243, "bound_order2_greedy": -82, "bound_positive": false, "H_true": 19}
+{"N": 1000, "|X|": 234, "k_primes": 10, "S1": 451, "edges_added": 25, "candidate_pairs": 45, "S2_selected": 102, "S2_all_pairs": 362, "bound_order2_greedy": -115, "bound_positive": false, "H_true": 24}
+{"N": 1500, "|X|": 356, "k_primes": 11, "S1": 586, "edges_added": 33, "candidate_pairs": 55, "S2_selected": 167, "S2_all_pairs": 426, "bound_order2_greedy": -63, "bound_positive": false, "H_true": 61}
+{"N": 2000, "|X|": 478, "k_primes": 13, "S1": 995, "edges_added": 43, "candidate_pairs": 78, "S2_selected": 218, "S2_all_pairs": 879, "bound_order2_greedy": -299, "bound_positive": false, "H_true": 34}
+Traceback (most recent call last):
+  File "D:\a10\aikjx\code\my_lib\openmath\05-楠岃瘉涓績\01-寮曟搸\goldbach_joint_certificate_verify2.py", line 419, in <module>
+    main()
+    ~~~~^^
+  File "D:\a10\aikjx\code\my_lib\openmath\05-楠岃瘉涓績\01-寮曟搸\goldbach_joint_certificate_verify2.py", line 415, in main
+    emit("written: " + json_path)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\a10\aikjx\code\my_lib\openmath\05-楠岃瘉涓績\01-寮曟搸\goldbach_joint_certificate_verify2.py", line 377, in emit
+    log.write(s + "\n")
+    ~~~~~~~~~^^^^^^^^^^
+ValueError: I/O operation on closed file.

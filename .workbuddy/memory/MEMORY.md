@@ -80,3 +80,39 @@
 - Bash 环境出现过 PATH 异常（`ls`/`dirname` not found），
   可改用 PowerShell 执行；PowerShell 对中文 stdout 有编码问题，
   建议脚本内写文件再读取。
+
+## 子项目 projects/silent-monitor（Rust 无感监听工具，2026-09-21 新建）
+- 位置：`projects/silent-monitor/`（`D:/a10/aikjx/code/my_lib/openmath/projects/silent-monitor`）。
+- GitHub（独立开源，2026-09-21 已推送）：https://github.com/aikjx/silent-monitor
+  （公开仓库，默认分支 main，提交人 aikjx <aikjx@users.noreply.github.com>，含初始 feat 提交 + Cargo.lock 提交）。
+  推送凭据走 `~/.git-credentials` 的 github.com token；本环境 push 须用
+  `git -c credential.helper= -c credential.helper=store` 绕过 helper-selector，否则卡死。
+- 性质：纯标准库、零第三方依赖的 Rust 新手向小工具；与 openmath 引擎无关，是独立 demo。
+- 能力：后台无感监听（DETACHED_PROCESS / process_group 守护），间隔可调
+  （`--quick`=60s、`--slow`=600s、`-i <秒>` 自定义），日志写 `silent-monitor.log`。
+- 一键关闭：`silent-monitor stop` → 读 `silent-monitor.pid` 调 taskkill/kill 杀进程并清 PID；
+  另用 `silent-monitor.stop` 信号文件做优雅退出兜底。
+- 验证：`cargo build` 通过；实跑 start→(多心跳)→stop 确认进程无残留、PID 清理。
+- 改监听逻辑：编辑 `src/main.rs` 里 `run_loop` 中 `log_line(&msg)` 处。
+
+## 子项目 xiaobai（原 xiaobai_voice，独立开源）
+- 源：`D:/a10/aikjx/gitcode/infotopograph/projects/xiaobai_voice`。
+  注意 `infotopograph` 本身是 **`aikjx/mox` 仓库的本地克隆**（远端：gitcode.com/aikjx/mox 与 github.com/aikjx/mox）。
+- 独立开源副本：`D:/a10/aikjx/gitcode/xiaobai` → **https://github.com/aikjx/xiaobai**
+  （公开，main，Apache-2.0 LICENSE，65 文件，提交人 aikjx）。
+- **品牌决策（2026-09-22）**：产品定位为「每个人的 AI 伙伴与助手」，品牌 =「小白（Xiaobai）」；
+  `voice` 只作能力模块名（Python 包名 `xiaobai_voice` 不改，代码不动）。
+- 已于 2026-09-22 将仓库由 `xiaobai_voice` 重命名为 `xiaobai`（PATCH /repos，旧链接自动 301 重定向）；
+  本地目录同步改为 `gitcode/xiaobai`；README 顶部改为「小白 · 每个人的 AI 伙伴与助手」并突出离线/隐私；
+  仓库 description + topics 已更新。
+- 策略：robocopy 复制出去后建独立仓库推送，**未改动 mox 仓库**；故 mox 内与独立副本各有一份，需用户决定是否从 mox 解绑。
+- 内容：离线语音服务（ASR Paraformer-zh+sherpa-onnx；TTS CosyVoice2/Fish-Speech-S2/浏览器兜底）
+  + Rust 核心 `xiaobai_core`（PyO3：dsp/intent/operators/config/models）+ 桌面小白浮窗 + 快捷键。
+- **mox 品牌痕迹已向后兼容清理（2026-09-22，提交 c8571a8）**：
+  对外品牌（配置/日志/模型目录、环境变量、UI 文案、作者）迁移为新品牌 `xiaobai`
+  （`%APPDATA%\xiaobai`、`~/.xiaobai/models/voice`、`XIAOBAI_*` 环境变量），
+  并保留 `mox/xiaobai`、`~/.mox/...`、`MOX_*` 作为 **legacy 回退**（新路径缺失时自动沿用旧路径，不丢用户数据）。
+  **刻意保留不变**：`mox-system`/`mox-expert` 后端桥、`MoxAdmin` RBAC 角色名、`voice_proxy` 端口 13130 —— 改了会破坏与 mox 后端的互通。
+  验证：`compileall` + `cargo check` 均 exit=0。
+- 仍开放（待用户决定）：是否从 mox 仓库解绑该子目录；是否彻底移除 mox 后端桥引用（会断互通，不建议）。
+- 推送凭据同 silent-monitor：`-c credential.helper= -c credential.helper=store` 绕过 helper-selector。

@@ -106,6 +106,25 @@ _BUILTIN_FUNC_NAMES = frozenset({
     "gcd", "lcm", "max", "min", "floor", "ceil", "mod",
 })
 _NAMED_CONSTANTS = frozenset({"pi", "e", "tau", "phi", "inf", "nan"})
+# 命名常量的**数值**（2026-09-21 新增）。
+#
+# 此前 _NAMED_CONSTANTS 只用来「别把这个名字拆成乘积」，**从未在求值时代入数值**。
+# 后果是一类**假反例**：`exp(A) = e^A` 里的 `e` 被当成自由变量在 [0.05,0.95] 上
+# 抽样，教科书真恒等式被判成 `fails`。假反例比拒答严重得多——拒答是"我不知道"，
+# 假反例是"我断言它是错的"，后者会污染产物并让下游误以为找到了反例。
+#
+# 取值口径：pi/e/tau/phi 取 Python 双精度的标准值。若原文把 `e` 当普通变量
+# （如偏心率），本条判定不适用——numeric.verify_identity 对此有**歧义回退**：
+# 判 fails 时会再按"变量"读法试一次，两种读法结论相反则拒答而非硬判。
+_CONSTANT_VALUES = {
+    "pi": math.pi,
+    "e": math.e,
+    "tau": 2 * math.pi,
+    "phi": (1 + math.sqrt(5)) / 2,
+}
+# inf / nan 不是可代入的有限常数：代入会让任何式子恒为 inf/nan，
+# 于是"抽样结果全等"变成无意义。它们单独走不可抽样通道（见 numeric.screen_identity）。
+_NONFINITE_NAMES = frozenset({"inf", "nan"})
 # 允许参与连写切分的"单位"名（见 split_letter_runs 的判据说明）
 _NAMED_UNITS = frozenset({"i", "e", "pi"})
 
@@ -241,6 +260,15 @@ def implicit_mul_needed(prev: tuple[str, str],
     # FUNC 后面紧跟的 `(` 是**它的实参表**，不是乘积因子
     if pk == "FUNC" and nk == "PAREN" and nv == "(":
         return False
+    # 内置函数名后面接的也不是乘积因子，而是它的**实参**（`cos 2A` → cos(2A)）。
+    # 这里不插乘号，交给 parse_atom 的并列函数应用分支处理。
+    #
+    # 不加这一条会静默读错：`cos 2A` 的 token 流是 [VAR cos, NUM 2, VAR A]，
+    # 原逻辑在 `cos` 与 `2` 之间补了紧贴乘号，于是整式被读成 cos·2·A，
+    # 二倍角恒等式 cos 2A = cos²A − sin²A 永远判不出来（只会判成"函数名降级为变量"）。
+    # 注意 `2 sin x` 不受影响：那里的 `2` 在前、函数名在后，乘号补在 2 与 sin 之间。
+    if pk == "VAR" and pv.lower() in _BUILTIN_FUNC_NAMES:
+        return False
     return True
 
 
@@ -329,6 +357,15 @@ class Parser:
 
     def peek(self) -> tuple[str, str]:
         return self.tokens[self.pos] if self.pos < len(self.tokens) else (None, None)
+
+    def peek_at(self, k: int) -> tuple[str, str]:
+        """向前看第 k 个记号（k=0 等价于 peek）。越界返回 (None, None)。
+
+        函数幂记号 `cos^2 A` 需要看两个记号（`^` 与其后的指数）才能确定，
+        而 peek() 只能看一个。
+        """
+        i = self.pos + k
+        return self.tokens[i] if i < len(self.tokens) else (None, None)
 
     def next(self) -> tuple[str, str]:
         t = self.tokens[self.pos]
@@ -428,6 +465,27 @@ class Parser:
                 break
         return node
 
+    def parse_bare_arg(self) -> _Node:
+        """并列函数应用的实参：`sin A` 的 `A`、`cos 2A` 的 `2A`。
+
+        实参取**紧贴单项式**：从乘方层起步（所以 `sin A^2` 仍是 sin(A²)），
+        再把紧贴（JUXTA）相连的数字/字母因子吸收进来（所以 `cos 2A` = cos(2·A)）。
+
+        为什么**不吸收函数名**：一旦吸收，`sin A cos B` 会变成 sin(A·cos(B))——
+        把两个并列的函数应用吞成一个，于是真恒等式 sinA cosB + cosA sinB = sin(A+B)
+        会被判错。标准记号里 `sin A cos B` 就是两个函数相乘，不是嵌套。
+        """
+        node = self.parse_power()
+        while self.peek()[0] == "JUXTA":
+            nxt = self.peek_at(1)
+            if nxt[0] not in ("NUM", "VAR"):
+                break
+            if nxt[0] == "VAR" and nxt[1].lower() in _BUILTIN_FUNC_NAMES:
+                break
+            self.next()                      # 消费 JUXTA
+            node = BinOp("*", node, self.parse_power())
+        return node
+
     def parse_atom(self) -> _Node:
         t = self.next()
         if t[0] == "PAREN" and t[1] == "(":
@@ -440,10 +498,24 @@ class Parser:
             # 标准记号的**并列函数应用**：`sin A` 读作 sin(A)，而不是乘积 sin·A。
             # 仅对内置函数名生效；普通多字母词相邻（如 "not true"、"factorial n"）
             # 仍不插入乘号——那是刻意设计，用来避免把英文散文误判成乘积，不可放开。
-            nxt = self.peek()
-            if t[1].lower() in _BUILTIN_FUNC_NAMES and nxt[0] in ("NUM", "VAR", "FUNC"):
-                # 作用域取到乘方层：`sin A^2` 读作 sin(A^2)
-                return FuncCall(t[1], [self.parse_power()])
+            if t[1].lower() in _BUILTIN_FUNC_NAMES:
+                nxt = self.peek()
+                # ① 函数幂记号：`cos^2 A` → (cos A)^2（2026-09-21 新增）
+                #    标准记号里 `cos²A` 读作 (cos A)²，而不是 cos²·A。
+                #    只认**数字**指数：`cos^2` 是记号，`cos^n` 不是。
+                if nxt[0] == "OP" and nxt[1] == "^" and self.peek_at(1)[0] == "NUM":
+                    self.next()                                   # 消费 ^
+                    expo = Num(self.next()[1])                    # 消费指数
+                    # `insert_implicit_mul` 会在**指数**与实参之间补一个乘号
+                    # （`cos^2 A` → cos^2*A、`cos^2(A)` → cos^2*(A)），因为它只看
+                    # 相邻两格、不知道前面是函数幂记号。这里必须吃掉它，否则整式被读成
+                    # (cos^2)·A —— 又变回"函数名被当变量"，二倍角恒等式仍判不出来。
+                    if self.peek()[0] in ("OP", "JUXTA") and self.peek()[1] == "*":
+                        self.next()
+                    return BinOp("^", FuncCall(t[1], [self.parse_bare_arg()]), expo)
+                # ② 并列函数应用：`sin A cos B`、`cos 2A`
+                if nxt[0] in ("NUM", "VAR", "FUNC"):
+                    return FuncCall(t[1], [self.parse_bare_arg()])
             return Var(t[1])
         if t[0] == "FUNC":
             self.next()  # 消费 '('

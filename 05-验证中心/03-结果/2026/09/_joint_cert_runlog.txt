@@ -1,0 +1,17 @@
+N=172 |X|=36 S1=60 S2=37 S3=9
+   order3 lower bound = 36 - 60 + 37 - 9 = 4 ; H_true = 5 ; order3 <= H_true : True
+   order2 all-pairs value = 13 is an UPPER bound ; H_true <= it : True
+N=800 |X|=186 S1=334 S2=243 S3=89
+   order3 lower bound = 186 - 334 + 243 - 89 = 6 ; H_true = 19 ; order3 <= H_true : True
+   order2 all-pairs value = 95 is an UPPER bound ; H_true <= it : True
+  new max: N=6 ratio=0
+  new max: N=12 ratio=1/3
+  new max: N=68 ratio=6/13
+scanned up to 4000 (1998 evens)
+scanned up to 8000 (3998 evens)
+scanned up to 12000 (5998 evens)
+scanned up to 16000 (7998 evens)
+scanned up to 20000 (9998 evens)
+scanned_evens=9998
+max ratio N=68 value=6/13
+E+>=M failures: []

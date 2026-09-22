@@ -1,0 +1,98 @@
+{
+  "target_id": "OM-P-NT-0003",
+  "check_date": "2026-09-22",
+  "X": 2000000,
+  "goal": "分离 REACH 阻塞与 PAIR 阻塞，判定素数侧生成路线的逻辑终点",
+  "n_unrepresentable": 0,
+  "unrepresentable_head": [],
+  "taxonomy": {
+    "n_classified": 999997,
+    "n_TOP_reach": 288421,
+    "pct_TOP": 28.842,
+    "n_BOT_pair": 711576,
+    "pct_BOT": 71.158,
+    "n_trivial_small": 2,
+    "max_linger": 104,
+    "argmax_linger_N": 1872236,
+    "n_linger_eq_0": 288421,
+    "n_linger_ge_1": 711576,
+    "max_bot_window": 1515,
+    "argmax_bot_window_N": 1872236,
+    "max_top_excess": 238,
+    "argmax_top_excess_N": 740746,
+    "samples": [
+      {
+        "N": 8,
+        "lambda": 5,
+        "i_lam": 2,
+        "k0": 2,
+        "linger": 0,
+        "type": "TOP",
+        "top_edge": 5,
+        "bot_window": 1
+      },
+      {
+        "N": 56,
+        "lambda": 37,
+        "i_lam": 11,
+        "k0": 10,
+        "linger": 1,
+        "type": "BOT",
+        "top_edge": 60,
+        "bot_window": 9
+      },
+      {
+        "N": 68,
+        "lambda": 37,
+        "i_lam": 11,
+        "k0": 11,
+        "linger": 0,
+        "type": "TOP",
+        "top_edge": 60,
+        "bot_window": 3
+      },
+      {
+        "N": 1872236,
+        "lambda": 937633,
+        "i_lam": 74015,
+        "k0": 73911,
+        "linger": 104,
+        "type": "BOT",
+        "top_edge": 1875240,
+        "bot_window": 1515
+      },
+      {
+        "N": 1999718,
+        "lambda": 1000537,
+        "i_lam": 78538,
+        "k0": 78489,
+        "linger": 49,
+        "type": "BOT",
+        "top_edge": 2000964,
+        "bot_window": 678
+      }
+    ]
+  },
+  "theoremA_check": {
+    "checked": 999999,
+    "violations": 0,
+    "holds": true
+  },
+  "linger_hist": {
+    "0": 288421,
+    "1-2": 207440,
+    "3-10": 362055,
+    "11-100": 142080,
+    "101-1000": 1
+  },
+  "conclusion": {
+    "theoremA": "REACH 阻塞有限期：∃k0(N)<∞ 使 k≥k0 时 N ≤ p_{k-1}+p_k",
+    "theoremA_verified": true,
+    "taxonomy_split": {
+      "TOP_pct": 28.842,
+      "BOT_pct": 71.158
+    },
+    "route_verdict": "素数侧生成路线不能绕过 parity barrier；核心困难＝PAIR（短区间素数配对）",
+    "status": "NOT PROVEN"
+  }
+}

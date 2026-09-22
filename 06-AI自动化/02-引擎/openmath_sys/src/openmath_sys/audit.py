@@ -34,6 +34,7 @@ from . import theoryforge as tf
 from . import sequences as sq
 from . import millennium as _mill
 from . import millennium_lab as _mlab
+from . import numeric as nm
 from .numeric import verify_identity
 
 EULER_GAMMA = 0.5772156649015328606
@@ -747,6 +748,20 @@ VERIFIER_TESTSET: List[Tuple[str, str]] = [
     # 常数左端的 `f(x)=0` 是恒等式而非待解方程（判别规则的回归护栏）
     ("sin(x)^2 + cos(x)^2 - 1 = 0", "holds"),
     ("0 * x = 0", "holds"),
+    # ---- 命名常量必须代入数值（2026-09-21 新增）----
+    # 此前 e/pi/tau/phi 只用于"别拆成乘积"，从不代入 → `exp(A) = e^A` 里的 e
+    # 被当自由变量抽样，教科书真恒等式判成 **fails**。假反例比拒答危险，
+    # 所以这几条是**硬护栏**：任何一条掉出 holds 都说明常量代入又被绕过了。
+    ("exp(A) = e^A", "holds"),
+    ("ln(e) = 1", "holds"),
+    ("e^(i*pi) + 1 = 0", "holds"),
+    ("phi^2 = phi + 1", "holds"),
+    ("tau = 2*pi", "holds"),
+    # ---- 分支降级**不得**吞掉真反例（与上面配套的反向护栏）----
+    # arcsinh(x) = i*arcsin(x) 在 25 个抽样点上两侧**不是**相反数（0/25 翻转），
+    # 属真实的数值不符，必须仍判 fails。若这条变成 not_decidable，
+    # 说明"纯符号翻转"判据被写宽了，成了给反例开脱的后门。
+    ("arcsinh(x) = i*arcsin(x)", "fails"),
     # ---- 隐式乘法：2026-09-20 从拒答集**移入**判准集 ----
     # 这一条原本在 VERIFIER_REFUSALS 里，理由是当时的解析器读不了 `sin A cos B`
     # （尾部 token 无法消费 ⇒ 只能拒答）。解析器原生支持隐式乘法之后，
@@ -754,6 +769,17 @@ VERIFIER_TESTSET: List[Tuple[str, str]] = [
     # 于是期望值从「必须拒答」改为「必须判对」——**不是**放宽标准，
     # 而是能力边界真的移动了；移过来之后它仍然是一道回归护栏（判错就会红）。
     ("sin A cos B + cos A sin B = sin(A + B)", "holds"),
+    # ---- 函数记号：函数后接紧贴因子 + 函数幂（2026-09-21 新增）----
+    # 标准记号 `cos²A`（=(cos A)²）与 `cos 2A`（=cos(2A)）此前都读不出来：
+    # 前者被拆成 (cos²)·A，后者被插入乘号成 cos·2·A。这两条同时是**优先级**护栏：
+    # 谁把函数幂或并列应用改回普通乘，二倍角恒等式立刻变红。
+    ("cos 2A = cos^2 A - sin^2 A", "holds"),
+    ("cos^2 A + sin^2 A = 1", "holds"),
+    ("1 + tan^2 x = sec^2 x", "holds"),
+    ("cos^2(A) = cos(A)^2", "holds"),
+    # 阴性对照：函数记号放宽后假式子必须仍判 fails
+    ("cos^2 A - sin^2 A = 1", "fails"),
+    ("cos 2A = cos A - sin A", "fails"),
 ]
 
 # 这些式子**超出**随机抽样验证的能力范围，验证器必须拒答（not_decidable）
@@ -761,6 +787,11 @@ VERIFIER_REFUSALS: List[str] = [
     "e = the sum as j ranges from 0 to infinity of 1/(j!)",
     # 未知函数名**不得**被静默重读成乘积 f*(x)：那样抽样验的就不是原式了
     "f(x) + f(y) = f(x + y)",
+    # 分支约定差异（2026-09-21 新增）：25/25 抽样点上两侧恒为相反数，
+    # 是多值函数主分支选取的问题，不是反例——必须拒答而不是判 fails。
+    "arcsec(z) = i*arcsech(z)",
+    # 非有限量（2026-09-21 新增）：代入 inf/nan 后任何式子都恒为 inf/nan
+    "inf = 1",
     "grad(F) = (\\partial(F)/\\partial(x_1), ...)",
     "a*x^2 + b*x + c = 0",
     # 散文即使能被拆成单字母乘积也必须拒答（`the` 不应被当成 t*h*e）
@@ -771,6 +802,16 @@ VERIFIER_REFUSALS: List[str] = [
     "for all integers a,b | There does not exist a c>0 such that c/a is an integer",
     "for all a,b | a * 0 = 0 and a * b = a * (b - 1) + a",
     "whenever not(a=0) then a/a = 1",
+    # 定义式（2026-09-21 新增）：左端在**定义一个新符号**、右端不含它。
+    # 对定义式判 holds 是循环论证（拿定义"验证"定义），必须拒答。
+    "for all x,y | complex_cartesian(x,y) = x + iy",
+    "for all x | identity(x)=x",
+    "bigfloat(m,r,e)=m*r^e",
+    # 高阶语句（2026-09-21 新增）：函数值变量 / 嵌套函数应用，
+    # 抽样求值器会把函数名当数值变量代入，验证的不是原式。
+    "for all f,g,x | left_compose(f,g)(x) = f(g(x))",
+    "right_compose(f,g)(x) = g(f(x))",
+    "for all x | not(not(x))=x",
 ]
 
 
@@ -909,9 +950,73 @@ def audit_identity_verifier(aud: Auditor) -> Dict[str, Any]:
                 tn += 1
     n_true = sum(1 for _, w in VERIFIER_TESTSET if w == "holds")
     n_false = len(VERIFIER_TESTSET) - n_true
+    refusal_scopes = []
     for expr in VERIFIER_REFUSALS:
-        got = verify_identity(expr)["status"]
-        aud.check(rec, f"拒答 {expr[:38]}", got, "not_decidable")
+        res = verify_identity(expr)
+        aud.check(rec, f"拒答 {expr[:38]}", res["status"], "not_decidable")
+        refusal_scopes.append((expr, res.get("scope")))
+    # 拒答必须写明**具体是哪一类**（诚实红线），不能所有拒答共用一句笼统理由。
+    # 这里查三件事：scope 非空、不在同一类里混不同毛病、parse_suspect 必须带 causes。
+    aud.check(rec, "每条拒答都必须带非空 scope",
+              all(s for _, s in refusal_scopes), True)
+    aud.check(rec, "拒答理由不得为空",
+              all(str(verify_identity(e).get("reason") or "").strip()
+                  for e in VERIFIER_REFUSALS), True)
+    for e in VERIFIER_REFUSALS:
+        scr = nm.screen_identity(e)
+        if scr.get("scope") == "parse_suspect":
+            aud.check(rec, f"parse_suspect 拒答须列出具体类别 {e[:28]}",
+                      bool(scr.get("causes")), True)
+    # 定义式 / 高阶语句的分类护栏（2026-09-21 新增）。
+    # 这三类的**拒答理由各不相同**，必须落到各自的 scope，
+    # 且定义式**不得**判 holds（那是循环论证：拿定义去"验证"定义）。
+    _nonid_expect = {
+        "definitional": [
+            "for all x,y | complex_cartesian(x,y) = x + iy",
+            "for all x | identity(x)=x",
+            "bigfloat(m,r,e)=m*r^e",
+        ],
+        "higher_order": [
+            "for all f,g,x | left_compose(f,g)(x) = f(g(x))",
+            "right_compose(f,g)(x) = g(f(x))",
+        ],
+        "unknown_function": [
+            "f(x) = f(x)",
+            "for all x,y | x = real(x+iy)",
+        ],
+    }
+    for _scope, _exprs in _nonid_expect.items():
+        for _e in _exprs:
+            _res = verify_identity(_e)
+            aud.check(rec, f"{_scope} 分类 {_e[:26]}",
+                      _res.get("scope"), _scope)
+            aud.check(rec, f"{_scope} 不得判 holds：{_e[:24]}",
+                      _res["status"] != "holds", True)
+            if _scope in ("higher_order", "definitional"):
+                aud.check(rec, f"{_scope} 不得判 fails：{_e[:24]}",
+                          _res["status"] != "fails", True)
+    # 判为 fails 的条目必须记录符号翻转点数：这是"分支降级"判据的可复核证据，
+    # 缺了它就无法区分"真不符"与"整体差一个符号"。
+    for expr, want in VERIFIER_TESTSET:
+        if want != "fails":
+            continue
+        aud.check(rec, f"fails 条目须记录 sign_flip_points {expr[:26]}",
+                  verify_identity(expr).get("sign_flip_points") is not None, True)
+
+    # 分支降级判据的**双向**护栏。两条式子在**每个**抽样点上都满足 rv = −lv
+    # （翻转点数相同），但正确结论相反：
+    #   · 含多值函数的 → 分支选取问题，必须拒答，不得判 fails；
+    #   · 不含多值函数的 → 就是真反例（交换律套到减法上），必须仍判 fails。
+    # 只查单向都会漏：放宽了会拿"分支"给反例开脱，收紧了会误指 CD 写错。
+    flip_multi = verify_identity("arcsec(z) = i*arcsech(z)")
+    flip_plain = verify_identity("for all a,b | a - b = b - a")
+    aud.check(rec, "纯符号翻转 + 含多值函数 → 降级为分支拒答",
+              (flip_multi["status"], flip_multi.get("scope")),
+              ("not_decidable", "branch"))
+    aud.check(rec, "纯符号翻转 + 无多值函数 → 仍判 fails（不得给反例开脱）",
+              flip_plain["status"], "fails")
+    aud.check(rec, "两条式的翻转点数相同（同一模式，结论不同）",
+              flip_multi.get("sign_flip_points") == flip_plain.get("sign_flip_points"), True)
 
     # ---- 解析器层：隐式乘法 / 连写切分 / 尾巴未消费 / 名称清单自洽 ----
     # 查的是**求值前的结构**：优先级错配不会报错，只会让真恒等式变假。

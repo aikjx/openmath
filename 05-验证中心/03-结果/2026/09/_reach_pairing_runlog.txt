@@ -1,0 +1,33 @@
+=== 1. 逐偶数分类：λ(N)、k0(N)、linger、阻塞类型 ===
+分类完成：TOP(REACH) = 288421 (28.84%)   BOT(PAIR) = 711576 (71.16%)   平凡点(小N) = 2
+max linger = 104  at N=1872236 （该偶数在'纯粹配对阻塞'状态停留的层数）
+linger 分布：=0 的 288421 个；>=1 的 711576 个；最大 104
+BOT 型最大底部窗口宽度 = 1515  at N=1872236
+TOP 型最大超出量 = 238  at N=740746
+抽样：
+  N=8         λ=5         i_lam=2       k0=2       linger=0     TOP top_edge=5         bot_win=1
+  N=56        λ=37        i_lam=11      k0=10      linger=1     BOT top_edge=60        bot_win=9
+  N=68        λ=37        i_lam=11      k0=11      linger=0     TOP top_edge=60        bot_win=3
+  N=1872236   λ=937633    i_lam=74015   k0=73911   linger=104   BOT top_edge=1875240   bot_win=1515
+  N=1999718   λ=1000537   i_lam=78538   k0=78489   linger=49    BOT top_edge=2000964   bot_win=678
+
+=== 2. 定理 A 核验：k0(N) ≤ i_lam(N) 恒成立？（即 REACH 必在填充前解除）===
+  注：k0 用修正后的可达判定（含 N=2p 的等值对，否则会漏掉全部 2p 点）
+  注：本核验复用 §1 已算好的 λ 表（原实现重复计算了整整一遍）
+受检偶数 999999（跳过反例 0 个）；违反 k0 ≤ i_lam 的个数 = 0 （应为 0）
+反例（不可表示偶数）个数 = 0
+
+=== 3. linger = i_lam − k0 的分布（层数）===
+  linger 0         : 288421
+  linger 1-2       : 207440
+  linger 3-10      : 362055
+  linger 11-100    : 142080
+  linger 101-1000  : 1
+
+=== 4. 结论 ===
+(1) 定理 A：REACH 阻塞有限期（k0(N)<∞ 且 k0≤i_lam，实测零违反）。
+(2) 分类：TOP 型 28.84% vs BOT 型 71.16% —— 多数偶数的最后一次阻塞来自 PAIR。
+(3) 生成（reach）部分可证且平凡；困难 100%% 落在 PAIR → 短区间素数配对。
+(4) 因此素数侧生成路线无法绕过 parity barrier；它把问题还原为同一条 HL 主项-误差要求。
+(5) 猜想仍未证明。
+written: D:\a10\aikjx\code\my_lib\openmath\05-验证中心\03-结果\2026\09\OM-P-NT-0003-reach-vs-pairing-20260922.json

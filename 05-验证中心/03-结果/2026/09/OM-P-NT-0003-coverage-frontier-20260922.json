@@ -1,0 +1,370 @@
+{
+  "target_id": "OM-P-NT-0003",
+  "check_date": "2026-09-22",
+  "ai_assisted": true,
+  "independent_human_review": false,
+  "X": 2000000,
+  "method": "前缀覆盖前沿 lambda(N) + 独立位运算对拍",
+  "arithmetic": "全部精确整数",
+  "p0_prefix31": {
+    "primes_used": [
+      2,
+      3,
+      5,
+      7,
+      11,
+      13,
+      17,
+      19,
+      23,
+      29,
+      31
+    ],
+    "p_max": 31,
+    "max_reachable_sum": 62,
+    "covered_evens": [
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      34,
+      36,
+      38,
+      40,
+      42,
+      44,
+      46,
+      48,
+      50,
+      52,
+      54,
+      58,
+      60,
+      62
+    ],
+    "gaps_within_4_to_2p": [
+      56
+    ],
+    "claim_56_unsatisfiable_check": {
+      "why": "56 的表示 a+b 需 a>=56-31=25；[25,31] 内素数只有 29,31；且 a,b 同为奇数时 a+b>=58>56（若含 2 则 a+b<=33）",
+      "min_largest_prime_for_56": 37,
+      "witness": "56 = 19 + 37（37>31，故 31 前缀内不可能覆盖）"
+    }
+  },
+  "p1_lambda": {
+    "evens_checked": 999999,
+    "unrepresentable_evens": [],
+    "unrepresentable_count": 0,
+    "max_lambda_T": 1000537,
+    "argmax_N_list_len": 1,
+    "argmax_N_smallest": 1999718,
+    "argmax_N_largest": 1999718,
+    "count_lambda_eq_T": 1,
+    "count_lambda_gt_1e6": 98,
+    "count_lambda_ge_1e6": 98,
+    "advancement_event_count": 11102,
+    "first_events": [
+      [
+        4,
+        2,
+        2
+      ],
+      [
+        6,
+        3,
+        3
+      ],
+      [
+        8,
+        5,
+        3
+      ],
+      [
+        12,
+        7,
+        5
+      ],
+      [
+        16,
+        11,
+        5
+      ],
+      [
+        20,
+        13,
+        7
+      ],
+      [
+        28,
+        17,
+        11
+      ],
+      [
+        32,
+        19,
+        13
+      ],
+      [
+        40,
+        23,
+        17
+      ],
+      [
+        44,
+        31,
+        13
+      ],
+      [
+        56,
+        37,
+        19
+      ],
+      [
+        64,
+        41,
+        23
+      ]
+    ],
+    "last_events": [
+      [
+        1997348,
+        999067,
+        998281
+      ],
+      [
+        1997416,
+        999269,
+        998147
+      ],
+      [
+        1997648,
+        999451,
+        998197
+      ],
+      [
+        1998326,
+        999883,
+        998443
+      ],
+      [
+        1998428,
+        999931,
+        998497
+      ],
+      [
+        1999010,
+        999961,
+        999049
+      ],
+      [
+        1999136,
+        1000003,
+        999133
+      ],
+      [
+        1999232,
+        1000033,
+        999199
+      ],
+      [
+        1999258,
+        1000037,
+        999221
+      ],
+      [
+        1999328,
+        1000159,
+        999169
+      ],
+      [
+        1999378,
+        1000409,
+        998969
+      ],
+      [
+        1999718,
+        1000537,
+        999181
+      ]
+    ],
+    "frontier_table": [
+      {
+        "q": 31,
+        "C_q": 54,
+        "2q": 62,
+        "deficit_2q_minus_C": 8,
+        "ratio_C_over_2q": 0.870968
+      },
+      {
+        "q": 37,
+        "C_q": 62,
+        "2q": 74,
+        "deficit_2q_minus_C": 12,
+        "ratio_C_over_2q": 0.837838
+      },
+      {
+        "q": 101,
+        "C_q": 180,
+        "2q": 202,
+        "deficit_2q_minus_C": 22,
+        "ratio_C_over_2q": 0.891089
+      },
+      {
+        "q": 1009,
+        "C_q": 1920,
+        "2q": 2018,
+        "deficit_2q_minus_C": 98,
+        "ratio_C_over_2q": 0.951437
+      },
+      {
+        "q": 10007,
+        "C_q": 19802,
+        "2q": 20014,
+        "deficit_2q_minus_C": 212,
+        "ratio_C_over_2q": 0.989407
+      },
+      {
+        "q": 100003,
+        "C_q": 199562,
+        "2q": 200006,
+        "deficit_2q_minus_C": 444,
+        "ratio_C_over_2q": 0.99778
+      },
+      {
+        "q": 500009,
+        "C_q": 999270,
+        "2q": 1000018,
+        "deficit_2q_minus_C": 748,
+        "ratio_C_over_2q": 0.999252
+      },
+      {
+        "q": 999983,
+        "C_q": 1999134,
+        "2q": 1999966,
+        "deficit_2q_minus_C": 832,
+        "ratio_C_over_2q": 0.999584
+      },
+      {
+        "q": 1000000,
+        "C_q": 1999134,
+        "2q": 2000000,
+        "deficit_2q_minus_C": 866,
+        "ratio_C_over_2q": 0.999567
+      },
+      {
+        "q": 1000537,
+        "C_q": 2000000,
+        "2q": 2001074,
+        "deficit_2q_minus_C": 1074,
+        "ratio_C_over_2q": 0.999463
+      },
+      {
+        "q": 1500000,
+        "C_q": 2000000,
+        "2q": 3000000,
+        "deficit_2q_minus_C": 1000000,
+        "ratio_C_over_2q": 0.666667
+      },
+      {
+        "q": 1999999,
+        "C_q": 2000000,
+        "2q": 3999998,
+        "deficit_2q_minus_C": 1999998,
+        "ratio_C_over_2q": 0.5
+      },
+      {
+        "q": 2000000,
+        "C_q": 2000000,
+        "2q": 4000000,
+        "deficit_2q_minus_C": 2000000,
+        "ratio_C_over_2q": 0.5
+      }
+    ],
+    "pi_1e6": 78498
+  },
+  "p2_cross_check": [
+    {
+      "q": 31,
+      "C_algorithmA_prefix_sumset": 54,
+      "C_algorithmB_lambda_path": 54,
+      "agree": true
+    },
+    {
+      "q": 37,
+      "C_algorithmA_prefix_sumset": 62,
+      "C_algorithmB_lambda_path": 62,
+      "agree": true
+    },
+    {
+      "q": 101,
+      "C_algorithmA_prefix_sumset": 180,
+      "C_algorithmB_lambda_path": 180,
+      "agree": true
+    },
+    {
+      "q": 1009,
+      "C_algorithmA_prefix_sumset": 1920,
+      "C_algorithmB_lambda_path": 1920,
+      "agree": true
+    },
+    {
+      "q": 10007,
+      "C_algorithmA_prefix_sumset": 19802,
+      "C_algorithmB_lambda_path": 19802,
+      "agree": true
+    },
+    {
+      "q": 100003,
+      "C_algorithmA_prefix_sumset": 199562,
+      "C_algorithmB_lambda_path": 199562,
+      "agree": true
+    }
+  ],
+  "p3_claim_check": {
+    "pi_1e6_claim_78498": {
+      "claimed": 78498,
+      "computed": 78498,
+      "match": true
+    },
+    "evens_4_to_2e6_claim_999999": {
+      "claimed": 999999,
+      "computed": 999999,
+      "match": true
+    },
+    "threshold_claim_1000537": {
+      "claimed": 1000537,
+      "computed": 1000537,
+      "match": true
+    },
+    "certificates_claim_339": {
+      "claimed": 339,
+      "candidates": {
+        "count_lambda_eq_T": 1,
+        "count_lambda_gt_1e6": 98,
+        "count_lambda_ge_1e6": 98
+      },
+      "match_any_aggregate": false,
+      "which": [],
+      "decoded_single_point": {
+        "N_T": 1999718,
+        "T": 1000537,
+        "delta_T_minus_half": 678,
+        "window_odd_count": 339,
+        "match": true,
+        "note": "证书窗口 (N_T−T, N_T/2] 的奇数个数；偶数位自动被 2 整除故折半"
+      },
+      "match": true
+    }
+  }
+}

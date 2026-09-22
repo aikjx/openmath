@@ -1,0 +1,63 @@
+{
+  "target_id": "OM-P-NT-0003",
+  "check_date": "2026-09-22",
+  "arithmetic": "Fraction / 精确整数；位图筛逐点计数，不调用已有 H",
+  "ai_assisted": true,
+  "independent_human_review": false,
+  "certificates": [
+    {
+      "N": 172,
+      "y_isqrt": 13,
+      "candidate_definition": "奇数 m, sqrt(N) < m <= N/2",
+      "primes_used": [
+        3,
+        5,
+        7,
+        11,
+        13
+      ],
+      "|X|": 36,
+      "S1_sum_|Bp|": 60,
+      "S2_all_pairs": 37,
+      "S3_all_triples": 9,
+      "order2_allpairs_is_UPPER_bound": 13,
+      "order3_alltriples_LOWER_bound": 4,
+      "H_true_central": 5,
+      "arithmetic_string": "36 - 60 + 37 - 9 = 4"
+    },
+    {
+      "N": 800,
+      "y_isqrt": 28,
+      "candidate_definition": "奇数 m, sqrt(N) < m <= N/2",
+      "primes_used": [
+        3,
+        5,
+        7,
+        11,
+        13,
+        17,
+        19,
+        23
+      ],
+      "|X|": 186,
+      "S1_sum_|Bp|": 334,
+      "S2_all_pairs": 243,
+      "S3_all_triples": 89,
+      "order2_allpairs_is_UPPER_bound": 95,
+      "order3_alltriples_LOWER_bound": 6,
+      "H_true_central": 19,
+      "arithmetic_string": "186 - 334 + 243 - 89 = 6"
+    }
+  ],
+  "scan": {
+    "range": "6 <= N <= 20000, 步长 2",
+    "scanned_evens": 9998,
+    "all_E+_lt_M": true,
+    "failure_count": 0,
+    "max_ratio": {
+      "N": 68,
+      "value": "6/13",
+      "float_approx": 0.46153846153846156
+    }
+  }
+}

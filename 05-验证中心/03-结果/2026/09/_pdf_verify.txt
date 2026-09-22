@@ -1,0 +1,51 @@
+发现 9 份 OM-P-NT-0003 PDF
+  OM-P-NT-0003-前缀覆盖前沿与一般缺口引理_20260922.pdf  pages=5 chars=7954
+      残留: HARD=无 裸反斜杠=0 缺字形高危=无 -> OK（三项全 0）
+      contains 未证 -> True
+      contains 1000537 -> True
+      contains 1 000 537 -> True
+      contains 999 999 -> True
+      contains 引理 -> True
+  OM-P-NT-0003-反证法等价形式与近反例扫描_20260922.pdf  pages=4 chars=6535
+      残留: HARD=无 裸反斜杠=0 缺字形高危=无 -> OK（三项全 0）
+      contains 未证 -> True
+  OM-P-NT-0003-引擎缺陷审计与修复_20260922.pdf  pages=5 chars=7624
+      残留: HARD={'boxed': 1, 'bigr': 1} 裸反斜杠=54 缺字形高危=无
+      -> 豁免（renderer-gate: allow-latex-quotes 已声明）：正文/代码块**有意引用** LaTeX 命令名与反斜杠路径，属正确内容；下面打印上下文供人工裁定
+         |  • 症状：旧记录 PDF 里残留 \boxed、\mathbb、\\ 等上百处。
+         | 记录 PDF 里残留 \boxed、\mathbb、\\ 等上百处。 • 根因：旧
+         | 残留 \boxed、\mathbb、\\ 等上百处。 • 根因：旧版只在段落里处理单
+         | er() 去除 YAML 头；补齐 \begin/\end{env}、\\（cas
+         |  YAML 头；补齐 \begin/\end{env}、\\（cases 行分隔 
+         |  \begin/\end{env}、\\（cases 行分隔  →  " ; "）等
+         HARD[boxed] @ 修复后 联合筛_二阶反模型与三阶证书 \mathbb:1, boxed:4, \:162 全 0 联合筛证书_二阶Bonferro
+         HARD[bigr] @ Bigr/\left/\right（纯定界修饰，旧版会把 "bigr" 当文字排出）、 \bigcup/\bigcap、\che
+      contains 引理 -> True
+  OM-P-NT-0003-生成式填满路线裁定_20260922.pdf  pages=4 chars=5838
+      残留: HARD=无 裸反斜杠=0 缺字形高危=无 -> OK（三项全 0）
+      contains 未证 -> True
+      contains 引理 -> True
+  OM-P-NT-0003-素数侧生成式审计_20260922.pdf  pages=3 chars=4364
+      残留: HARD=无 裸反斜杠=0 缺字形高危=无 -> OK（三项全 0）
+      contains 未证 -> True
+      contains 1000537 -> True
+      contains 1 000 537 -> True
+      contains 999 999 -> True
+      contains 引理 -> True
+  OM-P-NT-0003-素数侧路线闭合_20260922.pdf  pages=3 chars=4692
+      残留: HARD=无 裸反斜杠=0 缺字形高危=无 -> OK（三项全 0）
+      contains 未证 -> True
+      contains 1000537 -> True
+      contains 999 999 -> True
+  OM-P-NT-0003-联合筛_二阶反模型与三阶证书_20260922.pdf  pages=5 chars=5784
+      残留: HARD=无 裸反斜杠=0 缺字形高危=无 -> OK（三项全 0）
+      contains 未证 -> True
+      contains 引理 -> True
+  OM-P-NT-0003-联合筛证书_二阶Bonferroni_20260922.pdf  pages=3 chars=3595
+      残留: HARD=无 裸反斜杠=0 缺字形高危=无 -> OK（三项全 0）
+      contains 引理 -> True
+  OM-P-NT-0003-联合筛证书_独立核验报告_20260922.pdf  pages=4 chars=5374
+      残留: HARD=无 裸反斜杠=0 缺字形高危=无 -> OK（三项全 0）
+      contains 引理 -> True
+
+已声明豁免（有意引用 LaTeX/反斜杠，非缺陷）：OM-P-NT-0003-引擎缺陷审计与修复_20260922.pdf

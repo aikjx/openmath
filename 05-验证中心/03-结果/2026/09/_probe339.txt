@@ -1,0 +1,116 @@
+X=2000000  evens=999999  T=1000537
+
+A. 阈值口径 #{N : lambda(N) >= v}  （v 取 999000 以上的所有出现值）
+  v=1000537    count=lambda>=v: 1        (lambda==v: 1)
+  v=1000409    count=lambda>=v: 2        (lambda==v: 1)
+  v=1000397    count=lambda>=v: 3        (lambda==v: 1)
+  v=1000367    count=lambda>=v: 5        (lambda==v: 2)
+  v=1000333    count=lambda>=v: 6        (lambda==v: 1)
+  v=1000289    count=lambda>=v: 7        (lambda==v: 1)
+  v=1000249    count=lambda>=v: 9        (lambda==v: 2)
+  v=1000213    count=lambda>=v: 10       (lambda==v: 1)
+  v=1000199    count=lambda>=v: 13       (lambda==v: 3)
+  v=1000193    count=lambda>=v: 14       (lambda==v: 1)
+  v=1000187    count=lambda>=v: 18       (lambda==v: 4)
+  v=1000183    count=lambda>=v: 19       (lambda==v: 1)
+  v=1000171    count=lambda>=v: 20       (lambda==v: 1)
+  v=1000159    count=lambda>=v: 22       (lambda==v: 2)
+  v=1000151    count=lambda>=v: 27       (lambda==v: 5)
+  v=1000133    count=lambda>=v: 29       (lambda==v: 2)
+  v=1000121    count=lambda>=v: 38       (lambda==v: 9)
+  v=1000117    count=lambda>=v: 42       (lambda==v: 4)
+  v=1000099    count=lambda>=v: 49       (lambda==v: 7)
+  v=1000081    count=lambda>=v: 54       (lambda==v: 5)
+  v=1000039    count=lambda>=v: 62       (lambda==v: 8)
+  v=1000037    count=lambda>=v: 77       (lambda==v: 15)
+  v=1000033    count=lambda>=v: 88       (lambda==v: 11)
+  v=1000003    count=lambda>=v: 98       (lambda==v: 10)
+  v=999983     count=lambda>=v: 112      (lambda==v: 14)
+  v=999979     count=lambda>=v: 128      (lambda==v: 16)
+  v=999961     count=lambda>=v: 144      (lambda==v: 16)
+  v=999959     count=lambda>=v: 162      (lambda==v: 18)
+  v=999953     count=lambda>=v: 180      (lambda==v: 18)
+  v=999931     count=lambda>=v: 199      (lambda==v: 19)
+  v=999917     count=lambda>=v: 219      (lambda==v: 20)
+  v=999907     count=lambda>=v: 236      (lambda==v: 17)
+  v=999883     count=lambda>=v: 256      (lambda==v: 20)
+  v=999863     count=lambda>=v: 270      (lambda==v: 14)
+  v=999853     count=lambda>=v: 288      (lambda==v: 18)
+  v=999809     count=lambda>=v: 303      (lambda==v: 15)
+  v=999773     count=lambda>=v: 317      (lambda==v: 14)
+  v=999769     count=lambda>=v: 336      (lambda==v: 19)
+  v=999763     count=lambda>=v: 349      (lambda==v: 13)
+  v=999749     count=lambda>=v: 366      (lambda==v: 17)
+  v=999727     count=lambda>=v: 387      (lambda==v: 21)
+  v=999721     count=lambda>=v: 402      (lambda==v: 15)
+  v=999683     count=lambda>=v: 412      (lambda==v: 10)
+  v=999671     count=lambda>=v: 424      (lambda==v: 12)
+  v=999667     count=lambda>=v: 440      (lambda==v: 16)
+  v=999653     count=lambda>=v: 451      (lambda==v: 11)
+  v=999631     count=lambda>=v: 465      (lambda==v: 14)
+  v=999623     count=lambda>=v: 478      (lambda==v: 13)
+  v=999613     count=lambda>=v: 501      (lambda==v: 23)
+  v=999611     count=lambda>=v: 512      (lambda==v: 11)
+  v=999599     count=lambda>=v: 529      (lambda==v: 17)
+  v=999563     count=lambda>=v: 546      (lambda==v: 17)
+  v=999553     count=lambda>=v: 561      (lambda==v: 15)
+  v=999541     count=lambda>=v: 577      (lambda==v: 16)
+  v=999529     count=lambda>=v: 599      (lambda==v: 22)
+  v=999521     count=lambda>=v: 611      (lambda==v: 12)
+  v=999499     count=lambda>=v: 628      (lambda==v: 17)
+  v=999491     count=lambda>=v: 639      (lambda==v: 11)
+  v=999451     count=lambda>=v: 660      (lambda==v: 21)
+  v=999437     count=lambda>=v: 672      (lambda==v: 12)
+  v=999433     count=lambda>=v: 691      (lambda==v: 19)
+  v=999431     count=lambda>=v: 707      (lambda==v: 16)
+  v=999389     count=lambda>=v: 716      (lambda==v: 9)
+  v=999377     count=lambda>=v: 728      (lambda==v: 12)
+  v=999371     count=lambda>=v: 740      (lambda==v: 12)
+  v=999359     count=lambda>=v: 753      (lambda==v: 13)
+  v=999331     count=lambda>=v: 771      (lambda==v: 18)
+  v=999329     count=lambda>=v: 788      (lambda==v: 17)
+  v=999307     count=lambda>=v: 804      (lambda==v: 16)
+  v=999287     count=lambda>=v: 815      (lambda==v: 11)
+  v=999269     count=lambda>=v: 833      (lambda==v: 18)
+  v=999239     count=lambda>=v: 846      (lambda==v: 13)
+  v=999233     count=lambda>=v: 862      (lambda==v: 16)
+  v=999221     count=lambda>=v: 878      (lambda==v: 16)
+  v=999217     count=lambda>=v: 886      (lambda==v: 8)
+  v=999199     count=lambda>=v: 900      (lambda==v: 14)
+  v=999181     count=lambda>=v: 915      (lambda==v: 15)
+  v=999169     count=lambda>=v: 927      (lambda==v: 12)
+  v=999149     count=lambda>=v: 940      (lambda==v: 13)
+  v=999133     count=lambda>=v: 953      (lambda==v: 13)
+  v=999101     count=lambda>=v: 965      (lambda==v: 12)
+  v=999091     count=lambda>=v: 978      (lambda==v: 13)
+  v=999083     count=lambda>=v: 991      (lambda==v: 13)
+  v=999067     count=lambda>=v: 1003     (lambda==v: 12)
+  v=999049     count=lambda>=v: 1009     (lambda==v: 6)
+  v=999043     count=lambda>=v: 1021     (lambda==v: 12)
+  v=999029     count=lambda>=v: 1031     (lambda==v: 10)
+  v=999023     count=lambda>=v: 1043     (lambda==v: 12)
+  v=999007     count=lambda>=v: 1056     (lambda==v: 13)
+
+B. 其他自然口径
+{
+  "count_lambda_eq_T": 1,
+  "count_lambda_ge_T": 1,
+  "count_lambda_gt_1e6": 98,
+  "count_lambda_ge_1e6": 98,
+  "count_lambda_gt_999983": 98,
+  "count_lambda_ge_999983": 112,
+  "count_lambda_gt_999979": 112,
+  "distinct_lambda_values_gt_1e6": 24,
+  "distinct_lambda_values_ge_999000": 89,
+  "primes_in_1e6_to_T": 41,
+  "primes_in_999983_to_T": 42,
+  "count_lambda_eq_1000003": 10,
+  "count_lambda_eq_1000033": 11,
+  "count_lambda_eq_1000037": 15,
+  "count_lambda_eq_1000159": 2,
+  "count_lambda_eq_1000409": 1,
+  "count_lambda_eq_1000537": 1
+}
+
+C. 命中 339 的口径：
+"NONE"

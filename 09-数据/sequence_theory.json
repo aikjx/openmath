@@ -4224,7 +4224,7 @@
     "note": "同一序列的增长率用两条**互相独立**的路径各算一次：C3 在尾部窗口上做对数拟合（数值、有窗口偏差），C1 由递推的特征多项式求根（结构决定、但求根仍是数值）。一致不代表正确，不一致则说明至少一方有问题。"
   },
   "meta": {
-    "generated_at": "2026-09-21T09:36:13",
+    "generated_at": "2026-09-21T17:06:03",
     "generator": "06-AI自动化/01-工作流/openmath_sequences.py",
     "evidence_level": "L2",
     "provenance": {
@@ -8617,7 +8617,7 @@
     ],
     "total_checks": 12,
     "violations": 0,
-    "generated_at": "2026-09-21T09:36:13",
+    "generated_at": "2026-09-21T17:06:03",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"

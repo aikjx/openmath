@@ -1,7 +1,7 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_ingest.py",
-    "generated_at": "2026-09-21T09:30:42",
+    "generated_at": "2026-09-21T16:50:25",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理基于 openmath_sys 引擎自动生成，未经人类复核，不得作为 L3+ 证据。"
@@ -849,20 +849,18 @@
       "raw": "cos 2A = cos^2 A - sin^2 A",
       "source": "CD:transc1/cos",
       "variables": [
-        "A",
-        "cos",
-        "sin"
+        "A"
       ],
       "is_equation": true,
       "classification": null,
       "solve": {
         "solvable": false,
-        "reason": "多变量方程，超出本演示求解范围"
+        "reason": "transcendental function cos"
       },
       "conclusions": [
-        "句法上含 3 个变量、可构成 AST；",
-        "结构上判定为 quadratic 形态；",
-        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
+        "句法上含 1 个变量、可构成 AST；",
+        "结构上判定为 transcendental 形态；",
+        "计算维度暂未求解：transcendental function cos；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },

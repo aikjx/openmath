@@ -1,7 +1,7 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_coalition.py",
-    "generated_at": "2026-09-21T09:31:53",
+    "generated_at": "2026-09-21T17:00:55",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理基于 openmath_sys 引擎与已下载 OpenMath/arXiv 数据自动生成，未经人类复核，不得作为 L3+ 证据。"
@@ -10,25 +10,25 @@
     "tier_note": "权限层级 READ<COMPUTE<TRANSFORM<SUPREME 仅为**内部逻辑授权**分级，SUPREME 不映射任何操作系统提权；safe=False 的算法在任何层级均被拒绝。"
   },
   "summary": {
-    "members_total": 52,
-    "implemented": 33,
+    "members_total": 53,
+    "implemented": 34,
     "missing": 19,
     "by_tier": {
       "READ": 10,
-      "COMPUTE": 21,
+      "COMPUTE": 22,
       "TRANSFORM": 21
     },
     "by_origin": {
       "scheduler": 6,
-      "method_system": 46
+      "method_system": 47
     },
     "by_layer": {
-      "capability": 46,
+      "capability": 47,
       "orchestration": 6
     },
     "unsafe_refused": 0,
-    "unique_capability_units": 49,
-    "unique_implemented": 30,
+    "unique_capability_units": 50,
+    "unique_implemented": 31,
     "duplicate_wrappers": 3,
     "dedup_note": "调度器内置算法中有 3 个（structural_classifier, evaluator, equation_solver）是包装在方法层之上的编排适配器，本身不提供新的数学能力，故 `unique_capability_units` 已将其扣除，避免把'接口数'误报为'能力数'。"
   },
@@ -966,6 +966,23 @@
       ],
       "description": "在 α=m/n 网格上测可满足率与 DPLL 决策数，并用 2^n 全枚举对账判定。",
       "limitation": "**对 P vs NP 本身证据为零**：有限规模的曲线既不蕴含 P≠NP 也不蕴含 P=NP。列出它的唯一理由是它是同域内本引擎能真跑的计算。",
+      "unlocks_conjectures": []
+    },
+    {
+      "id": "identity_sampling_verifier",
+      "name": "恒等式抽样验证器（含准入筛查与拒答分类）",
+      "origin": "method_system",
+      "layer": "capability",
+      "where": "06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/numeric.py",
+      "domain": "通用/验证",
+      "tier": "COMPUTE",
+      "safe": true,
+      "implemented": true,
+      "tags": [
+        "verification"
+      ],
+      "description": "对代数恒等式 lhs=rhs 做**随机抽样数值验证**（非求根）。抽样前先做**准入筛查**，把超出能力范围的语句按**具体类别**拒答、绝不给出 holds/fails：logic（逻辑连接词，含 not( 这类函数式写法）、non_elementary（级数/积分/微分/集合记号）、not_equation、unparsable、equation（右侧常数 0 且左侧随变量变化 ⇒ 待解方程）、nonfinite（inf/nan）、definitional（左端在**定义新符号**、右端不含它 ⇒ 判 holds 是循环论证）、higher_order（**函数值变量**或**嵌套函数应用** f(g(x))）、unknown_function（其余对未定义函数符号的调用）、branch（多值函数上**全部抽样点纯符号翻转**）、parse_suspect（解析结构不可信）。",
+      "limitation": "抽样吻合只是 **L2 数值证据，不是证明**；默认抽样域 [0.05,0.95]，**区间之外**（尤其 |z|>1 上多值函数的分支切割）不被覆盖。分支降级只在**所有抽样点都呈纯符号翻转**且式中确含多值函数时适用——非纯翻转仍判 fails（**不给反例开脱**）。拒答的成因是**求值器的局限**，不等于命题在数学上不可判定。",
       "unlocks_conjectures": []
     },
     {

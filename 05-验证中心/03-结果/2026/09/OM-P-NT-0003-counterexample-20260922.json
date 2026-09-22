@@ -1,0 +1,214 @@
+{
+  "target_id": "OM-P-NT-0003",
+  "check_date": "2026-09-22",
+  "ai_assisted": true,
+  "independent_human_review": false,
+  "arithmetic": "容斥部分精确整数；比值用浮点仅作诊断",
+  "rpp_selfcheck": {
+    "sampled": 201,
+    "mismatch_count": 0,
+    "mismatch_head": [],
+    "note": "对角权重=1（有序定义）；旧版在 N=2p 上多计 2·log²(N/2)"
+  },
+  "inclusion_exclusion": [
+    {
+      "N": 172,
+      "|X|": 36,
+      "k_primes": 5,
+      "H_N": 5,
+      "full_inclusion_exclusion": 31,
+      "|X|_minus_H": 31,
+      "identity_holds": true,
+      "partial_order2": 23,
+      "partial_order3": 32,
+      "note": "反例 ⟺ total == |X|（即 H=0）"
+    },
+    {
+      "N": 800,
+      "|X|": 186,
+      "k_primes": 8,
+      "H_N": 19,
+      "full_inclusion_exclusion": 167,
+      "|X|_minus_H": 167,
+      "identity_holds": true,
+      "partial_order2": 91,
+      "partial_order3": 180,
+      "note": "反例 ⟺ total == |X|（即 H=0）"
+    },
+    {
+      "N": 1000,
+      "|X|": 234,
+      "k_primes": 10,
+      "H_N": 24,
+      "full_inclusion_exclusion": 210,
+      "|X|_minus_H": 210,
+      "identity_holds": true,
+      "partial_order2": 89,
+      "partial_order3": 237,
+      "note": "反例 ⟺ total == |X|（即 H=0）"
+    }
+  ],
+  "near_counterexample_scan": {
+    "scan_range": "6 <= N <= 30000",
+    "counterexamples_found": [],
+    "min_rho": {
+      "N": 12,
+      "rho": 0.1977,
+      "G": 1,
+      "distinct_odd_factors": 1,
+      "N_over_2_is_prime": false,
+      "S": 2.6406
+    },
+    "min_rho_above_1e4": {
+      "N": 13892,
+      "rho": 0.8441,
+      "G": 115,
+      "distinct_odd_factors": 2,
+      "N_over_2_is_prime": false,
+      "S": 1.3925
+    },
+    "min_G_above_1e4": {
+      "N": 10006,
+      "G": 92,
+      "distinct_odd_factors": 1,
+      "N_over_2_is_prime": true,
+      "S": 1.3206,
+      "rho": 0.9234
+    },
+    "max_frac_covered": {
+      "N": 27908,
+      "frac_covered": 0.972146,
+      "H": 192,
+      "X": 6893,
+      "max_covered_run": 164,
+      "distinct_odd_factors": 1,
+      "N_over_2_is_prime": false,
+      "S": 1.3205
+    },
+    "max_frac_covered_above_1e4": {
+      "N": 27908,
+      "frac_covered": 0.972146,
+      "H": 192,
+      "X": 6893,
+      "max_covered_run": 164,
+      "distinct_odd_factors": 1,
+      "N_over_2_is_prime": false,
+      "S": 1.3205
+    },
+    "max_covered_run_above_1e4": {
+      "N": 26288,
+      "frac_covered": 0.967339,
+      "H": 212,
+      "X": 6491,
+      "max_covered_run": 344,
+      "distinct_odd_factors": 2,
+      "N_over_2_is_prime": false,
+      "S": 1.3926
+    },
+    "decades": [
+      {
+        "decade": 1,
+        "count": 1,
+        "min_rho": 0.3348,
+        "median_rho": 0.3348,
+        "max_rho": 0.3348,
+        "argmin_N": 8,
+        "argmin_rho": 0.3348,
+        "argmin_N_over_2_is_prime": false,
+        "argmin_distinct_odd_factors": 0,
+        "argmin_S": 1.3203,
+        "max_frac_covered": 0.0,
+        "max_frac_covered_at_N": 8,
+        "min_G": 1,
+        "min_G_at_N": 8
+      },
+      {
+        "decade": 10,
+        "count": 45,
+        "min_rho": 0.1977,
+        "median_rho": 0.6561,
+        "max_rho": 1.0213,
+        "argmin_N": 12,
+        "argmin_rho": 0.1977,
+        "argmin_N_over_2_is_prime": false,
+        "argmin_distinct_odd_factors": 1,
+        "argmin_S": 2.6406,
+        "max_frac_covered": 0.923077,
+        "max_frac_covered_at_N": 68,
+        "min_G": 1,
+        "min_G_at_N": 12
+      },
+      {
+        "decade": 100,
+        "count": 450,
+        "min_rho": 0.5134,
+        "median_rho": 0.8808,
+        "max_rho": 1.1461,
+        "argmin_N": 152,
+        "argmin_rho": 0.5134,
+        "argmin_N_over_2_is_prime": false,
+        "argmin_distinct_odd_factors": 1,
+        "argmin_S": 1.398,
+        "max_frac_covered": 0.944828,
+        "max_frac_covered_at_N": 632,
+        "min_G": 3,
+        "min_G_at_N": 128
+      },
+      {
+        "decade": 1000,
+        "count": 4500,
+        "min_rho": 0.6942,
+        "median_rho": 0.9647,
+        "max_rho": 1.1609,
+        "argmin_N": 1412,
+        "argmin_rho": 0.6942,
+        "argmin_N_over_2_is_prime": false,
+        "argmin_distinct_odd_factors": 1,
+        "argmin_S": 1.3241,
+        "max_frac_covered": 0.967262,
+        "max_frac_covered_at_N": 9602,
+        "min_G": 16,
+        "min_G_at_N": 1112
+      },
+      {
+        "decade": 10000,
+        "count": 10001,
+        "min_rho": 0.8441,
+        "median_rho": 0.9829,
+        "max_rho": 1.1096,
+        "argmin_N": 13892,
+        "argmin_rho": 0.8441,
+        "argmin_N_over_2_is_prime": false,
+        "argmin_distinct_odd_factors": 2,
+        "argmin_S": 1.3925,
+        "max_frac_covered": 0.972146,
+        "max_frac_covered_at_N": 27908,
+        "min_G": 92,
+        "min_G_at_N": 10006
+      }
+    ],
+    "anchors": [
+      {
+        "N": 100000,
+        "G": 810,
+        "S": 1.7604,
+        "rho": 1.0006,
+        "distinct_odd_factors": 1
+      },
+      {
+        "N": 1000000,
+        "G": 5402,
+        "S": 1.7604,
+        "rho": 0.9977,
+        "distinct_odd_factors": 1
+      },
+      {
+        "N": 2000000,
+        "G": 9720,
+        "S": 1.7604,
+        "rho": 0.9981,
+        "distinct_odd_factors": 1
+      }
+    ]
+  }
+}

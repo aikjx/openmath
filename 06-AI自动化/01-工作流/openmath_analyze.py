@@ -268,8 +268,26 @@ METHODS = [
          implemented=True,
          where="06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/millennium_lab.py",
          description="在 α=m/n 网格上测可满足率与 DPLL 决策数，并用 2^n 全枚举对账判定。",
-         limitation="**对 P vs NP 本身证据为零**：有限规模的曲线既不蕴含 P≠NP "
-                    "也不蕴含 P=NP。列出它的唯一理由是它是同域内本引擎能真跑的计算。"),
+        limitation="**对 P vs NP 本身证据为零**：有限规模的曲线既不蕴含 P≠NP "
+                   "也不蕴含 P=NP。列出它的唯一理由是它是同域内本引擎能真跑的计算。"),
+    dict(id="identity_sampling_verifier",
+         name="恒等式抽样验证器（含准入筛查与拒答分类）",
+         domain="通用/验证", implemented=True,
+         where="06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/numeric.py",
+         description="对代数恒等式 lhs=rhs 做**随机抽样数值验证**（非求根）。抽样前先做"
+                     "**准入筛查**，把超出能力范围的语句按**具体类别**拒答、"
+                     "绝不给出 holds/fails：logic（逻辑连接词，含 not( 这类函数式写法）、"
+                     "non_elementary（级数/积分/微分/集合记号）、not_equation、unparsable、"
+                     "equation（右侧常数 0 且左侧随变量变化 ⇒ 待解方程）、nonfinite（inf/nan）、"
+                     "definitional（左端在**定义新符号**、右端不含它 ⇒ 判 holds 是循环论证）、"
+                     "higher_order（**函数值变量**或**嵌套函数应用** f(g(x))）、"
+                     "unknown_function（其余对未定义函数符号的调用）、"
+                     "branch（多值函数上**全部抽样点纯符号翻转**）、parse_suspect（解析结构不可信）。",
+         limitation="抽样吻合只是 **L2 数值证据，不是证明**；默认抽样域 [0.05,0.95]，"
+                    "**区间之外**（尤其 |z|>1 上多值函数的分支切割）不被覆盖。"
+                    "分支降级只在**所有抽样点都呈纯符号翻转**且式中确含多值函数时适用——"
+                    "非纯翻转仍判 fails（**不给反例开脱**）。拒答的成因是**求值器的局限**，"
+                    "不等于命题在数学上不可判定。"),
 ]
 
 # 猜想 -> 可适用方法（标准数学意义上的适用）

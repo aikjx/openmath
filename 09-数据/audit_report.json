@@ -3,9 +3,9 @@
   "method": "每个数字都用与被测代码不同的算法重算，或对照教科书已知值；审计只报告差异，不修改被审对象。",
   "summary": {
     "sections": 10,
-    "total_checks": 4452,
+    "total_checks": 4510,
     "failed_checks": 0,
-    "passed_checks": 4452,
+    "passed_checks": 4510,
     "all_ok": true
   },
   "sections": [
@@ -142,12 +142,12 @@
     {
       "name": "identity_verifier",
       "note": "判准率只统计'在能力范围内'的式子；对超出范围的式子，正确的行为是**拒答**而不是给出 holds/fails。",
-      "checks": 117,
+      "checks": 175,
       "failures": [],
-      "passed": 117,
+      "passed": 175,
       "ok": true,
-      "true_identities_correct": "35/35",
-      "false_identities_correct": "11/11",
+      "true_identities_correct": "44/44",
+      "false_identities_correct": "14/14",
       "parser": {
         "tight_vs_parenthesized": "-0.5j vs -0.5j",
         "tight_vs_loose": "-0.5j vs 0.5j",
@@ -465,7 +465,7 @@
     }
   ],
   "meta": {
-    "generated_at": "2026-09-21T10:32:34",
+    "generated_at": "2026-09-21T17:03:57",
     "generator": "06-AI自动化/01-工作流/openmath_audit.py",
     "evidence_level": "L2",
     "provenance": {
@@ -552,6 +552,6 @@
     ],
     "total_checks": 6,
     "violations": 0,
-    "generated_at": "2026-09-21T10:32:34"
+    "generated_at": "2026-09-21T17:03:57"
   }
 }

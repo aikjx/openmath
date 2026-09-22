@@ -1,7 +1,7 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_coalition.py",
-    "generated_at": "2026-09-21T09:31:53",
+    "generated_at": "2026-09-21T17:00:55",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理基于 openmath_sys 引擎与已下载 OpenMath/arXiv 数据自动生成，未经人类复核，不得作为 L3+ 证据。"
@@ -10,41 +10,41 @@
     "interpretation_warning": "**组合空间 ≠ 能力**。下列计数是'从 n 个可实现方法中排成有序管道'的纯组合学事实（Σ_{k=1..n} P(n,k)），它随 n 阶乘式增长，但其中**绝大多数排列没有数学意义**（例如'求根→解析'是无语义的）。真正的解题能力取决于方法的**覆盖面与正确性**，不取决于排列数。因此这里同时给出语义约束后的保守上界，供对比。"
   },
   "current": {
-    "implemented_methods": 27,
+    "implemented_methods": 28,
     "orchestration_layer_members": 6,
-    "nominal_pipeline_space": 29599015959535037315994925479,
-    "semantically_valid_upper_bound": 5330,
+    "nominal_pipeline_space": 828772446866981044847857913440,
+    "semantically_valid_upper_bound": 5740,
     "starters": 5,
-    "endings": 13,
+    "endings": 14,
     "middles": 9,
-    "ratio_nominal_to_valid": 5.553286296348037e+24,
-    "caliber_note": "组合空间仅基于能力层已实现的 27 个数学方法计算；编排层 6 个成员是固定管道骨架（解析/转发/汇总），不参与排列。"
+    "ratio_nominal_to_valid": 1.4438544370504896e+26,
+    "caliber_note": "组合空间仅基于能力层已实现的 28 个数学方法计算；编排层 6 个成员是固定管道骨架（解析/转发/汇总），不参与排列。"
   },
   "growth_if_implemented": [
     {
       "extra_implemented": 0,
-      "available_methods": 27,
-      "nominal_pipeline_space": 29599015959535037315994925479
+      "available_methods": 28,
+      "nominal_pipeline_space": 828772446866981044847857913440
     },
     {
       "extra_implemented": 3,
-      "available_methods": 30,
-      "nominal_pipeline_space": 721032028774273509017636384693700
+      "available_methods": 31,
+      "nominal_pipeline_space": 22351992892002478779546727925504731
     },
     {
       "extra_implemented": 5,
-      "available_methods": 32,
-      "nominal_pipeline_space": 715263772544079320945495293616151424
+      "available_methods": 33,
+      "nominal_pipeline_space": 23603704493954617591201344689332997025
     },
     {
       "extra_implemented": 10,
-      "available_methods": 37,
-      "nominal_pipeline_space": 37413759919277585251461427440167946926020069
+      "available_methods": 38,
+      "nominal_pipeline_space": 1421722876932548239555534242726381983188762660
     },
     {
       "extra_implemented": 19,
-      "available_methods": 46,
-      "nominal_pipeline_space": 14957677825893265771547362318950241225753453185942024225796
+      "available_methods": 47,
+      "nominal_pipeline_space": 703010857816983491262726028990661337610412299739275138612459
     }
   ]
 }

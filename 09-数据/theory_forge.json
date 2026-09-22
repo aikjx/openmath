@@ -18357,7 +18357,7 @@
     "stress_survived": 301
   },
   "meta": {
-    "generated_at": "2026-09-21T09:32:57",
+    "generated_at": "2026-09-21T17:01:16",
     "generator": "06-AI自动化/01-工作流/openmath_theory.py",
     "evidence_level": "L2",
     "provenance": {
@@ -18408,7 +18408,7 @@
     ],
     "total_checks": 6,
     "violations": 0,
-    "generated_at": "2026-09-21T09:32:57",
+    "generated_at": "2026-09-21T17:01:16",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理自动生成，未经人类复核，不得作为 L3+ 证据。"

@@ -12,7 +12,9 @@ from __future__ import annotations
 
 import math
 import re
-from .parser import parse_text, evaluate, standalone_letters
+from .parser import (parse_text, evaluate, standalone_letters,
+                     _CONSTANT_VALUES, _NONFINITE_NAMES, _BUILTIN_FUNC_NAMES,
+                     FuncCall, Var, BinOp, UnaryOp)
 
 DEFAULT_LO = -20.0
 DEFAULT_HI = 20.0
@@ -82,6 +84,21 @@ INTEGER_FUNC_NAMES = frozenset({"gcd", "lcm", "mod", "factorial", "binom",
 # 整数域抽样的范围（闭区间，正整数）。选 1..60：足够大以使 gcd/lcm 的取值有区分度，
 # 又足够小以避免 a*b 溢出 float 精度（60*60=3600，远小于 2^53）。
 INT_LO, INT_HI = 1, 60
+
+# 多值函数（各有两条主分支）。**只有**含这些函数的式子才可能出现
+# "整体差一个符号"的分支伪影，因此"纯符号翻转 → 分支降级"只对它们生效。
+#
+# 为什么必须限定：`for all a,b | a - b = b - a` 在**每一个**抽样点上都满足
+# rv = −lv（因为 a−b 恒等于 −(b−a)），但它是**真的假恒等式**——
+# 交换律套到减法上不成立，必须判 fails。若不限定函数范围，
+# 这条降级规则就会变成给反例开脱的后门（2026-09-21 实测踩到过）。
+# 判据用**解析出的函数名**而不是正则扫字符串，避免散文里出现同名子串时误命中。
+MULTIVALUED_FUNCS = frozenset({
+    "arcsin", "asin", "arccos", "acos", "arctan", "atan",
+    "arcsec", "asec", "arccsc", "acsc", "arccot", "acot",
+    "arcsinh", "asinh", "arccosh", "acosh", "arctanh", "atanh",
+    "arcsech", "asech", "arccsch", "acsch", "arccoth", "acoth",
+})
 
 # 出现在"变量表"里 → 说明函数名未被求值器识别，被降级成了变量
 # 这张表是**承诺表**：列进去的名字必须真的被 parser._call_func 实现。
@@ -244,6 +261,104 @@ def strip_universal_quantifier(raw: str) -> tuple | None:
     return bound, body
 
 
+# 函数式写法的逻辑连接词。`not(not(x))=x` 这类句子用的是函数调用外形，
+# 用词表里的 `not `（带尾空格）匹配不到，会漏到"未定义函数符号"去。
+# 归到 logic 档才是诚实的：它是逻辑命题，不是代数恒等式，与真假无关。
+_LOGICAL_CONNECTIVES = frozenset(
+    {"not", "and", "or", "implies", "iff", "xor", "exists", "forall", "in"})
+
+
+def _contains_call(node) -> bool:
+    """AST 中是否含函数调用。"""
+    if isinstance(node, FuncCall):
+        return True
+    if isinstance(node, BinOp):
+        return _contains_call(node.left) or _contains_call(node.right)
+    if isinstance(node, UnaryOp):
+        return _contains_call(node.operand)
+    return False
+
+
+def _has_nested_call(node) -> bool:
+    """AST 中是否存在**嵌套函数应用**（一次调用的实参里又出现调用，如 f(g(x))）。"""
+    if isinstance(node, FuncCall):
+        return any(_contains_call(a) or _has_nested_call(a) for a in node.args)
+    if isinstance(node, BinOp):
+        return _has_nested_call(node.left) or _has_nested_call(node.right)
+    if isinstance(node, UnaryOp):
+        return _has_nested_call(node.operand)
+    return False
+
+
+def _contains_symbol(node, name: str) -> bool:
+    """AST 中是否出现该标识符（作为变量、或作为被调用的函数名）。"""
+    low = name.lower()
+    if isinstance(node, Var):
+        return node.name.lower() == low
+    if isinstance(node, FuncCall):
+        return node.name.lower() == low or any(
+            _contains_symbol(a, name) for a in node.args)
+    if isinstance(node, BinOp):
+        return _contains_symbol(node.left, name) or _contains_symbol(node.right, name)
+    if isinstance(node, UnaryOp):
+        return _contains_symbol(node.operand, name)
+    return False
+
+
+def classify_unknown_symbols(left, right):
+    """
+    识别**不是恒等式**的三类语句，避免它们落进笼统的 parse_suspect
+    （2026-09-21 新增）。判据全部基于解析树的结构证据，不靠正则猜。
+
+    - `definitional`：左侧在**定义一个新符号**（`complex_cartesian(x,y) = x + iy`、
+      `identity(x) = x`、`bigfloat(m,r,e)=m*r^e`）。右端不含该符号 ⇒ 这是定义式，
+      不是恒真命题。对定义式判 holds 是**循环论证**（拿定义去"验证"定义），必须拒答。
+    - `higher_order`：含**函数值变量**（同一个字母既当函数名又被当数值变量，如
+      `left_compose(f,g)(x) = f(g(x))` 里的 f、g）或**嵌套函数应用**（`f(g(x))`）。
+      抽样求值器会把函数名当数值变量代入，验证的不是原式。
+    - `unknown_function`：其余"对未定义函数符号做调用"的情形（`f(x)=f(x)`、
+      `x = real(x+iy)`）。求值器无从取它的值。
+
+    返回 None 表示没有未定义符号（可继续后续筛查）。
+    """
+    used = list(left.functions) + list(right.functions)
+    unknown = sorted({f for f in used if f.lower() not in _BUILTIN_FUNC_NAMES})
+    if not unknown:
+        return None
+    logic_hits = sorted(f for f in unknown if f.lower() in _LOGICAL_CONNECTIVES)
+    if logic_hits:
+        return {"decidable": False, "scope": "logic",
+                "reason": ("含逻辑连接词 " + "/".join(logic_hits) +
+                           "（函数式写法）：这是逻辑命题，不是代数恒等式"),
+                "suspect_variables": []}
+    called = {f.lower() for f in used}
+    value_vars = ({v.lower() for v in left.variables}
+                  | {v.lower() for v in right.variables})
+    func_valued = sorted(called & value_vars)
+    nested = _has_nested_call(left.ast) or _has_nested_call(right.ast)
+    if func_valued or nested:
+        parts = []
+        if func_valued:
+            parts.append("函数值变量 " + "/".join(func_valued))
+        if nested:
+            parts.append("嵌套函数应用")
+        return {"decidable": False, "scope": "higher_order",
+                "reason": ("含" + "、".join(parts) +
+                           "：抽样求值器把函数名当数值变量代入，验证的不是原式"),
+                "suspect_variables": []}
+    head = left.ast.name if isinstance(left.ast, (FuncCall, Var)) else None
+    if (head is not None and head.lower() in {u.lower() for u in unknown}
+            and not _contains_symbol(right.ast, head)):
+        return {"decidable": False, "scope": "definitional",
+                "reason": (f"该语句在定义新符号 {head}（左端是新符号的调用、右端不含它）："
+                           "这是定义式，不是待验证的恒等式"),
+                "suspect_variables": []}
+    return {"decidable": False, "scope": "unknown_function",
+            "reason": ("含未定义的函数符号 " + "/".join(unknown) +
+                       "：求值器无从取它的值，抽样验证的不是原式"),
+            "suspect_variables": []}
+
+
 def screen_identity(raw: str) -> dict:
     """
     判定一条式子**是否适合**用随机抽样验证，返回筛查结论。
@@ -274,6 +389,21 @@ def screen_identity(raw: str) -> dict:
 
     vars_ = sorted(set(left.variables) | set(right.variables))
 
+    # 命名常量**不是变量**（2026-09-21 修）。
+    #
+    # 解析器一直认得 e/pi/tau/phi 这几个名字（用来决定"别把它们拆成乘积"），
+    # 却从没在求值时代入数值，于是它们落进 vars_ 被当自由变量抽样：
+    # `exp(A) = e^A` 里的 e 被抽成 0.2578…，教科书真恒等式判成 **fails**。
+    # 这类**假反例**（断言一个真命题是错的）比拒答危险得多，必须从根上断掉。
+    consts = [v for v in vars_ if v in _CONSTANT_VALUES]
+    nonfinite = [v for v in vars_ if v in _NONFINITE_NAMES]
+    sample_vars = [v for v in vars_ if v not in _CONSTANT_VALUES and v not in _NONFINITE_NAMES]
+    if nonfinite:
+        return {"decidable": False, "scope": "nonfinite",
+                "reason": ("含非有限量 " + "/".join(nonfinite) +
+                           "（inf/nan）：代入后任何式子都恒为 inf/nan，抽样判定没有意义"),
+                "suspect_variables": [], "constants": consts}
+
     # 先区分"待解方程"与"恒等式"：形如 f(x)=0 的是求解对象，不是恒真命题。
     #
     # 判据不能只看"右侧是 0"——`for all a | 0*a = 0` 和 `for all a | a+(-a) = 0`
@@ -293,7 +423,8 @@ def screen_identity(raw: str) -> dict:
             if lhs_probe.parse_ok:
                 probes = []
                 for t in (0.3, 1.7, 4.1):
-                    env_p = {v: (1j if v == "i" else t) for v in vars_}
+                    env_p = {v: (_CONSTANT_VALUES[v] if v in _CONSTANT_VALUES
+                                 else (1j if v == "i" else t)) for v in vars_}
                     try:
                         probes.append(complex(evaluate(lhs_probe.ast, env_p)))
                     except Exception:  # noqa: BLE001
@@ -305,13 +436,21 @@ def screen_identity(raw: str) -> dict:
                         "reason": "右侧为常数 0 且左侧随变量变化：这是待解方程，不是恒等式",
                         "suspect_variables": []}
 
+    # 定义式 / 函数值变量 / 未定义函数符号——单列分类，不再混进 parse_suspect。
+    # 放在"待解方程"判定之后，是为了不改动 `f(x)=0` 这类式子的既有归类（方程优先）。
+    nonid = classify_unknown_symbols(left, right)
+    if nonid is not None:
+        return nonid
+
     # `a` / `an` 是歧义档：必须找到**同句共现的硬散文词**才判为散文，
     # 否则它就是一个普通的变量名（见 AMBIGUOUS_PROSE_WORDS 的注释）。
     raw_words = set(re.findall(r"[A-Za-z][A-Za-z0-9_]*", lower))
     prose_context = bool(raw_words & HARD_PROSE_WORDS)
 
     suspect = []
-    for v in vars_:
+    # 常量不参与"是否像变量"的检查：`e` 命中 HARD_PROSE_WORDS（英文停止词表）纯属
+    # 巧合，它在这里是欧拉数。若哪天真的把 e 当变量用，下面的歧义回退会兜住。
+    for v in sample_vars:
         vl = v.lower()
         if vl in HARD_PROSE_WORDS:
             suspect.append((v, "英文散文词被当作变量"))
@@ -352,7 +491,7 @@ def screen_identity(raw: str) -> dict:
     # 不再经过 normalize_implicit_mul —— 那个函数补的是**松散** `*`，
     # 会把 `/2i` 改写成 `/2*i`，优先级从「紧贴」掉回「普通乘」。
     # 解析出来了但是**多字符**的变量 = 连写没被拆开（或本就是未知标识符）
-    unresolved = [v for v in vars_
+    unresolved = [v for v in sample_vars
                   if len(v) >= 2 and v not in ALLOWED_MULTICHAR_VARS]
     if unresolved:
         cleaned = raw
@@ -377,20 +516,35 @@ def screen_identity(raw: str) -> dict:
                             "标识符后接空白再接表达式：疑为隐式乘法且解析器未处理"))
 
     if suspect:
+        # 拒答理由必须写出**具体是哪一类**（诚实红线）。
+        # 此前九条拒答共用一句"解析结构不可信"，把三类完全不同的毛病
+        # （未定义函数名 / 数字紧邻字母没拆开 / 标识符被静默丢弃）说成同一个，
+        # 读报告的人无法判断该去修哪里。这里按实际触发的类别合成，
+        # 并把触发到的原文片段一并写进去。
+        causes: list[str] = []
+        for tok, why in suspect:
+            key = why.split("：")[0].split("（")[0]
+            if key not in causes:
+                causes.append(key)
+        toks = [t for t, _ in suspect]
         return {"decidable": False, "scope": "parse_suspect",
-                "reason": "解析结构不可信，抽样验证的将不是原式", "suspect_variables": suspect}
+                "reason": ("解析结构不可信（" + "；".join(causes) + "），"
+                           "抽样验证的将不是原式"),
+                "causes": causes, "offending_tokens": toks,
+                "suspect_variables": suspect, "constants": consts}
 
     # 整数函数（gcd/lcm/…）要求自变量是整数：继续用实数抽样只会得到 0/0。
     int_funcs = sorted((set(left.functions) | set(right.functions)) & INTEGER_FUNC_NAMES)
     return {"decidable": True, "scope": "elementary", "reason": "可抽样判定",
-            "suspect_variables": [], "variables": vars_,
+            "suspect_variables": [], "variables": sample_vars,
+            "constants": consts, "symbols_seen": vars_,
             "integer_funcs": int_funcs,
-            "n_variables": len(vars_)}
+            "n_variables": len(sample_vars)}
 
 
 def verify_identity(raw: str, trials: int = 25, lo: float = 0.05, hi: float = 0.95,
                     seed: int = 20260919, tol: float = 1e-6,
-                    _alt_tried: bool = False) -> dict:
+                    _alt_tried: bool = False, _ignore_constants: bool = False) -> dict:
     """
     对**代数恒等式** lhs=rhs 做随机抽样数值验证（而非求根）。
 
@@ -452,13 +606,22 @@ def verify_identity(raw: str, trials: int = 25, lo: float = 0.05, hi: float = 0.
     left = parse_text(lhs_s, ctx)
     right = parse_text(rhs_s, ctx)
     vars_ = screen["variables"]
+    consts = list(screen.get("constants", []))
+    if _ignore_constants:
+        # 歧义回退用：把命名常量当**自由变量**再抽一遍（见下文 fails 分支）
+        vars_ = sorted(set(vars_) | set(consts))
+        consts = []
     # gcd/lcm 之类只在整数上有意义，切成整数抽样域（见 INTEGER_FUNC_NAMES 注释）
     int_mode = bool(screen.get("integer_funcs"))
     slo, shi = (INT_LO, INT_HI) if int_mode else (lo, hi)
     rng = random.Random(seed)
     checked, errors, maxdiff, worst = 0, 0, 0.0, None
+    flip_points, eval_points = 0, 0
     for _ in range(trials):
         env = {}
+        # 命名常量先代入（e/pi/tau/phi），再抽自由变量，两者互不重叠。
+        for cc in consts:
+            env[cc] = _CONSTANT_VALUES[cc]
         for vv in vars_:
             # CD 公式里的 i 通常是虚数单位，赋 1j 才是作者的意图
             if vv == "i":
@@ -484,6 +647,15 @@ def verify_identity(raw: str, trials: int = 25, lo: float = 0.05, hi: float = 0.
             errors += 1
             continue
         checked += 1
+        # 记录"纯符号翻转"的点数：rv ≈ −lv 是所有点上的一致模式时，
+        # 差异来自**主分支选取**（arcsec/arccosh 这类多值函数各有两条分支），
+        # 不是原式写错了。见下面 fails 的分支降级。
+        try:
+            if abs(complex(lv) + complex(rv)) <= 1e-9 * max(1.0, abs(complex(lv))):
+                flip_points += 1
+        except Exception:  # noqa: BLE001
+            pass
+        eval_points += 1
         rel = diff / scale
         if rel > maxdiff:
             maxdiff = rel
@@ -509,12 +681,18 @@ def verify_identity(raw: str, trials: int = 25, lo: float = 0.05, hi: float = 0.
         "max_relative_diff": maxdiff,
         "worst_case_env": worst,
         "variables": vars_,
+        "constants_bound": consts,
+        "sign_flip_points": flip_points,
         "sampling_domain": {"mode": "integer" if int_mode else "real",
                             "lo": slo, "hi": shi,
                             "integer_funcs": screen.get("integer_funcs", []),
                             "n_variables": len(vars_)},
         "caveat": caveat,
     }
+    if consts:
+        base["caveat"] += (f" 命名常量 {'/'.join(consts)} 按标准数值代入"
+                           f"（e=2.718…、pi=3.141…），**未被抽样**；"
+                           f"若原文把该字母当普通变量用，本条判定不适用。")
     if quant:
         base["quantifier"] = quant
     # 只要有一个抽样点求值失败，结论就不能算可靠：可能是定义域问题，不是式子错
@@ -543,6 +721,46 @@ def verify_identity(raw: str, trials: int = 25, lo: float = 0.05, hi: float = 0.
             return alt
         base["alt_domain_verdict"] = alt.get("status")
         base["alt_domain_max_relative_diff"] = alt.get("max_relative_diff")
+
+    # ---- 常量歧义回退（2026-09-21 新增）----
+    # `e`/`pi` 既可能是自然常数，也可能是普通变量（偏心率、概率…）。
+    # 默认按常数读；但如果因此判 fails，就按"变量"再抽一遍：两种读法结论相反时，
+    # 正确动作是**拒答**而不是硬判——因为此时错的是我们的读法，不是原式。
+    if base["status"] == "fails" and consts and not _ignore_constants:
+        alt_c = verify_identity(raw, trials=trials, lo=lo, hi=hi, seed=seed, tol=tol,
+                                _alt_tried=_alt_tried, _ignore_constants=True)
+        base["constant_variable_reading_verdict"] = alt_c.get("status")
+        if alt_c.get("status") == "holds":
+            base.update({
+                "status": "not_decidable",
+                "scope": "ambiguous_constant",
+                "reason": ("常量/变量读法歧义：" + "/".join(consts) +
+                           " 按标准常数代入时判 fails，按普通变量抽样时判 holds；"
+                           "两种读法结论相反，故拒答而不硬判"),
+            })
+            return base
+
+    # ---- 分支纯符号翻转 → 降级为拒答（2026-09-21 新增）----
+    # 多值函数（反三角/反双曲）各有两条主分支。若**每一个**抽样点上都恰好
+    # rv ≈ −lv，那是分支选取的签名，而**不是**"找到了反例"。
+    # 例：`arcsec z = i*arcsech z` —— z=0.5 时 lhs=−1.3169i、rhs=+1.3169i，
+    # 只是另一个分支，原式在换分支后成立。
+    #
+    # 这条降级**不是**给反例开脱：只要有一点不是纯符号翻转（数值不同、或符号相同），
+    # 就仍判 fails。也就是说它只吃掉"整体差一个符号"这一种模式。
+    funcs_used = set(left.functions) | set(right.functions)
+    if (base["status"] == "fails" and eval_points > 0
+            and flip_points == eval_points
+            and (funcs_used & MULTIVALUED_FUNCS)):
+        base.update({
+            "status": "not_decidable",
+            "scope": "branch",
+            "reason": (f"{eval_points}/{eval_points} 个抽样点上两侧恒为相反数（纯符号翻转），"
+                       f"且式中含多值函数 {'/'.join(sorted(funcs_used & MULTIVALUED_FUNCS))}："
+                       "这是主分支选取的差异，不是反例"),
+            "branch_functions": sorted(funcs_used & MULTIVALUED_FUNCS),
+        })
+        return base
 
     if base["status"] == "fails" and re.search(r"\b(arc|ar)?(sin|cos|tan|sec|csc|cot)", raw, re.I):
         base["branch_warning"] = (

@@ -1,0 +1,200 @@
+{
+  "target_id": "OM-P-NT-0003",
+  "check_date": "2026-09-22",
+  "X": 2000000,
+  "question": "为何 339 条整除证书在复算中未命中",
+  "argmax": {
+    "lambda": 1000537,
+    "N": 1999718,
+    "p": 999181,
+    "q": 1000537
+  },
+  "witness_verification": {
+    "N": 1999718,
+    "p": 999181,
+    "q": 1000537,
+    "p_prime_trial": true,
+    "q_prime_trial": true,
+    "sum_ok": true
+  },
+  "certificate_window": {
+    "N": 1999718,
+    "T": 1000537,
+    "window_open": 999181,
+    "window_closed": 999859,
+    "width": 678,
+    "odd_count": 339,
+    "matches_339": true,
+    "certificates_head": [
+      {
+        "p": 999183,
+        "p_is_prime": false,
+        "witness_for": "p",
+        "value": 999183,
+        "divisor": 3,
+        "quotient": 333061
+      },
+      {
+        "p": 999185,
+        "p_is_prime": false,
+        "witness_for": "p",
+        "value": 999185,
+        "divisor": 5,
+        "quotient": 199837
+      },
+      {
+        "p": 999187,
+        "p_is_prime": false,
+        "witness_for": "p",
+        "value": 999187,
+        "divisor": 7,
+        "quotient": 142741
+      },
+      {
+        "p": 999189,
+        "p_is_prime": false,
+        "witness_for": "p",
+        "value": 999189,
+        "divisor": 3,
+        "quotient": 333063
+      },
+      {
+        "p": 999191,
+        "p_is_prime": false,
+        "witness_for": "p",
+        "value": 999191,
+        "divisor": 19,
+        "quotient": 52589
+      },
+      {
+        "p": 999193,
+        "p_is_prime": false,
+        "witness_for": "p",
+        "value": 999193,
+        "divisor": 13,
+        "quotient": 76861
+      },
+      {
+        "p": 999195,
+        "p_is_prime": false,
+        "witness_for": "p",
+        "value": 999195,
+        "divisor": 3,
+        "quotient": 333065
+      },
+      {
+        "p": 999197,
+        "p_is_prime": false,
+        "witness_for": "p",
+        "value": 999197,
+        "divisor": 97,
+        "quotient": 10301
+      }
+    ],
+    "certificates_tail": [
+      {
+        "p": 999851,
+        "p_is_prime": false,
+        "witness_for": "p",
+        "value": 999851,
+        "divisor": 37,
+        "quotient": 27023
+      },
+      {
+        "p": 999853,
+        "p_is_prime": true,
+        "witness_for": "N-p",
+        "N_minus_p": 999865,
+        "divisor": 5,
+        "quotient": 199973
+      },
+      {
+        "p": 999855,
+        "p_is_prime": false,
+        "witness_for": "p",
+        "value": 999855,
+        "divisor": 3,
+        "quotient": 333285
+      },
+      {
+        "p": 999857,
+        "p_is_prime": false,
+        "witness_for": "p",
+        "value": 999857,
+        "divisor": 109,
+        "quotient": 9173
+      },
+      {
+        "p": 999859,
+        "p_is_prime": false,
+        "witness_for": "p",
+        "value": 999859,
+        "divisor": 7,
+        "quotient": 142837
+      }
+    ]
+  },
+  "other_candidates": [
+    {
+      "N": 1999716,
+      "lambda": 999863,
+      "p_star": 999853,
+      "window": [
+        999853,
+        999858
+      ],
+      "odd_count": 2
+    },
+    {
+      "N": 1999718,
+      "lambda": 1000537,
+      "p_star": 999181,
+      "window": [
+        999181,
+        999859
+      ],
+      "odd_count": 339
+    },
+    {
+      "N": 1999720,
+      "lambda": 1000037,
+      "p_star": 999683,
+      "window": [
+        999683,
+        999860
+      ],
+      "odd_count": 88
+    },
+    {
+      "N": 1999936,
+      "lambda": 999983,
+      "p_star": 999953,
+      "window": [
+        999953,
+        999968
+      ],
+      "odd_count": 7
+    },
+    {
+      "N": 1999998,
+      "lambda": 1000037,
+      "p_star": 999961,
+      "window": [
+        999961,
+        999999
+      ],
+      "odd_count": 19
+    },
+    {
+      "N": 2000000,
+      "lambda": 1000039,
+      "p_star": 999961,
+      "window": [
+        999961,
+        1000000
+      ],
+      "odd_count": 19
+    }
+  ],
+  "explanation": "339 = 最坏偶数 N*=1999718 的证书窗口 (999181, 999859] 内的奇数个数；与此前统计的 lambda 口径不同"
+}

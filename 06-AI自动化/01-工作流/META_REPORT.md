@@ -1,6 +1,6 @@
 # OpenMath 元层分析报告：处理方法知识库 · 套娃递归 · 维度矩阵
 
-> 生成时间：2026-09-21T09:32:46　|　生成者：`06-AI自动化/01-工作流/openmath_meta.py`
+> 生成时间：2026-09-21T17:01:06　|　生成者：`06-AI自动化/01-工作流/openmath_meta.py`
 
 > **诚实声明**：本文所有内容为 **L0/L2 级整理与有限域计算**，**不证明任何未解猜想**；知识库为策展式收集，**不是**人类方法的穷尽清单。
 
@@ -21,7 +21,7 @@
 
 本体系实际具备 **10 条**（另有 partial 18 条），**覆盖率仅 9.1%**。
 
-> **口径说明**：此处的'已实现'按**知识库粒度**计（一条方法 = 一种人类技法）；`method_system.json` 中记录的本引擎可执行能力为 **27 条**，两者粒度不同、不可直接相加，登记口径也不完全对齐。以更严格的本节口径看，覆盖率不足一成。
+> **口径说明**：此处的'已实现'按**知识库粒度**计（一条方法 = 一种人类技法）；`method_system.json` 中记录的本引擎可执行能力为 **28 条**，两者粒度不同、不可直接相加，登记口径也不完全对齐。以更严格的本节口径看，覆盖率不足一成。
 
 > 这个数字必须被正视：所谓'最全面'，充其量是**目录最全**，不是**能力最全**。
 
@@ -73,7 +73,7 @@
 | D1 句法（解析/结构） | 1 | 表示(1) |
 | D2 语义（符号/类型映射） | 1 | 求值(1) |
 | D3 结构（代数形态/不变量） | 6 | 判定(1)、构造(3)、搜索(1)、求解(1)、归约(1)、结构计算(2) |
-| D4 计算（求值/求解/逼近） | 5 | 求值(12)、搜索(1)、求解(3)、逼近(1)、模拟(1) |
+| D4 计算（求值/求解/逼近） | 5 | 求值(13)、搜索(1)、求解(3)、逼近(1)、模拟(1) |
 | D5 证据（等级/来源/论域边界） | 0 | — |
 | D6 元认知（方法选择/缺口识别/不可能性意识） | 0 | — |
 
@@ -138,7 +138,7 @@
 
 ### 5.3 孤儿能力：有能力 ≠ 有方向
 
-已实现但**未被任何猜想调用**的能力：`ast_parse, arith_eval, transc_eval, poly_classify, linear_solve, quadratic_formula, gaussian_elimination, numeric_root, structure_computation, homology_computation, holonomic_recurrence_discovery, millennium_formalization, millennium_nesting, finite_shadow, hardy_z_zero_count, argument_principle_count, ec_point_count_finite, combinatorial_hodge, burgers_finite_difference, sat_phase_transition`
+已实现但**未被任何猜想调用**的能力：`ast_parse, arith_eval, transc_eval, poly_classify, linear_solve, quadratic_formula, gaussian_elimination, numeric_root, structure_computation, homology_computation, holonomic_recurrence_discovery, millennium_formalization, millennium_nesting, finite_shadow, hardy_z_zero_count, argument_principle_count, ec_point_count_finite, combinatorial_hodge, burgers_finite_difference, sat_phase_transition, identity_sampling_verifier`
 
 > 这些已实现能力**未被任何未解猜想调用**：说明'有能力'与'有方向'是两件事。有限群/同调计算能算对已知对象，却不为霍奇/BSD 提供任何处理方向。
 
