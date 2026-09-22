@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# 独立 git 仓库（有自己的远端），不并入本仓库
+projects/
