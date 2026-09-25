@@ -1,0 +1,335 @@
+{
+  "target_id": "OM-P-NT-0003",
+  "conjecture_status": "OPEN",
+  "date": "2026-09-25",
+  "ai_assisted": true,
+  "independent_human_review": false,
+  "red_line_note": "本脚本校验的是精确代数/傅里叶恒等式，不构成哥德巴赫猜想的证明；它只把余项的谱来源锁定为非主角色 L-函数零点。",
+  "sections": {
+    "T1_fourier_identity": {
+      "N": 200,
+      "D": 10,
+      "M": 10,
+      "X": 10,
+      "Q": 8,
+      "B_direct": "(5.054195509706139-2.417380856610549e-16j)",
+      "B_fourier": "(5.05419550970594+4.566361947208562e-13j)",
+      "abs_error": 4.983164960804789e-13
+    },
+    "T2_projection_decomposition": [
+      {
+        "q": 1,
+        "phi": 1,
+        "max_pointwise_error": 0.0
+      },
+      {
+        "q": 2,
+        "phi": 1,
+        "max_pointwise_error": 0.0
+      },
+      {
+        "q": 3,
+        "phi": 2,
+        "max_pointwise_error": 1.962615573354719e-17
+      },
+      {
+        "q": 4,
+        "phi": 2,
+        "max_pointwise_error": 4.449557262054371e-16
+      },
+      {
+        "q": 5,
+        "phi": 4,
+        "max_pointwise_error": 1.7763568394002505e-15
+      },
+      {
+        "q": 6,
+        "phi": 2,
+        "max_pointwise_error": 0.0
+      },
+      {
+        "q": 7,
+        "phi": 6,
+        "max_pointwise_error": 3.552713678800501e-15
+      },
+      {
+        "q": 8,
+        "phi": 4,
+        "max_pointwise_error": 1.1102230246251565e-16
+      }
+    ],
+    "T3_mixed_term_ramanujan": [
+      {
+        "q": 1,
+        "abs_error": 0.0
+      },
+      {
+        "q": 2,
+        "abs_error": 2.796218011373232e-15
+      },
+      {
+        "q": 3,
+        "abs_error": 1.6211799406258225e-14
+      },
+      {
+        "q": 4,
+        "abs_error": 1.8832679999549414e-13
+      },
+      {
+        "q": 5,
+        "abs_error": 6.150208010307394e-13
+      },
+      {
+        "q": 6,
+        "abs_error": 6.056559666729318e-14
+      },
+      {
+        "q": 7,
+        "abs_error": 2.509589741526155e-13
+      },
+      {
+        "q": 8,
+        "abs_error": 3.32951341696152e-14
+      }
+    ],
+    "T4_character_localization": [
+      {
+        "q": 3,
+        "N": 200,
+        "residual_abs": 4.394449154672984,
+        "E_theory_logq_floor": 4.394449154672439,
+        "abs_error_vs_theory": 5.444533712761768e-13,
+        "residual_spread_over_r": 1.7827554238398004e-12,
+        "logN_bound": 5.298317366548036,
+        "within_logN_bound": true
+      },
+      {
+        "q": 3,
+        "N": 500,
+        "residual_abs": 5.4930614433415315,
+        "E_theory_logq_floor": 5.493061443340549,
+        "abs_error_vs_theory": 9.823253321883385e-13,
+        "residual_spread_over_r": 6.132200977866455e-12,
+        "logN_bound": 6.214608098422191,
+        "within_logN_bound": true
+      },
+      {
+        "q": 3,
+        "N": 1000,
+        "residual_abs": 6.591673732009667,
+        "E_theory_logq_floor": 6.591673732008658,
+        "abs_error_vs_theory": 1.0089706847793423e-12,
+        "residual_spread_over_r": 1.977540389064685e-11,
+        "logN_bound": 6.907755278982137,
+        "within_logN_bound": true
+      },
+      {
+        "q": 5,
+        "N": 200,
+        "residual_abs": 4.828313737302423,
+        "E_theory_logq_floor": 4.828313737302301,
+        "abs_error_vs_theory": 1.2256862191861728e-13,
+        "residual_spread_over_r": 1.5931092593025388e-12,
+        "logN_bound": 5.298317366548036,
+        "within_logN_bound": true
+      },
+      {
+        "q": 5,
+        "N": 500,
+        "residual_abs": 4.828313737301912,
+        "E_theory_logq_floor": 4.828313737302301,
+        "abs_error_vs_theory": 3.8902214782865485e-13,
+        "residual_spread_over_r": 6.735405694919107e-12,
+        "logN_bound": 6.214608098422191,
+        "within_logN_bound": true
+      },
+      {
+        "q": 5,
+        "N": 1000,
+        "residual_abs": 6.4377516497353895,
+        "E_theory_logq_floor": 6.437751649736401,
+        "abs_error_vs_theory": 1.0116352200384426e-12,
+        "residual_spread_over_r": 2.862108144792464e-11,
+        "logN_bound": 6.907755278982137,
+        "within_logN_bound": true
+      },
+      {
+        "q": 7,
+        "N": 200,
+        "residual_abs": 3.8918202981107726,
+        "E_theory_logq_floor": 3.8918202981106265,
+        "abs_error_vs_theory": 1.461053500406706e-13,
+        "residual_spread_over_r": 1.6296876610718888e-12,
+        "logN_bound": 5.298317366548036,
+        "within_logN_bound": true
+      },
+      {
+        "q": 7,
+        "N": 500,
+        "residual_abs": 5.837730447165882,
+        "E_theory_logq_floor": 5.8377304471659395,
+        "abs_error_vs_theory": 5.773159728050814e-14,
+        "residual_spread_over_r": 7.405614406914713e-12,
+        "logN_bound": 6.214608098422191,
+        "within_logN_bound": true
+      },
+      {
+        "q": 7,
+        "N": 1000,
+        "residual_abs": 5.837730447167047,
+        "E_theory_logq_floor": 5.8377304471659395,
+        "abs_error_vs_theory": 1.1075584893660562e-12,
+        "residual_spread_over_r": 3.6500514332021596e-11,
+        "logN_bound": 6.907755278982137,
+        "within_logN_bound": true
+      },
+      {
+        "q": 11,
+        "N": 200,
+        "residual_abs": 4.795790545596514,
+        "E_theory_logq_floor": 4.795790545596741,
+        "abs_error_vs_theory": 2.2737367544323206e-13,
+        "residual_spread_over_r": 2.156146377399275e-12,
+        "logN_bound": 5.298317366548036,
+        "within_logN_bound": true
+      },
+      {
+        "q": 11,
+        "N": 500,
+        "residual_abs": 4.795790545596567,
+        "E_theory_logq_floor": 4.795790545596741,
+        "abs_error_vs_theory": 1.7408297026122455e-13,
+        "residual_spread_over_r": 5.21039103490688e-12,
+        "logN_bound": 6.214608098422191,
+        "within_logN_bound": true
+      },
+      {
+        "q": 11,
+        "N": 1000,
+        "residual_abs": 4.795790545596219,
+        "E_theory_logq_floor": 4.795790545596741,
+        "abs_error_vs_theory": 5.222489107836736e-13,
+        "residual_spread_over_r": 4.5092213171199995e-11,
+        "logN_bound": 6.907755278982137,
+        "within_logN_bound": true
+      },
+      {
+        "q": 13,
+        "N": 200,
+        "residual_abs": 5.129898714923161,
+        "E_theory_logq_floor": 5.1298987149230735,
+        "abs_error_vs_theory": 8.79296635503124e-14,
+        "residual_spread_over_r": 1.9038045897979847e-12,
+        "logN_bound": 5.298317366548036,
+        "within_logN_bound": true
+      },
+      {
+        "q": 13,
+        "N": 500,
+        "residual_abs": 5.12989871492303,
+        "E_theory_logq_floor": 5.1298987149230735,
+        "abs_error_vs_theory": 4.3520742565306136e-14,
+        "residual_spread_over_r": 1.0000285089367143e-11,
+        "logN_bound": 6.214608098422191,
+        "within_logN_bound": true
+      },
+      {
+        "q": 13,
+        "N": 1000,
+        "residual_abs": 5.129898714923257,
+        "E_theory_logq_floor": 5.1298987149230735,
+        "abs_error_vs_theory": 1.8385293287792592e-13,
+        "residual_spread_over_r": 3.677666357638514e-11,
+        "logN_bound": 6.907755278982137,
+        "within_logN_bound": true
+      }
+    ],
+    "T5_gauss_sum_modulus": [
+      {
+        "q": 3,
+        "nonprincipal_chars": 1,
+        "min_ratio": 1.0,
+        "max_ratio": 1.0
+      },
+      {
+        "q": 5,
+        "nonprincipal_chars": 3,
+        "min_ratio": 0.9999999999999998,
+        "max_ratio": 1.0
+      },
+      {
+        "q": 7,
+        "nonprincipal_chars": 5,
+        "min_ratio": 0.9999999999999997,
+        "max_ratio": 1.0000000000000013
+      },
+      {
+        "q": 11,
+        "nonprincipal_chars": 9,
+        "min_ratio": 0.9999999999999989,
+        "max_ratio": 1.000000000000002
+      },
+      {
+        "q": 13,
+        "nonprincipal_chars": 11,
+        "min_ratio": 0.9999999999999987,
+        "max_ratio": 1.0000000000000013
+      },
+      {
+        "q": 17,
+        "nonprincipal_chars": 15,
+        "min_ratio": 0.9999999999999942,
+        "max_ratio": 1.0000000000000033
+      },
+      {
+        "q": 19,
+        "nonprincipal_chars": 17,
+        "min_ratio": 0.9999999999999953,
+        "max_ratio": 1.0000000000000038
+      },
+      {
+        "q": 23,
+        "nonprincipal_chars": 21,
+        "min_ratio": 0.9999999999999908,
+        "max_ratio": 1.000000000000007
+      },
+      {
+        "q": 29,
+        "nonprincipal_chars": 27,
+        "min_ratio": 0.9999999999999939,
+        "max_ratio": 1.0000000000000064
+      },
+      {
+        "q": 31,
+        "nonprincipal_chars": 29,
+        "min_ratio": 0.9999999999999952,
+        "max_ratio": 1.0000000000000093
+      },
+      {
+        "q": 37,
+        "nonprincipal_chars": 35,
+        "min_ratio": 0.9999999999999907,
+        "max_ratio": 1.000000000000006
+      }
+    ]
+  },
+  "summary": {
+    "T1_fourier_identity_exact": true,
+    "T2_projection_decomposition_exact": true,
+    "T3_mixed_term_equals_ramanujan": true,
+    "T4_character_localization_exact": true,
+    "T5_gauss_sum_sqrtq": true,
+    "all_five_verified": true,
+    "interpretation": [
+      "T1–T3 是精确恒等式（机器误差级别），确认'投影原则 P'与'混合项=Ramanujan 和'成立：所谓零均值只在 n≡N (mod q) 的算术方向上被破坏，坏模态高度结构化。",
+      "T4 给出带**精确余项**的角色定位：V_q(r) 与角色模型的差恰为 log q·floor(log_q N)，与 r 无关且 ≤ log N（素数模）。故余项谱来源确为非主角色的 ψ(N,χ)。",
+      "T5 确认 |τ(χ)|=√q，是 Jacobi √q 节省的直接来源。",
+      "这些恒等式**不构成**哥德巴赫证明：它们只把余项锁定到非主角色 L-零点，从而证明忽略 L-零点的纯几何/Fourier 论证无法闭合（与 PSBLS 反例一致）。"
+    ],
+    "what_remains_open": [
+      "靶心 A：需 |ψ(N,χ)| ~ √N，即 EH 越过 1/2 / 零自由区——仍是独立未解猜想。",
+      "靶心 B：{N-p} 的双线性相消结构仍缺。",
+      "靶心 D：本定理是结构引理（把阻点说清），未填满'给出 r(N)≥1 的显式公式'。"
+    ]
+  }
+}
