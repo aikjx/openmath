@@ -1,0 +1,290 @@
+{
+  "target_id": "OM-P-NT-0003",
+  "conjecture_status": "OPEN",
+  "date": "2026-09-25",
+  "ai_assisted": true,
+  "independent_human_review": false,
+  "red_line_note": "本脚本不证明哥德巴赫。上一轮'目标型 BT 不等式（universal PSBLS 给出 o(N)）'被显式证伪，不再作为成果。",
+  "sections": {
+    "s1_s2_three_variable_geometry": [
+      {
+        "D": 50,
+        "M": 50,
+        "X": 50,
+        "H": 3,
+        "N": 130,
+        "total_dm_pairs": 2500,
+        "thin_resonance_dm_pairs_sampled": 0,
+        "per_dm_resonance_window_width": 7,
+        "note": "每个 (d,m) 只有 O(H+1) 个近共振 n，但总项上界 D*M*H；薄层本身不蕴含 o(N)。"
+      },
+      {
+        "D": 80,
+        "M": 40,
+        "X": 60,
+        "H": 5,
+        "N": 300,
+        "total_dm_pairs": 3200,
+        "thin_resonance_dm_pairs_sampled": 0,
+        "per_dm_resonance_window_width": 11,
+        "note": "每个 (d,m) 只有 O(H+1) 个近共振 n，但总项上界 D*M*H；薄层本身不蕴含 o(N)。"
+      }
+    ],
+    "s3_fourier_identity": [
+      {
+        "D": 3,
+        "M": 3,
+        "X": 3,
+        "N": 20,
+        "Q": 6,
+        "direct_norm": 31.266666666666662,
+        "fourier_norm": 31.26666666666666,
+        "identity_residual": 7.258809799509822e-15,
+        "identity_holds": true
+      }
+    ],
+    "s4_coherent_main_mode": [
+      {
+        "D": 200,
+        "M": 150,
+        "q": 7,
+        "r": 1,
+        "gcd_rq": 1,
+        "U_magnitude": 4264.5000067985075,
+        "sqrt_DM_scale": 173.20508075688772,
+        "coherent_main_DM_over_q": 4285.714285714285,
+        "ratio_over_sqrt": 24.621102268842794,
+        "ratio_over_main": 0.9950500015863185,
+        "dominant_is_main_mode": true
+      },
+      {
+        "D": 300,
+        "M": 200,
+        "q": 11,
+        "r": 3,
+        "gcd_rq": 1,
+        "U_magnitude": 5345.357774306218,
+        "sqrt_DM_scale": 244.94897427831782,
+        "coherent_main_DM_over_q": 5454.545454545455,
+        "ratio_over_sqrt": 21.82233173278233,
+        "ratio_over_main": 0.9799822586228065,
+        "dominant_is_main_mode": true
+      },
+      {
+        "D": 250,
+        "M": 120,
+        "q": 13,
+        "r": 5,
+        "gcd_rq": 1,
+        "U_magnitude": 2219.8886059937618,
+        "sqrt_DM_scale": 173.20508075688772,
+        "coherent_main_DM_over_q": 2307.6923076923076,
+        "ratio_over_sqrt": 12.816532842414814,
+        "ratio_over_main": 0.9619517292639634,
+        "dominant_is_main_mode": true
+      },
+      {
+        "D": 180,
+        "M": 160,
+        "q": 17,
+        "r": 2,
+        "gcd_rq": 1,
+        "U_magnitude": 1692.4009472757236,
+        "sqrt_DM_scale": 169.7056274847714,
+        "coherent_main_DM_over_q": 1694.1176470588234,
+        "ratio_over_sqrt": 9.972568219210007,
+        "ratio_over_main": 0.9989866702669202,
+        "dominant_is_main_mode": true
+      }
+    ],
+    "s6_projection_decomposition": [
+      {
+        "q": 8,
+        "phi_q": 4,
+        "max_four_term_residual": 7.850462293418876e-17,
+        "identity_holds": true
+      }
+    ],
+    "s7_mixed_term_ramanujan": [
+      {
+        "q": 5,
+        "N": 13,
+        "lhs": "(44.99999999999999-6.217248937900877e-15j)",
+        "rhs": "(45+1.3904999584291912e-14j)",
+        "residual": 2.1339915265132487e-14,
+        "identity_holds": true
+      },
+      {
+        "q": 7,
+        "N": 11,
+        "lhs": "(-8.16666666666673-3.4638958368304884e-14j)",
+        "rhs": "(-8.166666666666675+6.67684187808095e-16j)",
+        "residual": 6.54136096562076e-14,
+        "identity_holds": true
+      }
+    ],
+    "s9_psbls_refutation": [
+      {
+        "q_list": [
+          5,
+          7,
+          11
+        ],
+        "N1": 1000,
+        "ratio_at_N1": 0.0977443609023062,
+        "N2": 1000000,
+        "ratio_at_N2": 0.0977443609023062,
+        "ratio_stable_across_N": "True",
+        "ratio_is_positive_constant": "True",
+        "psbls_false": "True",
+        "interpretation": "比值 = LHS/sqrt(E_U E_V) 是与 N 无关的正常数（约平均 1/q），而非 N^{-delta}->0；故 universal PSBLS 不成立。这排掉了上一轮把'目标型 BT 不等式'当成果的错误。"
+      },
+      {
+        "q_list": [
+          5,
+          7,
+          11,
+          13
+        ],
+        "N1": 1000,
+        "ratio_at_N1": 0.08287292817643081,
+        "N2": 1000000,
+        "ratio_at_N2": 0.0828729281764308,
+        "ratio_stable_across_N": "True",
+        "ratio_is_positive_constant": "True",
+        "psbls_false": "True",
+        "interpretation": "比值 = LHS/sqrt(E_U E_V) 是与 N 无关的正常数（约平均 1/q），而非 N^{-delta}->0；故 universal PSBLS 不成立。这排掉了上一轮把'目标型 BT 不等式'当成果的错误。"
+      }
+    ],
+    "s10_s11_phase_locking": [
+      {
+        "D": 60,
+        "M": 40,
+        "X": 120,
+        "N": 200,
+        "per_q_rho": [
+          {
+            "q": 2,
+            "rho_q_N": 0.0
+          },
+          {
+            "q": 3,
+            "rho_q_N": 0.5000000000000046
+          },
+          {
+            "q": 5,
+            "rho_q_N": 0.21629923494039005
+          },
+          {
+            "q": 7,
+            "rho_q_N": 0.46216502116111163
+          },
+          {
+            "q": 11,
+            "rho_q_N": 0.40869839316160383
+          }
+        ],
+        "max_rho": 0.5000000000000046,
+        "caution": "有限范围观测；rho 不自动趋于 0，必须有来自零密度/角色的额外输入才能论证衰减。"
+      }
+    ],
+    "s12_jacobi_sqrtq_demo": [
+      {
+        "q": 5,
+        "J_magnitude": 2.23606797749979,
+        "sqrt_q": 2.23606797749979,
+        "ratio": 1.0,
+        "matches_sqrt_q": true
+      },
+      {
+        "q": 7,
+        "J_magnitude": 2.6457513110645907,
+        "sqrt_q": 2.6457513110645907,
+        "ratio": 1.0,
+        "matches_sqrt_q": true
+      },
+      {
+        "q": 11,
+        "J_magnitude": 3.3166247903554,
+        "sqrt_q": 3.3166247903554,
+        "ratio": 1.0,
+        "matches_sqrt_q": true
+      }
+    ],
+    "s13_error_exponent_curve": {
+      "model": "E(N)/N ~ N^{1/4 - eta(theta)}, eta=max(0,theta-1/2); q-avg gives N^{1/4}, Jacobi sqrt(q) folded into eta",
+      "rows": [
+        {
+          "theta": 0.5,
+          "eta_zero_free_saving": 0.0,
+          "E_over_N_exponent": 0.25,
+          "power_saving_delta": -0.25,
+          "gives_oN": false
+        },
+        {
+          "theta": 0.55,
+          "eta_zero_free_saving": 0.050000000000000044,
+          "E_over_N_exponent": 0.19999999999999996,
+          "power_saving_delta": -0.19999999999999996,
+          "gives_oN": false
+        },
+        {
+          "theta": 0.6,
+          "eta_zero_free_saving": 0.09999999999999998,
+          "E_over_N_exponent": 0.15000000000000002,
+          "power_saving_delta": -0.15000000000000002,
+          "gives_oN": false
+        },
+        {
+          "theta": 0.75,
+          "eta_zero_free_saving": 0.25,
+          "E_over_N_exponent": 0.0,
+          "power_saving_delta": 0.0,
+          "gives_oN": false
+        },
+        {
+          "theta": 0.9,
+          "eta_zero_free_saving": 0.4,
+          "E_over_N_exponent": -0.15000000000000002,
+          "power_saving_delta": 0.15000000000000002,
+          "gives_oN": true
+        },
+        {
+          "theta": 1.0,
+          "eta_zero_free_saving": 0.5,
+          "E_over_N_exponent": -0.25,
+          "power_saving_delta": 0.25,
+          "gives_oN": true
+        }
+      ],
+      "boundary_theta_half": {
+        "theta": 0.5,
+        "eta_zero_free_saving": 0.0,
+        "E_over_N_exponent": 0.25,
+        "power_saving_delta": -0.25,
+        "gives_oN": false
+      },
+      "theta_threshold_for_oN": 0.9,
+      "verdict": "在无条件边界 theta=1/2 处 eta=0，q-平均带来 N^{1/4} 因子，使 E(N)/N ~ N^{1/4}，误差甚至大于 N（delta=-1/4）：Jacobi √q + 零密度在此墙下毫无正幂次节省。要到 o(N) 需 theta > 3/4，要到干净幂次节省需更靠后；分布水平 > 1/2（靶心 A，OPEN）只是起点而非终点。这把'差多少'精确量化到了 theta 阈值。"
+    }
+  },
+  "summary": {
+    "fourier_identity_holds": true,
+    "coherent_main_mode_DM_over_q_dominant": true,
+    "psbls_universal_is_false": true,
+    "jacobi_sqrtq_verified": true,
+    "boundary_delta_at_theta_half": -0.25,
+    "conclusions": [
+      "共振超曲面是 dm+n=N，不是 dm=N（第1-2节）。",
+      "乘积指数和存在相干主模态 DM/q，必须先投影掉才能谈相消（第4-6节）。",
+      "普适 phase-sensitive bilinear large sieve 不成立（第9节显式反例）。",
+      "真突破需素数产生的特殊 U,V（乘法卷积频谱 vs von Mangoldt 频谱）（第10-11节）。",
+      "Jacobi √q 节省 + 零密度 + q-平均，在无条件 theta=1/2 处 q-平均带来 N^{1/4} 因子使误差 > N（delta=-1/4），被精确量化地卡在 parity/level-1/2 之墙；即使越过 1/2 也要到 theta>3/4 才出现 o(N)（靶心 A 只是起点，仍 OPEN）（第12-13节）。"
+    ],
+    "what_remains_open": [
+      "靶心 A：素数在相关模上的分布水平越过 1/2（EH_theta>1/2 / 近满 WEH）。",
+      "靶心 B：为集合 {N-p} 构造可证的双线性和相消结构（FI 型越障）。",
+      "字符对相关 (13) 的最终 bound 依赖 Dirichlet L 零点的零密度/零自由区，本脚本只做了透明参数化边界量化，未用真实零点分布数值。"
+    ]
+  }
+}
