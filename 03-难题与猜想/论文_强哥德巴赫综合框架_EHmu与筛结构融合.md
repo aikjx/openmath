@@ -57,7 +57,7 @@ G(E)=\sum_{m=2}^{\lfloor E/2\rfloor}\chi(m)\chi(E-m),
 | $S(E)$ | 无序 Goldbach 配对数（精确） |
 | $H(E)$ | 中央配对数（两素均 $>\sqrt E$） |
 | $I_E=(\sqrt E,E/2]$ | 中央区间 |
-| $\mathfrak S(E)=2\prod_{p\mid E,\,p>2}\frac{p-1}{p-2}$ | Goldbach 奇异级数 |
+| $\mathfrak S(E)=2\prod_{p>2}\left(1-\frac1{(p-1)^2}\right)\prod_{p\mid E,\,p>2}\frac{p-1}{p-2}$ | Goldbach 奇异级数（含孪生素数常数 $\Pi_2=\prod_{p>2}(1-1/(p-1)^2)$） |
 | $M(E)=\sum_{n<E}\Lambda(n)\mu(E-n)$ | parity 相关和（核心障碍量） |
 | $F(E)=\sum_{n<E}\Lambda(n)\mu^2(E-n)\Lambda(E-n)$ | 平方自由加权对和 |
 | $G_w(E)=\sum_{p+q=E}\log p\log q$ | 仅计真正素数的加权和（正 $\Leftrightarrow$ 有 Goldbach 分解） |
@@ -254,7 +254,7 @@ W=\sum_{m\in I_E}\Lambda(a_m)\Big(1-\tfrac12\,\Omega_{\rm sw}(a_m)\Big),
 M(N)=\sum_{n<N}\Lambda(n)\mu(N-n),
 \]
 
-其中 $\mathfrak S(N)=2C_2\prod_{p\mid N,\,p>2}\frac{p-1}{p-2}$，$C_2=\prod_{p>2}(1-(p-1)^{-2})\approx1.32032$。正下界（强哥德巴赫）只需 $|M(N)|$ 被控制到主项以下。由 Bombieri–Vinogradov 取 $\theta=1/2$，**只需证明 Möbius 扭曲版均布 $\mathrm{EH}_\mu$ 在任一水平 $>1/2$ 成立**。
+其中 $\mathfrak S(N)=2C_2\prod_{p\mid N,\,p>2}\frac{p-1}{p-2}$，$C_2=\prod_{p>2}(1-(p-1)^{-2})\approx0.66016$（孪生素数常数 $\Pi_2$，故 $2C_2\approx1.32032$）。正下界（强哥德巴赫）只需 $|M(N)|$ 被控制到主项以下。由 Bombieri–Vinogradov 取 $\theta=1/2$，**只需证明 Möbius 扭曲版均布 $\mathrm{EH}_\mu$ 在任一水平 $>1/2$ 成立**。
 
 ### 4.2 对 $M(E)$ 的精确实测（Observation）
 
