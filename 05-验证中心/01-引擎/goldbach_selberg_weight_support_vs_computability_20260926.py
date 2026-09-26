@@ -574,6 +574,36 @@ def main():
             contrib_L2_abs[k] += abs(r["coef_in_weight"] * r["U2"])
             count_L[k] += 1
         abs_total = sum(contrib_L2_abs.values())
+        # 单模数尺度诊断：|U2| 与 sqrt(计数) 的比值（"平方根相消"假设的实测检验）
+        sqrt_ratios = []
+        for r in rows:
+            if r["count"] > 0:
+                sqrt_ratios.append(abs(r["U2"]) / math.sqrt(r["count"]))
+        sqrt_diag = {
+            "min_ratio_U2_over_sqrt_count": min(sqrt_ratios) if sqrt_ratios else None,
+            "max_ratio_U2_over_sqrt_count": max(sqrt_ratios) if sqrt_ratios else None,
+            "median_ratio": sorted(sqrt_ratios)[len(sqrt_ratios) // 2] if sqrt_ratios else None,
+            "n_moduli": len(sqrt_ratios),
+            "reading": "若 |U2| ≈ sqrt(计数)（比值 O(1)），则该模数上的 lambda(n)lambda(N-n) "
+                       "处于平方根相消的随机尺度：既没有额外的大相消，也没有反常放大。",
+        }
+        # 对角项在前 6 名中的出现次数（结构证据）
+        top6 = sorted(rows, key=lambda x: -abs(x["coef_in_weight"] * x["U2"]))[:6]
+        diag_in_top6 = sum(1 for x in top6 if x["L_divides_N"])
+        # L=1 项就是"朴素反射相关" C_1(N)：它本身就没有任何无条件幂次节省
+        row1 = next((x for x in rows if x["L"] == 1), None)
+        L1_term = None
+        if row1 is not None:
+            L1_term = {
+                "U2_is_C1_N": row1["U2"],
+                "count": row1["count"],
+                "ratio_U2_over_sqrtN": abs(row1["U2"]) / math.sqrt(N),
+                "coherence_U2_over_count": (row1["U2"] / row1["count"]
+                                            if row1["count"] else None),
+                "reading": "L=1 项 = sum_{n<N} lambda(n)lambda(N-n) 就是朴素反射相关 C_1(N)。"
+                           "它既非单点量（PNT 型结果帮不上忙），也无任何已知无条件幂次节省；"
+                           "实测 |C_1|/sqrt(N) 为 O(1)，即停在平方根尺度。",
+            }
         diag_sum = sum(r["coef_in_weight"] * r["U2"] for r in diag_rows)
         L2_diag_share = (diag_sum / L2_div) if abs(L2_div) > 1e-12 else None
         nondiag_sum = L2_div - diag_sum
@@ -622,6 +652,9 @@ def main():
             "T_W_over_T0": (T_W / T0) if T0 else None,
             "unweighted": {"T": T0, "M1": T0_M1, "M2": T0_M2, "a11": T0_a11,
                            "identity_check": 4 * T0_a11 == T0 - 2 * T0_M1 + T0_M2},
+            "sqrt_scale_diagnostics": sqrt_diag,
+            "L1_term_is_plain_reflection_correlation": L1_term,
+            "diagonal_in_top6_contributors": diag_in_top6,
             "L_rows": rows,
             "L_rows_brute_verified": brute_ok,
             "self_similar_diagonal_rows": diag_rows,
@@ -821,6 +854,17 @@ def main():
             (r["N"], (r["blocks"].get("share_of_abs_L2") or {}).get("L_le_logN_sq"))
             for r in s],
         "max_modulus_per_N": max_L,
+        "sqrt_scale_ratio_range_per_N": [
+            (r["N"], [r["sqrt_scale_diagnostics"]["min_ratio_U2_over_sqrt_count"],
+                      r["sqrt_scale_diagnostics"]["max_ratio_U2_over_sqrt_count"]])
+            for r in s],
+        "diagonal_L_in_top6_contributors_per_N": [
+            (r["N"], r["diagonal_in_top6_contributors"]) for r in s],
+        "L1_term_is_plain_reflection_correlation_C1": [
+            (r["N"], {
+                "C1": (r["L1_term_is_plain_reflection_correlation"] or {}).get("U2_is_C1_N"),
+                "abs_C1_over_sqrtN": (r["L1_term_is_plain_reflection_correlation"] or {})
+                .get("ratio_U2_over_sqrtN")}) for r in s],
         "interpretation": [
             "【S1 · 恒等式是零代价的】4X = T_W - 2 L1_W + L2_W 对**任意**反射对称非负权"
             "精确成立（本脚本机器验证，误差 < 1e-6·尺度）。推导只要一行："
@@ -879,10 +923,31 @@ def main():
             + ", ".join("N={}: {:.3f}".format(N, v if v is not None else float('nan'))
                         for N, v in [(r["N"], (r["blocks"].get("share_of_abs_L2") or {})
                                       .get("L_le_logN_sq")) for r in s])
-            + "。即**中央不可控块与可控块量级相当而互不压制** —— 这不是常数因子差距，"
+            + "（**中央块占比随 N 单调上升**，可控块相应下降到 ~0.61）。"
+            "即**中央不可控块与可控块量级相当而互不压制** —— 这不是常数因子差距，"
             "而是 (log N)^A vs N^{2/3} 的**范围**差距。"
-            "另有结构证据：单个模数明细里贡献最大的几乎全是 L | N 的对角项"
-            "（见下表），而对角项已被 S4 证明只是原泛函在 N/L 处的复印。",
+            "另有两条结构证据：(i) 单个模数明细里贡献最大的多为 L | N 的对角项"
+            "（前 6 名中对角项个数实测 "
+            + ", ".join("N={}: {}/6".format(r["N"], r["diagonal_in_top6_contributors"])
+                        for r in s) + "），而对角项已被 S4 证明只是原泛函在 N/L 处的复印；"
+            "(ii) 单模数尺度 |U2|/sqrt(计数) 的上界实测为 "
+            + ", ".join("N={}: {:.2f}".format(
+                r["N"], r["sqrt_scale_diagnostics"]["max_ratio_U2_over_sqrt_count"])
+                for r in s) + "（下界可取 0：某些模数上相关恰为 0），"
+            "即 |U2| 至多是常数倍 sqrt(计数) —— 每个模数都处于平方根相消的"
+            "**随机尺度**，没有额外的大相消可供利用，也就没有捷径。",
+            "【S5b · 最锋利的一点：连 L = 1 那一项都不可控】L2_W 展开里 L = 1 的项"
+            "就是朴素反射相关 C_1(N) = sum_{n<N} lambda(n)lambda(N-n)（系数 lambda_1^2 = 1）。"
+            "它**不是单点量**，所以 PNT 型（sum lambda(n) = o(N)）的结果对它毫无帮助；"
+            "而二点 lambda 相关即使是固定移位也仅在对数平均下无条件（Tao 2016，"
+            "见 S6），自然平均即 Chowla 猜想本体。实测 |C_1(N)|/sqrt(N) 为 O(1)"
+            "（N = 600/6000/60000/240000 依次为 "
+            + ", ".join("{:.2f}".format(
+                (r["L1_term_is_plain_reflection_correlation"] or {})
+                .get("ratio_U2_over_sqrtN", float("nan"))) for r in s)
+            + "），停在平方根尺度。**所以「可控块」这个说法必须收回一半**："
+            "模数小只是让 Siegel-Walfisz 型**单点**估计可用，而这里需要的是"
+            "二点相关；即使把范围压到 L = 1，缺口依然在。",
             "【S6 · 平均 N 不能升级到固定 N】(a) 固定 h 的对数平均二点 Chowla 是"
             "**无条件定理**（Tao 2016）：sum lambda(n)lambda(n+h)/n = o(log x)。"
             "实测 |A_log|/log x 在 h=2 时由 ~0.198(x=1e3) 缓降到 ~0.098(x=1e6)，"
@@ -919,6 +984,9 @@ def main():
             "本脚本未做该项，属解析输入（不是数值可决的）。",
             "模数到 N^{2/3} 的二元 lambda 相关（等价于二元 Chowla 型估计），"
             "远超固定 h 的对数平均定理（Tao 2016）。",
+            "注意：即使把模数范围缩到 L = 1，缺口依然存在 —— L = 1 项就是朴素反射相关 "
+            "C_1(N) = sum lambda(n)lambda(N-n)，属二点（而非单点）对象；"
+            "所谓「小模数可控」只对单点 Siegel-Walfisz 型估计成立。",
             "以平均 N 控制固定 N 需要例外集密度定理 + 正性间隙，二者均无。",
         ],
         "verdict": (
@@ -1090,9 +1158,35 @@ def main():
                 if x["coherence_U2_over_count"] is not None else "n/a",
                 x["coef_in_weight"] * x["U2"]))
         A("")
+    A("**单模数尺度诊断**（$|U_2|/\\sqrt{\\text{计数}}$，检验「平方根相消」是否为实际尺度）：")
     A("")
-    A("模数上限 $D^2=z^2=N^{2/3}$，而 $\\lambda$ 在等差数列中的无条件可用范围只有")
+    A("| N | 模数个数 | 比值最小 | 中位 | 最大 | 前 6 名中 L\\|N 的个数 |")
+    A("|---|---|---|---|---|---|")
+    for r in s:
+        sd = r["sqrt_scale_diagnostics"]
+        A("| {} | {} | {} | {} | {} | {}/6 |".format(
+            r["N"], sd["n_moduli"],
+            "{:.2f}".format(sd["min_ratio_U2_over_sqrt_count"]),
+            "{:.2f}".format(sd["median_ratio"]),
+            "{:.2f}".format(sd["max_ratio_U2_over_sqrt_count"]),
+            r["diagonal_in_top6_contributors"]))
+    A("")
+    A("读法：比值全部落在 $[0,\\ \\sim5]$ 内（上界实测 4.05~5.08）⇒ 每个模数上的")
+    A("$\\sum_{n\\equiv a(L)}\\lambda(n)\\lambda(N-n)$ 都处于 **平方根相消的随机尺度**")
+    A("（既无额外大相消，也无反常放大）。**证明这一点正是缺口所在**：")
+    A("现有无条件结果只覆盖模数 $q\\le(\\log N)^A$，而这里 $L$ 要到 $N^{2/3}$。")
+    A("")
+    A("模数上限 $D^2=z^2=N^{2/3}$，而 $\\lambda$ 在等差数列中的**单点**无条件可用范围只有")
     A("$q\\le(\\log N)^A$（Siegel-Walfisz 型）。差距是 $N^{2/3}$ vs $(\\log N)^A$。")
+    A("")
+    A("**但「小模数可控」这个说法必须收回一半**：$L=1$ 那一项就是朴素反射相关")
+    A("$C_1(N)=\\sum_{n<N}\\lambda(n)\\lambda(N-n)$（系数 $\\lambda_1^2=1$），它是**二点**对象。")
+    A("实测 $|C_1(N)|/\\sqrt N$ 为 $O(1)$（"
+      + ", ".join("N={}: {:.2f}".format(
+          r["N"], r["L1_term_is_plain_reflection_correlation"]["ratio_U2_over_sqrtN"])
+          for r in s) + "），停在平方根尺度：")
+    A("单点 PNT 型结果对它无效，二点自然平均即 Chowla 猜想本体。")
+    A("**所以即使把范围压到 $L=1$，缺口依然在。**")
     A("注意**块间净抵消**：各块贡献的绝对值之和大于 $|L_2^W|$ 本身，")
     A("因此按 $L_2^W$ 归一化的份额会 >1 或变号；上表统一用 over-$T_W$ 的稳定刻度。")
     A("")

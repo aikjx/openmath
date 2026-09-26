@@ -1,0 +1,7 @@
+0
+
+命令（PowerShell，工作目录任意，脚本用 __file__ 定位产物）：
+cmd /c "python <repo>\05-验证中心\01-引擎\goldbach_selberg_weight_support_vs_computability_20260926.py > <repo>\05-验证中心\03-结果\2026\09\_selberg_runlog.txt 2>&1"
+
+退出码 0；全部恒等式/一致性断言通过；唯一恒为 false 的判定项是
+summary.S2_pollution_is_zero（这是本轮的**负面结论**，不是失败）。

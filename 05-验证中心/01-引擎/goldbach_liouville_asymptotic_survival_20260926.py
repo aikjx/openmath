@@ -448,11 +448,13 @@ def main():
     # 用已经算出的 M1 / a11 / a22 直接核对（避免与 analyze() 的实现重复）。
     print("block 1b: exact single-moment identity ...", flush=True)
     id_viol = []
+    id_eps_viol = []
     id_corr_cases = 0
     id_n = 0
     for N in range(4, 4001, 2):
         z = iroot(N, 3)
         a11 = a22 = M1 = 0
+        a00 = a02 = 0
         for n in range(1, N):
             if spf[n] > z and spf[N - n] > z:
                 j = om[n]
@@ -461,11 +463,20 @@ def main():
                     a11 += 1
                 elif j == 2 and om[N - n] == 2:
                     a22 += 1
+                elif j == 0 and om[N - n] == 2:
+                    a02 += 1
+                elif j == 0 and om[N - n] == 0:
+                    a00 += 1
         c = 1 if (spf[N - 1] > z and om[N - 1] % 2 == 0) else 0
         id_corr_cases += c
         id_n += 1
+        # (a) 精确身份
         if M1 != a22 - a11 + 2 * c:
             id_viol.append({"N": N, "M1": M1, "a22_minus_a11": a22 - a11, "corr": 2 * c})
+        # (b) 与上一轮（OM-P-NT-0006）的 eps 写法对接：那里说 "M_1 = eps + a_22 - a_11，
+        #     eps = a_00 + 2a_02 >= 0"（非显式）。此处核对 eps 恰等于上面的 2c。
+        if (a00 + 2 * a02) != 2 * c:
+            id_eps_viol.append({"N": N, "eps_from_0006_form": a00 + 2 * a02, "2c": 2 * c})
     for rows in series.values():
         for r in rows:
             N = r["N"]
@@ -484,9 +495,14 @@ def main():
         "cases_with_correction_term_2": id_corr_cases,
         "max_N_tested": id_max_n,
         "violation_examples": id_viol[:5],
+        # 与 OM-P-NT-0006 的 eps 写法对接：eps = a_00 + 2a_02 恰等于 2c（故 eps ∈ {0,2}）
+        "eps_0006_form_equals_2c": (len(id_eps_viol) == 0),
+        "eps_0006_form_mismatches": len(id_eps_viol),
+        "eps_0006_form_examples": id_eps_viol[:5],
     }
-    print("  identity: tested {} even N (max {}), violations = {}, c=1 cases = {}".format(
-        id_n, id_max_n, len(id_viol), id_corr_cases), flush=True)
+    print("  identity: tested {} even N (max {}), violations = {}, c=1 cases = {}, "
+          "eps-form mismatches = {}".format(
+              id_n, id_max_n, len(id_viol), id_corr_cases, len(id_eps_viol)), flush=True)
 
     # ---------------- 块 1：1/log N 外推 ----------------
     print("block 1: extrapolation ...", flush=True)
@@ -691,6 +707,11 @@ def main():
         "kappa_1_limit_estimates": kvals,
         "single_moment_criterion_asymptotically_alive": surv and cred,
         "single_moment_criterion_status": status,
+        "_note_two_routes": (
+            "single_moment_criterion_asymptotically_alive = surv and cred 只反映**盲外推路线**；"
+            "此处自校验未过故为 false，含义是 UNDETERMINED（**不是** DEAD）。"
+            "判据状态请读 single_moment_criterion_status（外推路线）与 "
+            "analytic_model_status（密度模型路线），二者必须分开引用。"),
         "kappa_1_sign_undetermined_series": k1_sign_undetermined,
         "HL_selfcheck_per_series": hl_rows,
         "mobius_and_ap_expansion_verified": mob_ok,
@@ -705,6 +726,7 @@ def main():
         "single_moment_identity_violations": len(id_viol),
         "single_moment_identity_cases_with_correction": id_corr_cases,
         "single_moment_identity_max_N_tested": id_max_n,
+        "single_moment_identity_eps_0006_form_equals_2c": (len(id_eps_viol) == 0),
         # ---- 块 1c：解析极限（本轮真正的答案） ----
         "extrapolation_route_status": status,
         "analytic_model_status": ("ALIVE" if model["kappa_1_analytic_limit"] < 0 else "DEAD"),
@@ -849,7 +871,11 @@ def main():
       + "{:.4f}".format(model["kappa_1_analytic_limit"])
       + " < 0`（启发式模型结论，非定理）。")
     A(">")
-    A("> 下面第一到三节记录外推路线（失败），三-b 节给出密度模型（正面结果）。")
+    A("> * 精确身份（严格，非启发式）：`M_1 = a_22 - a_11 + 2c`（`c in {0,1}`），"
+      "见**三-c 节**。")
+    A(">")
+    A("> 下面第一到三节记录外推路线（失败），三-b 节给出密度模型（正面结果），")
+    A("> 三-c 节给出本轮的严格结果（单矩判据的精确身份）。")
     A("")
     A("## 一、待答问题")
     A("")
@@ -976,6 +1002,30 @@ def main():
     A("余量不是边缘的：即使 `kappa_w(inf)` 有 30% 的模型误差，`kappa_1(inf)` 仍为负。")
     A("**但这是启发式模型，不是证明**：`kappa_x(inf)=1` 与 `c_B(inf)=log 2` 都用到了")
     A("Hardy–Littlewood 型的独立性假设，而正是该假设在奇偶障碍处失效。")
+    A("")
+    A("## 三-c、块 1b · 单矩判据的精确身份（本轮的严格结果）")
+    A("")
+    A("上一轮把单矩判据写成 `M_1 = eps + a_22 - a_11`，但只知道 `eps >= 0`。")
+    A("本轮把它收紧为一个**精确恒等式**：")
+    A("")
+    A("$$M_1 = a_{22} - a_{11} + 2c,\\qquad "
+      "c = \\big[\\,\\mathrm{spf}(N-1) > \\lfloor N^{1/3}\\rfloor\\ \\text{且}\\ "
+      "\\Omega(N-1)\\ \\text{为偶}\\,\\big]\\in\\{0,1\\}$$")
+    A("")
+    A("**推导**：1) `S_z` 上 `Omega <= 2`（三个素因子各 `> z` 会给出 `n > N`）；")
+    A("2) 反射 `n -> N-n` 是 `S_z` 上的对合，互换类 `(1,2)` 与 `(2,1)`，")
+    A("故 `a_12 = a_21`，这两项在 `sum lambda` 中**精确相消**；")
+    A("3) 只剩 `n = 1` 与 `n = N-1` 这一对（二者同时属于 `S_z`，都等价于 `spf(N-1) > z`），")
+    A("贡献 `1 + (-1)^{Omega(N-1)}`，即 `2`（偶）或 `0`（奇）。")
+    A("")
+    A("**机器核对**：`{}` 个偶数（密集段 `N <= 4000` 全部偶数 + 块 1 的全部实测点，"
+      "最大 `N = {}`），**违反 {} 例**；其中修正项 `2c = 2` 的情形有 `{}` 例，"
+      "说明该项并不恒为 0。".format(id_n, id_max_n, len(id_viol), id_corr_cases))
+    A("")
+    A("**后果（重要）**：`eps` 不是未知的非负量，而是 `<= 2` 的**显式**项。")
+    A("因此密度模型里 `kappa_1 = kappa_w - kappa_x` 所依赖的\"修正项可忽略\"")
+    A("不再是启发式假设 —— 它是定理（`|2c|/unit <= 2/unit -> 0`）。")
+    A("被削弱的只剩 `kappa_w(inf) = (log 2)^2` 本身（那是 Hardy–Littlewood 型输入）。")
     A("")
     A("## 四、块 2a · M_1 的 Möbius / AP 展开核对")
     A("")
