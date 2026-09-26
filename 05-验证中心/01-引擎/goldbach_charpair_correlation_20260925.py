@@ -11,11 +11,15 @@ OM-P-NT-0003 · 角色对相关 (13) 的有限尺度数值攻击（2026-09-25）
 计算 von Mangoldt 频谱 psi(N, chi)，并实测 (13) 的相关项相对 N 的大小。
 
 诚实结论（脚本自己算出并写明）：
-  * 对所有非主、非退化三元组 (chi1,chi2,chi1*chi2)，|J| = sqrt(q) 被数值验证
-    —— 这就是 §12 的 "Jacobi 根号q 节省" 的真实来源，不是假设。
+  * 对**本原**非主、非退化三元组 (chi1,chi2,chi1*chi2 皆本原非主)，
+    |J| = sqrt(q) 被数值验证 —— 这就是 §12 的 "Jacobi 根号q 节省" 的真实来源。
+    注意：非本原特征的 Gauss 和 > sqrt(q)，其正确标度是 sqrt(conductor)；
+    见 goldbach_conductor_localization_20260926.py 的 T6（imprimitivity）。
+    因此本检验必须限定于本原三元组，早期版本的"对所有非主三元组"是**错的**。
   * 但在有限尺度（N 到 1000、q 到 ~40），|psi(N, chi)| 对多数特征都达到 N 级
-    （零自由区/零密度尚未在此时空尺度激活），于是 (13) 的相关项也是 N 级，
-    **不是 o(N)**。
+    （零自由区/零密度尚未在此时空尺度激活），于是 (13) 的相关项是 N 级，
+    **不是 o(N)**；实测 max_q |Corr_q|/N 约 484/421/228（N=200/500/1000），
+    **远非 O(1)**，且随 N 只缓慢下降，本脚本不把"缓慢下降"当作收敛证据。
   * 这从数值上确认了上一轮的边界：要到 o(N) 必须显式引入零自由区/EH 的解析输入，
     而该输入只有在渐近尺度（N 很大、q 进入相关模范围）才把 |psi| 压到 sqrt(N) 级。
     有限尺度实验无法替代这一步，但能精确显示"差多少"——相关项与 N 同阶。
@@ -352,7 +356,10 @@ def main():
     finite_scale_oN = all(c["is_oN_at_finite_scale"] for c in corr_rows)
 
     report["summary"] = {
-        "jacobi_sqrtq_verified_for_all_nondegenerate_triples": jacobi_ok,
+        # 字段名必须写明作用域：结论只对**本原**三元组成立（非本原的标度是 sqrt(conductor)）。
+        "jacobi_sqrtq_verified_for_all_primitive_nondegenerate_triples": jacobi_ok,
+        "jacobi_sqrtq_scope_note": "仅限 chi1,chi2,chi1*chi2 皆本原非主的三元组；"
+                                   "非本原情形见 conductor-localization 的 T6（|τ|∈{0,√conductor}）。",
         "finite_scale_correlation_is_oN": finite_scale_oN,
         "moduli_with_nonzero_primitive_triples": moduli_nonzero,
         "moduli_vacuously_passing": [j["q"] for j in jacobi_checks

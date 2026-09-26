@@ -1,0 +1,848 @@
+{
+  "target_id": "OM-P-NT-0006",
+  "conjecture_status": "OPEN",
+  "date": "2026-09-25",
+  "ai_assisted": true,
+  "independent_human_review": false,
+  "red_line_note": "本脚本不证明哥德巴赫、不产生反例。它把上一轮提出的反射-伸缩路线推到尽头，给出精确整数恒等式 a11 = (T - 2*M1 + M2)/4 与自由度阶梯（三矩定解，自由度 0），并给出更弱的单矩充分判据 M1 < 0。裁定：所需输入 M1（以及 M2）正是 Selberg 奇偶障碍的靶心量，本路线是奇偶障碍的最精简表述，并未绕过它。",
+  "sections": {
+    "A_structure_and_identity": [
+      {
+        "N": 1000,
+        "z": 10,
+        "a11": 54,
+        "a12": 19,
+        "a21": 19,
+        "a22": 4,
+        "a00": 0,
+        "a01": 0,
+        "a02": 0,
+        "eps": 0,
+        "T": 96,
+        "M1": -50,
+        "M2": 20,
+        "max_omega_in_S": 2,
+        "omega_le_2": true,
+        "reflection_symmetric": true,
+        "identity_4a11_eq_T_minus_2M1_plus_M2": true,
+        "identity_a11_eq_eps_plus_w_minus_M1": true,
+        "debris_size": 0,
+        "singular_series": 2.053836760412483,
+        "kappa_T": 2.2303817205673835,
+        "kappa_M1": -1.1616571461288454,
+        "kappa_M2": 0.4646628584515382,
+        "kappa_a11": 1.2545897178191532,
+        "M1_negative": true,
+        "a11_positive": true
+      },
+      {
+        "N": 3000,
+        "z": 14,
+        "a11": 208,
+        "a12": 84,
+        "a21": 84,
+        "a22": 18,
+        "a00": 0,
+        "a01": 1,
+        "a02": 0,
+        "eps": 0,
+        "T": 396,
+        "M1": -190,
+        "M2": 56,
+        "max_omega_in_S": 2,
+        "omega_le_2": true,
+        "reflection_symmetric": true,
+        "identity_4a11_eq_T_minus_2M1_plus_M2": true,
+        "identity_a11_eq_eps_plus_w_minus_M1": true,
+        "debris_size": 1,
+        "singular_series": 4.107673520824966,
+        "kappa_T": 2.059913869016325,
+        "kappa_M1": -0.9883425129118731,
+        "kappa_M2": 0.29130095117402577,
+        "kappa_a11": 1.0819749615035243,
+        "M1_negative": true,
+        "a11_positive": true
+      },
+      {
+        "N": 10000,
+        "z": 21,
+        "a11": 254,
+        "a12": 117,
+        "a21": 117,
+        "a22": 34,
+        "a00": 0,
+        "a01": 0,
+        "a02": 0,
+        "eps": 0,
+        "T": 522,
+        "M1": -220,
+        "M2": 54,
+        "max_omega_in_S": 2,
+        "omega_le_2": true,
+        "reflection_symmetric": true,
+        "identity_4a11_eq_T_minus_2M1_plus_M2": true,
+        "identity_a11_eq_eps_plus_w_minus_M1": true,
+        "debris_size": 0,
+        "singular_series": 1.8861766167053415,
+        "kappa_T": 2.3476832777231507,
+        "kappa_M1": -0.9894450595768068,
+        "kappa_M2": 0.24286378735067077,
+        "kappa_a11": 1.1423592960568587,
+        "M1_negative": true,
+        "a11_positive": true
+      },
+      {
+        "N": 30000,
+        "z": 31,
+        "a11": 1200,
+        "a12": 540,
+        "a21": 540,
+        "a22": 196,
+        "a00": 0,
+        "a01": 0,
+        "a02": 1,
+        "eps": 2,
+        "T": 2478,
+        "M1": -1002,
+        "M2": 318,
+        "max_omega_in_S": 2,
+        "omega_le_2": true,
+        "reflection_symmetric": true,
+        "identity_4a11_eq_T_minus_2M1_plus_M2": true,
+        "identity_a11_eq_eps_plus_w_minus_M1": true,
+        "debris_size": 1,
+        "singular_series": 3.772353233410683,
+        "kappa_T": 2.3270021566114556,
+        "kappa_M1": -0.9409427606637121,
+        "kappa_M2": 0.29862255278548944,
+        "kappa_a11": 1.1268775576810923,
+        "M1_negative": true,
+        "a11_positive": true
+      },
+      {
+        "N": 100000,
+        "z": 46,
+        "a11": 1616,
+        "a12": 809,
+        "a21": 809,
+        "a22": 336,
+        "a00": 0,
+        "a01": 0,
+        "a02": 0,
+        "eps": 0,
+        "T": 3570,
+        "M1": -1280,
+        "M2": 334,
+        "max_omega_in_S": 2,
+        "omega_le_2": true,
+        "reflection_symmetric": true,
+        "identity_4a11_eq_T_minus_2M1_plus_M2": true,
+        "identity_a11_eq_eps_plus_w_minus_M1": true,
+        "debris_size": 0,
+        "singular_series": 1.8191125592224853,
+        "kappa_T": 2.6012376417347536,
+        "kappa_M1": -0.9326566334511162,
+        "kappa_M2": 0.24336509029115064,
+        "kappa_a11": 1.1774789997320343,
+        "M1_negative": true,
+        "a11_positive": true
+      },
+      {
+        "N": 300000,
+        "z": 66,
+        "a11": 7820,
+        "a12": 4272,
+        "a21": 4272,
+        "a22": 2110,
+        "a00": 0,
+        "a01": 0,
+        "a02": 0,
+        "eps": 0,
+        "T": 18474,
+        "M1": -5710,
+        "M2": 1386,
+        "max_omega_in_S": 2,
+        "omega_le_2": true,
+        "reflection_symmetric": true,
+        "identity_4a11_eq_T_minus_2M1_plus_M2": true,
+        "identity_a11_eq_eps_plus_w_minus_M1": true,
+        "debris_size": 0,
+        "singular_series": 3.6382251184449705,
+        "kappa_T": 2.6920691131946883,
+        "kappa_M1": -0.8320728935986614,
+        "kappa_M2": 0.20197075841116371,
+        "kappa_a11": 1.1395464147007939,
+        "M1_negative": true,
+        "a11_positive": true
+      },
+      {
+        "N": 1000000,
+        "z": 100,
+        "a11": 10796,
+        "a12": 5831,
+        "a21": 5831,
+        "a22": 3216,
+        "a00": 0,
+        "a01": 0,
+        "a02": 0,
+        "eps": 0,
+        "T": 25674,
+        "M1": -7580,
+        "M2": 2350,
+        "max_omega_in_S": 2,
+        "omega_le_2": true,
+        "reflection_symmetric": true,
+        "identity_4a11_eq_T_minus_2M1_plus_M2": true,
+        "identity_a11_eq_eps_plus_w_minus_M1": true,
+        "debris_size": 0,
+        "singular_series": 1.7888255655205498,
+        "kappa_T": 2.7394250449216933,
+        "kappa_M1": -0.8087887294736479,
+        "kappa_M2": 0.2507458462088486,
+        "kappa_a11": 1.1519370875194594,
+        "M1_negative": true,
+        "a11_positive": true
+      }
+    ],
+    "A2_quarter_level_breaks_parity_encoding": [
+      {
+        "N": 10000,
+        "z": 10,
+        "a11": 254,
+        "a12": 232,
+        "a21": 232,
+        "a22": 156,
+        "a00": 0,
+        "a01": 0,
+        "a02": 0,
+        "eps": 0,
+        "T": 952,
+        "M1": -152,
+        "M2": -24,
+        "max_omega_in_S": 3,
+        "omega_le_2": false,
+        "reflection_symmetric": true,
+        "identity_4a11_eq_T_minus_2M1_plus_M2": false,
+        "identity_a11_eq_eps_plus_w_minus_M1": false,
+        "debris_size": 0,
+        "identity_residual_4a11_minus_lhs": -216,
+        "identity_holds": false
+      },
+      {
+        "N": 100000,
+        "z": 17,
+        "a11": 1618,
+        "a12": 1382,
+        "a21": 1382,
+        "a22": 1070,
+        "a00": 0,
+        "a01": 0,
+        "a02": 0,
+        "eps": 0,
+        "T": 5824,
+        "M1": -760,
+        "M2": -24,
+        "max_omega_in_S": 3,
+        "omega_le_2": false,
+        "reflection_symmetric": true,
+        "identity_4a11_eq_T_minus_2M1_plus_M2": false,
+        "identity_a11_eq_eps_plus_w_minus_M1": false,
+        "debris_size": 0,
+        "identity_residual_4a11_minus_lhs": -848,
+        "identity_holds": false
+      },
+      {
+        "N": 1000000,
+        "z": 31,
+        "a11": 10802,
+        "a12": 9634,
+        "a21": 9634,
+        "a22": 8624,
+        "a00": 0,
+        "a01": 0,
+        "a02": 0,
+        "eps": 0,
+        "T": 41360,
+        "M1": -3668,
+        "M2": 472,
+        "max_omega_in_S": 3,
+        "omega_le_2": false,
+        "reflection_symmetric": true,
+        "identity_4a11_eq_T_minus_2M1_plus_M2": false,
+        "identity_a11_eq_eps_plus_w_minus_M1": false,
+        "debris_size": 0,
+        "identity_residual_4a11_minus_lhs": -5960,
+        "identity_holds": false
+      }
+    ],
+    "C_degrees_of_freedom_ladder": [
+      {
+        "N": 1000,
+        "T": 96,
+        "M1": -50,
+        "a11_true": 54,
+        "interval_from_T_only": [
+          0,
+          96
+        ],
+        "dof_from_T_only": 2,
+        "interval_from_T_and_M1": [
+          50,
+          73
+        ],
+        "dof_from_T_and_M1": 1,
+        "a11_in_interval_T_only": true,
+        "a11_in_interval_T_and_M1": true,
+        "T_and_M1_forces_positivity": true,
+        "dof_from_T_M1_M2": 0
+      },
+      {
+        "N": 3000,
+        "T": 396,
+        "M1": -190,
+        "a11_true": 208,
+        "interval_from_T_only": [
+          0,
+          396
+        ],
+        "dof_from_T_only": 2,
+        "interval_from_T_and_M1": [
+          190,
+          293
+        ],
+        "dof_from_T_and_M1": 1,
+        "a11_in_interval_T_only": true,
+        "a11_in_interval_T_and_M1": true,
+        "T_and_M1_forces_positivity": true,
+        "dof_from_T_M1_M2": 0
+      },
+      {
+        "N": 10000,
+        "T": 522,
+        "M1": -220,
+        "a11_true": 254,
+        "interval_from_T_only": [
+          0,
+          522
+        ],
+        "dof_from_T_only": 2,
+        "interval_from_T_and_M1": [
+          220,
+          371
+        ],
+        "dof_from_T_and_M1": 1,
+        "a11_in_interval_T_only": true,
+        "a11_in_interval_T_and_M1": true,
+        "T_and_M1_forces_positivity": true,
+        "dof_from_T_M1_M2": 0
+      },
+      {
+        "N": 30000,
+        "T": 2478,
+        "M1": -1002,
+        "a11_true": 1200,
+        "interval_from_T_only": [
+          0,
+          2478
+        ],
+        "dof_from_T_only": 2,
+        "interval_from_T_and_M1": [
+          1002,
+          1740
+        ],
+        "dof_from_T_and_M1": 1,
+        "a11_in_interval_T_only": true,
+        "a11_in_interval_T_and_M1": true,
+        "T_and_M1_forces_positivity": true,
+        "dof_from_T_M1_M2": 0
+      },
+      {
+        "N": 100000,
+        "T": 3570,
+        "M1": -1280,
+        "a11_true": 1616,
+        "interval_from_T_only": [
+          0,
+          3570
+        ],
+        "dof_from_T_only": 2,
+        "interval_from_T_and_M1": [
+          1280,
+          2425
+        ],
+        "dof_from_T_and_M1": 1,
+        "a11_in_interval_T_only": true,
+        "a11_in_interval_T_and_M1": true,
+        "T_and_M1_forces_positivity": true,
+        "dof_from_T_M1_M2": 0
+      },
+      {
+        "N": 300000,
+        "T": 18474,
+        "M1": -5710,
+        "a11_true": 7820,
+        "interval_from_T_only": [
+          0,
+          18474
+        ],
+        "dof_from_T_only": 2,
+        "interval_from_T_and_M1": [
+          5710,
+          12092
+        ],
+        "dof_from_T_and_M1": 1,
+        "a11_in_interval_T_only": true,
+        "a11_in_interval_T_and_M1": true,
+        "T_and_M1_forces_positivity": true,
+        "dof_from_T_M1_M2": 0
+      },
+      {
+        "N": 1000000,
+        "T": 25674,
+        "M1": -7580,
+        "a11_true": 10796,
+        "interval_from_T_only": [
+          0,
+          25674
+        ],
+        "dof_from_T_only": 2,
+        "interval_from_T_and_M1": [
+          7580,
+          16627
+        ],
+        "dof_from_T_and_M1": 1,
+        "a11_in_interval_T_only": true,
+        "a11_in_interval_T_and_M1": true,
+        "T_and_M1_forces_positivity": true,
+        "dof_from_T_M1_M2": 0
+      }
+    ],
+    "C2_single_moment_sign_criterion": {
+      "n_tested": 80,
+      "M1_negative_count": 80,
+      "M1_positive_count": 0,
+      "M1_zero_count": 0,
+      "M1_negative_rate": 1.0,
+      "a11_positive_always": true,
+      "worst_case_largest_M1": {
+        "N": 21500,
+        "M1": -354,
+        "a11": 472,
+        "a22": 118,
+        "eps": 0,
+        "T": 1018
+      },
+      "note": "M1 = eps + a22 - a11（精确恒等式）。M1 < 0 等价于 a11 > a22 + eps，即 (P1+P1) 表示数严格多于 (P2+P2) 表示数 —— 这比 Goldbach 本身更强，属充分非必要条件。实测范围内 M1 < 0 恒成立，但它是未证明的奇偶敏感命题。"
+    },
+    "D_error_budget": [
+      {
+        "N": 1000,
+        "kappa_T": 2.2303817205673835,
+        "kappa_M1": -1.1616571461288454,
+        "kappa_M2": 0.4646628584515382,
+        "kappa_a11": 1.2545897178191532,
+        "rel_tolerance_T": 2.25,
+        "rel_tolerance_M1": 2.16,
+        "rel_tolerance_M2": 10.8,
+        "rel_tolerance_joint_thirds": 1.0,
+        "required_M1_upper_threshold_kappa": 1.347522289509461,
+        "trivial_M1_upper_bound_kappa": 2.2303817205673835,
+        "true_M1_kappa": -1.1616571461288454,
+        "required_saving_factor_over_trivial": 1.6551724137931034
+      },
+      {
+        "N": 3000,
+        "kappa_T": 2.059913869016325,
+        "kappa_M1": -0.9883425129118731,
+        "kappa_M2": 0.29130095117402577,
+        "kappa_a11": 1.0819749615035243,
+        "rel_tolerance_T": 2.101010101010101,
+        "rel_tolerance_M1": 2.1894736842105265,
+        "rel_tolerance_M2": 14.857142857142858,
+        "rel_tolerance_joint_thirds": 1.0000000000000002,
+        "required_M1_upper_threshold_kappa": 1.1756074100951754,
+        "trivial_M1_upper_bound_kappa": 2.059913869016325,
+        "true_M1_kappa": -0.9883425129118731,
+        "required_saving_factor_over_trivial": 1.7522123893805308
+      },
+      {
+        "N": 10000,
+        "kappa_T": 2.3476832777231507,
+        "kappa_M1": -0.9894450595768068,
+        "kappa_M2": 0.24286378735067077,
+        "kappa_a11": 1.1423592960568587,
+        "rel_tolerance_T": 1.946360153256705,
+        "rel_tolerance_M1": 2.309090909090909,
+        "rel_tolerance_M2": 18.814814814814813,
+        "rel_tolerance_joint_thirds": 1.0,
+        "required_M1_upper_threshold_kappa": 1.2952735325369107,
+        "trivial_M1_upper_bound_kappa": 2.3476832777231507,
+        "true_M1_kappa": -0.9894450595768068,
+        "required_saving_factor_over_trivial": 1.8125
+      },
+      {
+        "N": 30000,
+        "kappa_T": 2.3270021566114556,
+        "kappa_M1": -0.9409427606637121,
+        "kappa_M2": 0.29862255278548944,
+        "kappa_a11": 1.1268775576810923,
+        "rel_tolerance_T": 1.937046004842615,
+        "rel_tolerance_M1": 2.3952095808383236,
+        "rel_tolerance_M2": 15.094339622641511,
+        "rel_tolerance_joint_thirds": 1.0,
+        "required_M1_upper_threshold_kappa": 1.3128123546984725,
+        "trivial_M1_upper_bound_kappa": 2.3270021566114556,
+        "true_M1_kappa": -0.9409427606637121,
+        "required_saving_factor_over_trivial": 1.7725321888412018
+      },
+      {
+        "N": 100000,
+        "kappa_T": 2.6012376417347536,
+        "kappa_M1": -0.9326566334511162,
+        "kappa_M2": 0.24336509029115064,
+        "kappa_a11": 1.1774789997320343,
+        "rel_tolerance_T": 1.8106442577030815,
+        "rel_tolerance_M1": 2.5250000000000004,
+        "rel_tolerance_M2": 19.353293413173652,
+        "rel_tolerance_joint_thirds": 1.0000000000000002,
+        "required_M1_upper_threshold_kappa": 1.4223013660129522,
+        "trivial_M1_upper_bound_kappa": 2.6012376417347536,
+        "true_M1_kappa": -0.9326566334511162,
+        "required_saving_factor_over_trivial": 1.8288934426229506
+      },
+      {
+        "N": 300000,
+        "kappa_T": 2.6920691131946883,
+        "kappa_M1": -0.8320728935986614,
+        "kappa_M2": 0.20197075841116371,
+        "kappa_a11": 1.1395464147007939,
+        "rel_tolerance_T": 1.6931904297932232,
+        "rel_tolerance_M1": 2.739054290718039,
+        "rel_tolerance_M2": 22.56854256854257,
+        "rel_tolerance_joint_thirds": 1.0000000000000002,
+        "required_M1_upper_threshold_kappa": 1.447019935802926,
+        "trivial_M1_upper_bound_kappa": 2.6920691131946883,
+        "true_M1_kappa": -0.8320728935986614,
+        "required_saving_factor_over_trivial": 1.8604229607250755
+      },
+      {
+        "N": 1000000,
+        "kappa_T": 2.7394250449216933,
+        "kappa_M1": -0.8087887294736479,
+        "kappa_M2": 0.2507458462088486,
+        "kappa_a11": 1.1519370875194594,
+        "rel_tolerance_T": 1.6820129313702579,
+        "rel_tolerance_M1": 2.848548812664908,
+        "rel_tolerance_M2": 18.37617021276596,
+        "rel_tolerance_joint_thirds": 1.0,
+        "required_M1_upper_threshold_kappa": 1.495085445565271,
+        "trivial_M1_upper_bound_kappa": 2.7394250449216933,
+        "true_M1_kappa": -0.8087887294736479,
+        "required_saving_factor_over_trivial": 1.8322866114758778
+      }
+    ],
+    "E_sieve_main_term_reachability": [
+      {
+        "N": 100000,
+        "s": 3,
+        "z": 46,
+        "T": 3570,
+        "main_term_N_times_V": 3551.432109372511,
+        "V": 0.03551432109372511,
+        "ratio_T_over_main": 1.0052282825788748,
+        "dim1_rough_count": 14204,
+        "dim1_main_term": 14171.93989974993,
+        "dim1_ratio": 1.0022622238364585
+      },
+      {
+        "N": 100000,
+        "s": 4,
+        "z": 17,
+        "T": 5824,
+        "main_term_N_times_V": 5817.711700064642,
+        "V": 0.05817711700064642,
+        "ratio_T_over_main": 1.0010808888888887,
+        "dim1_rough_count": 18053,
+        "dim1_main_term": 18052.535699594526,
+        "dim1_ratio": 1.0000257194010416
+      },
+      {
+        "N": 100000,
+        "s": 6,
+        "z": 6,
+        "T": 13332,
+        "main_term_N_times_V": 13333.333333333334,
+        "V": 0.13333333333333333,
+        "ratio_T_over_main": 0.9998999999999999,
+        "dim1_rough_count": 26666,
+        "dim1_main_term": 26666.66666666667,
+        "dim1_ratio": 0.9999749999999998
+      },
+      {
+        "N": 100000,
+        "s": 10,
+        "z": 3,
+        "T": 16666,
+        "main_term_N_times_V": 16666.666666666668,
+        "V": 0.16666666666666669,
+        "ratio_T_over_main": 0.99996,
+        "dim1_rough_count": 33333,
+        "dim1_main_term": 33333.333333333336,
+        "dim1_ratio": 0.9999899999999999
+      },
+      {
+        "N": 1000000,
+        "s": 3,
+        "z": 100,
+        "T": 25674,
+        "main_term_N_times_V": 25531.36073674984,
+        "V": 0.02553136073674984,
+        "ratio_T_over_main": 1.0055868257364302,
+        "dim1_rough_count": 120760,
+        "dim1_main_term": 120317.29047493522,
+        "dim1_ratio": 1.0036795170778634
+      },
+      {
+        "N": 1000000,
+        "s": 4,
+        "z": 31,
+        "T": 41360,
+        "main_term_N_times_V": 41394.34788286933,
+        "V": 0.04139434788286933,
+        "ratio_T_over_main": 0.9991702277091905,
+        "dim1_rough_count": 152840,
+        "dim1_main_term": 152852.15138898604,
+        "dim1_ratio": 0.9999205023359135
+      },
+      {
+        "N": 1000000,
+        "s": 6,
+        "z": 10,
+        "T": 95238,
+        "main_term_N_times_V": 95238.09523809525,
+        "V": 0.09523809523809525,
+        "ratio_T_over_main": 0.9999989999999999,
+        "dim1_rough_count": 228571,
+        "dim1_main_term": 228571.42857142855,
+        "dim1_ratio": 0.9999981250000001
+      },
+      {
+        "N": 1000000,
+        "s": 10,
+        "z": 3,
+        "T": 166666,
+        "main_term_N_times_V": 166666.6666666667,
+        "V": 0.16666666666666669,
+        "ratio_T_over_main": 0.9999959999999999,
+        "dim1_rough_count": 333333,
+        "dim1_main_term": 333333.3333333334,
+        "dim1_ratio": 0.9999989999999999
+      }
+    ],
+    "F_modN_closed_orbit_test": [
+      {
+        "N": 1000,
+        "a": 3,
+        "corr_multiplicativity_modN": 0.3213213213213213,
+        "corr_reflection_orbit_F": -0.025025025025025027,
+        "multiplicativity_survival_rate": 0.6606606606606606,
+        "no_wraparound_density_1_over_a": 0.3333333333333333,
+        "corr_minus_1_over_a": -0.012012012012012019,
+        "survival_rate_predicted_from_nowrap_plus_noise": 0.6666666666666667
+      },
+      {
+        "N": 1000,
+        "a": 7,
+        "corr_multiplicativity_modN": 0.11711711711711711,
+        "corr_reflection_orbit_F": -0.001001001001001001,
+        "multiplicativity_survival_rate": 0.5585585585585585,
+        "no_wraparound_density_1_over_a": 0.14285714285714285,
+        "corr_minus_1_over_a": -0.025740025740025735,
+        "survival_rate_predicted_from_nowrap_plus_noise": 0.5714285714285714
+      },
+      {
+        "N": 1000,
+        "a": 11,
+        "corr_multiplicativity_modN": 0.001001001001001001,
+        "corr_reflection_orbit_F": -0.04104104104104104,
+        "multiplicativity_survival_rate": 0.5005005005005005,
+        "no_wraparound_density_1_over_a": 0.09090909090909091,
+        "corr_minus_1_over_a": -0.0899080899080899,
+        "survival_rate_predicted_from_nowrap_plus_noise": 0.5454545454545454
+      },
+      {
+        "N": 10000,
+        "a": 3,
+        "corr_multiplicativity_modN": 0.3341334133413341,
+        "corr_reflection_orbit_F": -0.0049004900490049,
+        "multiplicativity_survival_rate": 0.667066706670667,
+        "no_wraparound_density_1_over_a": 0.3333333333333333,
+        "corr_minus_1_over_a": 0.000800080008000803,
+        "survival_rate_predicted_from_nowrap_plus_noise": 0.6666666666666667
+      },
+      {
+        "N": 10000,
+        "a": 7,
+        "corr_multiplicativity_modN": 0.14411441144114412,
+        "corr_reflection_orbit_F": 0.0039003900390039005,
+        "multiplicativity_survival_rate": 0.5720572057205721,
+        "no_wraparound_density_1_over_a": 0.14285714285714285,
+        "corr_minus_1_over_a": 0.0012572685840012698,
+        "survival_rate_predicted_from_nowrap_plus_noise": 0.5714285714285714
+      },
+      {
+        "N": 10000,
+        "a": 11,
+        "corr_multiplicativity_modN": 0.0785078507850785,
+        "corr_reflection_orbit_F": 0.012701270127012701,
+        "multiplicativity_survival_rate": 0.5392539253925392,
+        "no_wraparound_density_1_over_a": 0.09090909090909091,
+        "corr_minus_1_over_a": -0.012401240124012405,
+        "survival_rate_predicted_from_nowrap_plus_noise": 0.5454545454545454
+      },
+      {
+        "N": 100000,
+        "a": 3,
+        "corr_multiplicativity_modN": 0.3331733317333173,
+        "corr_reflection_orbit_F": -0.0024900249002490025,
+        "multiplicativity_survival_rate": 0.6665866658666587,
+        "no_wraparound_density_1_over_a": 0.3333333333333333,
+        "corr_minus_1_over_a": -0.00016000160001600205,
+        "survival_rate_predicted_from_nowrap_plus_noise": 0.6666666666666667
+      },
+      {
+        "N": 100000,
+        "a": 7,
+        "corr_multiplicativity_modN": 0.14737147371473716,
+        "corr_reflection_orbit_F": 0.006070060700607006,
+        "multiplicativity_survival_rate": 0.5736857368573686,
+        "no_wraparound_density_1_over_a": 0.14285714285714285,
+        "corr_minus_1_over_a": 0.004514330857594312,
+        "survival_rate_predicted_from_nowrap_plus_noise": 0.5714285714285714
+      },
+      {
+        "N": 100000,
+        "a": 11,
+        "corr_multiplicativity_modN": 0.09321093210932109,
+        "corr_reflection_orbit_F": 0.001110011100111001,
+        "multiplicativity_survival_rate": 0.5466054660546605,
+        "no_wraparound_density_1_over_a": 0.09090909090909091,
+        "corr_minus_1_over_a": 0.0023018412002301786,
+        "survival_rate_predicted_from_nowrap_plus_noise": 0.5454545454545454
+      }
+    ],
+    "G_dilation_invariance_trivial_check": [
+      {
+        "N": 100,
+        "a": 2,
+        "F_aN_of_an_equals_F_N_of_n": true
+      },
+      {
+        "N": 100,
+        "a": 3,
+        "F_aN_of_an_equals_F_N_of_n": true
+      },
+      {
+        "N": 100,
+        "a": 5,
+        "F_aN_of_an_equals_F_N_of_n": true
+      },
+      {
+        "N": 1000,
+        "a": 2,
+        "F_aN_of_an_equals_F_N_of_n": true
+      },
+      {
+        "N": 1000,
+        "a": 3,
+        "F_aN_of_an_equals_F_N_of_n": true
+      },
+      {
+        "N": 1000,
+        "a": 5,
+        "F_aN_of_an_equals_F_N_of_n": true
+      },
+      {
+        "N": 10000,
+        "a": 2,
+        "F_aN_of_an_equals_F_N_of_n": true
+      },
+      {
+        "N": 10000,
+        "a": 3,
+        "F_aN_of_an_equals_F_N_of_n": true
+      },
+      {
+        "N": 10000,
+        "a": 5,
+        "F_aN_of_an_equals_F_N_of_n": true
+      }
+    ]
+  },
+  "summary": {
+    "identity_4a11_eq_T_minus_2M1_plus_M2_all_N": true,
+    "identity_a11_eq_eps_plus_a22_minus_M1_all_N": true,
+    "omega_le_2_on_sifted_set_all_N": true,
+    "reflection_symmetry_a12_eq_a21_all_N": true,
+    "quarter_level_breaks_the_encoding": true,
+    "degrees_of_freedom": {
+      "from_T_only": 2,
+      "from_T_and_M1": 1,
+      "from_T_M1_M2": 0,
+      "verdict": "三个矩恰好定解；代数上不缺统计量，自由度 = 0。"
+    },
+    "stronger_single_moment_criterion": {
+      "statement": "M_1(N) < 0  ==>  a_11 >= 1  ==>  N 有 Goldbach 分拆。",
+      "proof_length": "一行：M_1 = eps + a_22 - a_11，且 eps, a_22 >= 0。",
+      "needs_T": false,
+      "needs_M2": false,
+      "sufficient_not_necessary": true,
+      "M1_negative_rate_in_scan": 1.0,
+      "n_tested": 80
+    },
+    "error_budget_largest_N": {
+      "N": 1000000,
+      "kappa_T": 2.7394250449216933,
+      "kappa_M1": -0.8087887294736479,
+      "kappa_M2": 0.2507458462088486,
+      "kappa_a11": 1.1519370875194594,
+      "rel_tolerance_T": 1.6820129313702579,
+      "rel_tolerance_M1": 2.848548812664908,
+      "rel_tolerance_M2": 18.37617021276596,
+      "rel_tolerance_joint_thirds": 1.0,
+      "required_M1_upper_threshold_kappa": 1.495085445565271,
+      "trivial_M1_upper_bound_kappa": 2.7394250449216933,
+      "true_M1_kappa": -0.8087887294736479,
+      "required_saving_factor_over_trivial": 1.8322866114758778
+    },
+    "sieve_ratio_at_s3": [
+      {
+        "N": 100000,
+        "ratio": 1.0052282825788748
+      },
+      {
+        "N": 1000000,
+        "ratio": 1.0055868257364302
+      }
+    ],
+    "modN_orbit_max_abs_corr": 0.3341334133413341,
+    "interpretation": [
+      "【回答「三个矩够不够」】代数上**够**：(T, M_1, M_2) 三个矩把 (a11, a12, a22) 三个未知数唯一确定，自由度恰为 0，不多不少。恒等式 4*a11 = T - 2*M1 + M2 在所有测试 N 上精确成立（整数相等，非渐近）。",
+      "【还能更省】由 M_1 = eps + a22 - a11 可知，连 T 与 M_2 都不需要：只要 M_1 < 0（即 (P1+P1) 表示数 > (P2+P2) 表示数）就直接推出 Goldbach。这是本路线能给出的最弱充分输入。",
+      "【但这就是奇偶障碍本身】M_1 = sum_{n in S_z} lambda(n) 正是sum (-1)^{Omega(n)} 型的奇偶泛函；M_2 亦然。二者都是 Selberg 奇偶障碍的靶心。本路线把 Goldbach **精确归约**为「证明一个 Liouville 加权筛和的符号」，它是奇偶障碍的**最精简表述**，而不是绕过它的新工具。",
+      "【为什么非得 z = N^{1/3}】只有在 z > N^{1/3} 时 Omega <= 2，「Omega 为奇」才等价于「是素数」，(1-lambda)/2 才等于素性指示。节 A2 实测：降到 z = N^{1/4}（Omega <= 3）后恒等式立刻失效。而 z = N^{1/3} 正是 s = log N / log z = 3 —— 维度 2 筛的常数最难拿到的区段，与「编码需要大 z、筛法只能驾驭小 z」形成正面冲突。",
+      "【§13 mod-N 闭合轨道实测：精确证否 + 定量归因】把 n -> a*n mod N 代入后，corr(lambda(a*n mod N), lambda(a)lambda(n)) 实测恒等于 **1/a 量级**（a=3: ~0.333，a=7: ~0.147，a=11: ~0.093），且**不随 N 衰减**。归因是精确的：无回绕子集 { n : a*n < N } 的密度恰为 1/a，在其上a*n mod N = a*n 故完全乘法性**精确**成立；余下 1-1/a 的部分被回绕彻底打散（减掉 1/a 后的残差在 N >= 10^4 时 |corr - 1/a| < 0.013；N=1000 样本小，波动达 0.09）。所以对固定的 a 确实残留一个正密度 1/a 的'可用片段'，但伸缩因子 a 越大该片段越稀（-> 0）。更致命的是**反射量本身**：corr(F_N(a*n mod N), F_N(n)) 实测 ~0.00x（量级 1e-3），即 F_N 在置换 n -> a*n mod N 下**完全不保持**。所以「用模 N 乘法回到同一个 N」这一步不成立 —— 且失败方式已被精确定量。",
+      "【瓶颈的精确定位：只差 M_1 的一个上界】结论 a_11 >= 1 需要T - 2*M_1 + M_2 >= 4；在 T、M_2 精确时等价于 M_1 <= (T+M_2)/2 - 2。以 N = 10^6 的实测 kappa 计：阈值 = (kappa_T + kappa_2)/2 = 1.495（单位 = S(N)N/log^2N），真值 kappa_1 = -0.809，而平凡界只有 |M_1| <= T 即 2.739。故所需的是「M_1 的上界比平凡界节省一个因子 2*kappa_T/(kappa_T+kappa_2) = 1.83」。这是一个**单侧奇偶敏感估计**——正是 Selberg 奇偶障碍的定义域。（更省事的纯 M_1 路线连 T、M_2 都不需要，只要 M_1 < 0。）",
+      "【筛主项：为真 vs 可证】节 E 实测真值比值 T/(N*V(z))：s=3 时约 1.0052~1.0056，s>=4 时已回到 1.000。s=3 处这个 +0.5% 的偏离**不随 N 增大而消失**（N=10^5: 1.00523，N=10^6: 1.00559），提示它是 s 的函数而非有限尺度效应。它数值上接近维度 1 的 Buchstab 常数 omega(3)*e^gamma = 1.0052，但同轮对照组 dim1_ratio 实测为 1.0023（N=10^5）/ 1.0037（N=10^6），与维度 2 的 1.0052 / 1.0056 相差约 0.2% —— 故**该识别未被确认**，本脚本只把它登记为待核观察，不宣称维度 2 筛与维度 1 的 Buchstab 函数相同。无论该常数如何，「为真」不等于「可证」：维度 2 筛在 s=3 的上下界常数能否同时贴近 1，是本路线无法回避的解析输入。",
+      "【§11/§12 伸缩不变性】F_{aN}(an) = F_N(n) 确实精确成立（G 节），但它是完全乘法性的一句话推论，且连接的是**不同的 N**，对固定 N 不增加任何独立方程（自由度不变）。"
+    ],
+    "what_remains_open": [
+      "M_1 的符号：需要证明 sum_{n in S_z} lambda(n) < 0，即 (P1+P1) 多于 (P2+P2)。这是标准奇偶障碍，现有筛法不能区分 Omega 的奇偶。",
+      "M_2 的估计：把 sifting 展开后是 sum_{d|P(z)} mu(d) * (沿线性方程 d1*a + d2*b = N 的 lambda(a)lambda(b) 相关)，要求对 d 直到 e^{N^{1/3}} 一致成立的二元 Chowla 型估计，远超现有技术。",
+      "T 的常数：需要维度 2 筛在 s = 3 的上下界常数都贴近 1。节 E 实测了真值比值 T/(N*V(z))，但「为真」与「可证」是两件事 —— 本脚本只给出真值一侧的实测，不宣称该常数已可证。",
+      "单矩判据 M_1 < 0 是充分非必要的：即使某些 N 上 M_1 >= 0（Goldbach 仍成立），也只说明该判据不够，需要回到完整三矩。",
+      "本脚本全部计算在 N <= 10^6、z = icbrt(N) 的有限尺度；渐近行为外推需谨慎。"
+    ],
+    "verdict": "上一轮提出的「2x2 系统」本轮算清了：三矩定解（自由度 0），并存在更弱的单矩充分判据 M_1 < 0。但该判据与三矩中的 M_1、M_2 全部落在 Selberg 奇偶障碍的靶心上，而编码所必需的 z = N^{1/3}（s = 3）又恰在筛法常数最难拿到的区段。结论：反射–伸缩路线在此处**收束为奇偶障碍的最精简表述**，不是突破；状态维持 OPEN。"
+  }
+}

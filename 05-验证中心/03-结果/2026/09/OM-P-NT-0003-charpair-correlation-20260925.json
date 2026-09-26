@@ -884,7 +884,8 @@
     ]
   },
   "summary": {
-    "jacobi_sqrtq_verified_for_all_nondegenerate_triples": true,
+    "jacobi_sqrtq_verified_for_all_primitive_nondegenerate_triples": true,
+    "jacobi_sqrtq_scope_note": "仅限 chi1,chi2,chi1*chi2 皆本原非主的三元组；非本原情形见 conductor-localization 的 T6（|τ|∈{0,√conductor}）。",
     "finite_scale_correlation_is_oN": false,
     "moduli_with_nonzero_primitive_triples": [
       5,
