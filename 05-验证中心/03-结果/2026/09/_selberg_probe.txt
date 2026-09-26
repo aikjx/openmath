@@ -1,0 +1,68 @@
+N=600 L2rows=13 brute_ok=True diag_ok=True numd=6 kkt_scaled=2.78e-17
+   T0=112 T_W=163.7 T_W/T0=1.462  diagonal_share=0.5372  selfsim_maxerr=0
+   A_on_sifted=62.0 A_off_sifted=0.8 unweighted_a11=62 unweighted_ident=True
+   coeffs sum check: Lset=13  cancellation: 各块贡献的绝对值之和 / |L2_W| = 1.46（>1 即表示块间存在净抵消；份额按 L2_W 归一化会失真，故同时给出 over-T_W 的稳定刻度）
+   L2_over_TW blocks: {'L_le_logN_sq': 0.1645, 'logN_sq_lt_L_le_z': 0.0, 'z_lt_L_le_Dsq': -0.0308, 'L_gt_Dsq': 0.0}
+   budget: {'kappa_T_W': 2.7184, 'kappa_L1_W': -0.8166, 'kappa_L2_W': 0.3634, 'kappa_X_W': 1.1787, 'kappa_A_W': 1.042, 'abs_2L1_plus_abs_L2_over_T': 0.7345, 'margin_1_minus_that': 0.2655, 'saving_factor_needed_vs_trivial': 1.3616}
+N=6000 L2rows=46 brute_ok=True diag_ok=True numd=12 kkt_scaled=4.34e-17
+   T0=700 T_W=1208.6 T_W/T0=1.727  diagonal_share=1.0457  selfsim_maxerr=0
+   A_on_sifted=354.0 A_off_sifted=1.2 unweighted_a11=354 unweighted_ident=True
+   coeffs sum check: Lset=46  cancellation: 各块贡献的绝对值之和 / |L2_W| = 1.00（>1 即表示块间存在净抵消；份额按 L2_W 归一化会失真，故同时给出 over-T_W 的稳定刻度）
+   L2_over_TW blocks: {'L_le_logN_sq': 0.0181, 'logN_sq_lt_L_le_z': 0.0, 'z_lt_L_le_Dsq': 0.0265, 'L_gt_Dsq': 0.0}
+   budget: {'kappa_T_W': 4.0412, 'kappa_L1_W': -0.7746, 'kappa_L2_W': 0.18, 'kappa_X_W': 1.4426, 'kappa_A_W': 1.1875, 'abs_2L1_plus_abs_L2_over_T': 0.4279, 'margin_1_minus_that': 0.5721, 'saving_factor_needed_vs_trivial': 2.3371}
+N=60000 L2rows=190 brute_ok=True diag_ok=True numd=26 kkt_scaled=2.99e-17
+   T0=4724 T_W=9013.5 T_W/T0=1.908  diagonal_share=0.8942  selfsim_maxerr=0
+   A_on_sifted=2164.0 A_off_sifted=2.3 unweighted_a11=2164 unweighted_ident=True
+   coeffs sum check: Lset=190  cancellation: 各块贡献的绝对值之和 / |L2_W| = 1.00（>1 即表示块间存在净抵消；份额按 L2_W 归一化会失真，故同时给出 over-T_W 的稳定刻度）
+   L2_over_TW blocks: {'L_le_logN_sq': 0.0164, 'logN_sq_lt_L_le_z': 0.0, 'z_lt_L_le_Dsq': 0.0074, 'L_gt_Dsq': 0.0}
+   budget: {'kappa_T_W': 4.9981, 'kappa_L1_W': -0.589, 'kappa_L2_W': 0.1192, 'kappa_X_W': 1.5738, 'kappa_A_W': 1.2012, 'abs_2L1_plus_abs_L2_over_T': 0.2596, 'margin_1_minus_that': 0.7404, 'saving_factor_needed_vs_trivial': 3.8527}
+N=240000 L2rows=457 brute_ok=True diag_ok=True numd=39 kkt_scaled=2.43e-17
+   T0=14770 T_W=31870.8 T_W/T0=2.158  diagonal_share=4.5305  selfsim_maxerr=0
+   A_on_sifted=6518.0 A_off_sifted=5.5 unweighted_a11=6518 unweighted_ident=True
+   coeffs sum check: Lset=457  cancellation: 各块贡献的绝对值之和 / |L2_W| = 3.91（>1 即表示块间存在净抵消；份额按 L2_W 归一化会失真，故同时给出 over-T_W 的稳定刻度）
+   L2_over_TW blocks: {'L_le_logN_sq': 0.0043, 'logN_sq_lt_L_le_z': 0.0, 'z_lt_L_le_Dsq': -0.0073, 'L_gt_Dsq': 0.0}
+   budget: {'kappa_T_W': 5.7429, 'kappa_L1_W': -0.4488, 'kappa_L2_W': -0.0171, 'kappa_X_W': 1.6558, 'kappa_A_W': 1.1755, 'abs_2L1_plus_abs_L2_over_T': 0.1593, 'margin_1_minus_that': 0.8407, 'saving_factor_needed_vs_trivial': 6.2793}
+
+S1b: [{'N': 300, 'weight_is_symmetric': True, 'T': 471.2983845329771, 'L1': -33.04695766437681, 'L2': 94.50239020078381, 'X': 157.97367251562872, 'L1_reflection_equals_L1': True, 'abs_error_4X_minus_combo': 3.410605131648481e-13, 'identity_exact': True, 'note': '权重完全随机（无筛结构、无支撑条件），恒等式仍精确成立。'}, {'N': 1000, 'weight_is_symmetric': True, 'T': 1498.1111129398098, 'L1': -31.02807112361835, 'L2': 53.59905277566999, 'X': 403.4415769906786, 'L1_reflection_equals_L1': True, 'abs_error_4X_minus_combo': 2.2737367544323206e-12, 'identity_exact': True, 'note': '权重完全随机（无筛结构、无支撑条件），恒等式仍精确成立。'}, {'N': 3000, 'weight_is_symmetric': True, 'T': 4567.22975373724, 'L1': -54.82738516084696, 'L2': 45.535343598646534, 'X': 1180.6049669143956, 'L1_reflection_equals_L1': True, 'abs_error_4X_minus_combo': 2.7284841053187847e-12, 'identity_exact': True, 'note': '权重完全随机（无筛结构、无支撑条件），恒等式仍精确成立。'}]
+
+h=2 ['x=1000 nat/x=-0.03000 log/logx=-0.19752', 'x=10000 nat/x=0.00120 log/logx=-0.14781', 'x=100000 nat/x=0.00258 log/logx=-0.11763', 'x=1000000 nat/x=0.00007 log/logx=-0.09816']
+h=4 ['x=1000 nat/x=0.01800 log/logx=-0.21903', 'x=10000 nat/x=-0.00380 log/logx=-0.16764', 'x=100000 nat/x=0.00130 log/logx=-0.13429', 'x=1000000 nat/x=-0.00071 log/logx=-0.11197']
+h=6 ['x=1000 nat/x=-0.01000 log/logx=-0.06648', 'x=10000 nat/x=-0.00640 log/logx=-0.05312', 'x=100000 nat/x=-0.00118 log/logx=-0.04279', 'x=1000000 nat/x=0.00018 log/logx=-0.03553']
+h=8 ['x=1000 nat/x=-0.01600 log/logx=0.04910', 'x=10000 nat/x=-0.00380 log/logx=0.03959', 'x=100000 nat/x=-0.00192 log/logx=0.03127', 'x=1000000 nat/x=-0.00011 log/logx=0.02609']
+h=30 ['x=1000 nat/x=-0.02400 log/logx=0.01136', 'x=10000 nat/x=0.00280 log/logx=0.01267', 'x=100000 nat/x=-0.00236 log/logx=0.00978', 'x=1000000 nat/x=0.00032 log/logx=0.00810']
+h=210 ['x=1000 nat/x=0.02600 log/logx=-0.00099', 'x=10000 nat/x=0.00500 log/logx=-0.00132', 'x=100000 nat/x=-0.00480 log/logx=-0.00213', 'x=1000000 nat/x=-0.00153 log/logx=-0.00191']
+C1 rows: [{'N': 1000, 'C1': 23, 'C1_over_N': 0.023, 'C1_over_sqrtN': 0.7273238618387272}, {'N': 3000, 'C1': 43, 'C1_over_N': 0.014333333333333333, 'C1_over_sqrtN': 0.785068999090738}, {'N': 10000, 'C1': -225, 'C1_over_N': -0.0225, 'C1_over_sqrtN': -2.25}, {'N': 30000, 'C1': -233, 'C1_over_N': -0.0077666666666666665, 'C1_over_sqrtN': -1.345226127211828}, {'N': 100000, 'C1': -525, 'C1_over_N': -0.00525, 'C1_over_sqrtN': -1.660195771588399}]
+N=600 L2rows=13 brute_ok=True diag_ok=True numd=6 kkt_scaled=2.78e-17
+   T0=112 T_W=163.7 T_W/T0=1.462  diagonal_share=0.5372  selfsim_maxerr=0
+   A_on_sifted=62.0 A_off_sifted=0.8 unweighted_a11=62 unweighted_ident=True
+   coeffs sum check: Lset=13  cancellation: 各块贡献的绝对值之和 / |L2_W| = 1.46（>1 即表示块间存在净抵消；份额按 L2_W 归一化会失真，故同时给出 over-T_W 的稳定刻度）
+   L2_over_TW blocks: {'L_le_logN_sq': 0.1645, 'logN_sq_lt_L_le_z': 0.0, 'z_lt_L_le_Dsq': -0.0308, 'L_gt_Dsq': 0.0}
+   budget: {'kappa_T_W': 2.7184, 'kappa_L1_W': -0.8166, 'kappa_L2_W': 0.3634, 'kappa_X_W': 1.1787, 'kappa_A_W': 1.042, 'abs_2L1_plus_abs_L2_over_T': 0.7345, 'margin_1_minus_that': 0.2655, 'saving_factor_needed_vs_trivial': 1.3616}
+N=6000 L2rows=46 brute_ok=True diag_ok=True numd=12 kkt_scaled=4.34e-17
+   T0=700 T_W=1208.6 T_W/T0=1.727  diagonal_share=1.0457  selfsim_maxerr=0
+   A_on_sifted=354.0 A_off_sifted=1.2 unweighted_a11=354 unweighted_ident=True
+   coeffs sum check: Lset=46  cancellation: 各块贡献的绝对值之和 / |L2_W| = 1.00（>1 即表示块间存在净抵消；份额按 L2_W 归一化会失真，故同时给出 over-T_W 的稳定刻度）
+   L2_over_TW blocks: {'L_le_logN_sq': 0.0181, 'logN_sq_lt_L_le_z': 0.0, 'z_lt_L_le_Dsq': 0.0265, 'L_gt_Dsq': 0.0}
+   budget: {'kappa_T_W': 4.0412, 'kappa_L1_W': -0.7746, 'kappa_L2_W': 0.18, 'kappa_X_W': 1.4426, 'kappa_A_W': 1.1875, 'abs_2L1_plus_abs_L2_over_T': 0.4279, 'margin_1_minus_that': 0.5721, 'saving_factor_needed_vs_trivial': 2.3371}
+N=60000 L2rows=190 brute_ok=True diag_ok=True numd=26 kkt_scaled=2.99e-17
+   T0=4724 T_W=9013.5 T_W/T0=1.908  diagonal_share=0.8942  selfsim_maxerr=0
+   A_on_sifted=2164.0 A_off_sifted=2.3 unweighted_a11=2164 unweighted_ident=True
+   coeffs sum check: Lset=190  cancellation: 各块贡献的绝对值之和 / |L2_W| = 1.00（>1 即表示块间存在净抵消；份额按 L2_W 归一化会失真，故同时给出 over-T_W 的稳定刻度）
+   L2_over_TW blocks: {'L_le_logN_sq': 0.0164, 'logN_sq_lt_L_le_z': 0.0, 'z_lt_L_le_Dsq': 0.0074, 'L_gt_Dsq': 0.0}
+   budget: {'kappa_T_W': 4.9981, 'kappa_L1_W': -0.589, 'kappa_L2_W': 0.1192, 'kappa_X_W': 1.5738, 'kappa_A_W': 1.2012, 'abs_2L1_plus_abs_L2_over_T': 0.2596, 'margin_1_minus_that': 0.7404, 'saving_factor_needed_vs_trivial': 3.8527}
+N=240000 L2rows=457 brute_ok=True diag_ok=True numd=39 kkt_scaled=2.43e-17
+   T0=14770 T_W=31870.8 T_W/T0=2.158  diagonal_share=4.5305  selfsim_maxerr=0
+   A_on_sifted=6518.0 A_off_sifted=5.5 unweighted_a11=6518 unweighted_ident=True
+   coeffs sum check: Lset=457  cancellation: 各块贡献的绝对值之和 / |L2_W| = 3.91（>1 即表示块间存在净抵消；份额按 L2_W 归一化会失真，故同时给出 over-T_W 的稳定刻度）
+   L2_over_TW blocks: {'L_le_logN_sq': 0.0043, 'logN_sq_lt_L_le_z': 0.0, 'z_lt_L_le_Dsq': -0.0073, 'L_gt_Dsq': 0.0}
+   budget: {'kappa_T_W': 5.7429, 'kappa_L1_W': -0.4488, 'kappa_L2_W': -0.0171, 'kappa_X_W': 1.6558, 'kappa_A_W': 1.1755, 'abs_2L1_plus_abs_L2_over_T': 0.1593, 'margin_1_minus_that': 0.8407, 'saving_factor_needed_vs_trivial': 6.2793}
+
+S1b: [{'N': 300, 'weight_is_symmetric': True, 'T': 471.2983845329771, 'L1': -33.04695766437681, 'L2': 94.50239020078381, 'X': 157.97367251562872, 'L1_reflection_equals_L1': True, 'abs_error_4X_minus_combo': 3.410605131648481e-13, 'identity_exact': True, 'note': '权重完全随机（无筛结构、无支撑条件），恒等式仍精确成立。'}, {'N': 1000, 'weight_is_symmetric': True, 'T': 1498.1111129398098, 'L1': -31.02807112361835, 'L2': 53.59905277566999, 'X': 403.4415769906786, 'L1_reflection_equals_L1': True, 'abs_error_4X_minus_combo': 2.2737367544323206e-12, 'identity_exact': True, 'note': '权重完全随机（无筛结构、无支撑条件），恒等式仍精确成立。'}, {'N': 3000, 'weight_is_symmetric': True, 'T': 4567.22975373724, 'L1': -54.82738516084696, 'L2': 45.535343598646534, 'X': 1180.6049669143956, 'L1_reflection_equals_L1': True, 'abs_error_4X_minus_combo': 2.7284841053187847e-12, 'identity_exact': True, 'note': '权重完全随机（无筛结构、无支撑条件），恒等式仍精确成立。'}]
+
+h=2 ['x=1000 nat/x=-0.03000 log/logx=-0.19752', 'x=10000 nat/x=0.00120 log/logx=-0.14781', 'x=100000 nat/x=0.00258 log/logx=-0.11763', 'x=1000000 nat/x=0.00007 log/logx=-0.09816']
+h=4 ['x=1000 nat/x=0.01800 log/logx=-0.21903', 'x=10000 nat/x=-0.00380 log/logx=-0.16764', 'x=100000 nat/x=0.00130 log/logx=-0.13429', 'x=1000000 nat/x=-0.00071 log/logx=-0.11197']
+h=6 ['x=1000 nat/x=-0.01000 log/logx=-0.06648', 'x=10000 nat/x=-0.00640 log/logx=-0.05312', 'x=100000 nat/x=-0.00118 log/logx=-0.04279', 'x=1000000 nat/x=0.00018 log/logx=-0.03553']
+h=8 ['x=1000 nat/x=-0.01600 log/logx=0.04910', 'x=10000 nat/x=-0.00380 log/logx=0.03959', 'x=100000 nat/x=-0.00192 log/logx=0.03127', 'x=1000000 nat/x=-0.00011 log/logx=0.02609']
+h=30 ['x=1000 nat/x=-0.02400 log/logx=0.01136', 'x=10000 nat/x=0.00280 log/logx=0.01267', 'x=100000 nat/x=-0.00236 log/logx=0.00978', 'x=1000000 nat/x=0.00032 log/logx=0.00810']
+h=210 ['x=1000 nat/x=0.02600 log/logx=-0.00099', 'x=10000 nat/x=0.00500 log/logx=-0.00132', 'x=100000 nat/x=-0.00480 log/logx=-0.00213', 'x=1000000 nat/x=-0.00153 log/logx=-0.00191']
+C1 rows: [{'N': 1000, 'C1': 23, 'C1_over_N': 0.023, 'C1_over_sqrtN': 0.7273238618387272}, {'N': 3000, 'C1': 43, 'C1_over_N': 0.014333333333333333, 'C1_over_sqrtN': 0.785068999090738}, {'N': 10000, 'C1': -225, 'C1_over_N': -0.0225, 'C1_over_sqrtN': -2.25}, {'N': 30000, 'C1': -233, 'C1_over_N': -0.0077666666666666665, 'C1_over_sqrtN': -1.345226127211828}, {'N': 100000, 'C1': -525, 'C1_over_N': -0.00525, 'C1_over_sqrtN': -1.660195771588399}]

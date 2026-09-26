@@ -5,7 +5,7 @@
   "ai_assisted": true,
   "independent_human_review": false,
   "carries_over_from": "OM-P-NT-0006",
-  "red_line_note": "本脚本不证明哥德巴赫，也不证明 M_1 < 0。它用 N <= 3e6 的密集实测 + 1/log N 外推，把 OM-P-NT-0006 的单矩充分判据是否渐近存活变成一个带自校验的经验判断，并严格核对 M_1 的 Mobius/AP 展开式、给出所需水平分布的定量预算。外推区间有限，结论仅为指示。",
+  "red_line_note": "本脚本不证明哥德巴赫，也不证明 M_1 < 0。它做三件事：(a) 用 N <= 3e6 的密集实测检验 1/log N 外推路线，并以 Hardy-Littlewood 的 kappa_x(inf)=1 作自校验 —— 该路线**未通过**自校验，读数作废（诚实记录为负面结果）；(b) 改用可解析求极限的 B+B 密度模型，得到 kappa_1(inf) = (log 2)^2 - 1 = -0.5195 < 0，即单矩判据在渐近意义下存活 —— 但这是**启发式模型**，用到 HL 型独立性假设，非定理；(c) 严格核对 M_1 的 Mobius/AP 展开式并给出水平分布的定量预算。Goldbach 仍为 OPEN。",
   "sections": {
     "block1_trend_rows": {
       "N_mod6_eq_0": [
@@ -26,7 +26,12 @@
           "kappa_y": 0.43695142676103865,
           "kappa_w": 0.09363244859165114,
           "debris": 1,
-          "c_B_bigsemiprime_density_const": 0.25840045367719067
+          "B_N": 150,
+          "c_B_at_N": 0.4003183783825123,
+          "c_B_at_Nhalf": 0.25840045367719067,
+          "prod_R_p": 0.9005122824939324,
+          "kappa_w_model": 0.1443114193944179,
+          "obs_over_model": 0.648822172109222
         },
         {
           "N": 6000,
@@ -45,7 +50,12 @@
           "kappa_y": 0.49152293759473137,
           "kappa_w": 0.17387205955731994,
           "debris": 0,
-          "c_B_bigsemiprime_density_const": 0.30957954594914283
+          "B_N": 307,
+          "c_B_at_N": 0.44512517128342144,
+          "c_B_at_Nhalf": 0.30957954594914283,
+          "prod_R_p": 0.9324413327508928,
+          "kappa_w_model": 0.18475058576906536,
+          "obs_over_model": 0.9411177714730313
         },
         {
           "N": 12000,
@@ -64,7 +74,12 @@
           "kappa_y": 0.5597399918087775,
           "kappa_w": 0.18590642327222937,
           "debris": 0,
-          "c_B_bigsemiprime_density_const": 0.36102986205072296
+          "B_N": 622,
+          "c_B_at_N": 0.4868529766412521,
+          "c_B_at_Nhalf": 0.3610298620507229,
+          "prod_R_p": 0.9547156282500792,
+          "kappa_w_model": 0.22629225547809179,
+          "obs_over_model": 0.8215324155900142
         },
         {
           "N": 24996,
@@ -83,7 +98,12 @@
           "kappa_y": 0.560777286860919,
           "kappa_w": 0.2112623573769667,
           "debris": 0,
-          "c_B_bigsemiprime_density_const": 0.3675811125306574
+          "B_N": 1199,
+          "c_B_at_N": 0.48574327245030074,
+          "c_B_at_Nhalf": 0.36758111253065745,
+          "prod_R_p": 0.9666257148758282,
+          "kappa_w_model": 0.22807198007355778,
+          "obs_over_model": 0.9262968529006954
         },
         {
           "N": 49998,
@@ -102,7 +122,12 @@
           "kappa_y": 0.6172432631607235,
           "kappa_w": 0.28425676592928056,
           "debris": 0,
-          "c_B_bigsemiprime_density_const": 0.4334354366280186
+          "B_N": 2531,
+          "c_B_at_N": 0.5477170605987755,
+          "c_B_at_Nhalf": 0.4334354366280187,
+          "prod_R_p": 0.9792925862959132,
+          "kappa_w_model": 0.2937818790500295,
+          "obs_over_model": 0.9675776016153574
         },
         {
           "N": 99996,
@@ -121,7 +146,12 @@
           "kappa_y": 0.6131227851771027,
           "kappa_w": 0.2575759637653245,
           "debris": 0,
-          "c_B_bigsemiprime_density_const": 0.42415070674579214
+          "B_N": 4625,
+          "c_B_at_N": 0.5324922524079684,
+          "c_B_at_Nhalf": 0.4241507067457921,
+          "prod_R_p": 0.9834812564545208,
+          "kappa_w_model": 0.2788641421982696,
+          "obs_over_model": 0.9236611123067611
         },
         {
           "N": 199998,
@@ -140,7 +170,12 @@
           "kappa_y": 0.639693850350942,
           "kappa_w": 0.31078688351814004,
           "debris": 0,
-          "c_B_bigsemiprime_density_const": 0.4658172178828513
+          "B_N": 9317,
+          "c_B_at_N": 0.5686251145908399,
+          "c_B_at_Nhalf": 0.46581721788285124,
+          "prod_R_p": 1.0014150913862323,
+          "kappa_w_model": 0.3237920688389044,
+          "obs_over_model": 0.9598347625764893
         },
         {
           "N": 399996,
@@ -159,7 +194,12 @@
           "kappa_y": 0.5920056031313131,
           "kappa_w": 0.2961562504000607,
           "debris": 0,
-          "c_B_bigsemiprime_density_const": 0.4413146080934166
+          "B_N": 16733,
+          "c_B_at_N": 0.5396115911637349,
+          "c_B_at_Nhalf": 0.4413146080934166,
+          "prod_R_p": 1.0053829360717392,
+          "kappa_w_model": 0.2927480762465242,
+          "obs_over_model": 1.0116420035862728
         },
         {
           "N": 799998,
@@ -178,7 +218,12 @@
           "kappa_y": 0.6225278248121049,
           "kappa_w": 0.323679739316531,
           "debris": 0,
-          "c_B_bigsemiprime_density_const": 0.47930386605374264
+          "B_N": 33676,
+          "c_B_at_N": 0.5721720143373388,
+          "c_B_at_Nhalf": 0.47930386605374264,
+          "prod_R_p": 1.0128625338396573,
+          "kappa_w_model": 0.3315917607892596,
+          "obs_over_model": 0.976139270005092
         },
         {
           "N": 1599996,
@@ -197,7 +242,12 @@
           "kappa_y": 0.6042767902967339,
           "kappa_w": 0.32070127162438183,
           "debris": 0,
-          "c_B_bigsemiprime_density_const": 0.47617570001835896
+          "B_N": 63282,
+          "c_B_at_N": 0.5650112566467829,
+          "c_B_at_Nhalf": 0.47617570001835896,
+          "prod_R_p": 1.013937215987753,
+          "kappa_w_model": 0.323687005194572,
+          "obs_over_model": 0.9907758621066811
         },
         {
           "N": 3000000,
@@ -216,7 +266,12 @@
           "kappa_y": 0.6357954095690542,
           "kappa_w": 0.33428012504804083,
           "debris": 1,
-          "c_B_bigsemiprime_density_const": 0.5064563467210598
+          "B_N": 118819,
+          "c_B_at_N": 0.5906937208380044,
+          "c_B_at_Nhalf": 0.5064563467210598,
+          "prod_R_p": 0.9966937647482125,
+          "kappa_w_model": 0.34776546330211633,
+          "obs_over_model": 0.9612228939411378
         }
       ],
       "N_mod6_eq_2": [
@@ -237,7 +292,12 @@
           "kappa_y": 0.5117857150177704,
           "kappa_w": 0.1077443610563727,
           "debris": 0,
-          "c_B_bigsemiprime_density_const": 0.25869824212022013
+          "B_N": 150,
+          "c_B_at_N": 0.40078604863002887,
+          "c_B_at_Nhalf": 0.25869824212022013,
+          "prod_R_p": 0.9005122824939324,
+          "kappa_w_model": 0.14464879875754114,
+          "obs_over_model": 0.7448686887263593
         },
         {
           "N": 5996,
@@ -256,7 +316,12 @@
           "kappa_y": 0.5351764912438012,
           "kappa_w": 0.19113446115850044,
           "debris": 0,
-          "c_B_bigsemiprime_density_const": 0.3097602664192311
+          "B_N": 307,
+          "c_B_at_N": 0.4453879741129593,
+          "c_B_at_Nhalf": 0.30976026641923116,
+          "prod_R_p": 0.9324413327508928,
+          "kappa_w_model": 0.1849688044307879,
+          "obs_over_model": 1.0333334950544033
         },
         {
           "N": 11996,
@@ -275,7 +340,12 @@
           "kappa_y": 0.5680592833491724,
           "kappa_w": 0.23390676373201216,
           "debris": 0,
-          "c_B_bigsemiprime_density_const": 0.3611364052130593
+          "B_N": 622,
+          "c_B_at_N": 0.48699802865942443,
+          "c_B_at_Nhalf": 0.36113640521305923,
+          "prod_R_p": 0.9547156282500792,
+          "kappa_w_model": 0.22642711770430818,
+          "obs_over_model": 1.0330333491126786
         },
         {
           "N": 24998,
@@ -294,7 +364,12 @@
           "kappa_y": 0.589528378292822,
           "kappa_w": 0.19750696937729062,
           "debris": 0,
-          "c_B_bigsemiprime_density_const": 0.367554821112404
+          "B_N": 1199,
+          "c_B_at_N": 0.4857082474469777,
+          "c_B_at_Nhalf": 0.36755482111240406,
+          "prod_R_p": 0.9666257148758282,
+          "kappa_w_model": 0.22803909054399077,
+          "obs_over_model": 0.8661101432483996
         },
         {
           "N": 50000,
@@ -313,7 +388,12 @@
           "kappa_y": 0.6057650098133658,
           "kappa_w": 0.2557122787326913,
           "debris": 1,
-          "c_B_bigsemiprime_density_const": 0.4334198112447945
+          "B_N": 2531,
+          "c_B_at_N": 0.5476971767568486,
+          "c_B_at_Nhalf": 0.43341981124479445,
+          "prod_R_p": 0.9792925862959132,
+          "kappa_w_model": 0.29376054903556903,
+          "obs_over_model": 0.8704786247581844
         },
         {
           "N": 99998,
@@ -332,7 +412,12 @@
           "kappa_y": 0.5772469782899802,
           "kappa_w": 0.3051879676524417,
           "debris": 0,
-          "c_B_bigsemiprime_density_const": 0.424143007601195
+          "B_N": 4625,
+          "c_B_at_N": 0.5324825273961709,
+          "c_B_at_Nhalf": 0.424143007601195,
+          "prod_R_p": 0.9834812564545208,
+          "kappa_w_model": 0.27885395638881977,
+          "obs_over_model": 1.0944365703275272
         },
         {
           "N": 200000,
@@ -351,7 +436,12 @@
           "kappa_y": 0.6238292375314337,
           "kappa_w": 0.3089995288707102,
           "debris": 1,
-          "c_B_bigsemiprime_density_const": 0.4658129643126954
+          "B_N": 9317,
+          "c_B_at_N": 0.5686198941920231,
+          "c_B_at_Nhalf": 0.4658129643126955,
+          "prod_R_p": 0.9889924011775293,
+          "kappa_w_model": 0.31976951272965703,
+          "obs_over_model": 0.9663195413252166
         },
         {
           "N": 399998,
@@ -370,7 +460,12 @@
           "kappa_y": 0.6052218712962345,
           "kappa_w": 0.27850917971154154,
           "debris": 0,
-          "c_B_bigsemiprime_density_const": 0.4413125822866029
+          "B_N": 16733,
+          "c_B_at_N": 0.5396091022574033,
+          "c_B_at_Nhalf": 0.4413125822866029,
+          "prod_R_p": 0.9908836927650578,
+          "kappa_w_model": 0.28852351528378284,
+          "obs_over_model": 0.9652910939949157
         },
         {
           "N": 800000,
@@ -389,7 +484,12 @@
           "kappa_y": 0.634139625962849,
           "kappa_w": 0.3128230505986113,
           "debris": 1,
-          "c_B_bigsemiprime_density_const": 0.4793027606879436
+          "B_N": 33676,
+          "c_B_at_N": 0.5721706891449345,
+          "c_B_at_Nhalf": 0.4793027606879436,
+          "prod_R_p": 0.9938715403508386,
+          "kappa_w_model": 0.32537296670178806,
+          "obs_over_model": 0.961429137059567
         },
         {
           "N": 1599998,
@@ -408,7 +508,12 @@
           "kappa_y": 0.6126575750213424,
           "kappa_w": 0.32110907905565156,
           "debris": 0,
-          "c_B_bigsemiprime_density_const": 0.4761751485887517
+          "B_N": 63282,
+          "c_B_at_N": 0.5650105998210463,
+          "c_B_at_Nhalf": 0.4761751485887517,
+          "prod_R_p": 0.9953155923245001,
+          "kappa_w_model": 0.31774154176051284,
+          "obs_over_model": 1.0105983538585486
         },
         {
           "N": 2999996,
@@ -427,7 +532,12 @@
           "kappa_y": 0.6395292570997765,
           "kappa_w": 0.3453099457570973,
           "debris": 0,
-          "c_B_bigsemiprime_density_const": 0.5064474938503536
+          "B_N": 118819,
+          "c_B_at_N": 0.5906944556221322,
+          "c_B_at_Nhalf": 0.5064474938503536,
+          "prod_R_p": 1.004647790876656,
+          "kappa_w_model": 0.35054164681609035,
+          "obs_over_model": 0.9850753794691395
         }
       ]
     },
@@ -642,6 +752,60 @@
           "single_moment_criterion_survives": true
         }
       }
+    },
+    "block1c_analytic_limit": {
+      "c_B_analytic_limit_log2": 0.6931471805599453,
+      "kappa_w_analytic_limit_log2_squared": 0.4804530139182014,
+      "kappa_x_analytic_limit": 1.0,
+      "kappa_1_analytic_limit": -0.5195469860817986,
+      "c_B_fit_check_vs_log2": {
+        "N_mod6_eq_0": {
+          "limit_quadratic": 0.537851336258649,
+          "limit_linear": 0.7931785408084555,
+          "analytic_log2": 0.6931471805599453,
+          "last_observed": 0.5906937208380044,
+          "abs_error_quadratic_vs_log2": 0.15529584430129628,
+          "abs_error_linear_vs_log2": 0.10003136024851023
+        },
+        "N_mod6_eq_2": {
+          "limit_quadratic": 0.5401017029555122,
+          "limit_linear": 0.7925769918390593,
+          "analytic_log2": 0.6931471805599453,
+          "last_observed": 0.5906944556221322,
+          "abs_error_quadratic_vs_log2": 0.1530454776044331,
+          "abs_error_linear_vs_log2": 0.09942981127911399
+        }
+      },
+      "prod_R_p_tail_tends_to_1": true,
+      "prod_R_p_first_row": {
+        "N_mod6_eq_0": 0.9005122824939324,
+        "N_mod6_eq_2": 0.9005122824939324
+      },
+      "prod_R_p_last_row": {
+        "N_mod6_eq_0": 0.9966937647482125,
+        "N_mod6_eq_2": 1.004647790876656
+      },
+      "obs_over_model_last_rows": {
+        "N_mod6_eq_0": [
+          0.976139270005092,
+          0.9907758621066811,
+          0.9612228939411378
+        ],
+        "N_mod6_eq_2": [
+          0.961429137059567,
+          1.0105983538585486,
+          0.9850753794691395
+        ]
+      },
+      "obs_over_model_all_rows_range": [
+        0.648822172109222,
+        1.0944365703275272
+      ],
+      "derivation": [
+        "kappa_x(inf) = 1：Hardy-Littlewood（由 unit 的归一化定义直接成立）。",
+        "kappa_w(inf) = (log 2)^2：B(N) ~ (log 2) N/log N，因为 sum_{N^{1/3}<p<=sqrt N} 1/(p(1-u_p)) -> int_{1/3}^{1/2} du/(u(1-u)) = [ln(u/(1-u))]_{1/3}^{1/2} = ln 2；而局部修正 prod_p R_p -> 1。",
+        "故 kappa_1(inf) = (log 2)^2 - 1 = -0.5195 < 0。"
+      ]
     },
     "block2a_expansion_verification": [
       {
@@ -897,22 +1061,89 @@
       -0.7931321022519549
     ],
     "single_moment_criterion_asymptotically_alive": false,
+    "single_moment_criterion_status": "UNDETERMINED",
+    "kappa_1_sign_undetermined_series": [
+      "N_mod6_eq_0"
+    ],
+    "HL_selfcheck_per_series": {
+      "N_mod6_eq_0": {
+        "predicted_by_HL": 1.0,
+        "extrapolated_quadratic": 0.09250101866783454,
+        "extrapolated_linear": 1.2008051984174928,
+        "abs_error": 0.9074989813321654,
+        "abs_error_linear": 0.20080519841749278,
+        "extrapolation_credible": false
+      },
+      "N_mod6_eq_2": {
+        "predicted_by_HL": 1.0,
+        "extrapolated_quadratic": 1.138319595145656,
+        "extrapolated_linear": 1.1090745509090718,
+        "abs_error": 0.13831959514565595,
+        "abs_error_linear": 0.10907455090907181,
+        "extrapolation_credible": true
+      }
+    },
     "mobius_and_ap_expansion_verified": true,
     "n_expansion_cases": 9,
     "max_AP_deviation_ratio_to_trivial": 0.6005999999999999,
+    "max_AP_deviation_ratio_to_target_budget": 0.49970389691258904,
+    "extrapolation_route_status": "UNDETERMINED",
+    "analytic_model_status": "ALIVE",
+    "kappa_1_analytic_limit": -0.5195469860817986,
+    "_note_reading_model": "读法：模型的**功能形式** kappa_w = (prod R_p) c_B^2 由 obs/model 检验（全程落在 obs_over_model_all_rows_range 内且趋 1）；c_B(inf) = log 2 是**解析**导出的，有限尺度数值只提供一致性（两种拟合把 log 2 夹在中间），不构成确认。",
+    "kappa_w_analytic_limit_log2_squared": 0.4804530139182014,
+    "kappa_x_analytic_limit": 1.0,
+    "c_B_analytic_limit_log2": 0.6931471805599453,
+    "prod_R_p_tail_tends_to_1": true,
+    "obs_over_model_last_rows": {
+      "N_mod6_eq_0": [
+        0.976139270005092,
+        0.9907758621066811,
+        0.9612228939411378
+      ],
+      "N_mod6_eq_2": [
+        0.961429137059567,
+        1.0105983538585486,
+        0.9850753794691395
+      ]
+    },
+    "c_B_fit_check_vs_log2": {
+      "N_mod6_eq_0": {
+        "limit_quadratic": 0.537851336258649,
+        "limit_linear": 0.7931785408084555,
+        "analytic_log2": 0.6931471805599453,
+        "last_observed": 0.5906937208380044,
+        "abs_error_quadratic_vs_log2": 0.15529584430129628,
+        "abs_error_linear_vs_log2": 0.10003136024851023
+      },
+      "N_mod6_eq_2": {
+        "limit_quadratic": 0.5401017029555122,
+        "limit_linear": 0.7925769918390593,
+        "analytic_log2": 0.6931471805599453,
+        "last_observed": 0.5906944556221322,
+        "abs_error_quadratic_vs_log2": 0.1530454776044331,
+        "abs_error_linear_vs_log2": 0.09942981127911399
+      }
+    },
     "interpretation": [
-      "【块 1 结论】kappa_1 = kappa_w - kappa_x 在两条独立的 N 序列上都呈现'负值且缓慢趋向一个负极限'的形态。1/log N 二次外推给出的极限估计见kappa_1_limit_estimates。**方法自校验**：同一外推对 kappa_x 给出的极限接近 Hardy-Littlewood 的理论值 1（见 abs_error），说明该外推在这一有限区间内是可用的；因此它对 kappa_w / kappa_1 的读数可以作为**指示**，但不能作为证明。",
-      "【判据存活与否】若 kappa_1(inf) < 0，则 OM-P-NT-0006 的单矩判据（M_1 < 0 ==> Goldbach）对所有充分大的偶数 N **确实成立**，从而是一条合法的（虽然奇偶敏感的）归约目标；若 >= 0，则该判据作为充分条件**报废**，必须退回完整三矩。",
+      "【块 1c · 本轮正面结果（首选答案）】盲外推失败后改用**可解析求极限的密度模型**：kappa_w(N) = (prod_P R_p) * c_B(N)^2，其中 c_B(N) = B(N)logN/N，R_p 由局部密度精确算出。关键：p <= N^{1/3} 时 R_p = 1 精确（B 的元素素因子全 > N^{1/3}），p > N^{1/3} 时 R_p - 1 = O(1/p^2)，故 prod R_p -> 1；而 c_B(N) -> log 2（可解析推出）。于是 kappa_w(inf) = (log 2)^2 = 0.4805，kappa_x(inf) = 1（Hardy-Littlewood），**kappa_1(inf) = (log 2)^2 - 1 = -0.5195 < 0**。故单矩判据 M_1 < 0 在渐近意义下**存活**，且余量非边缘（kappa_w(inf) 即便有 30% 模型误差，kappa_1(inf) 仍为负）。数值支持：obs/model 的最后三行 = {'N_mod6_eq_0': [0.976139270005092, 0.9907758621066811, 0.9612228939411378], 'N_mod6_eq_2': [0.961429137059567, 1.0105983538585486, 0.9850753794691395]}（趋向 1），prod R_p 的末行值趋向 1。",
+      "【块 1c · 但必须说清这是什么强度】上述推导用到两处 Hardy-Littlewood 型独立性假设（kappa_x(inf)=1 与 c_B(inf)=log 2 的局部化）。**该假设恰恰是奇偶障碍所在之处**，因此这是启发式模型结论，不是定理。它的作用是：把'单矩判据是否值得作为归约目标'从**未知**变成**有明确正面指示**，而不是把 Goldbach 往前推了一步。",
+      "【块 1 · 外推路线被否掉（方法论负面结果，保留）】原本想靠 1/log N 多项式外推定符号，但自校验把这条路否掉了：Hardy-Littlewood 预言 kappa_x(inf) = 1，而外推给出的读数为 N_mod6_eq_0：二次 0.093（误差 0.907）、线性 1.201（误差 0.201）；N_mod6_eq_2：二次 1.138（误差 0.138）、线性 1.109（误差 0.109）（阈值 0.25）。一条序列的二次拟合把 kappa_x(inf) 外推到 0.09（明显过拟合），两条序列的 kappa_1(inf) 区间 {'N_mod6_eq_0': [-0.5889731320930988, 0.24510082810682235], 'N_mod6_eq_2': [-0.7931321022519549, -0.528782939332855]} 甚至异号。**故 extrapolation_route_status = UNDETERMINED，外推读数一律作废。**教训：对 kappa 这类含 loglog / 对数低阶项的量，在 1/log N 跨度仅 2 倍时做二次外推不可靠。",
+      "【块 1 · 外推自校验的完整记录】两道自校验：HL_selfcheck_per_series = False（阈值 0.25，字段 extrapolation_selfcheck_HL_kappa_x_limit_1）；符号随拟合阶数改变、因而**未定**的序列为 ['N_mod6_eq_0']。kappa_w 两条序列读数稳定（约 0.34），不稳定主要来自 kappa_x。",
+      "【判据的定义（与判定分开陈述）】若 kappa_1(inf) < 0，则 OM-P-NT-0006 的单矩判据（M_1 < 0 ==> Goldbach）对所有充分大的偶数 N 成立，是一条合法的（虽然奇偶敏感的）归约目标；若 >= 0，则该判据作为充分条件报废，必须退回完整三矩。**本轮给出的是该条件的经验状态，不是证明。**",
       "【块 2a】M_1 的 Mobius 展开与 CRT/AP 分解在全部测试案例上**逐项精确成立**，（注：p | N 时 p|n <=> p|N-n，故该类素因子归入 e 而非互补因子对 —— 这一步若弄错整个分解会重复计数，本轮的暴力核对正是为了排除这种错误）。这保证后面的预算推演建立在真恒等式之上。",
-      "【块 2b 预算】单个 Inner(d) 的平凡尺度是 N/d，而 M_1 的目标尺度只有~0.8*S(N)N/log^2 N。连 d=1 那一项（就是 sum_{n<N} lambda(n) 本身）都比目标大 ~log^2 N 倍。因此必须靠**跨 d 的抵消**实现 log^2 N 量级的压缩；所需的一致性与任何已知的 lambda / mu 在等差数列中的水平分布都不匹配（实测 ratio_to_target_budget 远大于 1）。这就是 Selberg 奇偶障碍在本展开形式下的定量面貌 —— 不是'算不动'，而是'每一项都远大于目标'。",
+      "【块 2b 预算 · 平凡界】单个 Inner(d) 的**平凡界**是 N/d，而 M_1 的目标尺度只有 ~0.8*S(N)N/log^2 N：连 d=1 那一项的平凡界都比目标大 ~log^2 N 倍。因此必须靠**跨 d 的抵消**实现 log^2 N 量级的压缩。",
+      "【块 2b 实测 · 障碍的性质必须说准】实测的 lambda 在 AP 中的和max|E(x;q,a)| **低于**目标预算，而不是高于：相对目标预算的最大比值仅 0.500，相对平凡界的最大比值 0.601。所以障碍**不是**'每一项都远大于目标'这种数值大小问题，而是**没有任何已知方法能证明**这些 AP 和有一致的常数因子节省（Selberg 奇偶障碍）—— 这是证明障碍，不是数值障碍。把实测的'小'读成'已解决'同样是错的：有限尺度的实测不构成任何渐近断言。",
       "【这不是偷换了对象】展开后出现的正是sum_{a <= N/(e*d1), a = c mod d2} lambda(a)，即 **lambda 在等差数列中的和**；它与上一轮的 M_1 = sum lambda(n) 属**同一类对象**（后者是 q = 1 的特例）。所以'换成 AP 版'不会带来难度上的便宜，也不存在可供偷换的黑箱。"
     ],
     "what_remains_open": [
-      "外推只覆盖 N <= 3e6（1/log N 从 1/6.9 到 1/14.9，跨度有限）。要把 kappa_1(inf) 的符号做实，需要更大的 N（>= 1e8 级别）或真正的渐近分析。",
-      "kappan_w 的极限缺乏解析预测：本轮只给出数值外推 + 辅助常数 c_B，没有导出 kappa_w(inf) 的闭式（需要 B+B 表示的奇异级数，超出本轮范围）。",
+      "kappa_1(inf) = (log 2)^2 - 1 < 0 是**启发式模型**结论：两处输入（kappa_x(inf)=1 与 c_B(inf)=log 2）都依赖 Hardy-Littlewood 型独立性假设，而这正是奇偶障碍所在。要把它变成定理，本质上就是要突破奇偶障碍。",
+      "**数值无法确认 c_B(inf) = log 2**：实测 c_B(N) 在 N = 3e6 处仍只有 0.5907（log 2 = 0.6931），且两种拟合给出 0.538 与 0.793，只是把 log 2 **夹在中间**；数据本身有 O(1/log N) 量级的抖动（相邻 N 可差 0.03）。所以 log 2 的地位是**解析导出的猜测**，数值仅提供一致性，不是确认。同理 kappa_w(inf) = (log 2)^2 无法在可达尺度上直接检验。",
+      "模型对 kappa_w 的系统偏差约 3-4%：obs/model 的全程范围为 [0.648822172109222, 1.0944365703275272]（未一直落在 1 上），来源是把 B 的密度当作在 [1,N] 上均匀 —— 实际 rho_B 在靠近 N 处偏高。该偏差对 kappa_1(inf) < 0 的结论无影响（余量 ~0.52 远大于 4%）。",
+      "多项式外推在 1/log N 跨度仅 2 倍时不可靠（本轮自校验已证）；若坚持纯数值路线，需要 N >= 1e8 级别并配以正确的低阶项形式。",
       "即便 kappa_1(inf) < 0 得到确认，'证明 M_1 < 0'本身仍是一个未解决的奇偶敏感问题：现有筛法对它给出 0 而非任何常数因子的节省。",
-      "块 2b 的 level-of-distribution 是**经验**测量，x <= 3e6；它描述的是 lambda 在有限尺度的实际行为，不构成定理。"
+      "块 2b 的 level-of-distribution 是**经验**测量，且本轮只取 x <= 1e6、q <= 2310（更大的 q 会因每类样本数过少而失真）；它描述的是 lambda 在有限尺度的实际行为，不构成定理。"
     ],
-    "verdict": "第一轮无法回答的'单矩判据是否渐近存活'，本轮用有限尺度外推 + Hardy-Littlewood 自校验给出了带不确定性区间的判断（见 kappa_1_limit_estimates）。M_1 的 Mobius/AP 展开经暴力核对逐项精确，预算审计显示所需压缩达 log^2 N 量级且必须跨 d 抵消。状态维持 OPEN。"
+    "verdict": "本轮把 OM-P-NT-0006 遗留的问题（单矩判据是否渐近存活）分两路处理：① 盲外推路线**被自校验否掉**（extrapolation_route_status = UNDETERMINED，kappa_1(inf) 的两条序列区间 {'N_mod6_eq_0': [-0.5889731320930988, 0.24510082810682235], 'N_mod6_eq_2': [-0.7931321022519549, -0.528782939332855]} 异号，读数作废）；② 改用可解析求极限的密度模型：kappa_w(inf) = (log 2)^2 = 0.4805，kappa_x(inf) = 1，故 kappa_1(inf) = (log 2)^2 - 1 = -0.5195 < 0 —— **单矩判据在渐近意义下存活**（启发式模型结论，非定理；数值支持 obs/model -> 1）。M_1 的 Mobius/AP 展开经暴力核对逐项精确（9 例）；块 2b 实测的 AP 和**低于**目标预算（最大比值 0.500），真正的障碍是缺乏一致性下界的**证明**（Selberg 奇偶障碍），而非数值大小。状态维持 OPEN。"
   }
 }
