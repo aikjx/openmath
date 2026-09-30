@@ -1,6 +1,6 @@
 # S8 独立审计报告
 
-- 生成时间：2026-09-21T17:03:57
+- 生成时间：2026-09-30T14:53:03
 - 生成脚本：`06-AI自动化/01-工作流/openmath_audit.py`
 - 计算核心：`06-AI自动化/02-引擎/openmath_sys/src/openmath_sys/audit.py`
 - 证据等级：**L2（计算证据）**；`provenance.ai_assisted=true`

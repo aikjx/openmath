@@ -56,3 +56,19 @@
 - ⑨ sequences：序列 31、重发现 19(候选)/13(序列)、候选 4、外推证伪 0；独立复核 479/0；递推重算分歧 0；变换封闭性 186 组、理论封闭变换丢失 0；自核验 12/0。
 - 身份产物（numeric_solutions.json）：holds=40, fails=3, not_decidable=14, unevaluable=2；14 条拒答原因 parse_suspect 9 / logic 1 / non_elementary 3 / equation 1；sin A cos B+cos A sin B=sin(A+B) 已移出拒答集（移入判准，符合回归护栏）。
 - 全流水线：各阶段自核验违规均 0；审计失败 0；双路径对账（C4、递推重算、N(T) 辐角 vs 变号、S(T) 两法）零分歧；理论封闭变换零丢失。无异常需上报。
+
+## 运行记录 (2026-09-30T14:49，用户「继续执行」后第二次全量)
+- 触发：定时自动化 + 用户追加指令。顺序 ①②③④⑤⑥⑦⑩⑧⑨，10 阶段全部退出码 0（约 6 分钟）。
+- 关键量：38 CD/294 符号；CMP 可解析 60/179；方法 47(已实现 28)；联盟 53(实现 34)；范式 12/空白 2(analogy,transform)；theory 候选 411/留出 343/外推证伪 42/重发现 5；千禧 7 题(未解 6)/开放叶 15/实验 8/shadow_implies_full=0；审计 4510 项失败 0；序列 31/候选 4/理论封闭变换丢失 0。
+- 恒等式产物：holds=43/fails=1/not_decidable=15；拒答 scope = definitional 4、non_elementary 3、unknown_function 2、higher_order 2、logic 2、branch 1、equation 1。唯一 fails 为 arccosh/arccos 分支式（sign_flip_points=0，非纯符号翻转，按规则仍判 fails）。
+- 与同日第一轮逐项一致，无漂移；防覆写闸门未触发，无 .rejected 文件。无异常需上报。
+- 交付：MILLENNIUM_REPORT.md / AUDIT_REPORT.md / THEORY_REPORT.md / SEQUENCE_REPORT.md / RUN_REPORT.md 等（present_files 已推送）。
+
+## 运行记录 (2026-09-30T14:50)
+- 触发：定时自动化任务（十阶段 S1-S10，顺序 ①②③④⑤⑥⑦⑩⑧⑨），10 阶段全部退出码 0。
+- 引擎无回退，解析器能力保持（CMP 可解析 60/179 与上一轮持平，闸门未触发、无 .rejected）。
+- ① 38 CD/294 符号/179 性质，CMP 方程型 0.438；cds_skipped=0、consistency match。
+- ② 方法 47（已实现 28）；④ 联盟 53（实现 34），覆盖率 37.1%→54.5%→100%；⑤ 完全空白范式 2（analogy/transform）；⑥ 自核验 5/0、结构实验同调与群全匹配；孤儿能力 21。
+- ⑦ 候选 411/留出 343/外推证伪 42/重发现 5；⑩ 命题 7（未解 6）、开放叶 15、实验 8、shadow_implies_full=0、YM 无实验；⑧ 审计 4510 项 0 失败（验证器判准 58/58、拒答 17/17，C4 0 分歧，递推重算 0 分歧，证伪元检验 8/8，千禧 288/288、N(T) 341.0 vs 341、偏离 0.0、S(T) 吻合）；⑨ 序列 31、候选 4、外推证伪 0、变换封闭真正丢失 0、自核验 12/0。
+- 恒等式产物 holds=43/fails=1/not_decidable=15（拒答 scope：definitional 4、non_elementary 3、unknown_function 2、higher_order 2、logic 2、branch 1、equation 1）；唯一 fails 为 arccosh 分支约定差异（非反例）。
+- 本轮无异常需上报。相较 09-21：审计项 +58，验证器判准集扩至 58 条，unevaluable 归零。
