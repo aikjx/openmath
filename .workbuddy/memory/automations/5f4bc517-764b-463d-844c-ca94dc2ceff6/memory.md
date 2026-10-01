@@ -72,3 +72,11 @@
 - ⑦ 候选 411/留出 343/外推证伪 42/重发现 5；⑩ 命题 7（未解 6）、开放叶 15、实验 8、shadow_implies_full=0、YM 无实验；⑧ 审计 4510 项 0 失败（验证器判准 58/58、拒答 17/17，C4 0 分歧，递推重算 0 分歧，证伪元检验 8/8，千禧 288/288、N(T) 341.0 vs 341、偏离 0.0、S(T) 吻合）；⑨ 序列 31、候选 4、外推证伪 0、变换封闭真正丢失 0、自核验 12/0。
 - 恒等式产物 holds=43/fails=1/not_decidable=15（拒答 scope：definitional 4、non_elementary 3、unknown_function 2、higher_order 2、logic 2、branch 1、equation 1）；唯一 fails 为 arccosh 分支约定差异（非反例）。
 - 本轮无异常需上报。相较 09-21：审计项 +58，验证器判准集扩至 58 条，unevaluable 归零。
+
+## 运行记录 (2026-10-01T09:01)
+- 触发：定时自动化任务（十阶段 S1-S10，顺序 ①②③④⑤⑥⑦⑩⑧⑨），10 阶段全部退出码 0（2m43s）。
+- 引擎无回退，解析器能力保持（CMP 可解析 60/179，闸门未触发、无 .rejected；split_quantifier/_SENTENCE_TAIL_RE/quantified 仍在位）。
+- ① 38 CD/294 符号/179 性质/58 方程；CMP 方程型 0.438；cds_skipped=0、consistency match。② 方法 47（已实现 28）；结构缺口 48；未解猜想 11（5 无已实现方法）。③ ABC q>1 三元组 57（max q=1.455673）；Goldbach 全偶数有分拆=True；孪生素数 2160 对；π(x) li 误差 0.39%；Collatz mod6 均值 91.73。④ 联盟 53（实现 34），覆盖率 37.1%→54.5%→100%；可能性空间名义 ~8.29e29、语义上界 5740。⑤ 范式 12/空白 2(analogy,transform)；11 猜想 constitutes_proof 全 False；有限化定理 5；D1-D6 六维。⑥ 方法库 110（覆盖 9.1%）；递归 L1=83/L2=20/L3=7、不动点 4 轮、自核验 0；维度矩阵 13/72(18.1%)；结构实验同调与群全匹配；孤儿能力 21。
+- ⑦ theory：候选 411/通过留出 343/规模外推证伪 42/重发现已知定理 5；自核验 6/0。⑩ millennium：命题 7（未解 6、已解 1=庞加莱）、开放叶 15、实验 8（覆盖 RH/PNP/NS/BSD/HODGE/POINCARE 六题，YM 无实验——四维量子测度未构造、无频谱）、shadow_implies_full=0；自核验 8/0。⑧ 审计 4510 项 0 失败（验证器 175/175、真 44/44、假 14/14、判准率 100%；C4 模消元 vs 精确高斯 28 序列 0 分歧；递推独立重算 36 候选 0 分歧；证伪元检验 8/8；千禧 288/288、N(T) 341.0 vs 341 偏离 0.0、S(T) 0.260502 vs 0.2605 吻合）；自核验 6/0。⑨ 序列 31、重发现（候选 19/序列 13）、候选 4、外推证伪 0、待验证 4；C1/C2 召回 10/10=100% 假警报 0；C4 召回 6/6=100% 假警报 0；变换封闭 186 组、理论封闭变换丢失 0；自核验 12/0。
+- 恒等式产物（numeric_solutions.json）：holds=43/fails=1/not_decidable=15；拒答 scope = definitional 4、non_elementary 3、unknown_function 2、higher_order 2、logic 2、branch 1、equation 1；唯一 fails 为 arccosh 分支约定差异（非反例，sign_flip_points=0）。
+- 本轮无异常需上报：自核验全 0、审计失败 0、双路径对账（C4/递推重算/N(T) 辐角 vs 变号/S(T) 两法）零分歧、理论封闭变换零丢失。数值与 09-30 完全一致。
