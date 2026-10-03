@@ -1,28 +1,29 @@
 # OpenMath 自动摄取 · 运行报告
 
-- 生成时间：2026-10-02T09:23:26
+- 生成时间：2026-10-03T09:17:33
 - 性质：AI 辅助自动生成，**未经人类复核**，不构成证明。
 
 ## 1. 内容字典(CD) 摄取
-- 官方全量 38 个；联网抓取 38 个；本地快照回退 0 个；缺失 0 个；XML 解析失败 0 个。
-- 符号合计 294 个。
+- 官方全量 38 个；联网抓取 1 个；本地快照回退 37 个；缺失 0 个；XML 解析失败 0 个。
+- 符号合计 293 个。
 
+- 走本地快照回退：alg1, altenc, bigfloat1, calculus1, complex1, error, fns1, fns2, integer1, interval1, limit1, linalg1, linalg2, list1, logic1, mathmlattr, mathmltypes, meta, metagrp, metasig, minmax1, multiset1, nums1, piece1, quant1, relation1, relation3, rounding1, s_data1, s_dist1, scscp1, scscp2, set1, setname1, sts, transc1, veccalc1
 
 ## 2. 论文索引
 - 去重后 3 篇；分类分布见 arxiv_index.json。
 - 注意：arXiv 预印本 `fact_check.status = UNVERIFIED`，不得作为 L3+ 证据。
 
 ## 3. 四维逻辑分析
-- CD 性质(CMP)可解析 60/179（率 0.3352，分母含自然语言描述型 CMP）。
-- 其中方程型 CMP（含关系运算符且含字母）137 条，可解析率 0.438（更能反映解析器真实能力）。
-- 共分析方程 67 条（含内置种子）。
-- 未解析 CMP 反例保留 77 条（上限 120），按诚实红线保留并标注。
-- 一致性校验：catalog 登记 179 条性质 vs 分析统计 179 条 → 一致。
+- CD 性质(CMP)可解析 59/176（率 0.3352，分母含自然语言描述型 CMP）。
+- 其中方程型 CMP（含关系运算符且含字母）128 条，可解析率 0.4609（更能反映解析器真实能力）。
+- 共分析方程 66 条（含内置种子）。
+- 未解析 CMP 反例保留 69 条（上限 120），按诚实红线保留并标注。
+- 一致性校验：catalog 登记 176 条性质 vs 分析统计 176 条 → 一致。
 - 方程求解为计算校验(L2)，非证明(L4)。
 
 ## 4. 与上一轮对比（增量）
 - CD 入册数：38 → 38
-- 符号数：294 → 294
+- 符号数：294 → 293
 - CMP 可解析率：0.3352 → 0.3352
 
 ## 5. 产物清单
