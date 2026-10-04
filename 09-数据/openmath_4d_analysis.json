@@ -1,7 +1,7 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_ingest.py",
-    "generated_at": "2026-10-03T09:17:33",
+    "generated_at": "2026-10-04T09:34:19",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理基于 openmath_sys 引擎自动生成，未经人类复核，不得作为 L3+ 证据。"
@@ -15,17 +15,49 @@
     "honesty": "本文件为 L0/L2 级数据处理产物，非证明；方程求解为计算校验(L2)。CD 性质(CMP)解析成功不代表被证明；arXiv 论文为预印本，状态 UNVERIFIED。"
   },
   "coverage": {
-    "cmp_total": 176,
-    "cmp_equation_like": 128,
-    "cmp_parsed": 59,
+    "cmp_total": 179,
+    "cmp_equation_like": 137,
+    "cmp_parsed": 60,
     "parsed_rate": 0.3352,
-    "parsed_rate_equation_like": 0.4609,
+    "parsed_rate_equation_like": 0.438,
     "note": "parsed_rate 分母为全部 CMP（含自然语言描述型），故偏低；parsed_rate_equation_like 仅统计通过「含关系运算符且含字母」筛选的方程型 CMP，更能反映解析器真实能力。两者均不代表被证明(L4)。"
   },
   "unparsed_samples": {
-    "count_capped": 69,
+    "count_capped": 77,
     "cap": 120,
     "samples": [
+      {
+        "raw": "for all integers a,b | There does not exist a c>0 such that c/a is an Integer and c/b is an Integer and lcm(a,b) > c.",
+        "source": "CD:arith1/lcm"
+      },
+      {
+        "raw": "for all integers a,b | There does not exist a c such that a/c is an Integer and b/c is an Integer and c > gcd(a,b). Note that this implies that gcd(a,b) > 0",
+        "source": "CD:arith1/gcd"
+      },
+      {
+        "raw": "for all a,b | a * 0 = 0 and a * b = a * (b - 1) + a",
+        "source": "CD:arith1/times"
+      },
+      {
+        "raw": "whenever not(a=0) then a/a = 1",
+        "source": "CD:arith1/divide"
+      },
+      {
+        "raw": "x\\in C implies x^a = exp(a ln x)",
+        "source": "CD:arith1/power"
+      },
+      {
+        "raw": "if n is an integer then x^0 = 1, x^n = x * x^(n-1)",
+        "source": "CD:arith1/power"
+      },
+      {
+        "raw": "x\\in C implies root(x,n) = exp(ln(x)/n)",
+        "source": "CD:arith1/root"
+      },
+      {
+        "raw": "for all a,n | power(root(a,n),n) = a (if the root exists!)",
+        "source": "CD:arith1/root"
+      },
       {
         "raw": "bigfloatprec(f,r,p)=f However, if converted to radix r, only p digits in that radix are significant. This usually means that it originated in radix r, and has since (e.g. for display purposes) been converted into its current radix. For exposition, f = m*r^e.",
         "source": "CD:bigfloat1/bigfloatprec"
@@ -311,12 +343,12 @@
     "note": "analyze 阶段被跳过的 CD 及原因（旧实现为静默 continue）。一律登记，不隐藏。"
   },
   "consistency": {
-    "catalog_property_total": 176,
-    "analysis_cmp_total": 176,
+    "catalog_property_total": 179,
+    "analysis_cmp_total": 179,
     "match": true,
     "note": "两者应相等；不等说明 analyze 阶段跳过了某些 CD（见 cds_skipped），或 catalog 与 analyze 读到的内容不一致，须排查后再引用本指标。"
   },
-  "equations_analyzed": 66,
+  "equations_analyzed": 67,
   "results": [
     {
       "raw": "for all a | a + 0 = a",
@@ -395,79 +427,7 @@
       ]
     },
     {
-      "raw": "x - 0 = x",
-      "source": "CD:arith1/minus",
-      "variables": [
-        "x"
-      ],
-      "is_equation": true,
-      "classification": null,
-      "solve": {
-        "solvable": false,
-        "reason": "暂不支持 0 次及以上的通用求解"
-      },
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 linear 形态；",
-        "计算维度暂未求解：暂不支持 0 次及以上的通用求解；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "x^0 = 1",
-      "source": "CD:arith1/power",
-      "variables": [
-        "x"
-      ],
-      "is_equation": true,
-      "classification": null,
-      "solve": {
-        "solvable": false,
-        "reason": "暂不支持 0 次及以上的通用求解"
-      },
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 other 形态；",
-        "计算维度暂未求解：暂不支持 0 次及以上的通用求解；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "abs(x) >= 0",
-      "source": "CD:arith1/abs",
-      "variables": [
-        "x"
-      ],
-      "is_equation": false,
-      "classification": null,
-      "solve": null,
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 other 形态；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "root(x, 2) = sqrt(x)",
-      "source": "CD:arith1/root",
-      "variables": [
-        "x"
-      ],
-      "is_equation": true,
-      "classification": null,
-      "solve": {
-        "solvable": false,
-        "reason": "transcendental function root"
-      },
-      "conclusions": [
-        "句法上含 1 个变量、可构成 AST；",
-        "结构上判定为 transcendental 形态；",
-        "计算维度暂未求解：transcendental function root；",
-        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
-      ]
-    },
-    {
-      "raw": "lcm(a, b) = a * b / gcd(a, b)",
+      "raw": "lcm(a,b) = a*b/gcd(a,b)",
       "source": "CD:arith1/lcm",
       "variables": [
         "a",
@@ -483,6 +443,102 @@
         "句法上含 2 个变量、可构成 AST；",
         "结构上判定为 transcendental 形态；",
         "计算维度暂未求解：多变量方程，超出本演示求解范围；",
+        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
+      ]
+    },
+    {
+      "raw": "for all a,b | a + b = b + a",
+      "source": "CD:arith1/plus",
+      "variables": [
+        "a",
+        "b"
+      ],
+      "is_equation": true,
+      "classification": null,
+      "solve": {
+        "solvable": false,
+        "reason": "多变量方程，超出本演示求解范围"
+      },
+      "conclusions": [
+        "句法上含 2 个变量、可构成 AST；",
+        "结构上判定为 linear 形态；",
+        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
+        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
+      ]
+    },
+    {
+      "raw": "for all a | a + (-a) = 0",
+      "source": "CD:arith1/unary_minus",
+      "variables": [
+        "a"
+      ],
+      "is_equation": true,
+      "classification": null,
+      "solve": {
+        "solvable": false,
+        "reason": "暂不支持 0 次及以上的通用求解"
+      },
+      "conclusions": [
+        "句法上含 1 个变量、可构成 AST；",
+        "结构上判定为 linear 形态；",
+        "计算维度暂未求解：暂不支持 0 次及以上的通用求解；",
+        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
+      ]
+    },
+    {
+      "raw": "for all a,b | a - b = a + (-b)",
+      "source": "CD:arith1/minus",
+      "variables": [
+        "a",
+        "b"
+      ],
+      "is_equation": true,
+      "classification": null,
+      "solve": {
+        "solvable": false,
+        "reason": "多变量方程，超出本演示求解范围"
+      },
+      "conclusions": [
+        "句法上含 2 个变量、可构成 AST；",
+        "结构上判定为 linear 形态；",
+        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
+        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
+      ]
+    },
+    {
+      "raw": "for all a,b,c | a*(b+c) = a*b + a*c",
+      "source": "CD:arith1/times",
+      "variables": [
+        "a",
+        "b",
+        "c"
+      ],
+      "is_equation": true,
+      "classification": null,
+      "solve": {
+        "solvable": false,
+        "reason": "多变量方程，超出本演示求解范围"
+      },
+      "conclusions": [
+        "句法上含 3 个变量、可构成 AST；",
+        "结构上判定为 linear 形态；",
+        "计算维度暂未求解：多变量方程，超出本演示求解范围；",
+        "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
+      ]
+    },
+    {
+      "raw": "for all x,y | abs(x) + abs(y) >= abs(x+y)",
+      "source": "CD:arith1/abs",
+      "variables": [
+        "x",
+        "y"
+      ],
+      "is_equation": false,
+      "classification": null,
+      "solve": null,
+      "conclusions": [
+        "句法上含 2 个变量、可构成 AST；",
+        "结构上判定为 other 形态；",
         "四维一致：句法可解析、语义可链接、结构可分类、计算可执行（在沙箱内）。"
       ]
     },

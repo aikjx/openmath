@@ -1,13 +1,13 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_analyze.py",
-    "generated_at": "2026-10-03T09:17:34",
+    "generated_at": "2026-10-04T09:34:20",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理基于 openmath_sys 引擎与已下载 OpenMath/arXiv 数据自动生成，未经人类复核，不得作为 L3+ 证据。"
     },
     "honesty": "本系列文件为 L0/L2 级数据处理与计算校验产物，非证明。方程求解、猜想的可计算实验均为计算验证(L2)，不构成对未解猜想的证明。预印本与猜想状态均标 UNVERIFIED/UNSOLVED。",
-    "scope_note": "以本次实际下载的 38 个 OpenMath 官方 CD（293 符号、176 条 CMP 性质、57 条已分析方程）与论文索引为地基构建的分类骨架。它是对数学理论体系的'结构化索引'，而非穷尽全部数学。OpenMath 官方 CD 全集共 38 个，本次已覆盖其中大部分高价值 CD；但即便全集也不包含群论、拓扑、概率、微分几何等众多领域，这些属已知且无法通过增补 OpenMath CD 消除的盲区。"
+    "scope_note": "以本次实际下载的 38 个 OpenMath 官方 CD（294 符号、179 条 CMP 性质、58 条已分析方程）与论文索引为地基构建的分类骨架。它是对数学理论体系的'结构化索引'，而非穷尽全部数学。OpenMath 官方 CD 全集共 38 个，本次已覆盖其中大部分高价值 CD；但即便全集也不包含群论、拓扑、概率、微分几何等众多领域，这些属已知且无法通过增补 OpenMath CD 消除的盲区。"
   },
   "domains": [
     {
@@ -895,6 +895,95 @@
       ]
     },
     {
+      "domain": "算术 Arithmetic",
+      "cds": [
+        "arith1"
+      ],
+      "symbol_count": 12,
+      "property_count": 14,
+      "symbols": [
+        {
+          "name": "lcm",
+          "cd": "arith1",
+          "description": "The symbol to represent the n-ary function to return the least common multiple of its arguments.",
+          "n_properties": 2
+        },
+        {
+          "name": "gcd",
+          "cd": "arith1",
+          "description": "The symbol to represent the n-ary function to return the gcd (greatest common divisor) of its arguments.",
+          "n_properties": 1
+        },
+        {
+          "name": "plus",
+          "cd": "arith1",
+          "description": "The symbol representing an n-ary commutative function plus.",
+          "n_properties": 1
+        },
+        {
+          "name": "unary_minus",
+          "cd": "arith1",
+          "description": "This symbol denotes unary minus, i.e. the additive inverse.",
+          "n_properties": 1
+        },
+        {
+          "name": "minus",
+          "cd": "arith1",
+          "description": "The symbol representing a binary minus function. This is equivalent to adding the additive inverse.",
+          "n_properties": 1
+        },
+        {
+          "name": "times",
+          "cd": "arith1",
+          "description": "The symbol representing an n-ary multiplication function.",
+          "n_properties": 2
+        },
+        {
+          "name": "divide",
+          "cd": "arith1",
+          "description": "This symbol represents a (binary) division function denoting the first argument right-divided by the second, i.e. divide(a,b)=a*inverse(b). It is the inverse of the multiplication function defined by the symbol times in this CD.",
+          "n_properties": 1
+        },
+        {
+          "name": "power",
+          "cd": "arith1",
+          "description": "This symbol represents a power function. The first argument is raised to the power of the second argument. When the second argument is not an integer, powering is defined in terms of exponentials and logarithms for the complex and real numbers. This operator can represent general powering.",
+          "n_properties": 2
+        },
+        {
+          "name": "abs",
+          "cd": "arith1",
+          "description": "A unary operator which represents the absolute value of its argument. The argument should be numerically valued. In the complex case this is often referred to as the modulus.",
+          "n_properties": 1
+        },
+        {
+          "name": "root",
+          "cd": "arith1",
+          "description": "A binary operator which represents its first argument \"lowered\" to its n'th root where n is the second argument. This is the inverse of the operation represented by the power symbol defined in this CD. Care should be taken as to the precise meaning of this operator, in particular which root is represented, however it is here to represent the general notion of taking n'th roots. As inferred by the signature relevant to this symbol, the function represented by this symbol is the single valued function, the specific root returned is the one indicated by the first CMP. Note also that the converse of the second CMP is not valid in general.",
+          "n_properties": 2
+        },
+        {
+          "name": "sum",
+          "cd": "arith1",
+          "description": "An operator taking two arguments, the first being the range of summation, e.g. an integral interval, the second being the function to be summed. Note that the sum may be over an infinite interval.",
+          "n_properties": 0
+        },
+        {
+          "name": "product",
+          "cd": "arith1",
+          "description": "An operator taking two arguments, the first being the range of multiplication e.g. an integral interval, the second being the function to be multiplied. Note that the product may be over an infinite interval.",
+          "n_properties": 0
+        }
+      ],
+      "sample_equations": [
+        "lcm(a,b) = a*b/gcd(a,b)",
+        "for all a,b | a + b = b + a",
+        "for all a | a + (-a) = 0",
+        "for all a,b | a - b = a + (-b)",
+        "for all a,b,c | a*(b+c) = a*b + a*c"
+      ]
+    },
+    {
       "domain": "mathmltypes",
       "cds": [
         "mathmltypes"
@@ -976,88 +1065,6 @@
         }
       ],
       "sample_equations": []
-    },
-    {
-      "domain": "算术 Arithmetic",
-      "cds": [
-        "arith1"
-      ],
-      "symbol_count": 11,
-      "property_count": 11,
-      "symbols": [
-        {
-          "name": "plus",
-          "cd": "arith1",
-          "description": "The symbol representing an n-ary commutative function for addition.",
-          "n_properties": 1
-        },
-        {
-          "name": "minus",
-          "cd": "arith1",
-          "description": "The symbol representing a binary minus function.",
-          "n_properties": 1
-        },
-        {
-          "name": "times",
-          "cd": "arith1",
-          "description": "The symbol representing an n-ary multiplication function.",
-          "n_properties": 1
-        },
-        {
-          "name": "divide",
-          "cd": "arith1",
-          "description": "The symbol representing a (binary) division function.",
-          "n_properties": 1
-        },
-        {
-          "name": "power",
-          "cd": "arith1",
-          "description": "The symbol representing a power function.",
-          "n_properties": 1
-        },
-        {
-          "name": "abs",
-          "cd": "arith1",
-          "description": "The symbol representing the absolute value function.",
-          "n_properties": 1
-        },
-        {
-          "name": "root",
-          "cd": "arith1",
-          "description": "The symbol representing a binary root function.",
-          "n_properties": 1
-        },
-        {
-          "name": "gcd",
-          "cd": "arith1",
-          "description": "The symbol representing the n-ary greatest common divisor.",
-          "n_properties": 1
-        },
-        {
-          "name": "lcm",
-          "cd": "arith1",
-          "description": "The symbol representing the n-ary least common multiple.",
-          "n_properties": 1
-        },
-        {
-          "name": "sum",
-          "cd": "arith1",
-          "description": "The symbol representing a bound summation.",
-          "n_properties": 1
-        },
-        {
-          "name": "product",
-          "cd": "arith1",
-          "description": "The symbol representing a bound product.",
-          "n_properties": 1
-        }
-      ],
-      "sample_equations": [
-        "x - 0 = x",
-        "x^0 = 1",
-        "root(x, 2) = sqrt(x)",
-        "lcm(a, b) = a * b / gcd(a, b)"
-      ]
     },
     {
       "domain": "微积分 Calculus",
@@ -2162,17 +2169,43 @@
   ],
   "totals": {
     "cds": 38,
-    "symbols": 293,
-    "properties": 176,
-    "equations_analyzed": 57
+    "symbols": 294,
+    "properties": 179,
+    "equations_analyzed": 58
   },
   "papers_summary": {
-    "total": 3,
+    "total": 32,
     "by_category": {
-      "cs.SC": 2,
-      "math.LO": 2,
-      "cs.LO": 1,
-      "cs.DC": 1
+      "math.AC": 2,
+      "math.RA": 5,
+      "cs.CY": 2,
+      "math.QA": 4,
+      "cs.OH": 1,
+      "math-ph": 1,
+      "physics.ed-ph": 1,
+      "physics.pop-ph": 1,
+      "cs.AI": 4,
+      "cs.MS": 7,
+      "math.CO": 2,
+      "cs.DM": 1,
+      "cs.LO": 4,
+      "cs.SC": 10,
+      "cs.DB": 1,
+      "cs.PL": 2,
+      "cs.HC": 1,
+      "math.DS": 1,
+      "cs.DL": 2,
+      "math.AT": 1,
+      "math.HO": 2,
+      "cs.SE": 1,
+      "math.CT": 1,
+      "math.DG": 1,
+      "math.NA": 1,
+      "hep-ph": 1,
+      "physics.comp-ph": 1,
+      "math.NT": 1,
+      "cs.LG": 2,
+      "cs.CL": 2
     }
   }
 }

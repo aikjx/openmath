@@ -465,7 +465,7 @@
     }
   ],
   "meta": {
-    "generated_at": "2026-10-03T09:18:11",
+    "generated_at": "2026-10-04T09:35:52",
     "generator": "06-AI自动化/01-工作流/openmath_audit.py",
     "evidence_level": "L2",
     "provenance": {
@@ -552,6 +552,6 @@
     ],
     "total_checks": 6,
     "violations": 0,
-    "generated_at": "2026-10-03T09:18:11"
+    "generated_at": "2026-10-04T09:35:52"
   }
 }

@@ -1,7 +1,7 @@
 {
   "meta": {
     "generated_by": "06-AI自动化/01-工作流/openmath_ingest.py",
-    "generated_at": "2026-10-03T09:16:53",
+    "generated_at": "2026-10-04T09:34:14",
     "provenance": {
       "ai_assisted": true,
       "note": "由 AI 代理基于 openmath_sys 引擎自动生成，未经人类复核，不得作为 L3+ 证据。"
@@ -15,8 +15,8 @@
     "honesty": "本文件为 L0/L2 级数据处理产物，非证明；方程求解为计算校验(L2)。CD 性质(CMP)解析成功不代表被证明；arXiv 论文为预印本，状态 UNVERIFIED。",
     "coverage": {
       "official_total": 38,
-      "from_network": 1,
-      "from_local_snapshot": 37,
+      "from_network": 38,
+      "from_local_snapshot": 0,
       "missing": 0,
       "xml_parse_failed": 0,
       "note": "官方全量清单由 GitHub API 探测得到；联网失败者回退本地快照，两者皆无才记为 missing；解析失败如实记录，不静默丢弃。"
@@ -27,7 +27,7 @@
       "name": "alg1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/alg1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "zero",
@@ -48,7 +48,7 @@
       "name": "altenc",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/altenc.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "MathML_encoding",
@@ -72,70 +72,75 @@
       "origin": "network",
       "symbols": [
         {
+          "name": "lcm",
+          "description": "The symbol to represent the n-ary function to return the least common multiple of its arguments.",
+          "n_properties": 2
+        },
+        {
+          "name": "gcd",
+          "description": "The symbol to represent the n-ary function to return the gcd (greatest common divisor) of its arguments.",
+          "n_properties": 1
+        },
+        {
           "name": "plus",
-          "description": "The symbol representing an n-ary commutative function for addition.",
+          "description": "The symbol representing an n-ary commutative function plus.",
+          "n_properties": 1
+        },
+        {
+          "name": "unary_minus",
+          "description": "This symbol denotes unary minus, i.e. the additive inverse.",
           "n_properties": 1
         },
         {
           "name": "minus",
-          "description": "The symbol representing a binary minus function.",
+          "description": "The symbol representing a binary minus function. This is equivalent to adding the additive inverse.",
           "n_properties": 1
         },
         {
           "name": "times",
           "description": "The symbol representing an n-ary multiplication function.",
-          "n_properties": 1
+          "n_properties": 2
         },
         {
           "name": "divide",
-          "description": "The symbol representing a (binary) division function.",
+          "description": "This symbol represents a (binary) division function denoting the first argument right-divided by the second, i.e. divide(a,b)=a*inverse(b). It is the inverse of the multiplication function defined by the symbol times in this CD.",
           "n_properties": 1
         },
         {
           "name": "power",
-          "description": "The symbol representing a power function.",
-          "n_properties": 1
+          "description": "This symbol represents a power function. The first argument is raised to the power of the second argument. When the second argument is not an integer, powering is defined in terms of exponentials and logarithms for the complex and real numbers. This operator can represent general powering.",
+          "n_properties": 2
         },
         {
           "name": "abs",
-          "description": "The symbol representing the absolute value function.",
+          "description": "A unary operator which represents the absolute value of its argument. The argument should be numerically valued. In the complex case this is often referred to as the modulus.",
           "n_properties": 1
         },
         {
           "name": "root",
-          "description": "The symbol representing a binary root function.",
-          "n_properties": 1
-        },
-        {
-          "name": "gcd",
-          "description": "The symbol representing the n-ary greatest common divisor.",
-          "n_properties": 1
-        },
-        {
-          "name": "lcm",
-          "description": "The symbol representing the n-ary least common multiple.",
-          "n_properties": 1
+          "description": "A binary operator which represents its first argument \"lowered\" to its n'th root where n is the second argument. This is the inverse of the operation represented by the power symbol defined in this CD. Care should be taken as to the precise meaning of this operator, in particular which root is represented, however it is here to represent the general notion of taking n'th roots. As inferred by the signature relevant to this symbol, the function represented by this symbol is the single valued function, the specific root returned is the one indicated by the first CMP. Note also that the converse of the second CMP is not valid in general.",
+          "n_properties": 2
         },
         {
           "name": "sum",
-          "description": "The symbol representing a bound summation.",
-          "n_properties": 1
+          "description": "An operator taking two arguments, the first being the range of summation, e.g. an integral interval, the second being the function to be summed. Note that the sum may be over an infinite interval.",
+          "n_properties": 0
         },
         {
           "name": "product",
-          "description": "The symbol representing a bound product.",
-          "n_properties": 1
+          "description": "An operator taking two arguments, the first being the range of multiplication e.g. an integral interval, the second being the function to be multiplied. Note that the product may be over an infinite interval.",
+          "n_properties": 0
         }
       ],
-      "symbol_count": 11,
-      "property_count": 11,
+      "symbol_count": 12,
+      "property_count": 14,
       "parse_error": null
     },
     {
       "name": "bigfloat1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/bigfloat1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "bigfloat",
@@ -156,7 +161,7 @@
       "name": "calculus1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/calculus1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "diff",
@@ -197,7 +202,7 @@
       "name": "complex1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/complex1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "complex_cartesian",
@@ -238,7 +243,7 @@
       "name": "error",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/error.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "unhandled_symbol",
@@ -264,7 +269,7 @@
       "name": "fns1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/fns1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "restriction",
@@ -330,7 +335,7 @@
       "name": "fns2",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/fns2.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "kernel",
@@ -361,7 +366,7 @@
       "name": "integer1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/integer1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "factorof",
@@ -392,7 +397,7 @@
       "name": "interval1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/interval1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "integer_interval",
@@ -438,7 +443,7 @@
       "name": "limit1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/limit1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "limit",
@@ -474,7 +479,7 @@
       "name": "linalg1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/linalg1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "vectorproduct",
@@ -520,7 +525,7 @@
       "name": "linalg2",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/linalg2.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "vector",
@@ -546,7 +551,7 @@
       "name": "list1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/list1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "map",
@@ -572,7 +577,7 @@
       "name": "logic1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/logic1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "equivalent",
@@ -638,7 +643,7 @@
       "name": "mathmlattr",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/mathmlattr.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "class",
@@ -679,7 +684,7 @@
       "name": "mathmltypes",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/mathmltypes.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "type",
@@ -750,7 +755,7 @@
       "name": "meta",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/meta.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "CD",
@@ -851,7 +856,7 @@
       "name": "metagrp",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/metagrp.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "CDGroupName",
@@ -912,7 +917,7 @@
       "name": "metasig",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/metasig.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "CDSignatures",
@@ -948,7 +953,7 @@
       "name": "minmax1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/minmax1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "min",
@@ -969,7 +974,7 @@
       "name": "multiset1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/multiset1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "size",
@@ -1045,7 +1050,7 @@
       "name": "nums1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/nums1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "based_integer",
@@ -1101,7 +1106,7 @@
       "name": "piece1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/piece1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "piecewise",
@@ -1127,7 +1132,7 @@
       "name": "quant1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/quant1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "forall",
@@ -1148,7 +1153,7 @@
       "name": "relation1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/relation1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "eq",
@@ -1194,7 +1199,7 @@
       "name": "relation3",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/relation3.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "is_relation",
@@ -1260,7 +1265,7 @@
       "name": "rounding1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/rounding1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "ceiling",
@@ -1291,7 +1296,7 @@
       "name": "s_data1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/s_data1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "mean",
@@ -1332,7 +1337,7 @@
       "name": "s_dist1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/s_dist1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "mean",
@@ -1363,7 +1368,7 @@
       "name": "scscp1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/scscp1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "procedure_call",
@@ -1459,7 +1464,7 @@
       "name": "scscp2",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/scscp2.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "store_session",
@@ -1540,7 +1545,7 @@
       "name": "set1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/set1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "cartesian_product",
@@ -1626,7 +1631,7 @@
       "name": "setname1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/setname1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "P",
@@ -1667,7 +1672,7 @@
       "name": "sts",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/sts.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "type",
@@ -1733,7 +1738,7 @@
       "name": "transc1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/transc1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "log",
@@ -1879,7 +1884,7 @@
       "name": "veccalc1",
       "source_url": "https://raw.githubusercontent.com/OpenMath/CDs/master/cd/Official/veccalc1.ocd",
       "fetched": true,
-      "origin": "local_snapshot",
+      "origin": "network",
       "symbols": [
         {
           "name": "divergence",
