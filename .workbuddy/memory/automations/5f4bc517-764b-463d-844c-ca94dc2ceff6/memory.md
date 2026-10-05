@@ -108,3 +108,18 @@
 - ⑦ theory：候选 411/通过留出 343/规模外推证伪 42（stress 343→survive 301）/重发现已知定理 5；自核验 6/0。⑩ millennium：命题 7（未解 6、已解 1=庞加莱）、开放叶 15、实验 8（RH2/BSD1/NS2/HODGE1/PNP1/POINCARE1，YM 无实验——四维量子测度未构造、无频谱）、shadow_implies_full=0；自核验 8/0。⑧ 审计 4510 项 0 失败（验证器 175/175、真 44/44、假 14/14、判准率 100%；C4 模消元 vs 精确高斯 28 序列 0 分歧；递推独立重算 36 候选 0 分歧；证伪元检验 8/8；千禧 288/288、N(T) 辐角法 341.0 vs 符号变号 341 偏离 0.0、S(T) 0.260502 vs 0.2605 吻合）；自核验 6/0。⑨ 序列 31、重发现（候选 19/序列 13）、候选 4、外推证伪 0、待验证 4；C1/C2 召回 10/10=100% 假警报 0；C4 召回 6/6=100% 假警报 0；变换封闭 186 组、理论封闭变换（diff/prefix_sum/binomial）丢失 0；自核验 12/0。
 - 恒等式产物（numeric_solutions.json）：**holds=43 / fails=1 / not_decidable=15**（unevaluable=0）。较 10-03：holds 41→43（+2）、not_decidable 16→15（-1），随摄取漂移回弹。15 条拒答具体 scope = definitional 4、non_elementary 3、unknown_function 2、higher_order 2、logic 2、branch 1、equation 1（每条均附具体公式理由，未只写"超出能力"）。唯一 fails 为 arccosh z = i*(pi - arccos z) 分支约定式（sign_flip_points=0，非纯符号翻转，非反例）。
 - 结论：各阶段自核验违规全 0；审计失败 0；双路径对账（C4/递推重算/N(T) 辐角 vs 变号/S(T) 两法）零分歧；理论封闭变换零丢失；shadow_implies_full 七题全 0。无任何异常需上报，与此前稳定基线完全一致。
+
+## 运行记录 (2026-10-05T10:02，定时自动化 S1-S10 顺序 ①②③④⑤⑥⑦⑩⑧⑨)
+- 10 阶段全部退出码 0（总耗时 2m37s）。引擎无回退（split_quantifier/_SENTENCE_TAIL_RE/quantified 在位；隐式乘法/函数幂记号/命名常量代入数值均在位）。
+- ① 38 CD/294 符号/179 性质/67 方程；CMP 可解析 60/179（率 0.3352）、方程型 60/137=0.438；consistency catalog=analyze=179 match、cds_skipped=0；防覆写闸门通过（60≥29.5，无 .rejected）。arXiv 去重 32 篇（UNVERIFIED）。
+- ② 方法 47（引擎可执行 28）；结构缺口 18 HIGH+；未解猜想 11（5 无已实现方法、can_resolve 全 False）。
+- ③ ABC q>1 三元组 57（max q=1.455673）；Goldbach 全偶数有分拆=True；孪生素数 2160 对；π(x) li 误差 0.39%；Collatz mod6 均值 91.7317。
+- ④ 联盟 53（实现 34），覆盖率 37.1%→54.5%→100%；语义上界 5740、名义 ~8.29e29。
+- ⑤ 范式 12、完全空白 2（analogy/transform）；11 猜想 constitutes_proof 全 False；有限化定理 5；D1-D6。
+- ⑥ 方法库 110（覆盖 9.1%）；递归 L1=83/L2=20/L3=7、不动点 4 轮、自核验 5/0；维度矩阵 13/72(18.1%)；结构实验同调 7/7 + 群 4/4 全匹配；孤儿能力 21。
+- ⑦ theory：候选 411/通过留出 343/规模外推证伪 42（survive 301）/重发现已知定理 5；自核验 6/0。本轮顺带修引擎实错：群指数由 max 元素阶改为 lcm（S₃ 旧 3→正确 6），旧口径保留在 max_element_order。
+- ⑩ millennium：命题 7（未解 6、已解 1=庞加莱）、开放叶 15、实验 8（RH2/PNP1/NS2/BSD1/HODGE1/POINCARE1，YM 无实验——四维量子测度未构造、无频谱）、shadow_implies_full=0；自核验 8/0。
+- ⑧ 审计 4510 项 0 失败；验证器 175/175（真 44/44、假 14/14、判准率 100%）；C4 模消元 vs 精确高斯 28 序列 0 分歧；递推独立重算 36 候选 0 分歧；证伪元检验 8/8；千禧 288/288、N(T) 辐角法 341.0 vs 符号变号 341 偏离 0.0、S(T) 0.260502 vs 0.2605 吻合；自核验 6/0。
+- ⑨ 序列 31、重发现（候选 19/序列 13）、候选 4、外推证伪 0、待验证 4；C1/C2 召回 10/10=100% 假警报 0；C4 召回 6/6=100% 假警报 0；变换封闭 186 组、理论封闭变换（diff/prefix_sum/binomial）丢失 0；apery even_subseq 丢失标能力缺口；自核验 12/0。
+- 恒等式产物（numeric_solutions.json）：holds=43/fails=1/not_decidable=15（unevaluable=0）。15 条拒答 scope = definitional 4、non_elementary 3、unknown_function 2、higher_order 2、logic 2、branch 1、equation 1（每条附具体公式理由）。唯一 fails 为 arcsech/arccos 分支约定差异（非反例，sign_flip_points=0）。
+- 本轮无异常需上报：自核验全 0、审计失败 0、双路径对账零分歧、理论封闭变换零丢失、n_shadow_implies_full=0。数值与 10-04 稳定基线完全一致（引擎无改动、摄取无漂移）。
