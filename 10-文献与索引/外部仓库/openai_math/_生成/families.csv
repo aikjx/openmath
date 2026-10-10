@@ -1,0 +1,373 @@
+﻿family,subject,title_overview,title_contents,n_manuscripts,lean_doc,formalized,head_line_in_contents
+001,Number theory,Milne's rationality conjecture,Milne’s rationality conjecture and algebraic specialization,1,,no,16
+002,Number theory,The full Birch--Swinnerton-Dyer formula in Selmer coranks zero and one,The full BSD formula from low Selmer corank,3,,no,32
+003,Number theory,The quasi-Riemann hypothesis,The quasi-Riemann hypothesis,3,003,YES,66
+004,Number theory,Hilbert's tenth problem over $\mathbb Q$,Hilbert’s tenth problem over ℚ,2,,no,100
+005,Number theory,Irrationality of Catalan's constant,Irrationality of Catalan’s constant,1,005,YES,125
+006,Number theory,Goldfeld's conjecture,Goldfeld’s conjecture: densities and mean analytic rank,2,,no,141
+007,Number theory,Two-point Chowla and the corrected binary Elliott conjecture,Ordinary two-point correlations and the corrected Elliott conjecture,1,007,YES,166
+008,Number theory,The Deligne--Drinfeld conjecture,The Deligne–Drinfeld conjecture,1,008,YES,182
+009,Number theory,Bogomolov--Pop and Milnor $K$-theoretic reconstruction,Function-field reconstruction from Milnor K-theory and Galois data,3,009,YES,198
+010,Number theory,Fontaine--Mazur modularity at the prime $2$ and $2$-adic pro-modularity,Unrestricted pro-modularity at the prime two,3,,no,232
+011,Number theory,The Ford--Konyagin--Luca conjecture on prime predecessors,Prime-factor statistics of $`p-1`$,3,,no,266
+012,Number theory,Independent largest prime factors of consecutive integers,Independent largest prime factors of consecutive integers,1,012,YES,300
+013,Number theory,Ostmann's inverse Goldbach conjecture,Ostmann’s inverse Goldbach conjecture,1,013,YES,316
+014,Number theory,"Restricted geometric Langlands, generic Ramanujan and Arthur parameters","Restricted geometric Langlands, global Arthur enhancements, and generic Ramanujan",8,,no,332
+015,Number theory,"Torus-packet equidistribution in prime, quartic, and sextic degrees","Torus-packet equidistribution in prime, quartic, and sextic degrees",3,015,YES,411
+016,Number theory,Zilber--Pink in abelian varieties and the Siegel threefold,Zilber–Pink in abelian varieties and the Siegel threefold,4,,no,445
+017,Number theory,The irrationality exponent of $\pi$ is $2$,The irrationality exponent of <i>π</i> is 2,1,017,YES,488
+018,Number theory,The Margulis--Platonov conjecture over global fields,The Margulis–Platonov conjecture over global fields,2,,no,504
+019,Number theory,The $p$-adic section conjecture,The local <i>p</i>-adic section conjecture and global consequences,2,,no,529
+020,Number theory,Squarefree quartics and power-free polynomial values,Squarefree quartics and power-free polynomial values,1,020,YES,554
+021,Number theory,A quadratic bound for Jacobsthal's function,A quadratic bound for Jacobsthal’s function,1,021,YES,570
+022,Number theory,The weak inhomogeneous Duffin--Schaeffer conjecture,The weak inhomogeneous Duffin–Schaeffer conjecture,1,,no,586
+023,Number theory,Patterson’s first moment for cubic Gauss sums,Patterson's first moment for cubic Gauss sums,1,023,YES,602
+024,Number theory,An asymptotic formula for the number of totients,An asymptotic formula for the number of totients,1,024,YES,618
+025,Number theory,Erd\H{o}s’s short Egyptian-fraction conjecture,Short Egyptian fractions,1,025,YES,634
+026,Number theory,Positive lower density of large prime gaps,Positive lower density of large prime gaps,1,026,YES,650
+027,Number theory,Integral density on curve character varieties,Potential integral density on curve character varieties,1,027,YES,666
+028,Number theory,The Gaussian moat conjecture,Uniformly bounded components of Gaussian-prime graphs,1,028,YES,682
+029,Number theory,Artin's primitive root conjecture: infinitude for every base,Primitive roots for every admissible integer base,2,,no,698
+030,Number theory,Modularity over imaginary quadratic fields,Modularity of elliptic curves over imaginary quadratic fields,1,,no,723
+031,Number theory,Uchida's conjecture for open Galois homomorphisms,Uchida’s conjecture for open homomorphisms of Galois groups,1,,no,739
+032,Algebraic and complex geometry,The rational Hodge conjecture for CM abelian varieties,The rational Hodge conjecture for CM abelian varieties,5,,no,755
+033,Algebraic and complex geometry,Campana's orbifold Iitaka conjecture and logarithmic subadditivity,"Iitaka subadditivity, variation, and logarithmic additivity",5,033,YES,807
+034,Algebraic and complex geometry,Log abundance and effective Iitaka fibrations,Log abundance for compact Kähler spaces under logarithmic Iitaka subadditivity,14,,no,859
+035,Algebraic and complex geometry,Threefold log abundance in numerical dimension one in characteristic $p>3$,Log-canonical threefold abundance in numerical dimension one,2,,no,992
+036,Algebraic and complex geometry,Numerical semiampleness and generalized minimal models,Numerical semiampleness and generalized minimal models,4,,no,1017
+037,Algebraic and complex geometry,The sharp ordinary-double-point volume gap,The ordinary-double-point volume gap,2,,no,1060
+038,Algebraic and complex geometry,Fujita's freeness conjecture,Fujita’s freeness conjecture,1,,no,1085
+039,Algebraic and complex geometry,Nagata's conjecture and maximal Seshadri constants,Nagata’s conjecture and maximal Seshadri constants,4,039,YES,1101
+040,Algebraic and complex geometry,Bloch's conjecture for complex surfaces,Bloch’s conjecture for complex surfaces,1,,no,1144
+041,Algebraic and complex geometry,"Hyperk\""ahler SYZ and projective-space bases",Hyperkähler SYZ and projective-space bases,2,,no,1160
+042,Algebraic and complex geometry,Oka classification for K3 surfaces and other compact complex surfaces,Oka classification for minimal compact complex surfaces: Kodaira dimension zero and class VII,1,,no,1185
+043,Algebraic and complex geometry,$P=W$ for fixed-determinant moduli spaces,<i>P</i> = <i>W</i> for fixed-determinant SL<sub><i>n</i></sub> moduli spaces,1,,no,1201
+044,Algebraic and complex geometry,The equivariant cohomological Hikita conjecture for quivers,The equivariant cohomological Hikita conjecture,1,,no,1217
+046,Algebraic and complex geometry,Counterexamples to Shafarevich holomorphic convexity,Shafarevich counterexamples in dimension two and with large fundamental group,2,,no,1233
+047,Algebraic and complex geometry,Complex counterexamples to cancellation and affine fibrations,Zariski cancellation and affine fibrations over the complex numbers,1,047,YES,1258
+048,Algebraic and complex geometry,A characteristic-zero counterexample to Lipman--Zariski,A characteristic-zero counterexample to Lipman–Zariski,1,,no,1274
+049,Algebraic and complex geometry,A stable-coordinate counterexample in four variables,A stable-coordinate counterexample in four variables,2,049,YES,1290
+050,Algebraic and complex geometry,A counterexample to Griffiths' positivity conjecture,A counterexample to Griffiths’ positivity conjecture,1,050,YES,1315
+051,Algebraic and complex geometry,Kobayashi's canonical-ampleness conjecture,Kobayashi’s canonical-ampleness conjecture,1,,no,1331
+052,Algebraic and complex geometry,Tangent-bundle splittings and universal covers,Tangent splittings and product decompositions,2,052,YES,1347
+053,Algebraic and complex geometry,A counterexample to Pixton's original completeness conjecture,A counterexample to Pixton completeness in Chow,1,,no,1372
+054,Algebraic and complex geometry,Counterexamples to Kuznetsov's rationality conjecture,Irrational cubic fourfolds with Hodge-theoretic and categorical K3 associations,1,,no,1388
+055,Algebraic and complex geometry,Toda's Gepner conjecture and large-volume stability,Gepner symmetry and large-volume stability on threefolds,2,,no,1404
+056,Algebraic and complex geometry,Termination of fourfold minimal model programs,Termination of projective and Kähler fourfold minimal model programs,5,,no,1429
+057,Algebraic and complex geometry,Campana's abelianity conjecture and special varieties,Fundamental groups of special complex varieties and root orbifolds,3,,no,1481
+058,Algebraic and complex geometry,The Koll\'ar--Pardon universal-cover conjecture,Semialgebraic universal covers and bounded domains,2,058,YES,1515
+059,Algebraic and complex geometry,Counterexamples to Zariski's multiplicity conjecture,Counterexamples to Zariski’s multiplicity conjecture,2,,no,1540
+060,Algebraic and complex geometry,The Global Spherical Shell conjecture,The Global Spherical Shell conjecture,1,,no,1565
+062,Algebraic and complex geometry,The LeBrun--Salamon conjecture and projective contact classification,Projective contact classification and the LeBrun–Salamon conjecture,1,,no,1581
+063,Algebraic and complex geometry,The generalized Mukai conjecture,The generalized Mukai conjecture,1,,no,1597
+064,Algebraic and complex geometry,The $\mu$-constant problem for surface singularities,Topological triviality of <i>μ</i>-constant surface singularities,1,,no,1613
+065,Algebraic and complex geometry,Virasoro constraints for complete intersections and projective bundles,Virasoro constraints for complete intersections and projective-bundle towers,2,,no,1629
+066,Algebraic and complex geometry,Bounded klt complements for Fano contractions,Bounded klt complements for Fano contractions,2,066,YES,1654
+067,Algebraic and complex geometry,The Campana--Peternell conjecture in dimension six,The Campana–Peternell conjecture in dimension six,1,,no,1679
+068,Algebraic and complex geometry,Anticanonical nonvanishing under smooth semipositivity,Anticanonical nonvanishing in every dimension,7,,no,1695
+069,Algebraic and complex geometry,Quantum geometric Langlands at irrational level,Global quantum geometric Langlands at irrational level,1,,no,1765
+071,Real and complex analysis,Koebe's circle-domain conjecture and circle-domain rigidity,Koebe’s circle-domain conjecture,2,071,YES,1781
+072,Real and complex analysis,Brennan's conjecture and a counterexample to Kraetzer's prediction,Brennan's conjecture and the integral-means spectrum,2,072,YES,1806
+073,Real and complex analysis,The Falconer distance conjecture,The Falconer distance conjecture,1,073,YES,1831
+074,Real and complex analysis,Kakeya in three and four dimensions,Kakeya in three and four dimensions,2,,no,1847
+075,Real and complex analysis,The $L\log L$ Fourier-convergence conjecture,The $`L\log L`$ Fourier-convergence conjecture,1,075,YES,1872
+076,Real and complex analysis,Ultraflat real Littlewood polynomials,Real ultraflat Littlewood polynomials and unbounded binary merit factors,3,076,YES,1888
+077,Real and complex analysis,Fourier restriction for positively curved surfaces,Fourier restriction for positively curved surfaces,2,,no,1922
+078,Real and complex analysis,The three-dimensional Bochner--Riesz conjecture,The three-dimensional Bochner–Riesz conjecture,1,,no,1947
+079,Real and complex analysis,Sogge's local smoothing conjecture in dimension three,Local smoothing in three dimensions,1,,no,1963
+080,Real and complex analysis,"The Sobolev endpoint in Carleson's Schr\""odinger convergence problem",The exact Sobolev endpoint for Schrödinger convergence,2,,no,1979
+081,Real and complex analysis,The David--Semmes Riesz-transform problem in higher codimension,Riesz transforms and rectifiability in higher codimension,1,081,YES,2004
+082,Real and complex analysis,Maximal and variational bounds for the triangular Hilbert transform,Annular variation and dyadic absolute bounds for the triangular Hilbert transform,3,082,YES,2020
+083,Real and complex analysis,Stein's conjecture for Hilbert transforms along Lipschitz directions,Hilbert transforms along Lipschitz directions,1,083,YES,2054
+084,Real and complex analysis,The geometric case of the Erd\H{o}s similarity conjecture,The geometric case of the Erdős similarity conjecture,2,084,YES,2070
+085,Real and complex analysis,Endpoint regularity of the planar centered maximal function,Endpoint Sobolev regularity of centered disk averages,1,085,YES,2095
+086,Real and complex analysis,An $L^3$ bound for the trilinear Hilbert transform,An <i>L</i><sup>3</sup> bound for the trilinear Hilbert transform,1,,no,2111
+087,Convex and metric geometry,The Mahler conjectures and symplectic width,"The Mahler conjectures, functional inequalities and polar-product symplectic width",3,087,YES,2127
+088,Convex and metric geometry,Petty's projection-volume conjecture and simplex counterexamples,Sharp projection-body inequalities and a counterexample to simplex maximization,2,088,YES,2161
+089,Convex and metric geometry,Bounded-distortion $L_1$ embeddings of planar and bounded-treewidth graphs,Bounded-distortion <i>L</i><sub>1</sub> embeddings of planar and bounded-treewidth graphs,2,089,YES,2186
+090,Convex and metric geometry,Universal optimality of the triangular lattice,"Triangular-lattice optimality, long-range Riesz and Coulomb energies, and spherical logarithmic energy",4,090,YES,2211
+091,Convex and metric geometry,The logarithmic Brunn--Minkowski conjecture,Logarithmic and <i>L</i><sub><i>p</i></sub> Brunn–Minkowski inequalities and the B-conjecture,1,091,YES,2254
+092,Convex and metric geometry,The optimal order of convex-body covering density,The optimal order of convex-body covering density,2,092,YES,2270
+093,Convex and metric geometry,Dimension-free logarithmic Sobolev inequality for subgaussian log-concave measures,Dimension-free logarithmic Sobolev inequality for subgaussian log-concave measures,1,,no,2295
+094,Convex and metric geometry,Subpolynomial dimension reduction in $L_p$,Subpolynomial dimension reduction in <i>L</i><sub><i>p</i></sub>,1,094,YES,2311
+095,Convex and metric geometry,Hyperbolicity cones without semidefinite lifts,Hyperbolicity cones without semidefinite lifts,3,095,YES,2327
+096,Convex and metric geometry,The Gaussian propeller conjecture,The Gaussian propeller conjecture in every dimension,1,096,YES,2361
+097,Convex and metric geometry,"The Euclidean Steinitz--Bergstr\""om conjecture",The Euclidean Steinitz–Bergström bound,1,097,YES,2377
+098,Convex and metric geometry,A negative answer to the Lang--Plaut problem,Compact counterexamples to bi-Lipschitz dimension reduction,1,098,YES,2393
+099,Convex and metric geometry,The sharp distortion of edit distance into $\ell_1$,The sharp exponential scale of edit-distance distortion,3,099,YES,2409
+100,Convex and metric geometry,A counterexample to Bang's cylinder-covering bound,Cylinder coverings below the half-area bound,4,100,YES,2443
+101,Convex and metric geometry,The sharp simplex conjecture for isotropic constants,The sharp simplex conjecture for isotropic constants,1,,no,2486
+102,Theoretical computer science,The Unique Games Conjecture and optimal approximation thresholds,The Unique Games Conjecture and optimal approximation thresholds,5,102,YES,2502
+103,Theoretical computer science,Derandomization of logarithmic space: $\mathsf L=\mathsf{RL}=\mathsf{BPL}$,Exact derandomization of logarithmic space: $`\mathsf L=\mathsf{RL}=\mathsf{BPL}`$,1,103,YES,2554
+104,Theoretical computer science,"Quasipolynomial algorithms for mean-payoff, stochastic and parity games","Quasipolynomial algorithms for mean-payoff, stochastic and parity games",4,104,YES,2570
+105,Theoretical computer science,The 2-to-1 Games Conjecture with perfect completeness,Perfect completeness for 2-to-1 games,1,105,YES,2613
+106,Theoretical computer science,Hardness of coloring three-colorable graphs,Hardness of coloring three-colorable graphs,1,106,YES,2629
+107,Theoretical computer science,Matrix multiplication with exponent at most $9/4$,Matrix multiplication with exponent at most 9/4,3,107,YES,2645
+108,Theoretical computer science,A cubic permanent--determinant lower bound,A cubic permanent–determinant lower bound,1,108,YES,2679
+109,Theoretical computer science,Integer multiplication below $n\log n$,Integer multiplication below $`n\log n`$,1,,no,2695
+110,Theoretical computer science,Optimal-order randomized $k$-server on arbitrary metrics,Optimal-order randomized <i>k</i>-server on arbitrary metrics,2,110,YES,2711
+111,Theoretical computer science,One-sample matroid prophet inequalities against an almighty adversary,One-sample matroid prophet inequalities against an almighty adversary,1,111,YES,2736
+112,Theoretical computer science,Beyond the square-root exponent for depth-three circuits,Beyond the square-root exponent for depth-three circuits,1,112,YES,2752
+113,Theoretical computer science,Approximate counting and the perfect-matching entropy conjecture,Approximate counting and entropy of perfect matchings,2,113,YES,2768
+114,Theoretical computer science,Approximate counting of common integer polymatroid bases,Approximate counting of common integer polymatroid bases,2,114,YES,2797
+115,Theoretical computer science,Sampling and counting contingency tables with arbitrary margins,Sampling and counting contingency tables with arbitrary margins,2,115,YES,2822
+116,Theoretical computer science,Uniform identity testing for noncommutative formulas,Uniform black-box noncommutative identity testing across characteristics,3,116,YES,2847
+117,Theoretical computer science,Uniform sparsest cut: hardness and semidefinite gaps,Uniform sparsest cut: hardness and semidefinite gaps,2,117,YES,2881
+118,Theoretical computer science,Unbounded bin-packing gaps and the modified integer round-up conjecture,Bin packing and unbounded configuration-LP gaps,1,118,YES,2906
+119,Theoretical computer science,The Courtade--Kumar and Hellinger conjectures,The Courtade–Kumar and Hellinger conjectures,2,119,YES,2922
+120,Theoretical computer science,Almost-linear-time exact matching in general graphs,Almost-linear-time exact matching and prescribed-degree factors in general graphs,1,,no,2947
+121,Theoretical computer science,Almost-linear expected-time approximation of edit distance,Almost-linear approximation of edit distance,1,121,YES,2963
+122,Theoretical computer science,Superpolynomial lower bounds and quasipolynomial reconstruction from deletion traces,Quantitative trace-reconstruction bounds with a uniform decoder,3,122,YES,2979
+124,Theoretical computer science,Polynomial-time scheduling on three identical machines,Polynomial-time scheduling on three identical machines,1,124,YES,3013
+125,Theoretical computer science,The approximation threshold for metric $k$-median,The metric <i>k</i>-median approximation threshold and recovery,2,125,YES,3029
+126,Theoretical computer science,Exponential semidefinite complexity of perfect matching,Exponential semidefinite complexity of perfect matching,1,126,YES,3054
+127,Theoretical computer science,The asymptotic Gotsman--Linial conjecture,Average sensitivity of polynomial threshold functions,1,127,YES,3070
+128,Theoretical computer science,A factor-two approximation for shortest common superstring,A factor-two approximation for shortest common superstring,1,128,YES,3086
+129,Theoretical computer science,Exponential state costs for two-way automata,Exponential state costs for two-way automata,2,129,YES,3102
+130,Theoretical computer science,Fourier transforms below $n\log n$,Exact Fourier transforms below $`n\log n`$,2,130,YES,3127
+131,Theoretical computer science,Polynomial mixing of graph switches with prescribed degrees,Rapid mixing of graph switches for every degree sequence,1,131,YES,3152
+132,Theoretical computer science,A counterexample to the quadratic sensitivity conjecture,A superquadratic separation of sensitivity and block sensitivity,1,132,YES,3168
+133,Theoretical computer science,The complexity of Weisfeiler--Leman refinement,The computational complexity of Weisfeiler–Leman refinement,4,133,YES,3184
+134,Theoretical computer science,Generalized star height at most three,Generalized star height at most three,3,134,YES,3227
+135,Theoretical computer science,Sharp homogeneous depth-five complexity of matrix products,Homogeneous depth-five lower bounds for iterated matrix multiplication,1,135,YES,3261
+136,Theoretical computer science,The quasilinear PCP-for-PPAD conjecture,A quasilinear PCP theorem for PPAD,1,,no,3277
+137,Theoretical computer science,One-tape time simulation in two-fifths-power space,One-tape time simulation in two-fifths-power space,1,137,YES,3293
+138,Theoretical computer science,Subset Sum in $O(2^{0.49n})$ time,Subset Sum in $`O(2^{0.49n})`$ time,2,,no,3309
+139,Theoretical computer science,Subpolynomial queries for log-concave sampling,Subpolynomial query complexity for log-concave sampling,1,139,YES,3334
+140,Theoretical computer science,Memory--sample lower bounds for noiseless Gaussian regression,Memory–sample lower bounds for noiseless Gaussian regression,6,140,YES,3350
+141,Theoretical computer science,The existential theory of the reals and existential--universal sentences in the counting hierarchy,Existential–universal real sentences in the counting hierarchy,1,,no,3411
+142,Theoretical computer science,Deterministic polynomial factorization over prime fields,Deterministic polynomial factorization over prime fields,1,,no,3427
+143,Dynamical systems and ergodic theory,Uniform limit-cycle bounds in Hilbert's sixteenth problem,Hilbert's sixteenth problem: uniform bounds for limit cycles,2,143,YES,3443
+144,Dynamical systems and ergodic theory,Banach's simple Lebesgue-spectrum problem,Banach’s simple Lebesgue-spectrum problem,1,144,YES,3468
+145,Dynamical systems and ergodic theory,Rokhlin's multiple-mixing problem,Rokhlin’s multiple-mixing problem,1,145,YES,3484
+146,Dynamical systems and ergodic theory,Sinai's positive-entropy conjecture for the standard map,Positive metric entropy for the standard map,1,146,YES,3500
+147,Dynamical systems and ergodic theory,The near-boundary Birkhoff conjecture,The near-boundary Birkhoff conjecture,2,,no,3516
+148,Dynamical systems and ergodic theory,The dimension formula for self-similar measures on the line,The entropy-rate dimension formula for self-similar measures,1,148,YES,3541
+149,Dynamical systems and ergodic theory,Permanence for weakly reversible reaction networks,Classwise permanence for weakly reversible mass-action systems,2,149,YES,3557
+150,Dynamical systems and ergodic theory,Weak mixing of irrational triangular billiards,Weak mixing of triangular billiards with an irrational angle,2,150,YES,3582
+151,Dynamical systems and ergodic theory,A $C^1$ counterexample to Shub’s entropy conjecture,A <i>C</i><sup>1</sup> counterexample to the entropy conjecture,1,151,YES,3607
+152,Dynamical systems and ergodic theory,Zero entropy does not guarantee a smooth positive-volume model,Zero entropy does not guarantee a smooth positive-volume model,1,152,YES,3623
+153,Dynamical systems and ergodic theory,Arithmetic classification of Bernoulli convolutions,Arithmetic classification and non-Pisot singularity for Bernoulli convolutions,1,,no,3639
+154,Dynamical systems and ergodic theory,Pointwise multiple ergodic averages for mixing transformations,Pointwise multiple ergodic averages for mixing transformations,4,,no,3655
+155,Combinatorics,A counterexample to periodic tiling in dimension three,A counterexample to periodic tiling in dimension three,1,155,YES,3702
+156,Combinatorics,Borsuk's conjecture fails in dimension nine,Borsuk's conjecture fails in dimension nine,1,156,YES,3718
+157,Combinatorics,Counterexamples to the Hadwiger and Colin de Verdi\`ere conjectures,"Graph coloring, clique minors, and Colin de Verdière invariants",3,157,YES,3734
+158,Combinatorics,The Euclidean plane cannot be colored with five colors,The Euclidean plane cannot be colored with five colors,1,158,YES,3768
+159,Combinatorics,Erd\H{o}s's reciprocal-sum conjecture and quasipolynomial Szemer\'edi bounds,Erdős’s reciprocal-sum conjecture and quasipolynomial Szemerédi bounds,1,159,YES,3784
+160,Combinatorics,Superexponential van der Waerden numbers,Superexponential van der Waerden numbers,1,160,YES,3804
+161,Combinatorics,Counterexamples to Sidorenko's conjecture and the forcing conjecture,Counterexamples to Sidorenko’s conjecture and the forcing conjecture,1,161,YES,3820
+162,Combinatorics,Counterexamples to Ryser's covering and Gy\'arf\'as's tree-cover conjectures,Counterexamples to Ryser’s covering conjecture,2,162,YES,3836
+164,Combinatorics,Hindman's finite sums and products conjecture,Hindman’s finite sums and products conjecture,1,,no,3861
+165,Combinatorics,Exact crossing numbers of complete and complete bipartite graphs,The Harary–Hill and Zarankiewicz crossing-number formulas,2,165,YES,3877
+166,Combinatorics,The higher-dimensional Erd\H{o}s distinct-distances conjecture,The higher-dimensional Erdős distinct-distances conjecture,1,,no,3906
+167,Combinatorics,Pinned distances and a power saving for planar unit distances,Planar distinct distances and unit-distance bounds,2,167,YES,3922
+168,Combinatorics,Combinatorial invariance of Kazhdan--Lusztig polynomials,Combinatorial invariance of Kazhdan–Lusztig polynomials,1,168,YES,3947
+169,Combinatorics,The Shareshian--Wachs $e$-positivity conjecture,Shareshian–Wachs elementary positivity,1,169,YES,3963
+170,Combinatorics,Sharp logarithmic exponents for off-diagonal Ramsey numbers,Sharp logarithmic exponents for off-diagonal Ramsey numbers,2,170,YES,3979
+171,Combinatorics,The hypercube Ramsey conjecture,The hypercube Ramsey conjecture,1,,no,4008
+172,Combinatorics,Classification of finite Euclidean Ramsey configurations,Classification of finite Euclidean Ramsey configurations,1,172,YES,4024
+173,Combinatorics,Seymour's second-neighborhood conjecture,Seymour’s second-neighborhood conjecture,1,173,YES,4040
+174,Combinatorics,Deterministic construction of strong thin spanning trees,Deterministic construction of strong thin spanning trees,2,174,YES,4056
+175,Combinatorics,Talagrand's conjectures and graph decompositions at expectation thresholds,"Talagrand’s expectation thresholds, discrete convexity, and graph decompositions",3,175,YES,4081
+176,Combinatorics,The second Kahn--Kalai conjecture,The second Kahn–Kalai conjecture with an edge-count bound,1,176,YES,4115
+177,Combinatorics,Bounded-degree coboundary expanders in every dimension,Bounded-degree coboundary expanders,1,177,YES,4131
+178,Combinatorics,Deterministic nonbipartite Ramanujan graphs in every fixed degree,Deterministic nonbipartite Ramanujan graphs in every fixed degree,1,,no,4147
+179,Combinatorics,The circulant Hadamard conjecture,The circulant Hadamard and Barker-sequence conjectures,1,179,YES,4163
+180,Combinatorics,Barnette's Hamiltonian-cycle conjecture,Barnette’s Hamiltonian-cycle conjecture,1,180,YES,4179
+181,Combinatorics,The Erd\H{o}s--Gallai cycle-decomposition conjecture,The Erdős–Gallai cycle-decomposition conjecture,1,181,YES,4195
+182,Combinatorics,Power savings for polynomial-difference-free sets,Power savings for intersective polynomial differences and prime arguments,3,182,YES,4211
+183,Combinatorics,Power savings for planar halving lines and $k$-sets,Power savings for planar halving lines and <i>k</i>-sets,1,183,YES,4245
+184,Combinatorics,Coloring and independence in graphs with forbidden subgraphs,Correspondence coloring with a fixed forbidden subgraph,2,184,YES,4261
+185,Combinatorics,Counterexamples to infinite matroid intersection and packing/covering,Counterexamples to infinite matroid intersection and packing/covering,1,185,YES,4286
+186,Combinatorics,The Friedgut--Kalai graph and hypergraph threshold conjectures,Uniform influence and sharp thresholds for graph and hypergraph properties,2,186,YES,4302
+187,Combinatorics,Snaky in 21 Maker moves,Snaky in 21 Maker moves,1,187,YES,4327
+188,Combinatorics,The sharp constant in random triangle removal,The sharp terminal leave in random triangle removal,1,188,YES,4343
+189,Combinatorics,Exact cycle--clique Ramsey numbers,Cycle–clique Ramsey numbers,1,189,YES,4359
+190,Combinatorics,Polynomial removal fails for ordered binary matrices,Polynomial removal fails for ordered binary matrices,1,190,YES,4375
+191,Combinatorics,A power improvement in the Heilbronn triangle problem,A power improvement in the Heilbronn triangle lower bound,1,191,YES,4391
+192,Combinatorics,A counterexample to the Gopalan--Servedio conjecture,Boolean functions violate the square-root degree bound by arbitrary factors,1,192,YES,4407
+193,Algebra,Serre's intersection-multiplicity conjecture,Serre’s intersection-multiplicity conjecture,1,,no,4427
+194,Algebra,Lech's multiplicity conjecture,Lech’s multiplicity conjecture,1,194,YES,4443
+195,Algebra,A counterexample to the small Cohen--Macaulay module conjecture,A counterexample to the small Cohen–Macaulay module conjecture,1,195,YES,4459
+196,Algebra,A counterexample to Kaplansky's zero-divisor conjecture,A counterexample to Kaplansky’s zero-divisor conjecture,1,196,YES,4475
+197,Algebra,Nonsofic groups and group-ring counterexamples,A torsion-free group algebra that is not directly finite,4,197,YES,4491
+198,Algebra,A counterexample to the little finitistic-dimension conjecture,A counterexample to finitistic-dimension finiteness,1,198,YES,4534
+199,Algebra,"Counterexamples to conjectures of Auslander--Reiten, Tachikawa, and Nakayama","Counterexamples to Auslander–Reiten, Tachikawa and related homological conjectures",2,199,YES,4550
+200,Algebra,Eisenbud--Green--Harris and lex-plus-powers in characteristic zero,Eisenbud–Green–Harris and lex-plus-powers,2,,no,4575
+201,Algebra,A counterexample to Kurosh's division-ring problem,A counterexample to Kurosh’s division-ring problem,1,,no,4600
+202,Algebra,The blockwise Alperin weight conjecture,The blockwise Alperin weight conjecture,1,,no,4616
+203,Algebra,Donovan's conjecture over fields and discrete valuation rings,Donovan's conjecture over fields and complete mixed-characteristic DVRs,2,,no,4632
+204,Algebra,Tensor saturation for even spin groups,Tensor saturation for even spin groups,1,,no,4657
+205,Algebra,Saxl's conjecture and universal tensor squares,Saxl’s conjecture and universal tensor squares,2,205,YES,4673
+206,Algebra,Finite lattice representation: counterexamples and undecidability,Finite lattice representation and undecidability,2,206,YES,4698
+207,Algebra,The $\ell^1$-Bass and complex Bass trace conjectures,The ℓ¹-Bass conjecture for all discrete groups,2,207,YES,4723
+208,Algebra,The finite Benson--Etingof--Ostrik conjecture,Finite symmetric tensor categories and the Verlinde tower,1,,no,4748
+209,Algebra,Integral counterexamples to Gersten’s conjecture,Integral counterexamples to Gersten’s conjecture,2,,no,4764
+210,Algebra,Foulkes’ conjecture for sixth powers and quadratic stabilization,Foulkes' conjecture for sixth powers and quadratic stabilization,2,210,YES,4789
+211,Probability and statistical mechanics,"Geometry, diffusion, and spectra of random planar maps","The geometric phase diagram, diffusion, and spectra of random planar maps",7,211,YES,4814
+212,Probability and statistical mechanics,No bigeodesics and smooth limit shapes in planar first-passage percolation,Planar first-passage geometry and the absence of bigeodesics,2,212,YES,4884
+213,Probability and statistical mechanics,No infinite critical clusters on quasi-transitive graphs,Critical percolation on every quasi-transitive graph,2,213,YES,4909
+214,Probability and statistical mechanics,The Benjamini--Schramm nonuniqueness conjecture,The Benjamini–Schramm nonuniqueness conjecture,1,214,YES,4934
+215,Probability and statistical mechanics,Massive continuum limits and exact mass asymptotics for planar $O(n)$ models,Canonical $`O(3)`$ continuum limit and exact $`O(4)`$ mass asymptotics,5,215,YES,4950
+216,Probability and statistical mechanics,Critical logarithmic corrections and BKT scaling for the planar XY model,Critical and near-critical XY scaling and BKT universality,6,,no,5006
+217,Probability and statistical mechanics,The low-temperature Sherrington--Kirkpatrick fluctuation law,The low-temperature Sherrington–Kirkpatrick fluctuation law,2,,no,5075
+218,Probability and statistical mechanics,Conformal universality for weakly interacting and disordered Ising models,Conformal universality for weakly interacting and random-bond Ising models,6,218,YES,5100
+219,Probability and statistical mechanics,GOE universality for random regular graphs with weak disorder,GOE bulk universality for regular graphs with weak Anderson disorder,2,,no,5161
+220,Probability and statistical mechanics,Directional zero--one laws and ballisticity in random environments,Directional zero–one laws beyond iid environments and iid ballisticity,3,220,YES,5186
+221,Probability and statistical mechanics,The M\'ezard--Parisi formula for diluted spin glasses,The Mézard–Parisi formula for diluted spin glasses,1,221,YES,5220
+222,Probability and statistical mechanics,Perceptron free energies and microscopic jamming,Perceptron free energies and microscopic jamming exponents,4,222,YES,5236
+223,Probability and statistical mechanics,Conformal limits of square-lattice random-cluster interfaces,"Random-cluster interfaces: critical, disordered, thermal, and natural-time scaling",6,,no,5283
+224,Probability and statistical mechanics,Critical and near-critical universality for Voronoi percolation,Critical and quenched near-critical universality for Poisson–Voronoi percolation,3,,no,5344
+225,Probability and statistical mechanics,Gaussian free field limits for the balanced six-vertex model,Gaussian free field limits throughout the balanced six-vertex regime,1,,no,5378
+226,Probability and statistical mechanics,The double-dimer $\mathrm{CLE}_4$ conjecture in the half-plane,The double-dimer loop ensemble converges to CLE<sub>4</sub>,1,,no,5394
+227,Probability and statistical mechanics,The dynamical phase transition in the Sherrington--Kirkpatrick model,Critical SK autocorrelation processes and dynamics across the temperature transition,8,227,YES,5410
+228,Probability and statistical mechanics,Continuum phase transitions for radial pair potentials,Continuum phase transitions for radial pair potentials,2,228,YES,5489
+229,Probability and statistical mechanics,Sharp three- and four-state reconstruction thresholds,Exact three- and four-state reconstruction thresholds and four-state tree capacity,3,229,YES,5514
+230,Probability and statistical mechanics,Exact Hausdorff measure for SLE,Exact Hausdorff gauges for SLE,2,230,YES,5548
+231,Probability and statistical mechanics,The free uniform spanning forest is a factor of IID,The free uniform spanning forest is a factor of IID,1,231,YES,5573
+232,Probability and statistical mechanics,Gaussian fields and SLE interfaces for Lipschitz heights,Gaussian fields and interfaces for triangular-lattice Lipschitz heights,3,,no,5589
+233,Probability and statistical mechanics,The joint critical Ashkin--Teller scaling limit,The joint critical Ashkin–Teller current limit,1,,no,5623
+234,Probability and statistical mechanics,All-temperature pressure for orthogonally invariant Ising spin glasses,All-temperature pressure of orthogonally invariant Ising spin glasses,1,234,YES,5639
+235,Probability and statistical mechanics,"Random-SAT thresholds, sharp variance and computability","Limiting random SAT thresholds, sharp variance and computability",4,235,YES,5655
+236,Probability and statistical mechanics,The factor-of-IID threshold for free Ising states on trees,The exact factor-of-IID threshold for free Ising spins on trees,1,236,YES,5698
+237,Probability and statistical mechanics,The three-quarter diameter exponent for honeycomb walks,The three-quarter exponent for honeycomb self-avoiding walk,13,237,YES,5714
+238,Probability and statistical mechanics,Optimal logarithmic mixing of the Thorp shuffle,Optimal logarithmic mixing of the Thorp shuffle,12,238,YES,5838
+239,Probability and statistical mechanics,Sharp singularity rates for symmetric sign matrices,Sharp singularity rates for symmetric random sign matrices,2,,no,5953
+240,Mathematical logic,Shelah's eventual categoricity conjecture,Shelah's eventual categoricity and the prescribed-threshold obstruction,2,240,YES,5980
+241,Mathematical logic,Rigidity of the Turing degrees,Rigidity of the Turing degrees,1,241,YES,6005
+242,Mathematical logic,Single-fold Diophantine representations,Single-fold Diophantine representations and undecidability under an at-most-one-solution promise,1,242,YES,6021
+243,Mathematical logic,Choiceless counting does not capture polynomial time,Separating choiceless counting from polynomial time and witnessed choice,2,243,YES,6037
+244,Mathematical logic,The partition principle does not imply choice,The Partition Principle does not imply Choice,1,244,YES,6062
+245,Mathematical logic,The $\beta$-Barendregt--Geuvers--Klop conjecture,Weak normalization implies strong normalization in pure type systems,1,245,YES,6078
+246,Group theory,Cannon's conjecture,Cannon's conjecture,1,246,YES,6094
+247,Group theory,An infinite finitely presented residually finite $2$-group,An infinite finitely presented residually finite 2-group and a finitely presented nil algebra,2,247,YES,6110
+248,Group theory,Thompson's group $F$ is nonamenable,Thompson's group <i>F</i> is nonamenable,1,248,YES,6135
+249,Group theory,A finitely generated counterexample to Eilenberg--Ganea,A finitely generated Eilenberg–Ganea counterexample,1,249,YES,6151
+250,Group theory,The Boone--Higman conjecture and higher finiteness,Boone–Higman embeddings with higher finiteness,3,250,YES,6167
+251,Group theory,"Amenability, unitarizability, and Ulam stability","Amenability, unitarizability, and strong Ulam stability",2,251,YES,6201
+252,Group theory,A non-residually-finite torsion-free hyperbolic group,A torsion-free hyperbolic group that is neither residually finite nor linear over any field,1,252,YES,6226
+253,Group theory,An infinite finitely presented simple amenable group,An infinite finitely presented simple amenable group,1,253,YES,6242
+254,Group theory,Classifying spaces and geometric obstructions for Artin groups,Classifying spaces and geometric obstructions for Artin groups,3,254,YES,6258
+255,Group theory,Quasi-isometric rigidity of virtually polycyclic groups,Quasi-isometric recognition of virtually polycyclic groups,1,255,YES,6292
+256,Group theory,Howie's conjecture on equations over groups,Nonsingular systems of equations over arbitrary groups,2,256,YES,6308
+257,Group theory,A hyperbolic group with no geometric CAT(0) action,A hyperbolic group without a geometric CAT(0) action,1,257,YES,6333
+258,Group theory,Gersten's conjecture for one-relator groups,Gersten’s conjecture and virtual compact specialness of one-relator groups,2,,no,6349
+259,Group theory,A group without fixed price,A group without fixed price,1,,no,6374
+260,Mathematical physics,Spacetime Penrose inequalities and rigidity,"Spacetime Penrose inequalities: enclosing area, charge, rotation, and anti-de Sitter extensions",13,260,YES,6390
+261,Mathematical physics,Localization and delocalization in the Anderson model,Localization and delocalization in the Anderson model,2,261,YES,6518
+262,Mathematical physics,Sharp one-dimensional Lieb--Thirring inequalities,Sharp finite-matrix Lieb–Thirring inequalities and all equality cases,3,262,YES,6543
+263,Mathematical physics,The ionization and generalized ionization conjectures,The ionization and generalized ionization conjectures,3,263,YES,6577
+264,Mathematical physics,Strong cosmic censorship near two-ended Kerr data,Strong cosmic censorship near two-ended Kerr data,3,,no,6611
+265,Mathematical physics,The two-dimensional gapped area law,Area laws and tensor networks for two-dimensional gapped systems,2,,no,6645
+266,Mathematical physics,Exactly three mutually unbiased bases in dimension six,Exactly three mutually unbiased bases in dimension six,2,266,YES,6670
+267,Mathematical physics,Positive-temperature Bose--Einstein condensation and quantum depletion,Positive-temperature Bose–Einstein condensation and exact quantum depletion,5,267,YES,6695
+268,Mathematical physics,The spin-one Haldane gap,The spin-one Haldane gap,2,,no,6747
+269,Mathematical physics,The Laughlin gap and stability under scalar disorder,Uniform Laughlin gap and stability under bounded scalar disorder,2,269,YES,6772
+270,Mathematical physics,Threshold and positive-energy bound states of the BFSS model,Threshold and positive-energy bound states of the BFSS matrix model,2,,no,6797
+271,Mathematical physics,Bloch's law and spontaneous ferromagnetic order,"Bloch's law, its lattice correction, and the spherical magnetization law",4,271,YES,6822
+272,Mathematical physics,Entanglement without secret key and the PPT-square conjecture,Entanglement without distillable secret key,1,272,YES,6865
+273,Mathematical physics,The entropy photon-number inequality,The entropy photon-number inequality,1,273,YES,6881
+274,Mathematical physics,Moore's parity conjecture for $\mathrm{QAC}^0$,Parity is not in QAC<sup>0</sup>,2,274,YES,6897
+275,Mathematical physics,QMA-hardness of continuum Coulomb energy,QMA-hardness of continuum Coulomb energy,2,275,YES,6922
+276,Mathematical physics,The classical capacity of generalized amplitude damping,Classical capacity of generalized amplitude damping,1,276,YES,6947
+277,Mathematical physics,Threshold repetition for entangled games,Threshold repetition for entangled games,1,277,YES,6963
+278,Mathematical physics,Failure of Kohn--Sham ensemble representation,Failure of Kohn–Sham ensemble representation,1,,no,6979
+279,Mathematical physics,Exact quantum factoring over a fixed finite gate set,Exact quantum factoring over a fixed finite gate set,1,279,YES,6995
+280,Mathematical physics,Strong locality for strongly rational unitary vertex operator algebras,Unitary vertex operator algebras and conformal nets,1,280,YES,7011
+281,Mathematical physics,QAOA optimality for the SK model,QAOA attains the SK optimum in the thermodynamic-first limit,2,281,YES,7027
+282,Mathematical physics,Scale-to-conformal enhancement in four-dimensional QFT,From scale symmetry to local conformal symmetry in four-dimensional QFT,1,,no,7052
+283,Mathematical physics,"Polynomial-time, constant-error unitary synthesis from a Boolean oracle",Polynomial-time unitary synthesis from a Boolean oracle,1,,no,7068
+284,Mathematical physics,The optimal randomized--quantum query exponent,The optimal quartic separation between randomized and quantum queries,1,,no,7084
+285,Operator algebras,Counterexamples to Baum--Connes and Kadison--Kaplansky,Counterexamples to Baum–Connes and Kadison–Kaplansky,3,,no,7100
+286,Operator algebras,Arithmetic rigidity of lattice von Neumann algebras,Rigidity and arithmetic of lattice von Neumann algebras,2,,no,7134
+287,Operator algebras,All nonabelian free group factors are isomorphic,Isomorphism of the free group factors,1,287,YES,7159
+288,Operator algebras,Kadison's similarity conjecture,Kadison's similarity conjecture,1,288,YES,7175
+289,Operator algebras,The strong Kadison--Kastler conjecture,Strong Kadison–Kastler stability and its spatial boundaries,3,289,YES,7191
+290,Operator algebras,Connes' bicentralizer conjecture and relative bicentralizers,Relative bicentralizers and modular spectral recovery,2,290,YES,7225
+291,Operator algebras,Toms--Winter and equivariant Jiang--Su stability,"Cuntz comparison, nuclear dimension, and equivariant Jiang–Su stability",4,291,YES,7250
+292,Operator algebras,A counterexample to Kirchberg's norm-ultrapower embedding problem,Kirchberg's $`\mathcal O_2`$ norm-ultrapower embedding problem,1,292,YES,7293
+293,Operator algebras,A counterexample to the hyperinvariant-subspace problem,"Invariant projections, hyperinvariant subspaces, and transitive algebras",2,293,YES,7309
+294,Operator algebras,A counterexample to Kaplansky's quasitrace conjecture,Kaplansky's quasitrace conjecture and failure of tensor-product stable finiteness,1,294,YES,7334
+295,Operator algebras,The Kadison--Ringrose cohomology conjecture,The Kadison–Ringrose cohomology conjecture,1,295,YES,7350
+296,Operator algebras,The generator problem for finite factors,The generator problem for finite factors,1,296,YES,7366
+297,Operator algebras,A ZFC counterexample to Naimark's problem,A ZFC counterexample to Naimark's problem,1,297,YES,7382
+298,Operator algebras,A counterexample to Voiculescu’s free-entropy equality conjecture,Two notions of free entropy differ even when both are finite,1,298,YES,7398
+299,Operator algebras,The Kirchberg--R\o rdam character criterion,The Kirchberg–Rørdam character criterion and infinite tensor-power Jiang–Su stability,1,299,YES,7414
+300,Operator algebras,The Popa--Vaes quadratic strong-operator paving conjecture,Approximation and quadratic strong-operator paving,2,,no,7430
+301,Operator algebras,Classification by trace cones after Razak--Jacelon stabilization,Trace cones and Razak–Jacelon stabilization,1,301,YES,7455
+302,Operator algebras,The Phillips--Toms formula for minimal integer actions,Radius of comparison equals half the mean dimension,2,,no,7471
+303,Operator algebras,From ordinary to strong pure infiniteness,Weak pure infiniteness and Cuntz-algebra absorption,1,303,YES,7496
+304,Topology,The Hilbert--Smith conjecture in every dimension,The Hilbert–Smith conjecture in every dimension,1,,no,7512
+305,Topology,Counterexamples to disk embedding and Wall's manifold conjecture,Four-dimensional disk embedding and Wall's conjecture,3,,no,7528
+306,Topology,The purely cosmetic surgery conjecture for knots in $S^3$,The purely cosmetic surgery conjecture,1,,no,7562
+307,Topology,Failure of rational injectivity for maximal coarse assembly,Failure of rational injectivity for maximal coarse assembly,2,307,YES,7578
+308,Topology,Smith--Toda complexes at every height with varying primes,Finite Smith–Toda complexes at every height,2,,no,7603
+309,Topology,The Kervaire invariant problem at the prime three,The Kervaire invariant problem at the prime three,1,,no,7628
+310,Topology,Quillen's conjecture in rational homology,Quillen's conjecture in rational homology,1,,no,7644
+311,Topology,Chai's invariant-ideal conjecture,The Hovey–Strickland and Chai conjectures,1,,no,7660
+312,Topology,The Grothendieck homotopy hypothesis,The Grothendieck homotopy hypothesis,1,312,YES,7676
+313,Topology,Finite generation for the $K(n)$-local sphere,Finite generation for the $`K(n)`$-local sphere,1,,no,7692
+314,Topology,The chromatic Smith fixed-point problem for finite $p$-groups,Cyclic length and chromatic fixed-point loss,1,,no,7708
+315,Topology,The four-dimensional Singer conjecture,The four-dimensional Singer conjecture,1,,no,7724
+316,Topology,Curtis’s conjecture,Curtis’s conjecture,1,,no,7740
+317,Topology,Thomason model structures in every strict higher dimension,Thomason model structures in all strict higher dimensions,1,317,YES,7756
+318,Topology,Chromatic splitting: counterexamples and filtrations,Chromatic splitting: filtrations and counterexamples,5,,no,7772
+319,Topology,Counterexamples to the Hahn--Wilson conjecture at height two,Counterexamples to finite generation at chromatic height two,1,,no,7824
+320,Topology,A four-dimensional counterexample to Borel rigidity,Nonhomeomorphic closed aspherical four-manifolds,1,,no,7840
+321,Topology,A counterexample to Wall's finite D(2) conjecture,A counterexample to Wall's finite D(2) problem,1,,no,7856
+322,Functional analysis,Tingley's sphere-isometry problem,Tingley’s sphere-isometry problem,1,322,YES,7872
+323,Functional analysis,Relative independence of the separable quotient problem,Independence of the separable quotient problem,1,323,YES,7888
+324,Functional analysis,Lipschitz equivalence without linear isomorphism,Lipschitz equivalent Banach spaces need not be linearly isomorphic,2,324,YES,7904
+325,Functional analysis,The complete Crouzeix conjecture,The complete Crouzeix conjecture,2,325,YES,7929
+326,Functional analysis,The cotype--cotype conjecture under the approximation property,The cotype–cotype conjecture under the approximation property,1,326,YES,7954
+327,Functional analysis,Markov type characterizes superreflexivity,Markov type characterizes superreflexivity,1,327,YES,7970
+328,Functional analysis,Fixed points of nonexpansive maps in reflexive Banach spaces,Nonexpansive fixed points in reflexive Banach spaces,1,328,YES,7986
+329,Functional analysis,A counterexample to Pietsch's metric-entropy duality conjecture,A counterexample to metric-entropy duality,1,329,YES,8002
+330,Functional analysis,A negative answer to Kalton's Lipschitz-free approximation question,A uniformly discrete counterexample to bounded approximation in Lipschitz-free spaces,1,330,YES,8018
+331,Functional analysis,Asymptotic midpoint uniform convexity without asymptotically uniformly convex renorming,Reflexive midpoint convexity and diamond distortion,7,331,YES,8034
+332,Functional analysis,Metric Markov cotype two for $\ell_1$,Metric Markov cotype of <i>ℓ</i><sub>1</sub> and Hilbert-space Lipschitz extension,1,,no,8104
+333,Differential geometry,Smooth isometric immersions of surfaces into $\mathbb R^4$,Smooth isometric immersions of surfaces into ℝ<sup>4</sup>,1,333,YES,8120
+334,Differential geometry,A smooth surface metric with no local immersion in $\mathbb R^3$,A smooth surface metric with no local isometric immersion in ℝ<sup>3</sup>,1,334,YES,8136
+335,Differential geometry,Gromov's integral scalar-curvature inequality,Gromov’s integral scalar-curvature bound for simplicial volume,2,,no,8152
+336,Differential geometry,Spectral scalar curvature and codimension-two width,"Spectral scalar curvature, Urysohn width, and macroscopic dimension",3,,no,8181
+337,Differential geometry,Cartan--Hadamard isoperimetry and CAT$(0)$ fillings,Sharp Cartan–Hadamard isoperimetry and rigidity,2,337,YES,8215
+338,Differential geometry,Yau's uniformization conjecture,Yau's uniformization conjecture,1,,no,8240
+339,Differential geometry,Katok's entropy rigidity conjecture,Katok's entropy rigidity conjecture,1,,no,8256
+340,Differential geometry,A counterexample to the nearby Lagrangian conjecture,A counterexample to the nearby Lagrangian conjecture,1,,no,8272
+341,Differential geometry,Donaldson's hypersymplectic deformation conjecture,Donaldson's hypersymplectic deformation conjecture,1,,no,8288
+342,Differential geometry,Donaldson's tamed-to-compatible conjecture,Donaldson's tamed-to-compatible conjecture,1,342,YES,8304
+343,Differential geometry,Sharp symplectic ball-packing criteria in higher dimensions,Symplectic ball packing in higher dimensions,1,343,YES,8320
+344,Differential geometry,The metric Blaschke conjecture,The metric Blaschke conjecture,1,,no,8340
+345,Differential geometry,Infinitely many closed geodesics on spheres and three-manifolds,Infinitely many closed geodesics on Riemannian spheres and closed three-manifolds,1,,no,8356
+346,Differential geometry,Sharp singular-set bounds for stationary integral varifolds,Sharp singular-set bounds for stationary integral varifolds,2,,no,8372
+347,Differential geometry,Counterexamples to strong forms of Arnold's fixed-point conjecture,Counterexamples to stable-Morse and strong Arnold fixed-point bounds,5,347,YES,8397
+348,Differential geometry,Nonnegatively curved Einstein four-manifolds and a topological gap,Nonnegative-curvature Einstein classification and an <i>L</i><sup>2</sup> topological gap,3,348,YES,8449
+349,Differential geometry,The Solomon--Yau least-volume conjecture,The Solomon–Yau least-volume conjecture,1,,no,8483
+350,Differential geometry,Yau's nodal conjecture: surfaces and counterexamples,Yau’s nodal bounds: surfaces and higher dimensions,3,350,YES,8499
+351,Differential geometry,Scalar curvature detects four-dimensional Ricci-flow singularities,Scalar curvature and finite-time Ricci-flow singularities,3,,no,8533
+352,Differential geometry,Finite-time singularity of Calabi flow,A finite-time singularity of Calabi flow,1,,no,8567
+353,Differential geometry,The sharp dimension threshold for affine Bernstein rigidity,Affine Bernstein rigidity through dimension nine and a smooth dimension-ten counterexample,2,353,YES,8583
+354,Differential geometry,Isoperimetric regions in the cubic three-torus,The isoperimetric profile of the cubic three-torus,1,354,YES,8608
+355,Differential geometry,Unique tangent flows at the first surface singularity,Unique tangent flows at the first surface singularity,1,,no,8624
+356,Differential geometry,Gigli's characterization of Alexandrov curvature,Gigli’s characterization of Alexandrov curvature,2,356,YES,8640
+357,Differential geometry,Bi-Lipschitz coordinates at every regular RCD point,Bi-Lipschitz coordinates at every regular RCD point,1,,no,8665
+358,Differential geometry,A three-manifold with no conjugate points and no nonpositively curved metric,A three-manifold without conjugate points or nonpositive curvature,1,358,YES,8681
+359,Differential geometry,"Negative K\""ahler curvature without bounded holomorphic coordinates",Negative Kähler curvature without bounded holomorphic coordinates,2,359,YES,8697
+360,Differential geometry,Villani’s convexity conjecture and regular optimal transport,Weak MTW curvature gives convexity and regular optimal transport,2,360,YES,8722
+361,Differential geometry,Counterexamples to Yau's harmonic dimension bound,Failure of integer-degree harmonic dimension comparison,2,361,YES,8747
+362,Partial differential equations,Global smoothness for relativistic Vlasov--Maxwell,Global smoothness for relativistic Vlasov–Maxwell,1,362,YES,8772
+363,Partial differential equations,Boltzmann nonuniqueness with exact local conservation,Nonuniqueness with local conservation for the hard-sphere Boltzmann equation,2,363,YES,8788
+364,Partial differential equations,Kinetic limits and fluctuations over the Boltzmann lifespan,Kinetic limits and fluctuations over the Boltzmann lifespan,2,,no,8813
+365,Partial differential equations,Joint metric and connection recovery from one boundary patch,Joint metric and connection recovery from one boundary patch,3,365,YES,8838
+366,Partial differential equations,The planar Mumford--Shah regularity conjecture,The planar Mumford–Shah regularity conjecture and local weak-<i>L</i><sup>4</sup> gradient bounds,1,,no,8872
+367,Partial differential equations,The critical dimension for the one-phase Bernoulli problem,The critical dimension for the one-phase Bernoulli problem,1,367,YES,8888
+368,Partial differential equations,The three-dimensional Ball--Evans approximation problem,The three-dimensional Ball–Evans approximation problem,2,,no,8904
+369,Partial differential equations,The hot spots conjecture for simply connected planar domains,The hot spots conjecture for simply connected planar domains,1,369,YES,8929
+370,Partial differential equations,The subcritical Lane--Emden and H\'enon--Lane--Emden conjectures,The Lane–Emden and Hénon–Lane–Emden conjectures,1,370,YES,8945
+371,Partial differential equations,"Stable blowup for a defocusing Schr\""odinger equation",Stable blowup for the defocusing Schrödinger equation,1,371,YES,8961
+372,Partial differential equations,Global uniqueness in smooth isotropic elasticity,Global uniqueness in smooth isotropic elasticity,1,372,YES,8977
+373,Partial differential equations,Nonattainment in three-marginal Coulomb transport,Nonattainment of the three-marginal Coulomb Monge problem,1,373,YES,8993
+374,Partial differential equations,Sharp one-third stability of optimal transport maps,Sharp one-third stability of Brenier maps,1,374,YES,9009
+375,Partial differential equations,De Giorgi's conjecture in dimension eight,De Giorgi's conjecture in dimension eight,1,,no,9025
+376,Partial differential equations,Universal computation in forced Navier--Stokes flows,Universal computation in forced Navier–Stokes flows,9,376,YES,9041
+377,Partial differential equations,"Interior $C^{1,\alpha}$ regularity for infinity-harmonic functions","Interior $`C^{1,\alpha}`$ regularity for infinity-harmonic functions",1,,no,9129
