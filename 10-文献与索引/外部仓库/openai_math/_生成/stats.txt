@@ -13,7 +13,16 @@ A. catalogue scale
   contiguous 001..N gaps in CONTENTS numbering: [45, 61, 70, 123, 163]
   ids only in CONTENTS (not in overview)      : none
   ids only in overview (not in CONTENTS)      : none
-  manuscript link lines in CONTENTS.md        : 719
+  manuscript links (paren-depth matcher)      : 719
+  -- the same census under three rulers, computed here, not narrated:
+     ruler A: lines starting with the indent marker : 719
+     ruler B: non-greedy regex  \((.*?)\) matches   : 719
+     ruler C: anchored greedy \((.*)\)$  matches     : 718
+     distinct paths under B / C                       : 719 / 718
+     paths in B but not C / in C but not B            : 2 / 1
+     distinct paths under B / C / depth-matcher       : 719 / 718 / 719
+     literal '](' markers on those lines              : 719
+     lines whose extracted link count != 1            : none
   subject sections in overview.tex            : 17
   families with zero manuscripts              : 0
   manuscripts per family: min 1 / max 14 / mean 1.93
@@ -31,7 +40,18 @@ B. formalization ledger
   heads whose lean/doc number != family number: none
   related_formalizations (imported libs)      : 30
   history.md claim                            : 300 / 719 = ~42% top-line results formalized
-  computed 300/719 = 0.4172 ; computed 242/372 = 0.6505 (families formalized)
+  -- can the numerator 300 be reproduced from ANY mirrored layer?
+     families flagged with a lean doc          : 242
+     lean/docs/*.md referenced                 : 242
+     formalization.yaml sources                : 172
+     formalization.yaml main_results decls     : 200
+     manuscripts inside flagged families       : 475   <- candidate for '300'
+     equality 300 == manuscripts-in-flagged-families ? False
+  rates under each reading of the denominator:
+     flagged families / 372 families           : 242 / 372 = 0.6505
+     flagged families / 719 manuscripts        : 242 / 719 = 0.3366
+     manuscripts-in-flagged / 719              : 475 / 719 = 0.6606
+     README 'top-line results' == 372 families, so 300/719 mixes a manuscript-weighted numerator with the manuscript count while naming results; 242/372 = 0.6505 is the family-level rate and 0.6606 the manuscript-level one
   computed 242/719 = 0.3366 (lean docs referenced, if one per formalized result)
 
 C. by subject (families / manuscripts / formalized families)
@@ -56,7 +76,7 @@ C. by subject (families / manuscripts / formalized families)
 
 D. manuscript date stamps in preprints/ dir names (top counts)
   September-24-2026        188
-  September-23-2026        170
+  September-23-2026        171
   October-5-2026           108
   September-25-2026        86
   September-26-2026        53
@@ -66,14 +86,14 @@ D. manuscript date stamps in preprints/ dir names (top counts)
   October-7-2026           7
   October-3-2026           4
   September-22-2026        3
-  (no date stamp)          2
   September-10-2026        2
   September-30-2026        2
+  (no date stamp)          1
   October-1-2026           1
   October-2-2026           1
   September-17-2026        1
   distinct dir names                          : 719
-  distinct pdf basenames                      : 175
+  distinct pdf basenames                      : 174
 
 E. number-theory families (subject == 'Number theory'), formalization flagged
   001  lean=-    m=1  Milne's rationality conjecture
@@ -109,44 +129,164 @@ E. number-theory families (subject == 'Number theory'), formalization flagged
   031  lean=-    m=1  Uchida's conjecture for open Galois homomorphisms
 
 F. keyword index over CONTENTS.md family head lines (family, subject, title)
+   SCAN SET: 372 family head lines only (166741 B). Abstracts, PDFs and .tex bodies are NOT scanned;
+            a 0-hit row is a statement about the head lines, not about the collection.
   abc conjecture             0 hits: NONE
   additive                   7 hits: 013(Number theoryL), 091(Convex and metric geometryL), 110(Theoretical computer scienceL), 118(Theoretical computer scienceL), 276(Mathematical physicsL), 294(Operator algebrasL), 309(Topology-)
   arithmetic progression     1 hits: 159(CombinatoricsL)
   batalin                    0 hits: NONE
+  binary goldbach            0 hits: NONE
   bsd                        1 hits: 002(Number theory-)
+  chen                       2 hits: 221(Probability and statistical mechanicsL), 352(Differential geometry-)
   chowla                     1 hits: 007(Number theoryL)
   circle method              0 hits: NONE
   collatz                    0 hits: NONE
+  cram                       0 hits: NONE
   density                   20 hits: 002(Number theory-), 006(Number theory-), 012(Number theoryL), 020(Number theoryL), 026(Number theoryL), 027(Number theoryL), 090(Convex and metric geometryL), 092(Convex and metric geometryL), 152(Dynamical systems and ergodic theoryL), 161(CombinatoricsL), 176(CombinatoricsL), 190(CombinatoricsL), 222(Probability and statistical mechanicsL), 228(Probability and statistical mechanicsL), 267(Mathematical physicsL), 278(Mathematical physics-), 362(Partial differential equationsL), 363(Partial differential equationsL), 364(Partial differential equations-), 373(Partial differential equationsL)
   dirichlet                  3 hits: 003(Number theoryL), 007(Number theoryL), 011(Number theory-)
   distribution of primes     0 hits: NONE
   elliott                    1 hits: 007(Number theoryL)
+  erd                       14 hits: 012(Number theoryL), 024(Number theoryL), 025(Number theoryL), 026(Number theoryL), 084(Real and complex analysisL), 157(CombinatoricsL), 159(CombinatoricsL), 160(CombinatoricsL), 166(Combinatorics-), 167(CombinatoricsL), 171(Combinatorics-), 181(CombinatoricsL), 184(CombinatoricsL), 189(CombinatoricsL)
   erdos                      0 hits: NONE
+  estermann                  0 hits: NONE
   goldbach                   1 hits: 013(Number theoryL)
   green                      2 hits: 200(Algebra-), 225(Probability and statistical mechanics-)
+  hardy                      0 hits: NONE
   hodge                      5 hits: 001(Number theory-), 010(Number theory-), 016(Number theory-), 032(Algebraic and complex geometry-), 054(Algebraic and complex geometry-)
   jacobsthal                 1 hits: 021(Number theoryL)
-  jacosthal                  0 hits: NONE
   l-function                 2 hits: 085(Real and complex analysisL), 199(AlgebraL)
+  landau                     1 hits: 269(Mathematical physicsL)
+  landau-siegel              0 hits: NONE
   liouville                  3 hits: 007(Number theoryL), 211(Probability and statistical mechanicsL), 339(Differential geometry-)
-  m"obius                    0 hits: NONE
+  littlewood                 1 hits: 076(Real and complex analysisL)
+  logarithmic averaging      0 hits: NONE
+  logarithmically            0 hits: NONE
   maynard                    0 hits: NONE
   mobius                     0 hits: NONE
   multiplicative function    1 hits: 007(Number theoryL)
+  möbius                     1 hits: 071(Real and complex analysisL)
+  obius                      0 hits: NONE
   partition                  5 hits: 096(Convex and metric geometryL), 181(CombinatoricsL), 185(CombinatoricsL), 217(Probability and statistical mechanics-), 244(Mathematical logicL)
+  pretentious                1 hits: 007(Number theoryL)
   prime gap                  1 hits: 026(Number theoryL)
+  prime pairs                0 hits: NONE
+  quasipolynomial            3 hits: 104(Theoretical computer scienceL), 122(Theoretical computer scienceL), 159(CombinatoricsL)
   ramsey                     4 hits: 170(CombinatoricsL), 171(Combinatorics-), 172(CombinatoricsL), 189(CombinatoricsL)
   riemann                    8 hits: 003(Number theoryL), 071(Real and complex analysisL), 333(Differential geometryL), 339(Differential geometry-), 344(Differential geometry-), 345(Differential geometry-), 348(Differential geometryL), 360(Differential geometryL)
+  siegel                     2 hits: 016(Number theory-), 343(Differential geometryL)
+  siegel zero                0 hits: NONE
   sieve                      0 hits: NONE
+  singular series            0 hits: NONE
   square-free                0 hits: NONE
   squarefree                 2 hits: 006(Number theory-), 020(Number theoryL)
+  sumset                     0 hits: NONE
+  szemeredi                  0 hits: NONE
+  szemerédi                  2 hits: 159(CombinatoricsL), 184(CombinatoricsL)
   tao                        1 hits: 266(Mathematical physicsL)
   totient                    3 hits: 011(Number theory-), 022(Number theory-), 024(Number theoryL)
   twin                       0 hits: NONE
+  vinogradov                 0 hits: NONE
+  weak goldbach              0 hits: NONE
   zero-free                  1 hits: 003(Number theoryL)
   zeta                       1 hits: 003(Number theoryL)
+  ö                          9 hits: 052(Algebraic and complex geometryL), 071(Real and complex analysisL), 080(Real and complex analysis-), 097(Convex and metric geometryL), 109(Theoretical computer science-), 240(Mathematical logicL), 360(Differential geometryL), 371(Partial differential equationsL), 377(Partial differential equations-)
+  ős                        13 hits: 012(Number theoryL), 024(Number theoryL), 025(Number theoryL), 026(Number theoryL), 084(Real and complex analysisL), 159(CombinatoricsL), 160(CombinatoricsL), 166(Combinatorics-), 167(CombinatoricsL), 171(Combinatorics-), 181(CombinatoricsL), 184(CombinatoricsL), 189(CombinatoricsL)
 
 G. dependency / companion graph signal
   heads that cite another result number      : 5
   titles containing 'Counterexample'/'Refut' : 70
   heads naming 'Lean' formalization link     : 242
+
+H. physical layer (_镜像/git_paths.txt.gz, commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb)
+  tracked files                                : 133955
+    lean                     123565
+    preprints                10373
+    reasoning_traces         11
+    (root)                   6
+  lean/ subdirs (top): OAI=122458, ComparatorChallenges=833, docs=242, patches=24, (lean root file)=8
+  lean/docs/*.md on disk                     : 242
+  lean/docs/*.md referenced by CONTENTS      : 242
+  referenced docs missing on disk            : none
+  docs on disk NOT referenced by CONTENTS     : 0  e.g. 
+  ComparatorChallenges .json / .lean         : 416 / 416
+  OAI/*.lean proof sources                   : 122458
+  OAI/ namespace dirs (3rd level)            : 23  top: Analysis=26567, NumberTheory=23530, Combinatorics=16614, Geometry=14057, Probability=12971
+  OAI/ file extensions                       : lean=122458
+  OAI/ distinct basenames                    : 113334  top: Main.lean=413, Model.lean=248, Basic.lean=138, Coordinates.lean=41
+  preprints/ files / dirs                    : 10373 / 749
+  files per preprint dir: min 2 / max 204 / median 13
+  README.md files / distinct dirs            : 772 / 749
+  dirs holding a .bib                        : 513
+  dirs holding paper.pdf                     : 440
+  .pdf files in preprints/                   : 776
+  .pdf distinct basenames                    : 201  top: paper.pdf=440, main.pdf=96, manuscript.pdf=20, article.pdf=16, sectors.pdf=2
+  .tex files in preprints/                   : 8007
+  I0 which ruler reads the map? paths not present on disk:
+     non-greedy regex       719 paths, 1 absent from disk  e.g. preprints/Sharp-integral-fillings-in-CAT(0
+     anchored greedy regex  718 paths, 0 absent from disk  -- all present
+     paren-depth matcher    719 paths, 0 absent from disk  -- all present
+  I1 map->disk: CONTENTS manuscript paths missing on disk : 0  
+  I2 map->disk: CONTENTS preprint dirs absent from disk   : 0  
+  I3 disk->map: preprint dirs on disk but not in CONTENTS : 30
+     first 12 not-in-CONTENTS dirs: A-pointwise-2-converse-for-elliptic-curves-with-rational-two-torsion-September-24-2026, Abelian-covers-Gale-correspondences-and-the-Hodge-conjecture-for-powers-September-30-2026, Algebraicity-of-Kuga-Satake-Correspondences-for-K3-Surfaces-October-3-2026, Algebraicity-of-Weil-classes-on-split-abelian-eightfolds-September-18-2026, Conditional-good-minimal-models-for-compact-Kahler-fourfolds-October-5-2026, Deforming-hypersymplectic-four-manifolds-to-hyperkahler-triples-September-23-2026, Exact-Birch-Swinnerton-Dyer-Formula-from-Low-Selmer-Corank-October-3-2026, Finite-ordinary-minimal-model-programs-on-compact-Kahler-fourfolds-October-5-2026, Fontaine-Mazur-modularity-at-the-prime-2-September-23-2026, Gaussian-free-field-limits-of-weighted-integer-Lipschitz-heights-September-25-2026, Goldfelds-analytic-density-conjecture-and-the-2-converse-for-elliptic-curves-September-23-2026, Hilberts-tenth-problem-over-the-rational-numbers-September-24-2026
+     I3b same title-slug as a LINKED dir (older/other-date edition) : 27
+     I3b title-slug NOT in the map at all (withdrawn or unmapped)   : 3
+          - Algebraicity-of-Kuga-Satake-Correspondences-for-K3-Surfaces-October-3-2026
+          - Algebraicity-of-Weil-classes-on-split-abelian-eightfolds-September-18-2026
+          - The-rational-Hodge-conjecture-for-products-of-K3-surfaces-October-4-2026
+     I3b dirs whose name carries no date stamp (slug == name)       : 0  none
+     I3b sum check: editions + orphans == I3 ? True   (linked dirs total 719)
+  I3c history.md bullet lines (8) vs the I3b orphan set:
+     Algebraicity of Weil classes on split abelian    MATCHES an orphan dir
+     Algebraicity of Kuga–Satake Correspondences fo   MATCHES an orphan dir
+     The rational Hodge conjecture for products of    MATCHES an orphan dir
+     Lipschitz heights and Ashkin–Teller currents (   no orphan-dir match
+     Kähler minimal model programs and abundance (6   no orphan-dir match
+     Taming and hypersymplectic deformation (2 manu   no orphan-dir match
+     Incompressible Box Transport and Finite Comput   no orphan-dir match
+     Exact Birch–Swinnerton-Dyer Formula from Low S   no orphan-dir match
+  I4 family-number gaps [45, 61, 70, 123, 163] -- do their names still live on disk?
+     substring Weil-classes                 dirs: ['Algebraicity-of-Weil-classes-on-split-abelian-eightfolds-September-18-2026', 'Weil-classes-and-Hodge-classes-on-abelian-powers-October-6-2026', 'Weil-classes-and-Hodge-classes-on-abelian-powers-September-30-2026']
+     substring Kuga                         dirs: ['A-Conditional-Reduction-for-Algebraic-Kuga-Satake-Correspondences-September-10-2026', 'Algebraic-Kuga-Satake-correspondences-and-Hodge-conjectures-on-a-K3-quadratic-locus-September-30-2026', 'Algebraicity-of-Kuga-Satake-Correspondences-for-K3-Surfaces-October-3-2026']
+     substring products-of-K3               dirs: ['The-rational-Hodge-conjecture-for-products-of-K3-surfaces-October-4-2026']
+     substring Hodge-conjecture-for-products dirs: ['The-rational-Hodge-conjecture-for-products-of-K3-surfaces-October-4-2026']
+  reasoning_traces/ files                    : 11
+  I5 paths containing '(' anywhere on disk   : 15  (lean/: 0, preprints/: 15)
+     dirs holding them                      : preprints/Sharp-integral-fillings-in-CAT(0)-spaces-September-23-2026
+  reproducibility pins on disk:
+     lean/lean-toolchain        : PRESENT
+     lean/lake-manifest.json    : PRESENT
+     lean/lakefile.lean         : PRESENT
+     lean/LICENSE               : PRESENT
+     lean/patches/README.md     : PRESENT
+     flake.nix                  : 0 (container/nix reproducibility: NONE)
+     default.nix                : 0 (container/nix reproducibility: NONE)
+     Dockerfile                 : 0 (container/nix reproducibility: NONE)
+     .dockerignore              : 0 (container/nix reproducibility: NONE)
+     lean/patches/*.patch             : 23
+       AINTLIB, AbsorptionCutoff, ClassFieldTheory, PrimeNumberTheoremAnd, SphereEversion, StrongPNT, Zeta3Irrational, belyi, carleson, elliptic-curves, fixed-point-theorems, formal-schemes, genl, gromov, heights, iut, oka, orbicurve-cores, pi1, rellich-kondrachov, schoenflies-lean, tate-curves-theta, tempered-fundamental-groups
+     imported libs declared in formalization.yaml : 30
+     patched libs NOT findable in the declared list : 0  (each patch name maps to a declared repo)
+  I6 zero-byte census over the .md layer  : ledger=6 files NUL=0 | mirrored=11 files NUL=0
+     ledger files census-ed               : 01-仓库解剖与台账.md, 02-数论家族与本项目接口.md, 03-形式化层与证据等级对照.md, 04-下载与复核操作手册.md, README.md, _镜像/PROVENANCE.md
+     nonzero ledger files                 : NONE
+     nonzero mirrored files               : NONE
+     ==> LEDGER LAYER ZERO-FREE -- judgement made over 6 files, not vacuous
+
+I. Comparator declarations census (_镜像/comparator_json/*.json, 416 configs fetched at the same pin)
+  configs parsed                          : 416
+  configs carrying 'challenge_module' ': 416
+  configs carrying 'solution_module'  ': 416
+  configs carrying 'theorem_names'    ': 416
+  configs carrying 'permitted_axioms' ': 416
+  configs carrying 'enable_nanoda'    ': 414
+  distinct axiom names in the union       : 3 -> Classical.choice=416, Quot.sound=416, propext=416
+  configs permitting a NON-standard axiom : 0  
+  configs with EMPTY permitted_axioms     : 0  []
+  configs with NO theorem_names           : 1  ['ElementaryPositivity']
+  theorem declarations named in total     : 537
+  configs also naming definition_names    : 10
+  configs with enable_nanoda = TRUE       : 2  ['ArtinParabolicIntersections', 'TraceIdealTransportSupport']
+  solution_module resolvable on disk    : 416 / 416 (unresolved: 0, e.g. )
+  NOTE unresolved != wrong: a module may live in a differently-named file;
+       this row only says the naive path guess did not match.

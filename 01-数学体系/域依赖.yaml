@@ -1,0 +1,35 @@
+# 域间依赖的机器可读声明（生成 01-域依赖.mmd 的唯一来源）
+#
+# 依据：01-数学体系/README.md §三 那张手绘 ASCII 图。**注意该图的口径**：
+# 它表达的是「使用频率意义上的依赖」（谁大量借用谁的工具），不是逻辑基础关系
+# ——README 自己在图下写了这句话。范畴论既可作语言（本图置于第 2 层）也可作基础
+# （ETCS 置于第 1 层），这一不可通约性由 04-数学统一场论 处理，本文件不裁决。
+schema_version: "0.1"
+source: "01-数学体系/README.md §三（简化依赖图，2026-10-11 由人工登记为机器可读）"
+semantics: "usage-frequency dependency, NOT logical foundation"
+unplaced_domains:
+  - code: CB
+    reason: "§三 的 ASCII 图未给组合与图论定位；登记为未定层，等接口讨论后再归层"
+  - code: XS
+    reason: "交叉与新兴本身无固定上游，不宜归入单层"
+tiers:
+  - rank: 1
+    domains: [FD]
+    label: "逻辑与数学基础"
+  - rank: 2
+    domains: [ST, CT]
+    label: "语言层：集合论与范畴论"
+  - rank: 3
+    domains: [AL, NT, TG]
+    label: "结构层：代数、数论、几何拓扑"
+  - rank: 4
+    domains: [AN, PR, DS]
+    label: "连续与随机层：分析、概率、动力系统"
+  - rank: 5
+    domains: [NA, MP, GO]
+    label: "逼近与交叉层：数值、数学物理、优化"
+  - rank: 6
+    domains: [IT, OR, TC]
+    label: "信息、运筹与理论计算机"
+intra_tier_edges:
+  - ["ST", "CT", "集合论为范畴论提供例子与反例"]
