@@ -31,7 +31,8 @@ def build(records):
         for tag in data.get("tags") or []:
             by_tag.setdefault(str(tag), []).append(identifier)
         refs = set()
-        for key in ("related", "specializations", "generalizations", "equivalent_forms"):
+        for key in ("related", "specializations", "generalizations", "equivalent_forms",
+                    "contradicts"):
             value = data.get(key) or []
             if isinstance(value, list):
                 for item in value:

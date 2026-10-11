@@ -2,14 +2,16 @@ graph mutant battery over fixture tree C:\Users\mo\AppData\Local\Temp\OMG_FIXTUR
 == baseline ==
   AMBIGUOUS_REFERENCE            : 0
   BROKEN_DOC_LINK                : 0
+  CONTRADICTION_ASYMMETRIC       : 0
   DANGLING                       : 0
   DOMAIN_UNPLACED                : 17
+  EDGE_ENDPOINT_OFF_GRAPH        : 0
   EVIDENCE_INVERSION             : 0
   ID_COLLISION_YAML_VS_MD        : 0
   ID_MULTI_FILE                  : 1
   LOAD_ERROR                     : 0
   MD_ONLY_LEDGER                 : 3
-  ORPHAN                         : 2
+  ORPHAN                         : 0
   PROSE_RELATION_UNTRAVERSABLE   : 0
   TERM_INCONSISTENCY             : 0
   UNDEFINED_SYMBOL               : 1
@@ -21,9 +23,12 @@ graph mutant battery over fixture tree C:\Users\mo\AppData\Local\Temp\OMG_FIXTUR
   M3-UNPLACED      -> DOMAIN_UNPLACED            base=17  after=18  delta=1   CAUGHT    还原=True faults=0
   M4-BROKENLINK    -> BROKEN_DOC_LINK            base=0   after=1   delta=1   CAUGHT    还原=True faults=0
   M5-TERM          -> TERM_INCONSISTENCY         base=0   after=1   delta=1   CAUGHT    还原=True faults=0
-  M6-ORPHAN        -> ORPHAN                     base=2   after=3   delta=1   CAUGHT    还原=True faults=0
+  M6-ORPHAN        -> ORPHAN                     base=0   after=1   delta=1   CAUGHT    还原=True faults=0
   M7-COLLISION     -> ID_COLLISION_YAML_VS_MD    base=0   after=1   delta=1   CAUGHT    还原=True faults=0
   M8-UNDEF-SYMBOL  -> UNDEFINED_SYMBOL           base=1   after=2   delta=1   CAUGHT    还原=True faults=0
-  M9-XREF-ROWS     -> XREF-ROWS                  图里删 1 个节点而表照旧 ⇒ XREF-ROWS 按ID.md：图里应有 6 行，实际渲染 7 行 | XREF-ROWS 术语索引.md：图里应有 2 行，实际渲染 3 行
+  M10-OFFGRAPH     -> EDGE_ENDPOINT_OFF_GRAPH    base=0   after=1   delta=1   CAUGHT    还原=True faults=0
+  M12-ASYM         -> CONTRADICTION_ASYMMETRIC   base=0   after=1   delta=1   CAUGHT    还原=True faults=0
+  M9-XREF-ROWS     -> XREF-ROWS                  图里删 1 个节点而表照旧 ⇒ XREF-ROWS 按ID.md：图里应有 8 行，实际渲染 9 行
+  M11-UNRENDERED   -> TYPE-UNRENDERED            撤掉 ARROW 的 contradicts ⇒ 02 图少画 2 条边｜TYPE-UNRENDERED contradicts：2 条记录间边在 02 图上无处可画＝ARROW 缺这一型，渲染器正静默丢掉它
 == verdict ==
-  mutants=9 caught=9 not_caught=0
+  mutants=12 caught=12 not_caught=0

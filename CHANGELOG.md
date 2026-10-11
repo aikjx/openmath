@@ -4,6 +4,21 @@
 
 ## [未发布]
 
+### 修复（2026-10-11，端点解析：43 个节点曾只有 30 个可用键）
+
+- **缺陷**：`flowdocs._index()` 用 `id or path` 建节点键，而 24 份 doc 里 13 份共用 `OM-P-NT-0003`；
+  同时四个建边通道中有两个把端点写成**文件路径**。结果是 57/168 条边的某一端查不到键——
+  `00-四层总览` 直接 `continue` 掉，`03-难题卡点` 给同一个文件画两个节点。
+- **修**：`graph.node_key()`（record 用 ID／doc 用路径）＋ `graph.resolve()`（双命名空间归键，
+  撞号 ID 无 record 主则判无载体，不静默挑一份）；渲染层全部改走解析后的键。
+- **新缺口类** `EDGE_ENDPOINT_OFF_GRAPH`（LEDGER-GAP，本轮 7 枚）：逐条点名端点无节点的边并带上 `via`；
+  `graph.json` 新增 `resolution` 普查节，版面新增 `---- endpoint resolution ----` 节。
+- **新不变量** `KEY-COLLAPSE`／`SELF-MERGE`；`引用图.md` 加「落到节点」列。
+- **验收**：变异体 9→10 枚，新增 `M10-OFFGRAPH`（链接指向配对面孔：`BROKEN_DOC_LINK`／`DANGLING`／
+  `resolvable`／`EMPTY-CHART` 四把尺子全绿，只有新仪器从 0 涨到 1）；`mutants=10 caught=10`。
+  读数改判：`03-难题卡点` 边 30→71、`00-四层总览` 跨层真实边 46→48、`ORPHAN` 10→3。
+- **确定性**：双跑 7 份生成物只有 `generated` 在动；判据自带三格对照（载体 `scratch/DETERMINISM_resolve.txt`）。
+
 ### 新增（2026-10-11，四层总览：知识图谱＋关系流程图＋缺口检测仪器）
 
 - **仪器**：`openmath/graph.py`（由盘上 `OM-*.yaml` 与 `OM-*.md` 建节点与类型化边，文件名链接也算引用）＋ `openmath/flowdocs.py`（5 张 Mermaid 流程图、7 张交叉引用表、版面与不变量检查）＋ CLI `openmath graph` / `graph --check`。

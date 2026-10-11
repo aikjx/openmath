@@ -1,6 +1,6 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-10-10T23:37:21Z",
+  "generated": "2026-10-11T01:06:08Z",
   "root": "openmath",
   "nodes": [
     {
@@ -2061,16 +2061,9 @@
       "OM-F-AN-0003"
     ],
     "ORPHAN": [
-      "OM-BR-0001",
-      "OM-P-NT-0003-CANCELLATION-20260920",
-      "OM-P-NT-0003-CONT-20260920",
-      "OM-P-NT-0003-DIRECTIONS-20260920",
-      "OM-P-NT-0003-JOINTSIEVE-20260922",
-      "OM-P-NT-0003-JOINTSIEVE-PAPER-20260922",
-      "OM-P-NT-0003-JOINTSIEVE-VERIFY-20260922",
-      "OM-P-NT-0003-KEY-BOUND-20260920",
-      "OM-P-NT-0003-NEW-METHODS-20260920",
-      "OM-P-NT-0003-REVIEW-20260922"
+      "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-未证问题清单_20260922.md",
+      "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-突破靶心清单_20260922.md",
+      "04-数学统一场论/04-桥接定理/OM-BR-0001_三重奏定理_线性动力学谱与Frenet曲率.md"
     ],
     "MD_ONLY_LEDGER": [
       "03-难题与猜想/01-千年大奖难题/OM-P-NT-0001-riemann-hypothesis.md",
@@ -2272,7 +2265,86 @@
         "dst": "OM-P-NT-0003",
         "via": "配对 md 正文（ID 引用）"
       }
+    ],
+    "EDGE_ENDPOINT_OFF_GRAPH": [
+      {
+        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
+        "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0002-nth-prime-low-complexity-formula.md",
+        "type": "cites",
+        "via": "md 文件名链接（攻坚轮次）",
+        "off": [
+          "03-难题与猜想/05-经典未解猜想/OM-P-NT-0002-nth-prime-low-complexity-formula.md"
+        ]
+      },
+      {
+        "src": "OM-F-AN-0001",
+        "dst": "OM-F-AN-0003",
+        "type": "cites",
+        "via": "配对 md 正文（ID 引用）",
+        "off": [
+          "OM-F-AN-0003"
+        ]
+      },
+      {
+        "src": "OM-F-AN-0002",
+        "dst": "02-公式库/分析/OM-F-AN-0001-euler-identity.md",
+        "type": "cites",
+        "via": "配对 md 正文（文件名链接）",
+        "off": [
+          "02-公式库/分析/OM-F-AN-0001-euler-identity.md"
+        ]
+      },
+      {
+        "src": "OM-P-NT-0005",
+        "dst": "05-验证中心/03-结果/2026/09/OM-P-NT-0008-selberg-weight-support-20260926.md",
+        "type": "evidenced_by",
+        "via": "05-验证中心 结果档",
+        "off": [
+          "05-验证中心/03-结果/2026/09/OM-P-NT-0008-selberg-weight-support-20260926.md",
+          "OM-P-NT-0005"
+        ]
+      },
+      {
+        "src": "OM-P-NT-0006",
+        "dst": "05-验证中心/03-结果/2026/09/OM-P-NT-0007-liouville-asymptotic-survival-20260926.md",
+        "type": "evidenced_by",
+        "via": "05-验证中心 结果档",
+        "off": [
+          "05-验证中心/03-结果/2026/09/OM-P-NT-0007-liouville-asymptotic-survival-20260926.md",
+          "OM-P-NT-0006"
+        ]
+      },
+      {
+        "src": "OM-P-NT-0006",
+        "dst": "05-验证中心/03-结果/2026/09/OM-P-NT-0008-selberg-weight-support-20260926.md",
+        "type": "evidenced_by",
+        "via": "05-验证中心 结果档",
+        "off": [
+          "05-验证中心/03-结果/2026/09/OM-P-NT-0008-selberg-weight-support-20260926.md",
+          "OM-P-NT-0006"
+        ]
+      },
+      {
+        "src": "OM-P-NT-0007",
+        "dst": "05-验证中心/03-结果/2026/09/OM-P-NT-0008-selberg-weight-support-20260926.md",
+        "type": "evidenced_by",
+        "via": "05-验证中心 结果档",
+        "off": [
+          "05-验证中心/03-结果/2026/09/OM-P-NT-0008-selberg-weight-support-20260926.md",
+          "OM-P-NT-0007"
+        ]
+      }
     ]
+  },
+  "resolution": {
+    "nodes": 43,
+    "node_keys": 43,
+    "edges": 168,
+    "both_in_graph": 161,
+    "one_endpoint_off_graph": 3,
+    "both_endpoints_off_graph": 4,
+    "collapsed_to_self_loop": 0,
+    "ambiguous_doc_ids": []
   },
   "counts": {
     "record_nodes": 19,

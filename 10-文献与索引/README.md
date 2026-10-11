@@ -149,5 +149,5 @@ python -m openmath index
 | 参考文献库 | ⬜ 未建立 |
 | 交叉引用索引 | ✅ 7 张表由 `openmath graph` 生成（2026-10-11；`index` 仍只产 `index.json`） |
 | 知识图谱 | ✅ `graph.json` ＋ 5 张流程图 ＋ 本层 README（2026-10-11） |
-| 缺口检测 | ✅ 13 类判据＋版面＋9 枚变异体（2026-10-11）；DEFECT/LEDGER-GAP 非空即红 |
+| 缺口检测 | ✅ 14 类判据＋版面＋10 枚变异体（2026-10-11，含端点解析 `EDGE_ENDPOINT_OFF_GRAPH`）；DEFECT/LEDGER-GAP 非空即红 |
 | 外部仓库镜像 | ✅ 1 个（openai/math，2026-10-11 落地；见 §二·补） |

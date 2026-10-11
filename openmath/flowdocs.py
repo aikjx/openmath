@@ -37,6 +37,7 @@ ARROW = {
     "bridges": ("==>", "桥接"),
     "cites": ("-->", "引用"),
     "evidenced_by": ("-->", "旁证"),
+    "contradicts": ("-.->", "冲突"),
 }
 
 
@@ -71,7 +72,7 @@ class _Alias(object):
 def _index(g):
     out = {}
     for node in g["nodes"]:
-        out[node["id"] or node["path"]] = node
+        out[graph_mod.node_key(node)] = node
     return out
 
 
@@ -83,6 +84,33 @@ def _edge_line(alias, by_key, edge, extra_label=None):
     s = alias.of(src_key)
     d = alias.of(dst_key)
     return "  %s %s|%s| %s" % (s, arrow, _clean(label, 22), d)
+
+
+def _emit_end(lines, alias, by_key, key, raw):
+    """边的一个端点画成什么。落不进节点集也要画。
+
+    把盲端从图上抹掉不等于盲区不存在，只是让它没法被看见——上一版就是这么把
+    04 图抹成空图的，被 EMPTY-CHART 判据拦下。所以这里给盲端一个显式标签。
+    """
+    if key is None:
+        akey = "offgraph:" + raw
+        if akey in alias.map:
+            return alias.map[akey]
+        name = alias.of(akey)
+        lines.append('  %s["（无节点载体）%s"]' % (name, _clean(os.path.basename(raw), 40)))
+        return name
+    if key in alias.map:
+        return alias.map[key]
+    node = by_key.get(key)
+    label = _clean(_label(node)) if node else _clean(os.path.basename(key), 40)
+    name = alias.of(key)
+    lines.append('  %s["%s"]' % (name, label))
+    return name
+
+
+def _arrow_line(edge, a_name, b_name):
+    arrow, label = ARROW.get(edge["type"], ("-->", None))
+    return "  %s %s|%s| %s" % (a_name, arrow, _clean(label or edge["type"], 22), b_name)
 
 
 def chart_overview(g):
@@ -106,15 +134,18 @@ def chart_overview(g):
         tag = TAG_OF[layer]
         nodes = counts[layer]
         lines.append("  subgraph %s[%s：%d 个节点]" % (tag, layer, len(nodes)))
-        for node in sorted(nodes, key=lambda n: str(n["id"] or n["path"])):
-            key = node["id"] or node["path"]
+        for node in sorted(nodes, key=lambda n: graph_mod.node_key(n)):
+            key = graph_mod.node_key(node)
             lines.append('    %s["%s"]' % (alias.of(key), _clean(_label(node))))
         lines.append("  end")
     folded = {}
-    for edge in g["edges"]:
-        src = by_key.get(edge["src"])
-        dst = by_key.get(edge["dst"])
+    refs, _ = graph_mod.resolve(g["nodes"], g["edges"])
+    dropped = 0
+    for edge, (a, b) in zip(g["edges"], refs):
+        src = by_key.get(a)
+        dst = by_key.get(b)
         if not src or not dst:
+            dropped += 1
             continue
         a = KIND_LAYER.get(src["kind"], "难题层")
         b = KIND_LAYER.get(dst["kind"], "难题层")
@@ -126,7 +157,8 @@ def chart_overview(g):
     meta = {"layer_nodes": {k: len(v) for k, v in counts.items()},
             "domains_with_nodes": len(domain_nodes),
             "layer_edges": len(folded),
-            "real_edges_between_layers": sum(len(v) for v in folded.values())}
+            "real_edges_between_layers": sum(len(v) for v in folded.values()),
+            "edges_off_graph": dropped}
     return "\n".join(lines) + "\n", meta
 
 
@@ -170,10 +202,11 @@ def chart_record_deps(g):
     by_key = _index(g)
     alias = _Alias()
     lines = ["flowchart LR"]
-    rec_keys = {n["id"] or n["path"] for n in g["nodes"] if n["node_type"] == "record"}
+    rec_keys = set([graph_mod.node_key(n) for n in g["nodes"] if n["node_type"] == "record"])
+    refs, _ = graph_mod.resolve(g["nodes"], g["edges"])
     emitted = 0
-    for edge in g["edges"]:
-        if edge["src"] not in rec_keys or edge["dst"] not in rec_keys:
+    for edge, (a, b) in zip(g["edges"], refs):
+        if a not in rec_keys or b not in rec_keys:
             continue
         if edge["type"] not in ARROW:
             continue
@@ -195,7 +228,7 @@ def chart_problem_bottleneck(g):
     prob_keys = set()
     for node in g["nodes"]:
         if node["kind"] in problem_kinds:
-            key = node["id"] or node["path"]
+            key = graph_mod.node_key(node)
             prob_keys.add(key)
             lines.append('  %s["%s"]' % (alias.of(key), _clean(_label(node))))
     prose = {}
@@ -215,20 +248,22 @@ def chart_problem_bottleneck(g):
         if target in by_key:
             lines.append('  %s -.->|撞名| %s' % (alias.of(target), gap))
     emitted = 0
-    for edge in g["edges"]:
+    off_graph = 0
+    refs, _ = graph_mod.resolve(g["nodes"], g["edges"])
+    for edge, (a, b) in zip(g["edges"], refs):
         if edge["type"] not in ("cites", "implies", "uses", "bridges", "evidenced_by"):
             continue
-        if edge["src"] not in prob_keys and edge["dst"] not in prob_keys:
+        if a not in prob_keys and b not in prob_keys:
             continue
-        for key in (edge["src"], edge["dst"]):
-            if key not in alias.map:
-                node = by_key.get(key)
-                label = _clean(_label(node)) if node else _clean(key)
-                lines.append('  %s["%s"]' % (alias.of(key), label))
-        lines.append(_edge_line(alias, by_key, edge))
+        if a is None or b is None:
+            off_graph += 1
+        a_name = _emit_end(lines, alias, by_key, a, edge["src"])
+        b_name = _emit_end(lines, alias, by_key, b, edge["dst"])
+        lines.append(_arrow_line(edge, a_name, b_name))
         emitted += 1
     meta = {"problem_nodes": len(prob_keys), "chart_nodes": len(alias.map),
-            "edges": emitted, "prose_bottlenecks": len(prose), "dangling": len(dangling)}
+            "edges": emitted, "prose_bottlenecks": len(prose), "dangling": len(dangling),
+            "edges_with_off_graph_end": off_graph}
     return "\n".join(lines) + "\n", meta
 
 
@@ -240,23 +275,24 @@ def chart_bridges(g):
     docs = sorted({e["via"] for e in bridges})
     for doc in docs:
         lines.append('  %s["桥接文档：%s"]' % (alias.of("doc:" + doc), _clean(os.path.basename(doc), 40)))
-    for edge in bridges:
-        for key in (edge["src"], edge["dst"]):
-            if key not in alias.map:
-                node = by_key.get(key)
-                lines.append('  %s["%s"]' % (alias.of(key), _clean(_label(node) if node else key)))
-        lines.append(_edge_line(alias, by_key, edge))
-        lines.append('  %s -.->|出处| %s' % (alias.of("doc:" + edge["via"]), alias.of(edge["src"])))
-    evid = sorted([e for e in g["edges"] if e["type"] == "evidenced_by"], key=lambda e: (e["src"], e["dst"]))
-    for edge in evid:
-        for key in (edge["src"], edge["dst"]):
-            if key not in alias.map:
-                node = by_key.get(key)
-                label = _clean(os.path.basename(key), 40) if node and node["node_type"] != "record" else _clean(_label(node) if node else key)
-                lines.append('  %s["%s"]' % (alias.of(key), label))
-        lines.append(_edge_line(alias, by_key, edge))
+    evid = sorted([e for e in g["edges"] if e["type"] == "evidenced_by"],
+                 key=lambda e: (e["src"], e["dst"]))
+    pairs = bridges + evid
+    refs, _ = graph_mod.resolve(g["nodes"], g["edges"])
+    index_of = dict((id(e), i) for i, e in enumerate(g["edges"]))
+    off_graph = 0
+    for edge in pairs:
+        a, b = refs[index_of[id(edge)]]
+        if a is None or b is None:
+            off_graph += 1
+        a_name = _emit_end(lines, alias, by_key, a, edge["src"])
+        b_name = _emit_end(lines, alias, by_key, b, edge["dst"])
+        lines.append(_arrow_line(edge, a_name, b_name))
+        if edge in bridges:
+            lines.append('  %s -.->|出处| %s' % (alias.of("doc:" + edge["via"]), a_name))
     meta = {"bridge_docs": len(docs), "bridge_edges": len(bridges),
-            "evidence_edges": len(evid), "nodes": len(alias.map)}
+            "evidence_edges": len(evid), "nodes": len(alias.map),
+            "edges_with_off_graph_end": off_graph}
     return "\n".join(lines) + "\n", meta
 
 
@@ -274,9 +310,12 @@ def render_charts(g):
 def _degrees(g):
     outdeg = {}
     indeg = {}
-    for edge in g["edges"]:
-        outdeg[edge["src"]] = outdeg.get(edge["src"], 0) + 1
-        indeg[edge["dst"]] = indeg.get(edge["dst"], 0) + 1
+    refs, _ = graph_mod.resolve(g["nodes"], g["edges"])
+    for edge, (a, b) in zip(g["edges"], refs):
+        if a:
+            outdeg[a] = outdeg.get(a, 0) + 1
+        if b:
+            indeg[b] = indeg.get(b, 0) + 1
     return outdeg, indeg
 
 
@@ -288,7 +327,7 @@ def xref_md(g):
              "| ID | 载体 | 类型 | 状态 | 等级 | 出边 | 入边 | 机器可读 |",
              "| --- | --- | --- | --- | --- | --- | --- | --- |"]
     for node in g["nodes"]:
-        key = node["id"] or node["path"]
+        key = graph_mod.node_key(node)
         lines.append("| %s | `%s` | %s | %s | %s | %d | %d | %s |" % (
             node["id"] or "—", node["path"], node["kind"] or "?", node["status"] or "?",
             node["evidence_level"] or "?", outdeg.get(key, 0), indeg.get(key, 0),
@@ -381,7 +420,7 @@ def xref_md(g):
              "| 术语 | 种类 | 出现条目 |", "| --- | --- | --- |"]
     terms = {}
     for node in g["nodes"]:
-        key = node["id"] or node["path"]
+        key = graph_mod.node_key(node)
         for tag in node["tags"]:
             terms.setdefault((str(tag), "标签"), set()).add(key)
         for sym in node["symbols"]:
@@ -391,11 +430,14 @@ def xref_md(g):
     rows["术语索引.md"] = "\n".join(lines) + "\n"
 
     lines = ["# 交叉引用索引：引用图", "", "> 生成物，勿手改。「可遍历＝否」即缺口类 PROSE/悬空的来源。", "",
-             "| 源 | 类型 | 目标 | 依据字段 | 可遍历 |", "| --- | --- | --- | --- | --- |"]
-    for edge in g["edges"]:
-        lines.append("| `%s` | %s | `%s` | %s | %s |" % (
+             "| 源 | 类型 | 目标 | 依据字段 | 可遍历 | 落到节点 |",
+             "| --- | --- | --- | --- | --- | --- |"]
+    refs, _ = graph_mod.resolve(g["nodes"], g["edges"])
+    for edge, (a, b) in zip(g["edges"], refs):
+        lands = ", ".join([("`%s`" % k) if k else "（无节点载体）" for k in (a, b)])
+        lines.append("| `%s` | %s | `%s` | %s | %s | %s |" % (
             edge["src"], edge["type"], edge["dst"], edge["via"],
-            "是" if edge["resolvable"] else "否"))
+            "是" if edge["resolvable"] else "否", _clean(lands, 90)))
     rows["引用图.md"] = "\n".join(lines) + "\n"
 
     counts = graph_mod.defect_counts(g)
@@ -458,6 +500,17 @@ def face(g, meta, rows=None):
         emit("  graph.json            : nodes %d / edges %d" % (len(g["nodes"]), len(g["edges"])))
         emit("  流程图               : %d 张（%s）" % (len(meta), ", ".join(sorted(meta))))
         emit("  交叉引用索引         : %d 张（%s）" % (len(rows), ", ".join(sorted(rows))))
+    res = g.get("resolution") or {}
+    if res:
+        emit("---- endpoint resolution ----")
+        emit("  nodes / unique keys : %d / %d%s" % (
+            res["nodes"], res["node_keys"],
+            "" if res["nodes"] == res["node_keys"] else "  <-- 键不够用，有节点在图上无处落脚"))
+        emit("  edges both ends in graph : %d / %d" % (res["both_in_graph"], res["edges"]))
+        emit("  one end off graph        : %d" % res["one_endpoint_off_graph"])
+        emit("  both ends off graph      : %d" % res["both_endpoints_off_graph"])
+        emit("  collapsed to self-loop   : %d" % res["collapsed_to_self_loop"])
+        emit("  ambiguous doc ids        : %s" % (", ".join(res["ambiguous_doc_ids"]) or "NONE"))
     bad = sorted([name for name, (sev, count) in graph_mod.defect_counts(g).items()
                   if sev in ("DEFECT", "LEDGER-GAP") and count > 0])
     emit("==> verdict: %d 类 DEFECT/LEDGER-GAP 非空 -> %s" % (len(bad), ", ".join(bad) or "CLEAN"))
@@ -545,6 +598,22 @@ def check_invariants(g, charts, meta, written, writes_expected=True, rows=None):
         faults.append("NO-OUTPUT：一个生成物都没落")
     if not g["nodes"]:
         faults.append("NO-NODES：节点集为空，任何判决都无效")
+    res = g.get("resolution") or {}
+    if res.get("nodes") and res["node_keys"] != res["nodes"]:
+        faults.append("KEY-COLLAPSE：%d 个节点只有 %d 个唯一键，至少 %d 个节点在图上无处落脚"                        % (res["nodes"], res["node_keys"], res["nodes"] - res["node_keys"]))
+    if res.get("collapsed_to_self_loop"):
+        faults.append("SELF-MERGE：%d 条边的两端解析成同一个键＝两个身份被静默合并"                        % res["collapsed_to_self_loop"])
+    # 新增边型而 ARROW 表没跟上时，chart_record_deps 会把整型边静默跳过——上一轮
+    # 就是这个形状把 57 条边抹成看不见的。判据不许靠"我记得加了"，要现扫图里的类型。
+    rec_keys = set([graph_mod.node_key(n) for n in g["nodes"] if n["node_type"] == "record"])
+    refs_t, _ = graph_mod.resolve(g["nodes"], g["edges"])
+    unrendered = {}
+    for edge, (a, b) in zip(g["edges"], refs_t):
+        if a in rec_keys and b in rec_keys and edge["type"] not in ARROW:
+            unrendered[edge["type"]] = unrendered.get(edge["type"], 0) + 1
+    for etype in sorted(unrendered):
+        faults.append("TYPE-UNRENDERED %s：%d 条记录间边在 02 图上无处可画＝ARROW 缺这一型，渲染器正静默丢掉它"
+                      % (etype, unrendered[etype]))
     if rows is not None:
         # 渲染器不许自己证自己：期望行数由 graph 现推，再数表里实际落了几行。
         # 语料在写盘前又长了一条、或渲染器漏掉一类节点，都会在这里现形，

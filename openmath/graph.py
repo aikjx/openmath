@@ -44,6 +44,7 @@ _EDGE_STYLE = {
     "uses": "-->",
     "bridges": "==>",
     "cites": "-->",
+    "contradicts": "--x",
 }
 
 
@@ -275,6 +276,7 @@ def _edges_from_record(rec, node_by_id):
         ("generalizations", "generalizes"),
         ("equivalent_forms", "implies"),
         ("implications", "implies"),
+        ("contradicts", "contradicts"),
     ):
         got = add_list(name, etype)
         if got:
@@ -285,6 +287,80 @@ def _edges_from_record(rec, node_by_id):
         add(target, "uses", "正文引用")
 
     return edges, prose
+
+
+def node_key(node):
+    """节点唯一键：record 用 ID，doc 用相对路径。
+
+    依据是实测而非惯例：19 个 record 的 ID 互不相同，24 个 doc 的路径互不相同，
+    而 doc 的 ID 有 13 份共用 `OM-P-NT-0003`。按 ID 给 doc 建键会把 13 张面孔折成
+    1 个节点，且 `build()` 里 `src = doc["rel"]` 的两个通道永远查不到键——
+    流程图于是静默少画一批边，而少画的那批恰好是攻坚轮次那条线。
+    """
+    return node["id"] if node["node_type"] == "record" else node["path"]
+
+
+def resolve(nodes, edges):
+    """把边端点还原到节点键。端点按语料原样存（ID 或路径），两个命名空间都要认。
+
+    返回 (refs, ambiguous)：refs[i] = (src 键或 None, dst 键或 None)。
+    None ＝ 这一端在节点集里没有载体（证据档、配对 md 面孔、无载体的号）。
+    撞号 ID 若无 record 主则一律判 None——宁可少连一条边，不许静默挑一份面孔连上。
+    """
+    keys = set()
+    by_id = {}
+    doc_id = {}
+    for node in nodes:
+        key = node_key(node)
+        keys.add(key)
+        ident = node["id"]
+        if not isinstance(ident, str):
+            continue
+        if node["node_type"] == "record":
+            by_id[ident] = key
+        else:
+            doc_id.setdefault(ident, []).append(key)
+    ambiguous = sorted([i for i, ks in doc_id.items() if len(ks) > 1 and i not in by_id])
+    for ident in sorted(doc_id):
+        ks = doc_id[ident]
+        if len(ks) == 1 and ident not in by_id:
+            by_id[ident] = ks[0]
+    for ident in ambiguous:
+        by_id.pop(ident, None)
+
+    def one(endpoint):
+        if endpoint in keys:
+            return endpoint
+        return by_id.get(endpoint)
+
+    return [(one(e["src"]), one(e["dst"])) for e in edges], ambiguous
+
+
+def off_graph_edges(nodes, edges):
+    """端点落不进节点集的边，逐条点名并标出它住在哪个通道（via）。"""
+    refs, _ = resolve(nodes, edges)
+    out = []
+    for edge, (a, b) in zip(edges, refs):
+        missing = [w for w, r in ((edge["src"], a), (edge["dst"], b)) if r is None]
+        if missing:
+            out.append({"src": edge["src"], "dst": edge["dst"], "type": edge["type"],
+                        "via": edge["via"], "off": sorted(missing)})
+    return sorted(out, key=lambda r: (r["type"], r["src"], r["dst"], r["via"]))
+
+
+def resolution_census(nodes, edges):
+    """解析普查：面只印这里的数，文档只许引这张面。"""
+    refs, ambiguous = resolve(nodes, edges)
+    return {
+        "nodes": len(nodes),
+        "node_keys": len(set([node_key(n) for n in nodes])),
+        "edges": len(edges),
+        "both_in_graph": sum(1 for a, b in refs if a and b),
+        "one_endpoint_off_graph": sum(1 for a, b in refs if bool(a) != bool(b)),
+        "both_endpoints_off_graph": sum(1 for a, b in refs if not a and not b),
+        "collapsed_to_self_loop": sum(1 for a, b in refs if a and b and a == b),
+        "ambiguous_doc_ids": ambiguous,
+    }
 
 
 def build(root):
@@ -393,8 +469,8 @@ def build(root):
             for j in range(i + 1, len(cited)):
                 if cited[i]["domain"] != cited[j]["domain"]:
                     edges.append({
-                        "src": cited[i]["id"] or cited[i]["path"],
-                        "dst": cited[j]["id"] or cited[j]["path"],
+                        "src": node_key(cited[i]),
+                        "dst": node_key(cited[j]),
                         "type": "bridges",
                         "via": doc["rel"],
                         "resolvable": True,
@@ -424,6 +500,19 @@ def build(root):
     gaps["AMBIGUOUS_REFERENCE"] = sorted(
         [{"src": e["src"], "dst": e["dst"], "via": e["via"]} for e in edges if e["dst"] in colliding_ids],
         key=lambda r: (r["dst"], r["src"], r["via"]))
+    # 边写好了、端点却不在节点集里：这条关系在图上无处落脚。证据通道（05-验证中心
+    # 结果档本来就不作知识节点）与配对面孔都算，但逐条点名 via，不靠手工豁免。
+    gaps["EDGE_ENDPOINT_OFF_GRAPH"] = off_graph_edges(nodes, edges)
+    # 「A 与 B 冲突」是对称事实：只记在 A 那一侧，等于 B 的读者永远不知道自己的
+    # 条目被人指过矛盾。这一类不裁决谁对谁错（那是证据等级的事），只点名单边账。
+    conflicts = set()
+    for e in edges:
+        if e["type"] == "contradicts":
+            conflicts.add((e["src"], e["dst"]))
+    gaps["CONTRADICTION_ASYMMETRIC"] = sorted(
+        [{"src": e["src"], "dst": e["dst"], "via": e["via"]} for e in edges
+         if e["type"] == "contradicts" and (e["dst"], e["src"]) not in conflicts],
+        key=lambda r: (r["src"], r["dst"], r["via"]))
 
     g = {
         "schema_version": "0.1",
@@ -434,6 +523,7 @@ def build(root):
         "tiers": {"ranks": tiers, "unplaced": unplaced, "intra": intra,
                   "missing_placement": missing_placement},
         "gaps": gaps,
+        "resolution": resolution_census(nodes, edges),
         "counts": {
             "record_nodes": sum(1 for n in nodes if n["node_type"] == "record"),
             "doc_nodes": sum(1 for n in nodes if n["node_type"] == "doc"),
@@ -449,11 +539,12 @@ def detect_gaps(root, records, nodes, edges, docs, evidence, md_id_hits, dup_ids
                 prose_relations, load_errors):
     node_ids = {n["id"] for n in nodes if isinstance(n["id"], str)}
     dangling = sorted({e["dst"] for e in edges if not e["resolvable"]})
+    refs, _ = resolve(nodes, edges)
     degree = {}
     for n in nodes:
-        degree[n["id"] or n["path"]] = 0
-    for e in edges:
-        for key in (e["src"], e["dst"]):
+        degree[node_key(n)] = 0
+    for e, (a, b) in zip(edges, refs):
+        for key in (a, b):
             if key in degree:
                 degree[key] += 1
     orphans = sorted([k for k, v in degree.items() if v == 0])
@@ -467,7 +558,7 @@ def detect_gaps(root, records, nodes, edges, docs, evidence, md_id_hits, dup_ids
     used_symbols = {}
     for n in nodes:
         for name in n["symbols"]:
-            used_symbols.setdefault(name, []).append(n["id"] or n["path"])
+            used_symbols.setdefault(name, []).append(node_key(n))
     undefined_symbols = sorted([s for s in used_symbols if s not in defined_symbols])
 
     inversions = []
@@ -540,10 +631,12 @@ SEVERITY = {
     "EVIDENCE_INVERSION": "DEFECT",
     "LOAD_ERROR": "DEFECT",
     "MD_ONLY_LEDGER": "LEDGER-GAP",
+    "EDGE_ENDPOINT_OFF_GRAPH": "LEDGER-GAP",
     "ID_MULTI_FILE": "LEDGER-GAP",
     "ORPHAN": "ADVISORY",
     "UNDEFINED_SYMBOL": "ADVISORY",
     "PROSE_RELATION_UNTRAVERSABLE": "ADVISORY",
+    "CONTRADICTION_ASYMMETRIC": "ADVISORY",
     "TERM_INCONSISTENCY": "ADVISORY",
 }
 

@@ -4,6 +4,11 @@
 基线要求"每类都为 0 且图非空"，然后逐个投放变异，要求**指定的那一类相对基线增长**
 （非空不算牙：基线本身就红的类，投不投变异都红）。每个变异只动一处；跑完还原并复算基线。
 M9 不动盘——它把图删掉一个节点而表照旧，测渲染器与图之间的行数一致性（XREF-ROWS）。
+M10 测端点解析：一条边的终点是一个**存在的文件但不是节点**（配对 md 面孔），
+老的四把尺子（BROKEN_DOC_LINK／DANGLING／resolvable／EMPTY-CHART）全都判它正常。
+M11 测渲染表：把 ARROW 里的 `contradicts` 撤掉（只改内存不动盘），02 图会静默少画边——
+只有 TYPE-UNRENDERED 点名它，同时印出少画的边数（撤表真有影响才算数）。
+M12 测单边账：冲突只记在一边（反例记了、公式没记）时 CONTRADICTION_ASYMMETRIC 必须增长。
 运行日志写进仓内版面 `10-文献与索引/知识图谱/_版面/graph_mutants_face.txt`（LF，写后回读比对）。
 """
 
@@ -73,6 +78,8 @@ symbols:
     meaning_zh: "样例量"
 related:
   - OM-T-NT-0001
+contradicts:
+  - OM-X-NT-0001
 verification:
   levels:
     L2:
@@ -152,6 +159,61 @@ provenance:
   ai_role: verification
 """
 
+YAML_PAIRED = """schema_version: "0.1"
+id: OM-P-NT-0002
+kind: problem
+title_zh: 样例配对难题
+title_en: Sample paired problem
+domain: NT
+status: OPEN
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+assumptions: []
+related:
+  - OM-T-NT-0001
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+"""
+
+# 配对面孔：与 .yaml 同名的 md。`_md_ledger` 里它在建节点之前就 continue 了，
+# 所以它**在盘上、在 all_md 里，却不是节点**——指向它的链接一切检查都过，
+# 只有端点解析这台仪器看得见「这条边在图上无处落脚」。
+MD_PAIRED = """---
+id: OM-P-NT-0002
+title_zh: 样例配对难题
+status: OPEN
+---
+
+# OM-P-NT-0002 · 样例配对难题（人类面孔）
+
+正文见同名 YAML。
+"""
+
+# 反例条目：`contradicts` 通道的载体。它与 OM-F-NT-0001 **互相**记着冲突，
+# 所以基线这一类为 0；M12 只拆掉一边，剩下的单边账必须被 CONTRADICTION_ASYMMETRIC 点名。
+YAML_X = """schema_version: "0.1"
+id: OM-X-NT-0001
+kind: counterexample
+title_zh: 样例反例
+title_en: Sample counterexample
+domain: NT
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+assumptions: []
+symbols: []
+contradicts:
+  - OM-F-NT-0001
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+"""
+
 TIERS = """schema_version: "0.1"
 source: "fixture"
 unplaced_domains:
@@ -185,8 +247,11 @@ def make_tree():
     W("02-公式库/OM-F-NT-0001-sample.yaml", YAML_F)
     W("02-公式库/OM-D-NT-0001-sample.yaml", YAML_D)
     W("02-公式库/OM-F-AN-0001-sample.yaml", YAML_ANALYSIS)
+    W("02-公式库/OM-X-NT-0001-sample.yaml", YAML_X)
     W("03-难题与猜想/OM-P-NT-0001.md", MD_P)
     W("03-难题与猜想/OM-P-NT-0001-round1.md", MD_ROUND)
+    W("03-难题与猜想/OM-P-NT-0002.yaml", YAML_PAIRED)
+    W("03-难题与猜想/OM-P-NT-0002.md", MD_PAIRED)
     W("04-数学统一场论/04-桥接定理/OM-BR-0001.md", BRIDGE)
     W("01-数学体系/域依赖.yaml", TIERS)
     W("05-验证中心/01-引擎/exists.py", "# fixture engine\n")
@@ -222,6 +287,34 @@ def measure_dropped_node():
     return hit, faults
 
 
+def measure_unrendered():
+    """M11：只改内存里的渲染表，把 `contradicts` 那一型从 ARROW 撤掉。
+
+    撤掉之后 02 图会**静默少画**若干条边（`chart_record_deps` 用 `type not in ARROW`
+    过滤），而盘、图、老四把尺子一切照旧——这正是上一轮把 57 条边抹掉那个缺陷的形状。
+    新判据 TYPE-UNRENDERED 必须当场点名，且少画的边数要现印（>=1 才证明这一型真在被丢，
+    而不是我的撤表动作根本没影响任何输出）。
+    """
+    g = G.build(TMP)
+    charts, meta = flowdocs.render_charts(g)
+    rows = flowdocs.xref_md(g)
+    clean = flowdocs.check_invariants(g, charts, meta, [], writes_expected=False, rows=rows)
+    if clean:
+        return None, 0, ["基线已有不变量故障，M11 无从对照"]
+    if "contradicts" not in flowdocs.ARROW:
+        return None, 0, ["ARROW 表里没有 contradicts 这一型，M11 测不到东西"]
+    key = "02-公式与定理依赖"
+    before = meta[key]["edges"]
+    saved = flowdocs.ARROW.pop("contradicts")
+    try:
+        charts2, meta2 = flowdocs.render_charts(g)
+        faults = flowdocs.check_invariants(g, charts2, meta2, [], writes_expected=False, rows=rows)
+    finally:
+        flowdocs.ARROW["contradicts"] = saved
+    hit = [f for f in faults if f.startswith("TYPE-UNRENDERED")]
+    return hit, before - meta2[key]["edges"], faults
+
+
 def mutate(rel, old, new):
     path = os.path.join(TMP, rel)
     with open(path, "rb") as fh:
@@ -252,6 +345,17 @@ MUTANTS = [
      "ID_COLLISION_YAML_VS_MD"),
     ("M8-UNDEF-SYMBOL", "02-公式库/OM-F-NT-0001-sample.yaml",
      '  - name: "a"', '  - name: "zzz"', "UNDEFINED_SYMBOL"),
+    # M10：把轮次文件的链接指向**配对面孔**。文件在盘上（BROKEN_DOC_LINK 不红）、
+    # 目标 ID 有载体（DANGLING 不红）、resolvable 也照旧是真——因为这一支的
+    # resolvable 量的是「盘上有没有这个文件」。只有端点解析看得见：这条边的终点
+    # 不是节点，画进图里就无处落脚。这一格测的是新仪器有没有牙，不是老仪器坏没坏。
+    ("M10-OFFGRAPH", "03-难题与猜想/OM-P-NT-0001-round1.md",
+     "回到 [主条目](OM-P-NT-0001.md)。",
+     "回到 [主条目](OM-P-NT-0001.md)，另见 [面孔](OM-P-NT-0002.md)。",
+     "EDGE_ENDPOINT_OFF_GRAPH"),
+    # M12：冲突是对称事实，只记在一边＝另一边的读者永远不知道自己被指过矛盾。
+    ("M12-ASYM", "02-公式库/OM-F-NT-0001-sample.yaml",
+     "contradicts:\n  - OM-X-NT-0001\n", "", "CONTRADICTION_ASYMMETRIC"),
 ]
 
 LOG = []
@@ -325,6 +429,17 @@ def main():
         results.append(("M9-XREF-ROWS", "XREF-ROWS", len(hit), verdict, len(all_faults)))
         emit("  %-16s -> %-26s 图里删 1 个节点而表照旧 ⇒ %s" % (
             "M9-XREF-ROWS", "XREF-ROWS", " | ".join(hit) if hit else "无故障（判据无牙）"))
+
+    hit11, dropped11, faults11 = measure_unrendered()
+    if hit11 is None:
+        results.append(("M11-UNRENDERED", "TYPE-UNRENDERED", -1, "ANCHOR-MISS", -1))
+        emit("  M11-UNRENDERED : ANCHOR-MISS（%s）" % faults11)
+    else:
+        verdict = "CAUGHT" if (hit11 and dropped11 >= 1) else "ESCAPED"
+        results.append(("M11-UNRENDERED", "TYPE-UNRENDERED", len(hit11), verdict, len(faults11)))
+        emit("  %-16s -> %-26s 撤掉 ARROW 的 contradicts ⇒ 02 图少画 %d 条边｜%s" % (
+            "M11-UNRENDERED", "TYPE-UNRENDERED", dropped11,
+            " | ".join(hit11) if hit11 else "无故障（判据无牙）"))
 
     escaped = [r for r in results if r[3] != "CAUGHT"]
     emit("== verdict ==")

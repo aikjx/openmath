@@ -1,5 +1,5 @@
 openmath graph face — 本面是唯一载体，文档只许引用这里印出的数
-generated: 2026-10-10T23:37:21Z
+generated: 2026-10-11T01:06:08Z
 ---- ledger scope ----
 record nodes (OM-*.yaml)            : 19
 doc nodes (OM-*.md 无 .yaml 伴生)    : 24
@@ -18,8 +18,9 @@ YAML load errors                   : 0
   UNDEFINED_SYMBOL               :   37 : ADVISORY
   MD_ONLY_LEDGER                 :   28 : LEDGER-GAP
   AMBIGUOUS_REFERENCE            :   13 : DEFECT
-  ORPHAN                         :   10 : ADVISORY
+  EDGE_ENDPOINT_OFF_GRAPH        :    7 : LEDGER-GAP
   PROSE_RELATION_UNTRAVERSABLE   :    6 : ADVISORY
+  ORPHAN                         :    3 : ADVISORY
   DANGLING                       :    1 : DEFECT
   ID_COLLISION_YAML_VS_MD        :    1 : DEFECT
   ID_MULTI_FILE                  :    1 : LEDGER-GAP
@@ -29,11 +30,11 @@ YAML load errors                   : 0
   LOAD_ERROR                     :    0 : DEFECT
   TERM_INCONSISTENCY             :    0 : ADVISORY
 ---- charts ----
-  00-四层总览 : {"domains_with_nodes": 2, "layer_edges": 4, "layer_nodes": {"方程层": 15, "逻辑层": 1, "难题层": 27}, "real_edges_between_layers": 46}
+  00-四层总览 : {"domains_with_nodes": 2, "edges_off_graph": 7, "layer_edges": 4, "layer_nodes": {"方程层": 15, "逻辑层": 1, "难题层": 27}, "real_edges_between_layers": 48}
   01-域依赖 : {"intra_edges": 1, "missing_placement": 0, "tier_edges": 5, "tiers": 6, "unplaced": 3}
   02-公式与定理依赖 : {"edges": 110, "record_nodes_in_chart": 19}
-  03-难题卡点 : {"chart_nodes": 38, "dangling": 1, "edges": 30, "problem_nodes": 14, "prose_bottlenecks": 4}
-  04-桥接与旁证 : {"bridge_docs": 0, "bridge_edges": 0, "evidence_edges": 4, "nodes": 5}
+  03-难题卡点 : {"chart_nodes": 42, "dangling": 1, "edges": 71, "edges_with_off_graph_end": 1, "problem_nodes": 27, "prose_bottlenecks": 4}
+  04-桥接与旁证 : {"bridge_docs": 0, "bridge_edges": 0, "edges_with_off_graph_end": 4, "evidence_edges": 4, "nodes": 5}
 ---- domain placement ----
   tiers declared          : 6
   domains placed          : 17 / 20（ids.DOMAINS）
@@ -44,4 +45,11 @@ YAML load errors                   : 0
   graph.json            : nodes 43 / edges 168
   流程图               : 5 张（00-四层总览, 01-域依赖, 02-公式与定理依赖, 03-难题卡点, 04-桥接与旁证）
   交叉引用索引         : 7 张（引用图.md, 按ID.md, 按域.md, 按标签.md, 按证据等级.md, 术语索引.md, 缺口检测.md）
-==> verdict: 5 类 DEFECT/LEDGER-GAP 非空 -> AMBIGUOUS_REFERENCE, DANGLING, ID_COLLISION_YAML_VS_MD, ID_MULTI_FILE, MD_ONLY_LEDGER
+---- endpoint resolution ----
+  nodes / unique keys : 43 / 43
+  edges both ends in graph : 161 / 168
+  one end off graph        : 3
+  both ends off graph      : 4
+  collapsed to self-loop   : 0
+  ambiguous doc ids        : NONE
+==> verdict: 6 类 DEFECT/LEDGER-GAP 非空 -> AMBIGUOUS_REFERENCE, DANGLING, EDGE_ENDPOINT_OFF_GRAPH, ID_COLLISION_YAML_VS_MD, ID_MULTI_FILE, MD_ONLY_LEDGER
