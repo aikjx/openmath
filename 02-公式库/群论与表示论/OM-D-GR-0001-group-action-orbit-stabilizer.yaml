@@ -1,0 +1,65 @@
+schema_version: "0.1"
+
+id: OM-D-GR-0001
+kind: definition
+title_zh: '群作用、轨道与稳定子'
+title_en: 'Group action, orbit and stabilizer'
+domain: GR
+msc:
+  - '20B05'
+tags:
+  - '群作用'
+  - '轨道'
+  - '稳定子'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: 'G\times X\to X,\quad \mathrm{Orb}(x)\ \cong\ G/\mathrm{Stab}(x)'
+hypotheses:
+  - '作用满足 e·x=x 与 g·(h·x)=(gh)·x'
+
+assumptions:
+  - 'X 为集合（本卡不登记拓扑作用的情形）'
+symbols:
+  - name: 'G'
+    meaning_zh: '作用的群'
+    type: other
+  - name: 'X'
+    meaning_zh: '被作用的集合'
+    type: other
+  - name: 'Orb'
+    meaning_zh: '轨道'
+    type: other
+  - name: 'Stab'
+    meaning_zh: '稳定子子群'
+    type: other
+
+related: []
+uses:
+  - 'OM-D-AL-0001'
+implications: []
+contradicts: []
+caveat: 'uses 指向 OM-D-AL-0001：轨道与 G/Stab 的同构要用陪集与商的语言。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Lang, S., Algebra, revised ed. (1965), I.2'
+    - 'Isaacs, I. M., Finite Group Theory (1990), §2.1'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Lang, S., Algebra, revised ed. (1965), I.2'
+    - type: book
+      value: 'Isaacs, I. M., Finite Group Theory (1990), §2.1'
+  contributors:
+    - "qoder-session-2026-10-11"
+

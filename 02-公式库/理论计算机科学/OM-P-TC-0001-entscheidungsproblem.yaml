@@ -1,0 +1,63 @@
+schema_version: "0.1"
+
+id: OM-P-TC-0001
+kind: problem
+title_zh: '判定问题（Entscheidungsproblem）'
+title_en: 'Entscheidungsproblem'
+domain: TC
+msc:
+  - '03B10'
+  - '03B35'
+tags:
+  - '一阶逻辑'
+  - '有效方法'
+  - '被否证的主张'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\text{是否存在算法判定任意一阶逻辑句子的有效性（永真性）}'
+hypotheses:
+  - '「有效方法」按 Turing 机或 λ-可定义性理解'
+  - '语言为带等词的一阶逻辑'
+current_status: REFUTED
+proposed_by: 'David Hilbert'
+proposed_year: 1928
+
+assumptions:
+  - 'Church-Turing 论题'
+symbols:
+  - name: 'L'
+    meaning_zh: '一阶逻辑的某个足以算术的语言片段'
+    type: other
+
+related:
+  - 'OM-P-FD-0001'
+uses:
+  - 'OM-T-TC-0001'
+implications: []
+contradicts:
+  - 'OM-T-TC-0001'
+caveat: '与希尔伯特纲领登记为 related 而不是同一件事：纲领要的是一致性的有穷证明，判定问题要的是永真性的机械判定，两者共享预设但被不同的定理否证。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Hilbert & Ackermann, Grundzuge (1928), §26'
+    - 'Church, A., Am. J. Math. 58 (1936)'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Hilbert & Ackermann, Grundzuge (1928), §26'
+    - type: book
+      value: 'Church, A., Am. J. Math. 58 (1936)'
+  contributors:
+    - "qoder-session-2026-10-11"
+

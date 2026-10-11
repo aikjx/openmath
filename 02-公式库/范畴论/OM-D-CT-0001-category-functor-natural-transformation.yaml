@@ -1,0 +1,73 @@
+schema_version: "0.1"
+
+id: OM-D-CT-0001
+kind: definition
+title_zh: '范畴、函子与自然变换'
+title_en: 'Category, functor and natural transformation'
+domain: CT
+msc:
+  - '18A05'
+  - '18A15'
+tags:
+  - '范畴'
+  - '函子'
+  - '自然变换'
+  - '泛性质'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\mathcal{C}=\bigl(\mathrm{Ob}(\mathcal{C}),\ \mathrm{Hom}(A,B),\ \circ,\ \mathrm{id}\bigr)'
+proposed_by: 'Eilenberg and Mac Lane'
+proposed_year: 1945
+
+assumptions:
+  - '每个 Hom(A,B) 是集合（本地小范畴），或已选定一个宇宙来容纳对象类'
+  - '复合满足结合律，id 是双侧单位'
+symbols:
+  - name: 'Ob'
+    meaning_zh: '对象类'
+    type: other
+  - name: 'Hom'
+    meaning_zh: '态射集'
+    type: other
+  - name: 'circ'
+    meaning_zh: '复合运算'
+    type: other
+  - name: 'id'
+    meaning_zh: '每个对象的单位态射'
+    type: other
+  - name: 'F'
+    meaning_zh: 'Set-值协变函子（米田引理里的被表示对象）'
+    type: other
+  - name: 'Nat'
+    meaning_zh: '两个函子之间的自然变换集'
+    type: other
+
+related: []
+uses: []
+implications: []
+contradicts: []
+caveat: '本条只有入边（Yoneda 与 Lawvere 都 uses 它）没有出边；若 ORPHAN 把它点名，那是它暂无同库可连的上游，不是缺陷。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Mac Lane, S., Categories for the Working Mathematician, 2nd ed. (1998)'
+    - 'Leinster, T., Basic Category Theory (2014)'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Mac Lane, S., Categories for the Working Mathematician, 2nd ed. (1998)'
+    - type: book
+      value: 'Leinster, T., Basic Category Theory (2014)'
+  contributors:
+    - "qoder-session-2026-10-11"
+

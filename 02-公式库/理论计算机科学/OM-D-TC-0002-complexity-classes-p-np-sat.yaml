@@ -1,0 +1,72 @@
+schema_version: "0.1"
+
+id: OM-D-TC-0002
+kind: definition
+title_zh: '复杂性类 P、NP 与 SAT'
+title_en: 'Complexity classes P, NP and SAT'
+domain: TC
+msc:
+  - '68Q15'
+  - '68Q17'
+tags:
+  - 'P'
+  - 'NP'
+  - 'NP 完全'
+  - '布尔可满足'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\mathrm{P}\ \subseteq\ \mathrm{NP},\qquad \mathrm{SAT}\in\mathrm{NP},\qquad \mathrm{SAT}\in\mathrm{P}\ \Longrightarrow\ \mathrm{P}=\mathrm{NP}'
+hypotheses:
+  - '判定问题编码成字母表上的语言'
+  - '机时为 n 的多项式，机存自变量对数'
+proposed_by: 'Jack Cobham'
+proposed_year: 1964
+
+assumptions:
+  - '归约取多项式时间多一归约（Karp 归约），本卡不登记对数空间版本'
+symbols:
+  - name: 'P'
+    meaning_zh: '确定性多项式时间可判定的语言类'
+    type: other
+  - name: 'NP'
+    meaning_zh: '非确定性多项式时间（等价地：多项式可验证证书）的语言类'
+    type: other
+  - name: 'SAT'
+    meaning_zh: '布尔可满足性问题的语言'
+    type: other
+  - name: 'subseteq'
+    meaning_zh: '类包含关系'
+    type: other
+
+related:
+  - 'OM-D-TC-0001'
+  - 'OM-T-TC-0002'
+  - 'OM-P-TC-0002'
+uses: []
+implications: []
+contradicts: []
+caveat: '第 1 批的 OM-T-TC-0002（Cook-Levin）与 OM-P-TC-0002（P vs NP）在陈述里用了 P、NP、SAT 三个记号而无定义条目；本条把它们补成 kind=definition 的记录。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Cobham, A., The intrinsic computational difficulty of functions (1964)'
+    - 'Garey and Johnson, Computers and Intractability: A Guide to the Theory of NP-Completeness (1979), §1-3'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Cobham, A., The intrinsic computational difficulty of functions (1964)'
+    - type: book
+      value: 'Garey and Johnson, Computers and Intractability: A Guide to the Theory of NP-Completeness (1979), §1-3'
+  contributors:
+    - "qoder-session-2026-10-11"
+

@@ -1,0 +1,77 @@
+schema_version: "0.1"
+
+id: OM-T-CT-0002
+kind: theorem
+title_zh: 'Lawvere 对角不动点定理'
+title_en: 'Lawvere diagonal fixed-point theorem'
+domain: CT
+msc:
+  - '18B25'
+  - '03B20'
+tags:
+  - '对角线'
+  - '不动点'
+  - '点满射'
+  - '指数对象'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\gamma:A\twoheadrightarrow B^{A}\ \Longrightarrow\ (\forall f:A\to A)\ \exists a:1\to A,\ f\circ a=a'
+hypotheses:
+  - 'C 有有限积与指数对象 B^A'
+  - 'gamma:A→B^A 是点满射（即 Hom(1,A)→Hom(1,B^A) 逐点覆盖）'
+  - '1 为终对象'
+proposed_by: 'F. William Lawvere'
+proposed_year: 1969
+
+assumptions:
+  - '广义元素（point）与全局元素同义，故需 1 是能区分态射的生成对象'
+symbols:
+  - name: 'gamma'
+    meaning_zh: '从 A 到指数对象 B^A 的点满射'
+    type: other
+  - name: 'B^A'
+    meaning_zh: '内部同态对象'
+    type: other
+  - name: 'f'
+    meaning_zh: 'A 的任一自态射'
+    type: other
+  - name: 'a'
+    meaning_zh: 'A 的一个广义元素 a:1→A'
+    type: other
+
+related:
+  - 'OM-T-FD-0001'
+  - 'OM-T-TC-0001'
+  - 'OM-T-CT-0001'
+uses:
+  - 'OM-D-CT-0001'
+implications: []
+contradicts: []
+caveat: 'related 的两条边指向第 1 批的 OM-T-FD-0001（哥德尔第一）与 OM-T-TC-0001（停机不可判定）；本卡把「实例化」这件事明确记为文献读法，图上因此是虚线相关的邻接而非蕴含。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Lawvere, F. W., An informal exposition of diagrams for pathologists (1969)'
+    - 'Lawvere, F. W., Diagonal arguments and cartesian closed categories (1970)'
+    - 'Ambuel, Datta, Easwaran, Diagonal Arguments and Cartesian Closed Categories (2016)'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Lawvere, F. W., An informal exposition of diagrams for pathologists (1969)'
+    - type: book
+      value: 'Lawvere, F. W., Diagonal arguments and cartesian closed categories (1970)'
+    - type: book
+      value: 'Ambuel, Datta, Easwaran, Diagonal Arguments and Cartesian Closed Categories (2016)'
+  contributors:
+    - "qoder-session-2026-10-11"
+

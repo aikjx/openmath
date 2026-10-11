@@ -1,0 +1,67 @@
+schema_version: "0.1"
+
+id: OM-T-FD-0001
+kind: theorem
+title_zh: '哥德尔第一不完备定理'
+title_en: 'First incompleteness theorem of Godel'
+domain: FD
+msc:
+  - '03B25'
+  - '03B50'
+tags:
+  - '不完备性'
+  - '可表示性'
+  - '对角线'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\mathrm{Con}(T)\ \Rightarrow\ \exists G\ \bigl(T \nvdash G\ \wedge\ T \nvdash \neg G\bigr)'
+hypotheses:
+  - 'T 一致（原始证明需 ω-一致，Rosser 改版只需一致）'
+  - 'T 递归可公理化（公理集可有效枚举）'
+  - 'T 足以表示初等算术（每个原始递归函数在 T 中可表示）'
+proposed_by: 'Kurt Godel'
+proposed_year: 1931
+
+assumptions:
+  - '语言可有效编码（Gödel 配对）'
+  - 'T 的证明关系是原始递归的'
+symbols:
+  - name: 'T'
+    meaning_zh: '满足三条前提的形式理论'
+    type: other
+  - name: 'G'
+    meaning_zh: 'T 中不可判定的句子的哥德尔句'
+    type: other
+
+related:
+  - 'OM-T-FD-0002'
+uses: []
+implications:
+  - 'OM-P-FD-0001'
+contradicts:
+  - 'OM-P-FD-0001'
+caveat: '与 OM-P-FD-0001 的冲突是**单向否证**关系，但按本库的对称记账规矩，两边都写了 contradicts：希尔伯特纲领一侧若只留一个「被否证」的标签而不留冲突边，图上就看不见这条边从纲领出发。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Godel, K. Monh. Akad. Berlin (1931)'
+    - 'Rosser, J. B., extending to plain consistency (1936)'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Godel, K. Monh. Akad. Berlin (1931)'
+    - type: book
+      value: 'Rosser, J. B., extending to plain consistency (1936)'
+  contributors:
+    - "qoder-session-2026-10-11"
+

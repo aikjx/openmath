@@ -1,0 +1,71 @@
+schema_version: "0.1"
+
+id: OM-T-CT-0001
+kind: theorem
+title_zh: '米田引理'
+title_en: 'Yoneda lemma'
+domain: CT
+msc:
+  - '18A25'
+  - '18G15'
+tags:
+  - '范畴'
+  - '表示'
+  - '米田'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\mathrm{Nat}\bigl(\mathrm{Hom}(A,-),\ F\bigr)\ \cong\ F(A)'
+hypotheses:
+  - 'C 为本地小范畴'
+  - 'F:C→Set 为协变函子'
+  - '自然同构对 A 与 F 都自然'
+proposed_by: 'Nobuo Yoneda'
+proposed_year: 1954
+
+assumptions:
+  - 'Hom(A,-) 是按第二个变量的协变表示函子'
+symbols:
+  - name: 'Nat'
+    meaning_zh: '函子之间的自然变换集'
+    type: other
+  - name: 'Hom'
+    meaning_zh: '表示函子 Hom(A,-)'
+    type: other
+  - name: 'F'
+    meaning_zh: '任一 Set-值协变函子'
+    type: other
+  - name: 'A'
+    meaning_zh: 'C 的对象'
+    type: other
+
+related:
+  - 'OM-D-CT-0001'
+uses:
+  - 'OM-D-CT-0001'
+implications: []
+contradicts: []
+caveat: '与 OM-D-CT-0001 同时写 related 与 uses：uses 是因为证明只用函子与自然变换的定义，related 是因为这条边的存在性本身要在图里可见（02 图上两类箭头不同型）。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Yoneda, N., Kokyuroku Matematikuni Gakushuin Daigaku (1954)'
+    - 'Mac Lane, S., Categories for the Working Mathematician, 2nd ed. (1998), §II.4'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Yoneda, N., Kokyuroku Matematikuni Gakushuin Daigaku (1954)'
+    - type: book
+      value: 'Mac Lane, S., Categories for the Working Mathematician, 2nd ed. (1998), §II.4'
+  contributors:
+    - "qoder-session-2026-10-11"
+

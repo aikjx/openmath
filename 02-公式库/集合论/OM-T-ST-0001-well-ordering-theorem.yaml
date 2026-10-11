@@ -1,0 +1,65 @@
+schema_version: "0.1"
+
+id: OM-T-ST-0001
+kind: theorem
+title_zh: '良序定理'
+title_en: 'Well-ordering theorem'
+domain: ST
+msc:
+  - '03E35'
+  - '03E10'
+tags:
+  - '良序'
+  - '极大元'
+  - '等价于选择公理'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\forall X\ \exists \varrho\ \bigl(\varrho \text{ 良序 } X\bigr)'
+hypotheses:
+  - '接受选择公理（OM-D-ST-0001）'
+  - 'ZF 其余公理'
+proposed_by: 'Ernst Zermelo'
+proposed_year: 1904
+
+assumptions:
+  - '良序 = 全序且每个非空子集有最小元'
+symbols:
+  - name: 'X'
+    meaning_zh: '任意集合'
+    type: other
+  - name: '\varrho'
+    meaning_zh: 'X 上的二元关系'
+    type: other
+
+related:
+  - 'OM-D-ST-0001'
+uses:
+  - 'OM-D-ST-0001'
+implications:
+  - 'OM-D-ST-0001'
+contradicts: []
+caveat: '实数无法被显式良序这一「反直觉」是**构造缺失**而非存在缺失：在 ZFC 内良序存在，但在无 AC 的模型里可以不存在。这句话别读成「良序定理被否证」。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Zermelo, E., Math. Annalen 65 (1904)'
+    - 'Hartogs lemma as the modern substitute for the disputed step'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Zermelo, E., Math. Annalen 65 (1904)'
+    - type: book
+      value: 'Hartogs lemma as the modern substitute for the disputed step'
+  contributors:
+    - "qoder-session-2026-10-11"
+

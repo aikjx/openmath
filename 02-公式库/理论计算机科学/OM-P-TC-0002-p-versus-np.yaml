@@ -1,0 +1,72 @@
+schema_version: "0.1"
+
+id: OM-P-TC-0002
+kind: problem
+title_zh: 'P 与 NP 是否相等'
+title_en: 'The P versus NP problem'
+domain: TC
+msc:
+  - '68Q15'
+  - '68-02'
+tags:
+  - '未决'
+  - '千禧年问题'
+  - '三大障碍'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\mathbf{P} \overset{?}{=} \mathbf{NP}'
+hypotheses:
+  - '确定性/非确定性图灵机的标准时间类定义'
+  - '归约取多项式时间'
+current_status: OPEN
+proposed_by: 'Stephen Cook'
+proposed_year: 1971
+
+assumptions:
+  - '问题在 ZFC（或某个公认的弱算术系统）内可表达'
+symbols:
+  - name: 'P'
+    meaning_zh: '确定性多项式时间类'
+    type: other
+  - name: 'NP'
+    meaning_zh: '非确定性多项式时间类'
+    type: other
+
+related:
+  - 'OM-D-TC-0001'
+  - 'OM-T-TC-0002'
+uses:
+  - 'OM-D-TC-0001'
+implications: []
+contradicts: []
+caveat: 'fact_check 的判定：本卡所有引用都是 1975-2009 的已刊文献，无 2020 年后的未评审来源；因此不触发「近期声明」条款，但也不构成 L2 以上证据。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Cook, S. A., The P versus NP problem (2000, Clay)'
+    - 'Baker, Gill & Solovay, Relativizations of the P=NP question (1975)'
+    - 'Razborov & Rudich, Natural proof systems (1997)'
+    - 'Aaronson & Wigderson, Algebrization (2009)'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Cook, S. A., The P versus NP problem (2000, Clay)'
+    - type: book
+      value: 'Baker, Gill & Solovay, Relativizations of the P=NP question (1975)'
+    - type: book
+      value: 'Razborov & Rudich, Natural proof systems (1997)'
+    - type: book
+      value: 'Aaronson & Wigderson, Algebrization (2009)'
+  contributors:
+    - "qoder-session-2026-10-11"
+

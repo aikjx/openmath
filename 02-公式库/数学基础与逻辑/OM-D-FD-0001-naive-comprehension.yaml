@@ -1,0 +1,60 @@
+schema_version: "0.1"
+
+id: OM-D-FD-0001
+kind: definition
+title_zh: '朴素概括原则'
+title_en: 'Naive comprehension principle'
+domain: FD
+msc:
+  - '03A10'
+tags:
+  - '集合论'
+  - '公理'
+  - '悖论的落点'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\forall x\,\bigl(x \in \{y : \varphi(y)\} \leftrightarrow \varphi(x)\bigr)'
+hypotheses:
+  - 'φ 是任意带一个自由变量的性质（不受任何层或分离条件约束）'
+
+assumptions:
+  - '语言为一阶逻辑加属于关系 ∈'
+  - '未对可形成的集合作任何限制'
+symbols:
+  - name: 'x'
+    meaning_zh: '任意的对象（讨论域中的元素）'
+    type: other
+  - name: 'y'
+    meaning_zh: '被收集的对象'
+    type: other
+  - name: 'varphi'
+    meaning_zh: '一元性质（公式）'
+    type: other
+
+related: []
+uses: []
+implications: []
+contradicts:
+  - 'OM-X-FD-0001'
+caveat: '登记状态 PROPOSED 说的是**本库这条记录**没有本地复算与形式化绑定，不是说这条原则仍然可用——它在文献中已被反例否证（见 OM-X-FD-0001）。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Frege, Grundgesetze der Arithmetik §V (1893)'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Frege, Grundgesetze der Arithmetik §V (1893)'
+  contributors:
+    - "qoder-session-2026-10-11"
+

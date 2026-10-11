@@ -1,0 +1,67 @@
+schema_version: "0.1"
+
+id: OM-T-GR-0002
+kind: theorem
+title_zh: '不可约字符的正交关系'
+title_en: 'Orthogonality of irreducible characters'
+domain: GR
+msc:
+  - '20C15'
+tags:
+  - '表示论'
+  - '字符'
+  - '正交性'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\frac{1}{|G|}\sum_{g\in G}\chi_i(g)\,\overline{\chi_j(g)}\ =\ \delta_{ij}'
+hypotheses:
+  - 'G 为有限群'
+  - '表示定义在复数域上（特征 0，Maschke 保证完全可约）'
+  - 'chi_i、chi_j 取遍不可约字符'
+proposed_by: 'Ferdinand Georg Frobenius'
+proposed_year: 1879
+
+assumptions:
+  - '类函数上取平均内积 (f,h)=(1/|G|) sum f(g) overline{h(g)}'
+symbols:
+  - name: 'chi_i'
+    meaning_zh: '第 i 个不可约字符'
+    type: other
+  - name: 'delta'
+    meaning_zh: 'Kronecker 记号'
+    type: other
+  - name: '|G|'
+    meaning_zh: '群的阶，即平均的分母'
+    type: other
+
+related:
+  - 'OM-T-GR-0001'
+uses:
+  - 'OM-D-AL-0001'
+implications: []
+contradicts: []
+caveat: '与 OM-T-GR-0001 记 related：两者都是有限群结构的基本读数，一个数子群一个数表示；本库没有把它们之间的联系写成任何一条蕴含边。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Serre, J.-P., Linear Representations of Finite Groups (1977), §2.3'
+    - 'Fulton and Harris, Representation Theory: A First Course (1991), §1.2'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Serre, J.-P., Linear Representations of Finite Groups (1977), §2.3'
+    - type: book
+      value: 'Fulton and Harris, Representation Theory: A First Course (1991), §1.2'
+  contributors:
+    - "qoder-session-2026-10-11"
+

@@ -1,0 +1,70 @@
+schema_version: "0.1"
+
+id: OM-P-FD-0001
+kind: problem
+title_zh: '希尔伯特纲领（有穷一致性证明）'
+title_en: 'Hilbert programme: finitary consistency proof'
+domain: FD
+msc:
+  - '03A05'
+  - '03B25'
+tags:
+  - '纲领'
+  - '有穷数学'
+  - '被否证的主张'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\text{用有穷数学 } \mathrm{F} \text{ 证明形式系统 } T \text{ 的一致性： } \mathrm{F} \vdash \mathrm{Con}(T)'
+hypotheses:
+  - '存在被广泛接受的有穷数学 F，且其推理可形式化进 T'
+  - 'T 刻画分析学所需的数学'
+current_status: REFUTED
+proposed_by: 'David Hilbert'
+proposed_year: 1921
+
+assumptions:
+  - '有穷手段的可接受性不依赖被证系统的一致性'
+symbols:
+  - name: '\mathrm{F}'
+    meaning_zh: '有穷数学（finiter Mathematik）'
+    type: other
+  - name: 'T'
+    meaning_zh: '目标形式系统'
+    type: other
+  - name: 'Con'
+    meaning_zh: '一致性陈述'
+    type: other
+
+related:
+  - 'OM-P-TC-0001'
+uses:
+  - 'OM-T-FD-0002'
+implications: []
+contradicts:
+  - 'OM-T-FD-0001'
+  - 'OM-T-FD-0002'
+caveat: '与判定问题（OM-P-TC-0001）的关系登记为 related 而非 contradicts：两者共享「有效方法可决定一切」这一预设，但否证它们的不是同一条定理。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Hilbert, D., Math. Annalen 88 (1922)'
+    - 'Hilbert & Ackermann, Grundzuge der theoretischen Logik (1928)'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Hilbert, D., Math. Annalen 88 (1922)'
+    - type: book
+      value: 'Hilbert & Ackermann, Grundzuge der theoretischen Logik (1928)'
+  contributors:
+    - "qoder-session-2026-10-11"
+

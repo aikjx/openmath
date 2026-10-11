@@ -1,0 +1,65 @@
+schema_version: "0.1"
+
+id: OM-X-FD-0001
+kind: counterexample
+title_zh: '罗素悖论（朴素概括原则的反例）'
+title_en: 'Russell paradox, counterexample to naive comprehension'
+domain: FD
+msc:
+  - '03A10'
+  - '03-03'
+tags:
+  - '悖论'
+  - '反例'
+  - '类型限制'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\mathcal{R} = \{x : x \notin x\},\qquad \mathcal{R} \in \mathcal{R} \leftrightarrow \mathcal{R} \notin \mathcal{R}'
+hypotheses:
+  - '接受朴素概括原则（OM-D-FD-0001）'
+  - '接受经典二值逻辑与排中律'
+proposed_by: 'Bertrand Russell'
+proposed_year: 1901
+
+assumptions:
+  - '∈ 对任意两个对象都有定义（不作为部分关系）'
+symbols:
+  - name: '\mathcal{R}'
+    meaning_zh: '所有不自属的集合构成的类'
+    type: other
+  - name: 'x'
+    meaning_zh: '讨论域中的对象'
+    type: other
+
+related:
+  - 'OM-D-FD-0001'
+uses:
+  - 'OM-D-FD-0001'
+implications: []
+contradicts:
+  - 'OM-D-FD-0001'
+caveat: '反例条目在本库是**终态记录**：它否证的对象仍留在图上（OM-D-FD-0001），因为「被否证的公理」是一个可指认的历史节点，删掉它会让冲突边无处落脚。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Russel 1902 年 6 月 16 日致 Frege 的信'
+    - 'Russell, The Principles of Mathematics, Appendix B (1903)'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Russel 1902 年 6 月 16 日致 Frege 的信'
+    - type: book
+      value: 'Russell, The Principles of Mathematics, Appendix B (1903)'
+  contributors:
+    - "qoder-session-2026-10-11"
+

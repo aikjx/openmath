@@ -1,0 +1,68 @@
+schema_version: "0.1"
+
+id: OM-D-TC-0001
+kind: definition
+title_zh: 'NP 完全性（多项式时间归约下的完全类）'
+title_en: 'NP-completeness under polynomial-time many-one reductions'
+domain: TC
+msc:
+  - '68Q15'
+  - '68Q17'
+tags:
+  - '复杂度'
+  - '归约'
+  - '完全类'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: 'L \in \mathbf{NP}\text{-complete} \iff L \in \mathbf{NP} \wedge \forall A \in \mathbf{NP}\ (A \leq_p L)'
+hypotheses:
+  - '归约取多项式时间多一归约 ≤p'
+  - '机为确定性/非确定性图灵机的标准定义'
+proposed_by: 'Stephen Cook'
+proposed_year: 1971
+
+assumptions:
+  - '时间界以输入长度多项式度量'
+  - '编码约定不改变类（合理编码不变性）'
+symbols:
+  - name: 'L'
+    meaning_zh: '候选语言'
+    type: other
+  - name: 'A'
+    meaning_zh: 'NP 中任一语言'
+    type: other
+  - name: 'leq_p'
+    meaning_zh: '多项式时间多一归约'
+    type: other
+
+related:
+  - 'OM-T-TC-0002'
+uses:
+  - 'OM-T-TC-0002'
+implications: []
+contradicts: []
+caveat: '本卡与 OM-P-TC-0002（P vs NP）互相登记 related：定义里没有难度断言，难度断言全在那条未决问题里。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Karp, R. M., Com. Math. Phys. 6 (1972)'
+    - 'Garey & Johnson, Computers and Intractability (1979)'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Karp, R. M., Com. Math. Phys. 6 (1972)'
+    - type: book
+      value: 'Garey & Johnson, Computers and Intractability (1979)'
+  contributors:
+    - "qoder-session-2026-10-11"
+

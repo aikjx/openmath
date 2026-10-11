@@ -1,0 +1,68 @@
+schema_version: "0.1"
+
+id: OM-D-AL-0001
+kind: definition
+title_zh: '同态、核、像与商'
+title_en: 'Homomorphism, kernel, image and quotient'
+domain: AL
+msc:
+  - '08A30'
+  - '20E15'
+tags:
+  - '同态'
+  - '核'
+  - '商结构'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\varphi:G\to H,\quad \ker\varphi=\{g\in G:\varphi(g)=e_H\}\trianglelefteq G,\quad \mathrm{im}\,\varphi=\varphi(G)\le H'
+
+assumptions:
+  - '乘法记法的群；核必须是正规子群，否则商集上没有良好定义的运算'
+  - '环的情形核换成双边理想，本卡只登记群的语言'
+symbols:
+  - name: 'varphi'
+    meaning_zh: '群同态'
+    type: other
+  - name: 'ker'
+    meaning_zh: '核'
+    type: other
+  - name: 'im'
+    meaning_zh: '像'
+    type: other
+  - name: 'trianglelefteq'
+    meaning_zh: '正规子群记号'
+    type: other
+  - name: 'cong'
+    meaning_zh: '同构记号（两个结构之间存在同构）'
+    type: other
+
+related:
+  - 'OM-D-CT-0001'
+uses: []
+implications: []
+contradicts: []
+caveat: '与 OM-D-CT-0001 记 related：同态在范畴观点下就是态射，核与商在加法范畴里有泛性质版本；本库没有把那条抽象路线记成独立条目，所以这里只连一条相关边。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Lang, S., Algebra, revised ed. (1965), I.3'
+    - 'Hungerford, T. W., Algebra (1974), I.5'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Lang, S., Algebra, revised ed. (1965), I.3'
+    - type: book
+      value: 'Hungerford, T. W., Algebra (1974), I.5'
+  contributors:
+    - "qoder-session-2026-10-11"
+

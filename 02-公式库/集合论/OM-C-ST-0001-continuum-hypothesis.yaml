@@ -1,0 +1,71 @@
+schema_version: "0.1"
+
+id: OM-C-ST-0001
+kind: conjecture
+title_zh: '连续统假设 CH'
+title_en: 'Continuum hypothesis'
+domain: ST
+msc:
+  - '03E15'
+  - '03E35'
+tags:
+  - '基数'
+  - '独立'
+  - 'ZFC'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\neg \exists A\ \bigl(|\mathbb{N}| < |A| < |\mathbb{R}|\bigr)\quad\text{即 } 2^{\aleph_0} = \aleph_1'
+hypotheses:
+  - '基数比较由单射定义（无需选择公理即可谈 ≤）'
+  - '在 ZFC 中讨论（选择公理在册，见 OM-D-ST-0001）'
+current_status: UNDECIDABLE
+independent_of: 'ZFC'
+proposed_by: 'Cantor, G.'
+proposed_year: 1884
+
+assumptions:
+  - 'ZFC 一致'
+  - 'ℵ 序列由序数基数化给出'
+symbols:
+  - name: 'A'
+    meaning_zh: '候选的中间基数对应的集合'
+    type: other
+  - name: 'aleph_0'
+    meaning_zh: '可数无穷基数'
+    type: other
+  - name: 'aleph_1'
+    meaning_zh: '最小不可数基数'
+    type: other
+
+related:
+  - 'OM-D-ST-0001'
+uses:
+  - 'OM-D-ST-0001'
+implications: []
+contradicts:
+  - 'OM-C-ST-0002'
+caveat: '新纲领（Woodin 的 Pmax、Sealing 等）主张在附加公理下 CH 有确定答案：本卡不采入，理由是那些附加公理的可接受性尚在争论，把它写进来会伪装成共识。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Godel, K., Ann. of Math. 38 (1937/38)'
+    - 'Cohen, P. J., Ann. of Math. 84 (1966)'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Godel, K., Ann. of Math. 38 (1937/38)'
+    - type: book
+      value: 'Cohen, P. J., Ann. of Math. 84 (1966)'
+  contributors:
+    - "qoder-session-2026-10-11"
+

@@ -1,0 +1,67 @@
+schema_version: "0.1"
+
+id: OM-C-ST-0002
+kind: conjecture
+title_zh: '否定连续统假设 ¬CH'
+title_en: 'Negation of the continuum hypothesis'
+domain: ST
+msc:
+  - '03E15'
+tags:
+  - '基数'
+  - '独立'
+  - 'forcing'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\exists A\ \bigl(|\mathbb{N}| < |A| < |\mathbb{R}|\bigr)\quad\text{即 } 2^{\aleph_0} > \aleph_1'
+hypotheses:
+  - '在 ZFC 中讨论'
+  - '基数比较由单射定义'
+current_status: UNDECIDABLE
+independent_of: 'ZFC'
+proposed_by: 'Paul Cohen'
+proposed_year: 1963
+
+assumptions:
+  - 'ZFC 一致'
+  - 'forcing 的合并-稠密集论证可用'
+symbols:
+  - name: 'A'
+    meaning_zh: '中间基数对应的集合'
+    type: other
+  - name: 'aleph_1'
+    meaning_zh: '最小不可数基数'
+    type: other
+
+related:
+  - 'OM-C-ST-0001'
+uses:
+  - 'OM-D-ST-0001'
+implications: []
+contradicts:
+  - 'OM-C-ST-0001'
+caveat: 'Easton 定理说明正则基数上 2^kappa 的行为远比 CH 丰富，本卡不引它作为「¬CH 更自然」的论据——那是价值判断。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Cohen, P. J., Ann. of Math. 84 (1966)'
+    - 'Jech, Set Theory, ch. 14 (forcing, Easton support)'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Cohen, P. J., Ann. of Math. 84 (1966)'
+    - type: book
+      value: 'Jech, Set Theory, ch. 14 (forcing, Easton support)'
+  contributors:
+    - "qoder-session-2026-10-11"
+

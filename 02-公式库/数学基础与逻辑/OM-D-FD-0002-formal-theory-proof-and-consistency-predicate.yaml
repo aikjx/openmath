@@ -1,0 +1,71 @@
+schema_version: "0.1"
+
+id: OM-D-FD-0002
+kind: definition
+title_zh: '形式语言、证明关系与一致性陈述'
+title_en: 'Formal language, proof relation and consistency statement'
+domain: FD
+msc:
+  - '03B25'
+  - '03F05'
+tags:
+  - '算术化'
+  - '证明谓词'
+  - '一致性陈述'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\mathrm{Proof}_T(p,\ \ulcorner\varphi\urcorner)\ \Longleftrightarrow\ p\ \text{是}\ T\ \text{中}\ \varphi\ \text{的一个证明编码}'
+
+assumptions:
+  - '语言与符号表可有效枚举，故句子可配 Gödel 码 ulcorner-varphi'
+  - 'Proof_T 取原始递归（甚至 Δ0）的证明谓词，T 的公理集可判定或递归可枚举'
+symbols:
+  - name: 'T'
+    meaning_zh: '递归可公理化的形式理论'
+    type: other
+  - name: 'p'
+    meaning_zh: '证明的编码（哥德尔数）'
+    type: other
+  - name: 'Proof_T'
+    meaning_zh: 'T 的证明关系，写成算术语言里的谓词'
+    type: other
+  - name: 'varphi'
+    meaning_zh: '语言中的句子'
+    type: other
+  - name: 'ulcorner'
+    meaning_zh: '配码符 ulcorner-.-ulcorner'
+    type: other
+  - name: 'Con'
+    meaning_zh: '一致性陈述，写作 not exists p Proof_T(p, ulcorner-0=1-ulcorner)'
+    type: other
+
+related:
+  - 'OM-D-FD-0001'
+uses: []
+implications: []
+contradicts: []
+caveat: '本条为第 1 批的 OM-T-FD-0001、OM-T-FD-0002 与 OM-P-FD-0001 补记号定义：三条记录都用了 T、Con、Proof_T，而本库把「记号无定义」记进 UNDEFINED_SYMBOL 台账。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Hilbert and Bernays, Grundlagen der Mathematik, Bd. II (1934)'
+    - 'Takeuti, M., Proof Theory (2013), §I.3'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Hilbert and Bernays, Grundlagen der Mathematik, Bd. II (1934)'
+    - type: book
+      value: 'Takeuti, M., Proof Theory (2013), §I.3'
+  contributors:
+    - "qoder-session-2026-10-11"
+

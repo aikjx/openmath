@@ -1,0 +1,73 @@
+schema_version: "0.1"
+
+id: OM-T-GR-0001
+kind: theorem
+title_zh: '西罗定理'
+title_en: 'Sylow theorems'
+domain: GR
+msc:
+  - '20D20'
+tags:
+  - '有限群'
+  - 'p-子群'
+  - '共轭'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '|G|=p^{a}m,\ p\nmid m\ \Longrightarrow\ \exists P\le G,\ |P|=p^{a},\quad n_p\equiv 1\ (p),\ n_p\mid m'
+hypotheses:
+  - 'G 为有限群'
+  - 'p 为素数'
+  - 'n_p 为 p-Sylow 子群的个数'
+proposed_by: 'Peter Sylow'
+proposed_year: 1872
+
+assumptions:
+  - '拉格朗日定理可用（子群阶整除群阶）'
+symbols:
+  - name: 'p'
+    meaning_zh: '素数'
+    type: other
+  - name: 'a'
+    meaning_zh: 'p 在 |G| 中的重数'
+    type: other
+  - name: 'm'
+    meaning_zh: '与 p 互素的余因子'
+    type: other
+  - name: 'P'
+    meaning_zh: 'p-Sylow 子群'
+    type: other
+  - name: 'n_p'
+    meaning_zh: 'p-Sylow 子群个数'
+    type: other
+
+related:
+  - 'OM-T-NT-0001'
+uses:
+  - 'OM-D-GR-0001'
+implications: []
+contradicts: []
+caveat: 'uses 指向 OM-D-GR-0001（在陪集集合上作用、数 2-轨道），related 指向第 1 批之外的既有记录 OM-T-NT-0001——引用闭包由铸造器现扫盘上 ID 核对。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Sylow, P., Théorèmes sur les groupes de substitutions (1872)'
+    - 'Isaacs, I. M., Finite Group Theory (1990), §2.1'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Sylow, P., Théorèmes sur les groupes de substitutions (1872)'
+    - type: book
+      value: 'Isaacs, I. M., Finite Group Theory (1990), §2.1'
+  contributors:
+    - "qoder-session-2026-10-11"
+

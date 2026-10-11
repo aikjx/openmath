@@ -1,6 +1,6 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-10-11T01:06:08Z",
+  "generated": "2026-10-11T03:39:38Z",
   "root": "openmath",
   "nodes": [
     {
@@ -45,6 +45,253 @@
     },
     {
       "node_type": "record",
+      "id": "OM-C-ST-0001",
+      "kind": "conjecture",
+      "domain": "ST",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "连续统假设 CH",
+      "path": "02-公式库/集合论/OM-C-ST-0001-continuum-hypothesis.yaml",
+      "tags": [
+        "基数",
+        "独立",
+        "ZFC"
+      ],
+      "symbols": [
+        "A",
+        "aleph_0",
+        "aleph_1"
+      ],
+      "script": null,
+      "latex": "\\neg \\exists A\\ \\bigl(|\\mathbb{N}| < |A| < |\\mathbb{R}|\\bigr)\\quad\\text{即 } 2^{\\aleph_0} = \\aleph_1",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-C-ST-0002",
+      "kind": "conjecture",
+      "domain": "ST",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "否定连续统假设 ¬CH",
+      "path": "02-公式库/集合论/OM-C-ST-0002-negated-continuum-hypothesis.yaml",
+      "tags": [
+        "基数",
+        "独立",
+        "forcing"
+      ],
+      "symbols": [
+        "A",
+        "aleph_1"
+      ],
+      "script": null,
+      "latex": "\\exists A\\ \\bigl(|\\mathbb{N}| < |A| < |\\mathbb{R}|\\bigr)\\quad\\text{即 } 2^{\\aleph_0} > \\aleph_1",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-AL-0001",
+      "kind": "definition",
+      "domain": "AL",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "同态、核、像与商",
+      "path": "02-公式库/代数/OM-D-AL-0001-homomorphism-kernel-image-quotient.yaml",
+      "tags": [
+        "同态",
+        "核",
+        "商结构"
+      ],
+      "symbols": [
+        "varphi",
+        "ker",
+        "im",
+        "trianglelefteq",
+        "cong"
+      ],
+      "script": null,
+      "latex": "\\varphi:G\\to H,\\quad \\ker\\varphi=\\{g\\in G:\\varphi(g)=e_H\\}\\trianglelefteq G,\\quad \\mathrm{im}\\,\\varphi=\\varphi(G)\\le H",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-CT-0001",
+      "kind": "definition",
+      "domain": "CT",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "范畴、函子与自然变换",
+      "path": "02-公式库/范畴论/OM-D-CT-0001-category-functor-natural-transformation.yaml",
+      "tags": [
+        "范畴",
+        "函子",
+        "自然变换",
+        "泛性质"
+      ],
+      "symbols": [
+        "Ob",
+        "Hom",
+        "circ",
+        "id",
+        "F",
+        "Nat"
+      ],
+      "script": null,
+      "latex": "\\mathcal{C}=\\bigl(\\mathrm{Ob}(\\mathcal{C}),\\ \\mathrm{Hom}(A,B),\\ \\circ,\\ \\mathrm{id}\\bigr)",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-CT-0002",
+      "kind": "definition",
+      "domain": "CT",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "笛卡尔闭范畴与指数对象",
+      "path": "02-公式库/范畴论/OM-D-CT-0002-cartesian-closed-category-exponential.yaml",
+      "tags": [
+        "笛卡尔闭",
+        "指数对象",
+        "currying"
+      ],
+      "symbols": [
+        "B^A",
+        "gamma",
+        "f",
+        "a",
+        "ev",
+        "1"
+      ],
+      "script": null,
+      "latex": "\\mathrm{Hom}(X\\times A,\\ B)\\ \\cong\\ \\mathrm{Hom}(X,\\ B^{A})",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-FD-0001",
+      "kind": "definition",
+      "domain": "FD",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "朴素概括原则",
+      "path": "02-公式库/数学基础与逻辑/OM-D-FD-0001-naive-comprehension.yaml",
+      "tags": [
+        "集合论",
+        "公理",
+        "悖论的落点"
+      ],
+      "symbols": [
+        "x",
+        "y",
+        "varphi"
+      ],
+      "script": null,
+      "latex": "\\forall x\\,\\bigl(x \\in \\{y : \\varphi(y)\\} \\leftrightarrow \\varphi(x)\\bigr)",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-FD-0002",
+      "kind": "definition",
+      "domain": "FD",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "形式语言、证明关系与一致性陈述",
+      "path": "02-公式库/数学基础与逻辑/OM-D-FD-0002-formal-theory-proof-and-consistency-predicate.yaml",
+      "tags": [
+        "算术化",
+        "证明谓词",
+        "一致性陈述"
+      ],
+      "symbols": [
+        "T",
+        "p",
+        "Proof_T",
+        "varphi",
+        "ulcorner",
+        "Con"
+      ],
+      "script": null,
+      "latex": "\\mathrm{Proof}_T(p,\\ \\ulcorner\\varphi\\urcorner)\\ \\Longleftrightarrow\\ p\\ \\text{是}\\ T\\ \\text{中}\\ \\varphi\\ \\text{的一个证明编码}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-GR-0001",
+      "kind": "definition",
+      "domain": "GR",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "群作用、轨道与稳定子",
+      "path": "02-公式库/群论与表示论/OM-D-GR-0001-group-action-orbit-stabilizer.yaml",
+      "tags": [
+        "群作用",
+        "轨道",
+        "稳定子"
+      ],
+      "symbols": [
+        "G",
+        "X",
+        "Orb",
+        "Stab"
+      ],
+      "script": null,
+      "latex": "G\\times X\\to X,\\quad \\mathrm{Orb}(x)\\ \\cong\\ G/\\mathrm{Stab}(x)",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-GR-0002",
+      "kind": "definition",
+      "domain": "GR",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "有限群的阶与 p-子群计数",
+      "path": "02-公式库/群论与表示论/OM-D-GR-0002-order-of-a-finite-group-and-p-subgroup-counting.yaml",
+      "tags": [
+        "群的阶",
+        "p-部分",
+        "计数"
+      ],
+      "symbols": [
+        "|G|",
+        "p",
+        "a",
+        "m",
+        "n_p",
+        "P"
+      ],
+      "script": null,
+      "latex": "|G|=p^{a}m,\\ p\\nmid m,\\qquad n_p=\\lvert\\{P\\le G:\\lvert P\\rvert=p^{a}\\}\\rvert",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-GR-0003",
+      "kind": "definition",
+      "domain": "GR",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "复表示与字符",
+      "path": "02-公式库/群论与表示论/OM-D-GR-0003-complex-representation-and-character.yaml",
+      "tags": [
+        "表示",
+        "字符",
+        "类函数"
+      ],
+      "symbols": [
+        "chi_i",
+        "rho",
+        "GL(V)",
+        "tr",
+        "delta"
+      ],
+      "script": null,
+      "latex": "\\rho:G\\to \\mathrm{GL}(V),\\qquad \\chi_\\rho(g)=\\mathrm{tr}\\,\\rho(g)",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
       "id": "OM-D-NT-0001",
       "kind": "definition",
       "domain": "NT",
@@ -66,6 +313,100 @@
       ],
       "script": "05-验证中心/01-引擎/pwcv_theorems.py",
       "latex": "delta_d(N) = floor(N/d) - floor((N-1)/d) = 1_{d|N}; I_P(N) = 0 (N<2), else prod_{d=2}^{floor(sqrt(N))} (1 - delta_d(N)); Theta(z) = ceil(z/(|z|+1)) = 1_{z>0} (z integer)",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-ST-0001",
+      "kind": "definition",
+      "domain": "ST",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "选择公理",
+      "path": "02-公式库/集合论/OM-D-ST-0001-axiom-of-choice.yaml",
+      "tags": [
+        "公理",
+        "选择函数",
+        "等价形态"
+      ],
+      "symbols": [
+        "A",
+        "f"
+      ],
+      "script": null,
+      "latex": "\\forall \\mathcal{A}\\ \\bigl(\\emptyset \\notin \\mathcal{A}\\ \\rightarrow\\ \\exists f\\ \\forall A \\in \\mathcal{A}\\ f(A) \\in A\\bigr)",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-ST-0002",
+      "kind": "definition",
+      "domain": "ST",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "可数性与两个 aleph 基数",
+      "path": "02-公式库/集合论/OM-D-ST-0002-countability-and-the-alephs.yaml",
+      "tags": [
+        "基数",
+        "可数",
+        "aleph"
+      ],
+      "symbols": [
+        "aleph_0",
+        "aleph_1",
+        "mathbb{R}",
+        "kappa"
+      ],
+      "script": null,
+      "latex": "\\aleph_0=\\lvert\\mathbb{N}\\rvert,\\quad \\aleph_1=\\min\\{\\kappa:\\kappa\\ \\text{是不可数基数}\\},\\quad \\lvert\\mathbb{R}\\rvert=2^{\\aleph_0}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-TC-0001",
+      "kind": "definition",
+      "domain": "TC",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "NP 完全性（多项式时间归约下的完全类）",
+      "path": "02-公式库/理论计算机科学/OM-D-TC-0001-np-completeness.yaml",
+      "tags": [
+        "复杂度",
+        "归约",
+        "完全类"
+      ],
+      "symbols": [
+        "L",
+        "A",
+        "leq_p"
+      ],
+      "script": null,
+      "latex": "L \\in \\mathbf{NP}\\text{-complete} \\iff L \\in \\mathbf{NP} \\wedge \\forall A \\in \\mathbf{NP}\\ (A \\leq_p L)",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-TC-0002",
+      "kind": "definition",
+      "domain": "TC",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "复杂性类 P、NP 与 SAT",
+      "path": "02-公式库/理论计算机科学/OM-D-TC-0002-complexity-classes-p-np-sat.yaml",
+      "tags": [
+        "P",
+        "NP",
+        "NP 完全",
+        "布尔可满足"
+      ],
+      "symbols": [
+        "P",
+        "NP",
+        "SAT",
+        "subseteq"
+      ],
+      "script": null,
+      "latex": "\\mathrm{P}\\ \\subseteq\\ \\mathrm{NP},\\qquad \\mathrm{SAT}\\in\\mathrm{NP},\\qquad \\mathrm{SAT}\\in\\mathrm{P}\\ \\Longrightarrow\\ \\mathrm{P}=\\mathrm{NP}",
       "machine_readable": true
     },
     {
@@ -220,6 +561,29 @@
       ],
       "script": "05-验证中心/01-引擎/landau_symbolic.py",
       "latex": "omega(p) = #{n mod p : p | n^2+1} = 1 (p=2), 2 (p = 1 mod 4), 0 (p = 3 mod 4); A_Y(N) := #{n <= N : gcd(n^2+1, P(Y)) = 1} = sum_{d | P(Y)} mu(d) * C_d(N); C_d(N) = #{n <= N : d | n^2+1} = omega(d) * floor(N/d) + r_d(N), 0 <= r_d(N) <= omega(d); A(N) := #{n <= N : n^2+1 prime} = A_Y(N) + E(N,Y), Y >= N+1, E(N,Y) = #{n <= N : n^2+1 prime and n^2+1 <= Y}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-P-FD-0001",
+      "kind": "problem",
+      "domain": "FD",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "希尔伯特纲领（有穷一致性证明）",
+      "path": "02-公式库/数学基础与逻辑/OM-P-FD-0001-hilbert-programme.yaml",
+      "tags": [
+        "纲领",
+        "有穷数学",
+        "被否证的主张"
+      ],
+      "symbols": [
+        "\\mathrm{F}",
+        "T",
+        "Con"
+      ],
+      "script": null,
+      "latex": "\\text{用有穷数学 } \\mathrm{F} \\text{ 证明形式系统 } T \\text{ 的一致性： } \\mathrm{F} \\vdash \\mathrm{Con}(T)",
       "machine_readable": true
     },
     {
@@ -632,6 +996,213 @@
     },
     {
       "node_type": "record",
+      "id": "OM-P-TC-0001",
+      "kind": "problem",
+      "domain": "TC",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "判定问题（Entscheidungsproblem）",
+      "path": "02-公式库/理论计算机科学/OM-P-TC-0001-entscheidungsproblem.yaml",
+      "tags": [
+        "一阶逻辑",
+        "有效方法",
+        "被否证的主张"
+      ],
+      "symbols": [
+        "L"
+      ],
+      "script": null,
+      "latex": "\\text{是否存在算法判定任意一阶逻辑句子的有效性（永真性）}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-P-TC-0002",
+      "kind": "problem",
+      "domain": "TC",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "P 与 NP 是否相等",
+      "path": "02-公式库/理论计算机科学/OM-P-TC-0002-p-versus-np.yaml",
+      "tags": [
+        "未决",
+        "千禧年问题",
+        "三大障碍"
+      ],
+      "symbols": [
+        "P",
+        "NP"
+      ],
+      "script": null,
+      "latex": "\\mathbf{P} \\overset{?}{=} \\mathbf{NP}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-T-AL-0001",
+      "kind": "theorem",
+      "domain": "AL",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "第一同构定理",
+      "path": "02-公式库/代数/OM-T-AL-0001-first-isomorphism-theorem.yaml",
+      "tags": [
+        "同构定理",
+        "商"
+      ],
+      "symbols": [
+        "G",
+        "ker",
+        "im",
+        "cong"
+      ],
+      "script": null,
+      "latex": "G/\\ker\\varphi\\ \\cong\\ \\mathrm{im}\\,\\varphi",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-T-CT-0001",
+      "kind": "theorem",
+      "domain": "CT",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "米田引理",
+      "path": "02-公式库/范畴论/OM-T-CT-0001-yoneda-lemma.yaml",
+      "tags": [
+        "范畴",
+        "表示",
+        "米田"
+      ],
+      "symbols": [
+        "Nat",
+        "Hom",
+        "F",
+        "A"
+      ],
+      "script": null,
+      "latex": "\\mathrm{Nat}\\bigl(\\mathrm{Hom}(A,-),\\ F\\bigr)\\ \\cong\\ F(A)",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-T-CT-0002",
+      "kind": "theorem",
+      "domain": "CT",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "Lawvere 对角不动点定理",
+      "path": "02-公式库/范畴论/OM-T-CT-0002-lawvere-diagonal-fixed-point.yaml",
+      "tags": [
+        "对角线",
+        "不动点",
+        "点满射",
+        "指数对象"
+      ],
+      "symbols": [
+        "gamma",
+        "B^A",
+        "f",
+        "a"
+      ],
+      "script": null,
+      "latex": "\\gamma:A\\twoheadrightarrow B^{A}\\ \\Longrightarrow\\ (\\forall f:A\\to A)\\ \\exists a:1\\to A,\\ f\\circ a=a",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-T-FD-0001",
+      "kind": "theorem",
+      "domain": "FD",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "哥德尔第一不完备定理",
+      "path": "02-公式库/数学基础与逻辑/OM-T-FD-0001-godel-first-incompleteness.yaml",
+      "tags": [
+        "不完备性",
+        "可表示性",
+        "对角线"
+      ],
+      "symbols": [
+        "T",
+        "G"
+      ],
+      "script": null,
+      "latex": "\\mathrm{Con}(T)\\ \\Rightarrow\\ \\exists G\\ \\bigl(T \\nvdash G\\ \\wedge\\ T \\nvdash \\neg G\\bigr)",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-T-FD-0002",
+      "kind": "theorem",
+      "domain": "FD",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "哥德尔第二不完备定理",
+      "path": "02-公式库/数学基础与逻辑/OM-T-FD-0002-godel-second-incompleteness.yaml",
+      "tags": [
+        "不完备性",
+        "一致性陈述",
+        "可证条件"
+      ],
+      "symbols": [
+        "T",
+        "Con"
+      ],
+      "script": null,
+      "latex": "\\mathrm{Con}(T)\\ \\Rightarrow\\ T \\nvdash \\mathrm{Con}(T)",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-T-GR-0001",
+      "kind": "theorem",
+      "domain": "GR",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "西罗定理",
+      "path": "02-公式库/群论与表示论/OM-T-GR-0001-sylow-theorems.yaml",
+      "tags": [
+        "有限群",
+        "p-子群",
+        "共轭"
+      ],
+      "symbols": [
+        "p",
+        "a",
+        "m",
+        "P",
+        "n_p"
+      ],
+      "script": null,
+      "latex": "|G|=p^{a}m,\\ p\\nmid m\\ \\Longrightarrow\\ \\exists P\\le G,\\ |P|=p^{a},\\quad n_p\\equiv 1\\ (p),\\ n_p\\mid m",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-T-GR-0002",
+      "kind": "theorem",
+      "domain": "GR",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "不可约字符的正交关系",
+      "path": "02-公式库/群论与表示论/OM-T-GR-0002-orthogonality-of-irreducible-characters.yaml",
+      "tags": [
+        "表示论",
+        "字符",
+        "正交性"
+      ],
+      "symbols": [
+        "chi_i",
+        "delta",
+        "|G|"
+      ],
+      "script": null,
+      "latex": "\\frac{1}{|G|}\\sum_{g\\in G}\\chi_i(g)\\,\\overline{\\chi_j(g)}\\ =\\ \\delta_{ij}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
       "id": "OM-T-NT-0001",
       "kind": "theorem",
       "domain": "NT",
@@ -806,6 +1377,93 @@
       ],
       "script": "05-验证中心/01-引擎/pwcv_theorems.py",
       "latex": "g_n = p_{n+1}-p_n  <=  j(p_n#), j(M) = min { L : 任意 L 个连续整数中至少一个与 M 互素 }",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-T-ST-0001",
+      "kind": "theorem",
+      "domain": "ST",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "良序定理",
+      "path": "02-公式库/集合论/OM-T-ST-0001-well-ordering-theorem.yaml",
+      "tags": [
+        "良序",
+        "极大元",
+        "等价于选择公理"
+      ],
+      "symbols": [
+        "X",
+        "\\varrho"
+      ],
+      "script": null,
+      "latex": "\\forall X\\ \\exists \\varrho\\ \\bigl(\\varrho \\text{ 良序 } X\\bigr)",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-T-TC-0001",
+      "kind": "theorem",
+      "domain": "TC",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "停机问题不可判定",
+      "path": "02-公式库/理论计算机科学/OM-T-TC-0001-halting-problem-undecidable.yaml",
+      "tags": [
+        "可计算性",
+        "对角线",
+        "不可判定"
+      ],
+      "symbols": [
+        "e",
+        "x"
+      ],
+      "script": null,
+      "latex": "\\nexists e\\ \\forall x\\ \\bigl(\\varphi_e(x) \\downarrow\\ 0 \\leftrightarrow \\neg \\varphi_x(x) \\downarrow\\ 0\\bigr)",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-T-TC-0002",
+      "kind": "theorem",
+      "domain": "TC",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "Cook-Levin 定理（SAT 是 NP 完全）",
+      "path": "02-公式库/理论计算机科学/OM-T-TC-0002-cook-levin-theorem.yaml",
+      "tags": [
+        "可满足性",
+        "归约",
+        "计算历史"
+      ],
+      "symbols": [
+        "SAT"
+      ],
+      "script": null,
+      "latex": "\\mathrm{SAT} \\in \\mathbf{NP}\\text{-complete}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-X-FD-0001",
+      "kind": "counterexample",
+      "domain": "FD",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "罗素悖论（朴素概括原则的反例）",
+      "path": "02-公式库/数学基础与逻辑/OM-X-FD-0001-russell-paradox.yaml",
+      "tags": [
+        "悖论",
+        "反例",
+        "类型限制"
+      ],
+      "symbols": [
+        "\\mathcal{R}",
+        "x"
+      ],
+      "script": null,
+      "latex": "\\mathcal{R} = \\{x : x \\notin x\\},\\qquad \\mathcal{R} \\in \\mathcal{R} \\leftrightarrow \\mathcal{R} \\notin \\mathcal{R}",
       "machine_readable": true
     }
   ],
@@ -1203,6 +1861,237 @@
       "resolvable": true
     },
     {
+      "src": "OM-C-ST-0001",
+      "dst": "OM-C-ST-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-C-ST-0001",
+      "dst": "OM-D-ST-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-C-ST-0001",
+      "dst": "OM-C-ST-0002",
+      "type": "contradicts",
+      "via": "contradicts",
+      "resolvable": true
+    },
+    {
+      "src": "OM-C-ST-0001",
+      "dst": "OM-D-ST-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-C-ST-0001",
+      "dst": "OM-D-ST-0001",
+      "type": "uses",
+      "via": "正文引用",
+      "resolvable": true
+    },
+    {
+      "src": "OM-C-ST-0002",
+      "dst": "OM-C-ST-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-C-ST-0002",
+      "dst": "OM-D-ST-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-C-ST-0002",
+      "dst": "OM-C-ST-0001",
+      "type": "contradicts",
+      "via": "contradicts",
+      "resolvable": true
+    },
+    {
+      "src": "OM-C-ST-0002",
+      "dst": "OM-C-ST-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-AL-0001",
+      "dst": "OM-D-CT-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-AL-0001",
+      "dst": "OM-D-CT-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-CT-0002",
+      "dst": "OM-D-CT-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-CT-0002",
+      "dst": "OM-T-CT-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-CT-0002",
+      "dst": "OM-D-CT-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-CT-0002",
+      "dst": "OM-T-CT-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-FD-0001",
+      "dst": "OM-X-FD-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-FD-0001",
+      "dst": "OM-X-FD-0001",
+      "type": "contradicts",
+      "via": "contradicts",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-FD-0002",
+      "dst": "OM-D-FD-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-FD-0002",
+      "dst": "OM-P-FD-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-FD-0002",
+      "dst": "OM-T-FD-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-FD-0002",
+      "dst": "OM-T-FD-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-FD-0002",
+      "dst": "OM-D-FD-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-GR-0001",
+      "dst": "OM-D-AL-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-GR-0002",
+      "dst": "OM-D-GR-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-GR-0002",
+      "dst": "OM-T-GR-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-GR-0002",
+      "dst": "OM-D-GR-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-GR-0002",
+      "dst": "OM-T-GR-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-GR-0003",
+      "dst": "OM-D-AL-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-GR-0003",
+      "dst": "OM-D-GR-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-GR-0003",
+      "dst": "OM-T-GR-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-GR-0003",
+      "dst": "OM-D-AL-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-GR-0003",
+      "dst": "OM-D-GR-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-GR-0003",
+      "dst": "OM-T-GR-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
       "src": "OM-D-NT-0001",
       "dst": "OM-F-NT-0001",
       "type": "cites",
@@ -1226,6 +2115,146 @@
     {
       "src": "OM-D-NT-0001",
       "dst": "OM-T-NT-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-ST-0001",
+      "dst": "OM-C-ST-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-ST-0001",
+      "dst": "OM-T-ST-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-ST-0001",
+      "dst": "OM-T-ST-0001",
+      "type": "implies",
+      "via": "implications",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-ST-0001",
+      "dst": "OM-T-ST-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-ST-0002",
+      "dst": "OM-C-ST-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-ST-0002",
+      "dst": "OM-C-ST-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-ST-0002",
+      "dst": "OM-D-ST-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-ST-0002",
+      "dst": "OM-T-ST-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-ST-0002",
+      "dst": "OM-C-ST-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-ST-0002",
+      "dst": "OM-C-ST-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-ST-0002",
+      "dst": "OM-T-ST-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TC-0001",
+      "dst": "OM-P-TC-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TC-0001",
+      "dst": "OM-T-TC-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TC-0001",
+      "dst": "OM-T-TC-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TC-0002",
+      "dst": "OM-D-TC-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TC-0002",
+      "dst": "OM-P-TC-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TC-0002",
+      "dst": "OM-T-TC-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TC-0002",
+      "dst": "OM-D-TC-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TC-0002",
+      "dst": "OM-P-TC-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TC-0002",
+      "dst": "OM-T-TC-0002",
       "type": "related",
       "via": "related",
       "resolvable": true
@@ -1427,6 +2456,48 @@
       "resolvable": true
     },
     {
+      "src": "OM-P-FD-0001",
+      "dst": "OM-P-TC-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-FD-0001",
+      "dst": "OM-T-FD-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-FD-0001",
+      "dst": "OM-T-FD-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-FD-0001",
+      "dst": "OM-T-FD-0001",
+      "type": "contradicts",
+      "via": "contradicts",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-FD-0001",
+      "dst": "OM-T-FD-0002",
+      "type": "contradicts",
+      "via": "contradicts",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-FD-0001",
+      "dst": "OM-P-TC-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
       "src": "OM-P-NT-0002",
       "dst": "OM-A-NT-0001",
       "type": "cites",
@@ -1550,6 +2621,258 @@
       "dst": "05-验证中心/03-结果/2026/09/OM-P-NT-0008-selberg-weight-support-20260926.md",
       "type": "evidenced_by",
       "via": "05-验证中心 结果档",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-TC-0001",
+      "dst": "OM-P-FD-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-TC-0001",
+      "dst": "OM-T-TC-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-TC-0001",
+      "dst": "OM-T-TC-0001",
+      "type": "contradicts",
+      "via": "contradicts",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-TC-0001",
+      "dst": "OM-P-FD-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-TC-0002",
+      "dst": "OM-D-TC-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-TC-0002",
+      "dst": "OM-T-TC-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-TC-0002",
+      "dst": "OM-D-TC-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-TC-0002",
+      "dst": "OM-T-TC-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-AL-0001",
+      "dst": "OM-D-AL-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-AL-0001",
+      "dst": "OM-T-CT-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-AL-0001",
+      "dst": "OM-T-CT-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-CT-0001",
+      "dst": "OM-D-CT-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-CT-0001",
+      "dst": "OM-D-CT-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-CT-0002",
+      "dst": "OM-D-CT-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-CT-0002",
+      "dst": "OM-T-CT-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-CT-0002",
+      "dst": "OM-T-FD-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-CT-0002",
+      "dst": "OM-T-TC-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-CT-0002",
+      "dst": "OM-T-CT-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-CT-0002",
+      "dst": "OM-T-FD-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-CT-0002",
+      "dst": "OM-T-TC-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-FD-0001",
+      "dst": "OM-P-FD-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-FD-0001",
+      "dst": "OM-T-FD-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-FD-0001",
+      "dst": "OM-P-FD-0001",
+      "type": "contradicts",
+      "via": "contradicts",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-FD-0001",
+      "dst": "OM-P-FD-0001",
+      "type": "implies",
+      "via": "implications",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-FD-0001",
+      "dst": "OM-T-FD-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-FD-0002",
+      "dst": "OM-P-FD-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-FD-0002",
+      "dst": "OM-T-FD-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-FD-0002",
+      "dst": "OM-P-FD-0001",
+      "type": "contradicts",
+      "via": "contradicts",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-FD-0002",
+      "dst": "OM-P-FD-0001",
+      "type": "implies",
+      "via": "implications",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-FD-0002",
+      "dst": "OM-T-FD-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-GR-0001",
+      "dst": "OM-D-GR-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-GR-0001",
+      "dst": "OM-T-NT-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-GR-0001",
+      "dst": "OM-T-NT-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-GR-0002",
+      "dst": "OM-D-AL-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-GR-0002",
+      "dst": "OM-T-GR-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-GR-0002",
+      "dst": "OM-T-GR-0001",
+      "type": "related",
+      "via": "related",
       "resolvable": true
     },
     {
@@ -1985,6 +3308,111 @@
       "type": "related",
       "via": "related",
       "resolvable": true
+    },
+    {
+      "src": "OM-T-ST-0001",
+      "dst": "OM-D-ST-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-ST-0001",
+      "dst": "OM-D-ST-0001",
+      "type": "implies",
+      "via": "implications",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-ST-0001",
+      "dst": "OM-D-ST-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-ST-0001",
+      "dst": "OM-D-ST-0001",
+      "type": "uses",
+      "via": "正文引用",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TC-0001",
+      "dst": "OM-P-TC-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TC-0001",
+      "dst": "OM-P-TC-0001",
+      "type": "contradicts",
+      "via": "contradicts",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TC-0001",
+      "dst": "OM-P-TC-0001",
+      "type": "implies",
+      "via": "implications",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TC-0001",
+      "dst": "OM-P-TC-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TC-0002",
+      "dst": "OM-D-TC-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TC-0002",
+      "dst": "OM-D-TC-0001",
+      "type": "implies",
+      "via": "implications",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TC-0002",
+      "dst": "OM-D-TC-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-X-FD-0001",
+      "dst": "OM-D-FD-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-X-FD-0001",
+      "dst": "OM-D-FD-0001",
+      "type": "contradicts",
+      "via": "contradicts",
+      "resolvable": true
+    },
+    {
+      "src": "OM-X-FD-0001",
+      "dst": "OM-D-FD-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-X-FD-0001",
+      "dst": "OM-D-FD-0001",
+      "type": "uses",
+      "via": "正文引用",
+      "resolvable": true
     }
   ],
   "tiers": {
@@ -2138,7 +3566,9 @@
       "P(Y)",
       "R_M",
       "U_n",
-      "a",
+      "\\mathcal{R}",
+      "\\mathrm{F}",
+      "\\varrho",
       "b",
       "c",
       "c(n)",
@@ -2159,7 +3589,6 @@
       "pi(x)",
       "s",
       "sigma",
-      "x",
       "zeta"
     ],
     "EVIDENCE_INVERSION": [],
@@ -2334,23 +3763,24 @@
           "OM-P-NT-0007"
         ]
       }
-    ]
+    ],
+    "CONTRADICTION_ASYMMETRIC": []
   },
   "resolution": {
-    "nodes": 43,
-    "node_keys": 43,
-    "edges": 168,
-    "both_in_graph": 161,
+    "nodes": 71,
+    "node_keys": 71,
+    "edges": 278,
+    "both_in_graph": 271,
     "one_endpoint_off_graph": 3,
     "both_endpoints_off_graph": 4,
     "collapsed_to_self_loop": 0,
     "ambiguous_doc_ids": []
   },
   "counts": {
-    "record_nodes": 19,
+    "record_nodes": 47,
     "doc_nodes": 24,
     "evidence_docs": 4,
-    "edges": 168,
+    "edges": 278,
     "load_errors": 0
   }
 }

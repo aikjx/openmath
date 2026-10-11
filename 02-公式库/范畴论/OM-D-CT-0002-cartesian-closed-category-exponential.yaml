@@ -1,0 +1,75 @@
+schema_version: "0.1"
+
+id: OM-D-CT-0002
+kind: definition
+title_zh: '笛卡尔闭范畴与指数对象'
+title_en: 'Cartesian closed category and exponential object'
+domain: CT
+msc:
+  - '18B25'
+  - '18D15'
+tags:
+  - '笛卡尔闭'
+  - '指数对象'
+  - 'currying'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\mathrm{Hom}(X\times A,\ B)\ \cong\ \mathrm{Hom}(X,\ B^{A})'
+hypotheses:
+  - 'C 有有限积（含终对象 1）'
+  - '对每对 A,B 指数对象 B^A 存在并满足上述自然同构'
+
+assumptions:
+  - '同构对 X 自然，故它是泛性质而非某个特定同构的选取'
+symbols:
+  - name: 'B^A'
+    meaning_zh: '指数对象（内部同态对象）'
+    type: other
+  - name: 'gamma'
+    meaning_zh: '从 A 到 B^A 的态射'
+    type: other
+  - name: 'f'
+    meaning_zh: 'A 的自态射'
+    type: other
+  - name: 'a'
+    meaning_zh: '广义元素 a:1→A'
+    type: other
+  - name: 'ev'
+    meaning_zh: '求值态射 ev:B^A	imes A→B'
+    type: other
+  - name: '1'
+    meaning_zh: '终对象'
+    type: other
+
+related:
+  - 'OM-D-CT-0001'
+  - 'OM-T-CT-0002'
+uses:
+  - 'OM-D-CT-0001'
+implications: []
+contradicts: []
+caveat: '本条为第 2 批的 OM-T-CT-0002 补记号（B^A、gamma、f、a、ev、1），并把「Lawvere 需要笛卡尔闭、Brouwer 不在其射程」这条边界写进同一处，免得图上出现一条越界的 uses。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Mac Lane, S., Categories for the Working Mathematician, 2nd ed. (1998), §IV.4'
+    - 'Kock, A., Synthetic Differential Geometry (1981), ch.1'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Mac Lane, S., Categories for the Working Mathematician, 2nd ed. (1998), §IV.4'
+    - type: book
+      value: 'Kock, A., Synthetic Differential Geometry (1981), ch.1'
+  contributors:
+    - "qoder-session-2026-10-11"
+

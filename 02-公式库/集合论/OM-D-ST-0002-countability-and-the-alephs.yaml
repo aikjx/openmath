@@ -1,0 +1,69 @@
+schema_version: "0.1"
+
+id: OM-D-ST-0002
+kind: definition
+title_zh: '可数性与两个 aleph 基数'
+title_en: 'Countability and the first two alephs'
+domain: ST
+msc:
+  - '03E10'
+tags:
+  - '基数'
+  - '可数'
+  - 'aleph'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\aleph_0=\lvert\mathbb{N}\rvert,\quad \aleph_1=\min\{\kappa:\kappa\ \text{是不可数基数}\},\quad \lvert\mathbb{R}\rvert=2^{\aleph_0}'
+proposed_by: 'Georg Cantor'
+proposed_year: 1895
+
+assumptions:
+  - '基数取初始序数代表（选择公理下每个集合都可良序）'
+  - '不加 AC 时 aleph_1 仍是第一个不可数良序基数，但未必是每个不可数集合的基数'
+symbols:
+  - name: 'aleph_0'
+    meaning_zh: '自然数集的基数，最小无限基数'
+    type: other
+  - name: 'aleph_1'
+    meaning_zh: '第一个不可数基数'
+    type: other
+  - name: 'mathbb{R}'
+    meaning_zh: '实数集的基数，即连续统'
+    type: other
+  - name: 'kappa'
+    meaning_zh: '基数变量'
+    type: other
+
+related:
+  - 'OM-C-ST-0001'
+  - 'OM-C-ST-0002'
+  - 'OM-T-ST-0001'
+uses:
+  - 'OM-D-ST-0001'
+implications: []
+contradicts: []
+caveat: '第 1 批的 OM-C-ST-0001/0002 在陈述里用了 aleph_0 与 aleph_1 却没有定义条目，本条把这两个记号补进 kind=definition 的名单。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Cantor, G., Beiträge zur Begründung der transfiniten Mengenlehre (1895)'
+    - 'Jech, T., Set Theory, Millennium ed. (2003), §1'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Cantor, G., Beiträge zur Begründung der transfiniten Mengenlehre (1895)'
+    - type: book
+      value: 'Jech, T., Set Theory, Millennium ed. (2003), §1'
+  contributors:
+    - "qoder-session-2026-10-11"
+

@@ -1,0 +1,68 @@
+schema_version: "0.1"
+
+id: OM-T-FD-0002
+kind: theorem
+title_zh: '哥德尔第二不完备定理'
+title_en: 'Second incompleteness theorem of Godel'
+domain: FD
+msc:
+  - '03B25'
+tags:
+  - '不完备性'
+  - '一致性陈述'
+  - '可证条件'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\mathrm{Con}(T)\ \Rightarrow\ T \nvdash \mathrm{Con}(T)'
+hypotheses:
+  - 'T 一致、递归可公理化、包含初等算术'
+  - '一致性以标准算术化表达（Con(T) = ¬∃p Proof_T(p, ⌜0=1⌝)）'
+proposed_by: 'Kurt Godel'
+proposed_year: 1931
+
+assumptions:
+  - '可证性谓词满足 Hilbert-Bernays-Lob 三条可证条件'
+symbols:
+  - name: 'T'
+    meaning_zh: '满足前提的形式理论'
+    type: other
+  - name: 'Con'
+    meaning_zh: 'T 的一致性在算术语言中的表达'
+    type: other
+
+related:
+  - 'OM-T-FD-0001'
+uses:
+  - 'OM-T-FD-0001'
+implications:
+  - 'OM-P-FD-0001'
+contradicts:
+  - 'OM-P-FD-0001'
+caveat: '本卡的 current_status 留空：它是一条定理而非待决问题；被否证的主张登记在 OM-P-FD-0001。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Godel, K. (1931), §II'
+    - 'Hilbert & Bernays, Grundlagen der Mathematik (1934/1939)'
+    - 'Gentzen, Die Widerspruchsfreiheit der reinen Zahlentheorie (1936)'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Godel, K. (1931), §II'
+    - type: book
+      value: 'Hilbert & Bernays, Grundlagen der Mathematik (1934/1939)'
+    - type: book
+      value: 'Gentzen, Die Widerspruchsfreiheit der reinen Zahlentheorie (1936)'
+  contributors:
+    - "qoder-session-2026-10-11"
+

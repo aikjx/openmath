@@ -1,0 +1,66 @@
+schema_version: "0.1"
+
+id: OM-T-AL-0001
+kind: theorem
+title_zh: '第一同构定理'
+title_en: 'First isomorphism theorem'
+domain: AL
+msc:
+  - '20E15'
+  - '08A30'
+tags:
+  - '同构定理'
+  - '商'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: 'G/\ker\varphi\ \cong\ \mathrm{im}\,\varphi'
+hypotheses:
+  - 'varphi:G→H 为群同态'
+
+assumptions:
+  - '商按正规子群 ker varphi 取'
+symbols:
+  - name: 'G'
+    meaning_zh: '定义域群'
+    type: other
+  - name: 'ker'
+    meaning_zh: '核'
+    type: other
+  - name: 'im'
+    meaning_zh: '像'
+    type: other
+  - name: 'cong'
+    meaning_zh: '同构'
+    type: other
+
+related:
+  - 'OM-T-CT-0001'
+uses:
+  - 'OM-D-AL-0001'
+implications: []
+contradicts: []
+caveat: 'uses 指向 OM-D-AL-0001：定理的陈述里 ker/im/商三个记号全靠那条定义。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Lang, S., Algebra, revised ed. (1965), I.3, Theorem 3.7'
+    - 'Hungerford, T. W., Algebra (1974), I.5, Theorem 5.7'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Lang, S., Algebra, revised ed. (1965), I.3, Theorem 3.7'
+    - type: book
+      value: 'Hungerford, T. W., Algebra (1974), I.5, Theorem 5.7'
+  contributors:
+    - "qoder-session-2026-10-11"
+

@@ -1,0 +1,74 @@
+schema_version: "0.1"
+
+id: OM-D-GR-0003
+kind: definition
+title_zh: '复表示与字符'
+title_en: 'Complex representation and character'
+domain: GR
+msc:
+  - '20C15'
+tags:
+  - '表示'
+  - '字符'
+  - '类函数'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\rho:G\to \mathrm{GL}(V),\qquad \chi_\rho(g)=\mathrm{tr}\,\rho(g)'
+hypotheses:
+  - 'V 为有限维复向量空间'
+  - 'chi 是类函数（在共轭类上常值）'
+proposed_by: 'Ferdinand Georg Frobenius'
+proposed_year: 1879
+
+assumptions:
+  - '特征 0 保证 Maschke 完全可约，本卡的字符口径据此取不可约字符'
+symbols:
+  - name: 'chi_i'
+    meaning_zh: '第 i 个不可约字符'
+    type: other
+  - name: 'rho'
+    meaning_zh: '表示（群到 GL(V) 的同态）'
+    type: other
+  - name: 'GL(V)'
+    meaning_zh: 'V 的一般线性群'
+    type: other
+  - name: 'tr'
+    meaning_zh: '矩阵的迹'
+    type: other
+  - name: 'delta'
+    meaning_zh: 'Kronecker 记号 delta-ij'
+    type: other
+
+related:
+  - 'OM-D-AL-0001'
+  - 'OM-T-GR-0002'
+  - 'OM-D-GR-0002'
+uses:
+  - 'OM-D-AL-0001'
+implications: []
+contradicts: []
+caveat: '为第 2 批 OM-T-GR-0002 补 chi_i、delta、GL(V) 三个记号；uses 挂 OM-D-AL-0001 因为表示的定义就是同态。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Serre, J.-P., Linear Representations of Finite Groups (1977), §1.1-2.1'
+    - 'Fulton and Harris, Representation Theory: A First Course (1991), §1.1'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Serre, J.-P., Linear Representations of Finite Groups (1977), §1.1-2.1'
+    - type: book
+      value: 'Fulton and Harris, Representation Theory: A First Course (1991), §1.1'
+  contributors:
+    - "qoder-session-2026-10-11"
+

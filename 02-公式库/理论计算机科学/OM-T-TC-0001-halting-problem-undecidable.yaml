@@ -1,0 +1,65 @@
+schema_version: "0.1"
+
+id: OM-T-TC-0001
+kind: theorem
+title_zh: '停机问题不可判定'
+title_en: 'Undecidability of the halting problem'
+domain: TC
+msc:
+  - '03B35'
+  - '68Q17'
+tags:
+  - '可计算性'
+  - '对角线'
+  - '不可判定'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\nexists e\ \forall x\ \bigl(\varphi_e(x) \downarrow\ 0 \leftrightarrow \neg \varphi_x(x) \downarrow\ 0\bigr)'
+hypotheses:
+  - 'φ 是部分递归函数的标准枚举'
+  - '↓0 表示停机且输出 0'
+proposed_by: 'Alan Turing'
+proposed_year: 1936
+
+assumptions:
+  - ' Church-Turing 论题（把「可有效计算」等同于部分递归）'
+symbols:
+  - name: 'e'
+    meaning_zh: '假设中的判定器索引'
+    type: other
+  - name: 'x'
+    meaning_zh: '程序输入（亦编码程序自身）'
+    type: other
+
+related:
+  - 'OM-P-TC-0001'
+uses: []
+implications:
+  - 'OM-P-TC-0001'
+contradicts:
+  - 'OM-P-TC-0001'
+caveat: 'implies 指向 OM-P-TC-0001 是本卡的表述选择：判定问题的肯定期望被本定理否证，图上用一条蕴含边加一对冲突边共同记账。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Turing, A. M., Proc. London Math. Soc. 42 (1936)'
+    - 'Church, A., Am. J. Math. 58 (1936)'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Turing, A. M., Proc. London Math. Soc. 42 (1936)'
+    - type: book
+      value: 'Church, A., Am. J. Math. 58 (1936)'
+  contributors:
+    - "qoder-session-2026-10-11"
+

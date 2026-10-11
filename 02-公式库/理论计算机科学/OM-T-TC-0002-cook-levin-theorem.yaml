@@ -1,0 +1,62 @@
+schema_version: "0.1"
+
+id: OM-T-TC-0002
+kind: theorem
+title_zh: 'Cook-Levin 定理（SAT 是 NP 完全）'
+title_en: 'Cook-Levin theorem: SAT is NP-complete'
+domain: TC
+msc:
+  - '68Q17'
+tags:
+  - '可满足性'
+  - '归约'
+  - '计算历史'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\mathrm{SAT} \in \mathbf{NP}\text{-complete}'
+hypotheses:
+  - '机在多项式时间内运行'
+  - '归约为多一归约 ≤p'
+proposed_by: 'Stephen Cook'
+proposed_year: 1971
+
+assumptions:
+  - '非确定性机 acceptance 可写成布尔变量的赋值'
+  - '计算历史表（tableau）可多项式编码为合取范式'
+symbols:
+  - name: 'SAT'
+    meaning_zh: '命题可满足性语言'
+    type: other
+
+related:
+  - 'OM-D-TC-0001'
+uses:
+  - 'OM-D-TC-0001'
+implications:
+  - 'OM-D-TC-0001'
+contradicts: []
+caveat: 'Cook 的表述里对数机与「接受路径存在性」的等价细节在文献中被广泛省略；本卡点名这一省略，因为它是 L2 复算最可能踩空的地方。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Cook, S. A., Proc. 3rd ACM STOC (1971)'
+    - 'Levin, L. A., Uspekhi Mat. Nauk 23 (1973, 俄文, 1960s 报告在后)'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Cook, S. A., Proc. 3rd ACM STOC (1971)'
+    - type: book
+      value: 'Levin, L. A., Uspekhi Mat. Nauk 23 (1973, 俄文, 1960s 报告在后)'
+  contributors:
+    - "qoder-session-2026-10-11"
+
