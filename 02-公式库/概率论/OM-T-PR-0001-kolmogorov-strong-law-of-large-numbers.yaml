@@ -1,0 +1,72 @@
+schema_version: "0.1"
+
+id: OM-T-PR-0001
+kind: theorem
+title_zh: 'Kolmogorov 强大数律'
+title_en: 'Kolmogorov strong law of large numbers'
+domain: PR
+msc:
+  - '60F15'
+tags:
+  - '几乎必然'
+  - '样本均值'
+  - '独立性'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\bar{X}_n=\frac{1}{n}\sum_{i=1}^{n}X_i\ \longrightarrow\ \mathbb{E}[X_1]\quad a.s.'
+hypotheses:
+  - 'X_i 独立同分布'
+  - '\mathbb{E}[|X_1|]<\infty（一阶矩存在即可，这是 Kolmogorov 版）'
+proposed_by: 'Andrey Kolmogorov'
+proposed_year: 1930
+
+assumptions:
+  - '概率空间足够承载无限序列（存在性由标准构造给出）'
+symbols:
+  - name: 'X_i'
+    meaning_zh: '第 i 个随机变量'
+    type: other
+  - name: '\bar{X}_n'
+    meaning_zh: '前 n 项的样本均值'
+    type: other
+  - name: '\mathbb{E}'
+    meaning_zh: '期望'
+    type: other
+  - name: 'a.s.'
+    meaning_zh: '几乎必然（概率 1 的事件上成立）'
+    type: other
+
+related:
+  - 'OM-T-PR-0002'
+  - 'OM-T-DS-0001'
+uses:
+  - 'OM-D-PR-0001'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+caveat: 'uses 指向本批的 OM-D-PR-0001（概率空间与随机变量定义）。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Kolmogorov, A., Sur la loi des grands nombres (1930)'
+    - 'Durrett, R., Probability: Theory and Examples, 5th ed. (2019), §2.2'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Kolmogorov, A., Sur la loi des grands nombres (1930)'
+    - type: book
+      value: 'Durrett, R., Probability: Theory and Examples, 5th ed. (2019), §2.2'
+  contributors:
+    - "qoder-session-2026-10-11"
+

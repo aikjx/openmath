@@ -1,0 +1,95 @@
+schema_version: "0.1"
+
+id: OM-D-GO-0001
+kind: definition
+title_zh: '博弈、策略、效用与混合策略单纯形'
+title_en: 'Game, strategy, payoff and the mixed-strategy simplex'
+domain: GO
+msc:
+  - '91A05'
+  - '91A10'
+tags:
+  - '博弈'
+  - '混合策略'
+  - '单纯形'
+  - '最佳应对'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\Gamma=(N,\ (S_i)_i,\ (u_i)_i),\qquad \Delta_{S_i}=\{p\in\mathbb{R}^{S_i}:\ p\ge 0,\ \textstyle\sum_{s}p(s)=1\},\qquad \mathrm{BR}_i(\sigma_{-i})=\arg\max_{x_i\in\Delta_{S_i}}u_i(x_i,\sigma_{-i})'
+hypotheses:
+  - 'N 为有限参与人集，每个 S_i 为有限策略集'
+  - '效用按期望效用口径（对混合策略多重线性）'
+
+assumptions:
+  - '混合策略读作 S_i 上的概率分布，故 \Delta_{S_i} 是有限维单纯形'
+symbols:
+  - name: '\Gamma'
+    meaning_zh: '一个博弈 \Gamma=(N,(S_i)_i,(u_i)_i)；刻意不写 G——G 已由 OM-D-GR-0001 用作群'
+    type: other
+  - name: 'N'
+    meaning_zh: '参与人集（本卡在有限博弈口径下使用）'
+    type: other
+  - name: 'S_i'
+    meaning_zh: '第 i 人的纯策略集'
+    type: other
+  - name: 'u_i'
+    meaning_zh: '第 i 人的效用函数'
+    type: other
+  - name: '\Delta_{S_i}'
+    meaning_zh: '第 i 人的混合策略单纯形'
+    type: other
+  - name: '\Delta_m'
+    meaning_zh: 'm 元概率单纯形（极小极大卡里行玩家的策略集）'
+    type: other
+  - name: '\Delta_n'
+    meaning_zh: 'n 元概率单纯形（极小极大卡里列玩家的策略集）'
+    type: other
+  - name: '\mathcal{M}'
+    meaning_zh: '零和博弈的支付矩阵：u_1(x,y)=x^{\top}\mathcal{M}y'
+    type: other
+  - name: '\sigma^{*}'
+    meaning_zh: '混合策略组 (\sigma^{*}_1,\dots,\sigma^{*}_n)'
+    type: other
+  - name: '\mathrm{BR}_i'
+    meaning_zh: '第 i 人的最佳应对集值 \mathrm{BR}_i(\sigma_{-i})'
+    type: other
+  - name: '\arg\max'
+    meaning_zh: '取到上确界的点之集合'
+    type: other
+
+related:
+  - 'OM-T-GO-0001'
+  - 'OM-T-GO-0002'
+  - 'OM-T-TG-0003'
+uses:
+  - 'OM-D-PR-0001'
+  - 'OM-D-TG-0002'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+caveat: '本条是第 3 批的记号补账：\Gamma、\Delta_m、\Delta_n、\Delta_{S_i}、\mathcal{M}、\sigma^{*}、\mathrm{BR}_i、\arg\max 八个记号此前只被两张定理卡使用而无定义条目。uses 指 OM-D-TG-0002：混合策略需要的「紧凸定义域＋集值映射」两处结构都在那张卡里固定。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Osborne, M. J. and Rubinstein, A., A Course in Game Theory (1994), ch.1-2, ch.6'
+    - 'Fudenberg, D. and Tirole, J., Game Theory (1991), ch.2'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Osborne, M. J. and Rubinstein, A., A Course in Game Theory (1994), ch.1-2, ch.6'
+    - type: book
+      value: 'Fudenberg, D. and Tirole, J., Game Theory (1991), ch.2'
+  contributors:
+    - "qoder-session-2026-10-11"
+

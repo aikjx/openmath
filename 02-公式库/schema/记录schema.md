@@ -45,7 +45,8 @@ provenance:
 | `symbols` | list[object] | ✅ | 符号表，见下 |
 | `domain_of_validity` | string | ⬜ | 适用范围的自然语言描述 |
 | `specializations` | list | ⬜ | 特殊情形（引用其他 ID） |
-| `generalizations` | list | ⬜ | 推广（引用其他 ID） |
+| `generalizations` | list | ⬜ | 推广（引用其他 ID）。**yaml 键名是复数，图上收成边型 `generalizes`**；渲染器只认键名，写错键名的边会被静默丢掉 |
+| `contradicts` | list | ⬜ | 冲突（引用其他 ID）。**必须成对写在两侧**，单边账由 `CONTRADICTION_ASYMMETRIC` 点名；图上收成 `-.->|冲突|` |
 | `related` | list[string] | ⬜ | 相关条目 ID |
 | `verification` | object | ✅ | 见下 |
 | `caveat` | string | ⬜ | 已知失效模式（数值/符号验证的陷阱） |

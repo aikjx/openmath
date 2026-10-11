@@ -1,0 +1,70 @@
+schema_version: "0.1"
+
+id: OM-T-TG-0003
+kind: theorem
+title_zh: '角谷不动点定理'
+title_en: 'Kakutani fixed-point theorem'
+domain: TG
+msc:
+  - '55M20'
+tags:
+  - '不动点'
+  - '集值映射'
+  - '上半连续'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\Phi:K\multimap K,\ \text{上半连续、值非空凸闭}\ \Longrightarrow\ \exists x\in K:\ x\in\Phi(x)'
+hypotheses:
+  - 'K 为 R^n 中的非空紧凸集'
+  - '集值映射上半连续'
+  - '每个值都是非空凸闭集'
+proposed_by: 'Shizuo Kakutani'
+proposed_year: 1941
+
+assumptions:
+  - '「不动点」在这里指 x 属于像集 \Phi(x)，而不是 \Phi(x) 是单点'
+symbols:
+  - name: 'K'
+    meaning_zh: '非空紧凸集（记号由 OM-D-TG-0002 定义）'
+    type: other
+  - name: '\Phi'
+    meaning_zh: '集值映射（correspondence）；本卡刻意不写 \varphi——\varphi 已被 OM-D-AL-0001 与 OM-D-FD-0001／0002 用作同态与公式变元'
+    type: other
+  - name: '\multimap'
+    meaning_zh: '集值映射记号（同上）'
+    type: other
+
+related:
+  - 'OM-T-GO-0002'
+uses:
+  - 'OM-T-TG-0001'
+implications: []
+contradicts: []
+generalizations:
+  - 'OM-T-TG-0001'
+specializations: []
+caveat: 'generalizes 是本库第一条用到该边型的记录间关系；yaml 里的键名是 generalizations，边型才叫 generalizes——发射器原先只认 related／uses／implications／contradicts 四个键，所以这条边在键名写错时是被静默丢掉的（图上少一条边不会报错，是本轮自己踩的坑）。箭头由 flowdocs.ARROW 渲染，若某型箭头在 ARROW 里缺失，不变量 TYPE-UNRENDERED 会当场点名（第 2 轮的教训）。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Kakutani, S., A generalization of the Brouwer fixed point theorem (1941)'
+    - 'Border, K. C., Competitive Economics (2023), ch.5'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Kakutani, S., A generalization of the Brouwer fixed point theorem (1941)'
+    - type: book
+      value: 'Border, K. C., Competitive Economics (2023), ch.5'
+  contributors:
+    - "qoder-session-2026-10-11"
+

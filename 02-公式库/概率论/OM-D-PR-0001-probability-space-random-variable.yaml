@@ -1,0 +1,93 @@
+schema_version: "0.1"
+
+id: OM-D-PR-0001
+kind: definition
+title_zh: '概率空间与随机变量'
+title_en: 'Probability space and random variable'
+domain: PR
+msc:
+  - '60A05'
+tags:
+  - 'sigma-代数'
+  - '概率测度'
+  - '随机变量'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '(\Omega,\mathcal{F},\mathbb{P}),\quad X:(\Omega,\mathcal{F})\to(S,\mathcal{S})\ \text{可测}'
+hypotheses:
+  - '\mathcal{F} 为 \sigma-代数'
+  - '\mathbb{P}(\Omega)=1 且 \mathbb{P} 可数可加'
+proposed_by: 'Andrey Kolmogorov'
+proposed_year: 1933
+
+assumptions:
+  - '本库的概率语言一律按 Kolmogorov 公理（测度论）口径写'
+symbols:
+  - name: '\Omega'
+    meaning_zh: '样本空间'
+    type: other
+  - name: '\mathcal{F}'
+    meaning_zh: '事件 \sigma-代数'
+    type: other
+  - name: '\mathbb{P}'
+    meaning_zh: '概率测度：\mathbb{P}(\Omega)=1 且可数可加'
+    type: other
+  - name: '\mathbb{E}'
+    meaning_zh: '由 \mathbb{P} 给出的期望'
+    type: other
+  - name: '\mu'
+    meaning_zh: '一般测度的记号；概率测度在本库专写 \mathbb{P}，\mu 留给非归一测度（如 Poincare 回归卡里的有限测度）'
+    type: other
+  - name: '\sigma'
+    meaning_zh: '标准差：\sigma^{2}=\operatorname{Var}(X)，方差由 \mathbb{E} 给出'
+    type: other
+  - name: 'X_i'
+    meaning_zh: '第 i 个随机变量（同一族记号的下标写法）'
+    type: other
+  - name: '\bar{X}_n'
+    meaning_zh: '前 n 项的样本均值'
+    type: other
+  - name: 'a.s.'
+    meaning_zh: '几乎必然：除一个 \mathbb{P}-零测集外处处成立'
+    type: other
+  - name: '\mathcal{A}'
+    meaning_zh: '\sigma-代数 \mathcal{F} 的成员，即可测集／事件'
+    type: other
+  - name: '\xrightarrow{\ d\ }'
+    meaning_zh: '按分布收敛（弱收敛）记号'
+    type: other
+
+related:
+  - 'OM-T-PR-0001'
+  - 'OM-T-DS-0001'
+uses:
+  - 'OM-D-ST-0003'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+caveat: '本条同时为第 3 批的概率记号补定义条目：\Omega、\mathcal{F}、\mathbb{P}、\mathbb{E}、\mu、\sigma、X_i、\bar{X}_n、a.s.、\mathcal{A} 与 \xrightarrow{\ d\ }，并把 sigma-代数这件事与集合论的关系（uses OM-D-ST-0003）记进图。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Kolmogorov, A., Grundbegriffe der Wahrscheinlichkeitsrechnung (1933)'
+    - 'Billingsley, P., Probability and Measure, 3rd ed. (1995), §1'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Kolmogorov, A., Grundbegriffe der Wahrscheinlichkeitsrechnung (1933)'
+    - type: book
+      value: 'Billingsley, P., Probability and Measure, 3rd ed. (1995), §1'
+  contributors:
+    - "qoder-session-2026-10-11"
+

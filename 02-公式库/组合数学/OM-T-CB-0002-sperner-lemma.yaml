@@ -1,0 +1,64 @@
+schema_version: "0.1"
+
+id: OM-T-CB-0002
+kind: theorem
+title_zh: 'Sperner 引理'
+title_en: 'Sperner lemma'
+domain: CB
+msc:
+  - '05D10'
+  - '55M20'
+tags:
+  - '标号'
+  - '单纯剖分'
+  - '组合不动点'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\text{满足 Sperner 标号条件的 }d\text{-单纯剖分中，全标号 }d\text{-单形的个数}\ \equiv\ 1\ (\mathrm{mod}\ 2)'
+hypotheses:
+  - '单纯形的 d+1 个顶点标号取自 \{0,1,\dots,d\} 且遵守边界约束'
+  - '剖分为有限单纯剖分'
+proposed_by: 'Emanuel Sperner'
+proposed_year: 1928
+
+assumptions:
+  - '按模 2 计数，故结论是奇数而非某个具体数'
+symbols:
+  - name: 'd'
+    meaning_zh: '单纯形的维数；本卡刻意不写 n，因为 n 在 NT 各卡已指大数参数'
+    type: other
+
+related:
+  - 'OM-T-CB-0001'
+  - 'OM-D-TG-0001'
+uses:
+  - 'OM-D-TG-0001'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+caveat: '本条是 OM-T-TG-0001 的 uses 上游；把这条链记进图里，是为了让 02 图上能看见「组合⇒拓扑」这类跨域依赖，而不是只在散文里说。记号一侧：本卡的 d 与 Ramsey 卡的四个记号同属一笔债，落在 UNDEFINED_SYMBOL 账上。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Sperner, E., Neuer Beweis für die Invarianz der Dimensionszahl und des Gebietes (1928)'
+    - 'Soifer, A., Ramsey Theory, 2nd ed. (1994), ch.4'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Sperner, E., Neuer Beweis für die Invarianz der Dimensionszahl und des Gebietes (1928)'
+    - type: book
+      value: 'Soifer, A., Ramsey Theory, 2nd ed. (1994), ch.4'
+  contributors:
+    - "qoder-session-2026-10-11"
+

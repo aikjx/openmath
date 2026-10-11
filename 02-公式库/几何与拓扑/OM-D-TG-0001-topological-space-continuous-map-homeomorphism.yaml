@@ -1,0 +1,72 @@
+schema_version: "0.1"
+
+id: OM-D-TG-0001
+kind: definition
+title_zh: '拓扑空间、连续映射与同胚'
+title_en: 'Topological space, continuous map, homeomorphism'
+domain: TG
+msc:
+  - '54A05'
+  - '54C05'
+tags:
+  - '拓扑'
+  - '连续'
+  - '同胚'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '(X,\tau),\quad f:(X,\tau_X)\to(Y,\tau_Y)\ \text{连续}\ \Longleftrightarrow\ f^{-1}(\tau_Y)\subseteq\tau_X'
+
+assumptions:
+  - '本卡取一般拓扑（不假设可度量化、不假设 Hausdorff）'
+  - '\overline{B}^{\,n} 指 R^n 中通常拓扑下的闭单位球'
+symbols:
+  - name: '\tau'
+    meaning_zh: '开集族，即拓扑'
+    type: other
+  - name: 'X'
+    meaning_zh: '承载结构的那个集合（与 OM-D-GR-0001 的 X 同读：都指被附上结构的载体集）'
+    type: other
+  - name: 'f'
+    meaning_zh: '所在陈述中的那个映射（拓扑情形要求连续）'
+    type: other
+  - name: '\overline{B}^{\,n}'
+    meaning_zh: 'R^n 中的闭单位球；Brouwer 卡与角谷卡都复用它'
+    type: other
+  - name: '\cong_{\mathrm{h}}'
+    meaning_zh: '同胚记号：X \cong_{\mathrm{h}} Y 指两空间之间有双向连续的一一映射'
+    type: other
+
+related:
+  - 'OM-D-CT-0001'
+  - 'OM-T-TG-0001'
+uses:
+  - 'OM-D-ST-0003'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+caveat: 'uses 指向 OM-D-ST-0003：本库把「二元关系」这件事记在那条定义上，连续映射作为集合上的关系要靠它。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Munkres, J. R., Topology, 2nd ed. (2000), §12-18'
+    - 'Willard, S., General Topology (1970), §6'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Munkres, J. R., Topology, 2nd ed. (2000), §12-18'
+    - type: book
+      value: 'Willard, S., General Topology (1970), §6'
+  contributors:
+    - "qoder-session-2026-10-11"
+

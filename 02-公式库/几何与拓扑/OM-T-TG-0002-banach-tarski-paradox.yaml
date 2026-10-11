@@ -1,0 +1,72 @@
+schema_version: "0.1"
+
+id: OM-T-TG-0002
+kind: theorem
+title_zh: 'Banach-Tarski 分球定理'
+title_en: 'Banach-Tarski paradox'
+domain: TG
+msc:
+  - '03E10'
+  - '28A12'
+tags:
+  - '选择公理'
+  - '刚体运动'
+  - '不可测集'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\exists A_1,A_2\subseteq S^{2},\ A_1\cap A_2=\varnothing:\ A_1\sim S^{2}\ \text{且}\ A_2\sim S^{2}'
+hypotheses:
+  - '在 R^3 中，只允许刚体运动（旋转＋平移）'
+  - '两块集合互不相交，且允许是不可测集'
+proposed_by: 'Stefan Banach and Alfred Tarski'
+proposed_year: 1924
+
+assumptions:
+  - '承认选择公理（本库 OM-D-ST-0001）；\sim 表示有限分块后经刚体运动重排（等分意义下的等价）'
+symbols:
+  - name: 'S^{2}'
+    meaning_zh: '三维空间中的单位球面'
+    type: other
+  - name: 'SO(3)'
+    meaning_zh: '三维旋转群（刚体运动的旋转部分）'
+    type: other
+  - name: '\sim'
+    meaning_zh: '等分等价记号：A \sim B 指 A 有限分块后经刚体运动重排成 B'
+    type: other
+
+related:
+  - 'OM-D-ST-0001'
+  - 'OM-C-TG-0001'
+uses:
+  - 'OM-D-ST-0001'
+  - 'OM-D-TG-0001'
+implications: []
+contradicts:
+  - 'OM-C-TG-0001'
+generalizations: []
+specializations: []
+caveat: 'uses 指向 OM-D-ST-0001：选择公理在这里是真实的前提，不是修辞；去掉 AC 后结论可以失效（Solovay 模型里所有集合 Lebesgue 可测），那一层属于本条之外的账。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Banach and Tarski, Sur la décomposition des ensembles de points (1924)'
+    - 'Wagon, S., The Banach-Tarski Paradox (1985), ch.1-2'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Banach and Tarski, Sur la décomposition des ensembles de points (1924)'
+    - type: book
+      value: 'Wagon, S., The Banach-Tarski Paradox (1985), ch.1-2'
+  contributors:
+    - "qoder-session-2026-10-11"
+

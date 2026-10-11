@@ -22,6 +22,8 @@
 
 人读的交叉引用表写在 `../交叉引用索引/`（7 张），缺口明细写在其中的 `缺口检测.md`。
 
+**版面上的两个域口径**（别混）：归域 17 / 20 个（版面 `---- domain placement ----`，`declared unplaced` 原样点名 CB, GT, XS），有节点在图上的域 14 / 20 个（`domains with >=1 node`）。两批域不重合——`['CB']` 有记录却声明未归层，所以 17 / 20 与 14 / 20 之间**没有减法可做**；空域名单点名在 `../四层总览.md` §二。
+
 ## 二、节点从哪来
 
 | 节点类型 | 来源 | 说明 |
@@ -35,18 +37,15 @@ ID 的取值次序：frontmatter `id:` → 表头 `| **ID** | OM-… |` → 文�
 只按 ID 建边会把整条攻坚线看成不存在。
 
 **节点键**：record 用 ID，doc 用相对路径（`graph.node_key()`）。这不是风格问题而是实测结论：
-19 个 record 的 ID 互不相同、24 个 doc 的路径互不相同，而 doc 的 ID 里 `OM-P-NT-0003` 被 13 份文件共用
-（号段写进文件名就撞上了）。若 doc 也按 ID 建键，`graph.json` 的 43 个节点只剩 30 个可用键——
-12 张攻坚面孔在图上无处落脚，而指向文件路径的那批边永远查不到键，渲染器只会 `continue` 掉它们。
-版面 `---- endpoint resolution ----` 现在自报：两端都在图内 161 / 168、一端无载体 3、两端无载体 4、
+版面现印 record 65 个、doc 24 个：前者的 ID 互不相同、后者的路径互不相同，而 doc 的 ID 里 `OM-P-NT-0003` 被 13 份文件共用
+（号段写进文件名就撞上了）。若 doc 也按 ID 建键，键会折掉——12 张攻坚面孔在图上无处落脚，而指向文件路径的那批边永远查不到键，渲染器只会 `continue` 掉它们；「43 个节点只剩 30 个可用键」是**键修复那一轮**的当时读数，本轮同一条尺子印 `nodes / unique keys` ＝ 89 / 89（两个数都点名版面，历史那句只作历史）。
+版面 `---- endpoint resolution ----` 现在自报（本轮读数）：两端都在图内 359 / 366、一端无载体 3、两端无载体 4、
 两端并成一个键 0（数字是当下读数，引用请点名版面）。
 
 ## 三、边类型
 
-`related`／`specializes`／`generalizes`／`implies`／`uses`／`bridges`／`cites`／`evidenced_by`。
-`../README.md` §六 还列着 `contradicts`：**未实现**，因为记录 schema 里没有「与谁冲突」字段。
-每条边带 `via`（住在哪个字段／哪种链接里），所以「这条关系凭什么存在」是可查的。
-
+`related`／`specializes`／`generalizes`／`implies`／`uses`／`bridges`／`cites`／`evidenced_by`／`contradicts`。
+**`contradicts` 已实现**（版面 `---- edge type census ----` 现印 12 条）：记录 schema 里加了 `contradicts` 字段，成对写在冲突的两侧；渲染走 `ARROW["contradicts"]`＝`-.->|冲突|`，单边账由 `CONTRADICTION_ASYMMETRIC` 点名（本轮 0 枚）。**注意键名与边型不同名**：yaml 里写 `generalizations`，`graph` 把它收成边型 `generalizes`——发射器只认自己列过的键，第 3 批就因为这个把「推广」边静默丢过一次（见 `CHANGELOG.md` 同日条目）。
 每条边带 `via`（住在哪个字段／哪种链接里），所以「这条关系凭什么存在」可查。
 边的端点**按语料原样存**（可能写 ID，也可能写路径），因此归键由 `graph.resolve()` 现场做；
 `引用图.md` 除「可遍历」外还印一列「落到节点」，无载体的一端明写 `（无节点载体）`。
@@ -58,12 +57,8 @@ ID 的取值次序：frontmatter `id:` → 表头 `| **ID** | OM-… |` → 文�
 ```bash
 python -m openmath graph            # 生成 14 份产物；rc=0 只说明生成物完好
 python -m openmath graph --check    # 只判不写；DEFECT 或不变量故障则 rc=1
-python 08-工具/tests/graph_mutants.py   # 10 枚指名变异体，逐类把判据打破
+python 08-工具/tests/graph_mutants.py   # 12 枚指名变异体，逐类把判据打破
 ```
-
-不变量（写在 `openmath/flowdocs.py` 的 `check_invariants`）：图不许空节点（EMPTY-CHART）、
-生成物不许 0 字节（EMPTY-FILE）、版面与图里不许 CR／NUL／反斜杠、
-`XREF-ROWS` 把每张表的行数与图谱现推的期望行数相比——渲染器不许自己证自己。
 
 不变量（写在 `openmath/flowdocs.py` 的 `check_invariants`）：图不许空节点（EMPTY-CHART）、
 生成物不许 0 字节（EMPTY-FILE）、版面与图里不许 CR／NUL／反斜杠、

@@ -1,0 +1,116 @@
+schema_version: "0.1"
+
+id: OM-F-AN-0003
+kind: formula
+title_zh: 欧拉公式（一般形式）· 复指数把加法折成旋转
+title_en: "Euler's formula (general form): exp maps the additive line onto the unit circle"
+domain: AN
+msc:
+  - "30A99"   # 沿用本域既有分类，不新造 MSC 号
+  - "11A99"
+tags:
+  - 欧拉公式
+  - 复指数
+  - 单位圆
+  - de Moivre
+  - 单位根
+
+status: VERIFIED(L3)
+evidence_level: L3
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+latex: >-
+  e^{z} = e^{x}(\cos y + i\sin y)\quad (z = x + iy,\ x,y \in \mathbb{R});\qquad
+  e^{i\theta} = \cos\theta + i\sin\theta
+
+sympy: >-
+  exp(x + I*y) - exp(x)*(cos(y) + I*sin(y))
+
+assumptions:
+  - "exp 由幂级数定义：exp(z) = sum_{n=0}^{\\infty} z^n / n!（整函数，无分支选择）"
+  - "cos、sin 由同一幂级数定义，故本公式在'级数定义'讲法下是定义性推论；若先独立定义三角函数再定义 e，它是定理（两种讲法都正确，本记录声明取前者）"
+  - "x、y 取实数；z 为任意复数"
+
+symbols:
+  - name: "z"
+    meaning_zh: "复变量"
+    type: complex
+    constraints: "z = x + iy"
+  - name: "i"
+    meaning_zh: "虚数单位"
+    type: complex
+    constraints: "i^2 = -1"
+  - name: "theta"
+    meaning_zh: "实角（弧度）"
+    type: real
+    constraints: "theta \\in \\mathbb{R}"
+  - name: "exp"
+    meaning_zh: "复指数函数"
+    type: function
+    constraints: "整函数，由幂级数给出"
+
+domain_of_validity: "整个复平面（exp 是整函数）；x=0 时落在单位圆上，给出单位圆的参数化"
+
+specializations:
+  - OM-F-AN-0001
+generalizations: []
+related:
+  - OM-F-AN-0002
+
+caveat: >-
+  1) 与 OM-F-AN-0001 同类：L2/L3 的"通过"几乎是零信息量——在幂级数定义下本公式是定义的直接推论，
+     任何正确的实现都会归零。真正的内容不在残差里，而在**这条公式把哪两件事绑在一起**：
+     加法群 (R,+) 经 theta -> e^{i theta} 成为单位圆乘法群，核为 2*pi*i*Z；
+  2) 推广到对数立刻出事：log 是 multivalued，e^{i theta} 的 theta 只能模 2*pi 确定，
+     因此凡"由 e^{i theta} 反解 theta"的步骤都必须显式声明分支，否则得到伪等式；
+  3) 数值实现的"伪通过"：双精度下 exp(1j*theta) - (cos theta + 1j*sin theta) 约为 1e-17 量级而非 0，
+     残差量级必须与精度设置匹配（本记录 L2 取 50 位，残差应在 1e-45 量级以下）。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: mpmath
+      precision_digits: 50
+      sample_count: 52
+      seed: 0
+      sample_points:
+        - {}
+      max_abs_residual: "9.23e-50"
+      script: 08-工具/examples/verify_OM-F-AN-0003.py
+      last_run: 2026-10-11
+      note: >-
+        PASS 只表示脚本现印的 52 项检查（e^{i theta} 24 个确定性采样角：pi 的有理倍数 12 点 + sqrt(m) 12 点；
+        一般形式 12 点；de Moivre 9 点；n 次单位根 4 组；同态性 3 点）全部落在容差 1e-40 内，
+        不表示公式成立，更不表示本库有任何进展（红线一）。采样不用随机数，故 seed 无实际语义。
+    L3:
+      passed: true
+      engine: sympy
+      method: "simplify(exp(x + I*y) - exp(x)*(cos(y) + I*sin(y))) == 0 与 simplify(exp(I*t) - (cos(t) + I*sin(t))) == 0（t 为实符号）"
+      script: 08-工具/examples/verify_OM-F-AN-0003.py
+      last_run: 2026-10-11
+    L4:
+      passed: false
+      system: ""
+      name: ""
+      note: "未形式化：mathlib 有 Complex.exp_mul_I / Complex.exp_add，本库尚未建立绑定"
+
+fact_check:
+  status: UNVERIFIED
+  sources:
+    - type: book
+      value: "Euler, L. Introductio in analysin infinitorum (1748)"
+  note: >-
+    本库未逐条核对原始文献，故记 UNVERIFIED。此处只声明"该公式通常归于 Euler 的 Introductio (1748)"，
+    不做版本与页码判定；公式本身的正确性不依赖该归属。
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: "Euler, L. Introductio in analysin infinitorum (1748)"
+  contributors:
+    - "openmath-bot"

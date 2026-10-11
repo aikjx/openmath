@@ -1,6 +1,6 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-10-11T03:39:38Z",
+  "generated": "2026-10-11T04:07:04Z",
   "root": "openmath",
   "nodes": [
     {
@@ -86,6 +86,28 @@
       ],
       "script": null,
       "latex": "\\exists A\\ \\bigl(|\\mathbb{N}| < |A| < |\\mathbb{R}|\\bigr)\\quad\\text{即 } 2^{\\aleph_0} > \\aleph_1",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-C-TG-0001",
+      "kind": "conjecture",
+      "domain": "TG",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "朴素可测性公设（体积在刚体运动下不变且定义于所有有界集）",
+      "path": "02-公式库/几何与拓扑/OM-C-TG-0001-naive-measurability-postulate.yaml",
+      "tags": [
+        "可测性",
+        "体积",
+        "被否证"
+      ],
+      "symbols": [
+        "\\mathrm{vol}",
+        "\\mathcal{P}"
+      ],
+      "script": null,
+      "latex": "\\exists\\ \\mathrm{vol}:\\ \\mathcal{P}(\\mathbb{R}^{3})\\to[0,\\infty],\\quad \\mathrm{vol}\\ \\text{可数可加、刚体运动不变、}\\ \\mathrm{vol}([0,1]^{3})=1",
       "machine_readable": true
     },
     {
@@ -217,6 +239,38 @@
     },
     {
       "node_type": "record",
+      "id": "OM-D-GO-0001",
+      "kind": "definition",
+      "domain": "GO",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "博弈、策略、效用与混合策略单纯形",
+      "path": "02-公式库/博弈论与优化/OM-D-GO-0001-game-strategy-payoff-mixed-strategy-simplex.yaml",
+      "tags": [
+        "博弈",
+        "混合策略",
+        "单纯形",
+        "最佳应对"
+      ],
+      "symbols": [
+        "\\Gamma",
+        "N",
+        "S_i",
+        "u_i",
+        "\\Delta_{S_i}",
+        "\\Delta_m",
+        "\\Delta_n",
+        "\\mathcal{M}",
+        "\\sigma^{*}",
+        "\\mathrm{BR}_i",
+        "\\arg\\max"
+      ],
+      "script": null,
+      "latex": "\\Gamma=(N,\\ (S_i)_i,\\ (u_i)_i),\\qquad \\Delta_{S_i}=\\{p\\in\\mathbb{R}^{S_i}:\\ p\\ge 0,\\ \\textstyle\\sum_{s}p(s)=1\\},\\qquad \\mathrm{BR}_i(\\sigma_{-i})=\\arg\\max_{x_i\\in\\Delta_{S_i}}u_i(x_i,\\sigma_{-i})",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
       "id": "OM-D-GR-0001",
       "kind": "definition",
       "domain": "GR",
@@ -292,6 +346,32 @@
     },
     {
       "node_type": "record",
+      "id": "OM-D-IT-0001",
+      "kind": "definition",
+      "domain": "IT",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "离散无记忆信道、互信息与容量",
+      "path": "02-公式库/信息论与编码/OM-D-IT-0001-discrete-memoryless-channel-mutual-information-capacity.yaml",
+      "tags": [
+        "信道",
+        "互信息",
+        "容量"
+      ],
+      "symbols": [
+        "C",
+        "I",
+        "X",
+        "Y",
+        "R",
+        "p(x)"
+      ],
+      "script": null,
+      "latex": "C=\\sup_{p(x)}\\ I(X;Y),\\qquad I(X;Y)=\\sum_{x,y}p(x,y)\\log\\frac{p(x,y)}{p(x)p(y)}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
       "id": "OM-D-NT-0001",
       "kind": "definition",
       "domain": "NT",
@@ -313,6 +393,37 @@
       ],
       "script": "05-验证中心/01-引擎/pwcv_theorems.py",
       "latex": "delta_d(N) = floor(N/d) - floor((N-1)/d) = 1_{d|N}; I_P(N) = 0 (N<2), else prod_{d=2}^{floor(sqrt(N))} (1 - delta_d(N)); Theta(z) = ceil(z/(|z|+1)) = 1_{z>0} (z integer)",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-PR-0001",
+      "kind": "definition",
+      "domain": "PR",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "概率空间与随机变量",
+      "path": "02-公式库/概率论/OM-D-PR-0001-probability-space-random-variable.yaml",
+      "tags": [
+        "sigma-代数",
+        "概率测度",
+        "随机变量"
+      ],
+      "symbols": [
+        "\\Omega",
+        "\\mathcal{F}",
+        "\\mathbb{P}",
+        "\\mathbb{E}",
+        "\\mu",
+        "\\sigma",
+        "X_i",
+        "\\bar{X}_n",
+        "a.s.",
+        "\\mathcal{A}",
+        "\\xrightarrow{\\ d\\ }"
+      ],
+      "script": null,
+      "latex": "(\\Omega,\\mathcal{F},\\mathbb{P}),\\quad X:(\\Omega,\\mathcal{F})\\to(S,\\mathcal{S})\\ \\text{可测}",
       "machine_readable": true
     },
     {
@@ -363,6 +474,28 @@
     },
     {
       "node_type": "record",
+      "id": "OM-D-ST-0003",
+      "kind": "definition",
+      "domain": "ST",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "二元关系、良序与选择函数",
+      "path": "02-公式库/集合论/OM-D-ST-0003-binary-relation-well-ordering-choice-function.yaml",
+      "tags": [
+        "关系",
+        "良序",
+        "选择函数"
+      ],
+      "symbols": [
+        "\\varrho",
+        "X"
+      ],
+      "script": null,
+      "latex": "\\varrho\\subseteq X\\times X,\\qquad \\varrho\\ \\text{良序}\\ X\\ \\Longleftrightarrow\\ \\text{每个非空子集有}\\ \\varrho\\text{-最小元}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
       "id": "OM-D-TC-0001",
       "kind": "definition",
       "domain": "TC",
@@ -407,6 +540,56 @@
       ],
       "script": null,
       "latex": "\\mathrm{P}\\ \\subseteq\\ \\mathrm{NP},\\qquad \\mathrm{SAT}\\in\\mathrm{NP},\\qquad \\mathrm{SAT}\\in\\mathrm{P}\\ \\Longrightarrow\\ \\mathrm{P}=\\mathrm{NP}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-TG-0001",
+      "kind": "definition",
+      "domain": "TG",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "拓扑空间、连续映射与同胚",
+      "path": "02-公式库/几何与拓扑/OM-D-TG-0001-topological-space-continuous-map-homeomorphism.yaml",
+      "tags": [
+        "拓扑",
+        "连续",
+        "同胚"
+      ],
+      "symbols": [
+        "\\tau",
+        "X",
+        "f",
+        "\\overline{B}^{\\,n}",
+        "\\cong_{\\mathrm{h}}"
+      ],
+      "script": null,
+      "latex": "(X,\\tau),\\quad f:(X,\\tau_X)\\to(Y,\\tau_Y)\\ \\text{连续}\\ \\Longleftrightarrow\\ f^{-1}(\\tau_Y)\\subseteq\\tau_X",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-TG-0002",
+      "kind": "definition",
+      "domain": "TG",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "紧凸集与上半连续的集值映射",
+      "path": "02-公式库/几何与拓扑/OM-D-TG-0002-compact-convex-set-upper-semi-continuous-correspondence.yaml",
+      "tags": [
+        "凸集",
+        "紧集",
+        "集值映射",
+        "上半连续"
+      ],
+      "symbols": [
+        "K",
+        "\\Phi",
+        "\\multimap",
+        "\\mathcal{P}"
+      ],
+      "script": null,
+      "latex": "K\\subseteq\\mathbb{R}^{n}\\ \\text{紧凸},\\quad \\Phi:K\\multimap K,\\qquad x_k\\to x,\\ y_k\\in\\Phi(x_k),\\ y_k\\to y\\ \\Longrightarrow\\ y\\in\\Phi(x)",
       "machine_readable": true
     },
     {
@@ -1062,6 +1245,51 @@
     },
     {
       "node_type": "record",
+      "id": "OM-T-CB-0001",
+      "kind": "theorem",
+      "domain": "CB",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "Ramsey 定理（有限形式）",
+      "path": "02-公式库/组合数学/OM-T-CB-0001-ramsey-theorem-finite-form.yaml",
+      "tags": [
+        "着色",
+        "单色子结构",
+        "存在性"
+      ],
+      "symbols": [
+        "r",
+        "k",
+        "R_r(k)",
+        "K_n"
+      ],
+      "script": null,
+      "latex": "\\forall r,k\\ \\exists R=R_r(k):\\ K_R\\ \\text{的任意}\\ r\\text{-边着色含单色}\\ K_k",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-T-CB-0002",
+      "kind": "theorem",
+      "domain": "CB",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "Sperner 引理",
+      "path": "02-公式库/组合数学/OM-T-CB-0002-sperner-lemma.yaml",
+      "tags": [
+        "标号",
+        "单纯剖分",
+        "组合不动点"
+      ],
+      "symbols": [
+        "d"
+      ],
+      "script": null,
+      "latex": "\\text{满足 Sperner 标号条件的 }d\\text{-单纯剖分中，全标号 }d\\text{-单形的个数}\\ \\equiv\\ 1\\ (\\mathrm{mod}\\ 2)",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
       "id": "OM-T-CT-0001",
       "kind": "theorem",
       "domain": "CT",
@@ -1111,6 +1339,29 @@
     },
     {
       "node_type": "record",
+      "id": "OM-T-DS-0001",
+      "kind": "theorem",
+      "domain": "DS",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "Poincare 回归定理",
+      "path": "02-公式库/动力系统与混沌/OM-T-DS-0001-poincare-recurrence-theorem.yaml",
+      "tags": [
+        "保测系统",
+        "回归",
+        "遍历"
+      ],
+      "symbols": [
+        "\\mu",
+        "g",
+        "\\mathcal{A}"
+      ],
+      "script": null,
+      "latex": "\\mu(X)<\\infty,\\ g:X\\to X\\ \\text{保}\\ \\mu\\ \\text{测度}\\ \\Longrightarrow\\ \\mu\\text{-a.e.}\\ x\\in\\mathcal{A}\\ \\exists n\\ge 1:\\ g^{n}x\\in\\mathcal{A}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
       "id": "OM-T-FD-0001",
       "kind": "theorem",
       "domain": "FD",
@@ -1151,6 +1402,53 @@
       ],
       "script": null,
       "latex": "\\mathrm{Con}(T)\\ \\Rightarrow\\ T \\nvdash \\mathrm{Con}(T)",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-T-GO-0001",
+      "kind": "theorem",
+      "domain": "GO",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "von Neumann 极小极大定理",
+      "path": "02-公式库/博弈论与优化/OM-T-GO-0001-von-neumann-minimax-theorem.yaml",
+      "tags": [
+        "零和博弈",
+        "混合策略",
+        "对偶"
+      ],
+      "symbols": [
+        "\\mathcal{M}",
+        "\\Delta_m",
+        "\\Delta_n"
+      ],
+      "script": null,
+      "latex": "\\max_{x\\in\\Delta_m}\\ \\min_{y\\in\\Delta_n}\\ x^{\\top}\\,\\mathcal{M}\\,y\\ =\\ \\min_{y\\in\\Delta_n}\\ \\max_{x\\in\\Delta_m}\\ x^{\\top}\\,\\mathcal{M}\\,y",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-T-GO-0002",
+      "kind": "theorem",
+      "domain": "GO",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "Nash 均衡存在性定理",
+      "path": "02-公式库/博弈论与优化/OM-T-GO-0002-nash-existence-theorem.yaml",
+      "tags": [
+        "均衡存在性",
+        "集值不动点",
+        "混合策略"
+      ],
+      "symbols": [
+        "\\sigma^{*}",
+        "\\Delta_{S_i}",
+        "u_i",
+        "\\arg\\max"
+      ],
+      "script": null,
+      "latex": "\\text{有限博弈}\\ \\Longrightarrow\\ \\exists\\ \\sigma^{*}\\in\\prod_i\\Delta_{S_i}:\\ \\forall i,\\ \\sigma^{*}_{i}\\in\\arg\\max_{x_i\\in\\Delta_{S_i}}u_i(x_i,\\sigma^{*}_{-i})",
       "machine_readable": true
     },
     {
@@ -1199,6 +1497,29 @@
       ],
       "script": null,
       "latex": "\\frac{1}{|G|}\\sum_{g\\in G}\\chi_i(g)\\,\\overline{\\chi_j(g)}\\ =\\ \\delta_{ij}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-T-IT-0001",
+      "kind": "theorem",
+      "domain": "IT",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "Shannon 有噪信道编码定理",
+      "path": "02-公式库/信息论与编码/OM-T-IT-0001-shannon-noisy-channel-coding-theorem.yaml",
+      "tags": [
+        "容量",
+        "随机编码",
+        "可达性"
+      ],
+      "symbols": [
+        "C",
+        "R",
+        "n"
+      ],
+      "script": null,
+      "latex": "R<C\\ \\Longrightarrow\\ \\exists\\ \\text{码率}\\ R\\ \\text{的码，误码率}\\to 0;\\qquad R>C\\ \\Longrightarrow\\ \\text{误码率不趋于}\\ 0",
       "machine_readable": true
     },
     {
@@ -1381,6 +1702,52 @@
     },
     {
       "node_type": "record",
+      "id": "OM-T-PR-0001",
+      "kind": "theorem",
+      "domain": "PR",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "Kolmogorov 强大数律",
+      "path": "02-公式库/概率论/OM-T-PR-0001-kolmogorov-strong-law-of-large-numbers.yaml",
+      "tags": [
+        "几乎必然",
+        "样本均值",
+        "独立性"
+      ],
+      "symbols": [
+        "X_i",
+        "\\bar{X}_n",
+        "\\mathbb{E}",
+        "a.s."
+      ],
+      "script": null,
+      "latex": "\\bar{X}_n=\\frac{1}{n}\\sum_{i=1}^{n}X_i\\ \\longrightarrow\\ \\mathbb{E}[X_1]\\quad a.s.",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-T-PR-0002",
+      "kind": "theorem",
+      "domain": "PR",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "中心极限定理",
+      "path": "02-公式库/概率论/OM-T-PR-0002-central-limit-theorem.yaml",
+      "tags": [
+        "标准化和",
+        "分布收敛",
+        "正态"
+      ],
+      "symbols": [
+        "\\bar{X}_n",
+        "\\mathcal{N}"
+      ],
+      "script": null,
+      "latex": "\\frac{\\sqrt{n}\\,(\\bar{X}_n-\\mathbb{E}[X_1])}{\\sigma}\\ \\xrightarrow{\\ d\\ }\\ \\mathcal{N}(0,1)",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
       "id": "OM-T-ST-0001",
       "kind": "theorem",
       "domain": "ST",
@@ -1442,6 +1809,75 @@
       ],
       "script": null,
       "latex": "\\mathrm{SAT} \\in \\mathbf{NP}\\text{-complete}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-T-TG-0001",
+      "kind": "theorem",
+      "domain": "TG",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "Brouwer 不动点定理",
+      "path": "02-公式库/几何与拓扑/OM-T-TG-0001-brouwer-fixed-point-theorem.yaml",
+      "tags": [
+        "不动点",
+        "凸紧集",
+        "同调"
+      ],
+      "symbols": [
+        "f",
+        "\\overline{B}^{\\,n}",
+        "x"
+      ],
+      "script": null,
+      "latex": "f:\\overline{B}^{\\,n}\\to\\overline{B}^{\\,n}\\ \\text{连续}\\ \\Longrightarrow\\ \\exists x\\in\\overline{B}^{\\,n}:\\ f(x)=x",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-T-TG-0002",
+      "kind": "theorem",
+      "domain": "TG",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "Banach-Tarski 分球定理",
+      "path": "02-公式库/几何与拓扑/OM-T-TG-0002-banach-tarski-paradox.yaml",
+      "tags": [
+        "选择公理",
+        "刚体运动",
+        "不可测集"
+      ],
+      "symbols": [
+        "S^{2}",
+        "SO(3)",
+        "\\sim"
+      ],
+      "script": null,
+      "latex": "\\exists A_1,A_2\\subseteq S^{2},\\ A_1\\cap A_2=\\varnothing:\\ A_1\\sim S^{2}\\ \\text{且}\\ A_2\\sim S^{2}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-T-TG-0003",
+      "kind": "theorem",
+      "domain": "TG",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "角谷不动点定理",
+      "path": "02-公式库/几何与拓扑/OM-T-TG-0003-kakutani-fixed-point-theorem.yaml",
+      "tags": [
+        "不动点",
+        "集值映射",
+        "上半连续"
+      ],
+      "symbols": [
+        "K",
+        "\\Phi",
+        "\\multimap"
+      ],
+      "script": null,
+      "latex": "\\Phi:K\\multimap K,\\ \\text{上半连续、值非空凸闭}\\ \\Longrightarrow\\ \\exists x\\in K:\\ x\\in\\Phi(x)",
       "machine_readable": true
     },
     {
@@ -1924,6 +2360,41 @@
       "resolvable": true
     },
     {
+      "src": "OM-C-TG-0001",
+      "dst": "OM-D-PR-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-C-TG-0001",
+      "dst": "OM-T-TG-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-C-TG-0001",
+      "dst": "OM-T-TG-0002",
+      "type": "contradicts",
+      "via": "contradicts",
+      "resolvable": true
+    },
+    {
+      "src": "OM-C-TG-0001",
+      "dst": "OM-T-TG-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-C-TG-0001",
+      "dst": "OM-D-PR-0001",
+      "type": "uses",
+      "via": "正文引用",
+      "resolvable": true
+    },
+    {
       "src": "OM-D-AL-0001",
       "dst": "OM-D-CT-0001",
       "type": "cites",
@@ -2015,6 +2486,62 @@
       "resolvable": true
     },
     {
+      "src": "OM-D-GO-0001",
+      "dst": "OM-D-PR-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-GO-0001",
+      "dst": "OM-D-TG-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-GO-0001",
+      "dst": "OM-T-GO-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-GO-0001",
+      "dst": "OM-T-GO-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-GO-0001",
+      "dst": "OM-T-TG-0003",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-GO-0001",
+      "dst": "OM-T-GO-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-GO-0001",
+      "dst": "OM-T-GO-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-GO-0001",
+      "dst": "OM-T-TG-0003",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
       "src": "OM-D-GR-0001",
       "dst": "OM-D-AL-0001",
       "type": "cites",
@@ -2092,6 +2619,34 @@
       "resolvable": true
     },
     {
+      "src": "OM-D-IT-0001",
+      "dst": "OM-D-PR-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-IT-0001",
+      "dst": "OM-T-IT-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-IT-0001",
+      "dst": "OM-D-PR-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-IT-0001",
+      "dst": "OM-T-IT-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
       "src": "OM-D-NT-0001",
       "dst": "OM-F-NT-0001",
       "type": "cites",
@@ -2115,6 +2670,41 @@
     {
       "src": "OM-D-NT-0001",
       "dst": "OM-T-NT-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-PR-0001",
+      "dst": "OM-D-ST-0003",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-PR-0001",
+      "dst": "OM-T-DS-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-PR-0001",
+      "dst": "OM-T-PR-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-PR-0001",
+      "dst": "OM-T-DS-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-PR-0001",
+      "dst": "OM-T-PR-0001",
       "type": "related",
       "via": "related",
       "resolvable": true
@@ -2197,6 +2787,34 @@
       "resolvable": true
     },
     {
+      "src": "OM-D-ST-0003",
+      "dst": "OM-D-ST-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-ST-0003",
+      "dst": "OM-T-ST-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-ST-0003",
+      "dst": "OM-D-ST-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-ST-0003",
+      "dst": "OM-T-ST-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
       "src": "OM-D-TC-0001",
       "dst": "OM-P-TC-0002",
       "type": "cites",
@@ -2255,6 +2873,76 @@
     {
       "src": "OM-D-TC-0002",
       "dst": "OM-T-TC-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TG-0001",
+      "dst": "OM-D-CT-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TG-0001",
+      "dst": "OM-D-CT-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TG-0001",
+      "dst": "OM-D-ST-0003",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TG-0001",
+      "dst": "OM-T-TG-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TG-0001",
+      "dst": "OM-D-CT-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TG-0001",
+      "dst": "OM-T-TG-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TG-0002",
+      "dst": "OM-D-TG-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TG-0002",
+      "dst": "OM-T-TG-0003",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TG-0002",
+      "dst": "OM-D-TG-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TG-0002",
+      "dst": "OM-T-TG-0003",
       "type": "related",
       "via": "related",
       "resolvable": true
@@ -2701,6 +3389,69 @@
       "resolvable": true
     },
     {
+      "src": "OM-T-CB-0001",
+      "dst": "OM-D-ST-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-CB-0001",
+      "dst": "OM-T-CB-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-CB-0001",
+      "dst": "OM-D-ST-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-CB-0001",
+      "dst": "OM-T-CB-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-CB-0002",
+      "dst": "OM-D-TG-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-CB-0002",
+      "dst": "OM-T-CB-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-CB-0002",
+      "dst": "OM-T-TG-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-CB-0002",
+      "dst": "OM-D-TG-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-CB-0002",
+      "dst": "OM-T-CB-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
       "src": "OM-T-CT-0001",
       "dst": "OM-D-CT-0001",
       "type": "cites",
@@ -2759,6 +3510,34 @@
     {
       "src": "OM-T-CT-0002",
       "dst": "OM-T-TC-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-DS-0001",
+      "dst": "OM-D-PR-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-DS-0001",
+      "dst": "OM-T-PR-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-DS-0001",
+      "dst": "OM-D-PR-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-DS-0001",
+      "dst": "OM-T-PR-0001",
       "type": "related",
       "via": "related",
       "resolvable": true
@@ -2829,6 +3608,62 @@
     {
       "src": "OM-T-FD-0002",
       "dst": "OM-T-FD-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-GO-0001",
+      "dst": "OM-T-GO-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-GO-0001",
+      "dst": "OM-T-TG-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-GO-0001",
+      "dst": "OM-T-GO-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-GO-0001",
+      "dst": "OM-T-TG-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-GO-0002",
+      "dst": "OM-D-TG-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-GO-0002",
+      "dst": "OM-T-GO-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-GO-0002",
+      "dst": "OM-T-TG-0003",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-GO-0002",
+      "dst": "OM-T-GO-0001",
       "type": "related",
       "via": "related",
       "resolvable": true
@@ -2871,6 +3706,48 @@
     {
       "src": "OM-T-GR-0002",
       "dst": "OM-T-GR-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-IT-0001",
+      "dst": "OM-D-IT-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-IT-0001",
+      "dst": "OM-T-PR-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-IT-0001",
+      "dst": "OM-T-TC-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-IT-0001",
+      "dst": "OM-D-IT-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-IT-0001",
+      "dst": "OM-T-PR-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-IT-0001",
+      "dst": "OM-T-TC-0001",
       "type": "related",
       "via": "related",
       "resolvable": true
@@ -3310,6 +4187,62 @@
       "resolvable": true
     },
     {
+      "src": "OM-T-PR-0001",
+      "dst": "OM-D-PR-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-PR-0001",
+      "dst": "OM-T-DS-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-PR-0001",
+      "dst": "OM-T-PR-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-PR-0001",
+      "dst": "OM-T-DS-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-PR-0001",
+      "dst": "OM-T-PR-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-PR-0002",
+      "dst": "OM-D-PR-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-PR-0002",
+      "dst": "OM-T-PR-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-PR-0002",
+      "dst": "OM-T-PR-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
       "src": "OM-T-ST-0001",
       "dst": "OM-D-ST-0001",
       "type": "cites",
@@ -3382,6 +4315,125 @@
     {
       "src": "OM-T-TC-0002",
       "dst": "OM-D-TC-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TG-0001",
+      "dst": "OM-D-TG-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TG-0001",
+      "dst": "OM-T-CB-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TG-0001",
+      "dst": "OM-T-CT-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TG-0001",
+      "dst": "OM-T-TG-0003",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TG-0001",
+      "dst": "OM-D-TG-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TG-0001",
+      "dst": "OM-T-TG-0003",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TG-0002",
+      "dst": "OM-C-TG-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TG-0002",
+      "dst": "OM-D-ST-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TG-0002",
+      "dst": "OM-D-TG-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TG-0002",
+      "dst": "OM-C-TG-0001",
+      "type": "contradicts",
+      "via": "contradicts",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TG-0002",
+      "dst": "OM-C-TG-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TG-0002",
+      "dst": "OM-D-ST-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TG-0002",
+      "dst": "OM-D-ST-0001",
+      "type": "uses",
+      "via": "正文引用",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TG-0003",
+      "dst": "OM-T-GO-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TG-0003",
+      "dst": "OM-T-TG-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TG-0003",
+      "dst": "OM-T-TG-0001",
+      "type": "generalizes",
+      "via": "generalizations",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TG-0003",
+      "dst": "OM-T-GO-0002",
       "type": "related",
       "via": "related",
       "resolvable": true
@@ -3560,23 +4612,32 @@
       "E(N,Y)",
       "FirstEscapeComposite(m)",
       "Gamma",
+      "K_n",
       "L_n",
       "M",
       "NextPrime(m)",
       "P(Y)",
       "R_M",
+      "R_r(k)",
+      "SO(3)",
+      "S^{2}",
       "U_n",
+      "\\mathcal{N}",
       "\\mathcal{R}",
       "\\mathrm{F}",
-      "\\varrho",
+      "\\mathrm{vol}",
+      "\\sim",
       "b",
       "c",
       "c(n)",
+      "d",
       "e",
       "epsilon",
+      "g",
       "g_n",
       "i",
       "j(M)",
+      "k",
       "m!",
       "n",
       "omega(p)",
@@ -3587,6 +4648,7 @@
       "phi(x,a)",
       "pi",
       "pi(x)",
+      "r",
       "s",
       "sigma",
       "zeta"
@@ -3767,20 +4829,20 @@
     "CONTRADICTION_ASYMMETRIC": []
   },
   "resolution": {
-    "nodes": 71,
-    "node_keys": 71,
-    "edges": 278,
-    "both_in_graph": 271,
+    "nodes": 89,
+    "node_keys": 89,
+    "edges": 366,
+    "both_in_graph": 359,
     "one_endpoint_off_graph": 3,
     "both_endpoints_off_graph": 4,
     "collapsed_to_self_loop": 0,
     "ambiguous_doc_ids": []
   },
   "counts": {
-    "record_nodes": 47,
+    "record_nodes": 65,
     "doc_nodes": 24,
     "evidence_docs": 4,
-    "edges": 278,
+    "edges": 366,
     "load_errors": 0
   }
 }

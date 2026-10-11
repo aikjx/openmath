@@ -1,0 +1,72 @@
+schema_version: "0.1"
+
+id: OM-D-TG-0002
+kind: definition
+title_zh: '紧凸集与上半连续的集值映射'
+title_en: 'Compact convex set and upper semicontinuous correspondence'
+domain: TG
+msc:
+  - '52A41'
+  - '54A10'
+tags:
+  - '凸集'
+  - '紧集'
+  - '集值映射'
+  - '上半连续'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: 'K\subseteq\mathbb{R}^{n}\ \text{紧凸},\quad \Phi:K\multimap K,\qquad x_k\to x,\ y_k\in\Phi(x_k),\ y_k\to y\ \Longrightarrow\ y\in\Phi(x)'
+hypotheses:
+  - 'K 非空、紧、凸'
+  - '集值映射 \Phi 的每个值都非空、凸、闭'
+
+assumptions:
+  - '\Phi:K\multimap K 读成 \Phi 把每个 x 送到 \mathcal{P}(K) 的一个非空成员；上半连续在本卡按「闭图＋K 紧」这一口径给出，与图闭性同读'
+symbols:
+  - name: 'K'
+    meaning_zh: 'R^n 中的非空紧凸集（角谷卡与 Nash 卡的定义域）'
+    type: other
+  - name: '\Phi'
+    meaning_zh: '集值映射（correspondence）：像 \Phi(x) 是一个集合而非一个点'
+    type: other
+  - name: '\multimap'
+    meaning_zh: '集值映射记号'
+    type: other
+  - name: '\mathcal{P}'
+    meaning_zh: '幂集记号：\mathcal{P}(S) 是 S 的一切子集之族'
+    type: other
+
+related:
+  - 'OM-D-TG-0001'
+  - 'OM-T-TG-0003'
+uses:
+  - 'OM-D-TG-0001'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+caveat: '本条是第 3 批的记号补账：K、\Phi、\multimap、\mathcal{P} 四个记号此前只被定理卡使用而无定义条目。MSC 号按本库口径只作粗索引。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Berge, C., Topological Spaces (1963), ch.6 (集值映射与上半连续)'
+    - 'Rockafellar, R. T., Convex Analysis (1970), §20 (闭映射与上半连续)'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Berge, C., Topological Spaces (1963), ch.6 (集值映射与上半连续)'
+    - type: book
+      value: 'Rockafellar, R. T., Convex Analysis (1970), §20 (闭映射与上半连续)'
+  contributors:
+    - "qoder-session-2026-10-11"
+

@@ -1,0 +1,68 @@
+schema_version: "0.1"
+
+id: OM-T-PR-0002
+kind: theorem
+title_zh: '中心极限定理'
+title_en: 'Central limit theorem (Lindeberg-Levy)'
+domain: PR
+msc:
+  - '60F05'
+tags:
+  - '标准化和'
+  - '分布收敛'
+  - '正态'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\frac{\sqrt{n}\,(\bar{X}_n-\mathbb{E}[X_1])}{\sigma}\ \xrightarrow{\ d\ }\ \mathcal{N}(0,1)'
+hypotheses:
+  - 'X_i 独立同分布'
+  - '\sigma^{2}=\operatorname{Var}(X_1) 存在且 0<\sigma^{2}<\infty'
+proposed_by: 'Jarne Lindeberg'
+proposed_year: 1922
+
+assumptions:
+  - '收敛指分布函数在连续点处逐点收敛（弱收敛）'
+symbols:
+  - name: '\bar{X}_n'
+    meaning_zh: '样本均值；\mathbb{E}、\sigma、\xrightarrow{\ d\ } 三个记号由 OM-D-PR-0001 定义'
+    type: other
+  - name: '\mathcal{N}'
+    meaning_zh: '\mathcal{N}(0,1) 指标准化正态律'
+    type: other
+
+related:
+  - 'OM-T-PR-0001'
+uses:
+  - 'OM-D-PR-0001'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+caveat: '与 OM-T-PR-0001 记 related（同一对象的两种收敛口径），刻意不记 implies：两条定理互不蕴含。来源一侧本轮删掉了「Levy, Theorie des additions aleatoires」那一行：它的年份（1923 还是 1937）本轮无法核对，与其留一个会被引用的错年份，不如只站得住的部分。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Lindeberg, J. (1922)'
+    - 'Feller, W., An Introduction to Probability Theory and Its Applications, 3rd ed. (1968), ch.XV'
+    - 'Billingsley, P., Convergence of Probability Measures, 2nd ed. (1999), ch.2'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Lindeberg, J. (1922)'
+    - type: book
+      value: 'Feller, W., An Introduction to Probability Theory and Its Applications, 3rd ed. (1968), ch.XV'
+    - type: book
+      value: 'Billingsley, P., Convergence of Probability Measures, 2nd ed. (1999), ch.2'
+  contributors:
+    - "qoder-session-2026-10-11"
+

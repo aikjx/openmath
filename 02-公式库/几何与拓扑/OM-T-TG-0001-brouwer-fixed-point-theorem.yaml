@@ -1,0 +1,70 @@
+schema_version: "0.1"
+
+id: OM-T-TG-0001
+kind: theorem
+title_zh: 'Brouwer 不动点定理'
+title_en: 'Brouwer fixed-point theorem'
+domain: TG
+msc:
+  - '55M20'
+tags:
+  - '不动点'
+  - '凸紧集'
+  - '同调'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: 'f:\overline{B}^{\,n}\to\overline{B}^{\,n}\ \text{连续}\ \Longrightarrow\ \exists x\in\overline{B}^{\,n}:\ f(x)=x'
+hypotheses:
+  - '定义域是闭单位球（同胚于任意紧凸集）'
+  - 'f 连续，不需要可微'
+proposed_by: 'L. E. J. Brouwer'
+proposed_year: 1912
+
+assumptions:
+  - 'n>=1；n=0 时结论退化为平凡情形'
+symbols:
+  - name: 'f'
+    meaning_zh: '闭球上的连续自映射（记号由 OM-D-TG-0001 定义）'
+    type: other
+  - name: '\overline{B}^{\,n}'
+    meaning_zh: '闭单位球（同上）'
+    type: other
+  - name: 'x'
+    meaning_zh: '所求的不动点'
+    type: other
+
+related:
+  - 'OM-T-TG-0003'
+  - 'OM-D-TG-0001'
+uses:
+  - 'OM-T-CB-0002'
+  - 'OM-D-TG-0001'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+caveat: 'uses 走的是构造路线：Sperner 引理（组合）给出本定理的离散证明；rel 连 OM-T-TG-0003（集值推广）而不是从它出发，因为推广是后来的事。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Brouwer, L. E. J., Ein Fixpunktsatz (1912)'
+    - 'Munkres, J. R., Elements of Algebraic Topology (1984), §3.5'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Brouwer, L. E. J., Ein Fixpunktsatz (1912)'
+    - type: book
+      value: 'Munkres, J. R., Elements of Algebraic Topology (1984), §3.5'
+  contributors:
+    - "qoder-session-2026-10-11"
+

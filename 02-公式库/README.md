@@ -122,16 +122,27 @@ python -m openmath index --level L4          # 按证据等级筛选
 
 | 类别 | 数量 | 说明 |
 | --- | --- | --- |
-| 示例条目（`分析/`） | 2 | 欧拉恒等式、ζ 函数方程——示范格式与验证写法，**不是内容主体** |
-| 数论条目（`数论/`） | 16 | F×4、T×8、A×1、D×1、P×2 |
-| 难题条目（`03-难题与猜想/`） | 1 | OM-P-NT-0002（第 n 个素数低复杂度公式，开放） |
-| **合计** | **19** | `python -m openmath lint` 19/19 L0 通过；`verify --level L2` 19/19 未发现反例 |
-| 其中已到 L3（符号） | 2 | OM-F-NT-0003、OM-F-NT-0004 |
+| 目录 `代数` | 2 | 条数由 `graph.json` 的 record 节点 path 现数 |
+| 目录 `信息论与编码` | 2 | 条数由 `graph.json` 的 record 节点 path 现数 |
+| 目录 `几何与拓扑` | 6 | 条数由 `graph.json` 的 record 节点 path 现数 |
+| 目录 `分析` | 2 | 条数由 `graph.json` 的 record 节点 path 现数 |
+| 目录 `动力系统与混沌` | 1 | 条数由 `graph.json` 的 record 节点 path 现数 |
+| 目录 `博弈论与优化` | 3 | 条数由 `graph.json` 的 record 节点 path 现数 |
+| 目录 `数学基础与逻辑` | 6 | 条数由 `graph.json` 的 record 节点 path 现数 |
+| 目录 `数论` | 16 | 条数由 `graph.json` 的 record 节点 path 现数 |
+| 目录 `概率论` | 3 | 条数由 `graph.json` 的 record 节点 path 现数 |
+| 目录 `理论计算机科学` | 6 | 条数由 `graph.json` 的 record 节点 path 现数 |
+| 目录 `组合数学` | 2 | 条数由 `graph.json` 的 record 节点 path 现数 |
+| 目录 `群论与表示论` | 5 | 条数由 `graph.json` 的 record 节点 path 现数 |
+| 目录 `范畴论` | 4 | 条数由 `graph.json` 的 record 节点 path 现数 |
+| 目录 `集合论` | 6 | 条数由 `graph.json` 的 record 节点 path 现数 |
+| 目录 `05-经典未解猜想` | 1 | 条数由 `graph.json` 的 record 节点 path 现数 |
+| **合计** | **65** | `python -m openmath lint` 现印 记录数 65／加载失败 0／错误 0（凭据 `scratch/LINT_after_tranche3.txt`）；`verify --level L2` 本轮已复跑：**19 PASS／46 SKIP／0 FAIL**（19＋46＝65＝版面记录数，凭据 `scratch/VERIFY_L2_clean.txt`）；46 个 SKIP 全是「记录未提供 sympy 表达式」，也就是这些方程还没有可跑形式 |
+| 其中已到 L3（符号） | 4 | `OM-F-AN-0001`、`OM-F-AN-0002`、`OM-F-NT-0003`、`OM-F-NT-0004` |
 | **L4 形式化** | **0** | 本库**没有任何一条**可以说"已证明"（[红线一](../00-宪章/02-诚实红线.md)） |
 
-**域覆盖**：已启用域仅 `NT` 与 `AN` 两个。schema 允许的 20 个域代码中，
-其余 18 个（`FD`/`ST`/`CT`/`AL`/`GR`/`TG`/`PR`/`SC`/`CB`/`GT`/`NA`/`IT`/`DS`/`MP`/`GO`/`OR`/`TC`/`XS`）
-**无任何条目**。这是本库当前最大的内容缺口。
+**域覆盖**：版面 `domains with >=1 node` 现印 **14 / 20**——已有条目的域：`AL`×2、`AN`×2、`CB`×2、`CT`×4、`DS`×1、`FD`×6、`GO`×3、`GR`×5、`IT`×2、`NT`×17、`PR`×3、`ST`×6、`TC`×6、`TG`×6。
+其余 6 个域（`SC`（统计与数据科学）／`GT`（图论）／`NA`（数值分析）／`MP`（数学物理）／`OR`（运筹与系统科学）／`XS`（交叉与新兴））**无任何条目**，这是本库当前剩余的内容缺口；上一版是 2 / 20（仅 `NT` 与 `AN`）。**口径**：枚数由 `graph.json` 的 record 节点按域现数，与版面同值——本行不另立一套数。
 
 数论条目的验证脚本有两个（均纯标准库）：
 

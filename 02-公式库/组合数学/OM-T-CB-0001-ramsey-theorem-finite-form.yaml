@@ -1,0 +1,72 @@
+schema_version: "0.1"
+
+id: OM-T-CB-0001
+kind: theorem
+title_zh: 'Ramsey 定理（有限形式）'
+title_en: 'Ramsey theorem, finite form'
+domain: CB
+msc:
+  - '05D10'
+tags:
+  - '着色'
+  - '单色子结构'
+  - '存在性'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\forall r,k\ \exists R=R_r(k):\ K_R\ \text{的任意}\ r\text{-边着色含单色}\ K_k'
+hypotheses:
+  - '着色取任意 r 种颜色，不加任何约束'
+  - 'R_r(k) 为满足条件的最小整数'
+proposed_by: 'Frank P. Ramsey'
+proposed_year: 1930
+
+assumptions:
+  - '图取完全图 K_n，边着色为任意映射'
+symbols:
+  - name: 'r'
+    meaning_zh: '颜色数'
+    type: other
+  - name: 'k'
+    meaning_zh: '要求的单色完全子图的顶点数'
+    type: other
+  - name: 'R_r(k)'
+    meaning_zh: 'Ramsey 数，即保证单色 K_k 的最小顶点数'
+    type: other
+  - name: 'K_n'
+    meaning_zh: 'n 个顶点的完全图'
+    type: other
+
+related:
+  - 'OM-T-CB-0002'
+  - 'OM-D-ST-0002'
+uses:
+  - 'OM-D-ST-0002'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+caveat: 'uses 与 related 都指向记号与相邻定理，不指向任何未登记的界；本卡刻意不写 R_2(5) 的当前已知区间，因为那是会过期的读数，而本库的读数规则要求它挂在一个印出它的载体文件上。记号一侧留债：r、k、R_r(k)、K_n 四个记号在本批没有组合域的记号定义卡，它们会落在 UNDEFINED_SYMBOL 账上（ADVISORY），由第 4 批的组合记号卡收。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Ramsey, F. P., On a problem of formal logic (1930)'
+    - 'Graham, Rothschild and Spencer, Ramsey Theory, 2nd ed. (1990), ch.1'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Ramsey, F. P., On a problem of formal logic (1930)'
+    - type: book
+      value: 'Graham, Rothschild and Spencer, Ramsey Theory, 2nd ed. (1990), ch.1'
+  contributors:
+    - "qoder-session-2026-10-11"
+

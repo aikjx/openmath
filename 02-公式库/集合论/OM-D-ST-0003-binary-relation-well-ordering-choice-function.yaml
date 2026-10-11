@@ -1,0 +1,63 @@
+schema_version: "0.1"
+
+id: OM-D-ST-0003
+kind: definition
+title_zh: '二元关系、良序与选择函数'
+title_en: 'Binary relation, well-ordering and choice function'
+domain: ST
+msc:
+  - '03E20'
+  - '03E35'
+tags:
+  - '关系'
+  - '良序'
+  - '选择函数'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\varrho\subseteq X\times X,\qquad \varrho\ \text{良序}\ X\ \Longleftrightarrow\ \text{每个非空子集有}\ \varrho\text{-最小元}'
+
+assumptions:
+  - '关系按有序对集合来读，故 \varrho 是 X×X 的子集'
+  - '选择函数定义在一族非空集合的并上，每支取一个元素'
+symbols:
+  - name: '\varrho'
+    meaning_zh: 'X 上的二元关系；拼写与 OM-T-ST-0001 改名后的 stmt／symbols 一致（\varrho）'
+    type: other
+  - name: 'X'
+    meaning_zh: '被比较或被良序的集合'
+    type: other
+
+related:
+  - 'OM-T-ST-0001'
+  - 'OM-D-ST-0001'
+uses:
+  - 'OM-D-ST-0001'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+caveat: '第 1 批的 OM-T-ST-0001 在改名（R→varrho）后仍留有一枚无定义条目的记号；本条把它补在 kind=definition 的记录上，同时把选择函数写进同一处，与 OM-D-ST-0001（选择公理）互为记号上下游。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Jech, T., Set Theory, Millennium ed. (2003), §1.3, §2.1'
+    - 'Halmos, P., Naive Set Theory (1960), §15-16'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Jech, T., Set Theory, Millennium ed. (2003), §1.3, §2.1'
+    - type: book
+      value: 'Halmos, P., Naive Set Theory (1960), §15-16'
+  contributors:
+    - "qoder-session-2026-10-11"
+

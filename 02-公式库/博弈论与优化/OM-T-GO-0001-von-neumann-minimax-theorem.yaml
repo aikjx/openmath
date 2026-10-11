@@ -1,0 +1,70 @@
+schema_version: "0.1"
+
+id: OM-T-GO-0001
+kind: theorem
+title_zh: 'von Neumann 极小极大定理'
+title_en: 'Minimax theorem of von Neumann'
+domain: GO
+msc:
+  - '91A05'
+  - '90C05'
+tags:
+  - '零和博弈'
+  - '混合策略'
+  - '对偶'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\max_{x\in\Delta_m}\ \min_{y\in\Delta_n}\ x^{\top}\,\mathcal{M}\,y\ =\ \min_{y\in\Delta_n}\ \max_{x\in\Delta_m}\ x^{\top}\,\mathcal{M}\,y'
+hypotheses:
+  - '\mathcal{M} 为实矩阵（支付表）'
+  - '策略集为概率单纯形 \Delta_m、\Delta_n'
+proposed_by: 'John von Neumann'
+proposed_year: 1928
+
+assumptions:
+  - '双线性型在紧凸集上连续，故可用不动点/分离超平面论证'
+symbols:
+  - name: '\mathcal{M}'
+    meaning_zh: '支付矩阵；本卡刻意不写 M——M 在 NT 各卡已有含义'
+    type: other
+  - name: '\Delta_m'
+    meaning_zh: 'm 元概率单纯形（行玩家的混合策略集，记号由 OM-D-GO-0001 定义）'
+    type: other
+  - name: '\Delta_n'
+    meaning_zh: 'n 元概率单纯形（列玩家的混合策略集）'
+    type: other
+
+related:
+  - 'OM-T-GO-0002'
+  - 'OM-T-TG-0001'
+uses:
+  - 'OM-T-TG-0001'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+caveat: '本条与 OM-T-GO-0002 的差别是概念性的而非量的：零和博弈的「值」唯一，一般博弈的均衡可以有很多个，所以两条之间只记 related。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'von Neumann, J., Zur Theorie der Gesellschaftsspiele (1928)'
+    - 'Dantzig, G. B., Linear Programming and Extensions (1963), ch.8'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'von Neumann, J., Zur Theorie der Gesellschaftsspiele (1928)'
+    - type: book
+      value: 'Dantzig, G. B., Linear Programming and Extensions (1963), ch.8'
+  contributors:
+    - "qoder-session-2026-10-11"
+

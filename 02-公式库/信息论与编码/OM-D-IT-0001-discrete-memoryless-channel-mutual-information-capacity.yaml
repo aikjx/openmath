@@ -1,0 +1,78 @@
+schema_version: "0.1"
+
+id: OM-D-IT-0001
+kind: definition
+title_zh: '离散无记忆信道、互信息与容量'
+title_en: 'Discrete memoryless channel, mutual information and capacity'
+domain: IT
+msc:
+  - '94A05'
+tags:
+  - '信道'
+  - '互信息'
+  - '容量'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: 'C=\sup_{p(x)}\ I(X;Y),\qquad I(X;Y)=\sum_{x,y}p(x,y)\log\frac{p(x,y)}{p(x)p(y)}'
+hypotheses:
+  - '信道无记忆：p(y^n|x^n)=prod_i p(y_i|x_i)'
+  - '输入输出字母表有限'
+proposed_by: 'Claude E. Shannon'
+proposed_year: 1948
+
+assumptions:
+  - 'log 取 2 的底，故单位为 bit；对任何 0 的概率约定 0 log 0 = 0'
+symbols:
+  - name: 'C'
+    meaning_zh: '信道容量：C=\sup_{p(x)}I(X;Y)'
+    type: other
+  - name: 'I'
+    meaning_zh: '互信息 I(X;Y)'
+    type: other
+  - name: 'X'
+    meaning_zh: '输入随机变量'
+    type: other
+  - name: 'Y'
+    meaning_zh: '输出随机变量'
+    type: other
+  - name: 'R'
+    meaning_zh: '码率，即每信道使用传输的比特数'
+    type: other
+  - name: 'p(x)'
+    meaning_zh: '输入分布；本卡的容量正是对它取上确界'
+    type: other
+
+related:
+  - 'OM-T-IT-0001'
+  - 'OM-D-PR-0001'
+uses:
+  - 'OM-D-PR-0001'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+caveat: '本条同时为 OM-T-IT-0001 的 C、I、R、X、Y 与 p(x) 六个记号补定义条目；n（码长）沿用 NT 各卡已有的同名记号，故不另立拼写。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Shannon, C. E., A Mathematical Theory of Communication (1948), §4-10'
+    - 'Cover and Thomas, Elements of Information Theory, 2nd ed. (2006), ch.8'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Shannon, C. E., A Mathematical Theory of Communication (1948), §4-10'
+    - type: book
+      value: 'Cover and Thomas, Elements of Information Theory, 2nd ed. (2006), ch.8'
+  contributors:
+    - "qoder-session-2026-10-11"
+

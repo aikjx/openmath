@@ -19,250 +19,356 @@ flowchart LR
   n5 -->|引用| n6
   n5 -.->|冲突| n4
   n5 -->|related| n4
-  n7["OM-D-AL-0001 同态、核、像与商 definition/L1/PROPOSED"]
-  n8["OM-D-CT-0001 范畴、函子与自然变换 definition/L1/PROPOSED"]
+  n7["OM-C-TG-0001 朴素可测性公设（体积在刚体运动下不变且定义于所有有界集） conjecture/L1…"]
+  n8["OM-D-PR-0001 概率空间与随机变量 definition/L1/PROPOSED"]
   n7 -->|引用| n8
-  n7 -->|related| n8
-  n9["OM-D-CT-0002 笛卡尔闭范畴与指数对象 definition/L1/PROPOSED"]
-  n9 -->|引用| n8
-  n10["OM-T-CT-0002 Lawvere 对角不动点定理 theorem/L1/PROPOSED"]
-  n9 -->|引用| n10
-  n9 -->|related| n8
-  n9 -->|related| n10
-  n11["OM-D-FD-0001 朴素概括原则 definition/L1/PROPOSED"]
-  n12["OM-X-FD-0001 罗素悖论（朴素概括原则的反例） counterexample/L1/PROPOSED"]
-  n11 -->|引用| n12
-  n11 -.->|冲突| n12
-  n13["OM-D-FD-0002 形式语言、证明关系与一致性陈述 definition/L1/PROPOSED"]
-  n13 -->|引用| n11
-  n14["OM-P-FD-0001 希尔伯特纲领（有穷一致性证明） problem/L1/PROPOSED"]
-  n13 -->|引用| n14
-  n15["OM-T-FD-0001 哥德尔第一不完备定理 theorem/L1/PROPOSED"]
-  n13 -->|引用| n15
-  n16["OM-T-FD-0002 哥德尔第二不完备定理 theorem/L1/PROPOSED"]
-  n13 -->|引用| n16
-  n13 -->|related| n11
-  n17["OM-D-GR-0001 群作用、轨道与稳定子 definition/L1/PROPOSED"]
-  n17 -->|引用| n7
-  n18["OM-D-GR-0002 有限群的阶与 p-子群计数 definition/L1/PROPOSED"]
-  n18 -->|引用| n17
-  n19["OM-T-GR-0001 西罗定理 theorem/L1/PROPOSED"]
-  n18 -->|引用| n19
-  n18 -->|related| n17
-  n18 -->|related| n19
-  n20["OM-D-GR-0003 复表示与字符 definition/L1/PROPOSED"]
-  n20 -->|引用| n7
-  n20 -->|引用| n18
-  n21["OM-T-GR-0002 不可约字符的正交关系 theorem/L1/PROPOSED"]
+  n9["OM-T-TG-0002 Banach-Tarski 分球定理 theorem/L1/PROPOSED"]
+  n7 -->|引用| n9
+  n7 -.->|冲突| n9
+  n7 -->|related| n9
+  n7 -->|用到| n8
+  n10["OM-D-AL-0001 同态、核、像与商 definition/L1/PROPOSED"]
+  n11["OM-D-CT-0001 范畴、函子与自然变换 definition/L1/PROPOSED"]
+  n10 -->|引用| n11
+  n10 -->|related| n11
+  n12["OM-D-CT-0002 笛卡尔闭范畴与指数对象 definition/L1/PROPOSED"]
+  n12 -->|引用| n11
+  n13["OM-T-CT-0002 Lawvere 对角不动点定理 theorem/L1/PROPOSED"]
+  n12 -->|引用| n13
+  n12 -->|related| n11
+  n12 -->|related| n13
+  n14["OM-D-FD-0001 朴素概括原则 definition/L1/PROPOSED"]
+  n15["OM-X-FD-0001 罗素悖论（朴素概括原则的反例） counterexample/L1/PROPOSED"]
+  n14 -->|引用| n15
+  n14 -.->|冲突| n15
+  n16["OM-D-FD-0002 形式语言、证明关系与一致性陈述 definition/L1/PROPOSED"]
+  n16 -->|引用| n14
+  n17["OM-P-FD-0001 希尔伯特纲领（有穷一致性证明） problem/L1/PROPOSED"]
+  n16 -->|引用| n17
+  n18["OM-T-FD-0001 哥德尔第一不完备定理 theorem/L1/PROPOSED"]
+  n16 -->|引用| n18
+  n19["OM-T-FD-0002 哥德尔第二不完备定理 theorem/L1/PROPOSED"]
+  n16 -->|引用| n19
+  n16 -->|related| n14
+  n20["OM-D-GO-0001 博弈、策略、效用与混合策略单纯形 definition/L1/PROPOSED"]
+  n20 -->|引用| n8
+  n21["OM-D-TG-0002 紧凸集与上半连续的集值映射 definition/L1/PROPOSED"]
   n20 -->|引用| n21
-  n20 -->|related| n7
-  n20 -->|related| n18
-  n20 -->|related| n21
-  n22["OM-D-NT-0001 精确整除脉冲、素数指示与整数阶跃 definition/L2/VERIFIED(L2)"]
-  n22 -->|引用| n2
-  n23["OM-T-NT-0001 素数离散微积分闭环（指示 ↔ 计数 ↔ 第 n 素数） theorem/L2/VER…"]
-  n22 -->|引用| n23
-  n22 -->|related| n2
-  n22 -->|related| n23
-  n6 -->|引用| n4
-  n24["OM-T-ST-0001 良序定理 theorem/L1/PROPOSED"]
-  n6 -->|引用| n24
-  n6 ==>|蕴含| n24
-  n6 -->|related| n24
-  n25["OM-D-ST-0002 可数性与两个 aleph 基数 definition/L1/PROPOSED"]
-  n25 -->|引用| n4
-  n25 -->|引用| n5
-  n25 -->|引用| n6
-  n25 -->|引用| n24
-  n25 -->|related| n4
-  n25 -->|related| n5
-  n25 -->|related| n24
-  n26["OM-D-TC-0001 NP 完全性（多项式时间归约下的完全类） definition/L1/PROPOSED"]
-  n27["OM-P-TC-0002 P 与 NP 是否相等 problem/L1/PROPOSED"]
+  n22["OM-T-GO-0001 von Neumann 极小极大定理 theorem/L1/PROPOSED"]
+  n20 -->|引用| n22
+  n23["OM-T-GO-0002 Nash 均衡存在性定理 theorem/L1/PROPOSED"]
+  n20 -->|引用| n23
+  n24["OM-T-TG-0003 角谷不动点定理 theorem/L1/PROPOSED"]
+  n20 -->|引用| n24
+  n20 -->|related| n22
+  n20 -->|related| n23
+  n20 -->|related| n24
+  n25["OM-D-GR-0001 群作用、轨道与稳定子 definition/L1/PROPOSED"]
+  n25 -->|引用| n10
+  n26["OM-D-GR-0002 有限群的阶与 p-子群计数 definition/L1/PROPOSED"]
+  n26 -->|引用| n25
+  n27["OM-T-GR-0001 西罗定理 theorem/L1/PROPOSED"]
   n26 -->|引用| n27
-  n28["OM-T-TC-0002 Cook-Levin 定理（SAT 是 NP 完全） theorem/L1/PROP…"]
-  n26 -->|引用| n28
-  n26 -->|related| n28
-  n29["OM-D-TC-0002 复杂性类 P、NP 与 SAT definition/L1/PROPOSED"]
-  n29 -->|引用| n26
-  n29 -->|引用| n27
-  n29 -->|引用| n28
-  n29 -->|related| n26
-  n29 -->|related| n27
-  n29 -->|related| n28
-  n30["OM-F-AN-0001 欧拉恒等式 formula/L3/VERIFIED(L3)"]
-  n31["OM-F-AN-0002 Riemann ζ 函数函数方程 formula/L3/VERIFIED(L3)"]
+  n26 -->|related| n25
+  n26 -->|related| n27
+  n28["OM-D-GR-0003 复表示与字符 definition/L1/PROPOSED"]
+  n28 -->|引用| n10
+  n28 -->|引用| n26
+  n29["OM-T-GR-0002 不可约字符的正交关系 theorem/L1/PROPOSED"]
+  n28 -->|引用| n29
+  n28 -->|related| n10
+  n28 -->|related| n26
+  n28 -->|related| n29
+  n30["OM-D-IT-0001 离散无记忆信道、互信息与容量 definition/L1/PROPOSED"]
+  n30 -->|引用| n8
+  n31["OM-T-IT-0001 Shannon 有噪信道编码定理 theorem/L1/PROPOSED"]
   n30 -->|引用| n31
+  n30 -->|related| n8
   n30 -->|related| n31
-  n31 -->|引用| n30
-  n31 -->|related| n30
+  n32["OM-D-NT-0001 精确整除脉冲、素数指示与整数阶跃 definition/L2/VERIFIED(L2)"]
+  n32 -->|引用| n2
+  n33["OM-T-NT-0001 素数离散微积分闭环（指示 ↔ 计数 ↔ 第 n 素数） theorem/L2/VER…"]
+  n32 -->|引用| n33
+  n32 -->|related| n2
+  n32 -->|related| n33
+  n34["OM-D-ST-0003 二元关系、良序与选择函数 definition/L1/PROPOSED"]
+  n8 -->|引用| n34
+  n35["OM-T-DS-0001 Poincare 回归定理 theorem/L1/PROPOSED"]
+  n8 -->|引用| n35
+  n36["OM-T-PR-0001 Kolmogorov 强大数律 theorem/L1/PROPOSED"]
+  n8 -->|引用| n36
+  n8 -->|related| n35
+  n8 -->|related| n36
+  n6 -->|引用| n4
+  n37["OM-T-ST-0001 良序定理 theorem/L1/PROPOSED"]
+  n6 -->|引用| n37
+  n6 ==>|蕴含| n37
+  n6 -->|related| n37
+  n38["OM-D-ST-0002 可数性与两个 aleph 基数 definition/L1/PROPOSED"]
+  n38 -->|引用| n4
+  n38 -->|引用| n5
+  n38 -->|引用| n6
+  n38 -->|引用| n37
+  n38 -->|related| n4
+  n38 -->|related| n5
+  n38 -->|related| n37
+  n34 -->|引用| n6
+  n34 -->|引用| n37
+  n34 -->|related| n6
+  n34 -->|related| n37
+  n39["OM-D-TC-0001 NP 完全性（多项式时间归约下的完全类） definition/L1/PROPOSED"]
+  n40["OM-P-TC-0002 P 与 NP 是否相等 problem/L1/PROPOSED"]
+  n39 -->|引用| n40
+  n41["OM-T-TC-0002 Cook-Levin 定理（SAT 是 NP 完全） theorem/L1/PROP…"]
+  n39 -->|引用| n41
+  n39 -->|related| n41
+  n42["OM-D-TC-0002 复杂性类 P、NP 与 SAT definition/L1/PROPOSED"]
+  n42 -->|引用| n39
+  n42 -->|引用| n40
+  n42 -->|引用| n41
+  n42 -->|related| n39
+  n42 -->|related| n40
+  n42 -->|related| n41
+  n43["OM-D-TG-0001 拓扑空间、连续映射与同胚 definition/L1/PROPOSED"]
+  n43 -->|引用| n11
+  n43 -->|引用| n12
+  n43 -->|引用| n34
+  n44["OM-T-TG-0001 Brouwer 不动点定理 theorem/L1/PROPOSED"]
+  n43 -->|引用| n44
+  n43 -->|related| n11
+  n43 -->|related| n44
+  n21 -->|引用| n43
+  n21 -->|引用| n24
+  n21 -->|related| n43
+  n21 -->|related| n24
+  n45["OM-F-AN-0001 欧拉恒等式 formula/L3/VERIFIED(L3)"]
+  n46["OM-F-AN-0002 Riemann ζ 函数函数方程 formula/L3/VERIFIED(L3)"]
+  n45 -->|引用| n46
+  n45 -->|related| n46
+  n46 -->|引用| n45
+  n46 -->|related| n45
   n2 -->|引用| n1
   n2 -->|引用| n3
   n2 -->|related| n1
   n2 -->|related| n3
-  n32["OM-F-NT-0002 第 n 素数的 n-only 有限表示（母公式） formula/L2/VERIFI…"]
-  n32 -->|引用| n22
-  n32 -->|引用| n3
-  n32 -->|引用| n23
-  n32 -->|related| n22
-  n32 -->|related| n3
-  n32 -->|related| n23
-  n32 -->|用到| n22
-  n33["OM-F-NT-0003 区间素数计数的 Legendre 窗口恒等式（方块窗口） formula/L3/VE…"]
-  n33 -->|引用| n2
-  n34["OM-P-NT-0003 Landau 第三问题 · Legendre 猜想（相邻平方数之间… problem…"]
-  n33 -->|引用| n34
-  n33 -->|related| n2
-  n33 -->|related| n34
-  n35["OM-F-NT-0004 n²+1 序列的 Legendre–Möbius 筛恒等式与余项爆… formula…"]
-  n35 -->|引用| n2
-  n36["OM-P-NT-0004 Landau 第四问题 · 是否存在无穷多个素数形如 n²+1 problem/L1…"]
-  n35 -->|引用| n36
-  n37["OM-T-NT-0006 一般 wheel 覆盖定理 theorem/L2/VERIFIED(L2)"]
-  n35 -->|引用| n37
-  n35 -->|related| n2
-  n35 -->|related| n36
-  n35 -->|related| n37
-  n38["OM-P-TC-0001 判定问题（Entscheidungsproblem） problem/L1/PROP…"]
-  n14 -->|引用| n38
-  n14 -->|引用| n15
-  n14 -->|引用| n16
-  n14 -.->|冲突| n15
-  n14 -.->|冲突| n16
-  n14 -->|related| n38
+  n47["OM-F-NT-0002 第 n 素数的 n-only 有限表示（母公式） formula/L2/VERIFI…"]
+  n47 -->|引用| n32
+  n47 -->|引用| n3
+  n47 -->|引用| n33
+  n47 -->|related| n32
+  n47 -->|related| n3
+  n47 -->|related| n33
+  n47 -->|用到| n32
+  n48["OM-F-NT-0003 区间素数计数的 Legendre 窗口恒等式（方块窗口） formula/L3/VE…"]
+  n48 -->|引用| n2
+  n49["OM-P-NT-0003 Landau 第三问题 · Legendre 猜想（相邻平方数之间… problem…"]
+  n48 -->|引用| n49
+  n48 -->|related| n2
+  n48 -->|related| n49
+  n50["OM-F-NT-0004 n²+1 序列的 Legendre–Möbius 筛恒等式与余项爆… formula…"]
+  n50 -->|引用| n2
+  n51["OM-P-NT-0004 Landau 第四问题 · 是否存在无穷多个素数形如 n²+1 problem/L1…"]
+  n50 -->|引用| n51
+  n52["OM-T-NT-0006 一般 wheel 覆盖定理 theorem/L2/VERIFIED(L2)"]
+  n50 -->|引用| n52
+  n50 -->|related| n2
+  n50 -->|related| n51
+  n50 -->|related| n52
+  n53["OM-P-TC-0001 判定问题（Entscheidungsproblem） problem/L1/PROP…"]
+  n17 -->|引用| n53
+  n17 -->|引用| n18
+  n17 -->|引用| n19
+  n17 -.->|冲突| n18
+  n17 -.->|冲突| n19
+  n17 -->|related| n53
   n3 -->|引用| n1
   n3 -->|引用| n2
-  n34 -->|引用| n33
-  n34 -->|引用| n36
-  n34 ==>|蕴含| n33
-  n34 -->|related| n33
-  n34 -->|related| n36
-  n34 -->|用到| n33
-  n36 -->|引用| n35
-  n36 -->|引用| n34
-  n36 ==>|蕴含| n35
-  n36 -->|related| n35
-  n36 -->|related| n34
-  n36 -->|用到| n35
-  n38 -->|引用| n14
-  n39["OM-T-TC-0001 停机问题不可判定 theorem/L1/PROPOSED"]
-  n38 -->|引用| n39
-  n38 -.->|冲突| n39
-  n38 -->|related| n14
-  n27 -->|引用| n26
-  n27 -->|引用| n28
-  n27 -->|related| n26
-  n27 -->|related| n28
-  n40["OM-T-AL-0001 第一同构定理 theorem/L1/PROPOSED"]
-  n40 -->|引用| n7
-  n41["OM-T-CT-0001 米田引理 theorem/L1/PROPOSED"]
+  n49 -->|引用| n48
+  n49 -->|引用| n51
+  n49 ==>|蕴含| n48
+  n49 -->|related| n48
+  n49 -->|related| n51
+  n49 -->|用到| n48
+  n51 -->|引用| n50
+  n51 -->|引用| n49
+  n51 ==>|蕴含| n50
+  n51 -->|related| n50
+  n51 -->|related| n49
+  n51 -->|用到| n50
+  n53 -->|引用| n17
+  n54["OM-T-TC-0001 停机问题不可判定 theorem/L1/PROPOSED"]
+  n53 -->|引用| n54
+  n53 -.->|冲突| n54
+  n53 -->|related| n17
+  n40 -->|引用| n39
   n40 -->|引用| n41
+  n40 -->|related| n39
   n40 -->|related| n41
-  n41 -->|引用| n8
-  n41 -->|related| n8
-  n10 -->|引用| n8
-  n10 -->|引用| n41
-  n10 -->|引用| n15
-  n10 -->|引用| n39
-  n10 -->|related| n41
-  n10 -->|related| n15
-  n10 -->|related| n39
-  n15 -->|引用| n14
-  n15 -->|引用| n16
-  n15 -.->|冲突| n14
-  n15 ==>|蕴含| n14
-  n15 -->|related| n16
-  n16 -->|引用| n14
-  n16 -->|引用| n15
-  n16 -.->|冲突| n14
-  n16 ==>|蕴含| n14
-  n16 -->|related| n15
+  n55["OM-T-AL-0001 第一同构定理 theorem/L1/PROPOSED"]
+  n55 -->|引用| n10
+  n56["OM-T-CT-0001 米田引理 theorem/L1/PROPOSED"]
+  n55 -->|引用| n56
+  n55 -->|related| n56
+  n57["OM-T-CB-0001 Ramsey 定理（有限形式） theorem/L1/PROPOSED"]
+  n57 -->|引用| n38
+  n58["OM-T-CB-0002 Sperner 引理 theorem/L1/PROPOSED"]
+  n57 -->|引用| n58
+  n57 -->|related| n38
+  n57 -->|related| n58
+  n58 -->|引用| n43
+  n58 -->|引用| n57
+  n58 -->|引用| n44
+  n58 -->|related| n43
+  n58 -->|related| n57
+  n56 -->|引用| n11
+  n56 -->|related| n11
+  n13 -->|引用| n11
+  n13 -->|引用| n56
+  n13 -->|引用| n18
+  n13 -->|引用| n54
+  n13 -->|related| n56
+  n13 -->|related| n18
+  n13 -->|related| n54
+  n35 -->|引用| n8
+  n35 -->|引用| n36
+  n35 -->|related| n8
+  n35 -->|related| n36
+  n18 -->|引用| n17
+  n18 -->|引用| n19
+  n18 -.->|冲突| n17
+  n18 ==>|蕴含| n17
+  n18 -->|related| n19
   n19 -->|引用| n17
-  n19 -->|引用| n23
-  n19 -->|related| n23
-  n21 -->|引用| n7
-  n21 -->|引用| n19
-  n21 -->|related| n19
-  n23 -->|引用| n1
+  n19 -->|引用| n18
+  n19 -.->|冲突| n17
+  n19 ==>|蕴含| n17
+  n19 -->|related| n18
+  n22 -->|引用| n23
+  n22 -->|引用| n44
+  n22 -->|related| n23
+  n22 -->|related| n44
+  n23 -->|引用| n43
   n23 -->|引用| n22
-  n23 -->|引用| n2
-  n23 -->|引用| n32
-  n23 -->|引用| n3
-  n23 -->|related| n1
+  n23 -->|引用| n24
   n23 -->|related| n22
-  n23 -->|related| n2
-  n23 -->|related| n32
-  n23 -->|用到| n22
-  n23 -->|用到| n2
-  n42["OM-T-NT-0002 素数计数分块递归分解（Legendre φ 递归恒等式） theorem/L2/VE…"]
-  n42 -->|引用| n1
-  n42 -->|引用| n22
-  n42 -->|引用| n2
-  n42 -->|引用| n3
-  n42 -->|推广| n2
-  n42 -->|related| n1
-  n42 -->|related| n22
-  n42 -->|related| n2
-  n43["OM-T-NT-0003 阶乘互素定理（下一素数母定理） theorem/L2/VERIFIED(L2)"]
-  n43 -->|引用| n22
-  n43 -->|引用| n23
-  n44["OM-T-NT-0004 首逃逸合数平方定理 theorem/L2/VERIFIED(L2)"]
-  n43 -->|引用| n44
-  n45["OM-T-NT-0007 阶乘互素安全窗口定理 theorem/L2/VERIFIED(L2)"]
-  n43 -->|引用| n45
-  n43 -->|推广| n45
-  n43 -->|related| n22
-  n43 -->|related| n23
-  n43 -->|related| n44
-  n44 -->|引用| n22
+  n27 -->|引用| n25
+  n27 -->|引用| n33
+  n27 -->|related| n33
+  n29 -->|引用| n10
+  n29 -->|引用| n27
+  n29 -->|related| n27
+  n31 -->|引用| n30
+  n31 -->|引用| n36
+  n31 -->|引用| n54
+  n31 -->|related| n30
+  n31 -->|related| n36
+  n31 -->|related| n54
+  n33 -->|引用| n1
+  n33 -->|引用| n32
+  n33 -->|引用| n2
+  n33 -->|引用| n47
+  n33 -->|引用| n3
+  n33 -->|related| n1
+  n33 -->|related| n32
+  n33 -->|related| n2
+  n33 -->|related| n47
+  n33 -->|用到| n32
+  n33 -->|用到| n2
+  n59["OM-T-NT-0002 素数计数分块递归分解（Legendre φ 递归恒等式） theorem/L2/VE…"]
+  n59 -->|引用| n1
+  n59 -->|引用| n32
+  n59 -->|引用| n2
+  n59 -->|引用| n3
+  n59 -->|推广| n2
+  n59 -->|related| n1
+  n59 -->|related| n32
+  n59 -->|related| n2
+  n60["OM-T-NT-0003 阶乘互素定理（下一素数母定理） theorem/L2/VERIFIED(L2)"]
+  n60 -->|引用| n32
+  n60 -->|引用| n33
+  n61["OM-T-NT-0004 首逃逸合数平方定理 theorem/L2/VERIFIED(L2)"]
+  n60 -->|引用| n61
+  n62["OM-T-NT-0007 阶乘互素安全窗口定理 theorem/L2/VERIFIED(L2)"]
+  n60 -->|引用| n62
+  n60 -->|推广| n62
+  n60 -->|related| n32
+  n60 -->|related| n33
+  n60 -->|related| n61
+  n61 -->|引用| n32
+  n61 -->|引用| n60
+  n61 -->|引用| n62
+  n61 -->|推广| n62
+  n61 -->|related| n32
+  n61 -->|related| n60
+  n61 -->|related| n62
+  n63["OM-T-NT-0005 模 6 合数覆盖母方程 theorem/L2/VERIFIED(L2)"]
+  n63 -->|引用| n32
+  n63 -->|引用| n52
+  n63 -->|推广| n52
+  n63 -->|related| n32
+  n63 -->|related| n52
+  n52 -->|引用| n1
+  n52 -->|引用| n32
+  n52 -->|引用| n3
+  n52 -->|引用| n63
+  n52 -->|related| n1
+  n52 -->|related| n32
+  n52 -->|related| n63
+  n52 -->|特例| n63
+  n62 -->|引用| n60
+  n62 -->|引用| n61
+  n64["OM-T-NT-0008 素数间隔的 Jacobsthal 上界 theorem/L2/VERIFIED(L2)"]
+  n62 -->|引用| n64
+  n62 -->|related| n33
+  n62 -->|related| n60
+  n62 -->|related| n61
+  n62 -->|特例| n61
+  n62 -->|用到| n60
+  n62 -->|用到| n61
+  n64 -->|引用| n3
+  n64 -->|引用| n61
+  n64 -->|引用| n52
+  n64 -->|related| n3
+  n64 -->|related| n61
+  n64 -->|related| n52
+  n36 -->|引用| n8
+  n36 -->|引用| n35
+  n65["OM-T-PR-0002 中心极限定理 theorem/L1/PROPOSED"]
+  n36 -->|引用| n65
+  n36 -->|related| n35
+  n36 -->|related| n65
+  n65 -->|引用| n8
+  n65 -->|引用| n36
+  n65 -->|related| n36
+  n37 -->|引用| n6
+  n37 ==>|蕴含| n6
+  n37 -->|related| n6
+  n37 -->|用到| n6
+  n54 -->|引用| n53
+  n54 -.->|冲突| n53
+  n54 ==>|蕴含| n53
+  n54 -->|related| n53
+  n41 -->|引用| n39
+  n41 ==>|蕴含| n39
+  n41 -->|related| n39
   n44 -->|引用| n43
-  n44 -->|引用| n45
-  n44 -->|推广| n45
-  n44 -->|related| n22
+  n44 -->|引用| n58
+  n44 -->|引用| n13
+  n44 -->|引用| n24
   n44 -->|related| n43
-  n44 -->|related| n45
-  n46["OM-T-NT-0005 模 6 合数覆盖母方程 theorem/L2/VERIFIED(L2)"]
-  n46 -->|引用| n22
-  n46 -->|引用| n37
-  n46 -->|推广| n37
-  n46 -->|related| n22
-  n46 -->|related| n37
-  n37 -->|引用| n1
-  n37 -->|引用| n22
-  n37 -->|引用| n3
-  n37 -->|引用| n46
-  n37 -->|related| n1
-  n37 -->|related| n22
-  n37 -->|related| n46
-  n37 -->|特例| n46
-  n45 -->|引用| n43
-  n45 -->|引用| n44
-  n47["OM-T-NT-0008 素数间隔的 Jacobsthal 上界 theorem/L2/VERIFIED(L2)"]
-  n45 -->|引用| n47
-  n45 -->|related| n23
-  n45 -->|related| n43
-  n45 -->|related| n44
-  n45 -->|特例| n44
-  n45 -->|用到| n43
-  n45 -->|用到| n44
-  n47 -->|引用| n3
-  n47 -->|引用| n44
-  n47 -->|引用| n37
-  n47 -->|related| n3
-  n47 -->|related| n44
-  n47 -->|related| n37
-  n24 -->|引用| n6
-  n24 ==>|蕴含| n6
-  n24 -->|related| n6
-  n24 -->|用到| n6
-  n39 -->|引用| n38
-  n39 -.->|冲突| n38
-  n39 ==>|蕴含| n38
-  n39 -->|related| n38
-  n28 -->|引用| n26
-  n28 ==>|蕴含| n26
-  n28 -->|related| n26
-  n12 -->|引用| n11
-  n12 -.->|冲突| n11
-  n12 -->|related| n11
-  n12 -->|用到| n11
+  n44 -->|related| n24
+  n9 -->|引用| n7
+  n9 -->|引用| n6
+  n9 -->|引用| n43
+  n9 -.->|冲突| n7
+  n9 -->|related| n7
+  n9 -->|related| n6
+  n9 -->|用到| n6
+  n24 -->|引用| n23
+  n24 -->|引用| n44
+  n24 -->|推广| n44
+  n24 -->|related| n23
+  n15 -->|引用| n14
+  n15 -.->|冲突| n14
+  n15 -->|related| n14
+  n15 -->|用到| n14

@@ -1,0 +1,70 @@
+schema_version: "0.1"
+
+id: OM-T-DS-0001
+kind: theorem
+title_zh: 'Poincare 回归定理'
+title_en: 'Poincare recurrence theorem'
+domain: DS
+msc:
+  - '37A35'
+tags:
+  - '保测系统'
+  - '回归'
+  - '遍历'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\mu(X)<\infty,\ g:X\to X\ \text{保}\ \mu\ \text{测度}\ \Longrightarrow\ \mu\text{-a.e.}\ x\in\mathcal{A}\ \exists n\ge 1:\ g^{n}x\in\mathcal{A}'
+hypotheses:
+  - 'X 带有限测度 \mu'
+  - 'g 可逆且保 \mu 测度'
+  - '\mathcal{A} 为可测集'
+proposed_by: 'Henri Poincare'
+proposed_year: 1890
+
+assumptions:
+  - '「回归」指几乎每个 \mathcal{A} 中的点会无穷多次回到 \mathcal{A}，本卡按无穷多次口径写'
+symbols:
+  - name: '\mu'
+    meaning_zh: '有限测度（记号由 OM-D-PR-0001 定义）'
+    type: other
+  - name: 'g'
+    meaning_zh: '保持测度的可逆变换；刻意不写 T——T 在 OM-D-FD-0002 已指一个形式理论'
+    type: other
+  - name: '\mathcal{A}'
+    meaning_zh: '所考察的可测集（同一记号由 OM-D-PR-0001 定义）'
+    type: other
+
+related:
+  - 'OM-T-PR-0001'
+  - 'OM-D-PR-0001'
+uses:
+  - 'OM-D-PR-0001'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+caveat: '本条的 MSC 号（37A35）按本库口径只作粗索引，不是分类学断言。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Poincare, H., Sur le probleme des trois corps et les equations de la dynamique (1890)'
+    - 'Walters, P., An Introduction to Ergodic Theory (1982), §1.4'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Poincare, H., Sur le probleme des trois corps et les equations de la dynamique (1890)'
+    - type: book
+      value: 'Walters, P., An Introduction to Ergodic Theory (1982), §1.4'
+  contributors:
+    - "qoder-session-2026-10-11"
+

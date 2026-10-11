@@ -1,0 +1,64 @@
+schema_version: "0.1"
+
+id: OM-C-TG-0001
+kind: conjecture
+title_zh: '朴素可测性公设（体积在刚体运动下不变且定义于所有有界集）'
+title_en: 'Naive measurability postulate for volume'
+domain: TG
+msc:
+  - '28A12'
+tags:
+  - '可测性'
+  - '体积'
+  - '被否证'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\exists\ \mathrm{vol}:\ \mathcal{P}(\mathbb{R}^{3})\to[0,\infty],\quad \mathrm{vol}\ \text{可数可加、刚体运动不变、}\ \mathrm{vol}([0,1]^{3})=1'
+hypotheses:
+  - '要求对**所有**子集定义'
+  - '要求可数可加与刚体运动不变性'
+current_status: REFUTED
+
+assumptions:
+  - '[0,1]^{3} 的体积归一为 1；本卡刻意不写 \mu——\mu 在本库留给一般测度（见 OM-D-PR-0001）'
+symbols:
+  - name: '\mathrm{vol}'
+    meaning_zh: '所设想的体积：定义在 R^3 的一切子集上、刚体运动不变且可数可加'
+    type: other
+  - name: '\mathcal{P}'
+    meaning_zh: '幂集记号；\mathcal{P}(\mathbb{R}^{3}) 是 R^3 全部子集之族'
+    type: other
+
+related:
+  - 'OM-T-TG-0002'
+uses: []
+implications: []
+contradicts:
+  - 'OM-T-TG-0002'
+generalizations: []
+specializations: []
+caveat: '与 OM-T-TG-0002 的冲突对称记账：定理一侧与公设一侧各写一次 contradicts，否则 CONTRADICTION_ASYMMETRIC 会点名单边账。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Wagon, S., The Banach-Tarski Paradox (1985), ch.1, §12'
+    - 'Jech, T., Set Theory, Millennium ed. (2003), §10.1 (Solovay 模型的可测性)'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Wagon, S., The Banach-Tarski Paradox (1985), ch.1, §12'
+    - type: book
+      value: 'Jech, T., Set Theory, Millennium ed. (2003), §10.1 (Solovay 模型的可测性)'
+  contributors:
+    - "qoder-session-2026-10-11"
+
