@@ -5,7 +5,7 @@
 
   OM-F-NT-0003  区间素数计数的 Legendre 窗口恒等式
   OM-F-NT-0004  n^2+1 序列的 Legendre-Mobius 筛恒等式
-  OM-P-NT-0003  Landau 第三问题（Legendre 猜想）—— 状态 OPEN
+  OM-P-NT-0009  Landau 第三问题（Legendre 猜想）—— 状态 OPEN
   OM-P-NT-0004  Landau 第四问题（n^2+1 素数）—— 状态 OPEN
 
 设计原则（红线一 / 红线五）
@@ -360,7 +360,7 @@ def check_F4():
 
 
 # --------------------------------------------------------------------------
-# 6. 检查项：OM-P-NT-0003 Legendre 猜想（OPEN）
+# 6. 检查项：OM-P-NT-0009 Legendre 猜想（OPEN）
 # --------------------------------------------------------------------------
 
 def check_P3(minc=None, argmin=None):
@@ -517,7 +517,7 @@ def run(record: dict, level: str = "L2", options: dict = None) -> dict:
             items, _mn, _am = check_F3()
         elif rid == "OM-F-NT-0004":
             items = check_F4()
-        elif rid == "OM-P-NT-0003":
+        elif rid == "OM-P-NT-0009":
             items = check_P3()
         elif rid == "OM-P-NT-0004":
             items = check_P4()
@@ -573,7 +573,7 @@ def run(record: dict, level: str = "L2", options: dict = None) -> dict:
 # 9. 自检 CLI
 # --------------------------------------------------------------------------
 
-IDS = ("OM-F-NT-0003", "OM-F-NT-0004", "OM-P-NT-0003", "OM-P-NT-0004")
+IDS = ("OM-F-NT-0003", "OM-F-NT-0004", "OM-P-NT-0009", "OM-P-NT-0004")
 
 
 def self_test(only_id=None, as_json=False):

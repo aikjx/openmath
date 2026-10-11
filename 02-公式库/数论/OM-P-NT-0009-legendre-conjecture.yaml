@@ -1,6 +1,7 @@
 schema_version: "0.1"
 
-id: OM-P-NT-0003
+# 编号变更（2026-10-11）：OM-P-NT-0003 -> OM-P-NT-0009。先占者为 2026-09-12 的强哥德巴赫条目（保留 0003），本条目 2026-09-18 后到构成撞号，按宪章 04 让号。
+id: OM-P-NT-0009
 kind: problem
 title_zh: Landau 第三问题 · Legendre 猜想（相邻平方数之间必有素数）
 title_en: Landau's third problem - Legendre's conjecture (a prime between consecutive squares)

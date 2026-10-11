@@ -118,7 +118,7 @@ python -m openmath index
 | `bridges` | 桥接（跨领域） |
 
 
-**2026-10-11 实测**：节点＝记录（YAML）＋账本（仅 md）＋验证文档；已落地的边类型 8 种（版面 `---- edge type census ----` 逐类印枚数：全库 366 条，其中 `cites` 208、`related` 114、`uses` 13、`contradicts` 12、`implies` 8、`generalizes` 5、`evidenced_by` 4、`specializes` 2）。上表里的 `contradicts` **本轮已实现**：记录 schema 加了 `contradicts` 字段，冲突两侧各写一次，渲染走 `-.->|冲突|`，漏记背面由 `CONTRADICTION_ASYMMETRIC` 点名——这一行从「承诺」搬进「既有能力」。
+**2026-10-11 实测**：节点＝记录（YAML）＋账本（仅 md）＋验证文档；已落地的边类型 8 种（版面 `---- edge type census ----` 逐类印枚数：全库 417 条，其中 `cites` 214、`related` 115、`uses` 55、`contradicts` 12、`implies` 8、`generalizes` 6、`evidenced_by` 4、`specializes` 3）。上表里的 `contradicts` **本轮已实现**：记录 schema 加了 `contradicts` 字段，冲突两侧各写一次，渲染走 `-.->|冲突|`，漏记背面由 `CONTRADICTION_ASYMMETRIC` 点名——这一行从「承诺」搬进「既有能力」。
 
 **用途**：
 
@@ -149,5 +149,5 @@ python -m openmath index
 | 参考文献库 | ⬜ 未建立 |
 | 交叉引用索引 | ✅ 7 张表由 `openmath graph` 生成（2026-10-11；`index` 仍只产 `index.json`） |
 | 知识图谱 | ✅ `graph.json` ＋ 5 张流程图 ＋ 本层 README（2026-10-11） |
-| 缺口检测 | ✅ 15 类判据＋版面＋12 枚变异体（2026-10-11，含端点解析 `EDGE_ENDPOINT_OFF_GRAPH` 与冲突对称性 `CONTRADICTION_ASYMMETRIC`）；DEFECT/LEDGER-GAP 非空即红 |
+| 缺口检测 | ✅ 16 类判据＋版面＋13 枚变异体（2026-10-11，含端点解析 `EDGE_ENDPOINT_OFF_GRAPH` 与冲突对称性 `CONTRADICTION_ASYMMETRIC`）；DEFECT/LEDGER-GAP 非空即红 |
 | 外部仓库镜像 | ✅ 1 个（openai/math，2026-10-11 落地；见 §二·补） |

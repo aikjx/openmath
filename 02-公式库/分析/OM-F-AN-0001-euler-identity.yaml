@@ -46,7 +46,8 @@ symbols:
 domain_of_validity: "复平面上的恒等式；一般形式为 e^{i\\theta} = cos θ + i sin θ（欧拉公式）"
 
 specializations: []
-generalizations: []        # 一般形式「欧拉公式 e^{iθ} = cosθ + i sinθ」待录入
+generalizations:
+  - OM-F-AN-0003
 related:
   - OM-F-AN-0002
 

@@ -115,4 +115,4 @@ Iwaniec (1978)：存在无穷多个 \(n\) 使 \(n^2+1\) 为 \(P_2\)（至多两�
 ## 七、相关
 
 - OM-F-NT-0004（\(n^2+1\) 的 Legendre–Möbius 筛恒等式与余项爆炸度量）
-- OM-P-NT-0003（Landau 第三问题，同为 OPEN）
+- OM-P-NT-0009（Landau 第三问题，同为 OPEN）

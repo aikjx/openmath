@@ -43,7 +43,7 @@ engines:
     note: >-
       Landau 开放问题扫描：Legendre 窗口区间素数计数恒等式（筛前缀差分 vs phi 分块递归双路交叉）、
       n^2+1 序列的 Legendre-Mobius 筛恒等式与完备化恒等式、筛余项爆炸的可量化度量、
-      Bateman-Horn 常数截断序列与 P_2 层实测。覆盖 OM-F-NT-0003/0004、OM-P-NT-0003/0004。
+      Bateman-Horn 常数截断序列与 P_2 层实测。覆盖 OM-F-NT-0003/0004、OM-P-NT-0009/0004。
       仅标准库；自检 4/4 通过。只提供 L2 证据；开放问题条目一律表述为"范围内未发现反例"。
 
   - name: landau-symbolic

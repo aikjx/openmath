@@ -28,6 +28,18 @@ TIERS_PATH = "01-数学体系/域依赖.yaml"
 SKIP_DIR_NAMES = {".git", "__pycache__", "node_modules", "外部仓库", "99-沙箱", "启动脚本"}
 
 ID_RE = re.compile(r"OM-(?:[A-Z]{1,3}-(?:[A-Z]{2}-)?\d{4}|BR-\d{4}|SYS-\d{4})")
+# 关系键的唯一来源：发射器按它建边，缺口判据按它点名「语料声明了、发射器不读」的键。
+# 两处必须共用这张表，否则又是一次「generalizations 不在名单里 ⇒ 边静默丢掉」的缺陷。
+EDGE_CHANNELS = (
+    ("related", "related"),
+    ("specializations", "specializes"),
+    ("generalizations", "generalizes"),
+    ("equivalent_forms", "implies"),
+    ("implications", "implies"),
+    ("contradicts", "contradicts"),
+    ("uses", "uses"),
+)
+TEXT_REF_KEYS = ("proof", "hypotheses", "assumptions", "conclusion_latex", "domain_of_validity")
 _FRONT_ID = re.compile(r"^id:\s*(OM-[A-Z0-9-]+)\s*$", re.M)
 _TABLE_ID = re.compile(r"\|\s*\*\*ID\*\*\s*\|\s*(OM-[A-Z0-9-]+)\s*\|")
 _FRONT_STATUS = re.compile(r"^status:\s*([A-Z_]+)\s*$", re.M)
@@ -270,20 +282,12 @@ def _edges_from_record(rec, node_by_id):
         return prose
 
     prose = []
-    for name, etype in (
-        ("related", "related"),
-        ("specializations", "specializes"),
-        ("generalizations", "generalizes"),
-        ("equivalent_forms", "implies"),
-        ("implications", "implies"),
-        ("contradicts", "contradicts"),
-    ):
+    for name, etype in EDGE_CHANNELS:
         got = add_list(name, etype)
         if got:
             prose.extend((name, line) for line in got)
 
-    text_names = ("proof", "hypotheses", "assumptions", "conclusion_latex", "domain_of_validity")
-    for target in sorted(set(ID_RE.findall(" \n".join(_fields(data, text_names))))):
+    for target in sorted(set(ID_RE.findall(" \n".join(_fields(data, TEXT_REF_KEYS))))):
         add(target, "uses", "正文引用")
 
     return edges, prose
@@ -600,6 +604,21 @@ def detect_gaps(root, records, nodes, edges, docs, evidence, md_id_hits, dup_ids
             dup_files.append({"id": identifier, "files": rels})
 
     md_without_yaml = sorted([d["rel"] for d in docs] + [e["rel"] for e in evidence])
+    # 语料自己声明「这一键是一组关系」（值＝纯 ID 字符串列表），而发射器的通道名单不读它
+    # ⇒ 那些边在图上无处可画，且没有任何一台仪器会红。名单由语料现推，不打字。
+    consumed_keys = set([k for k, _ in EDGE_CHANNELS]) | set(TEXT_REF_KEYS)
+    unread_keys = {}
+    for rec in records:
+        for key, value in (rec["data"] or {}).items():
+            if key in consumed_keys or not isinstance(value, list):
+                continue
+            bare = [x for x in value if isinstance(x, str) and ID_RE.fullmatch(x.strip())]
+            if bare:
+                k = "%s（%s）" % (key, rec.get("id"))
+                unread_keys[k] = unread_keys.get(k, 0) + len(bare)
+    relation_unread = sorted(["%s：%d 条边在图上无处可画" % (k, n)
+                              for k, n in unread_keys.items()])
+
     seen_pairs = set()
     id_collisions = []
     for item in dup_ids:
@@ -615,6 +634,7 @@ def detect_gaps(root, records, nodes, edges, docs, evidence, md_id_hits, dup_ids
         "ID_MULTI_FILE": dup_files,
         "ID_COLLISION_YAML_VS_MD": id_collisions,
         "UNDEFINED_SYMBOL": undefined_symbols,
+        "RELATION_KEY_UNREAD": relation_unread,
         "EVIDENCE_INVERSION": inversions,
         "PROSE_RELATION_UNTRAVERSABLE": prose_relations,
         "TERM_INCONSISTENCY": inconsistent,
@@ -632,6 +652,7 @@ SEVERITY = {
     "LOAD_ERROR": "DEFECT",
     "MD_ONLY_LEDGER": "LEDGER-GAP",
     "EDGE_ENDPOINT_OFF_GRAPH": "LEDGER-GAP",
+    "RELATION_KEY_UNREAD": "LEDGER-GAP",
     "ID_MULTI_FILE": "LEDGER-GAP",
     "ORPHAN": "ADVISORY",
     "UNDEFINED_SYMBOL": "ADVISORY",

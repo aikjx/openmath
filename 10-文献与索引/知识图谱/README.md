@@ -37,9 +37,9 @@ ID 的取值次序：frontmatter `id:` → 表头 `| **ID** | OM-… |` → 文�
 只按 ID 建边会把整条攻坚线看成不存在。
 
 **节点键**：record 用 ID，doc 用相对路径（`graph.node_key()`）。这不是风格问题而是实测结论：
-版面现印 record 65 个、doc 24 个：前者的 ID 互不相同、后者的路径互不相同，而 doc 的 ID 里 `OM-P-NT-0003` 被 13 份文件共用
-（号段写进文件名就撞上了）。若 doc 也按 ID 建键，键会折掉——12 张攻坚面孔在图上无处落脚，而指向文件路径的那批边永远查不到键，渲染器只会 `continue` 掉它们；「43 个节点只剩 30 个可用键」是**键修复那一轮**的当时读数，本轮同一条尺子印 `nodes / unique keys` ＝ 89 / 89（两个数都点名版面，历史那句只作历史）。
-版面 `---- endpoint resolution ----` 现在自报（本轮读数）：两端都在图内 359 / 366、一端无载体 3、两端无载体 4、
+版面现印 record 66 个、doc 24 个：前者的 ID 互不相同、后者的路径互不相同，而 doc 的 ID 里 `OM-P-NT-0003` 被 13 份文件共用
+（号段写进文件名就撞上了）。若 doc 也按 ID 建键，键会折掉——12 张攻坚面孔在图上无处落脚，而指向文件路径的那批边永远查不到键，渲染器只会 `continue` 掉它们；「43 个节点只剩 30 个可用键」是**键修复那一轮**的当时读数，本轮同一条尺子印 `nodes / unique keys` ＝ 90 / 90（两个数都点名版面，历史那句只作历史）。
+版面 `---- endpoint resolution ----` 现在自报（本轮读数）：两端都在图内 398 / 417、一端无载体 15、两端无载体 4、
 两端并成一个键 0（数字是当下读数，引用请点名版面）。
 
 ## 三、边类型
@@ -57,7 +57,7 @@ ID 的取值次序：frontmatter `id:` → 表头 `| **ID** | OM-… |` → 文�
 ```bash
 python -m openmath graph            # 生成 14 份产物；rc=0 只说明生成物完好
 python -m openmath graph --check    # 只判不写；DEFECT 或不变量故障则 rc=1
-python 08-工具/tests/graph_mutants.py   # 12 枚指名变异体，逐类把判据打破
+python 08-工具/tests/graph_mutants.py   # 13 枚指名变异体，逐类把判据打破
 ```
 
 不变量（写在 `openmath/flowdocs.py` 的 `check_invariants`）：图不许空节点（EMPTY-CHART）、

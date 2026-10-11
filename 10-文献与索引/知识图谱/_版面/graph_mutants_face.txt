@@ -13,6 +13,7 @@ graph mutant battery over fixture tree C:\Users\mo\AppData\Local\Temp\OMG_FIXTUR
   MD_ONLY_LEDGER                 : 3
   ORPHAN                         : 0
   PROSE_RELATION_UNTRAVERSABLE   : 0
+  RELATION_KEY_UNREAD            : 0
   TERM_INCONSISTENCY             : 0
   UNDEFINED_SYMBOL               : 1
   faults : NONE
@@ -30,5 +31,6 @@ graph mutant battery over fixture tree C:\Users\mo\AppData\Local\Temp\OMG_FIXTUR
   M12-ASYM         -> CONTRADICTION_ASYMMETRIC   base=0   after=1   delta=1   CAUGHT    还原=True faults=0
   M9-XREF-ROWS     -> XREF-ROWS                  图里删 1 个节点而表照旧 ⇒ XREF-ROWS 按ID.md：图里应有 8 行，实际渲染 9 行
   M11-UNRENDERED   -> TYPE-UNRENDERED            撤掉 ARROW 的 contradicts ⇒ 02 图少画 2 条边｜TYPE-UNRENDERED contradicts：2 条记录间边在 02 图上无处可画＝ARROW 缺这一型，渲染器正静默丢掉它
+  M13-UNREAD-CH    -> RELATION_KEY_UNREAD        撤掉 EDGE_CHANNELS 的 uses ⇒ 少建 1 条边｜点名 1 条：uses（OM-F-NT-0001）：1 条边在图上无处可画
 == verdict ==
-  mutants=12 caught=12 not_caught=0
+  mutants=13 caught=13 not_caught=0

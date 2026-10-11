@@ -137,11 +137,11 @@ python -m openmath index --level L4          # 按证据等级筛选
 | 目录 `范畴论` | 4 | 条数由 `graph.json` 的 record 节点 path 现数 |
 | 目录 `集合论` | 6 | 条数由 `graph.json` 的 record 节点 path 现数 |
 | 目录 `05-经典未解猜想` | 1 | 条数由 `graph.json` 的 record 节点 path 现数 |
-| **合计** | **65** | `python -m openmath lint` 现印 记录数 65／加载失败 0／错误 0（凭据 `scratch/LINT_after_tranche3.txt`）；`verify --level L2` 本轮已复跑：**19 PASS／46 SKIP／0 FAIL**（19＋46＝65＝版面记录数，凭据 `scratch/VERIFY_L2_clean.txt`）；46 个 SKIP 全是「记录未提供 sympy 表达式」，也就是这些方程还没有可跑形式 |
+| **合计** | **66** | `python -m openmath lint` 现印 记录数 66／加载失败 0／错误 0（凭据 `scratch/LINT_after_tranche3.txt`）；`verify --level L2` 本轮已复跑：**20 PASS／46 SKIP／0 FAIL**（19＋46＝65＝版面记录数，凭据 `scratch/VERIFY_L2_clean.txt`）；46 个 SKIP 全是「记录未提供 sympy 表达式」，也就是这些方程还没有可跑形式 |
 | 其中已到 L3（符号） | 4 | `OM-F-AN-0001`、`OM-F-AN-0002`、`OM-F-NT-0003`、`OM-F-NT-0004` |
 | **L4 形式化** | **0** | 本库**没有任何一条**可以说"已证明"（[红线一](../00-宪章/02-诚实红线.md)） |
 
-**域覆盖**：版面 `domains with >=1 node` 现印 **14 / 20**——已有条目的域：`AL`×2、`AN`×2、`CB`×2、`CT`×4、`DS`×1、`FD`×6、`GO`×3、`GR`×5、`IT`×2、`NT`×17、`PR`×3、`ST`×6、`TC`×6、`TG`×6。
+**域覆盖**：版面 `domains with >=1 node` 现印 **14 / 20**——已有条目的域：`AL`×2、`AN`×3、`CB`×2、`CT`×4、`DS`×1、`FD`×6、`GO`×3、`GR`×5、`IT`×2、`NT`×17、`PR`×3、`ST`×6、`TC`×6、`TG`×6。
 其余 6 个域（`SC`（统计与数据科学）／`GT`（图论）／`NA`（数值分析）／`MP`（数学物理）／`OR`（运筹与系统科学）／`XS`（交叉与新兴））**无任何条目**，这是本库当前剩余的内容缺口；上一版是 2 / 20（仅 `NT` 与 `AN`）。**口径**：枚数由 `graph.json` 的 record 节点按域现数，与版面同值——本行不另立一套数。
 
 数论条目的验证脚本有两个（均纯标准库）：
@@ -158,7 +158,7 @@ python -m openmath index --level L4          # 按证据等级筛选
 这两组引擎支撑
 [OM-F-NT-0003](数论/OM-F-NT-0003-legendre-window-interval-count.md)、
 [OM-F-NT-0004](数论/OM-F-NT-0004-n2plus1-legendre-mobius-sieve.md)、
-[OM-P-NT-0003](数论/OM-P-NT-0003-legendre-conjecture.md)、
+[OM-P-NT-0009](数论/OM-P-NT-0009-legendre-conjecture.md)、
 [OM-P-NT-0004](数论/OM-P-NT-0004-landau-n2plus1-primes.md)。
 
 注意：

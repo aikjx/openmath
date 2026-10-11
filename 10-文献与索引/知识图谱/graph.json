@@ -1,6 +1,6 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-10-11T04:07:04Z",
+  "generated": "2026-10-11T08:05:35Z",
   "root": "openmath",
   "nodes": [
     {
@@ -641,6 +641,32 @@
     },
     {
       "node_type": "record",
+      "id": "OM-F-AN-0003",
+      "kind": "formula",
+      "domain": "AN",
+      "status": "VERIFIED(L3)",
+      "evidence_level": "L3",
+      "title_zh": "欧拉公式（一般形式）· 复指数把加法折成旋转",
+      "path": "02-公式库/分析/OM-F-AN-0003-euler-formula-general-form.yaml",
+      "tags": [
+        "欧拉公式",
+        "复指数",
+        "单位圆",
+        "de Moivre",
+        "单位根"
+      ],
+      "symbols": [
+        "z",
+        "i",
+        "theta",
+        "exp"
+      ],
+      "script": "08-工具/examples/verify_OM-F-AN-0003.py",
+      "latex": "e^{z} = e^{x}(\\cos y + i\\sin y)\\quad (z = x + iy,\\ x,y \\in \\mathbb{R});\\qquad e^{i\\theta} = \\cos\\theta + i\\sin\\theta",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
       "id": "OM-F-NT-0001",
       "kind": "formula",
       "domain": "NT",
@@ -803,27 +829,6 @@
       "symbols": [],
       "script": "05-验证中心/01-引擎/prime_pi_block.py",
       "latex": "Q1: 是否存在 F:N->N，使 F(n)=p_n 且不把 p_1..p_{n-1} 作为输入？（已解决：存在，Willans 1964） Q2: 是否存在无条件确定性算法，在时间显著低于 x^{2/3}（例如 O(x^{1/2+eps})）内精确计算 pi(x) 或精确输出 p_n？（OPEN）",
-      "machine_readable": true
-    },
-    {
-      "node_type": "record",
-      "id": "OM-P-NT-0003",
-      "kind": "problem",
-      "domain": "NT",
-      "status": "PROPOSED",
-      "evidence_level": "L1",
-      "title_zh": "Landau 第三问题 · Legendre 猜想（相邻平方数之间必有素数）",
-      "path": "02-公式库/数论/OM-P-NT-0003-legendre-conjecture.yaml",
-      "tags": [
-        "Landau 问题",
-        "Legendre 猜想",
-        "短区间",
-        "素数间隙",
-        "开放问题"
-      ],
-      "symbols": [],
-      "script": null,
-      "latex": "对一切正整数 n，存在素数 p 满足 n^2 < p < (n+1)^2； 等价地 c(n) := pi((n+1)^2) - pi(n^2) >= 1（因 (n+1)^2 对 n>=1 恒为合数，<= 与 < 等价）",
       "machine_readable": true
     },
     {
@@ -1175,6 +1180,27 @@
       "symbols": [],
       "script": null,
       "latex": "是否存在无穷多个正整数 n 使得 n^2 + 1 为素数？ 记 A(N) = #{n <= N : n^2+1 为素数}，即问 A(N) 是否无界。",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-P-NT-0009",
+      "kind": "problem",
+      "domain": "NT",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "Landau 第三问题 · Legendre 猜想（相邻平方数之间必有素数）",
+      "path": "02-公式库/数论/OM-P-NT-0009-legendre-conjecture.yaml",
+      "tags": [
+        "Landau 问题",
+        "Legendre 猜想",
+        "短区间",
+        "素数间隙",
+        "开放问题"
+      ],
+      "symbols": [],
+      "script": null,
+      "latex": "对一切正整数 n，存在素数 p 满足 n^2 < p < (n+1)^2； 等价地 c(n) := pi((n+1)^2) - pi(n^2) >= 1（因 (n+1)^2 对 n>=1 恒为合数，<= 与 < 等价）",
       "machine_readable": true
     },
     {
@@ -2328,6 +2354,13 @@
       "src": "OM-C-ST-0001",
       "dst": "OM-D-ST-0001",
       "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-C-ST-0001",
+      "dst": "OM-D-ST-0001",
+      "type": "uses",
       "via": "正文引用",
       "resolvable": true
     },
@@ -2357,6 +2390,13 @@
       "dst": "OM-C-ST-0001",
       "type": "related",
       "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-C-ST-0002",
+      "dst": "OM-D-ST-0001",
+      "type": "uses",
+      "via": "uses",
       "resolvable": true
     },
     {
@@ -2434,6 +2474,13 @@
       "dst": "OM-T-CT-0002",
       "type": "related",
       "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-CT-0002",
+      "dst": "OM-D-CT-0001",
+      "type": "uses",
+      "via": "uses",
       "resolvable": true
     },
     {
@@ -2542,6 +2589,20 @@
       "resolvable": true
     },
     {
+      "src": "OM-D-GO-0001",
+      "dst": "OM-D-PR-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-GO-0001",
+      "dst": "OM-D-TG-0002",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
       "src": "OM-D-GR-0001",
       "dst": "OM-D-AL-0001",
       "type": "cites",
@@ -2549,6 +2610,13 @@
       "resolvable": true
     },
     {
+      "src": "OM-D-GR-0001",
+      "dst": "OM-D-AL-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
       "src": "OM-D-GR-0002",
       "dst": "OM-D-GR-0001",
       "type": "cites",
@@ -2574,6 +2642,13 @@
       "dst": "OM-T-GR-0001",
       "type": "related",
       "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-GR-0002",
+      "dst": "OM-D-GR-0001",
+      "type": "uses",
+      "via": "uses",
       "resolvable": true
     },
     {
@@ -2619,6 +2694,13 @@
       "resolvable": true
     },
     {
+      "src": "OM-D-GR-0003",
+      "dst": "OM-D-AL-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
       "src": "OM-D-IT-0001",
       "dst": "OM-D-PR-0001",
       "type": "cites",
@@ -2644,6 +2726,13 @@
       "dst": "OM-T-IT-0001",
       "type": "related",
       "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-IT-0001",
+      "dst": "OM-D-PR-0001",
+      "type": "uses",
+      "via": "uses",
       "resolvable": true
     },
     {
@@ -2707,6 +2796,13 @@
       "dst": "OM-T-PR-0001",
       "type": "related",
       "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-PR-0001",
+      "dst": "OM-D-ST-0003",
+      "type": "uses",
+      "via": "uses",
       "resolvable": true
     },
     {
@@ -2787,6 +2883,13 @@
       "resolvable": true
     },
     {
+      "src": "OM-D-ST-0002",
+      "dst": "OM-D-ST-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
       "src": "OM-D-ST-0003",
       "dst": "OM-D-ST-0001",
       "type": "cites",
@@ -2812,6 +2915,13 @@
       "dst": "OM-T-ST-0001",
       "type": "related",
       "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-ST-0003",
+      "dst": "OM-D-ST-0001",
+      "type": "uses",
+      "via": "uses",
       "resolvable": true
     },
     {
@@ -2833,6 +2943,13 @@
       "dst": "OM-T-TC-0002",
       "type": "related",
       "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TC-0001",
+      "dst": "OM-T-TC-0002",
+      "type": "uses",
+      "via": "uses",
       "resolvable": true
     },
     {
@@ -2920,6 +3037,13 @@
       "resolvable": true
     },
     {
+      "src": "OM-D-TG-0001",
+      "dst": "OM-D-ST-0003",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
       "src": "OM-D-TG-0002",
       "dst": "OM-D-TG-0001",
       "type": "cites",
@@ -2945,6 +3069,20 @@
       "dst": "OM-T-TG-0003",
       "type": "related",
       "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TG-0002",
+      "dst": "OM-D-TG-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-F-AN-0001",
+      "dst": "02-公式库/分析/OM-F-AN-0003-euler-formula-general-form.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
       "resolvable": true
     },
     {
@@ -2959,7 +3097,14 @@
       "dst": "OM-F-AN-0003",
       "type": "cites",
       "via": "配对 md 正文（ID 引用）",
-      "resolvable": false
+      "resolvable": true
+    },
+    {
+      "src": "OM-F-AN-0001",
+      "dst": "OM-F-AN-0003",
+      "type": "generalizes",
+      "via": "generalizations",
+      "resolvable": true
     },
     {
       "src": "OM-F-AN-0001",
@@ -2997,6 +3142,48 @@
       "resolvable": true
     },
     {
+      "src": "OM-F-AN-0003",
+      "dst": "02-公式库/分析/OM-F-AN-0001-euler-identity.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-F-AN-0003",
+      "dst": "02-公式库/分析/OM-F-AN-0002-riemann-zeta-functional-equation.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-F-AN-0003",
+      "dst": "OM-F-AN-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-F-AN-0003",
+      "dst": "OM-F-AN-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-F-AN-0003",
+      "dst": "OM-F-AN-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-F-AN-0003",
+      "dst": "OM-F-AN-0001",
+      "type": "specializes",
+      "via": "specializations",
+      "resolvable": true
+    },
+    {
       "src": "OM-F-NT-0001",
       "dst": "OM-A-NT-0001",
       "type": "cites",
@@ -3082,7 +3269,7 @@
     },
     {
       "src": "OM-F-NT-0003",
-      "dst": "OM-P-NT-0003",
+      "dst": "OM-P-NT-0009",
       "type": "cites",
       "via": "配对 md 正文（ID 引用）",
       "resolvable": true
@@ -3096,7 +3283,7 @@
     },
     {
       "src": "OM-F-NT-0003",
-      "dst": "OM-P-NT-0003",
+      "dst": "OM-P-NT-0009",
       "type": "related",
       "via": "related",
       "resolvable": true
@@ -3186,6 +3373,13 @@
       "resolvable": true
     },
     {
+      "src": "OM-P-FD-0001",
+      "dst": "OM-T-FD-0002",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
       "src": "OM-P-NT-0002",
       "dst": "OM-A-NT-0001",
       "type": "cites",
@@ -3200,48 +3394,6 @@
       "resolvable": true
     },
     {
-      "src": "OM-P-NT-0003",
-      "dst": "OM-F-NT-0003",
-      "type": "cites",
-      "via": "配对 md 正文（ID 引用）",
-      "resolvable": true
-    },
-    {
-      "src": "OM-P-NT-0003",
-      "dst": "OM-P-NT-0004",
-      "type": "cites",
-      "via": "配对 md 正文（ID 引用）",
-      "resolvable": true
-    },
-    {
-      "src": "OM-P-NT-0003",
-      "dst": "OM-F-NT-0003",
-      "type": "implies",
-      "via": "equivalent_forms",
-      "resolvable": true
-    },
-    {
-      "src": "OM-P-NT-0003",
-      "dst": "OM-F-NT-0003",
-      "type": "related",
-      "via": "related",
-      "resolvable": true
-    },
-    {
-      "src": "OM-P-NT-0003",
-      "dst": "OM-P-NT-0004",
-      "type": "related",
-      "via": "related",
-      "resolvable": true
-    },
-    {
-      "src": "OM-P-NT-0003",
-      "dst": "OM-F-NT-0003",
-      "type": "uses",
-      "via": "正文引用",
-      "resolvable": true
-    },
-    {
       "src": "OM-P-NT-0004",
       "dst": "OM-F-NT-0004",
       "type": "cites",
@@ -3250,7 +3402,7 @@
     },
     {
       "src": "OM-P-NT-0004",
-      "dst": "OM-P-NT-0003",
+      "dst": "OM-P-NT-0009",
       "type": "cites",
       "via": "配对 md 正文（ID 引用）",
       "resolvable": true
@@ -3271,7 +3423,7 @@
     },
     {
       "src": "OM-P-NT-0004",
-      "dst": "OM-P-NT-0003",
+      "dst": "OM-P-NT-0009",
       "type": "related",
       "via": "related",
       "resolvable": true
@@ -3312,6 +3464,55 @@
       "resolvable": true
     },
     {
+      "src": "OM-P-NT-0009",
+      "dst": "OM-F-NT-0003",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0009",
+      "dst": "OM-P-NT-0003",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0009",
+      "dst": "OM-P-NT-0004",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0009",
+      "dst": "OM-F-NT-0003",
+      "type": "implies",
+      "via": "equivalent_forms",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0009",
+      "dst": "OM-F-NT-0003",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0009",
+      "dst": "OM-P-NT-0004",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0009",
+      "dst": "OM-F-NT-0003",
+      "type": "uses",
+      "via": "正文引用",
+      "resolvable": true
+    },
+    {
       "src": "OM-P-TC-0001",
       "dst": "OM-P-FD-0001",
       "type": "cites",
@@ -3340,6 +3541,13 @@
       "resolvable": true
     },
     {
+      "src": "OM-P-TC-0001",
+      "dst": "OM-T-TC-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
       "src": "OM-P-TC-0002",
       "dst": "OM-D-TC-0001",
       "type": "cites",
@@ -3365,6 +3573,13 @@
       "dst": "OM-T-TC-0002",
       "type": "related",
       "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-TC-0002",
+      "dst": "OM-D-TC-0001",
+      "type": "uses",
+      "via": "uses",
       "resolvable": true
     },
     {
@@ -3389,6 +3604,13 @@
       "resolvable": true
     },
     {
+      "src": "OM-T-AL-0001",
+      "dst": "OM-D-AL-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
       "src": "OM-T-CB-0001",
       "dst": "OM-D-ST-0002",
       "type": "cites",
@@ -3414,6 +3636,13 @@
       "dst": "OM-T-CB-0002",
       "type": "related",
       "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-CB-0001",
+      "dst": "OM-D-ST-0002",
+      "type": "uses",
+      "via": "uses",
       "resolvable": true
     },
     {
@@ -3452,6 +3681,13 @@
       "resolvable": true
     },
     {
+      "src": "OM-T-CB-0002",
+      "dst": "OM-D-TG-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
       "src": "OM-T-CT-0001",
       "dst": "OM-D-CT-0001",
       "type": "cites",
@@ -3463,6 +3699,13 @@
       "dst": "OM-D-CT-0001",
       "type": "related",
       "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-CT-0001",
+      "dst": "OM-D-CT-0001",
+      "type": "uses",
+      "via": "uses",
       "resolvable": true
     },
     {
@@ -3515,6 +3758,13 @@
       "resolvable": true
     },
     {
+      "src": "OM-T-CT-0002",
+      "dst": "OM-D-CT-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
       "src": "OM-T-DS-0001",
       "dst": "OM-D-PR-0001",
       "type": "cites",
@@ -3540,6 +3790,13 @@
       "dst": "OM-T-PR-0001",
       "type": "related",
       "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-DS-0001",
+      "dst": "OM-D-PR-0001",
+      "type": "uses",
+      "via": "uses",
       "resolvable": true
     },
     {
@@ -3613,6 +3870,13 @@
       "resolvable": true
     },
     {
+      "src": "OM-T-FD-0002",
+      "dst": "OM-T-FD-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
       "src": "OM-T-GO-0001",
       "dst": "OM-T-GO-0002",
       "type": "cites",
@@ -3638,6 +3902,13 @@
       "dst": "OM-T-TG-0001",
       "type": "related",
       "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-GO-0001",
+      "dst": "OM-T-TG-0001",
+      "type": "uses",
+      "via": "uses",
       "resolvable": true
     },
     {
@@ -3669,6 +3940,20 @@
       "resolvable": true
     },
     {
+      "src": "OM-T-GO-0002",
+      "dst": "OM-D-TG-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-GO-0002",
+      "dst": "OM-T-TG-0003",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
       "src": "OM-T-GR-0001",
       "dst": "OM-D-GR-0001",
       "type": "cites",
@@ -3687,6 +3972,13 @@
       "dst": "OM-T-NT-0001",
       "type": "related",
       "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-GR-0001",
+      "dst": "OM-D-GR-0001",
+      "type": "uses",
+      "via": "uses",
       "resolvable": true
     },
     {
@@ -3711,6 +4003,13 @@
       "resolvable": true
     },
     {
+      "src": "OM-T-GR-0002",
+      "dst": "OM-D-AL-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
       "src": "OM-T-IT-0001",
       "dst": "OM-D-IT-0001",
       "type": "cites",
@@ -3750,6 +4049,20 @@
       "dst": "OM-T-TC-0001",
       "type": "related",
       "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-IT-0001",
+      "dst": "OM-D-IT-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-IT-0001",
+      "dst": "OM-T-PR-0001",
+      "type": "uses",
+      "via": "uses",
       "resolvable": true
     },
     {
@@ -4222,6 +4535,13 @@
       "resolvable": true
     },
     {
+      "src": "OM-T-PR-0001",
+      "dst": "OM-D-PR-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
       "src": "OM-T-PR-0002",
       "dst": "OM-D-PR-0001",
       "type": "cites",
@@ -4243,6 +4563,13 @@
       "resolvable": true
     },
     {
+      "src": "OM-T-PR-0002",
+      "dst": "OM-D-PR-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
       "src": "OM-T-ST-0001",
       "dst": "OM-D-ST-0001",
       "type": "cites",
@@ -4261,6 +4588,13 @@
       "dst": "OM-D-ST-0001",
       "type": "related",
       "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-ST-0001",
+      "dst": "OM-D-ST-0001",
+      "type": "uses",
+      "via": "uses",
       "resolvable": true
     },
     {
@@ -4317,6 +4651,13 @@
       "dst": "OM-D-TC-0001",
       "type": "related",
       "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TC-0002",
+      "dst": "OM-D-TC-0001",
+      "type": "uses",
+      "via": "uses",
       "resolvable": true
     },
     {
@@ -4362,6 +4703,20 @@
       "resolvable": true
     },
     {
+      "src": "OM-T-TG-0001",
+      "dst": "OM-D-TG-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TG-0001",
+      "dst": "OM-T-CB-0002",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
       "src": "OM-T-TG-0002",
       "dst": "OM-C-TG-0001",
       "type": "cites",
@@ -4407,7 +4762,21 @@
       "src": "OM-T-TG-0002",
       "dst": "OM-D-ST-0001",
       "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TG-0002",
+      "dst": "OM-D-ST-0001",
+      "type": "uses",
       "via": "正文引用",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-TG-0002",
+      "dst": "OM-D-TG-0001",
+      "type": "uses",
+      "via": "uses",
       "resolvable": true
     },
     {
@@ -4439,6 +4808,13 @@
       "resolvable": true
     },
     {
+      "src": "OM-T-TG-0003",
+      "dst": "OM-T-TG-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
       "src": "OM-X-FD-0001",
       "dst": "OM-D-FD-0001",
       "type": "cites",
@@ -4457,6 +4833,13 @@
       "dst": "OM-D-FD-0001",
       "type": "related",
       "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-X-FD-0001",
+      "dst": "OM-D-FD-0001",
+      "type": "uses",
+      "via": "uses",
       "resolvable": true
     },
     {
@@ -4537,9 +4920,7 @@
     "missing_placement": []
   },
   "gaps": {
-    "DANGLING": [
-      "OM-F-AN-0003"
-    ],
+    "DANGLING": [],
     "ORPHAN": [
       "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-未证问题清单_20260922.md",
       "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-突破靶心清单_20260922.md",
@@ -4595,14 +4976,7 @@
         ]
       }
     ],
-    "ID_COLLISION_YAML_VS_MD": [
-      {
-        "id": "OM-P-NT-0003",
-        "yaml": "02-公式库/数论/OM-P-NT-0003-legendre-conjecture.yaml",
-        "md": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-        "same_title": false
-      }
-    ],
+    "ID_COLLISION_YAML_VS_MD": [],
     "UNDEFINED_SYMBOL": [
       "(m, q^2)",
       "A(N)",
@@ -4633,6 +5007,7 @@
       "d",
       "e",
       "epsilon",
+      "exp",
       "g",
       "g_n",
       "i",
@@ -4651,8 +5026,11 @@
       "r",
       "s",
       "sigma",
+      "theta",
+      "z",
       "zeta"
     ],
+    "RELATION_KEY_UNREAD": [],
     "EVIDENCE_INVERSION": [],
     "PROSE_RELATION_UNTRAVERSABLE": [
       {
@@ -4661,14 +5039,14 @@
         "text": "狄利克雷 L-函数的函数方程（待录入）"
       },
       {
-        "src": "OM-P-NT-0003",
-        "field": "equivalent_forms",
-        "text": "素数间隙形式：记 p_k 为第 k 个素数，则 g_k = p_{k+1} - p_k < 2*sqrt(p_k) + 1"
-      },
-      {
         "src": "OM-P-NT-0004",
         "field": "equivalent_forms",
         "text": "素数 p 使 p-1 为完全平方数者是否有无穷多个（n^2+1=p <=> p-1=n^2）"
+      },
+      {
+        "src": "OM-P-NT-0009",
+        "field": "equivalent_forms",
+        "text": "素数间隙形式：记 p_k 为第 k 个素数，则 g_k = p_{k+1} - p_k < 2*sqrt(p_k) + 1"
       },
       {
         "src": "OM-P-NT-0002",
@@ -4690,73 +5068,7 @@
     "LOAD_ERROR": [],
     "DOMAIN_UNPLACED": [],
     "BROKEN_DOC_LINK": [],
-    "AMBIGUOUS_REFERENCE": [
-      {
-        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-关键点_独立单侧误差界_20260920.md",
-        "dst": "OM-P-NT-0003",
-        "via": "md 账本正文（ID 引用）"
-      },
-      {
-        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-多方向实验_卷积迁移与筛损失_20260920.md",
-        "dst": "OM-P-NT-0003",
-        "via": "md 账本正文（ID 引用）"
-      },
-      {
-        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-新方法审计_求导容斥频谱与矩_20260920.md",
-        "dst": "OM-P-NT-0003",
-        "via": "md 账本正文（ID 引用）"
-      },
-      {
-        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-续攻_误差账本与双边迁移_20260920.md",
-        "dst": "OM-P-NT-0003",
-        "via": "md 账本正文（ID 引用）"
-      },
-      {
-        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-联合筛_二阶反模型与三阶证书_20260922.md",
-        "dst": "OM-P-NT-0003",
-        "via": "md 账本正文（ID 引用）"
-      },
-      {
-        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-联合筛证书_二阶Bonferroni_20260922.md",
-        "dst": "OM-P-NT-0003",
-        "via": "md 账本正文（ID 引用）"
-      },
-      {
-        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-联合筛证书_独立核验报告_20260922.md",
-        "dst": "OM-P-NT-0003",
-        "via": "md 账本正文（ID 引用）"
-      },
-      {
-        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-联盟续研_误差预算与量词修复_20260920.md",
-        "dst": "OM-P-NT-0003",
-        "via": "md 账本正文（ID 引用）"
-      },
-      {
-        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-证明状态复核_2026-09-22.md",
-        "dst": "OM-P-NT-0003",
-        "via": "md 账本正文（ID 引用）"
-      },
-      {
-        "src": "OM-F-NT-0003",
-        "dst": "OM-P-NT-0003",
-        "via": "related"
-      },
-      {
-        "src": "OM-F-NT-0003",
-        "dst": "OM-P-NT-0003",
-        "via": "配对 md 正文（ID 引用）"
-      },
-      {
-        "src": "OM-P-NT-0004",
-        "dst": "OM-P-NT-0003",
-        "via": "related"
-      },
-      {
-        "src": "OM-P-NT-0004",
-        "dst": "OM-P-NT-0003",
-        "via": "配对 md 正文（ID 引用）"
-      }
-    ],
+    "AMBIGUOUS_REFERENCE": [],
     "EDGE_ENDPOINT_OFF_GRAPH": [
       {
         "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
@@ -4768,12 +5080,93 @@
         ]
       },
       {
-        "src": "OM-F-AN-0001",
-        "dst": "OM-F-AN-0003",
+        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-关键点_独立单侧误差界_20260920.md",
+        "dst": "OM-P-NT-0003",
         "type": "cites",
-        "via": "配对 md 正文（ID 引用）",
+        "via": "md 账本正文（ID 引用）",
         "off": [
-          "OM-F-AN-0003"
+          "OM-P-NT-0003"
+        ]
+      },
+      {
+        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-多方向实验_卷积迁移与筛损失_20260920.md",
+        "dst": "OM-P-NT-0003",
+        "type": "cites",
+        "via": "md 账本正文（ID 引用）",
+        "off": [
+          "OM-P-NT-0003"
+        ]
+      },
+      {
+        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-新方法审计_求导容斥频谱与矩_20260920.md",
+        "dst": "OM-P-NT-0003",
+        "type": "cites",
+        "via": "md 账本正文（ID 引用）",
+        "off": [
+          "OM-P-NT-0003"
+        ]
+      },
+      {
+        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-续攻_误差账本与双边迁移_20260920.md",
+        "dst": "OM-P-NT-0003",
+        "type": "cites",
+        "via": "md 账本正文（ID 引用）",
+        "off": [
+          "OM-P-NT-0003"
+        ]
+      },
+      {
+        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-联合筛_二阶反模型与三阶证书_20260922.md",
+        "dst": "OM-P-NT-0003",
+        "type": "cites",
+        "via": "md 账本正文（ID 引用）",
+        "off": [
+          "OM-P-NT-0003"
+        ]
+      },
+      {
+        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-联合筛证书_二阶Bonferroni_20260922.md",
+        "dst": "OM-P-NT-0003",
+        "type": "cites",
+        "via": "md 账本正文（ID 引用）",
+        "off": [
+          "OM-P-NT-0003"
+        ]
+      },
+      {
+        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-联合筛证书_独立核验报告_20260922.md",
+        "dst": "OM-P-NT-0003",
+        "type": "cites",
+        "via": "md 账本正文（ID 引用）",
+        "off": [
+          "OM-P-NT-0003"
+        ]
+      },
+      {
+        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-联盟续研_误差预算与量词修复_20260920.md",
+        "dst": "OM-P-NT-0003",
+        "type": "cites",
+        "via": "md 账本正文（ID 引用）",
+        "off": [
+          "OM-P-NT-0003"
+        ]
+      },
+      {
+        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-证明状态复核_2026-09-22.md",
+        "dst": "OM-P-NT-0003",
+        "type": "cites",
+        "via": "md 账本正文（ID 引用）",
+        "off": [
+          "OM-P-NT-0003"
+        ]
+      },
+      {
+        "src": "OM-F-AN-0001",
+        "dst": "02-公式库/分析/OM-F-AN-0003-euler-formula-general-form.md",
+        "type": "cites",
+        "via": "配对 md 正文（文件名链接）",
+        "off": [
+          "02-公式库/分析/OM-F-AN-0003-euler-formula-general-form.md"
         ]
       },
       {
@@ -4783,6 +5176,33 @@
         "via": "配对 md 正文（文件名链接）",
         "off": [
           "02-公式库/分析/OM-F-AN-0001-euler-identity.md"
+        ]
+      },
+      {
+        "src": "OM-F-AN-0003",
+        "dst": "02-公式库/分析/OM-F-AN-0001-euler-identity.md",
+        "type": "cites",
+        "via": "配对 md 正文（文件名链接）",
+        "off": [
+          "02-公式库/分析/OM-F-AN-0001-euler-identity.md"
+        ]
+      },
+      {
+        "src": "OM-F-AN-0003",
+        "dst": "02-公式库/分析/OM-F-AN-0002-riemann-zeta-functional-equation.md",
+        "type": "cites",
+        "via": "配对 md 正文（文件名链接）",
+        "off": [
+          "02-公式库/分析/OM-F-AN-0002-riemann-zeta-functional-equation.md"
+        ]
+      },
+      {
+        "src": "OM-P-NT-0009",
+        "dst": "OM-P-NT-0003",
+        "type": "cites",
+        "via": "配对 md 正文（ID 引用）",
+        "off": [
+          "OM-P-NT-0003"
         ]
       },
       {
@@ -4829,20 +5249,22 @@
     "CONTRADICTION_ASYMMETRIC": []
   },
   "resolution": {
-    "nodes": 89,
-    "node_keys": 89,
-    "edges": 366,
-    "both_in_graph": 359,
-    "one_endpoint_off_graph": 3,
+    "nodes": 90,
+    "node_keys": 90,
+    "edges": 417,
+    "both_in_graph": 398,
+    "one_endpoint_off_graph": 15,
     "both_endpoints_off_graph": 4,
     "collapsed_to_self_loop": 0,
-    "ambiguous_doc_ids": []
+    "ambiguous_doc_ids": [
+      "OM-P-NT-0003"
+    ]
   },
   "counts": {
-    "record_nodes": 65,
+    "record_nodes": 66,
     "doc_nodes": 24,
     "evidence_docs": 4,
-    "edges": 366,
+    "edges": 417,
     "load_errors": 0
   }
 }

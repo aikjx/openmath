@@ -9,6 +9,10 @@ M10 测端点解析：一条边的终点是一个**存在的文件但不是节�
 M11 测渲染表：把 ARROW 里的 `contradicts` 撤掉（只改内存不动盘），02 图会静默少画边——
 只有 TYPE-UNRENDERED 点名它，同时印出少画的边数（撤表真有影响才算数）。
 M12 测单边账：冲突只记在一边（反例记了、公式没记）时 CONTRADICTION_ASYMMETRIC 必须增长。
+M13 测通道名单：把 EDGE_CHANNELS 里的 `uses` 撤掉（只改内存不动盘），语料声明的 `uses:` 边会
+静默丢掉——RELATION_KEY_UNREAD 必须点名这个键，且少建的边数要现印（>=1 才证明撤通道真动了输出）。
+这一格是被 42 条 uses 边的现场失血逼出来的：发射器只认它列过的键，schema 里没写、版面里没画的键
+不会让任何一台仪器变红。
 运行日志写进仓内版面 `10-文献与索引/知识图谱/_版面/graph_mutants_face.txt`（LF，写后回读比对）。
 """
 
@@ -78,6 +82,8 @@ symbols:
     meaning_zh: "样例量"
 related:
   - OM-T-NT-0001
+uses:
+  - OM-X-NT-0001
 contradicts:
   - OM-X-NT-0001
 verification:
@@ -315,6 +321,29 @@ def measure_unrendered():
     return hit, before - meta2[key]["edges"], faults
 
 
+def measure_unread_channel():
+    """M13：只改内存里的通道名单，把 `uses` 那一型从 EDGE_CHANNELS 撤掉。
+
+    撤掉之后语料声明的 `uses:` 边**静默丢掉**（盘、版面、老四把尺子一切照旧）——
+    这正是 42 条 uses 边在被丢时的形状，也是上一轮 `generalizations` 缺陷的形状。
+    两件事都要当场成立：RELATION_KEY_UNREAD 点名这个键，且边数真的下降（下降数现印，
+    >=1 才证明撤通道确实动了输出，而不是我的撤动作碰不到任何东西）。
+    """
+    g = G.build(TMP)
+    if not any(e["type"] == "uses" and e["via"] == "uses" for e in g["edges"]):
+        return None, 0, 0, ["夹具里没有 uses 通道建出的边，M13 测不到东西"]
+    base_unread = len(g["gaps"].get("RELATION_KEY_UNREAD") or [])
+    base_edges = len(g["edges"])
+    saved = G.EDGE_CHANNELS
+    try:
+        G.EDGE_CHANNELS = tuple(x for x in saved if x[0] != "uses")
+        g2 = G.build(TMP)
+    finally:
+        G.EDGE_CHANNELS = saved
+    hit = g2["gaps"].get("RELATION_KEY_UNREAD") or []
+    return hit, len(hit) - base_unread, base_edges - len(g2["edges"]), hit
+
+
 def mutate(rel, old, new):
     path = os.path.join(TMP, rel)
     with open(path, "rb") as fh:
@@ -440,6 +469,19 @@ def main():
         emit("  %-16s -> %-26s 撤掉 ARROW 的 contradicts ⇒ 02 图少画 %d 条边｜%s" % (
             "M11-UNRENDERED", "TYPE-UNRENDERED", dropped11,
             " | ".join(hit11) if hit11 else "无故障（判据无牙）"))
+
+    hit13, delta13, dropped13, faults13 = measure_unread_channel()
+    if not hit13 and delta13 == 0 and dropped13 == 0:
+        results.append(("M13-UNREAD-CH", "RELATION_KEY_UNREAD", -1, "ANCHOR-MISS", -1))
+        emit("  M13-UNREAD-CH : ANCHOR-MISS（%s）" % (
+            " | ".join(faults13) if isinstance(faults13, list) and faults13 and
+            not str(faults13[0]).startswith("uses") else "撤通道既没点名也没少边＝判据无牙"))
+    else:
+        verdict = "CAUGHT" if (delta13 >= 1 and dropped13 >= 1) else "ESCAPED"
+        results.append(("M13-UNREAD-CH", "RELATION_KEY_UNREAD", delta13, verdict, dropped13))
+        emit("  %-16s -> %-26s 撤掉 EDGE_CHANNELS 的 uses ⇒ 少建 %d 条边｜点名 %d 条：%s" % (
+            "M13-UNREAD-CH", "RELATION_KEY_UNREAD", dropped13, delta13,
+            " | ".join(hit13) if hit13 else "无（判据没牙）"))
 
     escaped = [r for r in results if r[3] != "CAUGHT"]
     emit("== verdict ==")

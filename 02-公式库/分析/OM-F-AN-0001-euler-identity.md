@@ -72,7 +72,7 @@ e^{i\pi} = \cos\pi + i\sin\pi = -1 + 0i = -1
 
 ## 六、相关条目
 
-- 推广：[OM-F-AN-0003 欧拉公式一般形式](#)（待录入）
+- 推广：[OM-F-AN-0003 欧拉公式（一般形式）](OM-F-AN-0003-euler-formula-general-form.md)
 - 相关：[OM-F-AN-0002 Riemann ζ 函数函数方程](../分析/OM-F-AN-0002-riemann-zeta-functional-equation.md)
 
 ## 七、复现

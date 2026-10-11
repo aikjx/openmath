@@ -48,6 +48,7 @@ provenance:
 | `generalizations` | list | ⬜ | 推广（引用其他 ID）。**yaml 键名是复数，图上收成边型 `generalizes`**；渲染器只认键名，写错键名的边会被静默丢掉 |
 | `contradicts` | list | ⬜ | 冲突（引用其他 ID）。**必须成对写在两侧**，单边账由 `CONTRADICTION_ASYMMETRIC` 点名；图上收成 `-.->|冲突|` |
 | `related` | list[string] | ⬜ | 相关条目 ID |
+| `uses` | list | ⬜ | 本条**用到**的其他条目 ID（引用即建边，图上收成边型 `uses`）。此键一度**只活在语料里**：37 份记录、42 条 ID 写了它，而发射器的通道名单没有这一键 ⇒ 边在图上无处可画、`lint` 与 `graph --check` 照旧全绿（探针 `scratch/USES_PROBE_face.txt`）。现在通道名单由 `openmath/graph.py::EDGE_CHANNELS` 单点定义（发射器与判据共用一张表），漏接的键由缺口类 `RELATION_KEY_UNREAD` 逐条点名 |
 | `verification` | object | ✅ | 见下 |
 | `caveat` | string | ⬜ | 已知失效模式（数值/符号验证的陷阱） |
 

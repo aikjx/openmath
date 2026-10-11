@@ -1,41 +1,42 @@
 openmath graph face — 本面是唯一载体，文档只许引用这里印出的数
-generated: 2026-10-11T04:07:04Z
+generated: 2026-10-11T08:05:35Z
 ---- ledger scope ----
-record nodes (OM-*.yaml)            : 65
+record nodes (OM-*.yaml)            : 66
 doc nodes (OM-*.md 无 .yaml 伴生)    : 24
 evidence docs (05-验证中心)          : 4
-typed edges                        : 366
+typed edges                        : 417
 YAML load errors                   : 0
 ---- edge type census ----
-  cites          : 208
-  related        : 114
-  uses           : 13
+  cites          : 214
+  related        : 115
+  uses           : 55
   contradicts    : 12
   implies        : 8
-  generalizes    : 5
+  generalizes    : 6
   evidenced_by   : 4
-  specializes    : 2
+  specializes    : 3
 ---- gap classes ----
-  UNDEFINED_SYMBOL               :   48 : ADVISORY
+  UNDEFINED_SYMBOL               :   51 : ADVISORY
   MD_ONLY_LEDGER                 :   28 : LEDGER-GAP
-  AMBIGUOUS_REFERENCE            :   13 : DEFECT
-  EDGE_ENDPOINT_OFF_GRAPH        :    7 : LEDGER-GAP
+  EDGE_ENDPOINT_OFF_GRAPH        :   19 : LEDGER-GAP
   PROSE_RELATION_UNTRAVERSABLE   :    6 : ADVISORY
   ORPHAN                         :    3 : ADVISORY
-  DANGLING                       :    1 : DEFECT
-  ID_COLLISION_YAML_VS_MD        :    1 : DEFECT
   ID_MULTI_FILE                  :    1 : LEDGER-GAP
+  AMBIGUOUS_REFERENCE            :    0 : DEFECT
   BROKEN_DOC_LINK                :    0 : DEFECT
   CONTRADICTION_ASYMMETRIC       :    0 : ADVISORY
+  DANGLING                       :    0 : DEFECT
   DOMAIN_UNPLACED                :    0 : DEFECT
   EVIDENCE_INVERSION             :    0 : DEFECT
+  ID_COLLISION_YAML_VS_MD        :    0 : DEFECT
   LOAD_ERROR                     :    0 : DEFECT
+  RELATION_KEY_UNREAD            :    0 : LEDGER-GAP
   TERM_INCONSISTENCY             :    0 : ADVISORY
 ---- charts ----
-  00-四层总览 : {"domains_with_nodes": 14, "edges_off_graph": 7, "layer_edges": 6, "layer_nodes": {"方程层": 37, "逻辑层": 19, "难题层": 33}, "real_edges_between_layers": 160}
+  00-四层总览 : {"domains_with_nodes": 14, "edges_off_graph": 19, "layer_edges": 6, "layer_nodes": {"方程层": 38, "逻辑层": 19, "难题层": 33}, "real_edges_between_layers": 180}
   01-域依赖 : {"intra_edges": 1, "missing_placement": 0, "tier_edges": 5, "tiers": 6, "unplaced": 3}
-  02-公式与定理依赖 : {"edges": 308, "record_nodes_in_chart": 65}
-  03-难题卡点 : {"chart_nodes": 59, "dangling": 1, "edges": 99, "edges_with_off_graph_end": 1, "problem_nodes": 33, "prose_bottlenecks": 4}
+  02-公式与定理依赖 : {"edges": 356, "record_nodes_in_chart": 66}
+  03-难题卡点 : {"chart_nodes": 59, "dangling": 0, "edges": 105, "edges_with_off_graph_end": 11, "problem_nodes": 33, "prose_bottlenecks": 4}
   04-桥接与旁证 : {"bridge_docs": 0, "bridge_edges": 0, "edges_with_off_graph_end": 4, "evidence_edges": 4, "nodes": 5}
 ---- domain placement ----
   tiers declared          : 6
@@ -44,14 +45,14 @@ YAML load errors                   : 0
   missing_placement       : NONE
   domains with >=1 node   : 14 / 20
 ---- artifacts ----
-  graph.json            : nodes 89 / edges 366
+  graph.json            : nodes 90 / edges 417
   流程图               : 5 张（00-四层总览, 01-域依赖, 02-公式与定理依赖, 03-难题卡点, 04-桥接与旁证）
   交叉引用索引         : 7 张（引用图.md, 按ID.md, 按域.md, 按标签.md, 按证据等级.md, 术语索引.md, 缺口检测.md）
 ---- endpoint resolution ----
-  nodes / unique keys : 89 / 89
-  edges both ends in graph : 359 / 366
-  one end off graph        : 3
+  nodes / unique keys : 90 / 90
+  edges both ends in graph : 398 / 417
+  one end off graph        : 15
   both ends off graph      : 4
   collapsed to self-loop   : 0
-  ambiguous doc ids        : NONE
-==> verdict: 6 类 DEFECT/LEDGER-GAP 非空 -> AMBIGUOUS_REFERENCE, DANGLING, EDGE_ENDPOINT_OFF_GRAPH, ID_COLLISION_YAML_VS_MD, ID_MULTI_FILE, MD_ONLY_LEDGER
+  ambiguous doc ids        : OM-P-NT-0003
+==> verdict: 3 类 DEFECT/LEDGER-GAP 非空 -> EDGE_ENDPOINT_OFF_GRAPH, ID_MULTI_FILE, MD_ONLY_LEDGER
