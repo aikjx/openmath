@@ -83,6 +83,10 @@ python -m openmath verify --level L3
 # 5) 生成看板与索引
 python -m openmath status
 python -m openmath index
+
+# 6) 知识图谱＋关系流程图＋缺口检测（--check 只判不写）
+python -m openmath graph
+python -m openmath graph --check
 ```
 
 Windows 用户可直接双击 [`启动脚本/一键验证.bat`](启动脚本/一键验证.bat)。
@@ -137,6 +141,7 @@ openmath lint                 15 条记录，0 错误（L0 通过）
 openmath verify --level L2    15/15 通过（ζ 函数方程最大残差 1.1e-50；PWCV 离散定理精确整数核对残差恒为 0）
 openmath verify --level L3    2 条解析条目通过，3 条离散条目 SKIP（诚实标注）
 openmath index                15 条，0 悬空引用
+openmath graph              13 类缺口判据＋5 张流程图（读数只写版面，不在本文复制）
 08-工具/tests/test_core.py    7/7 通过
 prime_pi_block.py 自检        6/6 通过（精确素数计数四路交叉）
 pwcv_theorems.py 自检        10/10 通过（PWCV 框架定理精确整数核对）

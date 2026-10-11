@@ -1,17 +1,23 @@
 # 域间依赖的机器可读声明（生成 01-域依赖.mmd 的唯一来源）
 #
-# 依据：01-数学体系/README.md §三 那张手绘 ASCII 图。**注意该图的口径**：
-# 它表达的是「使用频率意义上的依赖」（谁大量借用谁的工具），不是逻辑基础关系
-# ——README 自己在图下写了这句话。范畴论既可作语言（本图置于第 2 层）也可作基础
-# （ETCS 置于第 1 层），这一不可通约性由 04-数学统一场论 处理，本文件不裁决。
+# 依据：01-数学体系/README.md §三 那张手绘 ASCII 图。**该图自己的口径**（README 图下
+# 原话）是「使用频率意义上的依赖」——谁大量借用谁的工具，**不是**逻辑基础关系。
+# 范畴论既可作语言（本文件置于第 2 层）也可作基础（ETCS 置于第 1 层），这一不可通约
+# 性由 04-数学统一场论 处理，本文件不裁决。
+#
+# 完整性判据（由 openmath graph 现场执行）：ids.DOMAINS 里每个域代码**要么**归入某
+# 一层，**要么**在 unplaced_domains 里带理由声明；两边都没有 ⇒ DEFECT/DOMAIN_UNPLACED。
+# ASCII 图当年只摆了 15 个域代码，漏掉的 GR/GT/SC/CB/XS 在本文件里逐个有了下落。
 schema_version: "0.1"
-source: "01-数学体系/README.md §三（简化依赖图，2026-10-11 由人工登记为机器可读）"
+source: "01-数学体系/README.md §三（简化依赖图，2026-10-11 登记为机器可读）"
 semantics: "usage-frequency dependency, NOT logical foundation"
 unplaced_domains:
   - code: CB
-    reason: "§三 的 ASCII 图未给组合与图论定位；登记为未定层，等接口讨论后再归层"
+    reason: "§三 的 ASCII 图未给组合与图论（08 目录）定位；归层需先定它与数论/图论的借用方向"
+  - code: GT
+    reason: "同上目录（08-组合与图论）；图论被 DS/NT/NA 借用，方向不是单向，暂不归层"
   - code: XS
-    reason: "交叉与新兴本身无固定上游，不宜归入单层"
+    reason: "交叉与新兴本身无固定上游，归任何一层都是假精确"
 tiers:
   - rank: 1
     domains: [FD]
@@ -20,11 +26,11 @@ tiers:
     domains: [ST, CT]
     label: "语言层：集合论与范畴论"
   - rank: 3
-    domains: [AL, NT, TG]
-    label: "结构层：代数、数论、几何拓扑"
+    domains: [AL, GR, NT, TG]
+    label: "结构层：代数（含群论与表示论）、数论、几何拓扑"
   - rank: 4
-    domains: [AN, PR, DS]
-    label: "连续与随机层：分析、概率、动力系统"
+    domains: [AN, PR, SC, DS]
+    label: "连续与随机层：分析、概率、统计与数据科学、动力系统"
   - rank: 5
     domains: [NA, MP, GO]
     label: "逼近与交叉层：数值、数学物理、优化"
@@ -32,4 +38,4 @@ tiers:
     domains: [IT, OR, TC]
     label: "信息、运筹与理论计算机"
 intra_tier_edges:
-  - ["ST", "CT", "集合论为范畴论提供例子与反例"]
+  - ["ST", "CT", "集合论为范畴论提供例子与反例；范畴论反过来作统一语言"]

@@ -1,0 +1,130 @@
+flowchart LR
+  n1["OM-A-NT-0001 Meissel–Lehmer 精确素数计数算法 algorithm/L2/VERIF…"]
+  n2["OM-F-NT-0001 Legendre φ 分块递归与轮积恒等式 formula/L2/VERIFIED(…"]
+  n1 -->|引用| n2
+  n3["OM-P-NT-0002 第 n 个素数的低复杂度精确公式 problem/L2/OPEN"]
+  n1 -->|引用| n3
+  n1 -->|related| n2
+  n1 -->|related| n3
+  n1 -->|用到| n2
+  n4["OM-D-NT-0001 精确整除脉冲、素数指示与整数阶跃 definition/L2/VERIFIED(L2)"]
+  n4 -->|引用| n2
+  n5["OM-T-NT-0001 素数离散微积分闭环（指示 ↔ 计数 ↔ 第 n 素数） theorem/L2/VER…"]
+  n4 -->|引用| n5
+  n4 -->|related| n2
+  n4 -->|related| n5
+  n6["OM-F-AN-0001 欧拉恒等式 formula/L3/VERIFIED(L3)"]
+  n7["OM-F-AN-0002 Riemann ζ 函数函数方程 formula/L3/VERIFIED(L3)"]
+  n6 -->|引用| n7
+  n6 -->|related| n7
+  n7 -->|引用| n6
+  n7 -->|related| n6
+  n2 -->|引用| n1
+  n2 -->|引用| n3
+  n2 -->|related| n1
+  n2 -->|related| n3
+  n8["OM-F-NT-0002 第 n 素数的 n-only 有限表示（母公式） formula/L2/VERIFI…"]
+  n8 -->|引用| n4
+  n8 -->|引用| n3
+  n8 -->|引用| n5
+  n8 -->|related| n4
+  n8 -->|related| n3
+  n8 -->|related| n5
+  n8 -->|用到| n4
+  n9["OM-F-NT-0003 区间素数计数的 Legendre 窗口恒等式（方块窗口） formula/L3/VE…"]
+  n9 -->|引用| n2
+  n10["OM-P-NT-0003 OM-P-NT-0003 · 结构分解定理：投影恒等式与角色锁定 doc/?"]
+  n9 -->|引用| n10
+  n9 -->|related| n2
+  n9 -->|related| n10
+  n11["OM-F-NT-0004 n²+1 序列的 Legendre–Möbius 筛恒等式与余项爆… formula…"]
+  n11 -->|引用| n2
+  n12["OM-P-NT-0004 Landau 第四问题 · 是否存在无穷多个素数形如 n²+1 problem/L1…"]
+  n11 -->|引用| n12
+  n13["OM-T-NT-0006 一般 wheel 覆盖定理 theorem/L2/VERIFIED(L2)"]
+  n11 -->|引用| n13
+  n11 -->|related| n2
+  n11 -->|related| n12
+  n11 -->|related| n13
+  n3 -->|引用| n1
+  n3 -->|引用| n2
+  n10 -->|引用| n9
+  n10 -->|引用| n12
+  n10 ==>|蕴含| n9
+  n10 -->|related| n9
+  n10 -->|related| n12
+  n10 -->|用到| n9
+  n12 -->|引用| n11
+  n12 -->|引用| n10
+  n12 ==>|蕴含| n11
+  n12 -->|related| n11
+  n12 -->|related| n10
+  n12 -->|用到| n11
+  n5 -->|引用| n1
+  n5 -->|引用| n4
+  n5 -->|引用| n2
+  n5 -->|引用| n8
+  n5 -->|引用| n3
+  n5 -->|related| n1
+  n5 -->|related| n4
+  n5 -->|related| n2
+  n5 -->|related| n8
+  n5 -->|用到| n4
+  n5 -->|用到| n2
+  n14["OM-T-NT-0002 素数计数分块递归分解（Legendre φ 递归恒等式） theorem/L2/VE…"]
+  n14 -->|引用| n1
+  n14 -->|引用| n4
+  n14 -->|引用| n2
+  n14 -->|引用| n3
+  n14 -->|推广| n2
+  n14 -->|related| n1
+  n14 -->|related| n4
+  n14 -->|related| n2
+  n15["OM-T-NT-0003 阶乘互素定理（下一素数母定理） theorem/L2/VERIFIED(L2)"]
+  n15 -->|引用| n4
+  n15 -->|引用| n5
+  n16["OM-T-NT-0004 首逃逸合数平方定理 theorem/L2/VERIFIED(L2)"]
+  n15 -->|引用| n16
+  n17["OM-T-NT-0007 阶乘互素安全窗口定理 theorem/L2/VERIFIED(L2)"]
+  n15 -->|引用| n17
+  n15 -->|推广| n17
+  n15 -->|related| n4
+  n15 -->|related| n5
+  n15 -->|related| n16
+  n16 -->|引用| n4
+  n16 -->|引用| n15
+  n16 -->|引用| n17
+  n16 -->|推广| n17
+  n16 -->|related| n4
+  n16 -->|related| n15
+  n16 -->|related| n17
+  n18["OM-T-NT-0005 模 6 合数覆盖母方程 theorem/L2/VERIFIED(L2)"]
+  n18 -->|引用| n4
+  n18 -->|引用| n13
+  n18 -->|推广| n13
+  n18 -->|related| n4
+  n18 -->|related| n13
+  n13 -->|引用| n1
+  n13 -->|引用| n4
+  n13 -->|引用| n3
+  n13 -->|引用| n18
+  n13 -->|related| n1
+  n13 -->|related| n4
+  n13 -->|related| n18
+  n13 -->|特例| n18
+  n17 -->|引用| n15
+  n17 -->|引用| n16
+  n19["OM-T-NT-0008 素数间隔的 Jacobsthal 上界 theorem/L2/VERIFIED(L2)"]
+  n17 -->|引用| n19
+  n17 -->|related| n5
+  n17 -->|related| n15
+  n17 -->|related| n16
+  n17 -->|特例| n16
+  n17 -->|用到| n15
+  n17 -->|用到| n16
+  n19 -->|引用| n3
+  n19 -->|引用| n16
+  n19 -->|引用| n13
+  n19 -->|related| n3
+  n19 -->|related| n16
+  n19 -->|related| n13

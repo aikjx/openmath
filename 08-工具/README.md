@@ -18,6 +18,8 @@ pip install -e ".[all]"             # 增加 mpmath / numpy / sympy（启用 L2/
 | `openmath verify --level L2` | L2 高精度数值 | sympy |
 | `openmath verify --level L3` | L3 符号验证 | sympy |
 | `openmath index` | 构建交叉引用索引 | 无 |
+| `openmath graph` | 知识图谱＋5 张流程图＋7 张索引表（写盘） | 无 |
+| `openmath graph --check` | 同上但只判不写；DEFECT 或不变量故障则 rc=1 | 无 |
 | `openmath index --search X` | 检索 | 无 |
 | `openmath status` | 看板 | 无 |
 | `openmath new F --domain NT --slug xxx` | 从模板创建记录 | 无 |
@@ -44,6 +46,13 @@ python -m openmath verify --level L2 --precision 80 --samples 100
 # 建索引并检索
 python -m openmath index
 python -m openmath index --search zeta
+
+# 知识图谱、流程图、缺口检测（版面是本轮唯一载体）
+python -m openmath graph
+python -m openmath graph --check
+
+# 判据的牙：变异体电池（夹具只写系统临时目录，不碰真语料）
+python 08-工具/tests/graph_mutants.py
 python -m openmath index --domain NT
 
 # 看板

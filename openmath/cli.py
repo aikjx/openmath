@@ -15,7 +15,7 @@ import os
 import shutil
 import sys
 
-from . import ids, index as index_mod, record as record_mod, report as report_mod, schema, verify
+from . import flowdocs, graph as graph_mod, ids, index as index_mod, record as record_mod, report as report_mod, schema, verify
 
 
 def _stdout_utf8():
@@ -176,6 +176,37 @@ def cmd_index(args):
     return 0
 
 
+def cmd_graph(args):
+    root = record_mod.find_root()
+    if root is None:
+        print("错误：未找到仓库根，请在 openmath 仓库内运行。")
+        return 2
+    g = graph_mod.build(root)
+    charts, meta = flowdocs.render_charts(g)
+    rows = flowdocs.xref_md(g)
+    face_text = flowdocs.face(g, meta, rows)
+    defects = {name: count for name, (sev, count) in graph_mod.defect_counts(g).items()
+               if sev == "DEFECT" and count}
+    if args.check:
+        faults = flowdocs.check_invariants(g, charts, meta, [], writes_expected=False, rows=rows)
+        print(face_text, end="")
+        for fault in faults:
+            print("FAULT  %s" % fault)
+        print("（--check：未写盘；DEFECT 类 %d，不变量故障 %d）" % (len(defects), len(faults)))
+        return 1 if (faults or defects) else 0
+    written = flowdocs.write_all(root, g, charts, meta, rows, face_text)
+    faults = flowdocs.check_invariants(g, charts, meta, written, rows=rows)
+    for relpath, size in written:
+        print("已生成   : %s（%d B）" % (relpath, size))
+    print(face_text, end="")
+    for fault in faults:
+        print("FAULT  %s" % fault)
+    if defects and not faults:
+        print("==> 生成物完好（rc=0 只证明这一点），但语料 DEFECT 类非空：%s —— "
+              "判语料请看 `openmath graph --check`。" % ", ".join(sorted(defects)))
+    return 1 if faults else 0
+
+
 def cmd_status(args):
     root = record_mod.find_root()
     if root is None:
@@ -261,6 +292,10 @@ def build_parser():
     p_index.add_argument("--domain", nargs="+", help="按域过滤")
     p_index.add_argument("--level", nargs="+", help="按证据等级过滤")
     p_index.set_defaults(func=cmd_index)
+
+    p_graph = sub.add_parser("graph", help="知识图谱、关系流程图与缺口检测")
+    p_graph.add_argument("--check", action="store_true", help="只判据不写盘（CI 模式）")
+    p_graph.set_defaults(func=cmd_graph)
 
     p_status = sub.add_parser("status", help="看板")
     p_status.add_argument("--format", choices=["text", "json"], default="text")
