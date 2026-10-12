@@ -1,0 +1,163 @@
+{
+  "topic": "Schur number demo for AI-solves-math pipeline",
+  "date": "2026-10-12",
+  "provenance": {
+    "ai_assisted": true,
+    "role": "起草 + 搜索 + 核验；结论等级由脚本直出，未人工上调"
+  },
+  "guards": [
+    {
+      "id": "G1-阳性对照-全同色必被拒",
+      "pass": true,
+      "detail": "存在同色 Schur 三元组 [(1, 1, 2), (1, 2, 3), (1, 3, 4), (2, 2, 4), (1, 4, 5)]"
+    },
+    {
+      "id": "G2-阳性对照-样例可通可不通",
+      "pass": true,
+      "detail": "OK: n=5，用到 3 种颜色，无同色 x+y=z"
+    },
+    {
+      "id": "G3-已知解-2色4",
+      "pass": true,
+      "detail": "OK: n=4，用到 2 种颜色，无同色 x+y=z"
+    },
+    {
+      "id": "G4-搜索器交叉核对-S(1)=1",
+      "pass": true,
+      "detail": "本机算出 1，教科书值 1"
+    },
+    {
+      "id": "G4-搜索器交叉核对-S(2)=4",
+      "pass": true,
+      "detail": "本机算出 4，教科书值 4"
+    },
+    {
+      "id": "G4-搜索器交叉核对-S(3)=13",
+      "pass": true,
+      "detail": "本机算出 13，教科书值 13"
+    }
+  ],
+  "items": [
+    {
+      "id": "A-1",
+      "level": "L2",
+      "claim": "S(1) = 1",
+      "status": "PASS",
+      "note": "下界由显式证书给出；上界由对 n=2 的完整穷举（无解）给出，穷举节点数 1"
+    },
+    {
+      "id": "A-2",
+      "level": "L2",
+      "claim": "S(2) = 4",
+      "status": "PASS",
+      "note": "下界由显式证书给出；上界由对 n=5 的完整穷举（无解）给出，穷举节点数 11"
+    },
+    {
+      "id": "A-3",
+      "level": "L2",
+      "claim": "S(3) = 13",
+      "status": "PASS",
+      "note": "下界由显式证书给出；上界由对 n=14 的完整穷举（无解）给出，穷举节点数 7011"
+    },
+    {
+      "id": "B-构造定理",
+      "level": "L3",
+      "claim": "S(k+1) >= 3*S(k) + 1",
+      "status": "PASS",
+      "note": "构造在机器被逐项核验至 n=1093；超出此处之外的核验本轮未执行"
+    },
+    {
+      "id": "C-朴素猜想",
+      "level": "L2",
+      "claim": "S(k+1) = 3*S(k) + 1",
+      "status": "UNKNOWN",
+      "note": "预算 30s 内既未找到证书也未证明无解：不得声称被证伪，也不得声称成立"
+    },
+    {
+      "id": "D-边界",
+      "level": "L2",
+      "claim": "S(5) 的精确值",
+      "status": "UNKNOWN",
+      "note": "本轮只得到构造给出的下界（见 chain），未做任何形式化证明(L4)；搜索规模随 n 指数增长，穷举到 S(5) 的实际量级远超本次算力预算。"
+    }
+  ],
+  "exact": {
+    "1": {
+      "S": 1,
+      "certified": true,
+      "check": "OK: n=1，用到 1 种颜色，无同色 x+y=z",
+      "search_nodes": 1
+    },
+    "2": {
+      "S": 4,
+      "certified": true,
+      "check": "OK: n=4，用到 2 种颜色，无同色 x+y=z",
+      "search_nodes": 11
+    },
+    "3": {
+      "S": 13,
+      "certified": true,
+      "check": "OK: n=13，用到 3 种颜色，无同色 x+y=z",
+      "search_nodes": 7011
+    }
+  },
+  "construction_chain": [
+    {
+      "k": 1,
+      "n": 1,
+      "ok": true,
+      "detail": "起点 [1] 单色，平凡无和"
+    },
+    {
+      "k": 2,
+      "n": 4,
+      "ok": true,
+      "detail": "OK: n=4，用到 2 种颜色，无同色 x+y=z",
+      "bound": "S(2) >= 4"
+    },
+    {
+      "k": 3,
+      "n": 13,
+      "ok": true,
+      "detail": "OK: n=13，用到 3 种颜色，无同色 x+y=z",
+      "bound": "S(3) >= 13"
+    },
+    {
+      "k": 4,
+      "n": 40,
+      "ok": true,
+      "detail": "OK: n=40，用到 4 种颜色，无同色 x+y=z",
+      "bound": "S(4) >= 40"
+    },
+    {
+      "k": 5,
+      "n": 121,
+      "ok": true,
+      "detail": "OK: n=121，用到 5 种颜色，无同色 x+y=z",
+      "bound": "S(5) >= 121"
+    },
+    {
+      "k": 6,
+      "n": 364,
+      "ok": true,
+      "detail": "OK: n=364，用到 6 种颜色，无同色 x+y=z",
+      "bound": "S(6) >= 364"
+    },
+    {
+      "k": 7,
+      "n": 1093,
+      "ok": true,
+      "detail": "OK: n=1093，用到 7 种颜色，无同色 x+y=z",
+      "bound": "S(7) >= 1093"
+    }
+  ],
+  "naive_conjecture": {
+    "statement": "S(k+1) = 3*S(k) + 1",
+    "status": "UNKNOWN",
+    "witness": null,
+    "note": "预算 30s 内既未找到证书也未证明无解：不得声称被证伪，也不得声称成立"
+  },
+  "budget_sec": 30.0,
+  "elapsed_sec": 30.25,
+  "python": "3.8.8"
+}
