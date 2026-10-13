@@ -45,8 +45,8 @@ class TestHubs(unittest.TestCase):
     def test_tool_is_hub(self):
         g = _make_graph()
         h = hubs(g, top=3)
-        # 每条 (label, degree, node_id, ntype)
-        top_id = h[0][2]
+        # 每条 (label, degree, ntype, node_id)
+        top_id = h[0][3]
         self.assertEqual(top_id, "tool:script")  # 3 条 USES，度最高
 
     def test_hub_limit(self):

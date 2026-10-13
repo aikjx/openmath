@@ -46,7 +46,7 @@ class TestE2EWorkflow(unittest.TestCase):
 
         # 5. 分析
         h = hubs(g, top=1)
-        self.assertEqual(h[0][2], "work:test")  # (label, degree, node_id, ntype)
+        self.assertEqual(h[0][3], "work:test")  # (label, degree, ntype, node_id)
         dist = verdicts(g)
         self.assertEqual(dist.get("confirmed", 0), 1)
 

@@ -45,9 +45,11 @@ class TestUpsert(unittest.TestCase):
         self.assertEqual(self.g.nodes["a"].label, "A-v2")
         self.assertEqual(len(self.g.nodes), 1)
 
-    def test_upsert_invalid_type_raises(self):
-        with self.assertRaises(ValueError):
-            self.g.upsert_node("x", "INVALID", "x")
+    def test_upsert_custom_type_allowed(self):
+        # 企业级无限扩展：自定义 ntype 被接受
+        self.g.upsert_node("x", "CUSTOMER", "客户X")
+        self.assertIn("x", self.g.nodes)
+        self.assertEqual(self.g.nodes["x"].ntype, "CUSTOMER")
 
 
 class TestAddEdge(unittest.TestCase):
@@ -69,9 +71,11 @@ class TestAddEdge(unittest.TestCase):
         # 已有 evidence 时不覆盖
         self.assertEqual(self.g.edges[0].evidence, "first.md")
 
-    def test_add_edge_invalid_type_raises(self):
-        with self.assertRaises(ValueError):
-            self.g.add_edge("a", "b", "INVALID")
+    def test_add_edge_custom_type_allowed(self):
+        # 企业级无限扩展：自定义 etype 被接受
+        self.g.add_edge("a", "b", "PURCHASES")
+        self.assertEqual(len(self.g.edges), 1)
+        self.assertEqual(self.g.edges[0].etype, "PURCHASES")
 
 
 class TestNeighbors(unittest.TestCase):

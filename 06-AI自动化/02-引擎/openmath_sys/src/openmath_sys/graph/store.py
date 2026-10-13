@@ -67,15 +67,13 @@ class GraphStore:
 
     # ---- 写入（幂等：同 node_id 覆盖，同边签名去重） ----
     def upsert_node(self, node_id: str, ntype: str, label: str, **attrs: Any) -> Node:
-        if ntype not in NODE_TYPES:
-            raise ValueError(f"unknown node type: {ntype}")
+        # 企业级无限扩展：ntype 开放，NODE_TYPES 仅为推荐类型（不拒绝自定义）
         n = Node(node_id=node_id, ntype=ntype, label=label, attrs=attrs)
         self.nodes[node_id] = n
         return n
 
     def add_edge(self, src: str, dst: str, etype: str, evidence: str = "", **attrs: Any) -> Edge:
-        if etype not in EDGE_TYPES:
-            raise ValueError(f"unknown edge type: {etype}")
+        # 企业级无限扩展：etype 开放，EDGE_TYPES 仅为推荐类型（不拒绝自定义）
         sig = (src, dst, etype)
         for e in self.edges:
             if (e.src, e.dst, e.etype) == sig:
@@ -124,6 +122,18 @@ class GraphStore:
 
     def edge_type_counts(self) -> dict[str, int]:
         return dict(Counter(e.etype for e in self.edges))
+
+    def list_nodes_by_type(self, ntype: str) -> list[Node]:
+        """按类型列出所有节点（企业业务实体查询）。"""
+        return [n for n in self.nodes.values() if n.ntype == ntype]
+
+    def find_nodes_by_attr(self, key: str, value: Any) -> list[Node]:
+        """按属性键值查找节点（企业业务过滤）。"""
+        return [n for n in self.nodes.values() if n.attrs.get(key) == value]
+
+    def count_edges_by_type(self, etype: str) -> int:
+        """按关系类型计数。"""
+        return sum(1 for e in self.edges if e.etype == etype)
 
     def find_refutation_chain(self, root_id: str) -> list[Edge]:
         """从某实体出发的直接 REFUTES/CONFIRMS 判决边。"""

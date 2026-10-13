@@ -119,10 +119,26 @@ def cmd_search(args: list[str]) -> None:
         print(f"  [{r['ntype']}] {r['label']}  ({r['node_id']})")
 
 
+def cmd_import(args: list[str]) -> None:
+    """从 CSV 导入业务数据（自动识别节点表/边表）。"""
+    if not args:
+        print("用法: import <csv_path>")
+        return
+    from openmath_sys.graph.csv_importer import auto_import
+    g = load()
+    n = auto_import(g, args[0])
+    g.export(GRAPH_JSON)
+    save_sqlite(g, GRAPH_DB)
+    print(f"=== 导入完成 ===")
+    print(f"  文件: {args[0]}")
+    print(f"  导入: {n} 条")
+    print(f"  总图: {len(g.nodes)} 节点 / {len(g.edges)} 边")
+
+
 COMMANDS = {
     "build": cmd_build, "stats": cmd_stats, "risk": cmd_risk, "hubs": cmd_hubs,
     "verdicts": cmd_verdicts, "refutations": cmd_refutations, "sqlite": cmd_sqlite,
-    "neighbors": cmd_neighbors, "search": cmd_search,
+    "neighbors": cmd_neighbors, "search": cmd_search, "import": cmd_import,
 }
 
 
