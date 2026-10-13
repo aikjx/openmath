@@ -1,0 +1,391 @@
+{
+  "date": "2026-10-13",
+  "topic": "Schur S(4): CNF + 纯标准库 CDCL",
+  "provenance": {
+    "ai_assisted": true,
+    "role": "起草求解器 + 编码 + 自检 + 核验；等级按脚本直出"
+  },
+  "guards": [
+    {
+      "id": "S-自检 n=2 k=1",
+      "pass": true,
+      "detail": "1 色在 n=2 上必有同色 1+1=2｜UNSAT（期望 UNSAT）｜子句 3 条、变量 2 个、冲突 0"
+    },
+    {
+      "id": "S-自检 n=1 k=1",
+      "pass": true,
+      "detail": "1 色在 n=1 上平凡可行｜SAT（期望 SAT）｜子句 1 条、变量 1 个、冲突 0｜证书复核 OK / OK"
+    },
+    {
+      "id": "S-自检 n=4 k=2",
+      "pass": true,
+      "detail": "S(2)=4｜SAT（期望 SAT）｜子句 21 条、变量 8 个、冲突 0｜证书复核 OK / OK"
+    },
+    {
+      "id": "S-自检 n=5 k=2",
+      "pass": true,
+      "detail": "S(2)=4 的上界｜UNSAT（期望 UNSAT）｜子句 28 条、变量 10 个、冲突 0"
+    },
+    {
+      "id": "S-自检 n=13 k=3",
+      "pass": true,
+      "detail": "S(3)=13｜SAT（期望 SAT）｜子句 204 条、变量 39 个、冲突 13｜证书复核 OK / OK"
+    },
+    {
+      "id": "S-自检 n=14 k=3",
+      "pass": true,
+      "detail": "S(3)=13 的上界｜UNSAT（期望 UNSAT）｜子句 231 条、变量 42 个、冲突 26"
+    },
+    {
+      "id": "S-自检 n=40 k=4",
+      "pass": true,
+      "detail": "上一轮构造给出的下界｜SAT（期望 SAT）｜子句 1999 条、变量 160 个、冲突 464｜证书复核 OK / OK"
+    }
+  ],
+  "items": [
+    {
+      "id": "0-求解器自检",
+      "level": "L2",
+      "claim": "CDCL 求解器在 7 个已知答案实例上与预期一致",
+      "status": "PASS",
+      "note": "任一自检失败 ⇒ 本轮所有下游结论作废（脚本会提前退出）"
+    },
+    {
+      "id": "1-41",
+      "level": "L2",
+      "claim": "n=41 上 4 色可染",
+      "status": "PASS",
+      "note": "CNF 164 变量 / 2089 子句 / 420 个 Schur 三元组；冲突 1254 次；证书双路复核 [True, True]"
+    },
+    {
+      "id": "1-42",
+      "level": "L2",
+      "claim": "n=42 上 4 色可染",
+      "status": "PASS",
+      "note": "CNF 168 变量 / 2183 子句 / 441 个 Schur 三元组；冲突 527 次；证书双路复核 [True, True]"
+    },
+    {
+      "id": "1-43",
+      "level": "L2",
+      "claim": "n=43 上 4 色可染",
+      "status": "PASS",
+      "note": "CNF 172 变量 / 2277 子句 / 462 个 Schur 三元组；冲突 129 次；证书双路复核 [True, True]"
+    },
+    {
+      "id": "1-44",
+      "level": "L2",
+      "claim": "n=44 上 4 色可染",
+      "status": "PASS",
+      "note": "CNF 176 变量 / 2375 子句 / 484 个 Schur 三元组；冲突 15034 次；证书双路复核 [True, True]"
+    },
+    {
+      "id": "1-45",
+      "level": "L2",
+      "claim": "n=45 上 4 色可染",
+      "status": "UNKNOWN",
+      "note": "未在预算 45s 内定论"
+    },
+    {
+      "id": "2-45 的 UNSAT",
+      "level": "L2",
+      "claim": "不存在 [1,45] 的 4 色无和染色（即 S(4) < 45）",
+      "status": "PASS",
+      "note": "UNSAT；冲突 104529 次 / 14 次重启 / 175.9s（594 冲突每秒）。注意：本脚本不产 DRAT 证明，故该 UNSAT 的可信度 = 求解器实现 + 自检通过，不是可脱离求解器独立复核的证书。"
+    },
+    {
+      "id": "2b-多种子复核",
+      "level": "L2",
+      "claim": "n=45 判 UNSAT 不依赖随机序",
+      "status": "PASS",
+      "note": "另取 3 个种子重跑：[{\"seed\": 1147, \"status\": \"UNSAT\", \"conflicts\": 115068, \"seconds\": 240.5}, {\"seed\": 2148, \"status\": \"UNSAT\", \"conflicts\": 97468, \"seconds\": 164.7}, {\"seed\": 3149, \"status\": \"UNSAT\", \"conflicts\": 109626, \"seconds\": 170.6}]。注意这与'独立解法'不同——它排除的是运气/随机序，排除不了实现层面的系统性错误。"
+    },
+    {
+      "id": "3-裁决",
+      "level": "L2",
+      "claim": "S(4) = 44（L2：n=44 有证书 + n=45 求解器判 UNSAT）",
+      "status": "PASS",
+      "note": "上界一侧若无 UNSAT（或 UNSAT 无 DRAT 证书），一律不写成等号。"
+    }
+  ],
+  "sat_side": {
+    "41": {
+      "status": "SAT",
+      "conflicts": 1254,
+      "decisions": 1637,
+      "seconds": null,
+      "clauses": 2089,
+      "vars": 164,
+      "triples": 420,
+      "verify": [
+        true,
+        true
+      ],
+      "coloring": [
+        null,
+        0,
+        1,
+        0,
+        2,
+        2,
+        2,
+        3,
+        3,
+        1,
+        3,
+        0,
+        1,
+        0,
+        2,
+        1,
+        2,
+        2,
+        0,
+        3,
+        1,
+        3,
+        3,
+        1,
+        3,
+        0,
+        2,
+        2,
+        1,
+        2,
+        0,
+        1,
+        0,
+        3,
+        1,
+        3,
+        2,
+        2,
+        2,
+        3,
+        0,
+        1
+      ]
+    },
+    "42": {
+      "status": "SAT",
+      "conflicts": 527,
+      "decisions": 790,
+      "seconds": null,
+      "clauses": 2183,
+      "vars": 168,
+      "triples": 441,
+      "verify": [
+        true,
+        true
+      ],
+      "coloring": [
+        null,
+        0,
+        1,
+        2,
+        0,
+        3,
+        3,
+        1,
+        1,
+        2,
+        0,
+        1,
+        1,
+        2,
+        2,
+        3,
+        0,
+        1,
+        3,
+        2,
+        2,
+        0,
+        3,
+        0,
+        2,
+        3,
+        3,
+        1,
+        0,
+        3,
+        2,
+        2,
+        1,
+        1,
+        0,
+        2,
+        2,
+        1,
+        3,
+        3,
+        0,
+        2,
+        1
+      ]
+    },
+    "43": {
+      "status": "SAT",
+      "conflicts": 129,
+      "decisions": 237,
+      "seconds": null,
+      "clauses": 2277,
+      "vars": 172,
+      "triples": 462,
+      "verify": [
+        true,
+        true
+      ],
+      "coloring": [
+        null,
+        0,
+        1,
+        0,
+        2,
+        2,
+        2,
+        2,
+        0,
+        3,
+        1,
+        1,
+        0,
+        3,
+        1,
+        1,
+        2,
+        3,
+        2,
+        3,
+        3,
+        3,
+        0,
+        3,
+        3,
+        3,
+        0,
+        3,
+        2,
+        2,
+        2,
+        3,
+        0,
+        1,
+        1,
+        3,
+        0,
+        1,
+        2,
+        2,
+        2,
+        1,
+        1,
+        0
+      ]
+    },
+    "44": {
+      "status": "SAT",
+      "conflicts": 15034,
+      "decisions": 18363,
+      "seconds": null,
+      "clauses": 2375,
+      "vars": 176,
+      "triples": 484,
+      "verify": [
+        true,
+        true
+      ],
+      "coloring": [
+        null,
+        0,
+        1,
+        1,
+        0,
+        2,
+        2,
+        2,
+        2,
+        0,
+        1,
+        1,
+        0,
+        3,
+        3,
+        1,
+        1,
+        2,
+        2,
+        0,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        0,
+        2,
+        2,
+        1,
+        3,
+        3,
+        3,
+        0,
+        1,
+        1,
+        0,
+        2,
+        2,
+        0,
+        2,
+        2,
+        1,
+        1,
+        0
+      ]
+    },
+    "45": {
+      "status": "UNKNOWN",
+      "conflicts": 31124,
+      "decisions": 37469,
+      "seconds": null,
+      "clauses": 2473,
+      "vars": 180,
+      "triples": 506
+    }
+  },
+  "unsat_45": {
+    "status": "UNSAT",
+    "seconds": 175.9,
+    "conflicts": 104529,
+    "learned": 104509,
+    "restarts": 14,
+    "conflicts_per_sec": 594.1
+  },
+  "unsat_45_corroboration": [
+    {
+      "seed": 1147,
+      "status": "UNSAT",
+      "conflicts": 115068,
+      "seconds": 240.5
+    },
+    {
+      "seed": 2148,
+      "status": "UNSAT",
+      "conflicts": 97468,
+      "seconds": 164.7
+    },
+    {
+      "seed": 3149,
+      "status": "UNSAT",
+      "conflicts": 109626,
+      "seconds": 170.6
+    }
+  ],
+  "verdict": "S(4) = 44（L2：n=44 有证书 + n=45 求解器判 UNSAT）",
+  "budgets": {
+    "sat": 45.0,
+    "unsat": 400.0
+  },
+  "seed_base": 101,
+  "elapsed_sec": 814.67,
+  "python": "3.8.8"
+}

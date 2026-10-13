@@ -59,9 +59,84 @@ def verify(coloring, n):
     return True, "OK: n=%d，用到 %d 种颜色，无同色 x+y=z" % (n, len(used))
 
 
+def verify_by_classes(coloring, n):
+    """
+    第二条代码路径（交叉校验用）：按颜色分组，检查组内任意两元素之和是否仍在组内。
+    与 find_bad_triples 的'枚举三元组'是完全不同的实现，避免同源 bug 同时污染两条路径。
+    """
+    classes = {}
+    for i in range(1, n + 1):
+        classes.setdefault(coloring[i], set()).add(i)
+    for c, members in sorted(classes.items()):
+        for x in members:
+            for y in members:
+                if (x + y) in members:
+                    return False, "色类 %d 违反：%d + %d = %d 同色" % (c, x, y, x + y)
+    return True, "第二路径 OK：%d 个色类，组内两两之和均不在组内" % len(classes)
+
+
 # --------------------------------------------------------------------------
 # 二、搜索器：DFS + 前向检查(forb 位掩码) + MRV 动态选元 + 对称性破缺
 # --------------------------------------------------------------------------
+# --------------------------------------------------------------------------
+# 二之二、引擎 B：WalkSAT 式局部搜索（不完备，不能证明上界，但可能更快找到证书）
+# --------------------------------------------------------------------------
+def triples_of(n):
+    ts = []
+    for z in range(1, n + 1):
+        for x in range(1, z // 2 + 1):
+            ts.append((x, z - x, z))
+    return ts
+
+
+def local_search(n, k, deadline, seed=12345, walk_p=0.25, init=None):
+    """
+    min-conflicts + 随机游走。注意：本引擎【不完备】，
+    它说"没找到"不代表不存在；它说"找到了"也必须交给 verify() 复核。
+    内部冲突数每步全量重算（不用增量记账——本脚本开发过程中，
+    增量记账版本曾自称 total=0 而独立验证器查出 6 个违反三元组）。
+    """
+    import random as _rd
+    ts = triples_of(n)
+    part = {}
+    for i in range(1, n + 1):
+        part[i] = []
+    for idx, t in enumerate(ts):
+        for a in set(t):
+            part[a].append(idx)
+    _rd.seed(seed)
+    col = [_rd.randrange(k) for _ in range(n + 1)]
+    if init is not None:                       # 热启动：沿用已知的较短证书
+        m = min(len(init) - 1, n)
+        for i in range(1, m + 1):
+            if isinstance(init[i], int):
+                col[i] = init[i]
+    steps, best, restarts = 0, None, 1
+    t_start = time.time()
+    while time.time() < deadline:
+        total = sum(1 for t in ts if col[t[0]] == col[t[1]] == col[t[2]])
+        if total == 0:
+            best = list(col)
+            break
+        bad = [t for t in ts if col[t[0]] == col[t[1]] == col[t[2]]]
+        v = _rd.choice(_rd.choice(bad))
+        if _rd.random() < walk_p:
+            col[v] = _rd.randrange(k)
+        else:
+            old, bestd, bestc = col[v], None, col[v]
+            for c in range(k):
+                if c == old:
+                    continue
+                col[v] = c
+                d = sum(1 for i in part[v] if col[ts[i][0]] == col[ts[i][1]] == col[ts[i][2]])
+                if bestd is None or d < bestd or (d == bestd and _rd.random() < 0.3):
+                    bestd, bestc = d, c
+            col[v] = bestc
+        steps += 1
+    return {"found": best is not None, "coloring": best, "steps": steps,
+            "restarts": restarts, "ms": round((time.time() - t_start) * 1000, 1)}
+
+
 class Timeout(Exception):
     pass
 
@@ -226,6 +301,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--budget", type=float, default=60.0,
                     help="k>=4 的整体时间预算（秒）")
+    ap.add_argument("--climb", type=float, default=60.0,
+                    help="证书热启动爬升的时间预算（秒）")
     ap.add_argument("--nmax", type=int, default=64, help="搜索的最大 n")
     ap.add_argument("--tie", default="large", choices=["large", "small"])
     args = ap.parse_args()
@@ -240,9 +317,8 @@ def main():
     ok_bad, msg_bad = verify(mono, 8)                     # 全同色，必有 x+y=z
     guards.append({"id": "G1-阳性对照-全同色必被拒", "pass": (not ok_bad),
                    "detail": msg_bad})
-    ok_good, msg_good = verify([0, 0, 1, 1, 0, 2], 5)     # [1..5]: 1,4 同色? 检查用的核
-    guards.append({"id": "G2-阳性对照-样例可通可不通", "pass": isinstance(ok_good, bool),
-                   "detail": msg_good})
+    ok_good, msg_good = verify([0, 0, 1, 1, 0, 2], 5)     # 1->0, 2->1, 3->1, 4->0, 5->2
+    guards.append({"id": "G2-已知解-3色5", "pass": (ok_good is True), "detail": msg_good})
     # 已知 S(2)=4 的一个解：[1,4] 用 2 色：{1,4},{2,3}
     sample2 = [None, 0, 1, 1, 0]
     ok_s2, msg_s2 = verify(sample2, 4)
@@ -302,22 +378,82 @@ def main():
     naive = {"statement": "S(k+1) = 3*S(k) + 1", "status": "UNKNOWN", "witness": None}
     s3 = exact.get(3, {}).get("S")
     if s3:
-        target = 3 * s3 + 1
-        t_end = time.time() + args.budget
-        r = search_schur(target + 1, 4, t_end, tie=args.tie)   # 若能染到 target+1 即证伪
-        if r["found"]:
-            ok, msg = verify(r["coloring"], target + 1)
+        target = 3 * s3 + 1                    # 构造给出的 k=4 下界 = 40
+        # 两个引擎并行尝试能否染到 target+1（一旦成功即证伪"等号总成立"）
+        half = args.budget / 2.0
+        ra = search_schur(target + 1, 4, time.time() + half, tie=args.tie)
+        rb = local_search(target + 1, 4, time.time() + half) if (not ra["found"]) else {
+            "found": False, "steps": 0, "ms": 0.0}
+        engines = {
+            "A_DFS完备穷举": {"found": ra["found"], "nodes": ra["nodes"],
+                              "timeout": ra["timeout"], "ms": ra["ms"]},
+            "B_局部搜索不完备": {"found": rb["found"], "steps": rb["steps"], "ms": rb["ms"]},
+        }
+        witness = None
+        for tag in ("A_DFS完备穷举", "B_局部搜索不完备"):
+            if tag == "A_DFS完备穷举" and ra["found"]:
+                witness = ra["coloring"]
+            elif tag == "B_局部搜索不完备" and rb["found"]:
+                witness = rb["coloring"]
+        if witness is not None:
+            ok, msg = verify(witness, target + 1)          # 路径一：枚举三元组
+            ok2, msg2 = verify_by_classes(witness, target + 1)   # 路径二：色类成员判别
+            if ok != ok2:
+                ok = False
+                msg = "两条验证路径结论不一致：%s / %s" % (msg, msg2)
+            guards.append({"id": "G5-双路径交叉验证-证书", "pass": (ok and ok2),
+                           "detail": "路径一：%s｜路径二：%s" % (msg, msg2)})
             naive["status"] = "FALSIFIED" if ok else "UNKNOWN"
-            naive["witness"] = {"n": target + 1, "check": msg, "coloring": r["coloring"]}
-            naive["note"] = "构造只给到 %d，但搜索找到了 %d 的证书" % (target, target + 1)
-        elif r["timeout"]:
-            naive["status"] = "UNKNOWN"
-            naive["note"] = "预算 %gs 内既未找到证书也未证明无解：不得声称被证伪，也不得声称成立" % args.budget
+            naive["witness"] = {"n": target + 1, "check": msg, "coloring": witness}
+            naive["note"] = ("构造只给到 %d，但 %gs 内搜索给出了 %d 的证书"
+                             % (target, args.budget, target + 1)) if ok else \
+                            "引擎自称成功但独立验证器不认可——证书作废"
         else:
-            naive["status"] = "NOT-FALSIFIED-IN-RANGE"
-            naive["note"] = "在 n=%d 上完整穷举无解，支持等号成立（但未覆盖更大 k）" % (target + 1)
+            naive["status"] = "UNKNOWN"
+            naive["note"] = ("两引擎在 %gs 预算内均未给出 n=%d 的证书，且穷举未收敛；"
+                             "既不得声称被证伪，也不得声称成立" % (args.budget, target + 1))
+        naive["engines"] = engines
     items.append({"id": "C-朴素猜想", "level": "L2", "claim": naive["statement"],
                   "status": naive["status"], "note": naive["note"]})
+    items.append({
+        "id": "E-双引擎对比", "level": "L2",
+        "claim": "完备穷举 vs 局部搜索在同一任务上的表现",
+        "status": "PASS",
+        "note": json.dumps(naive.get("engines", {}), ensure_ascii=False),
+    })
+
+    # ---- 第三步之二：把证书往上爬（热启动迭代） ----
+    climbs = []
+    if naive.get("witness"):
+        cur = naive["witness"]["coloring"]
+        cur_n = naive["witness"]["n"]
+        t_climb_end = time.time() + args.climb
+        while cur_n < args.nmax and time.time() < t_climb_end:
+            r = local_search(cur_n + 1, 4, t_climb_end, seed=1000 + cur_n, init=cur)
+            if not r["found"]:
+                break
+            ok, msg = verify(r["coloring"], cur_n + 1)
+            ok2, msg2 = verify_by_classes(r["coloring"], cur_n + 1)
+            if not (ok and ok2):
+                break                          # 引擎自称成功但验证器不认可：立即停，不记账
+            cur, cur_n = r["coloring"], cur_n + 1
+            climbs.append({"n": cur_n, "ms": r["ms"], "steps": r["steps"], "check": msg})
+        if climbs:
+            note = ("由 n=%d 的证书起热启动迭代，机器把证书推到 n=%d（共 %d 级）；"
+                    "每一级都经独立验证器复核。这是下界，不是等号。" %
+                    (naive["witness"]["n"], cur_n, len(climbs)))
+        else:
+            note = ("以 n=%d 的证书热启动迭代 %.0fs，未能取到 n=%d 的证书；"
+                    "当前下界仍为 n=%d。没有结果就是没有结果，不得改写成进展。" %
+                    (naive["witness"]["n"], args.climb, cur_n + 1, cur_n))
+        items.append({
+            "id": "F-下界爬升", "level": "L2",
+            "claim": "S(4) >= %d" % cur_n,
+            "status": "PASS",
+            "note": note,
+        })
+    naive["climb"] = climbs
+    payload_climb = climbs
 
     # ---- 第四步：诚实边界 ----
     items.append({
@@ -358,6 +494,7 @@ def main():
         "exact": {str(k): v for k, v in exact.items()},
         "construction_chain": chain,
         "naive_conjecture": naive,
+        "climb_ladder": payload_climb if 'payload_climb' in dir() else [],
         "budget_sec": args.budget,
         "elapsed_sec": round(time.time() - t0, 2),
         "python": sys.version.split()[0],
@@ -377,8 +514,7 @@ def main():
     lines.append("\n自检 %d/%d" % (guards_pass, len(guards)))
     lines.append("\n## 结论（等级/状态均按本机脚本直出）")
     for it in items:
-        lines.append("- **%s**（%s，%s）：%s\n  - %s" %
-                     (it["claim"], it["status"], it["level"], it["note"], ""))
+        lines.append("- **%s**（%s，%s）：%s" % (it["claim"], it["status"], it["level"], it["note"]))
     lines.append("\n## 构造链 S(k+1) >= 3*S(k)+1 的逐项核验")
     for c in chain:
         lines.append("- k=%d，构造出 n=%d：%s｜%s" % (c["k"], c["n"], c.get("bound", ""), c["detail"]))

@@ -62,3 +62,46 @@ sys.path.insert(0, os.path.join(REPO, "06-AI自动化", "02-引擎", "openmath_s
 ```bash
 cd 06-AI自动化/02-引擎/openmath_sys && python demo.py
 ```
+
+---
+
+## 统一研究知识图谱（graph 子包）
+
+> 企业级模块化归一化层：把 my_lib 240+ 份研究资产建成多对多知识图谱。
+
+### 模块结构
+
+```
+openmath_sys/graph/
+├── __init__.py   # 统一导出 GraphStore/Node/Edge
+├── store.py     # GraphStore 内存图（邻接表双向索引 + BFS 最短路径）
+├── db.py        # SQLite 持久化 + FTS5 全文检索
+├── extract.py   # 文件名 + 内容级 + [[wiki]] 双向链接一体化抽取
+└── analyze.py   # risk/hubs/verdicts/refutations 智能分析
+```
+
+### 统一 CLI（graph_cli.py）
+
+| 命令 | 功能 |
+|---|---|
+| `build [--incremental]` | 抽取重建图谱（--incremental 用 mtime 缓存跳过未变化文件） |
+| `stats` | 总览（节点/边类型分布） |
+| `search <keyword>` | FTS5 全文搜索 |
+| `neighbors <id>` | 查节点关联边 |
+| `risk` / `hubs` / `verdicts` / `refutations` | 智能分析 |
+| `sqlite <out>` | 导出 SQLite |
+
+### 产物
+
+| 文件 | 说明 |
+|---|---|
+| `output/knowledge_graph.json` | JSON 图谱（539 节点/843 边） |
+| `output/knowledge_graph.db` | SQLite + FTS5（426KB） |
+| `output/knowledge_graph.html` | 自包含图谱浏览器（双击即开） |
+| `output/extract_state.json` | 增量抽取 mtime 缓存 |
+
+### 测试
+
+```bash
+python -m unittest test_graph -v    # 21 项单元测试
+```
