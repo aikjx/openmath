@@ -4,8 +4,10 @@
 基线要求"每类都为 0 且图非空"，然后逐个投放变异，要求**指定的那一类相对基线增长**
 （非空不算牙：基线本身就红的类，投不投变异都红）。每个变异只动一处；跑完还原并复算基线。
 M9 不动盘——它把图删掉一个节点而表照旧，测渲染器与图之间的行数一致性（XREF-ROWS）。
-M10 测端点解析：一条边的终点是一个**存在的文件但不是节点**（配对 md 面孔），
-老的四把尺子（BROKEN_DOC_LINK／DANGLING／resolvable／EMPTY-CHART）全都判它正常。
+M10 测 no-carrier 型悬边：正文引了一个盘上没有载体的号（OM-P-NT-0003 那批攻坚档案
+改号之前就是这个形状）。第 8 批以前这里测的是「终点是配对面孔」，那张面孔如今按
+FACE_SUFFIXES 归给记录本身，不再是悬边——所以那一型改由 M14/M15 守着。
+M11 测渲染表：把 ARROW 里的 `contradicts` 撤掉（只改内存不动盘），02 图会静默少画边——
 M11 测渲染表：把 ARROW 里的 `contradicts` 撤掉（只改内存不动盘），02 图会静默少画边——
 只有 TYPE-UNRENDERED 点名它，同时印出少画的边数（撤表真有影响才算数）。
 M12 测单边账：冲突只记在一边（反例记了、公式没记）时 CONTRADICTION_ASYMMETRIC 必须增长。
@@ -13,6 +15,12 @@ M13 测通道名单：把 EDGE_CHANNELS 里的 `uses` 撤掉（只改内存不�
 静默丢掉——RELATION_KEY_UNREAD 必须点名这个键，且少建的边数要现印（>=1 才证明撤通道真动了输出）。
 这一格是被 42 条 uses 边的现场失血逼出来的：发射器只认它列过的键，schema 里没写、版面里没画的键
 不会让任何一台仪器变红。
+M14/M15 测第 8 批新加的面孔通道：撤掉 graph.FACE_SUFFIXES（只改内存）悬边必须增多，增多数由两次
+build 现减；另一枚什么都不撤，从节点与边的形状独立点数同一批边——两把尺子同读数才算接上了电。
+M16/M17 测「撞号只认声明」这一收紧是校准还是遮眼：夹具摆两份纯文件名兜底挂号的档案，收紧面须
+ID_COLLISION=0 而 ID_MULTI_FILE 点名它们，放宽面须在同一棵树上多红。
+M18 测撞号边：引用指向一个两份 md 共有、却没有记录主人的号，老尺子 resolvable 说它存在（不红），
+AMBIGUOUS_REFERENCE 必须点名——这一格是给「判据改挂在 resolve() 的撞号名单上」配的牙。
 运行日志写进仓内版面 `10-文献与索引/知识图谱/_版面/graph_mutants_face.txt`（LF，写后回读比对）。
 """
 
@@ -127,11 +135,29 @@ status: OPEN
 # OM-P-NT-0001 · 样例难题
 
 参见 [另一份轮次](OM-P-NT-0001-round1.md) 与 OM-T-NT-0001。
+
+再看 [配对面孔](OM-P-NT-0002.md)——基线它不落进悬边表，靠的就是面孔通道。
 """
 
 MD_ROUND = """# OM-P-NT-0001 · 样例难题第一轮
 
 回到 [主条目](OM-P-NT-0001.md)。
+"""
+
+# 卷宗命名档案：号只能从**文件名**兜底得来（正文不声明 ID），与样例定理 OM-T-NT-0001 同号。
+# 它是第 8 批 `ID_CLAIM_SOURCES` 收紧的夹具：基线它进 ID_MULTI_FILE 而不进 ID_COLLISION，
+# M16 把兜底加进声明名单它就多红一枚，M17 收紧面则要求它仍为 0 且**被点名**（不是没落地）。
+FALLBACK_ID = "OM-T-NT-0001"
+FALLBACK_RELS = ["03-难题与猜想/OM-T-NT-0001-round1-note.md",
+                 "03-难题与猜想/OM-T-NT-0001-round2-note.md"]
+MD_NOTE1 = """# 样例轮次档案（第一轮）
+
+卷宗命名：本档案不声明号段，只引 OM-F-NT-0001。
+"""
+
+MD_NOTE2 = """# 样例轮次档案（第二轮）
+
+卷宗命名：本档案不声明号段，只引 OM-F-NT-0001。
 """
 
 BRIDGE = """# OM-BR-0001 样例桥接
@@ -258,6 +284,8 @@ def make_tree():
     W("03-难题与猜想/OM-P-NT-0001-round1.md", MD_ROUND)
     W("03-难题与猜想/OM-P-NT-0002.yaml", YAML_PAIRED)
     W("03-难题与猜想/OM-P-NT-0002.md", MD_PAIRED)
+    W(FALLBACK_RELS[0], MD_NOTE1)
+    W(FALLBACK_RELS[1], MD_NOTE2)
     W("04-数学统一场论/04-桥接定理/OM-BR-0001.md", BRIDGE)
     W("01-数学体系/域依赖.yaml", TIERS)
     W("05-验证中心/01-引擎/exists.py", "# fixture engine\n")
@@ -344,6 +372,89 @@ def measure_unread_channel():
     return hit, len(hit) - base_unread, base_edges - len(g2["edges"]), hit
 
 
+def measure_face_channel():
+    """M14 与 M15 共用一次测量：撤通道做差 ＋ 独立点数。
+
+    两把尺子读同一批边，但取数路径完全不同：M14 靠「撤掉通道再 build 一次」的差，
+    M15 谁都不撤、也不调 resolve()，只按节点与边的形状把「等于某条记录的同干 md 面孔」
+    的端点数出来。若只有 M14 会动，M15 就是恒绿摆设；若两数不符，说明有一型被静默吞掉。
+    """
+    g = G.build(TMP)
+    base_refs, _ = G.resolve(g["nodes"], g["edges"])
+    base_rows = G.off_graph_edges(g["nodes"], g["edges"])
+
+    def tag(r):
+        return (r["src"], r["dst"], r["type"], r["via"])
+
+    base_tags = set([tag(r) for r in base_rows])
+    saved = G.FACE_SUFFIXES
+    try:
+        G.FACE_SUFFIXES = ()
+        g2 = G.build(TMP)
+        off2 = G.off_graph_edges(g2["nodes"], g2["edges"])
+    finally:
+        G.FACE_SUFFIXES = saved
+    off2_tags = set([tag(r) for r in off2])
+    new_rows = [r for r in off2 if tag(r) not in base_tags]
+    lost_rows = [r for r in base_rows if tag(r) not in off2_tags]
+    new_sides = [c for r in new_rows for c in r["cls"]]
+
+    keys = set([G.node_key(n) for n in g["nodes"]])
+    node_ids = set([n["id"] for n in g["nodes"] if isinstance(n["id"], str)])
+    faces = set()
+    for n in g["nodes"]:
+        if n["node_type"] != "record" or not isinstance(n.get("path"), str):
+            continue
+        stem, ext = os.path.splitext(n["path"].replace("\\", "/"))
+        if ext != ".md":
+            faces.add(stem + ".md")
+    landed = []
+    for edge, (a, b) in zip(g["edges"], base_refs):
+        for side, ref in ((edge["src"], a), (edge["dst"], b)):
+            norm = side.replace("\\", "/")
+            if norm in faces and norm not in keys and norm not in node_ids:
+                landed.append({"end": norm, "row": tag(edge), "live": ref is not None})
+    return {
+        "rows_added": len(new_rows),
+        "sides_added": len(new_sides),
+        "classes": sorted(set(new_sides)),
+        "lost": [tag(r) for r in lost_rows],
+        "independent": len(landed),
+        "dead_at_baseline": sorted(set([x["end"] for x in landed if not x["live"]])),
+        "which": sorted(set([x["end"] for x in landed])),
+    }
+
+
+def measure_claim_sources():
+    """M16 与 M17 共用一次测量：撞号判据的收紧面与放宽面。
+
+    收紧面（M17）要的是「同一份盘上兜底档案真的存在、却不进 DEFECT 名单」——只印 0 枚
+    不点名＝夹具可能压根没落地，那是恒绿不是校准。放宽面（M16）把兜底加进声明名单，
+    多红出来的每一行都必须点着兜底档案的 rel，否则收紧遮住了别的东西。
+    """
+    g = G.build(TMP)
+    base_col = list(g["gaps"].get("ID_COLLISION_YAML_VS_MD") or [])
+    multi = [x for x in (g["gaps"].get("ID_MULTI_FILE") or []) if x["id"] == FALLBACK_ID]
+    named = sorted(set([f for x in multi for f in x["files"] if f in FALLBACK_RELS]))
+    saved = G.ID_CLAIM_SOURCES
+    try:
+        G.ID_CLAIM_SOURCES = tuple(saved) + (G.ID_FALLBACK_SOURCE,)
+        g2 = G.build(TMP)
+    finally:
+        G.ID_CLAIM_SOURCES = saved
+    wide_col = list(g2["gaps"].get("ID_COLLISION_YAML_VS_MD") or [])
+    key = lambda x: json.dumps(x, ensure_ascii=False, sort_keys=True)
+    added = [x for x in wide_col if key(x) not in set([key(y) for y in base_col])]
+    return {
+        "base": len(base_col),
+        "wide": len(wide_col),
+        "added": [{"id": x["id"], "md": x["md"], "yaml": x["yaml"],
+                   "source_would_be": G.ID_FALLBACK_SOURCE} for x in added],
+        "multi_rows": len(multi),
+        "named": named,
+    }
+
+
 def mutate(rel, old, new):
     path = os.path.join(TMP, rel)
     with open(path, "rb") as fh:
@@ -374,17 +485,24 @@ MUTANTS = [
      "ID_COLLISION_YAML_VS_MD"),
     ("M8-UNDEF-SYMBOL", "02-公式库/OM-F-NT-0001-sample.yaml",
      '  - name: "a"', '  - name: "zzz"', "UNDEFINED_SYMBOL"),
-    # M10：把轮次文件的链接指向**配对面孔**。文件在盘上（BROKEN_DOC_LINK 不红）、
-    # 目标 ID 有载体（DANGLING 不红）、resolvable 也照旧是真——因为这一支的
-    # resolvable 量的是「盘上有没有这个文件」。只有端点解析看得见：这条边的终点
-    # 不是节点，画进图里就无处落脚。这一格测的是新仪器有没有牙，不是老仪器坏没坏。
-    ("M10-OFFGRAPH", "03-难题与猜想/OM-P-NT-0001-round1.md",
+    # M10：正文引一个盘上没有载体的号（no-carrier 型）。配对面孔那一型在第 8 批之后
+    # 已经会落进图（那是 FACE_SUFFIXES 的本职，由 M14/M15 守），这里换测剩下的那一型：
+    # 分账必须由 off_graph_edges 的 cls 现推成 no-carrier，而不是我替它挑一个名字。
+    ("M10-NO-CARRIER", "03-难题与猜想/OM-P-NT-0001-round1.md",
      "回到 [主条目](OM-P-NT-0001.md)。",
-     "回到 [主条目](OM-P-NT-0001.md)，另见 [面孔](OM-P-NT-0002.md)。",
+     "回到 [主条目](OM-P-NT-0001.md)，另引 OM-P-NT-7777。",
      "EDGE_ENDPOINT_OFF_GRAPH"),
     # M12：冲突是对称事实，只记在一边＝另一边的读者永远不知道自己被指过矛盾。
     ("M12-ASYM", "02-公式库/OM-F-NT-0001-sample.yaml",
      "contradicts:\n  - OM-X-NT-0001\n", "", "CONTRADICTION_ASYMMETRIC"),
+    # M18：OM-P-NT-0001 在基线就有两份 md 共有、却没有记录主人（撞号名单里有它，
+    # 但没有任何一条边指着它，所以 AMBIGUOUS_REFERENCE 基线为 0）。桥接文档引它一次，
+    # 这条边就无处落脚：resolvable 仍为真（node_by_id 里有这个号），DANGLING 不红，
+    # BROKEN_DOC_LINK 不红——只有按 resolve() 的撞号名单记账的新判据看得见。
+    ("M18-AMBIGUOUS", "04-数学统一场论/04-桥接定理/OM-BR-0001.md",
+     "把 OM-F-NT-0001（NT）与 OM-F-AN-0001（AN）接起来。",
+     "把 OM-F-NT-0001（NT）与 OM-F-AN-0001（AN）接起来，另引 OM-P-NT-0001。",
+     "AMBIGUOUS_REFERENCE"),
 ]
 
 LOG = []
@@ -482,6 +600,39 @@ def main():
         emit("  %-16s -> %-26s 撤掉 EDGE_CHANNELS 的 uses ⇒ 少建 %d 条边｜点名 %d 条：%s" % (
             "M13-UNREAD-CH", "RELATION_KEY_UNREAD", dropped13, delta13,
             " | ".join(hit13) if hit13 else "无（判据没牙）"))
+
+    fc = measure_face_channel()
+    v14 = "CAUGHT" if (fc["rows_added"] >= 1 and not fc["lost"]
+                       and fc["classes"] == ["unexplained"]) else "ESCAPED"
+    results.append(("M14-PAIRED-FACE", "EDGE_ENDPOINT_OFF_GRAPH", fc["rows_added"], v14, 0))
+    emit("  %-16s -> %-26s 撤掉 FACE_SUFFIXES ⇒ 悬边 +%d 行／+%d 端（两次 build 现减）｜"
+         "新增端型=%s｜撤后反而消失的行=%s" % (
+             "M14-PAIRED-FACE", "EDGE_ENDPOINT_OFF_GRAPH", fc["rows_added"], fc["sides_added"],
+             ",".join(fc["classes"]) or "NONE", fc["lost"] or "NONE"))
+    v15 = "CAUGHT" if (fc["independent"] >= 1 and fc["independent"] == fc["sides_added"]
+                       and not fc["dead_at_baseline"]) else "ESCAPED"
+    results.append(("M15-FACE-LANDS", "EDGE_ENDPOINT_OFF_GRAPH", fc["independent"], v15, 0))
+    emit("  %-16s -> %-26s 不撤不改、按形状独立点数＝%d 端，与 M14 现减的 %d %s｜"
+         "基线本就悬着的面孔端点=%s｜点名的端=%s" % (
+             "M15-FACE-LANDS", "EDGE_ENDPOINT_OFF_GRAPH", fc["independent"], fc["sides_added"],
+             "同值" if fc["independent"] == fc["sides_added"] else "不符（有一型被吞）",
+             fc["dead_at_baseline"] or "NONE", fc["which"] or "NONE"))
+
+    cs = measure_claim_sources()
+    v16 = "CAUGHT" if (cs["wide"] > cs["base"] and cs["added"]
+                       and all(x["md"] in FALLBACK_RELS and x["id"] == FALLBACK_ID
+                               for x in cs["added"])) else "ESCAPED"
+    results.append(("M16-CLAIM-WIDEN", "ID_COLLISION_YAML_VS_MD", cs["wide"] - cs["base"], v16, 0))
+    emit("  %-16s -> %-26s 把兜底算进声明名单 ⇒ %d → %d 枚｜新增行=%s" % (
+        "M16-CLAIM-WIDEN", "ID_COLLISION_YAML_VS_MD", cs["base"], cs["wide"],
+        " | ".join("%s←%s" % (x["id"], x["md"]) for x in cs["added"]) or "无（判据没牙）"))
+    v17 = "CAUGHT" if (cs["base"] == 0 and cs["multi_rows"] >= 1
+                       and sorted(cs["named"]) == sorted(FALLBACK_RELS)) else "ESCAPED"
+    results.append(("M17-CLAIM-NARROW", "ID_COLLISION_YAML_VS_MD", cs["multi_rows"], v17, 0))
+    emit("  %-16s -> %-26s 收紧面：基线撞号 %d 枚，而 %d 行 ID_MULTI_FILE 点名 %s（兜底档案=%d/%d 份）" % (
+        "M17-CLAIM-NARROW", "ID_COLLISION_YAML_VS_MD", cs["base"], cs["multi_rows"],
+        "点到了" if sorted(cs["named"]) == sorted(FALLBACK_RELS) else "没点到",
+        len(cs["named"]), len(FALLBACK_RELS)))
 
     escaped = [r for r in results if r[3] != "CAUGHT"]
     emit("== verdict ==")

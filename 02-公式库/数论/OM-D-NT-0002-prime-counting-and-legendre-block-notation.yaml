@@ -1,0 +1,91 @@
+schema_version: "0.1"
+
+id: OM-D-NT-0002
+kind: definition
+title_zh: '素数计数与 Legendre 分块的记号'
+title_en: 'Prime counting and Legendre block notation'
+domain: NT
+msc:
+  - '11A05'
+  - '11N05'
+  - '11-04'
+tags:
+  - '素数计数'
+  - 'Legendre 分块'
+  - '记号定义'
+  - '离散差分'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\pi(x)=\#\{p\le x:\ p\ \text{是素数}\},\qquad \phi(x,a)=\#\{1\le m\le x:\ \text{没有素因子}\le p_a\},\qquad \Delta\pi(N)=\pi(N)-\pi(N-1),\qquad g_n=p_{n+1}-p_n'
+
+assumptions:
+  - 'x 为实数，N 为正整数；计数取左闭右开或按各卡正文注明的空隙约定'
+  - 'a 为非负整数，a=0 时 phi(x,0)=floor(x)（不做任何筛除）'
+  - 'p_1=2，素数按升序编号；本卡只固定编号，不引入任何第 n 素数的界'
+symbols:
+  - name: 'pi(x)'
+    meaning_zh: '素数计数函数：不超过 x 的素数个数'
+    type: other
+  - name: 'phi(x,a)'
+    meaning_zh: 'Legendre 分块函数：[1,x] 中不被 p_1..p_a 任一整除的整数个数（含 1）'
+    type: other
+  - name: 'p_a'
+    meaning_zh: '第 a 个素数（p_1=2，升序编号）'
+    type: other
+  - name: 'p_n'
+    meaning_zh: '第 n 个素数'
+    type: other
+  - name: 'Delta pi(N)'
+    meaning_zh: 'pi 的有限差分（离散导数）：N 为素数时取 1，否则取 0'
+    type: other
+  - name: 'L_n'
+    meaning_zh: '第 n 个素数的下界（含 +1 取整），由 OM-F-NT-0002 的母公式给出'
+    type: other
+  - name: 'U_n'
+    meaning_zh: '第 n 个素数的上界（向上取整），由 OM-F-NT-0002 的母公式给出'
+    type: other
+  - name: 'c(n)'
+    meaning_zh: '方块窗口计数：开区间 (n^2,(n+1)^2] 内的素数个数'
+    type: other
+  - name: 'g_n'
+    meaning_zh: '第 n 个素数间隙：p_{n+1}-p_n'
+    type: other
+
+related:
+  - 'OM-F-NT-0001'
+  - 'OM-F-NT-0002'
+  - 'OM-F-NT-0003'
+  - 'OM-T-NT-0001'
+  - 'OM-T-NT-0002'
+  - 'OM-T-NT-0008'
+uses:
+  - 'OM-D-NT-0001'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+caveat: '第 4 批记号卡：把 OM-F-NT-0001/0002/0003、OM-T-NT-0001/0002/0008 与 OM-A-NT-0001 共用的 9 枚记号升成定义条目。本卡不新增任何数学主张，只固定记号与口径。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Hardy, G. H. and Wright, E. M., An Introduction to the Theory of Numbers, 5th ed., Oxford (1979), ch.XXII（Legendre 的 phi 与 pi(x) 的公式）'
+    - 'Apostol, T. M., Introduction to Analytic Number Theory, Springer (1976), ch.3（素数分布一章里的 pi(x)、p_n 与间隙）'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Hardy, G. H. and Wright, E. M., An Introduction to the Theory of Numbers, 5th ed., Oxford (1979), ch.XXII（Legendre 的 phi 与 pi(x) 的公式）'
+    - type: book
+      value: 'Apostol, T. M., Introduction to Analytic Number Theory, Springer (1976), ch.3（素数分布一章里的 pi(x)、p_n 与间隙）'
+  contributors:
+    - "qoder-session-2026-10-11"
+

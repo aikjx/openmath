@@ -1,0 +1,62 @@
+schema_version: "0.1"
+
+id: OM-D-PR-0002
+kind: definition
+title_zh: '正态律与标准化记号'
+title_en: 'Normal law and the standardisation notation'
+domain: PR
+msc:
+  - '60E05'
+  - '60F05'
+tags:
+  - '正态分布'
+  - '标准化'
+  - '中心极限定理'
+  - '记号定义'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\mathcal{N}(\mu,\sigma^{2})\ \text{的密度}=(2\pi\sigma^{2})^{-1/2}\exp\!\bigl(-(x-\mu)^{2}/(2\sigma^{2})\bigr),\qquad \mathcal{N}(0,1)\ \text{为标准化}'
+
+assumptions:
+  - 'sigma^{2}>0；退化情形（sigma=0，点质量）不写 \mathcal{N}，另按分布退化处理'
+  - '\xrightarrow{\ d\ } 表示依分布收敛，其口径在 OM-D-PR-0001 的概率空间记号里'
+  - '本卡按密度函数定义 \mathcal{N}，故只对绝对连续律成立'
+symbols:
+  - name: '\mathcal{N}'
+    meaning_zh: '\mathcal{N}(\mu,\sigma^{2}) 指均值为 mu、方差为 sigma^2 的正态律；\mathcal{N}(0,1) 为标准化正态律'
+    type: other
+
+related:
+  - 'OM-T-PR-0002'
+  - 'OM-D-PR-0001'
+uses:
+  - 'OM-D-PR-0001'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+caveat: '第 4 批记号卡：固定 \mathcal{N} 的参数口径（均值与方差），并声明退化情形不在记号射程内。CLT 本身的主张归 OM-T-PR-0002。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Feller, W., An Introduction to Probability Theory and Its Applications, vol.I, 2nd ed., Wiley (1968)（正态密度与标准化）'
+    - 'Billingsley, P., Probability and Measure, 3rd ed., Wiley (1995)（依分布收敛与中心极限定理的口径）'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Feller, W., An Introduction to Probability Theory and Its Applications, vol.I, 2nd ed., Wiley (1968)（正态密度与标准化）'
+    - type: book
+      value: 'Billingsley, P., Probability and Measure, 3rd ed., Wiley (1995)（依分布收敛与中心极限定理的口径）'
+  contributors:
+    - "qoder-session-2026-10-11"
+

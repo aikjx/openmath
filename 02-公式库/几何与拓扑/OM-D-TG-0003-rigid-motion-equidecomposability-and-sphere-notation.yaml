@@ -1,0 +1,72 @@
+schema_version: "0.1"
+
+id: OM-D-TG-0003
+kind: definition
+title_zh: '刚体运动、等分等价与球面记号'
+title_en: 'Rigid motions, equidecomposability and sphere notation'
+domain: TG
+msc:
+  - '52C15'
+  - '03E15'
+  - '54-04'
+tags:
+  - '刚体运动'
+  - '等分等价'
+  - '球面'
+  - '分球悖论记号'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: 'S^{2}=\{x\in\mathbb{R}^{3}:\ \|x\|=1\},\qquad SO(3)=\{A\in\mathrm{GL}_3(\mathbb{R}):\ A^{\mathsf{T}}A=I,\ \det A=1\},\qquad A\sim B\iff A=\textstyle\bigcup_i A_i,\ B=\textstyle\bigcup_i g_iA_i,\ g_i\in SO(3)'
+
+assumptions:
+  - '分块为**有限**分块且各块互不相交（并集取不相交并）'
+  - '等分等价只问刚体运动（旋转加平移），本卡的 SO(3) 只写旋转部分；平移部分在分球定理的论证里由自由群生成元承担'
+  - 'S^{2} 取三维空间中的单位球面（二维曲面，不含内部）'
+symbols:
+  - name: 'S^{2}'
+    meaning_zh: '三维空间中的单位球面，即到原点距离为 1 的点集'
+    type: other
+  - name: 'SO(3)'
+    meaning_zh: '三维旋转群：正交且行列式为 1 的 3x3 实矩阵全体'
+    type: other
+  - name: '\sim'
+    meaning_zh: '等分等价记号：A 有限分块后经刚体运动重排成 B'
+    type: other
+  - name: '\mathrm{vol}'
+    meaning_zh: 'OM-C-TG-0001 所设想的体积记号：定义在 R^3 一切子集上、刚体运动不变且可数可加；该对象由 OM-T-TG-0002 判为不存在'
+    type: other
+
+related:
+  - 'OM-T-TG-0002'
+  - 'OM-C-TG-0001'
+uses:
+  - 'OM-D-TG-0001'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+caveat: '第 4 批记号卡。\mathrm{vol} 与 \sim 两枚刻意留下双重注记：前者定义的是被否证对象的记号，后者是全域复用的高危串。本卡不新增任何存在性主张。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Wagon, S., The Banach–Tarski Paradox, Cambridge University Press (1985), ch.1（S^{2}、SO(3) 与等分等价 ~ 的记号）'
+    - 'Banach, S., Sur le problème de la mesure, Fundamenta Mathematicae 4 (1923)（把体积定义到一切子集上的设想与其失败）'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Wagon, S., The Banach–Tarski Paradox, Cambridge University Press (1985), ch.1（S^{2}、SO(3) 与等分等价 ~ 的记号）'
+    - type: book
+      value: 'Banach, S., Sur le problème de la mesure, Fundamenta Mathematicae 4 (1923)（把体积定义到一切子集上的设想与其失败）'
+  contributors:
+    - "qoder-session-2026-10-11"
+

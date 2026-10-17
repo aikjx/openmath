@@ -1,0 +1,121 @@
+# 记录主人（2026-10-17 补铸）：03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md
+# 自 2026-09-12 起独占该号段，但一直没有机器可读记录——于是 `OM-P-NT-0003` 是「有面孔没主人」的
+# 撞号 ID，48 份卷宗共用，指向它的边无处落脚（版面 `AMBIGUOUS_REFERENCE`／`EDGE_ENDPOINT_OFF_GRAPH`）。
+# 本文件只给那位先占者建立记录本体，不改动任何 md 卷宗，也不新铸号段。
+schema_version: "0.1"
+
+id: OM-P-NT-0003
+kind: problem
+title_zh: 强哥德巴赫猜想（每个偶数可表为两素数之和）
+title_en: Strong Binary Goldbach Conjecture
+domain: NT
+msc:
+  - "11P32"   # Goldbach 型猜想（加性数论）
+  - "11N35"   # 素数在加性问题中的分布
+tags:
+  - Goldbach
+  - 加性数论
+  - 二元表数
+  - 圆法
+  - 筛法
+  - 开放问题
+
+status: PARTIAL
+evidence_level: L1
+revision: 1
+created: 2026-10-17
+updated: 2026-10-17
+
+assumptions:
+  - "素数按通常定义（大于 1 的正整数，只有 1 与自身两个正因子）；2 计入素数"
+  - "陈述只断言 n >= 2 的偶数 2n；2 与 0 不在论域内"
+  - "要求无条件证明：Hardy–Littlewood 1923 在广义黎曼假设下的结论不计为已解决"
+  - "计算验证不构成证明（红线一）：已验证到的每一个偶数都不缩小反例存在的可能性"
+
+statement_latex: >-
+  对一切整数 n >= 2，存在素数 p, q 使 2n = p + q
+  （等价地：每个大于 2 的偶数都是两个素数之和）
+
+proposed_by: "Christian Goldbach 致 Leonhard Euler 的信"
+proposed_year: 1742
+
+current_status: OPEN
+
+partial_results:
+  - year: 1930
+    author: "Schnirelmann"
+    result: "存在常数 C，使每个大于 1 的整数都是不超过 C 个素数之和（素数加性基）"
+  - year: 1937
+    author: "Vinogradov"
+    result: "充分大的奇数可表为三个素数之和（三素数定理）"
+  - year: 1938
+    author: "Chudakov, van der Corput, Estermann"
+    result: "几乎所有偶数满足二元 Goldbach（例外集密度为 0）"
+  - year: 1966
+    author: "Chen Jingrun"
+    result: "充分大偶数 = 素数 + (2 或 3 个素数之积)；1973 精化为 1+2"
+  - year: 2013
+    author: "Helfgott"
+    result: "弱 Goldbach（每个大于 5 的奇数为三素数之和）证明完成——外部成果，本库未复算"
+  - year: 2013
+    author: "Oliveira e Silva, Herzog, Pardi"
+    result: "二元猜想对 4 <= 2n <= 4*10^18 逐偶数验证成立——外部计算，非证明"
+
+resolution: null
+
+refutation: null
+
+prize: ""
+
+# 关系表只连**盘上真有记录**的号段（现读版面 record 名单），否则新建的边会立刻进 DANGLING。
+related:
+  - OM-P-NT-0002
+  - OM-P-NT-0004
+  - OM-P-NT-0009
+  - OM-T-NT-0002
+uses:
+  - OM-D-NT-0001
+  - OM-D-NT-0003
+
+equivalent_forms:
+  - "记 r(2n) = #{(p,q) 素数 : p+q = 2n}，则猜想等价于 r(2n) >= 1 对一切 n >= 2"
+  - "反例形式：2n 是反例 ⟺ 中央区间被「与 2n 各素因子同余」的局部覆盖集盖满（本库卷宗 2026-09-22 已把该等价式在 N=172/800/1000 精确验证）"
+
+implications:
+  - statement: "Hardy–Littlewood 圆法给出 r(2n) 的渐近主项 S(2n)*n/log^2 n，其中 S 为奇异级数；主项为正且误差被压到主项以下是二元猜想的解析路线"
+    direction: "sufficient"
+    note: "条件性结论：本库至今未获得无条件误差控制（见卷宗 2026-09-20 关键点攻坚的失败记录）"
+  - statement: "例外集估计 E(x) = #{2n <= x : r(2n)=0} 满足 E(x) = o(x) 不蕴含二元猜想"
+    direction: "insufficient"
+    note: "密度 0 与逐点非空是两个独立问题；本库把「几乎所有」与「每一个」分开登记"
+
+fact_check:
+  status: UNVERIFIED
+  sources:
+    - type: book
+      value: "Hardy, G. H. & Littlewood, J. E. (1923), Some problems of 'Partitio numerorum'; III, Acta Math."
+    - type: book
+      value: "Vinogradov, I. M. (1937), Representation of an odd number as a sum of three primes, Dokl. Akad. Nauk SSSR"
+    - type: book
+      value: "Chen, J. R. (1973), On the representation of a larger even integer as the sum of a prime and the product of at most two primes, Sci. Sinica"
+    - type: url
+      value: "Helfgott, H. A. (2013), Major arcs for Goldbach's theorem, arXiv:1305.2897"
+    - type: url
+      value: "Oliveira e Silva, T., Herzog, S., Pardi, S. (2014), Empirical verification of the even Goldbach conjecture up to 4*10^18, Math. Comp."
+  note: >-
+    上述条目为外部文献归属，未逐页核对卷号页码（故 status 保持 UNVERIFIED），且全部
+    「非本库成果」——禁止任何优先权宣称（红线七）。本记录不自称 L2：本库的 Goldbach
+    计算轮次结果档住在 05-验证中心/03-结果/2026/09/ 下并挂在 0005–0008 号段上，
+    那几个号段至今没有记录主人（版面 `EDGE_ENDPOINT_OFF_GRAPH` 现印 no-carrier 型 4 枚），
+    所以那些旁证不能记到本条目的证据等级上。
+
+provenance:
+  ai_assisted: true
+  ai_role: full_generation
+  sources:
+    - type: file
+      value: "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md"
+    - type: file
+      value: "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-证明状态复核_2026-09-22.md"
+  contributors:
+    - "openmath-bot"

@@ -1,0 +1,70 @@
+schema_version: "0.1"
+
+id: OM-D-FD-0003
+kind: definition
+title_zh: '罗素类与有穷数学的记号'
+title_en: 'The Russell class and the finitary meta-theory notation'
+domain: FD
+msc:
+  - '03A05'
+  - '03A15'
+  - '03-01'
+tags:
+  - '罗素悖论'
+  - '朴素概括'
+  - '希尔伯特纲领'
+  - '记号定义'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\mathcal{R}=\{x:x\notin x\},\qquad \mathrm{F}\ \text{为有穷数学（finiter Mathematik），}\ \mathrm{F}\vdash\mathrm{Con}(T)\ \text{指在}\ \mathrm{F}\ \text{内给出一致性证明}'
+
+assumptions:
+  - '\mathcal{R} 按朴素概括原则写成类；本卡不断言它是集合（它不是，这正是 OM-X-FD-0001）'
+  - 'F 的具体刻度由希尔伯特纲领的选择决定（原始递归、有穷算术 PRA 等），本卡只固定记号并写明「不固定刻度则 Con 的陈述不唯一」这一层'
+  - 'Con(T) 与 Proof_T 的记号口径在 OM-D-FD-0002，本卡不重复定义'
+symbols:
+  - name: '\mathcal{R}'
+    meaning_zh: '所有不自属的集合构成的类（罗素类）'
+    type: other
+  - name: '\mathrm{F}'
+    meaning_zh: '有穷数学（finiter Mathematik）：希尔伯特纲领指定的元理论系统'
+    type: other
+
+related:
+  - 'OM-X-FD-0001'
+  - 'OM-P-FD-0001'
+  - 'OM-D-FD-0002'
+uses:
+  - 'OM-D-FD-0002'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+caveat: '第 4 批记号卡。只固定 \mathcal{R} 与 \mathrm{F} 两枚记号；罗素类不是集合这一主张归 OM-X-FD-0001，希尔伯特纲领的未决状态归 OM-P-FD-0001。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Russell, B., The Principles of Mathematics (1903), ch.XII（不自属类导致的矛盾）'
+    - 'Hilbert, D., Die Grundfragen der mathematischen Erkenntnis, Naturwissenschaftliche Wochenschrift 29 (1930)（有穷数学 F 的纲领表述）'
+    - 'van Heijenoort, J. (ed.), From Frege to Gödel: A Source Book in Mathematical Logic, 1879–1931, Harvard (1967)'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Russell, B., The Principles of Mathematics (1903), ch.XII（不自属类导致的矛盾）'
+    - type: book
+      value: 'Hilbert, D., Die Grundfragen der mathematischen Erkenntnis, Naturwissenschaftliche Wochenschrift 29 (1930)（有穷数学 F 的纲领表述）'
+    - type: book
+      value: 'van Heijenoort, J. (ed.), From Frege to Gödel: A Source Book in Mathematical Logic, 1879–1931, Harvard (1967)'
+  contributors:
+    - "qoder-session-2026-10-11"
+

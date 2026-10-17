@@ -1,0 +1,78 @@
+schema_version: "0.1"
+
+id: OM-D-AN-0001
+kind: definition
+title_zh: '指数、圆周率与 zeta/Gamma 的记号'
+title_en: 'Exponential, pi, zeta and Gamma notation'
+domain: AN
+msc:
+  - '33B10'
+  - '11M06'
+  - '30-04'
+tags:
+  - '复指数'
+  - '圆周率'
+  - 'Riemann zeta'
+  - 'Gamma 函数'
+  - '记号定义'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: '\exp(z)=\sum_{n=0}^{\infty}z^{n}/n!\ (z\in\mathbb{C}),\qquad \zeta(s)=\sum_{n\ge 1}n^{-s}\ (\operatorname{Re}s>1),\qquad \Gamma(s)=\int_{0}^{\infty}t^{s-1}e^{-t}\,dt\ (\operatorname{Re}s>0)'
+proposed_by: 'Leonhard Euler'
+proposed_year: 1748
+
+assumptions:
+  - 'exp 由级数定义，故它是整函数；对数式的多值性不在本卡口径内（OM-F-AN-0003 的一般形式讨论的正是这一层的商结构）'
+  - 'zeta 与 Gamma 都取其**亚纯延拓**为默认对象，级数与积分只在各半平面给出生长式'
+  - 'pi 取圆周长与直径之比，等价地取 2 倍 sin 的最小正零点；本卡不引入弧度制的额外约定'
+symbols:
+  - name: 'exp'
+    meaning_zh: '复指数函数：整函数 z 映射到级数 sum z^n/n!'
+    type: other
+  - name: 'pi'
+    meaning_zh: '圆周率：圆周长与直径之比，即 2 倍 sin 的最小正零点'
+    type: other
+  - name: 'zeta'
+    meaning_zh: 'Riemann zeta 函数：Re s>1 上由 Dirichlet 级数给出，取其亚纯延拓'
+    type: other
+  - name: 'Gamma'
+    meaning_zh: 'Gamma 函数：Re s>0 上由 Euler 积分给出，取其亚纯延拓'
+    type: other
+
+related:
+  - 'OM-F-AN-0001'
+  - 'OM-F-AN-0002'
+  - 'OM-F-AN-0003'
+uses: []
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+caveat: '第 4 批记号卡：补 exp、pi、zeta、Gamma 四枚定义条目，并写明 zeta/Gamma 取延拓口径。本卡不含任何收敛性或有界性的新主张。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Euler, L., Introductio in analysin infinitorum (1748), pt.I（exp 的级数、pi 与 Gamma 的早期形态）'
+    - 'Ahlfors, L. V., Complex Analysis, 3rd ed., McGraw-Hill (1966), ch.2（指数函数作为整函数的定义）'
+    - 'Titchmarsh, E. C., The Theory of the Riemann Zeta-function, 2nd ed. revised by D. R. Heath-Brown, Oxford (1986), ch.I（zeta 的级式与延拓）'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Euler, L., Introductio in analysin infinitorum (1748), pt.I（exp 的级数、pi 与 Gamma 的早期形态）'
+    - type: book
+      value: 'Ahlfors, L. V., Complex Analysis, 3rd ed., McGraw-Hill (1966), ch.2（指数函数作为整函数的定义）'
+    - type: book
+      value: 'Titchmarsh, E. C., The Theory of the Riemann Zeta-function, 2nd ed. revised by D. R. Heath-Brown, Oxford (1986), ch.I（zeta 的级式与延拓）'
+  contributors:
+    - "qoder-session-2026-10-11"
+

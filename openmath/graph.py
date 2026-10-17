@@ -40,6 +40,18 @@ EDGE_CHANNELS = (
     ("uses", "uses"),
 )
 TEXT_REF_KEYS = ("proof", "hypotheses", "assumptions", "conclusion_latex", "domain_of_validity")
+# 「主张号段」的唯一来源：只有 md **自己声明**的号（front matter 或正文 ID 表）才算它占这个号。
+# 文件名兜底是卷宗命名（攻坚线把轮次档案命名成 `OM-…-0003-主题_日期.md`），它由 ID_MULTI_FILE
+# 记账；把它也算成撞号＝仪器替语料造出一个它没有说过的主张，那一格于是恒红且红得没法解释。
+ID_CLAIM_SOURCES = ("front matter", "正文表格")
+ID_FALLBACK_SOURCE = "文件名兜底"
+# 记录的「人类面孔」：与 .yaml 记录同干的那份 md。边端点按文件名链接指向这张面孔时，它指的就是
+# **这条记录本身**——过去判 None 等于把一条真实存在的引用抹成悬边（版面现印 5 枚这一型的缺端）。
+# 这张表是通道的唯一来源：在内存里撤掉它，悬边台账必须增多，否则通道根本没接电（变异体 M14）。
+FACE_SUFFIXES = (".md",)
+# 证据档的目录前缀：`_md_ledger` 的分类与悬边分账共用这一个字符串，两处各写一遍就又造出
+# 「键表与判据不同源」那一型缺陷（见 EDGE_CHANNELS 上方的注释）。
+EVIDENCE_DIR = "05-验证中心/"
 _FRONT_ID = re.compile(r"^id:\s*(OM-[A-Z0-9-]+)\s*$", re.M)
 _TABLE_ID = re.compile(r"\|\s*\*\*ID\*\*\s*\|\s*(OM-[A-Z0-9-]+)\s*\|")
 _FRONT_STATUS = re.compile(r"^status:\s*([A-Z_]+)\s*$", re.M)
@@ -167,16 +179,18 @@ def _md_ledger(root):
             text = handle.read()
         head = text[:4000]
         identifier = None
+        id_source = None
         hit = _FRONT_ID.search(text[:2000])
         if hit:
-            identifier = hit.group(1)
+            identifier, id_source = hit.group(1), "front matter"
         else:
             hit = _TABLE_ID.search(head)
             if hit:
-                identifier = hit.group(1)
+                identifier, id_source = hit.group(1), "正文表格"
         if identifier is None:
             hit = ID_RE.search(base)
             identifier = hit.group(0) if hit else None
+            id_source = ID_FALLBACK_SOURCE if identifier else None
         status = None
         hit = _FRONT_STATUS.search(text[:2000])
         if hit:
@@ -198,6 +212,7 @@ def _md_ledger(root):
         record = {
             "rel": rel,
             "id": identifier,
+            "id_source": id_source,
             "status": status,
             "title": title,
             "ids_cited": sorted(set(ID_RE.findall(text)) - ({identifier} if identifier else set())),
@@ -207,7 +222,7 @@ def _md_ledger(root):
         if has_yaml:
             paired.append(record)
             continue
-        if rel.startswith("05-验证中心/"):
+        if rel.startswith(EVIDENCE_DIR):
             evidence.append(record)
         else:
             docs.append(record)
@@ -308,15 +323,25 @@ def resolve(nodes, edges):
     """把边端点还原到节点键。端点按语料原样存（ID 或路径），两个命名空间都要认。
 
     返回 (refs, ambiguous)：refs[i] = (src 键或 None, dst 键或 None)。
-    None ＝ 这一端在节点集里没有载体（证据档、配对 md 面孔、无载体的号）。
+    None ＝ 这一端在节点集里没有载体。三种形状分开记账（见 _side_class）：证据档按宪章不作
+    知识节点、撞号 ID 认不出主人、语料引了一个盘上无载体的号。记录的同干 md 面孔**不是**悬边：
+    它就是这条记录，按 FACE_SUFFIXES 归到该记录的键上。
     撞号 ID 若无 record 主则一律判 None——宁可少连一条边，不许静默挑一份面孔连上。
     """
     keys = set()
     by_id = {}
+    by_face = {}
     doc_id = {}
     for node in nodes:
         key = node_key(node)
         keys.add(key)
+        if node["node_type"] == "record":
+            path = node.get("path")
+            if isinstance(path, str):
+                stem, ext = os.path.splitext(path.replace("\\", "/"))
+                for suffix in FACE_SUFFIXES:
+                    if suffix != ext:
+                        by_face[stem + suffix] = key
         ident = node["id"]
         if not isinstance(ident, str):
             continue
@@ -335,33 +360,77 @@ def resolve(nodes, edges):
     def one(endpoint):
         if endpoint in keys:
             return endpoint
-        return by_id.get(endpoint)
+        norm = endpoint.replace("\\", "/")
+        if norm in keys:
+            return norm
+        hit = by_id.get(endpoint)
+        if hit is not None:
+            return hit
+        return by_face.get(norm)
 
     return [(one(e["src"]), one(e["dst"])) for e in edges], ambiguous
 
 
+def _side_class(endpoint, ambiguous):
+    """缺的那一端「在盘上是什么」——型由端点自己的形状现推，不许手工豁免。
+
+      evidence-path  05-验证中心 的结果档（宪章：只作旁证，不作知识节点）
+      ambiguous-id   撞号 ID，指认不了主人（与 AMBIGUOUS_REFERENCE 同一批边）
+      no-carrier     不是路径、也不是有载体的号：语料引了一个盘上没有载体的号
+      unexplained    以上都不是——新出现的悬边型。它必须被看见，不许并进前三型；
+                     把 FACE_SUFFIXES 撤掉就会落进这一型（M14 用它证明通道在动输出）。
+    """
+    norm = endpoint.replace("\\", "/")
+    if norm.startswith(EVIDENCE_DIR):
+        return "evidence-path"
+    if endpoint in ambiguous:
+        return "ambiguous-id"
+    if os.path.splitext(norm)[1]:
+        return "unexplained"
+    return "no-carrier"
+
+
 def off_graph_edges(nodes, edges):
-    """端点落不进节点集的边，逐条点名并标出它住在哪个通道（via）。"""
-    refs, _ = resolve(nodes, edges)
+    """端点落不进节点集的边，逐条点名：住在哪个通道（via）、缺的那一端是什么型（cls）。
+
+    分账不删账——这一表始终是全部悬边，型只解释「为什么落不进去」，不做豁免。
+    """
+    refs, ambiguous = resolve(nodes, edges)
     out = []
     for edge, (a, b) in zip(edges, refs):
         missing = [w for w, r in ((edge["src"], a), (edge["dst"], b)) if r is None]
         if missing:
             out.append({"src": edge["src"], "dst": edge["dst"], "type": edge["type"],
-                        "via": edge["via"], "off": sorted(missing)})
+                        "via": edge["via"], "off": sorted(missing),
+                        "cls": [_side_class(w, ambiguous) for w in sorted(missing)]})
     return sorted(out, key=lambda r: (r["type"], r["src"], r["dst"], r["via"]))
 
 
 def resolution_census(nodes, edges):
-    """解析普查：面只印这里的数，文档只许引这张面。"""
+    """解析普查：面只印这里的数，文档只许引这张面。
+
+    末格按型统计的是**缺的那一端**（一枚两端都缺的边贡献两个端点），并与
+    「一端缺＋2×两端缺」现比一次：分账加不回总数＝有一型被静默吞掉，当场抛。
+    """
     refs, ambiguous = resolve(nodes, edges)
+    one_end = sum(1 for a, b in refs if bool(a) != bool(b))
+    both_end = sum(1 for a, b in refs if not a and not b)
+    side_classes = {}
+    for rec in off_graph_edges(nodes, edges):
+        for cls in rec["cls"]:
+            side_classes[cls] = side_classes.get(cls, 0) + 1
+    if sum(side_classes.values()) != one_end + 2 * both_end:
+        raise AssertionError("悬边分账 %d 加不回端点普查 %d（一型被静默吞掉）" % (
+            sum(side_classes.values()), one_end + 2 * both_end))
     return {
+        "off_graph_side_classes": dict(sorted(side_classes.items())),
+        "off_graph_sides": one_end + 2 * both_end,
         "nodes": len(nodes),
         "node_keys": len(set([node_key(n) for n in nodes])),
         "edges": len(edges),
         "both_in_graph": sum(1 for a, b in refs if a and b),
-        "one_endpoint_off_graph": sum(1 for a, b in refs if bool(a) != bool(b)),
-        "both_endpoints_off_graph": sum(1 for a, b in refs if not a and not b),
+        "one_endpoint_off_graph": one_end,
+        "both_endpoints_off_graph": both_end,
         "collapsed_to_self_loop": sum(1 for a, b in refs if a and b and a == b),
         "ambiguous_doc_ids": ambiguous,
     }
@@ -404,7 +473,9 @@ def build(root):
             "machine_readable": False,
         }
         nodes.append(node)
-        if doc["id"] and doc["id"] in yaml_ids:
+        if (doc["id"] and doc["id"] in yaml_ids
+                and doc.get("id_source") in ID_CLAIM_SOURCES):
+            # 声明过的号才构成「yaml 与 md 抢同一个号」；兜底那一型在下面按卷宗命名记账。
             dup_ids.append({
                 "id": doc["id"],
                 "yaml": node_by_id[doc["id"]]["path"],
@@ -497,15 +568,22 @@ def build(root):
     missing_placement = sorted(set(ids.DOMAINS) - set(placed) - set(unplaced))
     gaps["DOMAIN_UNPLACED"] = missing_placement
     gaps["BROKEN_DOC_LINK"] = broken_links
-    # 撞号的下游代价：任何指向 OM-P-NT-0003 的边都不知该落到哪条记录上。
-    # 不裁决谁该改号（那是编号主人的决定，且涉及 88 份文件的引用），只把不能
-    # 归属的边逐条点名，防止图把两条主张静默合并成一条。
-    colliding_ids = {item["id"] for item in dup_ids}
+    # 撞号的下游代价：任何指向「无记录主人的共用号」的边都不知该落到哪条主张上。
+    # 不裁决谁该改号（那是编号主人的决定），只把不能归属的边逐条点名，防止图把两条
+    # 主张静默合并成一条。名单**只由 resolve() 现给**：上一版挂在 dup_ids（yaml 与 md 撞号）
+    # 上，让号之后那张表空了，这一格于是恒 0，而端点分账同时现印 ambiguous-id 一堆——
+    # 恒 0 的读数先当针坏，不当语料干净。两端都要查：号可能落在 dst（cites 的宾语），
+    # 也可能落在 src（证据档的宾语）。一行一端点，好与 off-graph 的 ambiguous-id 型逐枚对上。
+    _, ambiguous_ids = resolve(nodes, edges)
+    colliding_ids = set(ambiguous_ids)
     gaps["AMBIGUOUS_REFERENCE"] = sorted(
-        [{"src": e["src"], "dst": e["dst"], "via": e["via"]} for e in edges if e["dst"] in colliding_ids],
-        key=lambda r: (r["dst"], r["src"], r["via"]))
-    # 边写好了、端点却不在节点集里：这条关系在图上无处落脚。证据通道（05-验证中心
-    # 结果档本来就不作知识节点）与配对面孔都算，但逐条点名 via，不靠手工豁免。
+        [{"src": e["src"], "dst": e["dst"], "via": e["via"], "side": side}
+         for e in edges for side, w in (("src", e["src"]), ("dst", e["dst"]))
+         if w in colliding_ids],
+        key=lambda r: (r["dst"], r["src"], r["via"], r["side"]))
+    # 边写好了、端点却不在节点集里：这条关系在图上无处落脚。逐条点名 via 与端点型（cls），
+    # 不靠手工豁免。记录的同干 md 面孔已按 FACE_SUFFIXES 归给该记录本身，不再算悬边；
+    # 剩下的每一型都由 _side_class 现推，加不出「说不清是什么」以外的名字。
     gaps["EDGE_ENDPOINT_OFF_GRAPH"] = off_graph_edges(nodes, edges)
     # 「A 与 B 冲突」是对称事实：只记在 A 那一侧，等于 B 的读者永远不知道自己的
     # 条目被人指过矛盾。这一类不裁决谁对谁错（那是证据等级的事），只点名单边账。

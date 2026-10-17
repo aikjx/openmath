@@ -1,0 +1,112 @@
+schema_version: "0.1"
+
+id: OM-D-NT-0003
+kind: definition
+title_zh: '筛、轮与相邻素数算子的记号'
+title_en: 'Sieve, wheel and adjacent-prime operator notation'
+domain: NT
+msc:
+  - '11A41'
+  - '11N36'
+  - '11-04'
+tags:
+  - '筛法记号'
+  - 'wheel'
+  - 'Jacobsthal'
+  - '阶乘互素'
+  - '相邻素数'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: 'P(Y)=\prod_{p\le Y}p,\qquad A_Y(N)=\#\{1\le n\le N:\ n^2+1\ \text{的素因子}>Y\},\qquad C_d(N)=\#\{1\le n\le N:\ d\mid n^2+1\},\qquad \omega(p)=\#\{r\bmod p:\ p\mid r^2+1\},\qquad \mathrm{NextPrime}(m)=\min\{q>m:\ q\ \text{是素数}\}'
+
+assumptions:
+  - 'Y、N、m 为正整数，d 为正整数，M 为正方整数（轮模，常取 primorial M=p_r#）'
+  - 'omega(p) 对 p=2 取 1、p 为奇素数时按 -1 是否为模 p 平方剩余取 2 或 0'
+  - 'A(N) 与 E(N,Y) 的口径见 OM-F-NT-0004：后者是被筛误杀的补正项，不是余项的界'
+symbols:
+  - name: 'P(Y)'
+    meaning_zh: '不超过 Y 的全部素数之积（筛法的乘积模）'
+    type: other
+  - name: 'A_Y(N)'
+    meaning_zh: '[1,N] 中使 n^2+1 不含任何 <=Y 素因子的 n 的个数'
+    type: other
+  - name: 'C_d(N)'
+    meaning_zh: '[1,N] 中使 d 整除 n^2+1 的 n 的个数'
+    type: other
+  - name: 'E(N,Y)'
+    meaning_zh: '被筛误杀的补正项个数：n^2+1 自身是 <=Y 的素数'
+    type: other
+  - name: 'A(N)'
+    meaning_zh: '[1,N] 中使 n^2+1 为素数的 n 的个数'
+    type: other
+  - name: 'omega(p)'
+    meaning_zh: '模 p 下使 p 整除 r^2+1 的剩余类个数'
+    type: other
+  - name: 'j(M)'
+    meaning_zh: 'Jacobsthal 函数：模 M 的连续互素保证长度'
+    type: other
+  - name: 'R_M'
+    meaning_zh: '模 M 的约化剩余系，即 {1<=t<M: gcd(t,M)=1}'
+    type: other
+  - name: 'p_k#'
+    meaning_zh: '前 k 个素数的乘积（primorial）'
+    type: other
+  - name: 'm!'
+    meaning_zh: 'm 的阶乘'
+    type: other
+  - name: 'NextPrime(m)'
+    meaning_zh: '严格大于 m 的最小素数'
+    type: other
+  - name: 'FirstEscapeComposite(m)'
+    meaning_zh: '严格大于 1 且与 m! 互素的最小合数'
+    type: other
+  - name: '(m, q^2)'
+    meaning_zh: '安全窗口：大于 m 且小于 q^2 的开区间，q=NextPrime(m)'
+    type: other
+  - name: 'M'
+    meaning_zh: '轮模（wheel modulus）；本卡按 OM-T-NT-0006 的口径取正整数'
+    type: other
+
+related:
+  - 'OM-F-NT-0004'
+  - 'OM-P-NT-0004'
+  - 'OM-T-NT-0003'
+  - 'OM-T-NT-0004'
+  - 'OM-T-NT-0005'
+  - 'OM-T-NT-0006'
+  - 'OM-T-NT-0007'
+  - 'OM-T-NT-0008'
+uses:
+  - 'OM-D-NT-0002'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+caveat: '第 4 批记号卡：收 OM-F-NT-0004、OM-T-NT-0003..0008、OM-P-NT-0004 共用的 14 枚记号。只固定记号与口径，不新增数学主张；余项与补正的分工细节以宿主记录为准。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Halberstam, H. and Richert, H.-E., Sieve Methods, Academic Press (1974), ch.1（筛的记号、余项与补正的分工）'
+    - 'Jacobsthal, E., Über eine Klasse von Funktionen, die bei manchen Problemen der Zahlentheorie auftreten, Symbolae Osloenses 13 (1934)（j(M) 的原始出处）'
+    - 'Nagura, J., On the interval containing at least one prime number, Proceedings of the Imperial Academy of Japan 18 (1942)（相邻素数与窗口型结果）'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Halberstam, H. and Richert, H.-E., Sieve Methods, Academic Press (1974), ch.1（筛的记号、余项与补正的分工）'
+    - type: book
+      value: 'Jacobsthal, E., Über eine Klasse von Funktionen, die bei manchen Problemen der Zahlentheorie auftreten, Symbolae Osloenses 13 (1934)（j(M) 的原始出处）'
+    - type: book
+      value: 'Nagura, J., On the interval containing at least one prime number, Proceedings of the Imperial Academy of Japan 18 (1942)（相邻素数与窗口型结果）'
+  contributors:
+    - "qoder-session-2026-10-11"
+

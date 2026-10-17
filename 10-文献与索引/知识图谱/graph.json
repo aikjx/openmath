@@ -1,6 +1,6 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-10-11T08:05:35Z",
+  "generated": "2026-10-17T01:32:41Z",
   "root": "openmath",
   "nodes": [
     {
@@ -137,6 +137,32 @@
     },
     {
       "node_type": "record",
+      "id": "OM-D-AN-0001",
+      "kind": "definition",
+      "domain": "AN",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "指数、圆周率与 zeta/Gamma 的记号",
+      "path": "02-公式库/分析/OM-D-AN-0001-exponential-pi-zeta-and-gamma-notation.yaml",
+      "tags": [
+        "复指数",
+        "圆周率",
+        "Riemann zeta",
+        "Gamma 函数",
+        "记号定义"
+      ],
+      "symbols": [
+        "exp",
+        "pi",
+        "zeta",
+        "Gamma"
+      ],
+      "script": null,
+      "latex": "\\exp(z)=\\sum_{n=0}^{\\infty}z^{n}/n!\\ (z\\in\\mathbb{C}),\\qquad \\zeta(s)=\\sum_{n\\ge 1}n^{-s}\\ (\\operatorname{Re}s>1),\\qquad \\Gamma(s)=\\int_{0}^{\\infty}t^{s-1}e^{-t}\\,dt\\ (\\operatorname{Re}s>0)",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
       "id": "OM-D-CT-0001",
       "kind": "definition",
       "domain": "CT",
@@ -235,6 +261,29 @@
       ],
       "script": null,
       "latex": "\\mathrm{Proof}_T(p,\\ \\ulcorner\\varphi\\urcorner)\\ \\Longleftrightarrow\\ p\\ \\text{是}\\ T\\ \\text{中}\\ \\varphi\\ \\text{的一个证明编码}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-FD-0003",
+      "kind": "definition",
+      "domain": "FD",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "罗素类与有穷数学的记号",
+      "path": "02-公式库/数学基础与逻辑/OM-D-FD-0003-russell-class-and-finitary-metatheory-notation.yaml",
+      "tags": [
+        "罗素悖论",
+        "朴素概括",
+        "希尔伯特纲领",
+        "记号定义"
+      ],
+      "symbols": [
+        "\\mathcal{R}",
+        "\\mathrm{F}"
+      ],
+      "script": null,
+      "latex": "\\mathcal{R}=\\{x:x\\notin x\\},\\qquad \\mathrm{F}\\ \\text{为有穷数学（finiter Mathematik），}\\ \\mathrm{F}\\vdash\\mathrm{Con}(T)\\ \\text{指在}\\ \\mathrm{F}\\ \\text{内给出一致性证明}",
       "machine_readable": true
     },
     {
@@ -346,6 +395,29 @@
     },
     {
       "node_type": "record",
+      "id": "OM-D-GT-0001",
+      "kind": "definition",
+      "domain": "GT",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "完全图、边着色与 Ramsey 数",
+      "path": "02-公式库/图论/OM-D-GT-0001-complete-graph-edge-colouring-and-ramsey-numbers.yaml",
+      "tags": [
+        "完全图",
+        "边着色",
+        "Ramsey 数",
+        "单色子图"
+      ],
+      "symbols": [
+        "K_n",
+        "R_r(k)"
+      ],
+      "script": null,
+      "latex": "K_n=(V,E),\\ |V|=n,\\ E=\\binom{V}{2};\\qquad R_r(k)=\\min\\{N:\\ \\text{对每个}\\ c:E(K_N)\\to[r]\\ \\text{存在单色}\\ K_k\\}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
       "id": "OM-D-IT-0001",
       "kind": "definition",
       "domain": "IT",
@@ -397,6 +469,72 @@
     },
     {
       "node_type": "record",
+      "id": "OM-D-NT-0002",
+      "kind": "definition",
+      "domain": "NT",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "素数计数与 Legendre 分块的记号",
+      "path": "02-公式库/数论/OM-D-NT-0002-prime-counting-and-legendre-block-notation.yaml",
+      "tags": [
+        "素数计数",
+        "Legendre 分块",
+        "记号定义",
+        "离散差分"
+      ],
+      "symbols": [
+        "pi(x)",
+        "phi(x,a)",
+        "p_a",
+        "p_n",
+        "Delta pi(N)",
+        "L_n",
+        "U_n",
+        "c(n)",
+        "g_n"
+      ],
+      "script": null,
+      "latex": "\\pi(x)=\\#\\{p\\le x:\\ p\\ \\text{是素数}\\},\\qquad \\phi(x,a)=\\#\\{1\\le m\\le x:\\ \\text{没有素因子}\\le p_a\\},\\qquad \\Delta\\pi(N)=\\pi(N)-\\pi(N-1),\\qquad g_n=p_{n+1}-p_n",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-NT-0003",
+      "kind": "definition",
+      "domain": "NT",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "筛、轮与相邻素数算子的记号",
+      "path": "02-公式库/数论/OM-D-NT-0003-sieve-wheel-and-adjacent-prime-operator-notation.yaml",
+      "tags": [
+        "筛法记号",
+        "wheel",
+        "Jacobsthal",
+        "阶乘互素",
+        "相邻素数"
+      ],
+      "symbols": [
+        "P(Y)",
+        "A_Y(N)",
+        "C_d(N)",
+        "E(N,Y)",
+        "A(N)",
+        "omega(p)",
+        "j(M)",
+        "R_M",
+        "p_k#",
+        "m!",
+        "NextPrime(m)",
+        "FirstEscapeComposite(m)",
+        "(m, q^2)",
+        "M"
+      ],
+      "script": null,
+      "latex": "P(Y)=\\prod_{p\\le Y}p,\\qquad A_Y(N)=\\#\\{1\\le n\\le N:\\ n^2+1\\ \\text{的素因子}>Y\\},\\qquad C_d(N)=\\#\\{1\\le n\\le N:\\ d\\mid n^2+1\\},\\qquad \\omega(p)=\\#\\{r\\bmod p:\\ p\\mid r^2+1\\},\\qquad \\mathrm{NextPrime}(m)=\\min\\{q>m:\\ q\\ \\text{是素数}\\}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
       "id": "OM-D-PR-0001",
       "kind": "definition",
       "domain": "PR",
@@ -424,6 +562,28 @@
       ],
       "script": null,
       "latex": "(\\Omega,\\mathcal{F},\\mathbb{P}),\\quad X:(\\Omega,\\mathcal{F})\\to(S,\\mathcal{S})\\ \\text{可测}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-PR-0002",
+      "kind": "definition",
+      "domain": "PR",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "正态律与标准化记号",
+      "path": "02-公式库/概率论/OM-D-PR-0002-standard-normal-law-notation.yaml",
+      "tags": [
+        "正态分布",
+        "标准化",
+        "中心极限定理",
+        "记号定义"
+      ],
+      "symbols": [
+        "\\mathcal{N}"
+      ],
+      "script": null,
+      "latex": "\\mathcal{N}(\\mu,\\sigma^{2})\\ \\text{的密度}=(2\\pi\\sigma^{2})^{-1/2}\\exp\\!\\bigl(-(x-\\mu)^{2}/(2\\sigma^{2})\\bigr),\\qquad \\mathcal{N}(0,1)\\ \\text{为标准化}",
       "machine_readable": true
     },
     {
@@ -590,6 +750,31 @@
       ],
       "script": null,
       "latex": "K\\subseteq\\mathbb{R}^{n}\\ \\text{紧凸},\\quad \\Phi:K\\multimap K,\\qquad x_k\\to x,\\ y_k\\in\\Phi(x_k),\\ y_k\\to y\\ \\Longrightarrow\\ y\\in\\Phi(x)",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-TG-0003",
+      "kind": "definition",
+      "domain": "TG",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "刚体运动、等分等价与球面记号",
+      "path": "02-公式库/几何与拓扑/OM-D-TG-0003-rigid-motion-equidecomposability-and-sphere-notation.yaml",
+      "tags": [
+        "刚体运动",
+        "等分等价",
+        "球面",
+        "分球悖论记号"
+      ],
+      "symbols": [
+        "S^{2}",
+        "SO(3)",
+        "\\sim",
+        "\\mathrm{vol}"
+      ],
+      "script": null,
+      "latex": "S^{2}=\\{x\\in\\mathbb{R}^{3}:\\ \\|x\\|=1\\},\\qquad SO(3)=\\{A\\in\\mathrm{GL}_3(\\mathbb{R}):\\ A^{\\mathsf{T}}A=I,\\ \\det A=1\\},\\qquad A\\sim B\\iff A=\\textstyle\\bigcup_i A_i,\\ B=\\textstyle\\bigcup_i g_iA_i,\\ g_i\\in SO(3)",
       "machine_readable": true
     },
     {
@@ -832,19 +1017,26 @@
       "machine_readable": true
     },
     {
-      "node_type": "doc",
+      "node_type": "record",
       "id": "OM-P-NT-0003",
-      "kind": "doc-ledger",
+      "kind": "problem",
       "domain": "NT",
       "status": "PARTIAL",
-      "evidence_level": null,
-      "title_zh": "OM-P-NT-0003 · 强哥德巴赫猜想（Strong Binary Goldbach Conjecture）",
-      "path": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-      "tags": [],
+      "evidence_level": "L1",
+      "title_zh": "强哥德巴赫猜想（每个偶数可表为两素数之和）",
+      "path": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.yaml",
+      "tags": [
+        "Goldbach",
+        "加性数论",
+        "二元表数",
+        "圆法",
+        "筛法",
+        "开放问题"
+      ],
       "symbols": [],
       "script": null,
-      "latex": null,
-      "machine_readable": false
+      "latex": "对一切整数 n >= 2，存在素数 p, q 使 2n = p + q （等价地：每个大于 2 的偶数都是两个素数之和）",
+      "machine_readable": true
     },
     {
       "node_type": "doc",
@@ -1938,139 +2130,6 @@
       "resolvable": true
     },
     {
-      "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0002-nth-prime-low-complexity-formula.md",
-      "type": "cites",
-      "via": "md 文件名链接（攻坚轮次）",
-      "resolvable": true
-    },
-    {
-      "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-关键点_独立单侧误差界_20260920.md",
-      "type": "cites",
-      "via": "md 文件名链接（攻坚轮次）",
-      "resolvable": true
-    },
-    {
-      "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-前缀覆盖前沿与一般缺口引理_20260922.md",
-      "type": "cites",
-      "via": "md 文件名链接（攻坚轮次）",
-      "resolvable": true
-    },
-    {
-      "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-反证法等价形式与近反例扫描_20260922.md",
-      "type": "cites",
-      "via": "md 文件名链接（攻坚轮次）",
-      "resolvable": true
-    },
-    {
-      "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-合数模角色定位与conductor重标定_20260926.md",
-      "type": "cites",
-      "via": "md 文件名链接（攻坚轮次）",
-      "resolvable": true
-    },
-    {
-      "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-多方向实验_卷积迁移与筛损失_20260920.md",
-      "type": "cites",
-      "via": "md 文件名链接（攻坚轮次）",
-      "resolvable": true
-    },
-    {
-      "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-引擎缺陷审计与修复_20260922.md",
-      "type": "cites",
-      "via": "md 文件名链接（攻坚轮次）",
-      "resolvable": true
-    },
-    {
-      "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-新方法审计_求导容斥频谱与矩_20260920.md",
-      "type": "cites",
-      "via": "md 文件名链接（攻坚轮次）",
-      "resolvable": true
-    },
-    {
-      "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-生成式填满路线裁定_20260922.md",
-      "type": "cites",
-      "via": "md 文件名链接（攻坚轮次）",
-      "resolvable": true
-    },
-    {
-      "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-素数侧生成式审计_20260922.md",
-      "type": "cites",
-      "via": "md 文件名链接（攻坚轮次）",
-      "resolvable": true
-    },
-    {
-      "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-素数侧路线闭合_20260922.md",
-      "type": "cites",
-      "via": "md 文件名链接（攻坚轮次）",
-      "resolvable": true
-    },
-    {
-      "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-结构分解定理_投影恒等式与角色锁定_20260925.md",
-      "type": "cites",
-      "via": "md 文件名链接（攻坚轮次）",
-      "resolvable": true
-    },
-    {
-      "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-续攻_误差账本与双边迁移_20260920.md",
-      "type": "cites",
-      "via": "md 文件名链接（攻坚轮次）",
-      "resolvable": true
-    },
-    {
-      "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-联合筛_二阶反模型与三阶证书_20260922.md",
-      "type": "cites",
-      "via": "md 文件名链接（攻坚轮次）",
-      "resolvable": true
-    },
-    {
-      "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-联合筛证书_独立核验报告_20260922.md",
-      "type": "cites",
-      "via": "md 文件名链接（攻坚轮次）",
-      "resolvable": true
-    },
-    {
-      "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-联盟续研_误差预算与量词修复_20260920.md",
-      "type": "cites",
-      "via": "md 文件名链接（攻坚轮次）",
-      "resolvable": true
-    },
-    {
-      "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-证明状态复核_2026-09-22.md",
-      "type": "cites",
-      "via": "md 文件名链接（攻坚轮次）",
-      "resolvable": true
-    },
-    {
-      "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-      "dst": "OM-F-NT-0001",
-      "type": "cites",
-      "via": "md 账本正文（ID 引用）",
-      "resolvable": true
-    },
-    {
-      "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-      "dst": "OM-P-NT-0002",
-      "type": "cites",
-      "via": "md 账本正文（ID 引用）",
-      "resolvable": true
-    },
-    {
       "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach_Ramanujan局部模型主项审计_v1.md",
       "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-联盟续研_误差预算与量词修复_20260920.md",
       "type": "cites",
@@ -2449,6 +2508,69 @@
       "resolvable": true
     },
     {
+      "src": "OM-D-AN-0001",
+      "dst": "OM-D-NT-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-AN-0001",
+      "dst": "OM-F-AN-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-AN-0001",
+      "dst": "OM-F-AN-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-AN-0001",
+      "dst": "OM-F-AN-0003",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-AN-0001",
+      "dst": "OM-T-TC-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-AN-0001",
+      "dst": "OM-F-AN-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-AN-0001",
+      "dst": "OM-F-AN-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-AN-0001",
+      "dst": "OM-F-AN-0003",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-AN-0001",
+      "dst": "OM-F-AN-0003",
+      "type": "uses",
+      "via": "正文引用",
+      "resolvable": true
+    },
+    {
       "src": "OM-D-CT-0002",
       "dst": "OM-D-CT-0001",
       "type": "cites",
@@ -2533,6 +2655,76 @@
       "resolvable": true
     },
     {
+      "src": "OM-D-FD-0003",
+      "dst": "OM-D-FD-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-FD-0003",
+      "dst": "OM-P-FD-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-FD-0003",
+      "dst": "OM-T-ST-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-FD-0003",
+      "dst": "OM-X-FD-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-FD-0003",
+      "dst": "OM-D-FD-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-FD-0003",
+      "dst": "OM-P-FD-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-FD-0003",
+      "dst": "OM-X-FD-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-FD-0003",
+      "dst": "OM-D-FD-0002",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-FD-0003",
+      "dst": "OM-D-FD-0002",
+      "type": "uses",
+      "via": "正文引用",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-FD-0003",
+      "dst": "OM-X-FD-0001",
+      "type": "uses",
+      "via": "正文引用",
+      "resolvable": true
+    },
+    {
       "src": "OM-D-GO-0001",
       "dst": "OM-D-PR-0001",
       "type": "cites",
@@ -2701,6 +2893,20 @@
       "resolvable": true
     },
     {
+      "src": "OM-D-GT-0001",
+      "dst": "OM-T-CB-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-GT-0001",
+      "dst": "OM-T-CB-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
       "src": "OM-D-IT-0001",
       "dst": "OM-D-PR-0001",
       "type": "cites",
@@ -2764,6 +2970,251 @@
       "resolvable": true
     },
     {
+      "src": "OM-D-NT-0002",
+      "dst": "OM-A-NT-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0002",
+      "dst": "OM-D-NT-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0002",
+      "dst": "OM-F-NT-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0002",
+      "dst": "OM-F-NT-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0002",
+      "dst": "OM-F-NT-0003",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0002",
+      "dst": "OM-T-NT-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0002",
+      "dst": "OM-T-NT-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0002",
+      "dst": "OM-T-NT-0008",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0002",
+      "dst": "OM-F-NT-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0002",
+      "dst": "OM-F-NT-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0002",
+      "dst": "OM-F-NT-0003",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0002",
+      "dst": "OM-T-NT-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0002",
+      "dst": "OM-T-NT-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0002",
+      "dst": "OM-T-NT-0008",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0002",
+      "dst": "OM-D-NT-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0003",
+      "dst": "OM-D-GO-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0003",
+      "dst": "OM-D-NT-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0003",
+      "dst": "OM-F-NT-0004",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0003",
+      "dst": "OM-P-NT-0004",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0003",
+      "dst": "OM-T-NT-0003",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0003",
+      "dst": "OM-T-NT-0004",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0003",
+      "dst": "OM-T-NT-0005",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0003",
+      "dst": "OM-T-NT-0006",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0003",
+      "dst": "OM-T-NT-0007",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0003",
+      "dst": "OM-T-NT-0008",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0003",
+      "dst": "OM-F-NT-0004",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0003",
+      "dst": "OM-P-NT-0004",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0003",
+      "dst": "OM-T-NT-0003",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0003",
+      "dst": "OM-T-NT-0004",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0003",
+      "dst": "OM-T-NT-0005",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0003",
+      "dst": "OM-T-NT-0006",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0003",
+      "dst": "OM-T-NT-0007",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0003",
+      "dst": "OM-T-NT-0008",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0003",
+      "dst": "OM-D-NT-0002",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NT-0003",
+      "dst": "OM-F-NT-0004",
+      "type": "uses",
+      "via": "正文引用",
+      "resolvable": true
+    },
+    {
       "src": "OM-D-PR-0001",
       "dst": "OM-D-ST-0003",
       "type": "cites",
@@ -2803,6 +3254,55 @@
       "dst": "OM-D-ST-0003",
       "type": "uses",
       "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-PR-0002",
+      "dst": "OM-D-GO-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-PR-0002",
+      "dst": "OM-D-PR-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-PR-0002",
+      "dst": "OM-T-PR-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-PR-0002",
+      "dst": "OM-D-PR-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-PR-0002",
+      "dst": "OM-T-PR-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-PR-0002",
+      "dst": "OM-D-PR-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-PR-0002",
+      "dst": "OM-D-PR-0001",
+      "type": "uses",
+      "via": "正文引用",
       "resolvable": true
     },
     {
@@ -3073,6 +3573,48 @@
     },
     {
       "src": "OM-D-TG-0002",
+      "dst": "OM-D-TG-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TG-0003",
+      "dst": "OM-C-TG-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TG-0003",
+      "dst": "OM-D-TG-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TG-0003",
+      "dst": "OM-T-TG-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TG-0003",
+      "dst": "OM-C-TG-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TG-0003",
+      "dst": "OM-T-TG-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-TG-0003",
       "dst": "OM-D-TG-0001",
       "type": "uses",
       "via": "uses",
@@ -3391,6 +3933,181 @@
       "dst": "OM-F-NT-0001",
       "type": "cites",
       "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0002-nth-prime-low-complexity-formula.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-关键点_独立单侧误差界_20260920.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-前缀覆盖前沿与一般缺口引理_20260922.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-反证法等价形式与近反例扫描_20260922.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-合数模角色定位与conductor重标定_20260926.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-多方向实验_卷积迁移与筛损失_20260920.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-引擎缺陷审计与修复_20260922.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-新方法审计_求导容斥频谱与矩_20260920.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-生成式填满路线裁定_20260922.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-素数侧生成式审计_20260922.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-素数侧路线闭合_20260922.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-结构分解定理_投影恒等式与角色锁定_20260925.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-续攻_误差账本与双边迁移_20260920.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-联合筛_二阶反模型与三阶证书_20260922.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-联合筛证书_独立核验报告_20260922.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-联盟续研_误差预算与量词修复_20260920.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-证明状态复核_2026-09-22.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "OM-F-NT-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "OM-P-NT-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "OM-P-NT-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "OM-P-NT-0004",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "OM-P-NT-0009",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "OM-T-NT-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "OM-D-NT-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0003",
+      "dst": "OM-D-NT-0003",
+      "type": "uses",
+      "via": "uses",
       "resolvable": true
     },
     {
@@ -4928,7 +5645,6 @@
     ],
     "MD_ONLY_LEDGER": [
       "03-难题与猜想/01-千年大奖难题/OM-P-NT-0001-riemann-hypothesis.md",
-      "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
       "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach_PWCV结构研究_v1.md",
       "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach_Ramanujan局部模型主项审计_v1.md",
       "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-关键点_独立单侧误差界_20260920.md",
@@ -4960,7 +5676,6 @@
       {
         "id": "OM-P-NT-0003",
         "files": [
-          "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
           "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach_PWCV结构研究_v1.md",
           "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach_Ramanujan局部模型主项审计_v1.md",
           "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-前缀覆盖前沿与一般缺口引理_20260922.md",
@@ -4978,57 +5693,21 @@
     ],
     "ID_COLLISION_YAML_VS_MD": [],
     "UNDEFINED_SYMBOL": [
-      "(m, q^2)",
-      "A(N)",
-      "A_Y(N)",
-      "C_d(N)",
-      "Delta pi(N)",
-      "E(N,Y)",
-      "FirstEscapeComposite(m)",
-      "Gamma",
-      "K_n",
-      "L_n",
-      "M",
-      "NextPrime(m)",
-      "P(Y)",
-      "R_M",
-      "R_r(k)",
-      "SO(3)",
-      "S^{2}",
-      "U_n",
-      "\\mathcal{N}",
-      "\\mathcal{R}",
-      "\\mathrm{F}",
-      "\\mathrm{vol}",
-      "\\sim",
       "b",
       "c",
-      "c(n)",
       "d",
       "e",
       "epsilon",
-      "exp",
       "g",
-      "g_n",
       "i",
-      "j(M)",
       "k",
-      "m!",
       "n",
-      "omega(p)",
-      "p_a",
-      "p_k#",
-      "p_n",
       "phi(x, a)",
-      "phi(x,a)",
-      "pi",
-      "pi(x)",
       "r",
       "s",
       "sigma",
       "theta",
-      "z",
-      "zeta"
+      "z"
     ],
     "RELATION_KEY_UNREAD": [],
     "EVIDENCE_INVERSION": [],
@@ -5062,6 +5741,16 @@
         "src": "OM-P-NT-0002",
         "field": "implications",
         "text": "已知下界：无（既不能证明可达，也不能证明不可达）"
+      },
+      {
+        "src": "OM-P-NT-0003",
+        "field": "equivalent_forms",
+        "text": "记 r(2n) = #{(p,q) 素数 : p+q = 2n}，则猜想等价于 r(2n) >= 1 对一切 n >= 2"
+      },
+      {
+        "src": "OM-P-NT-0003",
+        "field": "equivalent_forms",
+        "text": "反例形式：2n 是反例 ⟺ 中央区间被「与 2n 各素因子同余」的局部覆盖集盖满（本库卷宗 2026-09-22 已把该等价式在 N=172/800/1000 精确验证）"
       }
     ],
     "TERM_INCONSISTENCY": {},
@@ -5071,141 +5760,6 @@
     "AMBIGUOUS_REFERENCE": [],
     "EDGE_ENDPOINT_OFF_GRAPH": [
       {
-        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-goldbach-conjecture.md",
-        "dst": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0002-nth-prime-low-complexity-formula.md",
-        "type": "cites",
-        "via": "md 文件名链接（攻坚轮次）",
-        "off": [
-          "03-难题与猜想/05-经典未解猜想/OM-P-NT-0002-nth-prime-low-complexity-formula.md"
-        ]
-      },
-      {
-        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-关键点_独立单侧误差界_20260920.md",
-        "dst": "OM-P-NT-0003",
-        "type": "cites",
-        "via": "md 账本正文（ID 引用）",
-        "off": [
-          "OM-P-NT-0003"
-        ]
-      },
-      {
-        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-多方向实验_卷积迁移与筛损失_20260920.md",
-        "dst": "OM-P-NT-0003",
-        "type": "cites",
-        "via": "md 账本正文（ID 引用）",
-        "off": [
-          "OM-P-NT-0003"
-        ]
-      },
-      {
-        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-新方法审计_求导容斥频谱与矩_20260920.md",
-        "dst": "OM-P-NT-0003",
-        "type": "cites",
-        "via": "md 账本正文（ID 引用）",
-        "off": [
-          "OM-P-NT-0003"
-        ]
-      },
-      {
-        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-续攻_误差账本与双边迁移_20260920.md",
-        "dst": "OM-P-NT-0003",
-        "type": "cites",
-        "via": "md 账本正文（ID 引用）",
-        "off": [
-          "OM-P-NT-0003"
-        ]
-      },
-      {
-        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-联合筛_二阶反模型与三阶证书_20260922.md",
-        "dst": "OM-P-NT-0003",
-        "type": "cites",
-        "via": "md 账本正文（ID 引用）",
-        "off": [
-          "OM-P-NT-0003"
-        ]
-      },
-      {
-        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-联合筛证书_二阶Bonferroni_20260922.md",
-        "dst": "OM-P-NT-0003",
-        "type": "cites",
-        "via": "md 账本正文（ID 引用）",
-        "off": [
-          "OM-P-NT-0003"
-        ]
-      },
-      {
-        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-联合筛证书_独立核验报告_20260922.md",
-        "dst": "OM-P-NT-0003",
-        "type": "cites",
-        "via": "md 账本正文（ID 引用）",
-        "off": [
-          "OM-P-NT-0003"
-        ]
-      },
-      {
-        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-联盟续研_误差预算与量词修复_20260920.md",
-        "dst": "OM-P-NT-0003",
-        "type": "cites",
-        "via": "md 账本正文（ID 引用）",
-        "off": [
-          "OM-P-NT-0003"
-        ]
-      },
-      {
-        "src": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0003-证明状态复核_2026-09-22.md",
-        "dst": "OM-P-NT-0003",
-        "type": "cites",
-        "via": "md 账本正文（ID 引用）",
-        "off": [
-          "OM-P-NT-0003"
-        ]
-      },
-      {
-        "src": "OM-F-AN-0001",
-        "dst": "02-公式库/分析/OM-F-AN-0003-euler-formula-general-form.md",
-        "type": "cites",
-        "via": "配对 md 正文（文件名链接）",
-        "off": [
-          "02-公式库/分析/OM-F-AN-0003-euler-formula-general-form.md"
-        ]
-      },
-      {
-        "src": "OM-F-AN-0002",
-        "dst": "02-公式库/分析/OM-F-AN-0001-euler-identity.md",
-        "type": "cites",
-        "via": "配对 md 正文（文件名链接）",
-        "off": [
-          "02-公式库/分析/OM-F-AN-0001-euler-identity.md"
-        ]
-      },
-      {
-        "src": "OM-F-AN-0003",
-        "dst": "02-公式库/分析/OM-F-AN-0001-euler-identity.md",
-        "type": "cites",
-        "via": "配对 md 正文（文件名链接）",
-        "off": [
-          "02-公式库/分析/OM-F-AN-0001-euler-identity.md"
-        ]
-      },
-      {
-        "src": "OM-F-AN-0003",
-        "dst": "02-公式库/分析/OM-F-AN-0002-riemann-zeta-functional-equation.md",
-        "type": "cites",
-        "via": "配对 md 正文（文件名链接）",
-        "off": [
-          "02-公式库/分析/OM-F-AN-0002-riemann-zeta-functional-equation.md"
-        ]
-      },
-      {
-        "src": "OM-P-NT-0009",
-        "dst": "OM-P-NT-0003",
-        "type": "cites",
-        "via": "配对 md 正文（ID 引用）",
-        "off": [
-          "OM-P-NT-0003"
-        ]
-      },
-      {
         "src": "OM-P-NT-0005",
         "dst": "05-验证中心/03-结果/2026/09/OM-P-NT-0008-selberg-weight-support-20260926.md",
         "type": "evidenced_by",
@@ -5213,6 +5767,10 @@
         "off": [
           "05-验证中心/03-结果/2026/09/OM-P-NT-0008-selberg-weight-support-20260926.md",
           "OM-P-NT-0005"
+        ],
+        "cls": [
+          "evidence-path",
+          "no-carrier"
         ]
       },
       {
@@ -5223,6 +5781,10 @@
         "off": [
           "05-验证中心/03-结果/2026/09/OM-P-NT-0007-liouville-asymptotic-survival-20260926.md",
           "OM-P-NT-0006"
+        ],
+        "cls": [
+          "evidence-path",
+          "no-carrier"
         ]
       },
       {
@@ -5233,6 +5795,10 @@
         "off": [
           "05-验证中心/03-结果/2026/09/OM-P-NT-0008-selberg-weight-support-20260926.md",
           "OM-P-NT-0006"
+        ],
+        "cls": [
+          "evidence-path",
+          "no-carrier"
         ]
       },
       {
@@ -5243,28 +5809,35 @@
         "off": [
           "05-验证中心/03-结果/2026/09/OM-P-NT-0008-selberg-weight-support-20260926.md",
           "OM-P-NT-0007"
+        ],
+        "cls": [
+          "evidence-path",
+          "no-carrier"
         ]
       }
     ],
     "CONTRADICTION_ASYMMETRIC": []
   },
   "resolution": {
-    "nodes": 90,
-    "node_keys": 90,
-    "edges": 417,
-    "both_in_graph": 398,
-    "one_endpoint_off_graph": 15,
+    "off_graph_side_classes": {
+      "evidence-path": 4,
+      "no-carrier": 4
+    },
+    "off_graph_sides": 8,
+    "nodes": 97,
+    "node_keys": 97,
+    "edges": 492,
+    "both_in_graph": 488,
+    "one_endpoint_off_graph": 0,
     "both_endpoints_off_graph": 4,
     "collapsed_to_self_loop": 0,
-    "ambiguous_doc_ids": [
-      "OM-P-NT-0003"
-    ]
+    "ambiguous_doc_ids": []
   },
   "counts": {
-    "record_nodes": 66,
-    "doc_nodes": 24,
+    "record_nodes": 74,
+    "doc_nodes": 23,
     "evidence_docs": 4,
-    "edges": 417,
+    "edges": 492,
     "load_errors": 0
   }
 }

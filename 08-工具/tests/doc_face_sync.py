@@ -50,6 +50,27 @@ def rd(rel, root=None):
     return io.open(p, "rb").read().decode("utf-8")
 
 
+def doc_map(root=None):
+    """五份被裁判的文档按盘上图像读齐，CHANGELOG 只留「批记录」那一条条目（判定面）。"""
+    docs = dict((rel, rd(rel, root)) for rel in [OV, KG, IX, LIB, CH])
+    scope, _ = changelog_scope(docs[CH])
+    if scope is not None:
+        docs[CH] = scope
+    return docs
+
+
+def inject(rel, text, root=None):
+    """把一份改坏的文档注进**其余四份仍在场**的表里。
+
+    为什么必须带齐：`check()` 对缺席文档走 `MISSING-DOC｜…不在盘上` 分支并计进红数，
+    所以半张表会让「红 N 条」数的不再是这一次篡改，而主要是注入方式自己造的产物；
+    两型真面对照（嵌图、方向词）更会把产物印成判决，下一轮就会去修一个不存在的债。
+    """
+    docs = doc_map(root)
+    docs[rel] = text
+    return docs
+
+
 def parse_face(t):
     """版面 -> 读数表。parse 不到任何一格都算仪器故障，不算「没有缺陷」。"""
     def one(rx, tag):
@@ -102,14 +123,26 @@ def parse_mutants(t):
     return [int(x) for x in m.groups()]
 
 
-VERIFY_STATUS = ("PASS", "SKIP", "FAIL")
+# UNKNOWN 是引擎自己**被测过**的降级判决：`engines.run()` 把「声明了 items 却一项没检」的
+# PASS 判成 UNKNOWN，而这条由 `08-工具/tests/test_core.py` 的回归断言钉住（空检查项不得计为
+# PASS）。第 4 批两张无 checks 的数论定义卡按域落到 prime-pi-block 上，判决面就真出现了 UNKNOWN
+# 行。词表的宽窄由对象实际有哪几种形状定，不由第一眼采到的形状定（元判据第 15 条），所以这一版
+# 把 UNKNOWN 收进**第四个计数并在文档里点名**，而不是改卡片去喂引擎（那是把账改成好看）。
+# ERROR 仍留在名单外：引擎崩了不是一种判决，而是这一跑没跑成。
+VERIFY_STATUS = ("PASS", "SKIP", "FAIL", "UNKNOWN")
+
+# 方向型声明：正则捕获 (前值, 方向词, 现值) 三组，由 check() 的 DIRECTION_TAGS 分支判定。
+# 它们不走通用 int() 路——int("降") 会 ValueError，而崩在判决面上等于这一跑没有判决。
+DIRECTION_TAGS = set(["§三 符号账", "§三 逻辑层涨幅"])
 
 
 def parse_verify(t, records):
     """verify 那一跑的逐条判决面：文档抄了它的数，本函数就把那三个数复算一遍。
     判决行数不等于版面记录数＝这一跑没走完全程，前面印出的行不算凭据；载体不在＝判红，不算跳过。
-    词表外状态（引擎会印 UNKNOWN／ERROR）单独点名：只报「行数不等」会把「66 行里 1 行没判决」
-    说成「没走完 66 条」——症状同形而病因不同，账要落在病上。"""
+    词表外状态（名单外的任何拼写，含引擎崩溃的 ERROR）单独点名：只报「行数不等」会把
+    「66 行里 1 行没判决」说成「没走完 66 条」——症状同形而病因不同，账要落在病上。
+    UNKNOWN 自第 4 批起在名单内（它是被测的降级判决，不是崩），由第四个槽单独计数，
+    绝不并进 SKIP：并进 SKIP 就是把「无检可查」伪装成「依赖不满足」。"""
     p = os.path.abspath(os.path.join(ROOT, VERIFY_REL.replace("/", BS)))
     if t is None:
         if not os.path.exists(p):
@@ -195,7 +228,11 @@ def claims(v, mut, dc, da, vf, lv, pd):
          "、".join("`%s`×(\\d+)" % p for p in sorted(pd)) + "。", [pd[p] for p in sorted(pd)]),
         ("§三 证据等级", OV,
          r"证据等级分布：" + "／".join(r"%s (\d+)" % x for x in sorted(lv)), [lv[x] for x in sorted(lv)]),
-        ("§三 符号账", OV, r"从上一版的 \d+ 涨到版面的 (\d+) 枚", [g["UNDEFINED_SYMBOL"][0]]),        ("§三 逻辑层涨幅", OV, r"逻辑层从 \d+ 涨到 (\d+)", [lay["逻辑层"]]),
+        # 方向型（见 DIRECTION_TAGS）：旧词表把「涨」字硬编进来，于是同一条尺子上的**反向读数**
+        # （第 4 批 51 → 15 枚）会被判 MISSING-CLAIM——假红来自措辞而不是语料。
+        # 放宽不等于开闸：方向词由该句自己的两个数现推，现值再由版面复算，见格 8 的反对照。
+        ("§三 符号账", OV, r"从上一版的 (\d+) ([涨降])到版面的 (\d+) 枚", None),
+        ("§三 逻辑层涨幅", OV, r"逻辑层从 (\d+) ([涨降])到 (\d+)", None),
         ("§四 难题层节点", OV, r"难题层节点 (\d+) 个（版面 `03-难题卡点`：难题节点 (\d+) 个、图上 (\d+) 个节点／(\d+) 条边）",
          [lay["难题层"], c03["problem_nodes"], c03["chart_nodes"], c03["edges"]]),
         ("§四 cites", OV, r"边类型 `cites`（版面现印 (\d+) 条）", [v["census"]["cites"]]),
@@ -252,10 +289,14 @@ def claims(v, mut, dc, da, vf, lv, pd):
         ("CHANGELOG 变异体", CH, r"变异体 (\d+) 枚全部被抓住（(\d+) caught / (\d+) not caught）", mut),
         ("CHANGELOG 符号账", CH, r"`UNDEFINED_SYMBOL` \d+ → \*\*(\d+)\*\* 枚", [g["UNDEFINED_SYMBOL"][0]]),
         ("CHANGELOG 逻辑层", CH, r"逻辑层 \d+ → (\d+) 个节点", [lay["逻辑层"]]),
-        # ---- verify 通道：这三个数住在 scratch 的判决面上，不在版面里 ----
-        ("§八 verify", OV, r"已复跑：\*\*(\d+) PASS／(\d+) SKIP／(\d+) FAIL\*\*", vf or [0, 0, 0]),
-        ("公式库 verify", LIB, r"已复跑：\*\*(\d+) PASS／(\d+) SKIP／(\d+) FAIL\*\*", vf or [0, 0, 0]),
-        ("CHANGELOG verify", CH, r"＝\*\*(\d+) PASS／(\d+) SKIP／(\d+) FAIL\*\*", vf or [0, 0, 0]),
+        # ---- verify 通道：这四个数住在 scratch 的判决面上，不在版面里 ----
+        # 第四槽是 UNKNOWN：它必须出现在文档句子里（句子还是三槽就判 MISSING-CLAIM，不许看不见）。
+        ("§八 verify", OV, r"已复跑：\*\*(\d+) PASS／(\d+) SKIP／(\d+) FAIL／(\d+) UNKNOWN\*\*",
+         vf or [0, 0, 0, 0]),
+        ("公式库 verify", LIB, r"已复跑：\*\*(\d+) PASS／(\d+) SKIP／(\d+) FAIL／(\d+) UNKNOWN\*\*",
+         vf or [0, 0, 0, 0]),
+        ("CHANGELOG verify", CH, r"＝\*\*(\d+) PASS／(\d+) SKIP／(\d+) FAIL／(\d+) UNKNOWN\*\*",
+         vf or [0, 0, 0, 0]),
     ]
 
 
@@ -396,6 +437,24 @@ def check(doc_texts, v, mut, dc, da, vf, lv, pd):
                 lines.append("OK           KG 归域｜%s / %s，未归层名单逐字相符 %s，有节点 %s / %s"
                              % (a, b, names, d1, d2))
             continue
+        if tag in DIRECTION_TAGS:
+            cur_want = (g["UNDEFINED_SYMBOL"][0] if tag == "§三 符号账"
+                        else v["chart"]["00-四层总览"]["layer_nodes"]["逻辑层"])
+            bad_d = []
+            for prev_s, word, cur_s in hits:
+                prev_n, cur_n = int(prev_s), int(cur_s)
+                want_w = "降" if prev_n > cur_n else ("涨" if prev_n < cur_n else "平")
+                if cur_n != cur_want or word != want_w:
+                    bad_d.append("(%s, %s, %s→应为 %s)" % (prev_s, word, cur_s, want_w))
+            if bad_d:
+                lines.append("MISMATCH     %s｜文档 %s ≠ 复算（现值 %d；方向由该句两数现推，"
+                             "两数相等时无方向词可用）"
+                             % (tag, "；".join(bad_d), cur_want))
+                red += 1
+            else:
+                lines.append("OK           %s｜现值 %d 与版面相符，方向词与两数之差同号（%d 处命中）"
+                             % (tag, cur_want, len(hits)))
+            continue
         bad = [tuple(int(x) for x in h) for h in hits if [int(x) for x in h] != exp]
         if bad:
             # 题面说「复算值」而不是「版面」：verify 那三条复算自判决面，不是版面（标签失效而数字仍对＝假账）。
@@ -411,8 +470,10 @@ def check(doc_texts, v, mut, dc, da, vf, lv, pd):
 
 
 def selftest(v, mut, dc, da, vf, lv, pd, verify_text=None):
-    """七格对照：改坏一个多组数、删一行声明、改坏一个单组数、改坏 verify 抄来的数、
-    判决面混进词表外状态、嵌入图抄本与生成物分叉、散文抄本掺假类名。都不红＝仪器没电。"""
+    """各格对照：改坏一个多组数、删一行声明、改坏一个单组数、改坏 verify 抄来的数、
+    判决面混进词表外状态、嵌入图抄本与生成物分叉、散文抄本掺假类名、方向型声明的方向词翻面。
+    都不红＝仪器没电。格数不在这里钉：它是这台仪器自己的形状，随反对照增减而变，
+    打印面逐格各印一行、驱动器按源码的「格 N」标记现数，两处都比一个写死的数字可靠。"""
     ov = rd(OV)
     n1 = len(claims(v, mut, dc, da, vf, lv, pd))
 
@@ -427,40 +488,80 @@ def selftest(v, mut, dc, da, vf, lv, pd, verify_text=None):
         return text[:s] + str(int(exp[0]) + 1) + text[e:]
 
     # 格 1：多组声明里的记录数挪一位（改动量由复算值现推，见 tamper 的说明）
-    _, red1 = check({OV: tamper(ov, r"机器可读记录 (\d+) 条", [v["records"]])}, v, mut, dc, da, vf, lv, pd)
+    _, red1 = check(inject(OV, tamper(ov, r"机器可读记录 (\d+) 条", [v["records"]])), v, mut, dc, da, vf, lv, pd)
     # 格 2：删掉「§一 键数」这一整条声明
     m2 = re.search(r"`nodes / unique keys` 印 \d+ / \d+", ov)
     deleted = ov[:m2.start()] + "（这一格本轮被删掉，用来验覆盖面判据）" + ov[m2.end():]
-    l2, red2 = check({OV: deleted}, v, mut, dc, da, vf, lv, pd)
+    l2, red2 = check(inject(OV, deleted), v, mut, dc, da, vf, lv, pd)
     miss2 = len([x for x in l2 if x.startswith("MISSING-CLAIM")])
     # 格 3：单组声明（表格里的一格 19）挪一位——这一型曾经被逐字符解析器放过，
     # 因为 `for x in "19"` 给 (1,9)，正确的 19 反而红；那么错的 20 就更得红。
     lay = v["chart"]["00-四层总览"]["layer_nodes"]
-    _, red3 = check({OV: tamper(ov, r"\| 逻辑层 \| [^\n]*? \| (\d+) \|", [lay["逻辑层"]])},
+    _, red3 = check(inject(OV, tamper(ov, r"\| 逻辑层 \| [^\n]*? \| (\d+) \|", [lay["逻辑层"]])),
                     v, mut, dc, da, vf, lv, pd)
+    # 格 8：方向型声明的牙。反对照只把真句子的方向词翻面、两个数一个不动，必须红在这一条上；
+    # 真句子这一型当下判什么都不 gate，只按真面原样印出来：文档已同步时它该是 OK，
+    # 判红就是文档侧真分叉——那由判定面（main 的红数）去拦，不该由这一格顺手改判。
+    mv8 = re.search(r"从上一版的 (\d+) ([涨降])到版面的 (\d+) 枚", ov)
+    if mv8:
+        flip8 = ov[:mv8.start(2)] + ("降" if mv8.group(2) == "涨" else "涨") + ov[mv8.end(2):]
+        l8, _ = check(inject(OV, flip8), v, mut, dc, da, vf, lv, pd)
+        hit8 = len([x for x in l8 if x.startswith("MISMATCH") and "符号账" in x])
+        l8g, _ = check(doc_map(), v, mut, dc, da, vf, lv, pd)
+        now8 = [x.split("｜")[0] for x in l8g if "符号账" in x]
+        print("  格 8 方向词翻面（两个数不动）→ MISMATCH %d 条（要求 ≥1）：%s；真句子这一型现在判 %s"
+              % (hit8, "通过" if hit8 >= 1 else "方向词没有牙", now8 or ["（这一条没判决）"]))
+        tooth8 = hit8 >= 1
+    else:
+        print("  格 8 方向词 → 靶子句不在文档里，这一型未测（不放行）")
+        tooth8 = False
     # 格 4：verify 通道自己也得有牙——把判决面抄进文档的 PASS 数挪一位，必须红在这一条上。
-    l4, red4 = check({LIB: tamper(rd(LIB), r"已复跑：\*\*(\d+) PASS", vf or [0])},
+    l4, red4 = check(inject(LIB, tamper(rd(LIB), r"已复跑：\*\*(\d+) PASS", vf or [0])),
                      v, mut, dc, da, vf, lv, pd)
     hit4 = len([x for x in l4 if x.startswith("MISMATCH") and "公式库 verify" in x])
     tooth4 = hit4 >= 1 or (vf is None and red4 >= 1)   # 载体缺席时它自己已经判红，这一格不必再要求 MISMATCH
-    # 格 5：判决面词表外状态。两张反例都由真面现造（不打字造假面）：
-    #   (a) 把第一行 PASS 换成词表外的状态 —— 必须拒绝；
+    # 格 5：判决面的词表与它的牙。四张反例都由真面现造（不打字造假面）：
+    #   (a) 把第一行 PASS 换成名单外的拼写 MAYBE —— 必须拒绝（放宽不等于开闸）；
     #   (b) 把分母要求成「行数 + 1」（真面被截断的形状）—— 必须拒绝；
-    #   正对照：真面按自己的行数复算 —— 必须给出三个数。
+    #   (c) 把第一行 PASS 换成 UNKNOWN —— 面必须**仍然被承认**，且第四槽 +1、第一槽 −1、
+    #       总数不变。这一臂是第 4 批放宽词表时欠下的反对照：新槽若把行吞掉，放宽就＝吞账；
+    #   (d) 把文档句子里的 UNKNOWN 槽按「复算值 + 1」挪一位 —— 必须红在「公式库 verify」上
+    #       （新槽自己也得有牙，否则它是词表里一个不会被引用的装饰）。
+    #   正对照：真面按自己的行数复算 —— 必须给出 len(VERIFY_STATUS) 个数。
     tooth5 = None
     if verify_text is not None:
         n = len(re.findall(r"^(OM-\S+)\s+L2\s+\S+", verify_text, re.M))
-        bad5 = re.sub(r"^(OM-\S+)(\s+L2\s+)PASS", r"\g<1>\g<2>UNKNOWN", verify_text, count=1, flags=re.M)
+        bad5 = re.sub(r"^(OM-\S+)(\s+L2\s+)PASS", r"\g<1>\g<2>MAYBE",
+                      verify_text, count=1, flags=re.M)
         refused = parse_verify(bad5, n) is None and parse_verify(verify_text, n + 1) is None
         okface = parse_verify(verify_text, n)
-        print("  格 5 判决面 %d 行：掺词表外状态／少一行 → 都拒＝%s；同面按自己行数复算＝%s（正对照）"
-              % (n, "通过" if refused else "词表外的行被算进了分母",
-                 "通过" if okface is not None else "正对照没通过＝这台尺连好面都判死"))
-        tooth5 = refused and okface is not None
+        moved = parse_verify(re.sub(r"^(OM-\S+)(\s+L2\s+)PASS", r"\g<1>\g<2>UNKNOWN",
+                                    verify_text, count=1, flags=re.M), n)
+        iu = VERIFY_STATUS.index("UNKNOWN")
+        pair_ok = (okface is not None and moved is not None
+                   and len(okface) == len(moved) == len(VERIFY_STATUS)
+                   and moved[iu] == okface[iu] + 1
+                   and moved[VERIFY_STATUS.index("PASS")] == okface[VERIFY_STATUS.index("PASS")] - 1
+                   and sum(moved) == sum(okface))
+        l5d, red5d = check(inject(LIB, tamper(rd(LIB), r"／(\d+) UNKNOWN\*\*",
+                                               [(vf or [0, 0, 0, 0])[3] + 1])),
+                           v, mut, dc, da, vf, lv, pd)
+        hit5d = len([x for x in l5d if x.startswith("MISMATCH") and "公式库 verify" in x])
+        tooth5d = hit5d >= 1 or (not vf and red5d >= 1)   # 判决面缺席时三条声明自己已判红
+        print("  格 5 判决面 %d 行：掺名单外拼写／少一行 → 都拒＝%s；同面按自己行数复算＝%s（正对照）；"
+              "PASS→UNKNOWN 让第四槽 %s→%s 且第一槽 %s→%s＝%s；文档 UNKNOWN 槽挪一位红在公式库 verify"
+              "（%d 次）＝%s"
+              % (n, "通过" if refused else "名单外的行被算进了分母",
+                 "通过" if okface is not None else "正对照没通过＝这台尺连好面都判死",
+                 okface[iu] if okface else "-", moved[iu] if moved else "-",
+                 okface[0] if okface else "-", moved[0] if moved else "-",
+                 "通过" if pair_ok else "UNKNOWN 被并进了别的计数（放宽＝吞账）",
+                 hit5d, "通过" if tooth5d else "新槽没有牙"))
+        tooth5 = refused and okface is not None and pair_ok and tooth5d
     else:
-        print("  格 5 判决面掺词表外状态 → 无从构造（判决面缺席，本轮未测这一型）")
-    ok = red1 >= 1 and miss2 >= 1 and red3 >= 1 and tooth4 and (tooth5 is not False)
-    print("自检七格对照（判据不许自己证自己）：")
+        print("  格 5 判决面掺名单外拼写 → 无从构造（判决面缺席，本轮未测这一型）")
+    ok = red1 >= 1 and miss2 >= 1 and red3 >= 1 and tooth8 and tooth4 and (tooth5 is not False)
+    print("自检各格对照（判据不许自己证自己）：")
     print("  格 1 改坏一个数 → 红 %d 条（要求 ≥1）：%s" % (red1, "通过" if red1 else "仪器看不见篡改"))
     print("  格 2 删掉一行声明 → MISSING-CLAIM %d 条（要求 ≥1）：%s" % (miss2, "通过" if miss2 else "覆盖面判据是恒绿的"))
     print("  格 3 改坏单组声明 → 红 %d 条（要求 ≥1）：%s" % (red3, "通过" if red3 else "单组命中被逐字符解析，这一型看不见"))
@@ -474,10 +575,10 @@ def selftest(v, mut, dc, da, vf, lv, pd, verify_text=None):
     emb = re.findall(r"^```mermaid\n(.*?)^```$", ov, re.M | re.S)
     if emb:
         cut = ov.replace(emb[0], "X" + emb[0], 1)
-        l6, _ = check({OV: cut}, v, mut, dc, da, vf, lv, pd)
+        l6, _ = check(inject(OV, cut), v, mut, dc, da, vf, lv, pd)
         hit6 = len([x for x in l6 if x.startswith("EMBED-DIVERGED")])
         cnt6 = len([x for x in l6 if x.startswith("EMBED-COUNT")])
-        l6g, _ = check({OV: ov}, v, mut, dc, da, vf, lv, pd)
+        l6g, _ = check(doc_map(), v, mut, dc, da, vf, lv, pd)
         now = len([x for x in l6g if x.startswith("EMBED-")])
         print("  格 6 嵌入图 %d 块：改一个字符 → DIVERGED %d 条（要求 ≥1，且不得塌成 COUNT %d 条）：%s；"
               "真面这一型现在判红 %d 条"
@@ -492,7 +593,7 @@ def selftest(v, mut, dc, da, vf, lv, pd, verify_text=None):
     if mv:
         cut7 = ov[:mv.start(1)] + mv.group(1) + ", ZZZ-FALSE-CLASS" + ov[mv.end(1):]
         try:
-            l7, _ = check({OV: cut7}, v, mut, dc, da, vf, lv, pd)
+            l7, _ = check(inject(OV, cut7), v, mut, dc, da, vf, lv, pd)
             hit7 = len([x for x in l7 if x.startswith("MISMATCH") and "verdict 名单" in x])
             crash7 = None
         except Exception as exc:
@@ -559,15 +660,13 @@ def collect():
 def main():
     only_selftest = "--selftest" in sys.argv
     v, mut, dc, da, vf, lv, pd, vtext = collect()
-    print("verify 通道：%s" % ("判决面缺席（三条声明将判 MISSING-CARRIER）" if vf is None else "PASS／SKIP／FAIL＝%s" % vf))
+    print("verify 通道：%s" % ("判决面缺席（三条声明将判 MISSING-CARRIER）" if vf is None else "%s＝%s" % ("/".join(VERIFY_STATUS), vf)))
     if not selftest(v, mut, dc, da, vf, lv, pd, vtext):
         print("==> 仪器自检不过：判定面一律不可引用")
         return 2
     if only_selftest:
         return 0
-    docs = {}
-    for rel in [OV, KG, IX, LIB, CH]:
-        docs[rel] = rd(rel)
+    docs = doc_map()
     scope, head = changelog_scope(docs[CH])
     if scope is None:
         print("==> CHANGELOG 里没有「批记录」条目（历史条目不归本判据管），判定面塌缩，不放行")

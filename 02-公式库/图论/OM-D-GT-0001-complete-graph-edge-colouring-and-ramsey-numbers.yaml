@@ -1,0 +1,63 @@
+schema_version: "0.1"
+
+id: OM-D-GT-0001
+kind: definition
+title_zh: '完全图、边着色与 Ramsey 数'
+title_en: 'Complete graph, edge colouring and Ramsey numbers'
+domain: GT
+msc:
+  - '05C55'
+  - '05D10'
+tags:
+  - '完全图'
+  - '边着色'
+  - 'Ramsey 数'
+  - '单色子图'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-11
+updated: 2026-10-11
+
+statement_latex: 'K_n=(V,E),\ |V|=n,\ E=\binom{V}{2};\qquad R_r(k)=\min\{N:\ \text{对每个}\ c:E(K_N)\to[r]\ \text{存在单色}\ K_k\}'
+
+assumptions:
+  - 'r,k 均不小于 2（否则 Ramsey 数无意义或平凡）'
+  - '着色指对**边**着色，颜色集取 [r]={1,...,r}'
+  - '单色指存在一版同色的 K_k 顶点子集；本卡取通常的顶点完全子图口径'
+symbols:
+  - name: 'K_n'
+    meaning_zh: 'n 个顶点的完全图：任意两点间恰有一条边'
+    type: other
+  - name: 'R_r(k)'
+    meaning_zh: 'Ramsey 数：保证任意 r-边着色都含单色 K_k 的最小顶点数'
+    type: other
+
+related:
+  - 'OM-T-CB-0001'
+uses: []
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+caveat: '第 4 批记号卡，同时是图论域（GT）的首条记录。定义不蕴含存在性下界，Ramsey 有限性归 OM-T-CB-0001；本卡不登记任何已知精确值。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明；本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表主张的文献地位。'
+  sources:
+    - 'Graham, R. L., Rothschild, B. L. and Spencer, J. H., Ramsey Theory, 3rd ed., Wiley (2015), ch.1（完全图与边着色记号）'
+    - 'Radziszowski, S. P., Small Ramsey Numbers, Electronic Journal of Combinatorics, Dynamic Survey 1（R_r(k) 的取值台账）'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Graham, R. L., Rothschild, B. L. and Spencer, J. H., Ramsey Theory, 3rd ed., Wiley (2015), ch.1（完全图与边着色记号）'
+    - type: book
+      value: 'Radziszowski, S. P., Small Ramsey Numbers, Electronic Journal of Combinatorics, Dynamic Survey 1（R_r(k) 的取值台账）'
+  contributors:
+    - "qoder-session-2026-10-11"
+

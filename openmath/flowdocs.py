@@ -76,9 +76,14 @@ def _index(g):
     return out
 
 
-def _edge_line(alias, by_key, edge, extra_label=None):
-    src_key = edge["src"]
-    dst_key = edge["dst"]
+def _edge_line(alias, by_key, edge, ends, extra_label=None):
+    """画一条边带标签。`ends`＝resolve() 给的两个键，不许用原样端点：
+
+    原样端点可能是记录面孔的路径，而该记录的别名是按 ID 建的——一个端点两种货币，
+    同一份记录会在图里画成两个节点、边挂到没载体的那个上（chart_record_deps 曾因此在
+    by_key 上 KeyError：过滤用解析键、查表用原样键）。
+    """
+    src_key, dst_key = ends
     arrow, label = ARROW.get(edge["type"], ("-->", None))
     label = extra_label or label or edge["type"]
     s = alias.of(src_key)
@@ -210,11 +215,11 @@ def chart_record_deps(g):
             continue
         if edge["type"] not in ARROW:
             continue
-        for key in (edge["src"], edge["dst"]):
+        for key in (a, b):
             node = by_key[key]
             if key not in alias.map:
                 lines.append('  %s["%s"]' % (alias.of(key), _clean(_label(node))))
-        lines.append(_edge_line(alias, by_key, edge))
+        lines.append(_edge_line(alias, by_key, edge, (a, b)))
         emitted += 1
     meta = {"record_nodes_in_chart": len(alias.map), "edges": emitted}
     return "\n".join(lines) + "\n", meta
@@ -510,6 +515,9 @@ def face(g, meta, rows=None):
         emit("  one end off graph        : %d" % res["one_endpoint_off_graph"])
         emit("  both ends off graph      : %d" % res["both_endpoints_off_graph"])
         emit("  collapsed to self-loop   : %d" % res["collapsed_to_self_loop"])
+        emit("  off-graph ends by class  : %d 个端点 -> %s" % (
+            res["off_graph_sides"],
+            " / ".join("%s=%d" % (k, v) for k, v in res["off_graph_side_classes"].items()) or "NONE"))
         emit("  ambiguous doc ids        : %s" % (", ".join(res["ambiguous_doc_ids"]) or "NONE"))
     bad = sorted([name for name, (sev, count) in graph_mod.defect_counts(g).items()
                   if sev in ("DEFECT", "LEDGER-GAP") and count > 0])
