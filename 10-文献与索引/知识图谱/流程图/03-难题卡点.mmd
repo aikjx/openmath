@@ -29,19 +29,26 @@ flowchart TB
   n28["OM-P-NT-0003-NEW-METHODS-20260920 新方法审计：求导、高阶容斥、频谱、矩与组合…"]
   n29["OM-P-NT-0003-REVIEW-20260922 强哥德巴赫：证明状态复核（2026-09-22） d…"]
   n30["OM-P-NT-0004 Landau 第四问题 · 是否存在无穷多个素数形如 n²+1 problem/L1…"]
-  n31["OM-P-NT-0009 Landau 第三问题 · Legendre 猜想（相邻平方数之间… problem…"]
-  n32["OM-P-TC-0001 判定问题（Entscheidungsproblem） problem/L1/PROP…"]
-  n33["OM-P-TC-0002 P 与 NP 是否相等 problem/L1/PROPOSED"]
-  n34["卡点：OM-P-NT-0002 的关系只写在 equivalent_forms+implications 里，无法遍历"]
-  n7 -.->|不可遍历| n34
-  n35["卡点：OM-P-NT-0003 的关系只写在 equivalent_forms 里，无法遍历"]
-  n8 -.->|不可遍历| n35
-  n36["卡点：OM-P-NT-0004 的关系只写在 equivalent_forms 里，无法遍历"]
-  n30 -.->|不可遍历| n36
-  n37["卡点：OM-P-NT-0009 的关系只写在 equivalent_forms 里，无法遍历"]
-  n31 -.->|不可遍历| n37
-  n38["OM-F-AN-0002 Riemann ζ 函数函数方程 formula/L3/VERIFIED(L3)"]
-  n6 -->|引用| n38
+  n31["OM-P-NT-0005 反射–伸缩非交换轨道审计（哥德巴赫覆盖系统的仿射群分次判别） problem/L1/…"]
+  n32["OM-P-NT-0006 Liouville 奇偶（2x2）系统——哥德巴赫的三矩精确归约与… problem…"]
+  n33["OM-P-NT-0007 单矩判据的渐近存活性与展开预算（Liouville 密度假设模型与… problem…"]
+  n34["OM-P-NT-0009 Landau 第三问题 · Legendre 猜想（相邻平方数之间… problem…"]
+  n35["OM-P-TC-0001 判定问题（Entscheidungsproblem） problem/L1/PROP…"]
+  n36["OM-P-TC-0002 P 与 NP 是否相等 problem/L1/PROPOSED"]
+  n37["卡点：OM-P-NT-0002 的关系只写在 equivalent_forms+implications 里，无法遍历"]
+  n7 -.->|不可遍历| n37
+  n38["卡点：OM-P-NT-0003 的关系只写在 equivalent_forms 里，无法遍历"]
+  n8 -.->|不可遍历| n38
+  n39["卡点：OM-P-NT-0004 的关系只写在 equivalent_forms 里，无法遍历"]
+  n30 -.->|不可遍历| n39
+  n40["卡点：OM-P-NT-0006 的关系只写在 equivalent_forms 里，无法遍历"]
+  n32 -.->|不可遍历| n40
+  n41["卡点：OM-P-NT-0007 的关系只写在 equivalent_forms 里，无法遍历"]
+  n33 -.->|不可遍历| n41
+  n42["卡点：OM-P-NT-0009 的关系只写在 equivalent_forms 里，无法遍历"]
+  n34 -.->|不可遍历| n42
+  n43["OM-F-AN-0002 Riemann ζ 函数函数方程 formula/L3/VERIFIED(L3)"]
+  n6 -->|引用| n43
   n10 -->|引用| n22
   n27 -->|引用| n8
   n12 -->|引用| n14
@@ -73,54 +80,54 @@ flowchart TB
   n29 -->|引用| n24
   n29 -->|引用| n22
   n29 -->|引用| n8
-  n39["OM-A-NT-0001 Meissel–Lehmer 精确素数计数算法 algorithm/L2/VERIF…"]
-  n39 -->|引用| n7
+  n44["OM-A-NT-0001 Meissel–Lehmer 精确素数计数算法 algorithm/L2/VERIF…"]
+  n44 -->|引用| n7
   n2 -->|引用| n3
-  n40["OM-D-ST-0001 选择公理 definition/L1/PROPOSED"]
-  n2 -->|引用| n40
-  n2 -->|用到| n40
-  n2 -->|用到| n40
+  n45["OM-D-ST-0001 选择公理 definition/L1/PROPOSED"]
+  n2 -->|引用| n45
+  n2 -->|用到| n45
+  n2 -->|用到| n45
   n3 -->|引用| n2
-  n3 -->|引用| n40
-  n3 -->|用到| n40
-  n41["OM-D-PR-0001 概率空间与随机变量 definition/L1/PROPOSED"]
-  n4 -->|引用| n41
-  n42["OM-T-TG-0002 Banach-Tarski 分球定理 theorem/L1/PROPOSED"]
-  n4 -->|引用| n42
-  n4 -->|用到| n41
-  n43["OM-D-FD-0002 形式语言、证明关系与一致性陈述 definition/L1/PROPOSED"]
-  n43 -->|引用| n5
-  n44["OM-D-FD-0003 罗素类与有穷数学的记号 definition/L1/PROPOSED"]
-  n44 -->|引用| n5
-  n45["OM-D-NT-0003 筛、轮与相邻素数算子的记号 definition/L1/PROPOSED"]
-  n45 -->|引用| n30
-  n40 -->|引用| n2
-  n46["OM-D-ST-0002 可数性与两个 aleph 基数 definition/L1/PROPOSED"]
-  n46 -->|引用| n2
-  n46 -->|引用| n3
-  n47["OM-D-TC-0001 NP 完全性（多项式时间归约下的完全类） definition/L1/PROPOSED"]
-  n47 -->|引用| n33
-  n48["OM-D-TC-0002 复杂性类 P、NP 与 SAT definition/L1/PROPOSED"]
-  n48 -->|引用| n33
-  n49["OM-D-TG-0003 刚体运动、等分等价与球面记号 definition/L1/PROPOSED"]
-  n49 -->|引用| n4
-  n38 -->|引用| n6
-  n50["OM-F-NT-0001 Legendre φ 分块递归与轮积恒等式 formula/L2/VERIFIED(…"]
-  n50 -->|引用| n7
-  n51["OM-F-NT-0002 第 n 素数的 n-only 有限表示（母公式） formula/L2/VERIFI…"]
-  n51 -->|引用| n7
-  n52["OM-F-NT-0003 区间素数计数的 Legendre 窗口恒等式（方块窗口） formula/L3/VE…"]
-  n52 -->|引用| n31
-  n53["OM-F-NT-0004 n²+1 序列的 Legendre–Möbius 筛恒等式与余项爆… formula…"]
-  n53 -->|引用| n30
-  n5 -->|引用| n32
-  n54["OM-T-FD-0001 哥德尔第一不完备定理 theorem/L1/PROPOSED"]
-  n5 -->|引用| n54
-  n55["OM-T-FD-0002 哥德尔第二不完备定理 theorem/L1/PROPOSED"]
-  n5 -->|引用| n55
-  n5 -->|用到| n55
-  n7 -->|引用| n39
-  n7 -->|引用| n50
+  n3 -->|引用| n45
+  n3 -->|用到| n45
+  n46["OM-D-PR-0001 概率空间与随机变量 definition/L1/PROPOSED"]
+  n4 -->|引用| n46
+  n47["OM-T-TG-0002 Banach-Tarski 分球定理 theorem/L1/PROPOSED"]
+  n4 -->|引用| n47
+  n4 -->|用到| n46
+  n48["OM-D-FD-0002 形式语言、证明关系与一致性陈述 definition/L1/PROPOSED"]
+  n48 -->|引用| n5
+  n49["OM-D-FD-0003 罗素类与有穷数学的记号 definition/L1/PROPOSED"]
+  n49 -->|引用| n5
+  n50["OM-D-NT-0003 筛、轮与相邻素数算子的记号 definition/L1/PROPOSED"]
+  n50 -->|引用| n30
+  n45 -->|引用| n2
+  n51["OM-D-ST-0002 可数性与两个 aleph 基数 definition/L1/PROPOSED"]
+  n51 -->|引用| n2
+  n51 -->|引用| n3
+  n52["OM-D-TC-0001 NP 完全性（多项式时间归约下的完全类） definition/L1/PROPOSED"]
+  n52 -->|引用| n36
+  n53["OM-D-TC-0002 复杂性类 P、NP 与 SAT definition/L1/PROPOSED"]
+  n53 -->|引用| n36
+  n54["OM-D-TG-0003 刚体运动、等分等价与球面记号 definition/L1/PROPOSED"]
+  n54 -->|引用| n4
+  n43 -->|引用| n6
+  n55["OM-F-NT-0001 Legendre φ 分块递归与轮积恒等式 formula/L2/VERIFIED(…"]
+  n55 -->|引用| n7
+  n56["OM-F-NT-0002 第 n 素数的 n-only 有限表示（母公式） formula/L2/VERIFI…"]
+  n56 -->|引用| n7
+  n57["OM-F-NT-0003 区间素数计数的 Legendre 窗口恒等式（方块窗口） formula/L3/VE…"]
+  n57 -->|引用| n34
+  n58["OM-F-NT-0004 n²+1 序列的 Legendre–Möbius 筛恒等式与余项爆… formula…"]
+  n58 -->|引用| n30
+  n5 -->|引用| n35
+  n59["OM-T-FD-0001 哥德尔第一不完备定理 theorem/L1/PROPOSED"]
+  n5 -->|引用| n59
+  n60["OM-T-FD-0002 哥德尔第二不完备定理 theorem/L1/PROPOSED"]
+  n5 -->|引用| n60
+  n5 -->|用到| n60
+  n7 -->|引用| n44
+  n7 -->|引用| n55
   n8 -->|引用| n7
   n8 -->|引用| n27
   n8 -->|引用| n11
@@ -138,40 +145,58 @@ flowchart TB
   n8 -->|引用| n26
   n8 -->|引用| n22
   n8 -->|引用| n29
-  n8 -->|引用| n50
+  n8 -->|引用| n55
   n8 -->|引用| n7
-  n56["OM-D-NT-0001 精确整除脉冲、素数指示与整数阶跃 definition/L2/VERIFIED(L2)"]
-  n8 -->|用到| n56
-  n8 -->|用到| n45
-  n30 -->|引用| n53
-  n30 -->|引用| n31
-  n30 ==>|蕴含| n53
-  n30 -->|用到| n53
-  n31 -->|引用| n52
+  n61["OM-D-NT-0001 精确整除脉冲、素数指示与整数阶跃 definition/L2/VERIFIED(L2)"]
+  n8 -->|用到| n61
+  n8 -->|用到| n50
+  n30 -->|引用| n58
+  n30 -->|引用| n34
+  n30 ==>|蕴含| n58
+  n30 -->|用到| n58
   n31 -->|引用| n8
-  n31 -->|引用| n30
-  n31 ==>|蕴含| n52
-  n31 -->|用到| n52
-  n32 -->|引用| n5
-  n57["OM-T-TC-0001 停机问题不可判定 theorem/L1/PROPOSED"]
-  n32 -->|引用| n57
-  n32 -->|用到| n57
-  n33 -->|引用| n47
-  n58["OM-T-TC-0002 Cook-Levin 定理（SAT 是 NP 完全） theorem/L1/PROP…"]
-  n33 -->|引用| n58
-  n33 -->|用到| n47
-  n54 -->|引用| n5
-  n54 ==>|蕴含| n5
-  n55 -->|引用| n5
-  n55 ==>|蕴含| n5
-  n59["OM-T-NT-0001 素数离散微积分闭环（指示 ↔ 计数 ↔ 第 n 素数） theorem/L2/VER…"]
-  n59 -->|引用| n7
-  n60["OM-T-NT-0002 素数计数分块递归分解（Legendre φ 递归恒等式） theorem/L2/VE…"]
-  n60 -->|引用| n7
-  n61["OM-T-NT-0006 一般 wheel 覆盖定理 theorem/L2/VERIFIED(L2)"]
-  n61 -->|引用| n7
-  n62["OM-T-NT-0008 素数间隔的 Jacobsthal 上界 theorem/L2/VERIFIED(L2)"]
-  n62 -->|引用| n7
-  n57 -->|引用| n32
-  n57 ==>|蕴含| n32
-  n42 -->|引用| n4
+  n62["（无节点载体）OM-P-NT-0008-selberg-weight-support-202…"]
+  n31 -->|旁证| n62
+  n32 -->|引用| n61
+  n32 -->|引用| n50
+  n32 -->|引用| n8
+  n32 -->|引用| n33
+  n63["（无节点载体）OM-P-NT-0007-liouville-asymptotic-survi…"]
+  n32 -->|旁证| n63
+  n32 -->|旁证| n62
+  n32 -->|用到| n61
+  n32 -->|用到| n50
+  n33 -->|引用| n50
+  n33 -->|引用| n8
+  n33 -->|引用| n32
+  n33 -->|旁证| n62
+  n33 -->|用到| n50
+  n33 -->|用到| n32
+  n34 -->|引用| n57
+  n34 -->|引用| n8
+  n34 -->|引用| n30
+  n34 ==>|蕴含| n57
+  n34 -->|用到| n57
+  n35 -->|引用| n5
+  n64["OM-T-TC-0001 停机问题不可判定 theorem/L1/PROPOSED"]
+  n35 -->|引用| n64
+  n35 -->|用到| n64
+  n36 -->|引用| n52
+  n65["OM-T-TC-0002 Cook-Levin 定理（SAT 是 NP 完全） theorem/L1/PROP…"]
+  n36 -->|引用| n65
+  n36 -->|用到| n52
+  n59 -->|引用| n5
+  n59 ==>|蕴含| n5
+  n60 -->|引用| n5
+  n60 ==>|蕴含| n5
+  n66["OM-T-NT-0001 素数离散微积分闭环（指示 ↔ 计数 ↔ 第 n 素数） theorem/L2/VER…"]
+  n66 -->|引用| n7
+  n67["OM-T-NT-0002 素数计数分块递归分解（Legendre φ 递归恒等式） theorem/L2/VE…"]
+  n67 -->|引用| n7
+  n68["OM-T-NT-0006 一般 wheel 覆盖定理 theorem/L2/VERIFIED(L2)"]
+  n68 -->|引用| n7
+  n69["OM-T-NT-0008 素数间隔的 Jacobsthal 上界 theorem/L2/VERIFIED(L2)"]
+  n69 -->|引用| n7
+  n64 -->|引用| n35
+  n64 ==>|蕴含| n35
+  n47 -->|引用| n4

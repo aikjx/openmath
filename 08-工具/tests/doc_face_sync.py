@@ -92,6 +92,13 @@ def parse_face(t):
     v["ep_one"] = one(r"one end off graph\s*:\s*(\d+)", "one end")[0]
     v["ep_none"] = one(r"both ends off graph\s*:\s*(\d+)", "both ends off")[0]
     v["ep_self"] = one(r"collapsed to self-loop\s*:\s*(\d+)", "self-loop")[0]
+    # 分账那一行是第 8 批新增的通道。parse 不到就抛：版面变形而闸门静默少读一格，
+    # 下一轮就会拿着「总数对上了」放行一份没写型的文档。
+    m = re.search(r"^  off-graph ends by class\s*:\s*(\d+) 个端点 -> (.*)$", t, re.M)
+    if not m:
+        raise AssertionError("版面格 off-graph ends by class 没 parse 到（分账通道没落地或换了拼写）")
+    v["sides"] = int(m.group(1))
+    v["cls"] = dict((k, int(x)) for k, x in re.findall(r"([a-z-]+)=(\d+)", m.group(2)))
     v["dom"] = one(r"domains with >=1 node\s*:\s*(\d+)\s*/\s*(\d+)", "domains with >=1 node")
     v["placed"] = one(r"domains placed\s*:\s*(\d+)\s*/\s*(\d+)", "domains placed")
     m = re.search(r"declared unplaced\s*:\s*([A-Z, ]+)", t)
@@ -111,6 +118,14 @@ def parse_face(t):
     assert v["nodes"] == v["keys"], "版面 nodes != unique keys"
     assert v["ep"][1] == v["edges"], "端点普查的分母不是 typed edges"
     assert v["ep"][0] + v["ep_one"] + v["ep_none"] == v["edges"], "端点三格相加不等于总边数"
+    assert v["sides"] == v["ep_one"] + 2 * v["ep_none"], "分账端点数与一端／两端普查不闭合"
+    assert sum(v["cls"].values()) == v["sides"], "悬边按型分账加不回端点总数（有一型被静默吞掉）"
+    # ambiguous-id 这一型与 AMBIGUOUS_REFERENCE 数的是同一批边的同一批缺失端点：
+    # 两把尺子读不同数，说明其中一把挂在了别的数据源上（第 8 批就是这样发现它恒 0 的）。
+    # 读不到那一类按 0 算而不是 KeyError：崩在 parse_face 里等于这一跑没有判决，文档反被放行。
+    assert v["cls"].get("ambiguous-id", 0) == v["gaps"].get("AMBIGUOUS_REFERENCE", (0,))[0], \
+        "分账 ambiguous-id %d 枚 != 版面 AMBIGUOUS_REFERENCE %d 枚" % (
+            v["cls"].get("ambiguous-id", 0), v["gaps"].get("AMBIGUOUS_REFERENCE", (0,))[0])
     assert sum(v["census"].values()) == v["edges"], "边型普查不等于总边数"
     assert v["chart"]["00-四层总览"]["domains_with_nodes"] == v["dom"][0], "图元数据与域读数不一致"
     return v
@@ -194,6 +209,9 @@ def claims(v, mut, dc, da, vf, lv, pd):
     g = v["gaps"]
     cen = v["census"]
     big = max(dc, key=lambda k: dc[k])          # 记录最多的域：双口径示例由它现推，不是我挑的
+    # 共用号段最多的那个 ID：由版面 `shared` 现推。撞号消解后最热的那一段会换人，
+    # 下面 H7/H8 的正则跟着换——我不在任何正则里打 `OM-P-NT-0003`。
+    hot = max(v["shared"], key=lambda k: v["shared"][k]) if v["shared"] else "NONE"
     order = [n for n, _ in sorted(cen.items(), key=lambda kv: -kv[1])]
     return [
         # 第 9 行那句「本轮 N 类 … → 名单」是版面 verdict 的散文抄本：它比表格更早过期，
@@ -210,13 +228,20 @@ def claims(v, mut, dc, da, vf, lv, pd):
          [v["docs"], max(v["shared"].values()) if v["shared"] else 0]),
         ("§一 端点加法", OV, r"这三格相加与版面 `typed edges` 比过一次，(\d+)＋(\d+)＋(\d+)＝(\d+)。",
          [v["ep"][0], v["ep_one"], v["ep_none"], v["edges"]]),
+        # 型名单由版面现推（同 §二 域名单 那一型）：语料多出一型（比如 unexplained），
+        # 这条正则就抄不到句子——文档被迫点名它，而不是把新形状并进「其余若干枚」。
+        ("§一 悬边分账", OV,
+         "分账现印 (\\d+) 个端点：" + "／".join("`%s` (\\d+)" % k for k in sorted(v["cls"])),
+         [v["sides"]] + [v["cls"][k] for k in sorted(v["cls"])]),
         ("§一 跨层边", OV, r"跨层的真实边共 (\d+) 条，折叠成 (\d+) 条层间边",
          [cm["real_edges_between_layers"], cm["layer_edges"]]),
         ("§一 逻辑层", OV, r"\| 逻辑层 \| [^|]* \| (\d+) \|", [lay["逻辑层"]]),
         ("§一 方程层", OV, r"\| 方程层 \| [^|]* \| (\d+) \|", [lay["方程层"]]),
         ("§一 难题层", OV, r"\| 难题层 \| [^|]* \| (\d+) \|", [lay["难题层"]]),
         ("§二 域覆盖", OV, r"`domains with >=1 node` ＝ (\d+) / (\d+)", [v["dom"][0], v["dom"][1]]),
-        ("§二 双口径", OV, "例如 `%s` 记录 (\\d+) 条、图上 (\\d+) 个节点" % big, [dc[big], da[big]]),
+        # 「差的 K 个」是文档替读者做的一次减法：只判前两格＝放过这一型最容易过期的算术。
+        ("§二 双口径", OV, "例如 `%s` 记录 (\\d+) 条、图上 (\\d+) 个节点，差的 (\\d+) 个" % big,
+         [dc[big], da[big], da[big] - dc[big]]),
         ("§二 账本节点", OV, r"全库仅 md 的账本节点本轮 (\d+) 个", [v["docs"]]),
         # 散文里重打一遍的名单：正则由现推的域名单拼出来，域集合一变就抄不到句子（同 公式库 域名单 的道理）。
         ("§二 域名单", OV, "（" + "、".join("`%s`×(\\d+)" % d for d in sorted(dc)) + "）",
@@ -254,9 +279,22 @@ def claims(v, mut, dc, da, vf, lv, pd):
         ("§八 0003 卷宗", OV, r"`OM-P-NT-0003` 在版面 `nodes` 上挂着 (\d+) 个 doc 节点",
          [v["shared"].get("OM-P-NT-0003", 0)]),
         ("§五 悬空散文", OV, r"版面 `DANGLING`＝(\d+) 枚", [g["DANGLING"][0]]),
-        ("§八 旁证债", OV, r"`EDGE_ENDPOINT_OFF_GRAPH` (\d+) 枚：(\d+) 枚给 `OM-P-NT-0005`",
+        ("§八 旁证债", OV, r"`EDGE_ENDPOINT_OFF_GRAPH` (\d+) 枚，其中 (\d+) 枚挂在证据档",
          [g["EDGE_ENDPOINT_OFF_GRAPH"][0], v["chart"]["04-桥接与旁证"]["edges_with_off_graph_end"]]),
         ("§八 verify 判决行数", OV, r"判决行 (\d+) 条＝版面记录数", [v["records"]]),
+        # ---- §八 那张债表：它是散文，不是表格，所以 `§五 缺口表` 的牙咬不到它 ----
+        # 同名的格子在 §五 印一次、在 §八 又讲一遍，讲的那一遍必须各挂一条声明（第 5 批「散文没牙」同族）。
+        ("§八 债表 MD_ONLY_LEDGER", OV, r"`MD_ONLY_LEDGER` (\d+) 份：把攻坚账本", [g["MD_ONLY_LEDGER"][0]]),
+        ("§八 债表散文关系", OV, r"`PROSE_RELATION_UNTRAVERSABLE` (\d+) 枚：把散文里的关系",
+         [g["PROSE_RELATION_UNTRAVERSABLE"][0]]),
+        ("§八 空域计数", OV,
+         r"空域 (\d+) 个（`SC`（统计与数据科学）／`NA`（数值分析）／`MP`（数学物理）／"
+         r"`OR`（运筹与系统科学）／`XS`（交叉与新兴））：版面 `domains with >=1 node` 现印 (\d+) / (\d+)",
+         [v["dom"][1] - v["dom"][0], v["dom"][0], v["dom"][1]]),
+        # 上一批这句写的是「其余 15 枚要给共用号段配独立号」；本轮 0003 有了记录主人，
+        # 这一型收到 0 枚——措辞留着，数由 (总枚数 − 桥接那几枚) 现推，所以它红就红在算式上。
+        ("§八 旁证其余", OV, r"其余 (\d+) 枚是上一批那条共用号段的账",
+         [g["EDGE_ENDPOINT_OFF_GRAPH"][0] - v["chart"]["04-桥接与旁证"]["edges_with_off_graph_end"]]),
         ("KG 节点键", KG, r"版面现印 record (\d+) 个、doc (\d+) 个", [v["records"], v["docs"]]),
         ("KG 键数", KG, r"`nodes / unique keys` ＝ (\d+) / (\d+)", [v["nodes"], v["keys"]]),
         ("KG 端点", KG, r"两端都在图内 (\d+) / (\d+)、一端无载体 (\d+)、两端无载体 (\d+)、\n两端并成一个键 (\d+)",
@@ -266,6 +304,15 @@ def claims(v, mut, dc, da, vf, lv, pd):
         ("KG contradicts", KG,
          r"`contradicts` 已实现\*\*（版面 `---- edge type census ----` 现印 (\d+) 条）", [cen["contradicts"]]),
         ("KG 复现 变异体", KG, r"graph_mutants\.py   # (\d+) 枚指名变异体", [mut[0]]),
+        # 同一句里把「归域」与「有节点」两把尺子重打一遍：只判前一次出现＝放过第二次，
+        # 而散文最擅长的就是让第二次留在旧语料上（本轮实测它就是旧的 14 / 20）。
+        ("KG 域口径复述", KG, r"所以 (\d+) / (\d+) 与 (\d+) / (\d+) 之间",
+         [v["placed"][0], v["placed"][1], v["dom"][0], v["dom"][1]]),
+        # 这条是登记在册的老债：那句「被 13 份文件共用」从来不在词表里，本轮给它发凭据。
+        # 号段名由 hot 现推、拼进正则当**字面量**（不进捕获组，见 ⑥e 的形状闸门）：撞号消解后热点换人，
+        # 这一条就抄不到句子——判 MISSING-CLAIM 是响，比让它进通用 int 路（崩＝零判决）好。
+        ("KG 共用号段", KG, "`" + hot + "` 被 (\\d+) 份文件共用", [v["shared"].get(hot, 0)]),
+        ("KG 折键面孔", KG, r"键会折掉——(\d+) 张攻坚面孔", [max(v["shared"].values()) - 1 if v["shared"] else 0]),
         ("索引层 边型普查", IX,
          r"全库 (\d+) 条，其中 " + "、".join("`%s` (\\d+)" % t for t in order),
          [v["edges"]] + [cen[t] for t in order]),
@@ -276,6 +323,13 @@ def claims(v, mut, dc, da, vf, lv, pd):
         # 名单本身由 graph.json 现推：域多一个或少一个，这条正则就抄不到句子——文档被迫跟着语料改。
         ("公式库 域名单", LIB, "已有条目的域：" + "、".join("`%s`×(\\d+)" % d for d in sorted(dc)) + "。",
          [dc[d] for d in sorted(dc)]),
+        # 目录树那一格是「文档自己抄一份普查」：15 行 ×（域, 条数），走 §三 那一型的双向核对。
+        ("公式库 目录树", LIB, r"\(([A-Z]{2})\)  ×(\d+) 条", None),
+        ("公式库 空域目录", LIB, r"(\d+) 个域还没有目录", [v["dom"][1] - v["dom"][0]]),
+        # LIB 的合计行把 verify 四槽又相加了一遍（写成「＝版面记录数」）：四槽由 parse_verify 复算，
+        # 和数这一格不进门就是让散文自己证自己——OV 那边同型的那句已由「§八 verify 四格相加」接住。
+        ("公式库 verify 四格相加", LIB,
+         r"（(\d+)＋(\d+)＋(\d+)＋(\d+)＝(\d+)＝版面记录数", (vf or [0, 0, 0, 0]) + [v["records"]]),
         # ---- CHANGELOG：只判「第 3 批记录」那一条条目（见 main 的 scope），历史条目里的旧数不归本判据管 ----
         ("CHANGELOG 记录数", CH, r"台账从 \d+ 条涨到 \*\*(\d+) 条\*\*", [v["records"]]),
         ("CHANGELOG 域覆盖", CH, r"域覆盖 \*\*\d+ / \d+ → (\d+) / (\d+)\*\*", [v["dom"][0], v["dom"][1]]),
@@ -293,6 +347,11 @@ def claims(v, mut, dc, da, vf, lv, pd):
         # 第四槽是 UNKNOWN：它必须出现在文档句子里（句子还是三槽就判 MISSING-CLAIM，不许看不见）。
         ("§八 verify", OV, r"已复跑：\*\*(\d+) PASS／(\d+) SKIP／(\d+) FAIL／(\d+) UNKNOWN\*\*",
          vf or [0, 0, 0, 0]),
+        # 四槽之外文档还写了一遍「相加＝版面记录数」：那是「这一跑走完了全程」的人读版本，
+        # 和数不进门就是让散文自己证自己（四槽由 parse_verify 复算，和数由 v[records] 复算）。
+        ("§八 verify 四格相加", OV,
+         r"四格相加 (\d+)＋(\d+)＋(\d+)＋(\d+)＝(\d+) 与版面记录数闭合",
+         (vf or [0, 0, 0, 0]) + [v["records"]]),
         ("公式库 verify", LIB, r"已复跑：\*\*(\d+) PASS／(\d+) SKIP／(\d+) FAIL／(\d+) UNKNOWN\*\*",
          vf or [0, 0, 0, 0]),
         ("CHANGELOG verify", CH, r"＝\*\*(\d+) PASS／(\d+) SKIP／(\d+) FAIL／(\d+) UNKNOWN\*\*",
@@ -406,6 +465,28 @@ def check(doc_texts, v, mut, dc, da, vf, lv, pd):
                 lines.append("OK           §三 域×记录数表｜%d 行逐格与 record 节点普查相符" % len(dc))
             red += local
             continue
+        if tag == "公式库 目录树":
+            # 双向核对：缺行（新域没进树）、多行（树里留着已消失的域）、错数（抄了旧普查）各判一型。
+            seen = {}
+            for dom, num in hits:
+                seen[dom] = int(num)
+            local = 0
+            for dom in sorted(dc):
+                want, got = dc[dom], seen.get(dom)
+                if got is None:
+                    lines.append("MISSING-ROW  公式库 目录树缺 `%s`（版面 record 节点 %d 条）" % (dom, want))
+                    local += 1
+                elif got != want:
+                    lines.append("MISMATCH     公式库 目录树 `%s`：文档 (%d) ≠ 复算值 (%d)" % (dom, got, want))
+                    local += 1
+            for dom in sorted(set(seen) - set(dc)):
+                lines.append("EXTRA-ROW    公式库 目录树多出行 `%s`（%d）：版面这一域没有记录节点"
+                             % (dom, seen[dom]))
+                local += 1
+            if not local:
+                lines.append("OK           公式库 目录树｜%d 行逐格与 record 节点普查相符" % len(dc))
+            red += local
+            continue
         if tag == "§〇 verdict 名单":
             # 第二组是类名名单，不能走下面那条 `int(x)` 的通用路（名单里的字母会变成 ValueError，
             # 崩在判决面上＝这一跑没有判决）。
@@ -454,6 +535,16 @@ def check(doc_texts, v, mut, dc, da, vf, lv, pd):
             else:
                 lines.append("OK           %s｜现值 %d 与版面相符，方向词与两数之差同号（%d 处命中）"
                              % (tag, cur_want, len(hits)))
+            continue
+        nonnum = [h for h in hits if not all(x.isdigit() for x in h)]
+        if nonnum:
+            # 通用比较走 int()：某条声明若把**名字**（号段 ID、类名）设成捕获组，
+            # `int('OM-P-NT-0003')` 会抛 ValueError 把整台仪器打死——零判决，文档反被放行。
+            # 抓名字的声明必须走名单型分支（见 §〇 verdict 名单）；这里先把崩转成红，再把这一条拒掉。
+            lines.append("BAD-CLAIM-SHAPE %s｜命中的 %d 处里有 %d 处含非数字捕获组 %s："
+                         "这条声明要抓名字，得走名单型分支而不是通用 int 路"
+                         % (tag, len(hits), len(nonnum), "/".join(str(x) for x in nonnum[0])))
+            red += 1
             continue
         bad = [tuple(int(x) for x in h) for h in hits if [int(x) for x in h] != exp]
         if bad:

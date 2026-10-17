@@ -1,0 +1,111 @@
+# 记录主人（2026-10-17 补铸）：这个号自 2026-09-25 起只由结果档带着走
+# （`05-验证中心/03-结果/2026/09/OM-P-NT-0006-parity-2x2-liouville-20260925.md`／同名 .json），
+# 盘上没有机器可读记录 ⇒ 版面 `EDGE_ENDPOINT_OFF_GRAPH` 的 `no-carrier` 型端点（该号被两枚边命中）。
+# 本文件只建立记录本体：不改动任何结果档，不新铸号段，陈述逐条取自该结果档与它的 json（见 provenance／fact_check）。
+schema_version: "0.1"
+
+id: OM-P-NT-0006
+kind: problem
+title_zh: Liouville 奇偶（2x2）系统——哥德巴赫的三矩精确归约与单矩充分判据
+title_en: The Liouville Parity 2x2 System - Exact Three-Moment Reduction of Goldbach and a One-Moment Sufficient Criterion
+domain: NT
+msc:
+  - "11P32"   # Goldbach 型猜想（加性数论）
+  - "11N35"   # 素数在加性问题中的分布
+tags:
+  - Goldbach
+  - Liouville 函数
+  - 奇偶障碍
+  - 矩方法
+  - 开放问题
+
+status: PARTIAL
+evidence_level: L1
+revision: 1
+created: 2026-10-17
+updated: 2026-10-17
+
+assumptions:
+  - "论域为偶数 N；筛水平 z = icbrt(N) = floor(N^(1/3))，故 S_z 上 Omega(n) <= 2，素数指示恰为 (1 - lambda(n))/2"
+  - "S_z = {n : 1 <= n <= N-1, (n, P(z)) = (N-n, P(z)) = 1}，P(z) 为不超过 z 的素数之积"
+  - "编码对 z 的依赖是硬的，不是可调参数：z 降到 N^(1/4) 后 Omega 可达 3，恒等式残差 4*a11 - (T - 2*M1 + M2) 在 N = 10^4／10^5／10^6 实测为 -216／-848／-5960"
+  - "全部读数在 N <= 10^6 的有限尺度；计算与实测不构成证明（红线一），本记录不宣称任何无条件定理"
+
+statement_latex: >-
+  对偶数 N 与 z = icbrt(N)，记 T = |S_z|、M1 = sum_{n in S_z} lambda(n)、
+  M2 = sum_{n in S_z} lambda(n) lambda(N-n)，则 a11 = #{n in S_z : n 与 N-n 皆为素数}
+  满足精确恒等式 a11 = sum_{n in S_z} (1 - lambda(n))(1 - lambda(N-n))/4 = (T - 2 M1 + M2)/4；
+  因而 (T, M1, M2) 三矩把 (a11, a12, a22) 唯一确定（自由度 = 0），
+  且单矩充分判据 M1 < 0 给出 a11 >= -M1 >= 1，即 N 有 Goldbach 分拆
+
+proposed_by: "openmath 攻坚轮（本库内部轮次，非外部文献归属）"
+proposed_year: 2026
+
+current_status: OPEN
+
+partial_results:
+  - year: 2026
+    author: "openmath 2026-09-25 轮（本库）"
+    result: "恒等式在 N = 1000／3000／10^4／3*10^4／10^5／3*10^5／10^6 七点机器核对为整数相等（非渐近），Omega <= 2 与 a12 = a21 全程 True"
+  - year: 2026
+    author: "openmath 2026-09-25 轮（本库）"
+    result: "单矩判据实测：80 个偶数（20000 <= N <= 60000）中 M1 < 0 的比例为 1.0000；判据本身充分非必要（要求 P1+P1 表示数多于 P2+P2，强于 Goldbach）"
+  - year: 2026
+    author: "openmath 2026-09-25 轮（本库）"
+    result: "把缺口精确定价：结论只需 M1 的上界比平凡界 |M1| <= T 节省一个常数因子，N = 10^6 处为 1.832（七点区间 1.655~1.860）；现有筛法对该节省给出 0"
+  - year: 2026
+    author: "openmath 2026-09-25 轮（本库）"
+    result: "上一轮 mod-N 闭合轨道（§13）路线被实测精确证否：corr(lambda(a n mod N), lambda(a) lambda(n)) 恒为 1/a 量级且不随 N 衰减（归因＝无回绕子集密度恰为 1/a），反射量 F_N 在该置换下相关仅 ~1e-3"
+
+resolution: null
+
+refutation: null
+
+prize: ""
+
+# 关系表只连**盘上真有记录**的号段，否则新建的边会立刻进 DANGLING。
+related:
+  - OM-P-NT-0003
+  - OM-P-NT-0007
+uses:
+  - OM-D-NT-0001
+  - OM-D-NT-0003
+
+equivalent_forms:
+  - "在本设定下：N 有 Goldbach 分拆 <=> a11 >= 1 <=> T - 2*M1 + M2 >= 4（整数恒等式，非渐近）"
+  - "充分形式：M1 < 0（即 S_z 上 P1+P1 计数多于 P2+P2 计数）=> 该 N 满足二元 Goldbach"
+
+implications:
+  - statement: "若对一切充分大偶数 N 有 sum_{n in S_z} lambda(n) < 0，则二元 Goldbach 对一切充分大偶数成立"
+    direction: "sufficient"
+    note: "该路线把 Goldbach 精确归约为「证明一个 Liouville 加权筛和的符号」，是 Selberg 奇偶障碍的最精简表述，不是绕过它的新工具；结果档「仍然开放」一节自陈现有筛法不能区分 Omega 的奇偶"
+  - statement: "N <= 10^6 处 M1 < 0 的比例为 1.0000 不蕴含渐近符号"
+    direction: "insufficient"
+    note: "有限尺度实测与逐点渐近断言是两个独立问题（红线一）；符号的渐近存活性由 OM-P-NT-0007 单独处理，其密度模型读数是启发式而非定理"
+  - statement: "三个矩 (T, M1, M2) 恰好定解不蕴含这三个矩可计算"
+    direction: "insufficient"
+    note: "代数上自由度 = 0，但 T 需要维度 2 筛在 s = log N / log z = 3 的上下界常数、M2 需要对 d 直到 e^(N^(1/3)) 一致的 Lambda 相关估计（二元 Chowla 型），均远超现有技术"
+
+fact_check:
+  status: UNVERIFIED
+  sources:
+    - type: file
+      value: "05-验证中心/03-结果/2026/09/OM-P-NT-0006-parity-2x2-liouville-20260925.md"
+    - type: file
+      value: "05-验证中心/03-结果/2026/09/OM-P-NT-0006-parity-2x2-liouville-20260925.json"
+    - type: file
+      value: "05-验证中心/01-引擎/goldbach_parity_2x2_liouville_20260925.py"
+  note: >-
+    来源全部是本库自己的结果档与引擎脚本，未做外部文献核对（故 status 保持 UNVERIFIED）；
+    结果档 json 自陈 ai_assisted=true 且 independent_human_review=false，
+    因此证据等级钉在 L1（结构良构），不宣称 L2／L3。本记录不自称已把 Goldbach 往前推进——
+    结果档第 3 行的自陈是「本稿不证明哥德巴赫，只把上一轮提出的 2x2 系统算到底」。
+
+provenance:
+  ai_assisted: true
+  ai_role: full_generation
+  sources:
+    - type: file
+      value: "05-验证中心/03-结果/2026/09/OM-P-NT-0006-parity-2x2-liouville-20260925.md"
+  contributors:
+    - "openmath-bot"

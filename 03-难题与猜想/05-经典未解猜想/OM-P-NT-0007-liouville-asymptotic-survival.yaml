@@ -1,0 +1,117 @@
+# 记录主人（2026-10-17 补铸）：这个号自 2026-09-26 起只由结果档带着走
+# （`05-验证中心/03-结果/2026/09/OM-P-NT-0007-liouville-asymptotic-survival-20260926.md`／同名 .json，
+# 该 json 第 7 行 `carries_over_from: OM-P-NT-0006`），
+# 盘上没有机器可读记录 ⇒ 版面 `EDGE_ENDPOINT_OFF_GRAPH` 的 `no-carrier` 型端点。
+# 本文件只建立记录本体：不改动任何结果档，不新铸号段，陈述逐条取自该结果档与它的 json（见 provenance／fact_check）。
+schema_version: "0.1"
+
+id: OM-P-NT-0007
+kind: problem
+title_zh: 单矩判据的渐近存活性与展开预算（Liouville 密度假设模型与精确修正项）
+title_en: Asymptotic Survivability and Expansion Budget of the One-Moment Goldbach Criterion - Liouville Density Model and the Exact Correction Term
+domain: NT
+msc:
+  - "11P32"   # Goldbach 型猜想（加性数论）
+  - "11N35"   # 素数在加性问题中的分布
+tags:
+  - Goldbach
+  - Liouville 函数
+  - 奇偶障碍
+  - Hardy-Littlewood 型奇异级数
+  - 等差数列中的 lambda
+  - 开放问题
+
+status: PARTIAL
+evidence_level: L1
+revision: 1
+created: 2026-10-17
+updated: 2026-10-17
+
+assumptions:
+  - "设定全部继承 OM-P-NT-0006：偶数 N、z = icbrt(N)、S_z 上 Omega <= 2、M1 = sum_{n in S_z} lambda(n)"
+  - "归一化单位是 4*S(N)*N/log^2 N 型主项（Hardy–Littlewood 形式），kappa 系列即各量对该单位的比值"
+  - "密度模型的两处输入 kappa_x(inf) = 1 与 c_B(inf) = log 2 依赖 Hardy–Littlewood 型独立性假设，结果档自陈该假设恰在奇偶障碍处失效"
+  - "全部实测在 N <= 3*10^6（块 2b 另限 x <= 10^6、q <= 2310）；计算与实测不构成证明（红线一）"
+
+statement_latex: >-
+  两条独立陈述，强度不同，必须分开读：
+  （严格）对偶数 N 有精确恒等式 M_1 = a_22 - a_11 + 2c，
+  c = [spf(N-1) > floor(N^(1/3)) 且 Omega(N-1) 为偶] ∈ {0, 1}；
+  （启发式）在标准奇异级数密度模型下 kappa_w(inf) = (log 2)^2、kappa_x(inf) = 1，
+  故 kappa_1(inf) = (log 2)^2 - 1 ≈ -0.5195 < 0，即 OM-P-NT-0006 的单矩判据在渐近意义下存活
+
+proposed_by: "openmath 攻坚轮（本库内部轮次，非外部文献归属）"
+proposed_year: 2026
+
+current_status: OPEN
+
+partial_results:
+  - year: 2026
+    author: "openmath 2026-09-26 轮（本库）"
+    result: "精确身份 M_1 = a_22 - a_11 + 2c 机器核对 2021 个偶数（密集段 N <= 4000 全偶 + 块 1 全部实测点，最大 N = 3000000），违反 0 例；其中 2c = 2 的情形 303 例，说明修正项不恒为 0"
+  - year: 2026
+    author: "openmath 2026-09-26 轮（本库）"
+    result: "密度模型给出 kappa_1(inf) = (log 2)^2 - 1 = -0.5195 < 0（判据渐近存活），余量非边缘：kappa_w(inf) 即便有 30% 模型误差结论仍为负"
+  - year: 2026
+    author: "openmath 2026-09-26 轮（本库）"
+    result: "1/log N 盲外推路线被自校验否掉：Hardy–Littlewood 预言 kappa_x(inf) = 1，实测外推读数 0.093（二次）／1.201（线性）与 1.138／1.109，一条序列未过阈值 0.25，两序列 kappa_1(inf) 区间甚至异号 ⇒ extrapolation_route_status = UNDETERMINED，外推读数一律作废"
+  - year: 2026
+    author: "openmath 2026-09-26 轮（本库）"
+    result: "M_1 的 Möbius 展开与 CRT／等差数列分解在 9 个案例（N = 1000／2000／4000 × z = 7／11／13）上逐项精确成立，排除 p | N 时重复计数的错误"
+  - year: 2026
+    author: "openmath 2026-09-26 轮（本库）"
+    result: "lambda 在等差数列中的和实测**低于**目标预算：相对平凡界最大比值 0.601，相对预算 x/log^2 x 最大 0.500 ⇒ 障碍是「没有已知方法能证明一致的常数因子节省」，不是数值大小问题"
+
+resolution: null
+
+refutation: null
+
+prize: ""
+
+# 关系表只连**盘上真有记录**的号段，否则新建的边会立刻进 DANGLING。
+related:
+  - OM-P-NT-0003
+  - OM-P-NT-0006
+uses:
+  - OM-D-NT-0003
+
+equivalent_forms:
+  - "单矩判据的渐近问题等价于符号问题：kappa_1(inf) < 0 ⇒ 判据对充分大偶数是一条合法的（奇偶敏感的）归约目标；kappa_1(inf) >= 0 ⇒ 判据作为充分条件报废，必须退回完整三矩"
+  - "修正项可忽略这一原本含糊的假设，被本轮收紧为可核对的形式：|2c|/单位 <= 2/单位 -> 0（c ∈ {0,1}）"
+
+implications:
+  - statement: "若 kappa_w(inf) = (log 2)^2 与 kappa_x(inf) = 1 可作为定理成立，则 OM-P-NT-0006 的单矩判据对一切充分大偶数 N 有效，从而二元 Goldbach 对一切充分大偶数成立"
+    direction: "sufficient"
+    note: "条件性：两处输入都用到 Hardy–Littlewood 型独立性假设，结果档裁定（§六）明写这是启发式模型结论、不是定理；本轮的作用是把「判据是否值得作为归约目标」从未知变成有明确正面指示"
+  - statement: "c_B(N) 在 N = 3*10^6 处实测仍只有 0.5907（log 2 = 0.6931），两种拟合给出 0.538／0.793"
+    direction: "insufficient"
+    note: "数值只把 log 2 夹在中间、不确认它（相邻 N 抖动可达 0.03）；log 2 的地位是解析导出的猜测。模型对 kappa_w 的偏差须分尺度：尾部 <= 4%，全程范围 [0.648822172109222, 1.0944365703275272]，不得用 3~4% 描述全程"
+  - statement: "块 2b 的 level-of-distribution 实测不蕴含任何渐近断言"
+    direction: "insufficient"
+    note: "取值范围已由结果档披露并自我修正：只测 x <= 10^6、q <= 2310；早期版本把 q = 1000／10000 计入而报出 ratio_to_trivial = 1.0，属小样本假象（该比值有硬上界 1），已剔除"
+
+fact_check:
+  status: UNVERIFIED
+  sources:
+    - type: file
+      value: "05-验证中心/03-结果/2026/09/OM-P-NT-0007-liouville-asymptotic-survival-20260926.md"
+    - type: file
+      value: "05-验证中心/03-结果/2026/09/OM-P-NT-0007-liouville-asymptotic-survival-20260926.json"
+    - type: file
+      value: "05-验证中心/01-引擎/goldbach_liouville_asymptotic_survival_20260926.py"
+  note: >-
+    来源全部是本库自己的结果档与引擎脚本，未做外部文献核对（故 status 保持 UNVERIFIED）；
+    结果档 json 自陈 ai_assisted=true 且 independent_human_review=false，
+    因此证据等级钉在 L1（结构良构），不宣称 L2／L3。
+    本记录不得被读成「哥德巴赫的渐近情形已解决」：正面读数是启发式模型，负面读数是外推路线作废。
+
+provenance:
+  ai_assisted: true
+  ai_role: full_generation
+  sources:
+    - type: file
+      value: "05-验证中心/03-结果/2026/09/OM-P-NT-0007-liouville-asymptotic-survival-20260926.md"
+    - type: file
+      value: "03-难题与猜想/05-经典未解猜想/OM-P-NT-0006-parity-2x2-liouville.yaml"
+  contributors:
+    - "openmath-bot"

@@ -82,7 +82,7 @@ provenance: {ai_assisted: false, ...}
 ├── 博弈论与优化/         (GO)  ×3 条
 ├── 图论/                 (GT)  ×1 条
 ├── 数学基础与逻辑/       (FD)  ×7 条
-├── 数论/                 (NT)  ×18 条
+├── 数论/                 (NT)  ×20 条
 ├── 概率论/               (PR)  ×4 条
 ├── 理论计算机科学/       (TC)  ×6 条
 ├── 组合数学/             (CB)  ×2 条
@@ -135,11 +135,11 @@ python -m openmath index --level L4          # 按证据等级筛选
 | 目录 `范畴论` | 4 | 条数由 `graph.json` 的 record 节点 path 现数 |
 | 目录 `集合论` | 6 | 条数由 `graph.json` 的 record 节点 path 现数 |
 | 目录 `05-经典未解猜想` | 1 | 条数由 `graph.json` 的 record 节点 path 现数 |
-| **合计** | **73** | `python -m openmath lint` 现印 记录数 73／加载失败 0／错误 0（凭据 `scratch/LINT_after_tranche3.txt`）；`verify --level L2` 本轮已复跑：**20 PASS／51 SKIP／0 FAIL／2 UNKNOWN**（20＋51＋0＋2＝73＝版面记录数，凭据 `scratch/VERIFY_L2_clean.txt`。上一版这一格写的是「19＋46＝65」，而它同一句里引用的 PASS 是 20——**那句自己就没闭合**；现在四个槽由判决面复算，相加闭合由本句印出，`doc_face_sync` 守着）；51 个 SKIP 全是「记录未提供 sympy 表达式」，也就是这些方程还没有可跑形式；2 个 UNKNOWN 是两张不带 `checks` 的数论记号卡（`OM-D-NT-0002`／`OM-D-NT-0003`）被引擎护栏降级，见 `../10-文献与索引/四层总览.md` §八 第 8 条 |
+| **合计** | **74** | `python -m openmath lint` 现印 记录数 74／加载失败 0／错误 0（凭据 `scratch/LINT_after_tranche3.txt`）；`verify --level L2` 本轮已复跑：**20 PASS／51 SKIP／0 FAIL／3 UNKNOWN**（20＋51＋0＋3＝74＝版面记录数，凭据 `scratch/VERIFY_L2_clean.txt`。上一版这一格写的是「19＋46＝65」，而它同一句里引用的 PASS 是 20——**那句自己就没闭合**；现在四个槽由判决面复算，相加闭合由本句印出，`doc_face_sync` 守着）；51 个 SKIP 全是「记录未提供 sympy 表达式」，也就是这些方程还没有可跑形式；2 个 UNKNOWN 是两张不带 `checks` 的数论记号卡（`OM-D-NT-0002`／`OM-D-NT-0003`）被引擎护栏降级，见 `../10-文献与索引/四层总览.md` §八 第 8 条 |
 | 其中已到 L3（符号） | 4 | `OM-F-AN-0001`、`OM-F-AN-0002`、`OM-F-NT-0003`、`OM-F-NT-0004` |
 | **L4 形式化** | **0** | 本库**没有任何一条**可以说"已证明"（[红线一](../00-宪章/02-诚实红线.md)） |
 
-**域覆盖**：版面 `domains with >=1 node` 现印 **15 / 20**——已有条目的域：`AL`×2、`AN`×4、`CB`×2、`CT`×4、`DS`×1、`FD`×7、`GO`×3、`GR`×5、`GT`×1、`IT`×2、`NT`×19、`PR`×4、`ST`×6、`TC`×6、`TG`×7。
+**域覆盖**：版面 `domains with >=1 node` 现印 **15 / 20**——已有条目的域：`AL`×2、`AN`×4、`CB`×2、`CT`×4、`DS`×1、`FD`×7、`GO`×3、`GR`×5、`GT`×1、`IT`×2、`NT`×20、`PR`×4、`ST`×6、`TC`×6、`TG`×7。
 其余 5 个域（`SC`（统计与数据科学）／`NA`（数值分析）／`MP`（数学物理）／`OR`（运筹与系统科学）／`XS`（交叉与新兴））**无任何条目**，这是本库当前剩余的内容缺口；上一版是 2 / 20（仅 `NT` 与 `AN`）。**口径**：枚数由 `graph.json` 的 record 节点按域现数，与版面同值——本行不另立一套数。
 
 数论条目的验证脚本有两个（均纯标准库）：

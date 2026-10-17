@@ -1,6 +1,6 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-10-17T01:32:41Z",
+  "generated": "2026-10-17T14:57:06Z",
   "root": "openmath",
   "nodes": [
     {
@@ -1372,6 +1372,70 @@
       "symbols": [],
       "script": null,
       "latex": "是否存在无穷多个正整数 n 使得 n^2 + 1 为素数？ 记 A(N) = #{n <= N : n^2+1 为素数}，即问 A(N) 是否无界。",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-P-NT-0005",
+      "kind": "problem",
+      "domain": "NT",
+      "status": "PARTIAL",
+      "evidence_level": "L1",
+      "title_zh": "反射–伸缩非交换轨道审计（哥德巴赫覆盖系统的仿射群分次判别）",
+      "path": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0005-reflection-dilation-orbit.yaml",
+      "tags": [
+        "Goldbach",
+        "覆盖系统",
+        "仿射群",
+        "分次判别",
+        "开放问题"
+      ],
+      "symbols": [],
+      "script": null,
+      "latex": "结果档 2026-09-25（v2）的实测断言：q 不整除 N 时配对 (T_N, D_a) 生成满仿射群； 所需分次 rho(T_N) = 1 且 rho(D_a) = 0 成立当且仅当 q = 3 (mod 4) 且 a 为模 q 的二次剩余 （实测 q 取 {3, 7, 11, 19, 23, 31}）；该象限覆盖率均值 0.932（44 格中 38 格全覆盖）",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-P-NT-0006",
+      "kind": "problem",
+      "domain": "NT",
+      "status": "PARTIAL",
+      "evidence_level": "L1",
+      "title_zh": "Liouville 奇偶（2x2）系统——哥德巴赫的三矩精确归约与单矩充分判据",
+      "path": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0006-parity-2x2-liouville.yaml",
+      "tags": [
+        "Goldbach",
+        "Liouville 函数",
+        "奇偶障碍",
+        "矩方法",
+        "开放问题"
+      ],
+      "symbols": [],
+      "script": null,
+      "latex": "对偶数 N 与 z = icbrt(N)，记 T = |S_z|、M1 = sum_{n in S_z} lambda(n)、 M2 = sum_{n in S_z} lambda(n) lambda(N-n)，则 a11 = #{n in S_z : n 与 N-n 皆为素数} 满足精确恒等式 a11 = sum_{n in S_z} (1 - lambda(n))(1 - lambda(N-n))/4 = (T - 2 M1 + M2)/4； 因而 (T, M1, M2) 三矩把 (a11, a12, a22) 唯一确定（自由度 = 0）， 且单矩充分判据 M1 < 0 给出 a11 >= -M1 >= 1，即 N 有 Goldbach 分拆",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-P-NT-0007",
+      "kind": "problem",
+      "domain": "NT",
+      "status": "PARTIAL",
+      "evidence_level": "L1",
+      "title_zh": "单矩判据的渐近存活性与展开预算（Liouville 密度假设模型与精确修正项）",
+      "path": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0007-liouville-asymptotic-survival.yaml",
+      "tags": [
+        "Goldbach",
+        "Liouville 函数",
+        "奇偶障碍",
+        "Hardy-Littlewood 型奇异级数",
+        "等差数列中的 lambda",
+        "开放问题"
+      ],
+      "symbols": [],
+      "script": null,
+      "latex": "两条独立陈述，强度不同，必须分开读： （严格）对偶数 N 有精确恒等式 M_1 = a_22 - a_11 + 2c， c = [spf(N-1) > floor(N^(1/3)) 且 Omega(N-1) 为偶] ∈ {0, 1}； （启发式）在标准奇异级数密度模型下 kappa_w(inf) = (log 2)^2、kappa_x(inf) = 1， 故 kappa_1(inf) = (log 2)^2 - 1 ≈ -0.5195 < 0，即 OM-P-NT-0006 的单矩判据在渐近意义下存活",
       "machine_readable": true
     },
     {
@@ -4154,9 +4218,51 @@
     },
     {
       "src": "OM-P-NT-0005",
+      "dst": "OM-P-NT-0003",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0005",
       "dst": "05-验证中心/03-结果/2026/09/OM-P-NT-0008-selberg-weight-support-20260926.md",
       "type": "evidenced_by",
       "via": "05-验证中心 结果档",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0005",
+      "dst": "OM-P-NT-0003",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0006",
+      "dst": "OM-D-NT-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0006",
+      "dst": "OM-D-NT-0003",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0006",
+      "dst": "OM-P-NT-0003",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0006",
+      "dst": "OM-P-NT-0007",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
       "resolvable": true
     },
     {
@@ -4174,10 +4280,87 @@
       "resolvable": true
     },
     {
+      "src": "OM-P-NT-0006",
+      "dst": "OM-P-NT-0003",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0006",
+      "dst": "OM-P-NT-0007",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0006",
+      "dst": "OM-D-NT-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0006",
+      "dst": "OM-D-NT-0003",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0007",
+      "dst": "OM-D-NT-0003",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0007",
+      "dst": "OM-P-NT-0003",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0007",
+      "dst": "OM-P-NT-0006",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
       "src": "OM-P-NT-0007",
       "dst": "05-验证中心/03-结果/2026/09/OM-P-NT-0008-selberg-weight-support-20260926.md",
       "type": "evidenced_by",
       "via": "05-验证中心 结果档",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0007",
+      "dst": "OM-P-NT-0003",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0007",
+      "dst": "OM-P-NT-0006",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0007",
+      "dst": "OM-D-NT-0003",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0007",
+      "dst": "OM-P-NT-0006",
+      "type": "uses",
+      "via": "正文引用",
       "resolvable": true
     },
     {
@@ -5751,6 +5934,26 @@
         "src": "OM-P-NT-0003",
         "field": "equivalent_forms",
         "text": "反例形式：2n 是反例 ⟺ 中央区间被「与 2n 各素因子同余」的局部覆盖集盖满（本库卷宗 2026-09-22 已把该等价式在 N=172/800/1000 精确验证）"
+      },
+      {
+        "src": "OM-P-NT-0006",
+        "field": "equivalent_forms",
+        "text": "在本设定下：N 有 Goldbach 分拆 <=> a11 >= 1 <=> T - 2*M1 + M2 >= 4（整数恒等式，非渐近）"
+      },
+      {
+        "src": "OM-P-NT-0006",
+        "field": "equivalent_forms",
+        "text": "充分形式：M1 < 0（即 S_z 上 P1+P1 计数多于 P2+P2 计数）=> 该 N 满足二元 Goldbach"
+      },
+      {
+        "src": "OM-P-NT-0007",
+        "field": "equivalent_forms",
+        "text": "单矩判据的渐近问题等价于符号问题：kappa_1(inf) < 0 ⇒ 判据对充分大偶数是一条合法的（奇偶敏感的）归约目标；kappa_1(inf) >= 0 ⇒ 判据作为充分条件报废，必须退回完整三矩"
+      },
+      {
+        "src": "OM-P-NT-0007",
+        "field": "equivalent_forms",
+        "text": "修正项可忽略这一原本含糊的假设，被本轮收紧为可核对的形式：|2c|/单位 <= 2/单位 -> 0（c ∈ {0,1}）"
       }
     ],
     "TERM_INCONSISTENCY": {},
@@ -5765,12 +5968,10 @@
         "type": "evidenced_by",
         "via": "05-验证中心 结果档",
         "off": [
-          "05-验证中心/03-结果/2026/09/OM-P-NT-0008-selberg-weight-support-20260926.md",
-          "OM-P-NT-0005"
+          "05-验证中心/03-结果/2026/09/OM-P-NT-0008-selberg-weight-support-20260926.md"
         ],
         "cls": [
-          "evidence-path",
-          "no-carrier"
+          "evidence-path"
         ]
       },
       {
@@ -5779,12 +5980,10 @@
         "type": "evidenced_by",
         "via": "05-验证中心 结果档",
         "off": [
-          "05-验证中心/03-结果/2026/09/OM-P-NT-0007-liouville-asymptotic-survival-20260926.md",
-          "OM-P-NT-0006"
+          "05-验证中心/03-结果/2026/09/OM-P-NT-0007-liouville-asymptotic-survival-20260926.md"
         ],
         "cls": [
-          "evidence-path",
-          "no-carrier"
+          "evidence-path"
         ]
       },
       {
@@ -5793,12 +5992,10 @@
         "type": "evidenced_by",
         "via": "05-验证中心 结果档",
         "off": [
-          "05-验证中心/03-结果/2026/09/OM-P-NT-0008-selberg-weight-support-20260926.md",
-          "OM-P-NT-0006"
+          "05-验证中心/03-结果/2026/09/OM-P-NT-0008-selberg-weight-support-20260926.md"
         ],
         "cls": [
-          "evidence-path",
-          "no-carrier"
+          "evidence-path"
         ]
       },
       {
@@ -5807,12 +6004,10 @@
         "type": "evidenced_by",
         "via": "05-验证中心 结果档",
         "off": [
-          "05-验证中心/03-结果/2026/09/OM-P-NT-0008-selberg-weight-support-20260926.md",
-          "OM-P-NT-0007"
+          "05-验证中心/03-结果/2026/09/OM-P-NT-0008-selberg-weight-support-20260926.md"
         ],
         "cls": [
-          "evidence-path",
-          "no-carrier"
+          "evidence-path"
         ]
       }
     ],
@@ -5820,24 +6015,23 @@
   },
   "resolution": {
     "off_graph_side_classes": {
-      "evidence-path": 4,
-      "no-carrier": 4
+      "evidence-path": 4
     },
-    "off_graph_sides": 8,
-    "nodes": 97,
-    "node_keys": 97,
-    "edges": 492,
-    "both_in_graph": 488,
-    "one_endpoint_off_graph": 0,
-    "both_endpoints_off_graph": 4,
+    "off_graph_sides": 4,
+    "nodes": 100,
+    "node_keys": 100,
+    "edges": 509,
+    "both_in_graph": 505,
+    "one_endpoint_off_graph": 4,
+    "both_endpoints_off_graph": 0,
     "collapsed_to_self_loop": 0,
     "ambiguous_doc_ids": []
   },
   "counts": {
-    "record_nodes": 74,
+    "record_nodes": 77,
     "doc_nodes": 23,
     "evidence_docs": 4,
-    "edges": 492,
+    "edges": 509,
     "load_errors": 0
   }
 }

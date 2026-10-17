@@ -1,0 +1,91 @@
+# 记录主人（2026-10-17 补铸）：这个号自 2026-09-25 起只由结果档的**文件名**带着走
+# （`05-验证中心/03-结果/2026/09/OM-P-NT-0005-reflection-dilation-orbit-20260925.md`），
+# 盘上没有机器可读记录 ⇒ 版面 `EDGE_ENDPOINT_OFF_GRAPH` 的 `no-carrier` 型端点。
+# 本文件只建立记录本体：不改动任何结果档，不新铸号段，陈述逐条取自该结果档与它的 json（见 provenance/fact_check）。
+schema_version: "0.1"
+
+id: OM-P-NT-0005
+kind: problem
+title_zh: 反射–伸缩非交换轨道审计（哥德巴赫覆盖系统的仿射群分次判别）
+title_en: Reflection-Dilation Noncommutative Orbit Audit for the Goldbach Covering System
+domain: NT
+msc:
+  - "11P32"   # Goldbach 型猜想（加性数论）
+tags:
+  - Goldbach
+  - 覆盖系统
+  - 仿射群
+  - 分次判别
+  - 开放问题
+
+status: PARTIAL
+evidence_level: L1
+revision: 1
+created: 2026-10-17
+updated: 2026-10-17
+
+assumptions:
+  - "论域为结果档给定的有限域仿射群作用，范围 q <= 37、N <= 2000（结果档「仍然开放」一节自陈的边界）"
+  - "渐近尺度 q ~ sqrt(N) 的临界区未检验；未接入真实 L 函数零点"
+  - "计算与实测不构成证明（红线一）：本记录不宣称任何无条件定理"
+
+statement_latex: >-
+  结果档 2026-09-25（v2）的实测断言：q 不整除 N 时配对 (T_N, D_a) 生成满仿射群；
+  所需分次 rho(T_N) = 1 且 rho(D_a) = 0 成立当且仅当 q = 3 (mod 4) 且 a 为模 q 的二次剩余
+  （实测 q 取 {3, 7, 11, 19, 23, 31}）；该象限覆盖率均值 0.932（44 格中 38 格全覆盖）
+
+proposed_by: "openmath 攻坚轮（本库内部轮次，非外部文献归属）"
+proposed_year: 2026
+
+current_status: OPEN
+
+partial_results:
+  - year: 2026
+    author: "openmath 2026-09-25 轮 v2"
+    result: "v1 以「词中 T 的个数 mod 2」作宇称被判为错误（它不是群元素的不变量），v2 换用群论不变量重算"
+  - year: 2026
+    author: "openmath 2026-09-25 轮 v2"
+    result: "初稿「分次存在 ⇒ 覆盖 <= phi(q)/2」被否证；节 D 判别率 1.0 是空真式，已撤回其作为正向校验的解读"
+
+resolution: null
+
+refutation: null
+
+prize: ""
+
+# 关系表只连**盘上真有记录**的号段，否则新建的边会立刻进 DANGLING。
+related:
+  - OM-P-NT-0003
+
+equivalent_forms: []
+
+implications:
+  - statement: "只有把该分次判别从有限域剩余类推广到实际整数对 (p, N-p) 的层面，覆盖系统的例外集才可能与二元 Goldbach 挂钩"
+    direction: "insufficient"
+    note: "结果档「主要结果」第 3 条的决定性限制：mod q 的类层面禁止的是『某类含素数』，而『无 Goldbach』禁止的是配对 (p, N-p)；c 与 N-c 在 PNT-AP 下同时素密 ⇒ 不动点强迫不出矛盾。剩余类版本做不到这一点"
+  - statement: "把该象限的实测覆盖率（均值 0.932、38/44 全覆盖）读成例外集控制，需要 q ~ sqrt(N) 尺度与解析输入"
+    direction: "insufficient"
+    note: "本轮实测范围 q <= 37、N <= 2000；结果档「仍然开放」一节自陈所列三个方向（完整 Z/(q-1) 字符分次、多模 CRT、与 Type I/II 双线性结合）均未实现"
+
+fact_check:
+  status: UNVERIFIED
+  sources:
+    - type: file
+      value: "05-验证中心/03-结果/2026/09/OM-P-NT-0005-reflection-dilation-orbit-20260925.md"
+    - type: file
+      value: "05-验证中心/03-结果/2026/09/OM-P-NT-0005-reflection-dilation-orbit-20260925.json"
+    - type: file
+      value: "05-验证中心/01-引擎/goldbach_reflection_dilation_orbit_20260925.py"
+  note: >-
+    来源全部是本库自己的结果档与引擎脚本，未做外部文献核对（故 status 保持 UNVERIFIED）；
+    结果档 json 自陈 ai_assisted=true 且 independent_human_review=false，
+    因此证据等级钉在 L1（结构良构），不宣称 L2/L3，也不宣称证明哥德巴赫。
+
+provenance:
+  ai_assisted: true
+  ai_role: full_generation
+  sources:
+    - type: file
+      value: "05-验证中心/03-结果/2026/09/OM-P-NT-0005-reflection-dilation-orbit-20260925.md"
+  contributors:
+    - "openmath-bot"

@@ -10,7 +10,7 @@ flowchart TB
     D_GR["GR 群论与表示论：5 条"]
     D_GT["GT 图论：1 条"]
     D_IT["IT 信息论与编码：2 条"]
-    D_NT["NT 数论：33 条"]
+    D_NT["NT 数论：36 条"]
     D_PR["PR 概率论：4 条"]
     D_ST["ST 集合论：6 条"]
     D_TC["TC 理论计算机科学：6 条"]
@@ -84,7 +84,7 @@ flowchart TB
     n63["OM-T-TG-0003 角谷不动点定理 theorem/L1/PROPOSED"]
     n64["OM-X-FD-0001 罗素悖论（朴素概括原则的反例） counterexample/L1/PROPOSED"]
   end
-  subgraph L3[难题层：33 个节点]
+  subgraph L3[难题层：36 个节点]
     n65["OM-P-NT-0001 OM-P-NT-0001 · 黎曼假设（Riemann Hypot… doc/OPEN"]
     n66["OM-P-NT-0003 PWCV 框架下强哥德巴赫猜想的结构分析 doc/?"]
     n67["OM-P-NT-0003 强哥德巴赫：Ramanujan 局部模型主项的审计与缺口定位 doc/?"]
@@ -115,13 +115,16 @@ flowchart TB
     n92["OM-P-NT-0002 第 n 个素数的低复杂度精确公式 problem/L2/OPEN"]
     n93["OM-P-NT-0003 强哥德巴赫猜想（每个偶数可表为两素数之和） problem/L1/PARTIAL"]
     n94["OM-P-NT-0004 Landau 第四问题 · 是否存在无穷多个素数形如 n²+1 problem/L1…"]
-    n95["OM-P-NT-0009 Landau 第三问题 · Legendre 猜想（相邻平方数之间… problem…"]
-    n96["OM-P-TC-0001 判定问题（Entscheidungsproblem） problem/L1/PROP…"]
-    n97["OM-P-TC-0002 P 与 NP 是否相等 problem/L1/PROPOSED"]
+    n95["OM-P-NT-0005 反射–伸缩非交换轨道审计（哥德巴赫覆盖系统的仿射群分次判别） problem/L1/…"]
+    n96["OM-P-NT-0006 Liouville 奇偶（2x2）系统——哥德巴赫的三矩精确归约与… problem…"]
+    n97["OM-P-NT-0007 单矩判据的渐近存活性与展开预算（Liouville 密度假设模型与… problem…"]
+    n98["OM-P-NT-0009 Landau 第三问题 · Legendre 猜想（相邻平方数之间… problem…"]
+    n99["OM-P-TC-0001 判定问题（Entscheidungsproblem） problem/L1/PROP…"]
+    n100["OM-P-TC-0002 P 与 NP 是否相等 problem/L1/PROPOSED"]
   end
   L2 -.->|"折叠 65 条真实边"| L1
   L2 -.->|"折叠 29 条真实边"| L3
   L1 -.->|"折叠 88 条真实边"| L2
   L1 -.->|"折叠 15 条真实边"| L3
   L3 -.->|"折叠 26 条真实边"| L2
-  L3 -.->|"折叠 12 条真实边"| L1
+  L3 -.->|"折叠 18 条真实边"| L1

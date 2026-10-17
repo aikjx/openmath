@@ -311,6 +311,26 @@ flowchart LR
   n50 -->|related| n49
   n50 -->|related| n69
   n50 -->|用到| n49
+  n72["OM-P-NT-0005 反射–伸缩非交换轨道审计（哥德巴赫覆盖系统的仿射群分次判别） problem/L1/…"]
+  n72 -->|引用| n71
+  n72 -->|related| n71
+  n73["OM-P-NT-0006 Liouville 奇偶（2x2）系统——哥德巴赫的三矩精确归约与… problem…"]
+  n73 -->|引用| n42
+  n73 -->|引用| n48
+  n73 -->|引用| n71
+  n74["OM-P-NT-0007 单矩判据的渐近存活性与展开预算（Liouville 密度假设模型与… problem…"]
+  n73 -->|引用| n74
+  n73 -->|related| n71
+  n73 -->|related| n74
+  n73 -->|用到| n42
+  n73 -->|用到| n48
+  n74 -->|引用| n48
+  n74 -->|引用| n71
+  n74 -->|引用| n73
+  n74 -->|related| n71
+  n74 -->|related| n73
+  n74 -->|用到| n48
+  n74 -->|用到| n73
   n69 -->|引用| n45
   n69 -->|引用| n71
   n69 -->|引用| n50
@@ -328,32 +348,32 @@ flowchart LR
   n63 -->|related| n62
   n63 -->|related| n64
   n63 -->|用到| n62
-  n72["OM-T-AL-0001 第一同构定理 theorem/L1/PROPOSED"]
-  n72 -->|引用| n10
-  n73["OM-T-CT-0001 米田引理 theorem/L1/PROPOSED"]
-  n72 -->|引用| n73
-  n72 -->|related| n73
-  n72 -->|用到| n10
+  n75["OM-T-AL-0001 第一同构定理 theorem/L1/PROPOSED"]
+  n75 -->|引用| n10
+  n76["OM-T-CT-0001 米田引理 theorem/L1/PROPOSED"]
+  n75 -->|引用| n76
+  n75 -->|related| n76
+  n75 -->|用到| n10
   n39 -->|引用| n61
-  n74["OM-T-CB-0002 Sperner 引理 theorem/L1/PROPOSED"]
-  n39 -->|引用| n74
+  n77["OM-T-CB-0002 Sperner 引理 theorem/L1/PROPOSED"]
+  n39 -->|引用| n77
   n39 -->|related| n61
-  n39 -->|related| n74
+  n39 -->|related| n77
   n39 -->|用到| n61
-  n74 -->|引用| n66
-  n74 -->|引用| n39
-  n74 -->|引用| n67
-  n74 -->|related| n66
-  n74 -->|related| n39
-  n74 -->|用到| n66
-  n73 -->|引用| n11
-  n73 -->|related| n11
-  n73 -->|用到| n11
+  n77 -->|引用| n66
+  n77 -->|引用| n39
+  n77 -->|引用| n67
+  n77 -->|related| n66
+  n77 -->|related| n39
+  n77 -->|用到| n66
+  n76 -->|引用| n11
+  n76 -->|related| n11
+  n76 -->|用到| n11
   n19 -->|引用| n11
-  n19 -->|引用| n73
+  n19 -->|引用| n76
   n19 -->|引用| n24
   n19 -->|引用| n17
-  n19 -->|related| n73
+  n19 -->|related| n76
   n19 -->|related| n24
   n19 -->|related| n17
   n19 -->|用到| n11
@@ -486,13 +506,13 @@ flowchart LR
   n64 -->|related| n62
   n64 -->|用到| n62
   n67 -->|引用| n66
-  n67 -->|引用| n74
+  n67 -->|引用| n77
   n67 -->|引用| n19
   n67 -->|引用| n32
   n67 -->|related| n66
   n67 -->|related| n32
   n67 -->|用到| n66
-  n67 -->|用到| n74
+  n67 -->|用到| n77
   n9 -->|引用| n7
   n9 -->|引用| n6
   n9 -->|引用| n66
