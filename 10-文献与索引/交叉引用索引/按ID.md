@@ -10,7 +10,7 @@
 | OM-C-ST-0002 | `02-公式库/集合论/OM-C-ST-0002-negated-continuum-hypothesis.yaml` | conjecture | PROPOSED | L1 | 5 | 4 | 是 |
 | OM-C-TG-0001 | `02-公式库/几何与拓扑/OM-C-TG-0001-naive-measurability-postulate.yaml` | conjecture | PROPOSED | L1 | 5 | 5 | 是 |
 | OM-D-AL-0001 | `02-公式库/代数/OM-D-AL-0001-homomorphism-kernel-image-quotient.yaml` | definition | PROPOSED | L1 | 2 | 9 | 是 |
-| OM-D-AN-0001 | `02-公式库/分析/OM-D-AN-0001-exponential-pi-zeta-and-gamma-notation.yaml` | definition | PROPOSED | L1 | 9 | 0 | 是 |
+| OM-D-AN-0001 | `02-公式库/分析/OM-D-AN-0001-exponential-pi-zeta-and-gamma-notation.yaml` | definition | PROPOSED | L1 | 9 | 3 | 是 |
 | OM-D-CT-0001 | `02-公式库/范畴论/OM-D-CT-0001-category-functor-natural-transformation.yaml` | definition | PROPOSED | L1 | 0 | 12 | 是 |
 | OM-D-CT-0002 | `02-公式库/范畴论/OM-D-CT-0002-cartesian-closed-category-exponential.yaml` | definition | PROPOSED | L1 | 5 | 1 | 是 |
 | OM-D-FD-0001 | `02-公式库/数学基础与逻辑/OM-D-FD-0001-naive-comprehension.yaml` | definition | PROPOSED | L1 | 2 | 7 | 是 |
@@ -23,7 +23,7 @@
 | OM-D-GT-0001 | `02-公式库/图论/OM-D-GT-0001-complete-graph-edge-colouring-and-ramsey-numbers.yaml` | definition | PROPOSED | L1 | 2 | 0 | 是 |
 | OM-D-IT-0001 | `02-公式库/信息论与编码/OM-D-IT-0001-discrete-memoryless-channel-mutual-information-capacity.yaml` | definition | PROPOSED | L1 | 5 | 3 | 是 |
 | OM-D-NT-0001 | `02-公式库/数论/OM-D-NT-0001-divisibility-pulse-prime-indicator.yaml` | definition | VERIFIED(L2) | L2 | 4 | 21 | 是 |
-| OM-D-NT-0002 | `02-公式库/数论/OM-D-NT-0002-prime-counting-and-legendre-block-notation.yaml` | definition | PROPOSED | L1 | 15 | 3 | 是 |
+| OM-D-NT-0002 | `02-公式库/数论/OM-D-NT-0002-prime-counting-and-legendre-block-notation.yaml` | definition | PROPOSED | L1 | 15 | 6 | 是 |
 | OM-D-NT-0003 | `02-公式库/数论/OM-D-NT-0003-sieve-wheel-and-adjacent-prime-operator-notation.yaml` | definition | PROPOSED | L1 | 20 | 5 | 是 |
 | OM-D-PR-0001 | `02-公式库/概率论/OM-D-PR-0001-probability-space-random-variable.yaml` | definition | PROPOSED | L1 | 6 | 18 | 是 |
 | OM-D-PR-0002 | `02-公式库/概率论/OM-D-PR-0002-standard-normal-law-notation.yaml` | definition | PROPOSED | L1 | 7 | 0 | 是 |
@@ -36,11 +36,12 @@
 | OM-D-TG-0002 | `02-公式库/几何与拓扑/OM-D-TG-0002-compact-convex-set-upper-semi-continuous-correspondence.yaml` | definition | PROPOSED | L1 | 5 | 2 | 是 |
 | OM-D-TG-0003 | `02-公式库/几何与拓扑/OM-D-TG-0003-rigid-motion-equidecomposability-and-sphere-notation.yaml` | definition | PROPOSED | L1 | 6 | 0 | 是 |
 | OM-F-AN-0001 | `02-公式库/分析/OM-F-AN-0001-euler-identity.yaml` | formula | VERIFIED(L3) | L3 | 5 | 8 | 是 |
-| OM-F-AN-0002 | `02-公式库/分析/OM-F-AN-0002-riemann-zeta-functional-equation.yaml` | formula | VERIFIED(L3) | L3 | 4 | 8 | 是 |
+| OM-F-AN-0002 | `02-公式库/分析/OM-F-AN-0002-riemann-zeta-functional-equation.yaml` | formula | VERIFIED(L3) | L3 | 7 | 11 | 是 |
 | OM-F-AN-0003 | `02-公式库/分析/OM-F-AN-0003-euler-formula-general-form.yaml` | formula | VERIFIED(L3) | L3 | 6 | 6 | 是 |
+| OM-F-AN-0004 | `02-公式库/分析/OM-F-AN-0004-dirichlet-l-functional-equation.yaml` | formula | VERIFIED(L2) | L2 | 6 | 4 | 是 |
 | OM-F-NT-0001 | `02-公式库/数论/OM-F-NT-0001-legendre-phi-recursion.yaml` | formula | VERIFIED(L2) | L2 | 4 | 19 | 是 |
 | OM-F-NT-0002 | `02-公式库/数论/OM-F-NT-0002-nth-prime-nonly-mother-formula.yaml` | formula | VERIFIED(L2) | L2 | 7 | 4 | 是 |
-| OM-F-NT-0003 | `02-公式库/数论/OM-F-NT-0003-legendre-window-interval-count.yaml` | formula | VERIFIED(L3) | L3 | 4 | 6 | 是 |
+| OM-F-NT-0003 | `02-公式库/数论/OM-F-NT-0003-legendre-window-interval-count.yaml` | formula | VERIFIED(L3) | L3 | 4 | 8 | 是 |
 | OM-F-NT-0004 | `02-公式库/数论/OM-F-NT-0004-n2plus1-legendre-mobius-sieve.yaml` | formula | VERIFIED(L3) | L3 | 6 | 7 | 是 |
 | OM-P-FD-0001 | `02-公式库/数学基础与逻辑/OM-P-FD-0001-hilbert-programme.yaml` | problem | PROPOSED | L1 | 7 | 11 | 是 |
 | OM-P-NT-0001 | `03-难题与猜想/01-千年大奖难题/OM-P-NT-0001-riemann-hypothesis.md` | doc-ledger | OPEN | ? | 1 | 1 | 否（md 账本） |
@@ -71,7 +72,8 @@
 | OM-P-NT-0005 | `03-难题与猜想/05-经典未解猜想/OM-P-NT-0005-reflection-dilation-orbit.yaml` | problem | PARTIAL | L1 | 3 | 0 | 是 |
 | OM-P-NT-0006 | `03-难题与猜想/05-经典未解猜想/OM-P-NT-0006-parity-2x2-liouville.yaml` | problem | PARTIAL | L1 | 10 | 3 | 是 |
 | OM-P-NT-0007 | `03-难题与猜想/05-经典未解猜想/OM-P-NT-0007-liouville-asymptotic-survival.yaml` | problem | PARTIAL | L1 | 8 | 2 | 是 |
-| OM-P-NT-0009 | `02-公式库/数论/OM-P-NT-0009-legendre-conjecture.yaml` | problem | PROPOSED | L1 | 7 | 5 | 是 |
+| OM-P-NT-0009 | `02-公式库/数论/OM-P-NT-0009-legendre-conjecture.yaml` | problem | PROPOSED | L1 | 9 | 8 | 是 |
+| OM-P-NT-0010 | `03-难题与猜想/05-经典未解猜想/OM-P-NT-0010-andrica-conjecture.yaml` | problem | PROPOSED | L1 | 9 | 2 | 是 |
 | OM-P-TC-0001 | `02-公式库/理论计算机科学/OM-P-TC-0001-entscheidungsproblem.yaml` | problem | PROPOSED | L1 | 5 | 6 | 是 |
 | OM-P-TC-0002 | `02-公式库/理论计算机科学/OM-P-TC-0002-p-versus-np.yaml` | problem | PROPOSED | L1 | 5 | 3 | 是 |
 | OM-T-AL-0001 | `02-公式库/代数/OM-T-AL-0001-first-isomorphism-theorem.yaml` | theorem | PROPOSED | L1 | 4 | 0 | 是 |

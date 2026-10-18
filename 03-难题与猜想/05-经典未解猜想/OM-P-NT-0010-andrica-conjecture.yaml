@@ -1,0 +1,162 @@
+schema_version: "0.1"
+
+id: OM-P-NT-0010
+kind: problem
+title_zh: Andrica 猜想（相邻素数平方根之差恒小于 1）· 平方根尺度的素数间隙
+title_en: Andrica's conjecture - the square-root gap between consecutive primes is less than 1
+domain: NT
+msc:
+  - "11N05"
+  - "11A41"
+tags:
+  - 素数间隙
+  - Andrica 猜想
+  - Legendre 猜想
+  - 整数判据
+  - 开放问题
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-18
+updated: 2026-10-18
+
+statement_latex: >-
+  \forall k\ge 1,\quad \sqrt{p_{k+1}}-\sqrt{p_k}<1,\qquad
+  g_k:=p_{k+1}-p_k,\qquad \text{整数等价判据}\ (g_k-1)^2<4p_k
+
+proposed_by: "Dorin Andrica"
+proposed_year: 1986
+
+current_status: OPEN
+resolution: null
+refutation: null
+prize: ""
+
+# 本库的 YAML 子集解析器（openmath/yamlish.py）**不折列表项的续行**，也不认列表项里的 `>-`
+# （实测：`- >-` 解析成字面串 '>-' 并吞掉其后的项；无引号标量里的 ": " 会把该项劈成 dict）。
+# 所以下面每一条列表项都是**单行**、含冒号的文本一律加双引号——这不是排版洁癖，
+# 是「机读面与人类面同文」的唯一写法。全库在这一通道上的实测见
+# scratch/T11_PARSELOSS_face.txt 与 caveat 第 6) 条。
+assumptions:
+  - "p_k 是第 k 个素数（p_1=2、p_2=3），g_k 记 p_{k+1} − p_k；两个记号由 OM-D-NT-0002 固定"
+  - "sqrt 取正实平方根；本卡每一条数值判决都改写成整数不等式判定，不依赖浮点平方根的位数"
+  - "猜想是关于一切 k >= 1 的全称命题；本卡的数值面只覆盖 p_k < 30000000 的 1857858 枚间隙与 n=1..5476 的 Legendre 窗口（载体现印：scratch/T11_VERIFY_NT0010.txt）"
+  - "整数判据 (g_k − 1)² < 4 p_k 对 g_k = 1（只有 k=1，即 2→3）取 0 < 8，与实数形式同判，故不必为「平方要求两侧非负」另开分支；脚本把这一格连同全部间隙一起判，未做无名排除"
+
+symbols:
+  - name: "k"
+    meaning_zh: "素数序号，从 1 起"
+    type: integer
+    constraints: "k >= 1"
+  - name: "p_k"
+    meaning_zh: "第 k 个素数"
+    type: integer
+    constraints: "p_1=2；记号定义见 OM-D-NT-0002"
+  - name: "g_k"
+    meaning_zh: "相邻素数间隙 p_{k+1} − p_k"
+    type: integer
+    constraints: "k>=2 时为偶数且 >=2；g_1=1；记号定义见 OM-D-NT-0002"
+  - name: "A_k"
+    meaning_zh: "本猜想的对象：sqrt(p_{k+1}) − sqrt(p_k)"
+    type: real
+    constraints: "0 < A_k；猜想断言 A_k < 1 对一切 k 成立"
+
+domain_of_validity: "命题本身：一切 k ≥ 1，状态 OPEN。本卡的数值读数范围：p_k < 30000000 的 1857858 枚间隙，以及 n=1..5476 的 Legendre 窗口；两组读数同出一张凭据 scratch/T11_VERIFY_NT0010.txt。"
+
+specializations: []
+generalizations: []
+related:
+  - OM-P-NT-0009
+  - OM-F-NT-0003
+
+equivalent_forms:
+  - "三型逐项互推：A_k = sqrt(p_{k+1}) − sqrt(p_k) < 1 等价于 g_k < 2*sqrt(p_k) + 1，等价于 (g_k − 1)² < 4 p_k。前两型之间是「同加 sqrt(p_k) 再平方」，后两型之间是「移项后两边同除 2 再平方」。本库不靠这段推导自证：第 1 与第 3 型由两条互不相干的整数通道（平方路线＋2^60 定点平方根路线）在全部 1857858 枚间隙上逐格同判，未决 0 枚、异判 0 枚（载体 scratch/T11_VERIFY_NT0010.txt 的判定1a–1c）。记号 p_k、g_k 见 OM-D-NT-0002"
+
+implications:
+  - "充分上游（本卡 ⇒ Legendre）：设 p_k 是不超过 n² 的最大素数，则 p_{k+1} < (sqrt(p_k)+1)² ≤ (n+1)² 且 p_{k+1} > n²，故窗口 (n², (n+1)²) 非空——即本猜想蕴含 OM-P-NT-0009。该推导已在 n=1..5476 逐窗口机械执行：界步 (n²−p_k+2n)² − 4p_k 的最小值是 13 @ n=2（p_k=3），非负即闭合；同一段扫描里空窗 0 个、min c(n) = 2 @ n=1（载体同上，判定4a–4c）"
+  - "反方向本库未证，且已定位它为何不是显然：Legendre 的每个窗口只调用 k = pi(n²) 那一枚间隙，5476 个窗口对 1857858 枚间隙的覆盖率现数为 0.2947%，其余 99.7053% 的间隙即便违反 A_k < 1 也不在任何 Legendre 窗口的管辖之内（载体同上，判定4d）。因此 OM-P-NT-0009 过去把「间隙形式」列在自己的 equivalent_forms 名下是错标：那一式与本卡诸型等价，对 Legendre 却只是充分条件；第 11 批已把该行从那张表移出，改由本卡承担"
+
+fact_check:
+  status: UNVERIFIED
+  sources:
+    - "Andrica, D.（1986）关于 Legendre 猜想的一则可能推广（原刊名与年份本库未经目录/DOI 逐条核对）"
+    - "Hardy, G. H. & Wright, E. M., An Introduction to the Theory of Numbers（素数间隙与 p_k、g_k 记号的通常口径）"
+  note: >-
+    本卡**不引用**任何文献给出的「已验算到多少」的数字——本库没有复核过那些扫描，
+    也没有把它们与自己的筛对齐；唯一可引的扫描深度是本卡自己那张凭据印出的 30000000。
+    1986 与作者名按二手来源登记，按红线八记 UNVERIFIED。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: "自研双整数通道（平方路线＋2^60 定点平方根路线）＋ mpmath 50 dps 复核"
+      precision_digits: 50
+      sample_count: 1857858
+      bound_scanned: 30000000
+      seed: 0
+      tolerance: 0
+      tolerance_basis: exact_integer
+      tolerance_note: "主判决（判定1）全程整数算术，容差就是这个 0；只有上确界那一格用 50 dps 报数，其浮点/dps 两套读数的最大差另印（8.897e-13）。tolerance 字段必须是纯数字——openmath/verify.py:80 用 float() 读它。"
+      violations: 0
+      two_channel_disagreements: 0
+      fixed_point_undecided: 0
+      min_integer_slack: "8 @ k=1（p=2, g=1）＝4p_k−(g_k−1)² 的全扫描最小值"
+      max_A_k: "0.670873479290809258613316983031 @ k=4（p_4=7, p_5=11, g=4）"
+      runner_up_A_k: "0.639281856849995474850881776814 @ k=30；冠亚军差 0.03159162244"
+      segment_maxima: "k∈[0,100)=0.670873／[100,1000)=0.463722／[1000,10000)=0.203053／[10000,100000)=0.108882／[100000,1000000)=0.056651／[1000000,1857858)=0.023005"
+      float_vs_dps_max_abs_diff: "8.897e-13（随机 2000 枚，seed=0，同判 2000/2000）"
+      legendre_windows: "n=1..5476：空窗 0，min c(n)=2 @ n=1；被调用间隙枚数 5476＝全库 0.2947%"
+      implication_step_slack: "Andrica 那一步在被触及间隙上的最小整数余量 11 @ n=2（p_k=3, g=2）；界步最小余量 13 @ n=2"
+      cross_check: "同一张面在 n=1..2000 子段上现算 min c(n)=2 @ n=1，与 OM-P-NT-0009 的 landau_scan 旧面（n=1..2000 印 2 @ n=1）逐字同值——两台仪器、一段重叠区间"
+      script: 08-工具/examples/verify_OM-P-NT-0010.py
+      credential: scratch/T11_VERIFY_NT0010.txt
+      teeth: "自检 python 08-工具/examples/verify_OM-P-NT-0010.py --selftest ⇒ rc=0（M1 人造反例 (p=7,g=7) 被两通道同时抓住，M2/M3 真间隙不误伤）；把定点通道换成恒真（针坏）⇒ rc=1 且 M1 判错，见 scratch/T11_MUTANT_NT0010.txt"
+      runtime_seconds: 4.2
+      generic_engine_verdict: "SKIP（本记录不提供 sympy 表达式，`python -m openmath verify --level L2` 判 SKIP；L2 结论由本记录自己的脚本给出，二者不互相冒充）"
+      last_run: 2026-10-18
+      note: >-
+        红线一：以上全部 PASS 只表示 p_k < 30000000 以内没有反例，
+        不表示猜想成立，也不构成任何进展；有限扫描对全称命题的证明价值为零。
+    L3:
+      passed: false
+      engine: ""
+      method: ""
+      note: "不适用：开放猜想没有可化简的符号对象；本卡不谎称 L3"
+    L4:
+      passed: false
+      system: ""
+      name: ""
+      note: "未形式化"
+
+caveat: >-
+  1) 红线一：扫描范围内无反例≠猜想成立；本卡的 evidence_level 停在 L1、
+     status 停在 PROPOSED／current_status 停在 OPEN，正是为此。
+  2) 本卡与 OM-P-NT-0009 是**蕴含**关系而非等价关系：Andrica ⇒ Legendre（推导已机械核对），
+     Legendre ⇒ Andrica 本库未证。覆盖率读数 0.2947% 说的是
+     「把间隙逐枚读成窗口条件」这条通道根本不存在，它否证了 P-NT-0009 旧卡的错标，
+     但**不是**「两命题不等价」的证明——真要证不等价得造一个 Legendre 成立而某枚间隙违反
+     A_k < 1 的模型，本库没有这个东西。
+  3) 分段极大值单调下降（0.670873→0.023005）只支持启发式 A_k ≈ g_k/(2 sqrt(p_k))→0，
+     它**不**证明 sup_k A_k 就在 k=4；文献里也没有人证明上确界落在前几枚。
+  4) 本卡不引任何外部「已验算至多少」的数字（见 fact_check.note）；可引的只有自己的 30000000。
+  5) 本卡的三条等价式里，只有第 1 与第 3 型做了逐格双通道核对；
+     第 2 型 g_k < 2*sqrt(p_k) + 1 含无理数，本库把它当作第 1、3 型之间的代数桥梁登记，
+     没有为它单独建第三条独立通道（这是**已知留白**，不是已证）。
+  6) 解析器形状债（本批实测，不是猜测）：本库自带的 YAML 子集不折列表项续行、
+     不认列表项里的 `>-`，于是「人类读的那份 .yaml」与「机器读的那份」可以不同文。
+     全库实测枚数与逐条名单见 scratch/T11_PARSELOSS_face.txt；本卡按上述规则全部写成单行，
+     并在写后做源码↔解析的逐枚复核（同一张面的对照格）。
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting-and-numeric-check
+  sources:
+    - type: article
+      value: "Andrica, D.（1986）关于 Legendre 猜想的一则可能推广（出处按二手来源登记，未逐条核对）"
+    - type: book
+      value: "Hardy, G. H. & Wright, E. M., An Introduction to the Theory of Numbers（p_k、g_k 记号口径）"
+  contributors:
+    - "qoder-session-2026-10-18"
+  note: "本卡的等价式、推导与覆盖率全部由自己的脚本现场测量决定，不抄文献的验证深度；文献只用于命名与记号口径。"

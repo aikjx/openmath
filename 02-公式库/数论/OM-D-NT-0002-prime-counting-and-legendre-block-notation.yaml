@@ -17,9 +17,9 @@ tags:
 
 status: PROPOSED
 evidence_level: L1
-revision: 1
+revision: 2
 created: 2026-10-11
-updated: 2026-10-11
+updated: 2026-10-18
 
 statement_latex: '\pi(x)=\#\{p\le x:\ p\ \text{是素数}\},\qquad \phi(x,a)=\#\{1\le m\le x:\ \text{没有素因子}\le p_a\},\qquad \Delta\pi(N)=\pi(N)-\pi(N-1),\qquad g_n=p_{n+1}-p_n'
 
@@ -55,6 +55,15 @@ symbols:
   - name: 'g_n'
     meaning_zh: '第 n 个素数间隙：p_{n+1}-p_n'
     type: other
+  - name: 'p_k'
+    meaning_zh: '第 k 个素数；与 p_n 是同一对象，索引字母换作 k（OM-P-NT-0010 按这套拼写）'
+    type: other
+  - name: 'g_k'
+    meaning_zh: '第 k 个素数间隙 p_{k+1}-p_k；与 g_n 是同一对象，索引字母换作 k'
+    type: other
+  - name: 'A_k'
+    meaning_zh: '相邻素数平方根差 A_k=sqrt(p_{k+1})-sqrt(p_k)，由 OM-P-NT-0010 引入并在其 L2 检验里逐间隙求值'
+    type: other
 
 related:
   - 'OM-F-NT-0001'
@@ -69,7 +78,7 @@ implications: []
 contradicts: []
 generalizations: []
 specializations: []
-caveat: '第 4 批记号卡：把 OM-F-NT-0001/0002/0003、OM-T-NT-0001/0002/0008 与 OM-A-NT-0001 共用的 9 枚记号升成定义条目。本卡不新增任何数学主张，只固定记号与口径。'
+caveat: '第 4 批记号卡：把 OM-F-NT-0001/0002/0003、OM-T-NT-0001/0002/0008 与 OM-A-NT-0001 共用的 9 枚记号升成定义条目。本卡不新增任何数学主张，只固定记号与口径。第 11 批（2026-10-18）另收 3 枚：p_k、g_k 是 p_n、g_n 的索引字母别名，A_k=sqrt(p_{k+1})-sqrt(p_k) 由 OM-P-NT-0010 引入——三者按同一实践铸卡（结构名铸、裸字母不铸），索引字母 k 本身仍留在名单外。'
 
 fact_check:
   status: UNVERIFIED

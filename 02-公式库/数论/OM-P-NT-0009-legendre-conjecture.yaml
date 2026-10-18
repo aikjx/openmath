@@ -18,9 +18,9 @@ tags:
 
 status: PROPOSED
 evidence_level: L1
-revision: 1
+revision: 2
 created: 2026-09-18
-updated: 2026-09-18
+updated: 2026-10-18
 
 assumptions:
   - "素数、完全平方数按通常定义；n 为正整数"
@@ -49,8 +49,9 @@ refutation: null
 prize: ""
 
 equivalent_forms:
+  # 第 11 批（2026-10-18）更正：原第二枚「素数间隙形式 g_k < 2*sqrt(p_k) + 1」不是本猜想的等价形，
+  # 它与 **Andrica 猜想 OM-P-NT-0010** 等价，只**充分**地推出本猜想；那枚已移出，边挂在 related。
   - "c(n) = pi((n+1)^2) - pi(n^2) >= 1 对一切 n >= 1（见 OM-F-NT-0003）"
-  - "素数间隙形式：记 p_k 为第 k 个素数，则 g_k = p_{k+1} - p_k < 2*sqrt(p_k) + 1"
 
 implications:
   - statement: "Cramér 猜想（g_k = O((log p_k)^2)）蕴含 Legendre 猜想（对充分大的 n）"
@@ -62,6 +63,10 @@ implications:
   - statement: "Baker-Harman-Pintz 的无条件结果不覆盖 Legendre 窗口"
     direction: "insufficient"
     note: "窗口长度 2*sqrt(x)+1 对应指数 1/2 < 0.525；且 x^0.525 超过 2*sqrt(x)+1 的临界点约 x* ≈ 1.1e12"
+  - statement: "上游充分条件（第 11 批新挂）：Andrica 猜想 OM-P-NT-0010（sqrt(p_{k+1}) - sqrt(p_k) < 1）⇒ 本猜想；反向本库未证"
+    direction: "sufficient"
+    note: "那一枚间隙式原列在本卡 equivalent_forms 下，是错标，第 11 批已移出（见该段注释）。覆盖率读数：5476 个 Legendre 窗口只触及 1857858 枚间隙的 0.2947%，其余 99.7053% 的间隙不在窗口管辖内（载体 scratch/T11_VERIFY_NT0010.txt 判定4d）——它否证的是「把间隙逐枚读成窗口条件」这条通道，不是「两命题不等价」的证明。"
+
 
 fact_check:
   status: UNVERIFIED
@@ -111,6 +116,7 @@ caveat: >-
 related:
   - OM-F-NT-0003
   - OM-P-NT-0004
+  - OM-P-NT-0010
 
 provenance:
   ai_assisted: true

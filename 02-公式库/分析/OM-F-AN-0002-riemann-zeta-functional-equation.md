@@ -92,6 +92,7 @@ python 08-工具/examples/verify_OM-F-AN-0002.py
 ## 七、相关
 
 - [OM-F-AN-0001 欧拉恒等式](OM-F-AN-0001-euler-identity.md)
+- 推广（一般化到模 q 的原始特征）：[OM-F-AN-0004 狄利克雷 L-函数函数方程](OM-F-AN-0004-dirichlet-l-functional-equation.md)
 - 黎曼假设条目：[03-难题与猜想/01-千年大奖难题/OM-P-NT-0001](../../03-难题与猜想/01-千年大奖难题/README.md)
 
 ## 八、红线提醒

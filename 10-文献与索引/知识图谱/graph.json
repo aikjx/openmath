@@ -1,6 +1,6 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-10-17T14:57:06Z",
+  "generated": "2026-10-17T17:58:33Z",
   "root": "openmath",
   "nodes": [
     {
@@ -491,7 +491,10 @@
         "L_n",
         "U_n",
         "c(n)",
-        "g_n"
+        "g_n",
+        "p_k",
+        "g_k",
+        "A_k"
       ],
       "script": null,
       "latex": "\\pi(x)=\\#\\{p\\le x:\\ p\\ \\text{是素数}\\},\\qquad \\phi(x,a)=\\#\\{1\\le m\\le x:\\ \\text{没有素因子}\\le p_a\\},\\qquad \\Delta\\pi(N)=\\pi(N)-\\pi(N-1),\\qquad g_n=p_{n+1}-p_n",
@@ -848,6 +851,36 @@
       ],
       "script": "08-工具/examples/verify_OM-F-AN-0003.py",
       "latex": "e^{z} = e^{x}(\\cos y + i\\sin y)\\quad (z = x + iy,\\ x,y \\in \\mathbb{R});\\qquad e^{i\\theta} = \\cos\\theta + i\\sin\\theta",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-F-AN-0004",
+      "kind": "formula",
+      "domain": "AN",
+      "status": "VERIFIED(L2)",
+      "evidence_level": "L2",
+      "title_zh": "狄利克雷 L-函数函数方程",
+      "path": "02-公式库/分析/OM-F-AN-0004-dirichlet-l-functional-equation.yaml",
+      "tags": [
+        "L函数",
+        "狄利克雷特征",
+        "函数方程",
+        "根数",
+        "Gauss和",
+        "解析延拓"
+      ],
+      "symbols": [
+        "s",
+        "chi",
+        "q",
+        "a",
+        "tau",
+        "L",
+        "Gamma"
+      ],
+      "script": "08-工具/examples/verify_OM-F-AN-0004.py",
+      "latex": "\\Lambda(s,\\chi)=\\left(\\frac{q}{\\pi}\\right)^{(s+a)/2}\\Gamma\\!\\left(\\frac{s+a}{2}\\right)L(s,\\chi),\\quad a=\\frac{1-\\chi(-1)}{2},\\qquad \\Lambda(s,\\chi)=\\frac{\\tau(\\chi)}{i^{a}\\sqrt{q}}\\,\\Lambda(1-s,\\overline{\\chi}),\\quad \\tau(\\chi)=\\sum_{r=1}^{q}\\chi(r)e^{2\\pi i r/q},\\ \\ |\\tau(\\chi)|=\\sqrt{q}",
       "machine_readable": true
     },
     {
@@ -1457,6 +1490,32 @@
       "symbols": [],
       "script": null,
       "latex": "对一切正整数 n，存在素数 p 满足 n^2 < p < (n+1)^2； 等价地 c(n) := pi((n+1)^2) - pi(n^2) >= 1（因 (n+1)^2 对 n>=1 恒为合数，<= 与 < 等价）",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-P-NT-0010",
+      "kind": "problem",
+      "domain": "NT",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "Andrica 猜想（相邻素数平方根之差恒小于 1）· 平方根尺度的素数间隙",
+      "path": "03-难题与猜想/05-经典未解猜想/OM-P-NT-0010-andrica-conjecture.yaml",
+      "tags": [
+        "素数间隙",
+        "Andrica 猜想",
+        "Legendre 猜想",
+        "整数判据",
+        "开放问题"
+      ],
+      "symbols": [
+        "k",
+        "p_k",
+        "g_k",
+        "A_k"
+      ],
+      "script": null,
+      "latex": "\\forall k\\ge 1,\\quad \\sqrt{p_{k+1}}-\\sqrt{p_k}<1,\\qquad g_k:=p_{k+1}-p_k,\\qquad \\text{整数等价判据}\\ (g_k-1)^2<4p_k",
       "machine_readable": true
     },
     {
@@ -3728,7 +3787,21 @@
     },
     {
       "src": "OM-F-AN-0002",
+      "dst": "02-公式库/分析/OM-F-AN-0004-dirichlet-l-functional-equation.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-F-AN-0002",
       "dst": "OM-F-AN-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-F-AN-0002",
+      "dst": "OM-F-AN-0004",
       "type": "cites",
       "via": "配对 md 正文（ID 引用）",
       "resolvable": true
@@ -3738,6 +3811,13 @@
       "dst": "OM-P-NT-0001",
       "type": "cites",
       "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-F-AN-0002",
+      "dst": "OM-F-AN-0004",
+      "type": "generalizes",
+      "via": "generalizations",
       "resolvable": true
     },
     {
@@ -3785,6 +3865,48 @@
     {
       "src": "OM-F-AN-0003",
       "dst": "OM-F-AN-0001",
+      "type": "specializes",
+      "via": "specializations",
+      "resolvable": true
+    },
+    {
+      "src": "OM-F-AN-0004",
+      "dst": "02-公式库/分析/OM-D-AN-0001-exponential-pi-zeta-and-gamma-notation.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-F-AN-0004",
+      "dst": "02-公式库/分析/OM-F-AN-0002-riemann-zeta-functional-equation.md",
+      "type": "cites",
+      "via": "配对 md 正文（文件名链接）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-F-AN-0004",
+      "dst": "OM-D-AN-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-F-AN-0004",
+      "dst": "OM-F-AN-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-F-AN-0004",
+      "dst": "OM-D-AN-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-F-AN-0004",
+      "dst": "OM-F-AN-0002",
       "type": "specializes",
       "via": "specializations",
       "resolvable": true
@@ -4386,6 +4508,13 @@
     },
     {
       "src": "OM-P-NT-0009",
+      "dst": "OM-P-NT-0010",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0009",
       "dst": "OM-F-NT-0003",
       "type": "implies",
       "via": "equivalent_forms",
@@ -4407,7 +4536,77 @@
     },
     {
       "src": "OM-P-NT-0009",
+      "dst": "OM-P-NT-0010",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0009",
       "dst": "OM-F-NT-0003",
+      "type": "uses",
+      "via": "正文引用",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0010",
+      "dst": "OM-D-NT-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0010",
+      "dst": "OM-F-AN-0004",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0010",
+      "dst": "OM-F-NT-0003",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0010",
+      "dst": "OM-P-NT-0009",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0010",
+      "dst": "OM-D-NT-0002",
+      "type": "implies",
+      "via": "equivalent_forms",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0010",
+      "dst": "OM-P-NT-0009",
+      "type": "implies",
+      "via": "implications",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0010",
+      "dst": "OM-F-NT-0003",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0010",
+      "dst": "OM-P-NT-0009",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-P-NT-0010",
+      "dst": "OM-D-NT-0002",
       "type": "uses",
       "via": "正文引用",
       "resolvable": true
@@ -5878,6 +6077,7 @@
     "UNDEFINED_SYMBOL": [
       "b",
       "c",
+      "chi",
       "d",
       "e",
       "epsilon",
@@ -5886,9 +6086,11 @@
       "k",
       "n",
       "phi(x, a)",
+      "q",
       "r",
       "s",
       "sigma",
+      "tau",
       "theta",
       "z"
     ],
@@ -5896,19 +6098,9 @@
     "EVIDENCE_INVERSION": [],
     "PROSE_RELATION_UNTRAVERSABLE": [
       {
-        "src": "OM-F-AN-0002",
-        "field": "generalizations",
-        "text": "狄利克雷 L-函数的函数方程（待录入）"
-      },
-      {
         "src": "OM-P-NT-0004",
         "field": "equivalent_forms",
         "text": "素数 p 使 p-1 为完全平方数者是否有无穷多个（n^2+1=p <=> p-1=n^2）"
-      },
-      {
-        "src": "OM-P-NT-0009",
-        "field": "equivalent_forms",
-        "text": "素数间隙形式：记 p_k 为第 k 个素数，则 g_k = p_{k+1} - p_k < 2*sqrt(p_k) + 1"
       },
       {
         "src": "OM-P-NT-0002",
@@ -6018,20 +6210,20 @@
       "evidence-path": 4
     },
     "off_graph_sides": 4,
-    "nodes": 100,
-    "node_keys": 100,
-    "edges": 509,
-    "both_in_graph": 505,
+    "nodes": 102,
+    "node_keys": 102,
+    "edges": 529,
+    "both_in_graph": 525,
     "one_endpoint_off_graph": 4,
     "both_endpoints_off_graph": 0,
     "collapsed_to_self_loop": 0,
     "ambiguous_doc_ids": []
   },
   "counts": {
-    "record_nodes": 77,
+    "record_nodes": 79,
     "doc_nodes": 23,
     "evidence_docs": 4,
-    "edges": 509,
+    "edges": 529,
     "load_errors": 0
   }
 }

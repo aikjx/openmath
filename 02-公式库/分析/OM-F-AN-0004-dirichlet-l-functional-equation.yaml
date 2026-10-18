@@ -1,0 +1,145 @@
+schema_version: "0.1"
+
+id: OM-F-AN-0004
+kind: formula
+title_zh: 狄利克雷 L-函数函数方程
+title_en: Functional equation of Dirichlet L-functions
+domain: AN
+msc:
+  - "11M35"
+  - "30B40"
+tags:
+  - L函数
+  - 狄利克雷特征
+  - 函数方程
+  - 根数
+  - Gauss和
+  - 解析延拓
+
+status: VERIFIED(L2)
+evidence_level: L2
+revision: 1
+created: 2026-10-18
+updated: 2026-10-18
+
+latex: >-
+  \Lambda(s,\chi)=\left(\frac{q}{\pi}\right)^{(s+a)/2}\Gamma\!\left(\frac{s+a}{2}\right)L(s,\chi),\quad
+  a=\frac{1-\chi(-1)}{2},\qquad
+  \Lambda(s,\chi)=\frac{\tau(\chi)}{i^{a}\sqrt{q}}\,\Lambda(1-s,\overline{\chi}),\quad
+  \tau(\chi)=\sum_{r=1}^{q}\chi(r)e^{2\pi i r/q},\ \ |\tau(\chi)|=\sqrt{q}
+
+assumptions:
+  # 第 11 批（2026-10-18）改写：本库 YAML 子集不折列表项续行、也不认列表项里的 >-，
+  # 旧写法在机读面上只解析出 3 枚（源文 5 枚）；普查面 scratch/T11_PARSELOSS_face.txt。
+  # 现全部写成「单行＋双引号」，一枚不少；行内避开 ASCII 冒号空格（那会把散文劈成 dict）。
+  - "χ 是模 q 的**原始**（primitive）Dirichlet 特征；合模（非原始）需先换成导子（conductor）形式"
+  - "本记录只对**非主特征**做了数值检验：L(s,χ₀)（主特征）在 s=1 有极点，Hurwitz 路线的极点不抵消"
+  - "L(s,χ) 在 Re(s) > 1 由 Dirichlet 级数 Σ χ(n)n^{-s} 定义，其余处取解析延拓；检验脚本走恒等式 L(s,χ) = q^{-s} Σ_{r=1}^{q} χ(r) ζ_H(s, r/q)"
+  - "a = (1 − χ(−1))/2 ∈ {0,1}：χ(−1)=+1 为偶特征（a=0），χ(−1)=−1 为奇特征（a=1）"
+  - "Γ 取标准 Euler Gamma；i 为虚单位，i^a 按 a∈{0,1} 单值取"
+
+symbols:
+  - name: "s"
+    meaning_zh: "复变量，函数方程把它送到 1-s"
+    type: complex
+    constraints: "s ∈ ℂ（非主特征下 Λ 为整函数）"
+  - name: "chi"
+    meaning_zh: "模 q 的原始 Dirichlet 特征（本记录检验时取 χ₄、χ₃、χ₅、χ₇ 四个）"
+    type: function
+    constraints: "完全积性 + 周期 q + 原始；χ̄ 为逐点复共轭特征"
+  - name: "q"
+    meaning_zh: "特征模（conductor 情形下的模）"
+    type: integer
+    constraints: "q >= 1；本记录数值检验取 q ∈ {3,4,5,7}"
+  - name: "a"
+    meaning_zh: "特征奇偶指示 a = (1 − χ(−1))/2"
+    type: integer
+    constraints: "a ∈ {0,1}"
+  - name: "tau"
+    meaning_zh: "Gauss 和 τ(χ) = Σ_{r=1..q} χ(r) e^{2πir/q}"
+    type: function
+    constraints: "χ 原始时 |τ(χ)| = √q，故根数 ε(χ) = τ(χ)/(i^a √q) 模为 1"
+  - name: "L"
+    meaning_zh: "Dirichlet L-函数 L(s,χ)"
+    type: function
+    constraints: "非主特征下整函数；主特征下在 s=1 有一阶极点"
+  - name: "Gamma"
+    meaning_zh: "Gamma 函数"
+    type: function
+    constraints: "阶乘的解析延拓"
+
+domain_of_validity: "所有 s ∈ ℂ（非主特征）。等价写法：Λ(s,χ) = ε(χ)·Λ(1−s,χ̄)，其中 ε(χ) = τ(χ)/(i^a√q)，|ε(χ)| = 1。"
+
+specializations:
+  - OM-F-AN-0002
+generalizations: []
+related:
+  - OM-D-AN-0001
+equivalent_forms: []
+implications: []
+
+caveat: >-
+  1) 根数 ε(χ) 的**写法在文献里不唯一**：τ(χ)/(i^a√q)、i^a·τ(χ)/√q、τ(χ̄)/(i^a√q)、
+     i^a·τ(χ̄)/√q、τ(χ)/√q 五种约定都见于不同著作。本记录不抄约定——验证脚本先把
+     ε 作为 Λ(s,χ)/Λ(1−s,χ̄) **测出来**（并证它随采样点恒定、模为 1），再与五种候选比。
+     测量结论：只有 τ(χ)/(i^a√q) 命中；i^a·τ(χ)/√q 在奇特征上差一个 −1（相对残差 ~1.42），
+     τ(χ̄)/(i^a√q) 在复特征 χ₇ 上错成共轭（相对残差 ~3.89）。若日后有人把方程改写成
+     上述任一种"看着差不多"的形式，那是**不同的命题**，不是同一句话的换记法。
+  2) 模 5 的偶二次特征对「写哪种约定」**分辨力为零**（a=0 且实值时五种候选全等），
+     脚本据此把它单独列为无分辨力样本，不参与约定判定。判定只由 χ₄、χ₃、χ₇ 三枚支撑。
+  3) 大虚部处 Γ((1−s+a)/2) 指数衰减，Λ 的两端可小到 ~1e-34：此时**绝对残差**会把
+     弱检验读成强检验。脚本对每条候选同时报绝对残差与相对残差（按 |Λ| 与 |εΛ'| 的大者归一），
+     并印出该格最小尺度；判定用相对残差 < 1e-25。
+  4) s = 0.25 + 100.0i 这一点在四个特征上都被**主动跳过**并逐次点名（|Λ(1−s,χ̄)| ≈ 1e-34 < 1e-20，
+     比值不再是 ε 的可靠测量）。跳过数与跳过理由同印，不做无名的"−1 个点"。
+  5) 主特征 χ₀（含 q=1 的 Riemann 情形）在 s=1 有极点，本记录的 Hurwitz 检验路线不覆盖；
+     OM-F-AN-0002 用 mpmath.zeta（内置解析延拓）覆盖 ζ 的那一支。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: mpmath
+      precision_digits: 50
+      sample_count: 20
+      skipped_points: 4
+      characters_tested:
+        - "chi_4 (q=4, a=1, eps 测得 = 1.0 - 1.63e-50i, 相对残差 2.5721701e-50)"
+        - "chi_3 (q=3, a=1, eps 测得 = 1.0 + 1.68e-50i, 相对残差 3.2052505e-50)"
+        - "chi_5 (q=5, a=0, eps 测得 = 1.0 - 2.59e-50i, 相对残差 2.5309534e-50, 无约定分辨力)"
+        - "chi_7 (q=7, a=1, eps 测得 = 0.38651357275915528819 + 0.92228371885930696567i, 相对残差 2.701704e-50)"
+      tolerance: 1e-25
+      tolerance_basis: relative
+      tolerance_note: "容差按相对残差读（|Λ(s,χ)| 与 |ε·Λ(1-s,χ̄)| 的大者归一）；tolerance 字段必须是纯数字，
+        因为 openmath/verify.py:80 用 float() 读它——把口径写进数值字段会让通用判决引擎在自家记录上崩（本轮真崩过）"
+      max_rel_residual: "3.2052505e-50"
+      min_scale_seen: "9.3226374e-35"
+      falsified_conventions: 10
+      script: 08-工具/examples/verify_OM-F-AN-0004.py
+      credential: scratch/T10_VERIFY_AN0004.txt
+      generic_engine_verdict: "SKIP（本记录不提供 sympy 表达式，`python -m openmath verify --level L2` 判 SKIP；
+        L2 结论由本记录自己的脚本 verify_OM-F-AN-0004.py 给出，二者不互相冒充）"
+      last_run: 2026-10-18
+    L3:
+      passed: false
+      engine: sympy
+      note: "未做符号判定：SymPy 对带特征的函数方程没有可用的化简通道；本记录不谎称 L3"
+    L4:
+      passed: false
+      system: ""
+      name: ""
+      note: "mathlib 有 Dirichlet L 函数与函数方程的形式化，本库未接"
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting-and-numeric-check
+  sources:
+    - type: book
+      value: "Davenport, H. L. Multiplicative Number Theory, 3rd ed. (2000), Ch. 9 & 12（特征、Gauss 和与函数方程）"
+    - type: book
+      value: "Iwaniec, H. & Kowalski, E. Analytic Number Theory (2004), Prop. 5.10（completed L-函数与根数）"
+    - type: book
+      value: "Titchmarsh, E. C. The Theory of the Riemann Zeta-Function, 2nd ed. (1986), §9.5（ζ 的特例）"
+  contributors:
+    - "openmath-bot"
+  note: "公式的形式与常数写法由本库自己的数值测量裁定，不来自对文献约定的转抄；文献只用于命名与特例对照。"

@@ -50,7 +50,7 @@ domain_of_validity: "所有 s ∈ ℂ \\ {1}。亦常写作对称形式 ξ(s) = 
 
 specializations: []
 generalizations:
-  - "狄利克雷 L-函数的函数方程（待录入）"
+  - OM-F-AN-0004
 related:
   - OM-F-AN-0001
 
