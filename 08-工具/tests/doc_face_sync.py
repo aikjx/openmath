@@ -26,11 +26,21 @@ import os
 import re
 import sys
 import tempfile
+import unicodedata
 
 BS = chr(92)
 # 注意：这里不能用 BS.join 也不许给相对路径打头加反斜杠——
 # `os.path.join(HERE, "\\..\\..")` 在 Windows 上会被当成盘根锚定，静默解到 D:\ 去。
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
+# 空域名单的**全集**由号段规范现推（`openmath.ids.DOMAINS`，与铸卡时校验域名的同一张表），
+# 不由本文件手打：第 13 批铸进 `SC` 之前，「§八 空域计数」与「公式库 空域目录」两条的词表
+# 把五枚域名当字面量钉在正则里，于是「填掉一个空域」这件事必然让判据抄不到句子（MISSING-CLAIM）
+# ——红是对的方向，但正解不是把句子改回旧名单，而是让词表跟着语料走。重定靶欠的一对变异体在
+# `selftest` 的格 9（掺一枚「已经有节点的域」必须 MISSING-CLAIM、枚数挪一位必须 MISMATCH）。
+if ROOT not in sys.path:
+    sys.path.insert(0, ROOT)
+from openmath import ids as _ids  # noqa: E402
+
 FACE_REL = "10-文献与索引/知识图谱/_版面/graph_face.txt"
 MFACE_REL = "10-文献与索引/知识图谱/_版面/graph_mutants_face.txt"
 GJSON_REL = "10-文献与索引/知识图谱/graph.json"
@@ -197,6 +207,71 @@ def census_from_graph(gj, v):
     return dict((x, lv.get(x, 0)) for x in levels), pd
 
 
+def empty_roster(da):
+    """「还没有节点的域」名单：全集由 `ids.DOMAINS` 现推，减去图上有节点的域（`da`＝域→全部节点数）。
+    口径点名：这里用的是**全部节点**（记录＋仅 md 的账本），与版面 `domains with >=1 node` 同一把尺子；
+    用 `dc`（只数 record）会把「只有账本没有记录」的域错列进空域，而文档那句说的是「图上没有节点」。
+    名单按码排序——文档抄它就得按同一顺序写（第 11 批 §二 域名单同型）。
+    返回 (名单, 名单字面量串)；名单为空时字面量是空串，正则只会抄不到句子（判红），不会崩。"""
+    empty = [d for d in sorted(_ids.DOMAINS) if d not in da]
+    return empty, "／".join("`%s`（%s）" % (d, _ids.DOMAINS[d]) for d in empty)
+
+
+def disp_cols(s):
+    """显示列宽度：东亚宽／全角字符算 2 列，其余 1 列。
+    口径点名：本判据只比「同一张表里各行的 `(XX)` 是否落在同一列」，不比那个列号本身，
+    所以这把尺的绝对口径（比如把制表符算成几列）不进入判决；它进入判决的是**币种**——
+    给某一行换上全角空格会把该行的显示列挪 1，而行序与条数两型照旧绿，这一型要能被抓住。"""
+    return sum(2 if unicodedata.east_asian_width(ch) in ("W", "F") else 1 for ch in s)
+
+
+TREE_ROW_RX = r"^([├└]── )(\S+?/)([ ]+)\(([A-Z]{2})\)  ×(\d+) 条"
+
+
+def tree_rows(text):
+    """`02-公式库/README.md` 目录树的域行，按文档出现顺序：`[{name, code, num, col}]`。
+    第 13 批登记的那条债——「插在哪一行」没有尺——由这三型承担：
+      行序＝目录名的**码点序**（`sorted(name)`；不是域码序，实测两套顺序不同：文档
+      `(AL)(IT)(TG)…` vs 码序 `AL AN CB…`，所以期望值必须从目录名现推而不是拿 `sorted(dc)` 套）；
+      显示列＝各行 `(XX)` 前的显示宽度之和唯一（少打一个空格即红）；
+      目录名＝`ids.DOMAINS[码]`（行的号段与目录名必须互指，否则 `(XX)` 标签是个没人住的门牌）。
+    """
+    out = []
+    for m in re.finditer(TREE_ROW_RX, text, re.M):
+        prefix, name, pad, code, num = m.groups()
+        out.append(dict(name=name, code=code, num=int(num),
+                        col=disp_cols(prefix + name) + len(pad)))
+    return out
+
+
+def tree_discipline(rows, n_hits):
+    """返回目录树三型的红字（空＝三型全符）。判集不许塌缩：树行 parse 不到而声明有命中，
+    说明判据与排版分叉，这本身就是红而不是「无可判」。"""
+    # 三型的红字**只讲事由、不带标签**：发射器统一补 `公式库 目录树｜` 前缀。
+    # 这里曾自己判红过一次：判决行按「标签」分组计数，红字少了标签就没人认领它，
+    # 于是格 11 的两把树臂各打一行而计数 0 条＝仪器看不见自己判出的红（假绿，不是假红）。
+    if not rows:
+        return ["行形状 parse 不到（声明命中 %d 处而树行 0 枚）：正则与排版分叉，"
+                "行序／显示列／目录名三型无从判" % n_hits]
+    if len(rows) != n_hits:
+        return ["树行 parse 到 %d 枚 ≠ 声明命中 %d 处（两种形状各读一半，判据分叉）"
+                % (len(rows), n_hits)]
+    bad = []
+    seq = [r["name"] for r in rows]
+    if seq != sorted(seq):
+        bad.append("行序：文档 %s ≠ 目录名码点序 %s（新行须落在自己的码序位，不许追在树尾）"
+                   % (" ".join(seq), " ".join(sorted(seq))))
+    cols = sorted(set(r["col"] for r in rows))
+    if len(cols) != 1:
+        bad.append("显示列：`(XX)` 分居 %s 共 %d 列（%d 行须同列；行内空格的币种是半角）"
+                   % ("/".join(str(c) for c in cols), len(cols), len(rows)))
+    wrong = ["%s→`%s`（该码的目录名应为 `%s/`）" % (r["code"], r["name"], _ids.DOMAINS.get(r["code"], "名单外"))
+             for r in rows if r["name"] != _ids.DOMAINS.get(r["code"], "~") + "/"]
+    if wrong:
+        bad.append("目录名与号段不互指：%s" % "、".join(wrong))
+    return bad
+
+
 def claims(v, mut, dc, da, vf, lv, pd):
     """声明词表：闭集。每条 (标签, 文档, 正则, 版面复算值)。
     正则一律从文档**当下那一句**抄来，不许凭记忆打字：抄不到就判 MISSING-CLAIM。
@@ -209,6 +284,7 @@ def claims(v, mut, dc, da, vf, lv, pd):
     g = v["gaps"]
     cen = v["census"]
     big = max(dc, key=lambda k: dc[k])          # 记录最多的域：双口径示例由它现推，不是我挑的
+    empty, roster = empty_roster(da)            # 还没有节点的域：全集 ∖ 有节点的域（口径见该函数）
     # 共用号段最多的那个 ID：由版面 `shared` 现推。撞号消解后最热的那一段会换人，
     # 下面 H7/H8 的正则跟着换——我不在任何正则里打 `OM-P-NT-0003`。
     hot = max(v["shared"], key=lambda k: v["shared"][k]) if v["shared"] else "NONE"
@@ -239,6 +315,11 @@ def claims(v, mut, dc, da, vf, lv, pd):
         ("§一 方程层", OV, r"\| 方程层 \| [^|]* \| (\d+) \|", [lay["方程层"]]),
         ("§一 难题层", OV, r"\| 难题层 \| [^|]* \| (\d+) \|", [lay["难题层"]]),
         ("§二 域覆盖", OV, r"`domains with >=1 node` ＝ (\d+) / (\d+)", [v["dom"][0], v["dom"][1]]),
+        # 同一条读数的**散文抄本**：第 13 批前它没有判据（未 gate），于是「15 / 20」跟着版面走到 16 时，
+        # 这句仍可以安安静静留着 15。抄本型声明的数由该句自己的两个数组给出，顺序与表格那把相反
+        # （这里先说总数再说有内容的），期望值也按这个顺序排——见格 10 的两把刀。
+        ("§二 域覆盖散文", OV, r"也就是说 (\d+) 个域里 (\d+) 个域在台账上有内容",
+         [v["dom"][1], v["dom"][0]]),
         # 「差的 K 个」是文档替读者做的一次减法：只判前两格＝放过这一型最容易过期的算术。
         ("§二 双口径", OV, "例如 `%s` 记录 (\\d+) 条、图上 (\\d+) 个节点，差的 (\\d+) 个" % big,
          [dc[big], da[big], da[big] - dc[big]]),
@@ -246,6 +327,8 @@ def claims(v, mut, dc, da, vf, lv, pd):
         # 散文里重打一遍的名单：正则由现推的域名单拼出来，域集合一变就抄不到句子（同 公式库 域名单 的道理）。
         ("§二 域名单", OV, "（" + "、".join("`%s`×(\\d+)" % d for d in sorted(dc)) + "）",
          [dc[d] for d in sorted(dc)]),
+        # 空域名单同型：由 `ids.DOMAINS` ∖ `da` 现推，逐枚带中文名。文档抄它就得按码排序抄。
+        ("§二 空域名单", OV, "其余 (\\d+) 个域目前只是目录名：" + roster + "。", [len(empty)]),
         ("§三 域×记录数表", OV, r"\| `([A-Z]{2})` \| (\d+) \|", None),
         ("§三 方程层散文", OV, r"方程层（公式／定理／算法／反例）在图上有 (\d+) 个节点，逻辑层 (\d+) 个",
          [lay["方程层"], lay["逻辑层"]]),
@@ -288,9 +371,8 @@ def claims(v, mut, dc, da, vf, lv, pd):
         ("§八 债表散文关系", OV, r"`PROSE_RELATION_UNTRAVERSABLE` (\d+) 枚：把散文里的关系",
          [g["PROSE_RELATION_UNTRAVERSABLE"][0]]),
         ("§八 空域计数", OV,
-         r"空域 (\d+) 个（`SC`（统计与数据科学）／`NA`（数值分析）／`MP`（数学物理）／"
-         r"`OR`（运筹与系统科学）／`XS`（交叉与新兴））：版面 `domains with >=1 node` 现印 (\d+) / (\d+)",
-         [v["dom"][1] - v["dom"][0], v["dom"][0], v["dom"][1]]),
+         "空域 (\\d+) 个（" + roster + "）：版面 `domains with >=1 node` 现印 (\\d+) / (\\d+)",
+         [len(empty), v["dom"][0], v["dom"][1]]),
         # 上一批这句写的是「其余 15 枚要给共用号段配独立号」；本轮 0003 有了记录主人，
         # 这一型收到 0 枚——措辞留着，数由 (总枚数 − 桥接那几枚) 现推，所以它红就红在算式上。
         ("§八 旁证其余", OV, r"其余 (\d+) 枚是上一批那条共用号段的账",
@@ -325,7 +407,10 @@ def claims(v, mut, dc, da, vf, lv, pd):
          [dc[d] for d in sorted(dc)]),
         # 目录树那一格是「文档自己抄一份普查」：15 行 ×（域, 条数），走 §三 那一型的双向核对。
         ("公式库 目录树", LIB, r"\(([A-Z]{2})\)  ×(\d+) 条", None),
-        ("公式库 空域目录", LIB, r"(\d+) 个域还没有目录", [v["dom"][1] - v["dom"][0]]),
+        # 「没有目录」与「图上没有节点」是同一枚名单：文档自己写了「同口径」，判据就按同一把尺子验它，
+        # 名单由 ids.DOMAINS ∖ da 现推（见 empty_roster），不是手打。
+        ("公式库 空域目录", LIB, r"(\d+) 个域还没有目录：" + roster, [len(empty)]),
+        ("公式库 无条目域名单", LIB, "其余 (\\d+) 个域（" + roster + r"）\*\*无任何条目\*\*", [len(empty)]),
         # LIB 的合计行把 verify 四槽又相加了一遍（写成「＝版面记录数」）：四槽由 parse_verify 复算，
         # 和数这一格不进门就是让散文自己证自己——OV 那边同型的那句已由「§八 verify 四格相加」接住。
         ("公式库 verify 四格相加", LIB,
@@ -461,8 +546,16 @@ def check(doc_texts, v, mut, dc, da, vf, lv, pd):
                 lines.append("EXTRA-ROW    §三 域×记录数表多出行 `%s`（%s）：版面这一域没有记录节点"
                              % (dom, seen[dom]))
                 local += 1
+            # 同一型债的另一张表：这张按**域码**升序（与目录树的「按目录名码点」不同序，
+            # 两套期望值分别从各自的对象现推，不许互相套用）。
+            seq = [dom for dom, _num in hits]
+            if seq != sorted(seq):
+                lines.append("MISMATCH     §三 域×记录数表｜行序 %s ≠ 域码升序 %s"
+                             "（新行须插在自己的码位，不许追在表尾）"
+                             % (" ".join(seq), " ".join(sorted(seq))))
+                local += 1
             if not local:
-                lines.append("OK           §三 域×记录数表｜%d 行逐格与 record 节点普查相符" % len(dc))
+                lines.append("OK           §三 域×记录数表｜%d 行逐格与 record 节点普查相符，行序按域码升序" % len(dc))
             red += local
             continue
         if tag == "公式库 目录树":
@@ -483,8 +576,15 @@ def check(doc_texts, v, mut, dc, da, vf, lv, pd):
                 lines.append("EXTRA-ROW    公式库 目录树多出行 `%s`（%d）：版面这一域没有记录节点"
                              % (dom, seen[dom]))
                 local += 1
+            # 第 13 批的债：`patch_*` 只改已有行的数，漏插会红 MISSING-ROW，而「插在哪一行」
+            # 与「(XX) 打在第几列」当时没有尺。三型都在这里常驻，期望值由树行自己现推。
+            bad = tree_discipline(tree_rows(text), len(hits))
+            for b in bad:
+                lines.append("MISMATCH     公式库 目录树｜%s" % b)
+            local += len(bad)
             if not local:
-                lines.append("OK           公式库 目录树｜%d 行逐格与 record 节点普查相符" % len(dc))
+                lines.append("OK           公式库 目录树｜%d 行逐格与 record 节点普查相符，"
+                             "行序按目录名码点、`(XX)` 同占一列、号段与目录名互指" % len(dc))
             red += local
             continue
         if tag == "§〇 verdict 名单":
@@ -562,7 +662,8 @@ def check(doc_texts, v, mut, dc, da, vf, lv, pd):
 
 def selftest(v, mut, dc, da, vf, lv, pd, verify_text=None):
     """各格对照：改坏一个多组数、删一行声明、改坏一个单组数、改坏 verify 抄来的数、
-    判决面混进词表外状态、嵌入图抄本与生成物分叉、散文抄本掺假类名、方向型声明的方向词翻面。
+    判决面混进词表外状态、嵌入图抄本与生成物分叉、散文抄本掺假类名、方向型声明的方向词翻面、
+    现推名单（空域）掺一枚已有节点的域与枚数挪一位、新接进闭集的散文抄本声明的反序抄本与句子失踪。
     都不红＝仪器没电。格数不在这里钉：它是这台仪器自己的形状，随反对照增减而变，
     打印面逐格各印一行、驱动器按源码的「格 N」标记现数，两处都比一个写死的数字可靠。"""
     ov = rd(OV)
@@ -695,6 +796,163 @@ def selftest(v, mut, dc, da, vf, lv, pd, verify_text=None):
         ok = ok and hit7 >= 1 and crash7 is None
     else:
         print("  格 7 verdict 名单 → 靶子不在文档里，这一型未测（不放行）")
+        ok = False
+    # 格 9：空域名单的牙——第 13 批把这一型从手打名单改成 `ids.DOMAINS` ∖ `da` 现推，
+    # 重定靶欠的一对反对照在这里补齐，且必须在**每一枚引用该名单的句子**上各打一次
+    # （只测一枚就等于给其余枚开后门）：
+    #   (a) 把名单首枚换成一枚「图上已经有节点」的域（由 `da` 现推，不打字）⇒ 派生正则抄不到
+    #       句子 ⇒ MISSING-CLAIM。这一臂证明名单是承重的：文档手写一枚不在名单里的域就会被抓住。
+    #   (b) 同一句只把枚数 +1、名单不动 ⇒ 必须 MISMATCH。这一臂证明数与名单是两套独立的账，
+    #       「名单对而数错」不会被名单的匹配顺手放过。
+    # 正对照不在这里 gate：文档未同步时这些句子本来就该红，那由判定面（main 的红数）去拦。
+    empty9, roster9 = empty_roster(da)
+    empty_nine = len(empty9)
+    if roster9:
+        hot9 = [d for d in sorted(_ids.DOMAINS) if d in da][0]     # 掺进来的那枚：真有一个节点的域
+        cl9 = [(t, d, rx) for t, d, rx, _e in claims(v, mut, dc, da, vf, lv, pd) if roster9 in rx]
+        row9, ok9 = [], True
+
+        def verdict9(lines, tag, kind):
+            # 判决行的类名按 12 字符对齐（MISMATCH 后补 5 个空格，MISSING-CLAIM 只补 1 个），
+            # 所以切标签要用「｜」前的整段再 strip，不能按 kind 的长度硬切——硬切会把
+            # 「MISMATCH」那型的标签留下前导空格，刀打在靶子上却数成 0 次（第 13 批实测）。
+            return len([x for x in lines
+                        if x.split("｜")[0].split(None, 1)[0] == kind
+                        and x.split("｜")[0][len(kind):].strip() == tag])
+
+        for t, d, rx in cl9:
+            txt = rd(d)
+            m = re.search(rx, txt)
+            if not m:
+                row9.append("  格 9 `%s` → 靶子句不在文档里，这一型未测（不放行）" % t)
+                ok9 = False
+                continue
+            seg = m.group(0)
+            segA = seg.replace("`%s`（%s）" % (empty9[0], _ids.DOMAINS[empty9[0]]),
+                               "`%s`（%s）" % (hot9, _ids.DOMAINS[hot9]), 1)
+            if segA == seg:
+                row9.append("  格 9 `%s` → 名单首枚没落在这句里，刀没打在靶子上（不放行）" % t)
+                ok9 = False
+                continue
+            _la, _ra = check(inject(d, txt[:m.start()] + segA + txt[m.end():]),
+                             v, mut, dc, da, vf, lv, pd)
+            hitA = verdict9(_la, t, "MISSING-CLAIM")
+            s, e = m.span(1)
+            segB = txt[:s] + str(int(empty_nine) + 1) + txt[e:]
+            _lb, _rb = check(inject(d, segB), v, mut, dc, da, vf, lv, pd)
+            hitB = verdict9(_lb, t, "MISMATCH")
+            row9.append("  格 9 `%s`：掺有节点的域（`%s`←`%s`）→ MISSING-CLAIM %d 条（要求 1）＝%s；"
+                        "枚数 %d→%d 名单不动 → MISMATCH %d 条（要求 1）＝%s"
+                        % (t, hot9, empty9[0], hitA, "通过" if hitA == 1 else "名单不承重",
+                           empty_nine, empty_nine + 1, hitB, "通过" if hitB == 1 else "数与名单混成一账"))
+            ok9 = ok9 and hitA == 1 and hitB == 1
+        for x in row9:
+            print(x)
+        print("  格 9 覆盖：引用空域名单的句子 %d 枚（全部逐枚打两把）" % len(cl9))
+        ok = ok and ok9 and len(cl9) == 4
+    else:
+        print("  格 9 空域名单 → 全域都已有节点，名单为空，这一型未测（不放行）")
+        ok = False
+    # 格 10：把「§二 域覆盖散文」接进闭集＝加宽判定面，按规矩同批欠一对反对照。这一型在第 13 批
+    # 之前**没有判据**，所以「15 / 20」跟着版面走到 16 时那句散文可以静静留着 15 不红。
+    #   (a) 把该句的两个数按**表格那把尺子的顺序**重打（先「有内容」再「总数」），而版面这两格
+    #       实测不相等 ⇒ 必须在这一条上 MISMATCH。这一臂专门抓期望值的**顺序**：若把期望按
+    #       (有内容, 总数) 打反，这句反序抄本就会判 OK ⇒ 这一臂不响 ⇒ 不放行。
+    #   (b) 把该句的数抹成文字 ⇒ 必须 MISSING-CLAIM。词表是闭集，句子失踪不许静默跳过。
+    # 两臂都只在**这一条**上比，别的声明红不红由判定面（main 的红数）去管。
+    rx10 = r"也就是说 (\d+) 个域里 (\d+) 个域在台账上有内容"
+    m10 = re.search(rx10, ov)
+    if m10:
+        dom10 = str(v["dom"][0]) + " 个域里 " + str(v["dom"][1]) + " 个域"
+        assert str(v["dom"][0]) != str(v["dom"][1]), \
+            "两格相等时反序抄本与正序同形，格 10 的 (a) 臂没有形状（不放行）"
+        seg10 = "也就是说 " + dom10 + "在台账上有内容"
+
+        def verdict10(lines, kind, tag):
+            return len([x for x in lines
+                        if x.split("｜")[0].split(None, 1)[0] == kind
+                        and x.split("｜")[0][len(kind):].strip() == tag])
+
+        # 题面里那句「真句子现判」单独算并兜住缺席：%-插值先于短路求值，
+        # 在 print 的参数里做一次 check(...)[0] 会把「靶子不在面」变成整台自检崩（零判决）。
+        pre10 = [x for x in check(inject(OV, ov), v, mut, dc, da, vf, lv, pd)[0]
+                 if "§二 域覆盖散文" in x]
+        pre10 = pre10[0].split("｜")[0] if pre10 else "（这一条不在判定面上）"
+        try:
+            _l10a, _r10a = check(inject(OV, ov[:m10.start()] + seg10 + ov[m10.end():]),
+                                 v, mut, dc, da, vf, lv, pd)
+            hit10a = verdict10(_l10a, "MISMATCH", "§二 域覆盖散文")
+            crash10a = None
+        except Exception as exc:
+            hit10a, crash10a = 0, repr(exc)
+        _l10b, _r10b = check(inject(OV, ov[:m10.start()] + "也就是说各域在台账上有内容" + ov[m10.end():]),
+                             v, mut, dc, da, vf, lv, pd)
+        hit10b = verdict10(_l10b, "MISSING-CLAIM", "§二 域覆盖散文")
+        print("  格 10 §二 域覆盖散文：真句子现判 %s；反序抄本（%s）→ MISMATCH %d 条（要求 1）＝%s%s；"
+              "抹成文字 → MISSING-CLAIM %d 条（要求 1）＝%s"
+              % (pre10, dom10, hit10a,
+                 "通过" if hit10a == 1 else "顺序不承重（刀没红在这一条上）",
+                 "" if crash10a is None else "；而且它在判决面上崩了：%s" % crash10a,
+                 hit10b, "通过" if hit10b == 1 else "句子失踪被静默跳过"))
+        ok = ok and hit10a == 1 and crash10a is None and hit10b == 1
+    else:
+        print("  格 10 §二 域覆盖散文 → 靶子句不在文档里，这一型未测（不放行）")
+        ok = False
+    # 格 11：第 13 批那条债接成常驻判据——「插在哪一行」与「(XX) 打在第几列」各有牙。
+    #   (a) 目录树行序：把目录名最小那行摘下来追在树尾。这正是第 13 批的真实失败形状
+    #       （`patch_*` 只改已有行的数，新行由 bespoke 代码 append，位置没有尺）。
+    #   (b) 目录树显示列：把中间一行少打一枚半角空格 ⇒ 行序／号段两型照旧绿，只有列型红。
+    #   (c) §三 表行序：同一型债的另一张表，期望序**不同**（按域码，不是按目录名）。
+    #   (d) 正对照：真面两个 tag 各恰一条 OK、这一型零红——三把尺若恒红与恒绿一样是坏针。
+    lib11 = rd(LIB)
+    rows11 = tree_rows(lib11)
+    ln11 = lib11.split("\n")
+    idx11 = [i for i, ln in enumerate(ln11) if re.match(TREE_ROW_RX, ln)]
+    tbl_rx = r"^\| `[A-Z]{2}` \| \d+ \|$"
+    idx11c = [i for i, ln in enumerate(ov.split("\n")) if re.match(tbl_rx, ln)]
+
+    def verdict11(l, kind, tag, word=None):
+        out = [x for x in l if x.split("｜")[0].split(None, 1)[0] == kind
+               and x.split("｜")[0][len(kind):].strip() == tag]
+        return [x for x in out if word is None or word in x]
+
+    if len(idx11) >= 3 and len(idx11c) >= 3:
+        l11g, _r11g = check(doc_map(), v, mut, dc, da, vf, lv, pd)
+        ok_tree = verdict11(l11g, "OK", "公式库 目录树")
+        ok_tbl = verdict11(l11g, "OK", "§三 域×记录数表")
+        red_tree = verdict11(l11g, "MISMATCH", "公式库 目录树")
+        red_tbl = verdict11(l11g, "MISMATCH", "§三 域×记录数表")
+        base11 = (len(ok_tree) == 1 and len(ok_tbl) == 1 and not red_tree and not red_tbl)
+        # (a) 首行挪到树尾
+        moved = ln11[:idx11[0]] + ln11[idx11[0] + 1:idx11[-1] + 1] + [ln11[idx11[0]]] + ln11[idx11[-1] + 1:]
+        la11, _ = check(inject(LIB, "\n".join(moved)), v, mut, dc, da, vf, lv, pd)
+        hit_a = verdict11(la11, "MISMATCH", "公式库 目录树", "行序")
+        # (b) 中间行少一枚空格
+        m11 = re.match(TREE_ROW_RX, ln11[idx11[len(idx11) // 2]])
+        pad11 = m11.group(3)
+        cut11 = list(ln11)
+        cut11[idx11[len(idx11) // 2]] = ln11[idx11[len(idx11) // 2]].replace(
+            pad11 + "(" + m11.group(4) + ")", pad11[:-1] + "(" + m11.group(4) + ")", 1)
+        lb11, _ = check(inject(LIB, "\n".join(cut11)), v, mut, dc, da, vf, lv, pd)
+        hit_b = verdict11(lb11, "MISMATCH", "公式库 目录树", "显示列")
+        other_b = verdict11(lb11, "MISMATCH", "公式库 目录树", "行序")
+        # (c) §三 表首行挪到表尾
+        ovl11 = ov.split("\n")
+        moved_c = ovl11[:idx11c[0]] + ovl11[idx11c[0] + 1:idx11c[-1] + 1] + [ovl11[idx11c[0]]] + ovl11[idx11c[-1] + 1:]
+        lc11, _ = check(inject(OV, "\n".join(moved_c)), v, mut, dc, da, vf, lv, pd)
+        hit_c = verdict11(lc11, "MISMATCH", "§三 域×记录数表", "行序")
+        print("  格 11 行插入排序纪律（树 %d 行／表 %d 行）：真面正对照 OK（树 %d＋表 %d）零红＝%s；"
+              "首行挪到树尾 → 行序红 %d 条（要求 1）＝%s；`(XX)` 少一枚空格 → 显示列红 %d 条"
+              "（要求 1，且行序不得连带红 %d 条）＝%s；表首行挪到表尾 → 行序红 %d 条（要求 1）＝%s"
+              % (len(idx11), len(idx11c), len(ok_tree), len(ok_tbl), "通过" if base11 else "坏针",
+                 len(hit_a), "通过" if len(hit_a) == 1 else "行序没有牙",
+                 len(hit_b), len(other_b),
+                 "通过" if len(hit_b) == 1 and not other_b else "列型没有牙／一刀砍两型",
+                 len(hit_c), "通过" if len(hit_c) == 1 else "表行序没有牙"))
+        ok = ok and base11 and len(hit_a) == 1 and len(hit_b) == 1 and not other_b and len(hit_c) == 1
+    else:
+        print("  格 11 行插入排序纪律 → 树行 %d／表行 %d 少于 3，行序无从判（不放行）"
+              % (len(idx11), len(idx11c)))
         ok = False
     return ok
 

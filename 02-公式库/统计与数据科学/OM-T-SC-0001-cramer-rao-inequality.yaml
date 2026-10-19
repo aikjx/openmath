@@ -1,0 +1,163 @@
+schema_version: "0.1"
+
+id: OM-T-SC-0001
+kind: theorem
+title_zh: 'Cramér–Rao 不等式：Fisher 信息、等号条件与三个可算族'
+title_en: 'Cramér–Rao inequality'
+domain: SC
+msc:
+  - '62F03'
+  - '62B10'
+tags:
+  - 'Fisher 信息'
+  - '无偏估计'
+  - '方差下界'
+  - '等号条件'
+
+status: VERIFIED(L2)
+evidence_level: L2
+revision: 1
+created: 2026-10-18
+updated: 2026-10-18
+
+statement_latex: >-
+  Var_θ(T) ≥ (d g(θ)/dθ)² / I_n(θ), 其中 I_n(θ) = E_θ[score²] = -E_θ[∂² log p(X;θ)/∂θ²],
+  score = ∂ log p/∂θ, 且 E_θ[T] = g(θ)。
+hypotheses:
+  - '族 {p(x;θ)} 关于 θ 二次可微，且积分与对 θ 求导可交换（正则条件）'
+  - 'I_n(θ) 存在、为正，并在 θ 的邻域内一致有界'
+  - 'T 是 g(θ) 的无偏估计，E_θ[T]=g(θ)，且 Var_θ(T) 有限'
+proposed_by: 'Harald Cramér（1946 年专著）；单参数情形由 C. R. Rao（1945）先行给出'
+proposed_year: 1946
+
+latex: >-
+  Var_θ(T) ≥ (g′(θ))² / I_n(θ)
+sympy: '(summation(binomial(5,k)*q**k*(1-q)**(5-k)*diff(log(binomial(5,k)*q**k*(1-q)**(5-k)),q)**2,(k,0,5)) - 5/(q*(1-q)))**2 + (summation(binomial(5,k)*q**k*(1-q)**(5-k)*diff(log(binomial(5,k)*q**k*(1-q)**(5-k)),q),(k,0,5)))**2 + (summation(binomial(5,k)*q**k*(1-q)**(5-k),(k,0,5)) - 1)**2 + (diff(-(x1-theta)**2/(2*sigma**2)-(x2-theta)**2/(2*sigma**2)-(x3-theta)**2/(2*sigma**2),theta) - 3/sigma**2*((x1+x2+x3)/3-theta))**2 + (Integral(exp(-(x-theta)**2/(2*sigma**2))/(sigma*sqrt(2*pi))*((x-theta)/sigma**2)**2,(x,-oo,oo)) - 1/sigma**2)**2'
+
+assumptions:
+  - '本卡的机器读数只覆盖三个具体族（二项 Bin(5,q)、正规位置族 N(θ,σ²)、正规尺度族 N(0,σ²)），不是任意正则族'
+  - '通用引擎的残差是一条 sympy 表达式，故每个采样点必须钉住它的全部自由符号（q、x1、x2、x3、theta、sigma），少钉一个就整条判 UNKNOWN'
+  - '等号条件按 score = a(θ)·(T − g(θ)) 的可解性判：a 由一枚采样点解出后代回其余采样点，残差非零即判「不可及」'
+symbols:
+  - name: 'I_n'
+    meaning_zh: 'n 次独立观测的 Fisher 信息'
+    type: real
+    constraints: 'i.i.d. 时 I_n = n·I_1；本卡机器读数取 n=1 与 n=3 两处'
+  - name: 'score'
+    meaning_zh: '得分函数 ∂ log p(X;θ)/∂θ'
+    type: real
+    constraints: '正则条件下 E[score]=0，故 I=E[score²]=Var(score)'
+  - name: 'T'
+    meaning_zh: '被估量 g(θ) 的估计量'
+    type: real
+    constraints: '本卡要求无偏：E_θ[T]=g(θ)；三个实例分别取 T=x、T=x̄（n=3）、T=√(π/2)·|x|'
+  - name: 'theta'
+    meaning_zh: '位置族 N(θ,σ²) 里被估的均值'
+    type: real
+    constraints: 'σ 视为已知'
+  - name: 'sigma'
+    meaning_zh: '正规族的标准差'
+    type: real
+    constraints: '取正有理数；本卡读数用 5/2 与 3'
+  - name: 'q'
+    meaning_zh: '二项族 Bin(m,q) 的成功概率'
+    type: real
+    constraints: '0<q<1；机器读数用 2/5 与 1/3，脚本扫 15 组'
+  - name: 'm'
+    meaning_zh: '二项试验次数'
+    type: integer
+    constraints: '≥1；引擎残差式固定 m=5，脚本另扫 m∈{1,2,5,7,20}'
+  - name: 'eta'
+    meaning_zh: '二项族的自然参数 log(q/(1-q))'
+    type: real
+    constraints: '通道 B 走 A(eta)=m·log(1+e^eta) 的曲率 A″(eta)'
+
+domain_of_validity: '单参数正则族；本卡的机器读数只覆盖上条 assumptions 点名的三族与采样点'
+
+equivalent_forms:
+  - '两条 Fisher 恒等式：I(θ)=E_θ[score²]（得分二阶矩）＝ -E_θ[∂² log p/∂θ²]（期望负曲率）'
+  - '等号条件：Var(T)=(g′)²/I 达到 ⟺ 存在 a(θ) 使 score = a(θ)·(T − g(θ)) 几乎处处成立'
+  - '位置族读数：I(θ)=1/σ²，T=x 时 Var(T)=σ²=1/I(θ)，等号成立；等号条件的系数 a 恰为 1/σ²'
+  - '尺度族读数：I(σ)=2/σ²，T=√(π/2)·|x| 对 σ 无偏，但 Var(T)/界 = π−2 = 1.14159265359，超出 14.159265%（载体 scratch/T13_SC0001_face.txt 判定3b）'
+  - '二项族读数：I(q)=m/(q(1−q))＝A″(η)/(dq/dη)²，η=log(q/(1−q))，两条通道在 15 组 (m,q) 上差的最大值 2.7369111e-48（同一载体判定1b）'
+
+related:
+  - 'OM-T-PR-0002'
+  - 'OM-T-IT-0001'
+  - 'OM-D-PR-0002'
+uses:
+  - 'OM-D-PR-0001'
+  - 'OM-D-IT-0001'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+
+caveat: >-
+  本卡不重做证明，也不声明任何新结果（红线一、红线八）。它做的是两件更窄的事：
+  ①把「文档里印出的公式」与「机器实际微分/积分的对象」绑成同一条残差——
+  若记号写错（例如把位置族的 I(θ) 写成 1/σ，或把二项 Fisher 写成 m·q(1−q)＝A″(η)），
+  残差立刻非零，这由脚本 --selftest 的四枚变异体现场演示（载体 scratch/T13_SC0001_selftest.txt）。
+  ②给「等号条件」装上判别力：同一把尺在位置族判可及、在尺度族判不可及，
+  且与「方差减界」那条独立通道同判——只有一边红一边绿才说明这把尺会判，全绿不算证据。
+  另须记住：位置族与尺度族的积分残差出自 sympy 的解析闭式（可恰为 0），
+  判定4 的 mpmath 数值求积才是同批积分的第二口径；把前者当数值证据时它出自符号机。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: sympy/mpmath
+      precision_digits: 50
+      sample_count: 2
+      seed: 0
+      tolerance: "1e-40"
+      sample_points:
+        - q: "2/5"
+          x1: "1/2"
+          x2: "3"
+          x3: "-5/7"
+          theta: "2/3"
+          sigma: "5/2"
+        - q: "1/3"
+          x1: "-1"
+          x2: "0"
+          x3: "7/3"
+          theta: "-4/9"
+          sigma: "3"
+      max_abs_residual: "见 scratch/T13_VERIFY_SC0001.txt（该面由最后一次写入之后运行印出，本行不复制其数）"
+      script: 08-工具/examples/verify_OM-T-SC-0001.py
+      credential: scratch/T13_VERIFY_SC0001.txt
+      last_run: 2026-10-18
+      note: '通用引擎只吃 sympy 一条残差；本卡把 5 条恒等式并成平方和，残差为各条平方之和，故一条写反即整条判红'
+    L3:
+      passed: false
+      engine: ""
+      method: '不登记：一般陈述的符号层需要支配收敛与正则性验证，本库未做'
+      note: '本卡的解析闭式由 CAS 求出，不等同于对一般族的符号证明（红线一）'
+    L4:
+      passed: false
+      system: ''
+      name: ''
+      note: '未核对 mathlib/Lean 中 Cramér–Rao 界的绑定名，故不填 L4（红线八：不写未核对的出处）'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明，本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。记录级 status=VERIFIED(L2) 只指本库三个族、两枚采样点上的核对结果，不代表文献定理的地位，也不代表本库证明了该定理。'
+  sources:
+    - 'Cramér, H., Mathematical Methods of Statistics (1946), §18.3'
+    - 'Rao, C. R., Frequency distribution of an estimate of a parameter, Proc. Cambridge Phil. Soc. 41 (1945)'
+    - 'van Trees, Detection, Estimation, and Modulation Theory, Part I (1968), §3.2'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Cramér, H., Mathematical Methods of Statistics (1946), §18.3'
+    - type: book
+      value: 'Rao, C. R., Proc. Cambridge Phil. Soc. 41 (1945)'
+    - type: book
+      value: 'van Trees, Detection, Estimation, and Modulation Theory, Part I (1968), §3.2'
+  contributors:
+    - "qoder-session-2026-10-18"

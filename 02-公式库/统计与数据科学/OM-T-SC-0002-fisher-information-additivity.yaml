@@ -1,0 +1,180 @@
+schema_version: "0.1"
+
+id: OM-T-SC-0002
+kind: theorem
+title_zh: 'Fisher 信息的可加性：独立观测把信息相加，自然指数族把它读成对数配分的曲率'
+title_en: 'Additivity of Fisher information and the natural exponential family curvature identity'
+domain: SC
+msc:
+  - '62F03'
+  - '62B10'
+tags:
+  - 'Fisher 信息'
+  - '可加性'
+  - '自然参数'
+  - '对数配分函数'
+  - '重参数化律'
+
+status: VERIFIED(L2)
+evidence_level: L2
+revision: 1
+created: 2026-10-18
+updated: 2026-10-18
+
+statement_latex: >-
+  X_1,…,X_n 相互独立且各自的得分函数为 u_i(θ)=∂ log p_i(X_i;θ)/∂θ 时，联合得分 u=Σ u_i，
+  且 I_n(θ)=Σ I_i(θ)（i.i.d. 时 I_n=n·I_1）；自然指数族 p(x;η)=h(x)exp(η T(x)-A(η)) 满足
+  E_η[T]=A′(η)、I(η)=Var_η(T)=A″(η)；一般重参数化下 I(η)=I(θ)(dθ/dη)²。
+hypotheses:
+  - '各观测相互独立，且每个分量族满足 OM-T-SC-0001 所列的正则条件（积分与对 θ 求导可交换）'
+  - '各分量的 Fisher 信息存在且有限；求和族的对数配分 A(η) 关于 η 二次可微（即 A 是凸的可微生成函数）'
+  - 'T(x) 的支撑不依赖于参数（指数族正则形式），故 E_η[T]=A′(η) 可由配分函数求导得到'
+proposed_by: 'R. A. Fisher（1925 年论文给出信息量与可加性；指数族的曲率表述是其后的标准形态）'
+proposed_year: 1925
+
+latex: >-
+  I_n(θ) = Σ I_i(θ),  I(η) = Var_η(T) = A″(η),  I(η) = I(θ)·(dθ/dη)²
+sympy: '((1-q)*(1/(1-q))**2 + q*(1/q)**2 - 1/(q*(1-q)))**2 + ((1-q)**2*(2/(1-q))**2 + q**2*(2/q)**2 + 2*q*(1-q)*(1/q-1/(1-q))**2 - 2/(q*(1-q)))**2 + ((1-q)**2*(2/(1-q))**2 + q**2*(2/q)**2 + 2*q*(1-q)*(1/q-1/(1-q))**2 - 2*((1-q)*(1/(1-q))**2 + q*(1/q)**2))**2 + (summation(binomial(3,k)*q**k*(1-q)**(3-k)*(k/q-(3-k)/(1-q))**2,(k,0,3)) - 3/(q*(1-q)))**2 + (summation(binomial(3,k)*q**k*(1-q)**(3-k)*(k/q-(3-k)/(1-q)),(k,0,3)))**2 + (diff(log(1+exp(eta)),(eta,2)).subs(eta,log(q/(1-q))) - q*(1-q))**2 + (diff(3*log(1+exp(eta)),(eta,2)).subs(eta,log(q/(1-q))) - 3*q*(1-q))**2 + (1/(q*(1-q))/diff(log(q/(1-q)),q)**2 - q*(1-q))**2 + (summation(exp(-lam)*lam**x/factorial(x)*(x-lam)**2,(x,0,oo)) - lam)**2 + (summation(exp(-lam)*lam**x/factorial(x)*(x/lam-1)**2,(x,0,oo)) - 1/lam)**2 + ((x1-theta)/sd1**2 + (x2-theta)/sd2**2 - (1/sd1**2+1/sd2**2)*((x1/sd1**2+x2/sd2**2)/(1/sd1**2+1/sd2**2)-theta))**2'
+
+assumptions:
+  - '本卡机器读数（sympy 字段）覆盖的是「一条平方和里的 11 项恒等式」，不是任意独立族：离散侧取 Bernoulli 一枚与两枚乘积测度（四个原子显式枚举，不走闭式）、Bin(3,q) 的求和通道；连续侧只进「等号条件恒等式」那一项（它不含积分，逐点成立），故积分形状的可加性由脚本的精确有理通道承担'
+  - 'Poisson 两项（自然坐标与 lam 坐标）由 sympy 的无穷求和给出解析闭式；这一型在 float 代入下仍返回闭式，因此可以进机器读数，但它的闭式出自符号机而不是数值求积（红线一）'
+  - 'Fubini 分解后的连续可加性（单积分乘积）在通用引擎口径下单点耗时约 109 秒（实测见 scratch/T14_PROTO3_face.txt），故它留在脚本的精确有理通道（同一条在精确代入下约 1.9 秒），不写进 sympy 字段——这是刻意的取舍，不是遗漏'
+  - '等号条件那一项是「score = I·(T−θ)」的逐点恒等式：它对任意 (x1,x2,θ,σ1,σ2) 成立，所以本卡的连续侧证据是代数形状而不是积分值'
+symbols:
+  - name: 'I_n'
+    meaning_zh: 'n 枚独立观测合并后的 Fisher 信息'
+    type: real
+    constraints: '可加性 I_n=Σ I_i；i.i.d. 时＝n·I_1；本卡机器读数取 n=1、2（枚举立方）、3（Bin 求和）三处'
+  - name: 'A'
+    meaning_zh: '自然指数族的对数配分函数（cumulant generating 的一侧）'
+    type: real
+    constraints: 'A(η)=log ∫h(x)e^{ηT(x)}dx；本卡机器读数用 Bernoulli 的 log(1+e^η) 与 Poisson 的 e^η；求和族的 A 相加，故 A″ 相加'
+  - name: 'eta'
+    meaning_zh: '自然参数'
+    type: real
+    constraints: 'Bernoulli 取 log(q/(1-q))，Poisson 取 log(lam)；机器读数里它已被 .subs 代掉，不作为采样点自由符号'
+  - name: 'q'
+    meaning_zh: 'Bernoulli／二项族的成功概率'
+    type: real
+    constraints: '0<q<1；机器读数用 2/5 与 1/3'
+  - name: 'lam'
+    meaning_zh: 'Poisson 族的均值参数'
+    type: real
+    constraints: '>0；机器读数用 7/4 与 2'
+  - name: 'theta'
+    meaning_zh: '两个正规分量共有的均值（被估参数）'
+    type: real
+    constraints: 'σ1、σ2 视为已知且不相等（本卡读数取 3/2 与 5/3、2 与 3）'
+  - name: 'sd1'
+    meaning_zh: '第一枚正规分量的标准差'
+    type: real
+    constraints: '取正有理数；它与 sd2 不相等，否则「逆方差加权」退化成算术平均，本卡的可加性读数失去分辨力'
+  - name: 'sd2'
+    meaning_zh: '第二枚正规分量的标准差'
+    type: real
+    constraints: '取正有理数'
+  - name: 'x1'
+    meaning_zh: '第一枚正规分量的观测值'
+    type: real
+    constraints: '等号条件那一项对 x1 逐点成立；机器读数钉 5/7 与 -1'
+  - name: 'x2'
+    meaning_zh: '第二枚正规分量的观测值'
+    type: real
+    constraints: '机器读数钉 -3/4 与 8/5'
+
+domain_of_validity: '有限枚相互独立的正则观测；本卡的机器读数只覆盖上条 assumptions 点名的族与采样点，不含相依情形（相依时可加性一般不成立，交叉项不为零）'
+
+equivalent_forms:
+  - '可加性的两条同义写法：I_n(θ)=Σ I_i(θ)（得分二阶矩可加，因交叉项 E[u_i u_j]=E[u_i]E[u_j]=0）＝求和族的对数配分相加 A_{Σ}=Σ A_i 时其曲率相加（自然坐标下）'
+  - '自然指数族三条恒等式串成一条：E_η[T]=A′(η)、Var_η(T)=A″(η)、I(η)=Var_η(T)，故「信息＝对数配分的曲率」；本卡把它落成 Bernoulli 与 Poisson 两族的机器读数'
+  - '重参数化律：I(η)=I(θ)(dθ/dη)²。二项／Bernoulli 读数 I(q)=1/(q(1-q)) 与 A″(η)=q(1-q) 由 dq/dη=q(1-q) 互推；位置族读数 I(θ)=1/σ² 与 I(η)=σ²（η=θ/σ²）同一把尺'
+  - '达到界的一侧（与 OM-T-SC-0001 的等号条件同尺）：T=（x1/σ1²+x2/σ2²)/(1/σ1²+1/σ2²) 使 score=I_2·(T−θ) 逐点成立，故 Var(T)=1/I_2=1/(1/σ1²+1/σ2²)——「信息相加」在估计侧读作「精度相加」'
+  - '不达到界的一侧（反对照）：算术平均 (x1+x2)/2 在 σ1≠σ2 时 Var−界=(σ1−σ2)²/4·(…)>0（数值由载体 scratch/T14_SC0002_face.txt 判定3b 印出），等号条件可解性残差非零'
+
+related:
+  - 'OM-T-SC-0001'
+  - 'OM-D-SC-0001'
+  - 'OM-T-PR-0002'
+uses:
+  - 'OM-D-SC-0001'
+  - 'OM-D-IT-0001'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+
+caveat: >-
+  本卡不重做证明，也不声明任何新结果（红线一、红线八）。它做的是三件更窄的事：
+  ①把「可加性」拆成两条独立生产者——离散侧显式枚举四个原子（不用任何闭式）与二项求和通道，
+  连续侧用 Fubini 分解后的单积分乘积与嵌套双重积分（精确有理），两条同值才计一次数；
+  ②把「信息＝曲率」落到两族（Bernoulli、Poisson）并额外核对求和族的曲率相加，
+  使「A 相加」与「I 相加」被同一条尺子读；
+  ③给「精度相加」装上双向判别：同一把等号条件的尺在逆方差加权判可及、在算术平均判不可及，
+  且与「方差减界」那条通道同判——只有一边红一边绿才说明这把尺会判，全绿不算证据。
+  另须记住：Poisson 两项的闭式出自 sympy 的无穷求和，Fubini 那条连续通道只在精确有理代入下被核对
+  （它在浮点代入下单枚耗时约 109 秒而不进机器读数）；把这些当数值证据时，它们出自符号机。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: sympy/mpmath
+      precision_digits: 50
+      sample_count: 2
+      seed: 0
+      tolerance: "1e-40"
+      sample_points:
+        - q: "2/5"
+          lam: "7/4"
+          theta: "1/3"
+          sd1: "3/2"
+          sd2: "5/3"
+          x1: "5/7"
+          x2: "-3/4"
+        - q: "1/3"
+          lam: "2"
+          theta: "-4/9"
+          sd1: "2"
+          sd2: "3"
+          x1: "-1"
+          x2: "8/5"
+      max_abs_residual: "见 scratch/T14_VERIFY_SC0002.txt（该面由最后一次写入之后运行印出，本行不复制其数）"
+      script: 08-工具/examples/verify_OM-T-SC-0002.py
+      credential: scratch/T14_VERIFY_SC0002.txt
+      last_run: 2026-10-18
+      note: '通用引擎只吃 sympy 一条残差（11 项平方和）；采样点须钉满 q、lam、theta、sd1、sd2、x1、x2 七个自由符号，少钉一个整条判 UNKNOWN'
+    L3:
+      passed: false
+      engine: ""
+      method: '不登记：一般陈述的符号层需要支配收敛与正则性验证，本库未做'
+      note: '本卡的解析闭式由 CAS 求出，不等同于对一般独立族的符号证明（红线一）'
+    L4:
+      passed: false
+      system: ''
+      name: ''
+      note: '未核对 mathlib/Lean 中 Fisher 信息可加性的绑定名，故不填 L4（红线八：不写未核对的出处）'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均出自下条已刊文献，本库未重做证明，本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。记录级 status=VERIFIED(L2) 只指本库点名的族与两枚采样点上的核对结果，不代表文献定理的地位，也不代表本库证明了该定理。'
+  sources:
+    - 'R. A. Fisher, Theory of statistical estimation, Proc. Cambridge Phil. Soc. 22 (1925)'
+    - 'C. R. Rao, Frequency distribution of an estimate of a parameter, Proc. Cambridge Phil. Soc. 41 (1945)'
+    - 'L. E. Brown, Fundamentals of Statistical Exponential Families (1986), §1.2'
+    - 'van Trees, Detection, Estimation, and Modulation Theory, Part I (1968), §3.2'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: paper
+      value: 'R. A. Fisher, Theory of statistical estimation, Proc. Cambridge Phil. Soc. 22 (1925)'
+    - type: book
+      value: 'L. E. Brown, Fundamentals of Statistical Exponential Families (1986), §1.2'
+    - type: book
+      value: 'van Trees, Detection, Estimation, and Modulation Theory, Part I (1968), §3.2'
+    - type: session
+      value: '残差式预演面 scratch/T14_PROTO3_face.txt 与 scratch/T14_PROTO2_face.txt（本卡的连续通道取舍由这两张面决定）'
+  contributors:
+    - "qoder-session-2026-10-18"

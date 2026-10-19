@@ -118,7 +118,7 @@ python -m openmath index
 | `bridges` | 桥接（跨领域） |
 
 
-**2026-10-11 实测**：节点＝记录（YAML）＋账本（仅 md）＋验证文档；已落地的边类型 8 种（版面 `---- edge type census ----` 逐类印枚数：全库 518 条，其中 `cites` 262、`related` 150、`uses` 71、`contradicts` 12、`implies` 8、`generalizes` 7、`evidenced_by` 4、`specializes` 4）。上表里的 `contradicts` **本轮已实现**：记录 schema 加了 `contradicts` 字段，冲突两侧各写一次，渲染走 `-.->|冲突|`，漏记背面由 `CONTRADICTION_ASYMMETRIC` 点名——这一行从「承诺」搬进「既有能力」。
+**2026-10-18 实测**：节点＝记录（YAML）＋账本（仅 md）＋验证文档；已落地的边类型 8 种（版面 `---- edge type census ----` 逐类印枚数：全库 547 条，其中 `cites` 276、`related` 158、`uses` 76、`contradicts` 12、`implies` 10、`generalizes` 7、`evidenced_by` 4、`specializes` 4）。上表里的 `contradicts` **本轮已实现**：记录 schema 加了 `contradicts` 字段，冲突两侧各写一次，渲染走 `-.->|冲突|`，漏记背面由 `CONTRADICTION_ASYMMETRIC` 点名——这一行从「承诺」搬进「既有能力」。
 
 **用途**：
 

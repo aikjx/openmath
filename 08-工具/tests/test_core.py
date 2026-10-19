@@ -12,7 +12,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-from openmath import ids, index as index_mod, record as record_mod, report, schema, yamlish  # noqa: E402
+from openmath import fidelity, ids, index as index_mod, record as record_mod, report, schema, yamlish  # noqa: E402
 
 
 def test_id_parse_and_make():
@@ -117,6 +117,64 @@ def test_index_and_report():
     assert "by_level" in stats
     text = report.render_text(stats)
     assert "条目总数" in text
+
+
+def test_record_fidelity_resident():
+    """常驻判据（第 12 批由一次性普查升格）：源文与机读面必须同文。
+    lint 只判「是不是 list」、图谱只从 str 项里抓 ID，两者都看不见「人类读到一条、
+    机器读到另一条」这一型损失，所以这条性质必须由这把尺常驻守着。
+    同批配变异体对照：真语料字节上折一行续文，判据必须红。"""
+    import io
+    import re
+    import shutil
+    import tempfile
+
+    scanned = fidelity.walk()
+    assert scanned, "扫描集为空：判集塌缩时的「0 枚」与「没有缺陷」同形"
+    r = fidelity.scan()
+    assert r["scanned"] == len(scanned), "扫描分母与 walk 不同（%s vs %s）" % (r["scanned"], len(scanned))
+    assert r["records"] == 0, "源文↔机读不同文的记录 %d 份：%s" % (r["records"], r["rows"][:5])
+    rc, ok = fidelity.selftest()
+    assert ok and rc == 0, "三型夹具漏网或干净面假阳：这台探针不得引用"
+
+    target = None
+    for rel, path in scanned:
+        text = io.open(path, encoding="utf-8").read()
+        if fidelity.audit_text(text):
+            continue
+        lines = text.replace("\r\n", "\n").split("\n")
+        key = None
+        for i, ln in enumerate(lines):
+            m = re.match(r"^([A-Za-z_]\w*):", ln)
+            if m:
+                key = m.group(1)
+                continue
+            if key in fidelity.LIST_FIELDS and re.match(r"^  - [^>\s]", ln) and i + 1 < len(lines):
+                target = (rel, path, text, i, key, lines)
+                break
+        if target:
+            break
+    assert target, "语料里找不到一枚可折叠的顶层列表项——这台尺已无对象可判"
+    rel, path, text, i, key, lines = target
+    assert not re.match(r"^\s{4,}\S", lines[i + 1]), "变异体没有真正折叠：下一行本就是续行"
+    mut_lines = list(lines)
+    mut_lines.insert(i + 1, u"    续文不许被吞")
+    fl = fidelity.audit_text(u"\n".join(mut_lines))
+    assert fl and key in [k for _t, k, _s, _d in fl], "折叠续文没被点名（尺子坏了）：%s" % (fl,)
+
+    tmp = tempfile.mkdtemp()
+    try:
+        for name, body in (("clean", text), ("mutant", u"\n".join(mut_lines))):
+            sub = os.path.join(tmp, name)
+            os.makedirs(sub)
+            with io.open(os.path.join(sub, os.path.basename(path)), "wb") as fh:
+                fh.write(body.encode("utf-8"))
+        clean = fidelity.scan(os.path.join(tmp, "clean"))
+        assert clean["scanned"] == 1 and clean["records"] == 0, "同字节副本在临时目录里必须 0 枚：%s" % (clean,)
+        got = fidelity.scan(os.path.join(tmp, "mutant"))
+        assert got["scanned"] == 1 and got["records"] == 1, "变异体目录读数异常：%s" % (got,)
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
 
 
 def _run_all():

@@ -1,0 +1,69 @@
+schema_version: "0.1"
+
+id: OM-D-SC-0001
+kind: definition
+title_zh: '统计推断与指数族的记号：得分函数、Fisher 信息与自然参数'
+title_en: 'Notation for statistical inference and exponential families'
+domain: SC
+msc:
+  - '62F03'
+  - '62B10'
+tags:
+  - '得分函数'
+  - 'Fisher 信息'
+  - '自然参数'
+  - '记号定义'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-10-18
+updated: 2026-10-18
+
+statement_latex: 'score(theta) = (d/d theta) log p(X; theta), I_1(theta) = E_theta[score^2] = -(d^2/d theta^2) log p, I_n(theta) = n * I_1(theta) (i.i.d.), p(x; eta) = exp(eta * T(x) - A(eta)), eta = log(q / (1 - q))'
+
+assumptions:
+  - '记号只在「支配模型 {p(.;theta), theta 属于 Theta}＋求导与积分可交换（正则条件）」这一语境里有意义；本卡只固定记号，不判定哪些模型满足该交换律'
+  - 'A(eta) 是对数配分函数（log-partition），其自然参数化下的曲率 d^2A/d eta^2 就是该族在 eta 坐标里的 Fisher 信息；本卡不引入任何关于 A 的界'
+  - '索引 n 记观测个数、theta 记被微分的那个参数：I(theta) 与 I_n(theta) 是两个量，n=1 时同值，不许混写'
+symbols:
+  - name: 'score'
+    meaning_zh: '得分函数 score(theta)＝(d/d theta) log p(X; theta)：对数似然对被估参数的一阶导；正则条件下 E_theta[score]＝0，故 Fisher 信息可写成它的二阶矩'
+    type: other
+  - name: 'I_n'
+    meaning_zh: 'n 次独立观测的 Fisher 信息 I_n(theta)＝sum_{i=1..n} E_theta[score_i^2]；i.i.d. 时 I_n＝n·I_1，故 Cramer–Rao 下界里的分母按 n 缩放（OM-T-SC-0001 的机器读数取 n=1 与 n=3 两档）'
+    type: other
+  - name: 'eta'
+    meaning_zh: '自然参数（canonical parameter）eta：指数族写成 p(x; eta)＝exp(eta·T(x) − A(eta)) 时的那个坐标；二项族的例子是 eta＝log(q/(1−q))，把 q 坐标换到 eta 坐标要靠 dq/deta 换算 Fisher 信息'
+    type: other
+
+related:
+  - 'OM-T-SC-0001'
+  - 'OM-D-IT-0001'
+uses:
+  - 'OM-D-PR-0001'
+  - 'OM-D-PR-0002'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+equivalent_forms: []
+caveat: '第 13 批记号卡：把 OM-T-SC-0001 用到的 3 枚结构名（score、I_n、eta）升成定义条目，符号账因此回到版面改前那一格（净涨 0，按第 4 批裁定「结构名铸、裸字母不铸」）。本卡不新增任何数学主张，只固定记号与口径：theta、sigma、q、m、T 五枚裸字母按同一裁定留在名单外，不进本卡的 symbols。'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的记号均出自下条已刊文献，本库未重做证明，本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表文献地位。'
+  sources:
+    - 'Cramer, H., Mathematical Methods of Statistics, 2nd ed., Princeton (1946), ch.XVIII（得分函数与 Fisher 信息的记号）'
+    - 'Lehmann, E. L. and Casella, G., Theory of Point Estimation, 2nd ed., Springer (1998), ch.I.6（指数族、自然参数与对数配分函数 A(eta)）'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: book
+      value: 'Cramer, H., Mathematical Methods of Statistics, 2nd ed., Princeton (1946), ch.XVIII（得分函数与 Fisher 信息的记号）'
+    - type: book
+      value: 'Lehmann, E. L. and Casella, G., Theory of Point Estimation, 2nd ed., Springer (1998), ch.I.6（指数族、自然参数与对数配分函数 A(eta)）'
+  contributors:
+    - "qoder-session-2026-10-18"

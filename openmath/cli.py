@@ -5,17 +5,19 @@
     lint     L0 结构校验
     verify   L2/L3 验证
     index    构建/检索索引
+    fidelity 源文 ↔ 机读面逐枚比对（列表项内容丢失通道）
     status   看板
     new      从模板创建新记录
 """
 
 import argparse
+import io
 import json
 import os
 import shutil
 import sys
 
-from . import flowdocs, graph as graph_mod, ids, index as index_mod, record as record_mod, report as report_mod, schema, verify
+from . import fidelity as fidelity_mod, flowdocs, graph as graph_mod, ids, index as index_mod, record as record_mod, report as report_mod, schema, verify
 
 
 def _stdout_utf8():
@@ -176,6 +178,16 @@ def cmd_index(args):
     return 0
 
 
+def cmd_fidelity(args):
+    rc, text = fidelity_mod.report()
+    print(text)
+    if args.out:
+        with io.open(args.out, "wb") as fh:
+            fh.write((text + "\n").encode("utf-8"))
+        print("面已落盘: %s" % args.out)
+    return rc
+
+
 def cmd_graph(args):
     root = record_mod.find_root()
     if root is None:
@@ -296,6 +308,10 @@ def build_parser():
     p_graph = sub.add_parser("graph", help="知识图谱、关系流程图与缺口检测")
     p_graph.add_argument("--check", action="store_true", help="只判据不写盘（CI 模式）")
     p_graph.set_defaults(func=cmd_graph)
+
+    p_fidelity = sub.add_parser("fidelity", help="源文 ↔ 机读面逐枚比对（列表项内容丢失）")
+    p_fidelity.add_argument("--out", help="把判决面另存为该路径（字节写，不追加）")
+    p_fidelity.set_defaults(func=cmd_fidelity)
 
     p_status = sub.add_parser("status", help="看板")
     p_status.add_argument("--format", choices=["text", "json"], default="text")

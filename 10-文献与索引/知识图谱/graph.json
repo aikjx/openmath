@@ -1,6 +1,6 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-10-17T17:58:33Z",
+  "generated": "2026-10-18T02:10:11Z",
   "root": "openmath",
   "nodes": [
     {
@@ -587,6 +587,30 @@
       ],
       "script": null,
       "latex": "\\mathcal{N}(\\mu,\\sigma^{2})\\ \\text{的密度}=(2\\pi\\sigma^{2})^{-1/2}\\exp\\!\\bigl(-(x-\\mu)^{2}/(2\\sigma^{2})\\bigr),\\qquad \\mathcal{N}(0,1)\\ \\text{为标准化}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-SC-0001",
+      "kind": "definition",
+      "domain": "SC",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "统计推断与指数族的记号：得分函数、Fisher 信息与自然参数",
+      "path": "02-公式库/统计与数据科学/OM-D-SC-0001-inference-and-exponential-family-notation.yaml",
+      "tags": [
+        "得分函数",
+        "Fisher 信息",
+        "自然参数",
+        "记号定义"
+      ],
+      "symbols": [
+        "score",
+        "I_n",
+        "eta"
+      ],
+      "script": null,
+      "latex": "score(theta) = (d/d theta) log p(X; theta), I_1(theta) = E_theta[score^2] = -(d^2/d theta^2) log p, I_n(theta) = n * I_1(theta) (i.i.d.), p(x; eta) = exp(eta * T(x) - A(eta)), eta = log(q / (1 - q))",
       "machine_readable": true
     },
     {
@@ -2089,6 +2113,35 @@
     },
     {
       "node_type": "record",
+      "id": "OM-T-SC-0001",
+      "kind": "theorem",
+      "domain": "SC",
+      "status": "VERIFIED(L2)",
+      "evidence_level": "L2",
+      "title_zh": "Cramér–Rao 不等式：Fisher 信息、等号条件与三个可算族",
+      "path": "02-公式库/统计与数据科学/OM-T-SC-0001-cramer-rao-inequality.yaml",
+      "tags": [
+        "Fisher 信息",
+        "无偏估计",
+        "方差下界",
+        "等号条件"
+      ],
+      "symbols": [
+        "I_n",
+        "score",
+        "T",
+        "theta",
+        "sigma",
+        "q",
+        "m",
+        "eta"
+      ],
+      "script": "08-工具/examples/verify_OM-T-SC-0001.py",
+      "latex": "Var_θ(T) ≥ (g′(θ))² / I_n(θ)",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
       "id": "OM-T-ST-0001",
       "kind": "theorem",
       "domain": "ST",
@@ -3426,6 +3479,62 @@
       "dst": "OM-D-PR-0001",
       "type": "uses",
       "via": "正文引用",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-SC-0001",
+      "dst": "OM-D-IT-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-SC-0001",
+      "dst": "OM-D-PR-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-SC-0001",
+      "dst": "OM-D-PR-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-SC-0001",
+      "dst": "OM-T-SC-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-SC-0001",
+      "dst": "OM-D-IT-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-SC-0001",
+      "dst": "OM-T-SC-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-SC-0001",
+      "dst": "OM-D-PR-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-SC-0001",
+      "dst": "OM-D-PR-0002",
+      "type": "uses",
+      "via": "uses",
       "resolvable": true
     },
     {
@@ -5669,6 +5778,76 @@
       "resolvable": true
     },
     {
+      "src": "OM-T-SC-0001",
+      "dst": "OM-D-IT-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-SC-0001",
+      "dst": "OM-D-PR-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-SC-0001",
+      "dst": "OM-D-PR-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-SC-0001",
+      "dst": "OM-T-IT-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-SC-0001",
+      "dst": "OM-T-PR-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-SC-0001",
+      "dst": "OM-D-PR-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-SC-0001",
+      "dst": "OM-T-IT-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-SC-0001",
+      "dst": "OM-T-PR-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-SC-0001",
+      "dst": "OM-D-IT-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-SC-0001",
+      "dst": "OM-D-PR-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
       "src": "OM-T-ST-0001",
       "dst": "OM-D-ST-0001",
       "type": "cites",
@@ -6103,6 +6282,31 @@
         "text": "素数 p 使 p-1 为完全平方数者是否有无穷多个（n^2+1=p <=> p-1=n^2）"
       },
       {
+        "src": "OM-T-SC-0001",
+        "field": "equivalent_forms",
+        "text": "两条 Fisher 恒等式：I(θ)=E_θ[score²]（得分二阶矩）＝ -E_θ[∂² log p/∂θ²]（期望负曲率）"
+      },
+      {
+        "src": "OM-T-SC-0001",
+        "field": "equivalent_forms",
+        "text": "等号条件：Var(T)=(g′)²/I 达到 ⟺ 存在 a(θ) 使 score = a(θ)·(T − g(θ)) 几乎处处成立"
+      },
+      {
+        "src": "OM-T-SC-0001",
+        "field": "equivalent_forms",
+        "text": "位置族读数：I(θ)=1/σ²，T=x 时 Var(T)=σ²=1/I(θ)，等号成立；等号条件的系数 a 恰为 1/σ²"
+      },
+      {
+        "src": "OM-T-SC-0001",
+        "field": "equivalent_forms",
+        "text": "尺度族读数：I(σ)=2/σ²，T=√(π/2)·|x| 对 σ 无偏，但 Var(T)/界 = π−2 = 1.14159265359，超出 14.159265%（载体 scratch/T13_SC0001_face.txt 判定3b）"
+      },
+      {
+        "src": "OM-T-SC-0001",
+        "field": "equivalent_forms",
+        "text": "二项族读数：I(q)=m/(q(1−q))＝A″(η)/(dq/dη)²，η=log(q/(1−q))，两条通道在 15 组 (m,q) 上差的最大值 2.7369111e-48（同一载体判定1b）"
+      },
+      {
         "src": "OM-P-NT-0002",
         "field": "equivalent_forms",
         "text": "精确计算 pi(x) 与精确定位 p_n 在多项式开销内互化（离散反演 p_n = min{x : pi(x) >= n}）"
@@ -6210,20 +6414,20 @@
       "evidence-path": 4
     },
     "off_graph_sides": 4,
-    "nodes": 102,
-    "node_keys": 102,
-    "edges": 529,
-    "both_in_graph": 525,
+    "nodes": 104,
+    "node_keys": 104,
+    "edges": 547,
+    "both_in_graph": 543,
     "one_endpoint_off_graph": 4,
     "both_endpoints_off_graph": 0,
     "collapsed_to_self_loop": 0,
     "ambiguous_doc_ids": []
   },
   "counts": {
-    "record_nodes": 79,
+    "record_nodes": 81,
     "doc_nodes": 23,
     "evidence_docs": 4,
-    "edges": 529,
+    "edges": 547,
     "load_errors": 0
   }
 }
