@@ -1,0 +1,147 @@
+schema_version: "0.1"
+
+id: OM-F-NA-0001
+kind: formula
+title_zh: '三点 Gauss–Legendre 求积在任意区间上对不超过 5 次的多项式精确：节点是 P_3 的根，精度阶是 2n-1'
+title_en: 'Three-point Gauss-Legendre quadrature on an arbitrary interval is exact through degree 5 (nodes are the roots of P_3; degree of precision = 2n-1)'
+domain: NA
+msc:
+  - '65D32'
+  - '33C45'
+tags:
+  - 'Gauss 求积'
+  - 'Legendre 多项式的根'
+  - '精度阶 2n-1'
+  - '任意区间的仿射映射'
+  - '数值分析首枚'
+
+status: VERIFIED(L2)
+evidence_level: L2
+revision: 1
+created: 2026-10-19
+updated: 2026-10-19
+
+statement_latex: >-
+  对 lo<hi 与 p 属于 {0,1,2,3,4,5}：
+  integral_lo^hi t^p dt = (hi-lo)/2 * sum_k w_k * xi_k^p，
+  其中 (xi_1,xi_2,xi_3) = ((lo+hi)/2 - sqrt(3/5)*(hi-lo)/2, (lo+hi)/2, (lo+hi)/2 + sqrt(3/5)*(hi-lo)/2)、
+  (w_1,w_2,w_3) = (5/9, 8/9, 5/9)。
+  规范区间形（lo=-1、hi=1）：integral_{-1}^{1} f(t) dt = (5/9) f(-sqrt(3/5)) + (8/9) f(0) + (5/9) f(sqrt(3/5))。
+  这三枚节点正是 P_3(x) = x^3 - (3/5) x 的全部根；Gauss 定理说 n 点求积的精度阶为 2n-1，本卡读 n=3 那一例。
+  p=6 起不再精确：反对照在 lo=1/2、hi=3 那格读到残差 2.180e-01（载体 scratch/T18B_NA_probe.txt）。
+
+hypotheses:
+  - 'lo<hi（区间非退化）；lo=hi 时两侧同为 0，公式仍成立但那一格不判定任何东西，本卡的采样点不含它'
+  - '被积函数限于单项式 t^p、p 为 0 到 5 的整数；任意不超过 5 次多项式的精确性由积分与求和的线性叠加得出，叠加律本身本卡未做成机器判据（红线一）'
+  - '节点与权重取精确值（Rational 与 sqrt(Rational(3,5))），不是浮点表格；机器读数的 1e-160 量级来自 80 位求值的舍入，不是数学偏离'
+  - 'Gauss 定理的一般 n 形（精度阶恰为 2n-1）不在本卡断言范围内：本卡只读 n=3 的六个次数与两条反对照'
+
+latex: >-
+  \int_{lo}^{hi} t^{p}\,dt = \frac{hi-lo}{2}\sum_{k=1}^{3} w_k \xi_k^{p}\ (p\le 5),\qquad
+  \xi = \frac{lo+hi}{2} \pm \frac{\sqrt{3/5}}{2}(hi-lo),\ 0;\qquad w = \left(\tfrac{5}{9},\tfrac{8}{9},\tfrac{5}{9}\right);\qquad
+  P_3(x)=x^3-\tfrac{3}{5}x
+
+sympy: '((hi - lo)/2*(Rational(5,9)*(((lo + hi) - sqrt(Rational(3,5))*(hi - lo))/2)**0+Rational(8,9)*((lo + hi)/2)**0+Rational(5,9)*(((lo + hi) + sqrt(Rational(3,5))*(hi - lo))/2)**0) - (hi**1 - lo**1)/1)**2+((hi - lo)/2*(Rational(5,9)*(((lo + hi) - sqrt(Rational(3,5))*(hi - lo))/2)**1+Rational(8,9)*((lo + hi)/2)**1+Rational(5,9)*(((lo + hi) + sqrt(Rational(3,5))*(hi - lo))/2)**1) - (hi**2 - lo**2)/2)**2+((hi - lo)/2*(Rational(5,9)*(((lo + hi) - sqrt(Rational(3,5))*(hi - lo))/2)**2+Rational(8,9)*((lo + hi)/2)**2+Rational(5,9)*(((lo + hi) + sqrt(Rational(3,5))*(hi - lo))/2)**2) - (hi**3 - lo**3)/3)**2+((hi - lo)/2*(Rational(5,9)*(((lo + hi) - sqrt(Rational(3,5))*(hi - lo))/2)**3+Rational(8,9)*((lo + hi)/2)**3+Rational(5,9)*(((lo + hi) + sqrt(Rational(3,5))*(hi - lo))/2)**3) - (hi**4 - lo**4)/4)**2+((hi - lo)/2*(Rational(5,9)*(((lo + hi) - sqrt(Rational(3,5))*(hi - lo))/2)**4+Rational(8,9)*((lo + hi)/2)**4+Rational(5,9)*(((lo + hi) + sqrt(Rational(3,5))*(hi - lo))/2)**4) - (hi**5 - lo**5)/5)**2+((hi - lo)/2*(Rational(5,9)*(((lo + hi) - sqrt(Rational(3,5))*(hi - lo))/2)**5+Rational(8,9)*((lo + hi)/2)**5+Rational(5,9)*(((lo + hi) + sqrt(Rational(3,5))*(hi - lo))/2)**5) - (hi**6 - lo**6)/6)**2+(integrate(t**0*(t**3-Rational(3,5)*t),(t,-1,1)))**2+(integrate(t**1*(t**3-Rational(3,5)*t),(t,-1,1)))**2+(integrate(t**2*(t**3-Rational(3,5)*t),(t,-1,1)))**2'
+
+assumptions:
+  - '本卡机器读数（sympy 字段）是九条平方和：p=0..5 六条精确性通道，加三条正交通道（P_3 与 1、t、t^2 在 [-1,1] 上的定积分）。它判的是「九条各自归零」，不是对任意 f 的定理（红线一）'
+  - '通用引擎口径要求每枚采样点钉满全部自由符号——本字段 sympify 后的自由符号恰为 lo、hi 两枚（预演面 scratch/T18B_NA_probe.txt 第 4 行），少钉一枚整条判 UNKNOWN'
+  - '两条通路的形状不同，必须分开读：p=0..5 那六条是数值通道（代值后由 80 位求值读到 1e-160 量级的非零数）；三条正交通道是符号通道（sympy 的多项式定积分规则把整条归成恰好 0，面上不出现小数字）。符号归零不是对一般 m 的证明'
+  - '符号名只用 ASCII：lo、hi 记区间端点，t 只活在那三条正交通道的积分变量位上。本卡的 P_3 写成 t^3-(3/5)t 的多项式，不引用任何外部 special-function 绑定名（红线八：未核对的绑定名不写）'
+  - '反对照 p=6、p=7 由预演脚本现算，不进 sympy 字段（进了就整条判 FAIL）：p=6 在 lo=1/2、hi=3 读到 2.180e-01、在 lo=-1、hi=1 读到 4.571e-02；p=7 的展开式非零，但在 lo=-1、hi=1 那格读成 0.000e+00——奇函数在对称区间两侧同时为零，是数学事实不是仪器故障。因此反对照不许只取对称区间，本卡的取样把 (1/2,3) 与 (-1,1) 并列'
+  - '同一枚对称性也削判定 1 的独立格数：在 lo=-1、hi=1 那列，p=1、3、5 三格读的是恰好 0.000e+00（奇次矩两边同时为零），所以该区间的六格只含三格独立信息；本卡另取 (1/2,3)、(0,2)、(-3,-1/4) 三枚非对称区间，每枚都六格全读（判定册面点名）'
+  - '两处「同形不同值」的坑由判定册现场抓到并写在脚本头上：节点位置是 sqrt(3/5)，而首一化 P_3 的一次项系数是 3/5——把前者当系数写进正交通道，数值通道当场读到 1.164e-01 咬红自己；mp.quad 用的是当前 mp.dps，不在 workdps(80) 里跑就只在默认 15 位上积分，lo=1/2、hi=3 那格读到 1.421e-14（默认位噪声）而被 1e-40 的尺判破'
+  - '权重和 sum w_k = 2（p=0 那一格的别名）是本卡的正对照：它把「区间长度被完整复制」这件事固定成一次可算的归一化检查'
+
+symbols:
+  - name: 'lo'
+    meaning_zh: '积分区间左端点；本卡 sympy 字段的唯二自由符号之一（另一枚 hi），采样点必须两枚都钉满，少一枚整条判 UNKNOWN'
+    type: real
+    constraints: 'lo<hi；机器读数钉 -1、1/2、0、-3'
+  - name: 'hi'
+    meaning_zh: '积分区间右端点；与 lo 一起决定仿射搬家的中点 (lo+hi)/2 与半长 (hi-lo)/2，半长是求积公式的一半、不是可选修饰'
+    type: real
+    constraints: 'hi>lo；机器读数钉 1、3、2、-1/4（与 lo 成对，含一枚全负区间）'
+  - name: 'xi'
+    meaning_zh: '求积节点：机器字段里不出现 xi 这个名字，而是把它的三枚值逐字展开（((lo+hi) ∓ sqrt(3/5)*(hi-lo))/2 与 (lo+hi)/2），因此本卡的节点位置是代入值而不是符号'
+    type: other
+  - name: 'p'
+    meaning_zh: '单项式次数，取 0..5（六条精确性通道逐枚展开）；p=6、p=7 只作为反对照由判定册现算，不进 sympy 字段'
+    type: integer
+    constraints: '0≤p≤5 为本卡断言范围；该名字早已由别的记号卡声明（主人逐名现读见 scratch/T18B_NA_symbolclash.txt），本卡只借用不重定义'
+
+domain_of_validity: '一维实区间 [lo,hi]（lo<hi）上、被积函数为次数不超过 5 的多项式；本卡不含加权求积（Gauss-Chebyshev、Gauss-Laguerre、Gauss-Hermite 各需另卡）、不含 n≠3 的点数（一般 n 的精度阶 2n-1 属 Gauss 定理，本卡只读 n=3 那一例）、不含高维张量积与复区间、不含误差项 f^(6)(xi) 的定量界'
+
+equivalent_forms:
+  - '规范区间形：lo=-1、hi=1 时本卡退化为 integral_{-1}^{1} f = (5/9)f(-sqrt(3/5)) + (8/9)f(0) + (5/9)f(sqrt(3/5))——采样点 lo=-1、hi=1 那一格读的就是它'
+  - '节点形（根的条件）：xi 属于 {0, ±sqrt(3/5)} 是 P_3(x)=x^3-(3/5)x 的三枚根，与「P_3 与 1、t、t^2 在 [-1,1] 上正交」是同一件事的两个说法；本卡的三条正交通道读后者，节点由仿射映射搬到任意区间'
+  - '精度阶形：「对 p<=5 精确且对 p=6 不精确」是「精度阶＝5＝2·3-1」的可算读法；本卡不把误差项 f^(2n)(xi)/(2n)!·∫(x-xi)^2... 那一型定量界读进来'
+  - '仿射不变形：(hi-lo)/2 是 Jacobian，不是可选修饰——预演脚本第一版在对象路漏乘它，p=0 那格当场展开成 -hi+lo+2 而被断言咬红（同一面留痕）'
+
+related:
+  - 'OM-T-GR-0002'
+uses:
+  - 'OM-D-NA-0001'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+
+caveat: >-
+  本卡不重做证明，也不声明任何新结果（红线一、红线八）。它做的是三件更窄的事：
+  ①把「三点 Gauss 求积对不超过 5 次多项式精确」这条断言拆成六条按次数的通道，逐条在两条独立通路上读——
+  字符串路（写进 sympy 字段的那一条）与对象路（脚本里用 sympy 对象重新拼一遍节点、权重与 Jacobian），
+  两路逐格同值才计一次数；
+  ②给「精确到 5 次」配上限证据：p=6、p=7 两格展开式必须非零，且反对照的取样不许只落在对称区间
+  （p=7 在 lo=-1、hi=1 读成 0.000e+00 是奇函数的对消，会把一根没牙的反对照尺伪装成通过）；
+  ③把三条正交通道的符号归零与六条精确性通道的数值归零分开登记，
+  免得「sympy 把积分算成 0」被读成「本卡证明了 Gauss 定理」。
+  须记住：精度阶恰为 2n-1 的一般 Gauss 定理不由本卡担保，本卡只读 n=3。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: sympy/mpmath
+      precision_digits: 80
+      sample_count: 2
+      seed: 0
+      tolerance: "1e-40"
+      sample_points:
+        - lo: "-1"
+          hi: "1"
+        - lo: "1/2"
+          hi: "3"
+      max_abs_residual: '见 scratch/T18B_NA_face_final.txt（该面由最后一次写入之后运行印出，本行不复制其数）'
+      script: 08-工具/examples/verify_OM-F-NA-0001.py
+      credential: scratch/T18B_NA_face_final.txt
+      last_run: 2026-10-19
+      note: '判定册面 scratch/T18B_NA_face_final.txt；牙齿面 scratch/T18B_NA_selftest_final.txt（变异体须响＋正对照不误伤）；预演面 scratch/T18B_NA_probe.txt；通用引擎口径面 scratch/T18B_VERIFY_NA0001.txt'
+    L3:
+      passed: false
+      engine: ""
+      method: '不登记：本卡的 sympy 字段在符号层 expand 后逐格归零（预演面印出九条 0），但「对任意 lo<hi 与任意不超过 5 次多项式成立」需要积分线性性与区间仿射不变律的一般形，本库未做成机器判据（红线一）'
+      note: '符号通道的归零由 sympy 的多项式定积分规则给出，它不等同于对一般 n 的 Gauss 定理'
+    L4:
+      passed: false
+      system: ''
+      name: ''
+      note: '未核对 mathlib/Lean 中 Gauss-Legendre 求积与 Legendre 多项式根的绑定名，故不填 L4（红线八）'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均属经典内容，本库未重做证明，本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。记录级 status=VERIFIED(L2) 只指本库点名的次数、区间端点与采样点上的残差核对结果，不代表文献定理的地位，也不代表本库证明了 Gauss 定理。'
+  sources:
+    - 'Gauss-Legendre 求积与精度阶 2n-1 的经典表述（数值积分标准内容，本轮未核对具体教材版本与节号，红线八）'
+    - 'Legendre 多项式 P_3(x)=x^3-(3/5)x 与低次多项式在 [-1,1] 上正交（正交多项式标准内容，本轮未逐条核对原始文献页码）'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: session
+      value: '字段可用性预演 scratch/T18B_NA_probe.txt（自由符号、九条通道的展开式、两枚采样点残差量级、p=6/p=7 反对照都在这一张面上；写记录之前先跑它）'
+    - type: session
+      value: '判定册面 scratch/T18B_NA_face_final.txt 与牙齿面 scratch/T18B_NA_selftest_final.txt（本卡机器读数的最终读数只在这两张面上，本文件不复制它们）'
+  contributors:
+    - "qoder-session-2026-10-19"

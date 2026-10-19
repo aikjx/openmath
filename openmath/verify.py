@@ -68,15 +68,35 @@ def _to_complex_or_real(value):
         return None, False
 
 
+def _declared(config, key):
+    v = config.get(key)
+    return None if v is None else int(v)
+
+
+def _effective(options, key, declared, fallback):
+    """档位来源三态：调用方**显式**给的 > 记录声明的 > 引擎兜底。
+    第 15 批登记的债：cli 把 `default=50` 无条件塞进 options，于是声明 80 位的记录跑在 50 位、
+    声明 2 个采样点的记录跑在 20 个——判决没变，但「PASS 是在哪把尺下拿的」被命令行拿走了。
+    记录声明 0（整数精确类记录，小数档对它无意义）不算「声明了 0 位」而走兜底：
+    `or` 链会把 0 静默当成缺省，而 mpmath 的 0 位精度是另一回事（会把残差读成噪声）。"""
+    asked = options.get(key)
+    if asked is not None:
+        return int(asked), "cli"
+    if declared:
+        return int(declared), "record"
+    return int(fallback), "default"
+
+
 def verify_l2(record, root=None, options=None):
     """L2 高精度数值验证。"""
     options = options or {}
     started = time.time()
     data = record["data"]
     config = _level_config(data, "L2")
-    dps = int(options.get("precision_digits") or config.get("precision_digits") or DEFAULT_DPS)
-    seed = int(options.get("seed") or config.get("seed") or 20260910)
-    count = int(options.get("sample_count") or config.get("sample_count") or 20)
+    declared_dps = _declared(config, "precision_digits")
+    dps, dps_src = _effective(options, "precision_digits", declared_dps, DEFAULT_DPS)
+    seed, _ = _effective(options, "seed", _declared(config, "seed"), 20260910)
+    count, _ = _effective(options, "sample_count", _declared(config, "sample_count"), 20)
     tol = float(options.get("tolerance") or config.get("tolerance") or DEFAULT_TOL)
 
     result = {
@@ -88,6 +108,8 @@ def verify_l2(record, root=None, options=None):
             "python": platform.python_version(),
             "platform": sys.platform,
             "precision_digits": dps,
+            "declared_precision_digits": declared_dps,
+            "precision_source": dps_src,
             "seed": seed,
         },
         "metrics": {},
@@ -172,9 +194,10 @@ def verify_l2(record, root=None, options=None):
     else:
         result["status"] = "PASS"
         result["notes"] = (
-            "在 %d 个采样点、%d 位精度下未发现反例。"
+            "在 %d 个采样点、%d 位精度（档位来源=%s；记录声明=%s）下未发现反例。"
             "注意：L2 通过不构成证明（见 00-宪章/02-诚实红线.md 红线一）。"
-            % (len(residuals), dps)
+            % (len(residuals), dps, dps_src,
+               "未声明" if declared_dps is None else declared_dps)
         )
     return _finish(result, started)
 
@@ -185,7 +208,8 @@ def verify_l3(record, root=None, options=None):
     started = time.time()
     data = record["data"]
     config = _level_config(data, "L3")
-    dps = int(options.get("precision_digits") or 50)
+    declared_dps = _declared(config, "precision_digits")
+    dps, dps_src = _effective(options, "precision_digits", declared_dps, 50)
 
     result = {
         "target_id": data.get("id"),
@@ -196,6 +220,8 @@ def verify_l3(record, root=None, options=None):
             "python": platform.python_version(),
             "platform": sys.platform,
             "precision_digits": dps,
+            "declared_precision_digits": declared_dps,
+            "precision_source": dps_src,
         },
         "metrics": {},
         "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),

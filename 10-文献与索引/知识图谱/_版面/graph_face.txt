@@ -1,24 +1,24 @@
 openmath graph face — 本面是唯一载体，文档只许引用这里印出的数
-generated: 2026-10-18T02:10:11Z
+generated: 2026-10-19T03:12:37Z
 ---- ledger scope ----
-record nodes (OM-*.yaml)            : 81
+record nodes (OM-*.yaml)            : 85
 doc nodes (OM-*.md 无 .yaml 伴生)    : 23
 evidence docs (05-验证中心)          : 4
-typed edges                        : 547
+typed edges                        : 571
 YAML load errors                   : 0
 ---- edge type census ----
-  cites          : 276
-  related        : 158
-  uses           : 76
+  cites          : 285
+  related        : 166
+  uses           : 82
   contradicts    : 12
-  implies        : 10
+  implies        : 11
   generalizes    : 7
   evidenced_by   : 4
   specializes    : 4
 ---- gap classes ----
+  PROSE_RELATION_UNTRAVERSABLE   :   28 : ADVISORY
   MD_ONLY_LEDGER                 :   27 : LEDGER-GAP
-  UNDEFINED_SYMBOL               :   18 : ADVISORY
-  PROSE_RELATION_UNTRAVERSABLE   :   15 : ADVISORY
+  UNDEFINED_SYMBOL               :   26 : ADVISORY
   EDGE_ENDPOINT_OFF_GRAPH        :    4 : LEDGER-GAP
   ORPHAN                         :    3 : ADVISORY
   ID_MULTI_FILE                  :    1 : LEDGER-GAP
@@ -33,24 +33,24 @@ YAML load errors                   : 0
   RELATION_KEY_UNREAD            :    0 : LEDGER-GAP
   TERM_INCONSISTENCY             :    0 : ADVISORY
 ---- charts ----
-  00-四层总览 : {"domains_with_nodes": 16, "edges_off_graph": 4, "layer_edges": 6, "layer_nodes": {"方程层": 40, "逻辑层": 27, "难题层": 37}, "real_edges_between_layers": 258}
-  01-域依赖 : {"intra_edges": 1, "missing_placement": 0, "tier_edges": 5, "tiers": 6, "unplaced": 3}
-  02-公式与定理依赖 : {"edges": 494, "record_nodes_in_chart": 81}
-  03-难题卡点 : {"chart_nodes": 71, "dangling": 0, "edges": 134, "edges_with_off_graph_end": 4, "problem_nodes": 37, "prose_bottlenecks": 6}
+  00-四层总览 : {"domains_with_nodes": 18, "edges_off_graph": 4, "layer_edges": 6, "layer_nodes": {"方程层": 43, "逻辑层": 28, "难题层": 37}, "real_edges_between_layers": 268}
+  01-域依赖 : {"intra_drawn": 1, "intra_dropped": 0, "intra_dropped_pairs": [], "intra_edges": 1, "missing_placement": 0, "tier_edges": 5, "tiers": 6, "unplaced": 3}
+  02-公式与定理依赖 : {"edges": 518, "record_nodes_in_chart": 85}
+  03-难题卡点 : {"chart_nodes": 71, "dangling": 0, "edges": 134, "edges_with_off_graph_end": 4, "problem_nodes": 37, "prose_bottlenecks": 9}
   04-桥接与旁证 : {"bridge_docs": 0, "bridge_edges": 0, "edges_with_off_graph_end": 4, "evidence_edges": 4, "nodes": 5}
 ---- domain placement ----
   tiers declared          : 6
   domains placed          : 17 / 20（ids.DOMAINS）
   declared unplaced       : CB, GT, XS
   missing_placement       : NONE
-  domains with >=1 node   : 16 / 20
+  domains with >=1 node   : 18 / 20
 ---- artifacts ----
-  graph.json            : nodes 104 / edges 547
+  graph.json            : nodes 108 / edges 571
   流程图               : 5 张（00-四层总览, 01-域依赖, 02-公式与定理依赖, 03-难题卡点, 04-桥接与旁证）
   交叉引用索引         : 7 张（引用图.md, 按ID.md, 按域.md, 按标签.md, 按证据等级.md, 术语索引.md, 缺口检测.md）
 ---- endpoint resolution ----
-  nodes / unique keys : 104 / 104
-  edges both ends in graph : 543 / 547
+  nodes / unique keys : 108 / 108
+  edges both ends in graph : 567 / 571
   one end off graph        : 4
   both ends off graph      : 0
   collapsed to self-loop   : 0

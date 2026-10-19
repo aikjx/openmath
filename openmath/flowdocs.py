@@ -185,11 +185,19 @@ def chart_domain_tiers(g):
         if prev:
             lines.append('  %s -->|"借用工具（非逻辑基础）"| %s' % (prev, tag))
         prev = tag
+    INTRA_SIG = "-.->|同层互译|"
+    dropped = []
     for a, b in sorted(g["tiers"]["intra"]):
         rank_a = next((t["rank"] for t in tiers if a in t["domains"]), None)
         rank_b = next((t["rank"] for t in tiers if b in t["domains"]), None)
         if rank_a and rank_b:
-            lines.append('  R%d_%s -.->|同层互译| R%d_%s' % (rank_a, a, rank_b, b))
+            lines.append("  R%d_%s %s R%d_%s" % (rank_a, a, INTRA_SIG, rank_b, b))
+        else:
+            dropped.append("%s-%s" % (a, b))
+    for pair in dropped:
+        # 这一支以前什么都不发，而 `intra_edges` 数的是声明数：版面照旧绿，图上少一条边。
+        lines.append('  X_INTRA_%s["声明的同层边画不出：%s 端点未归层（DEFECT）"]' % (
+            pair.replace("-", "_"), pair))
     for code in sorted(g["tiers"]["unplaced"]):
         lines.append('  U_%s["%s %s：声明为未归层"]' % (code, code, _clean(ids.DOMAINS.get(code, code))))
     for code in sorted(g["tiers"]["missing_placement"]):
@@ -198,6 +206,10 @@ def chart_domain_tiers(g):
     meta = {"tiers": len(tiers),
             "tier_edges": max(0, len(tiers) - 1),
             "intra_edges": len(g["tiers"]["intra"]),
+            # 由印出的那张图自己数，不重新声明一遍（否则又一个恒绿读数）。
+            "intra_drawn": sum(1 for l in lines if INTRA_SIG in l),
+            "intra_dropped": len(dropped),
+            "intra_dropped_pairs": dropped,
             "unplaced": len(g["tiers"]["unplaced"]),
             "missing_placement": len(g["tiers"]["missing_placement"])}
     return "\n".join(lines) + "\n", meta

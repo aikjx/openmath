@@ -217,6 +217,23 @@ def empty_roster(da):
     return empty, "／".join("`%s`（%s）" % (d, _ids.DOMAINS[d]) for d in empty)
 
 
+SYMBOL_SHORT_RX = r"^[a-z][0-9]?$"
+
+
+def symbol_roster(names):
+    """名册格：分两类的是版面 `UNDEFINED_SYMBOL` 的**名单本身**，不是我打的账。
+    口径点名（文档那句要写同一把尺）：短记号＝一个小写字母后最多跟一位数字下标
+    （`b`、`x1`、`k2`），长记号＝其余（`bt`、`chi`、`phi(x, a)`）。
+    两类各按名单排序。闭合由下面两枚断言保证：有一枚记号没落进任一类、或同一枚被算两次，
+    都在这里抛而不是让文档那句继续讲一个没人复算过的分解——第 15 批查出的正是这种形状：
+    散文写「14＋9＝23」而版面已到 26（补铸 `bt`/`hbar`/`k2` 三枚动了名单，账没跟着动）。"""
+    short = sorted(n for n in names if re.match(SYMBOL_SHORT_RX, n))
+    rest = sorted(n for n in names if not re.match(SYMBOL_SHORT_RX, n))
+    assert len(short) + len(rest) == len(names), "名册分类没有覆盖全部记号（有一枚被静默吞掉）"
+    assert len(set(short) | set(rest)) == len(names), "名册分类里同一枚记号被数了两次"
+    return short, rest
+
+
 def disp_cols(s):
     """显示列宽度：东亚宽／全角字符算 2 列，其余 1 列。
     口径点名：本判据只比「同一张表里各行的 `(XX)` 是否落在同一列」，不比那个列号本身，
@@ -340,6 +357,16 @@ def claims(v, mut, dc, da, vf, lv, pd):
         # （第 4 批 51 → 15 枚）会被判 MISSING-CLAIM——假红来自措辞而不是语料。
         # 放宽不等于开闸：方向词由该句自己的两个数现推，现值再由版面复算，见格 8 的反对照。
         ("§三 符号账", OV, r"从上一版的 (\d+) ([涨降])到版面的 (\d+) 枚", None),
+        # 名册格（第 15 批查出）：那句把「故意不铸」的记号按形状分两类并逐枚点名，
+        # 而它住在词表外，于是补铸三枚之后散文仍讲 14＋9＝23、版面已到 26，没有人红。
+        # 现在两类名单与两个枚数都由 graph.json 的名单现推（口径见 symbol_roster），
+        # 名单一变这句就抄不到（MISSING-CLAIM）——这一型的牙由格 12 的两把刀证明。
+        ("§三 名册格", OV,
+         r"剩下的 (\d+) 枚\*\*故意不铸\*\*，按名单分两类：短记号（[^）]*）(\d+) 枚（"
+         + "、".join(re.escape("`%s`" % n) for n in symbol_roster(v["sym"])[0])
+         + r"）与长记号（[^）]*）(\d+) 枚（"
+         + "、".join(re.escape("`%s`" % n) for n in symbol_roster(v["sym"])[1]) + r"）",
+         [len(v["sym"])] + [len(x) for x in symbol_roster(v["sym"])]),
         ("§三 逻辑层涨幅", OV, r"逻辑层从 (\d+) ([涨降])到 (\d+)", None),
         ("§四 难题层节点", OV, r"难题层节点 (\d+) 个（版面 `03-难题卡点`：难题节点 (\d+) 个、图上 (\d+) 个节点／(\d+) 条边）",
          [lay["难题层"], c03["problem_nodes"], c03["chart_nodes"], c03["edges"]]),
@@ -903,7 +930,13 @@ def selftest(v, mut, dc, da, vf, lv, pd, verify_text=None):
     #       （`patch_*` 只改已有行的数，新行由 bespoke 代码 append，位置没有尺）。
     #   (b) 目录树显示列：把中间一行少打一枚半角空格 ⇒ 行序／号段两型照旧绿，只有列型红。
     #   (c) §三 表行序：同一型债的另一张表，期望序**不同**（按域码，不是按目录名）。
-    #   (d) 正对照：真面两个 tag 各恰一条 OK、这一型零红——三把尺若恒红与恒绿一样是坏针。
+    #   (d) 正对照：真面在**排序型三把尺**（行序／显示列／目录名互指／parse）上零红。
+    #       口径这一版改窄过：第一稿要求「两个 tag 各恰一条 OK 且无 MISMATCH」，于是这把对照
+    #       把「文档尚未同步」（枚数旧、判 MISMATCH 计数）读成「针坏了」——本轮实测正是如此
+    #       （SC 的版面枚数已到 3 而树仍写 2，格 11 报 树 0＋表 0 零红＝坏针）。
+    #       对照只许问它自己那一型：计数红是驱动器的活，排序红才是这把尺的 false alarm。
+    #       恒绿的针由 (a)(b)(c) 三枚变异体打断，恒红的针由这一枚对照拦下。
+    ORDER_WORDS = ("行序", "显示列", "目录名", "parse")
     lib11 = rd(LIB)
     rows11 = tree_rows(lib11)
     ln11 = lib11.split("\n")
@@ -922,7 +955,13 @@ def selftest(v, mut, dc, da, vf, lv, pd, verify_text=None):
         ok_tbl = verdict11(l11g, "OK", "§三 域×记录数表")
         red_tree = verdict11(l11g, "MISMATCH", "公式库 目录树")
         red_tbl = verdict11(l11g, "MISMATCH", "§三 域×记录数表")
-        base11 = (len(ok_tree) == 1 and len(ok_tbl) == 1 and not red_tree and not red_tbl)
+        ord_tree = [x for x in red_tree if any(w in x for w in ORDER_WORDS)]
+        ord_tbl = [x for x in red_tbl if any(w in x for w in ORDER_WORDS)]
+        base11 = (not ord_tree and not ord_tbl)
+        num_tree = [x for x in l11g if x not in red_tree and "MISMATCH" in x[:9]
+                    and "公式库 目录树" in x]
+        num_tbl = [x for x in l11g if x not in red_tbl and "MISMATCH" in x[:9]
+                   and "§三 域×记录数表" in x]
         # (a) 首行挪到树尾
         moved = ln11[:idx11[0]] + ln11[idx11[0] + 1:idx11[-1] + 1] + [ln11[idx11[0]]] + ln11[idx11[-1] + 1:]
         la11, _ = check(inject(LIB, "\n".join(moved)), v, mut, dc, da, vf, lv, pd)
@@ -941,10 +980,13 @@ def selftest(v, mut, dc, da, vf, lv, pd, verify_text=None):
         moved_c = ovl11[:idx11c[0]] + ovl11[idx11c[0] + 1:idx11c[-1] + 1] + [ovl11[idx11c[0]]] + ovl11[idx11c[-1] + 1:]
         lc11, _ = check(inject(OV, "\n".join(moved_c)), v, mut, dc, da, vf, lv, pd)
         hit_c = verdict11(lc11, "MISMATCH", "§三 域×记录数表", "行序")
-        print("  格 11 行插入排序纪律（树 %d 行／表 %d 行）：真面正对照 OK（树 %d＋表 %d）零红＝%s；"
+        print("  格 11 行插入排序纪律（树 %d 行／表 %d 行）：真面排序型零红（同 tag 带｜前缀的红 树 %d／表 %d，"
+              "其中排序型 %d／%d；无标签的枚数红 树 %d／表 %d 归驱动器，不入本条账；OK 行 树 %d／表 %d）＝%s；"
               "首行挪到树尾 → 行序红 %d 条（要求 1）＝%s；`(XX)` 少一枚空格 → 显示列红 %d 条"
               "（要求 1，且行序不得连带红 %d 条）＝%s；表首行挪到表尾 → 行序红 %d 条（要求 1）＝%s"
-              % (len(idx11), len(idx11c), len(ok_tree), len(ok_tbl), "通过" if base11 else "坏针",
+              % (len(idx11), len(idx11c), len(red_tree), len(red_tbl), len(ord_tree), len(ord_tbl),
+                 len(num_tree), len(num_tbl), len(ok_tree), len(ok_tbl),
+                 "通过" if base11 else "坏针",
                  len(hit_a), "通过" if len(hit_a) == 1 else "行序没有牙",
                  len(hit_b), len(other_b),
                  "通过" if len(hit_b) == 1 and not other_b else "列型没有牙／一刀砍两型",
@@ -954,6 +996,56 @@ def selftest(v, mut, dc, da, vf, lv, pd, verify_text=None):
         print("  格 11 行插入排序纪律 → 树行 %d／表行 %d 少于 3，行序无从判（不放行）"
               % (len(idx11), len(idx11c)))
         ok = False
+    # 格 12：名册格的牙。第 15 批查出的形状是「那句分两类的话住在词表外」：补铸动了名单
+    # （23→26），散文仍讲 14＋9＝23，两轮没人红。接进闭集之后按规矩同批欠一对反对照：
+    #   (a) 把短类名单首枚换成一枚**形状合规而不在版面名单里**的短记号（候选由 `a`–`z` ∖ 名单现推，
+    #       不打字）⇒ 派生正则抄不到句子 ⇒ MISSING-CLAIM。这一臂证明**名单**承重，不是只 gate 两个数。
+    #   (b) 同一句只把短类枚数 +1、名单一个字不动 ⇒ 必须 MISMATCH。这一臂证明数与名单是两套独立的账
+    #       （若期望值由名单长度现算而正则只抓名单，改数不会被抓＝假绿）。
+    #   闭合（两类相加＝版面枚数＝总数格）由 symbol_roster 的断言保证，这里把三个读数印出来复核。
+    sym12 = v["sym"]
+    short12, rest12 = symbol_roster(sym12)
+    cl12 = [c for c in claims(v, mut, dc, da, vf, lv, pd) if c[0] == "§三 名册格"]
+
+    def verdict12(lines, kind):
+        return len([x for x in lines if x.split("｜")[0].split(None, 1)[0] == kind
+                    and x.split("｜")[0][len(kind):].strip() == "§三 名册格"])
+
+    if len(cl12) != 1:
+        print("  格 12 名册格 → 词表里这一条有 %d 枚（要求 1：双写＝两套账）（不放行）" % len(cl12))
+        ok = False
+    else:
+        rx12, exp12 = cl12[0][2], cl12[0][3]
+        m12 = re.search(rx12, ov)
+        if not m12:
+            print("  格 12 名册格 → 靶子句不在文档里（或句子形状与派生正则分家），这一型未测（不放行）")
+            ok = False
+        else:
+            seg12 = m12.group(0)
+            cand12 = [c for c in "abcdefghijklmnopqrstuvwxyz" if c not in sym12]
+            fake12 = "`%s`" % cand12[0]
+            segA = seg12.replace("`%s`" % short12[0], fake12, 1)
+            if segA == seg12:
+                print("  格 12 名册格 → 短类首枚没落在这句里，刀没打在靶子上（不放行）")
+                ok = False
+            else:
+                la12, _ra = check(inject(OV, ov[:m12.start()] + segA + ov[m12.end():]),
+                                  v, mut, dc, da, vf, lv, pd)
+                hit12a = verdict12(la12, "MISSING-CLAIM")
+                s12, e12 = m12.span(2)
+                segB = ov[:s12] + str(int(m12.group(2)) + 1) + ov[e12:]
+                lb12, _rb = check(inject(OV, segB), v, mut, dc, da, vf, lv, pd)
+                hit12b = verdict12(lb12, "MISMATCH")
+                closed = (len(short12) + len(rest12) == len(sym12) == exp12[0])
+                print("  格 12 名册格（版面 %d 枚＝短 %d＋长 %d，闭合＝%s；掺 `%s`←`%s`）："
+                      "换名单外记号 → MISSING-CLAIM %d 条（要求 1）＝%s；枚数 %d→%d 名单不动 → MISMATCH %d 条"
+                      "（要求 1）＝%s"
+                      % (exp12[0], len(short12), len(rest12), "通过" if closed else "失败",
+                         fake12.strip("`"), short12[0],
+                         hit12a, "通过" if hit12a == 1 else "名单不承重",
+                         int(m12.group(2)), int(m12.group(2)) + 1,
+                         hit12b, "通过" if hit12b == 1 else "数与名单混成一账"))
+                ok = ok and closed and hit12a == 1 and hit12b == 1
     return ok
 
 
@@ -979,6 +1071,14 @@ def collect():
     gj = json.loads(rd(GJSON_REL))
     assert len(gj["nodes"]) == v["nodes"] and len(gj["edges"]) == v["edges"], \
         "第二口径失败：graph.json 与版面不同值"
+    # 名册格的名单：只有 graph.json 存了记号**名字**，版面只存枚数。两把尺子读同一个数就得比一次
+    # （第 8 批 AMBIGUOUS_REFERENCE 那型：两把尺读不同数＝其中一把挂在别的数据源上）。
+    sym = gj["gaps"].get("UNDEFINED_SYMBOL")
+    assert sym is not None, "graph.json 里没有 UNDEFINED_SYMBOL 这一类——名册格无从复算"
+    assert len(sym) == v["gaps"]["UNDEFINED_SYMBOL"][0], \
+        "名册格第二口径失败：graph.json %d 枚 ≠ 版面 %d 枚" % (
+            len(sym), v["gaps"]["UNDEFINED_SYMBOL"][0])
+    v["sym"] = list(sym)
     # 域 -> 记录节点数：直接读 graph.json 节点自带的 `domain` 字段（不解析号段，
     # 号段形状变了也不会让这里静默数错）。
     dc, da, nodom = {}, {}, 0

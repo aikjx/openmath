@@ -1,6 +1,6 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-10-18T02:10:11Z",
+  "generated": "2026-10-19T03:12:37Z",
   "root": "openmath",
   "nodes": [
     {
@@ -440,6 +440,30 @@
       ],
       "script": null,
       "latex": "C=\\sup_{p(x)}\\ I(X;Y),\\qquad I(X;Y)=\\sum_{x,y}p(x,y)\\log\\frac{p(x,y)}{p(x)p(y)}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-NA-0001",
+      "kind": "definition",
+      "domain": "NA",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "区间求积的记号：端点 lo/hi、节点 xi 与它们的仿射来源",
+      "path": "02-公式库/数值分析/OM-D-NA-0001-interval-quadrature-notation.yaml",
+      "tags": [
+        "记号定义",
+        "求积节点",
+        "区间仿射映射",
+        "数值分析首张记号卡"
+      ],
+      "symbols": [
+        "lo",
+        "hi",
+        "xi"
+      ],
+      "script": null,
+      "latex": "lo < hi 记积分区间端点；mid=(lo+hi)/2、half=(hi-lo)/2 记其中点与半长；xi_k = mid + half*g_k 记一般节点（g_k 为规范区间 [-1,1] 上的第 k 枚节点）；三点 Gauss–Legendre 的 xi_1、xi_2、xi_3 即 g = -sqrt(3/5)、0、+sqrt(3/5) 的像。",
       "machine_readable": true
     },
     {
@@ -905,6 +929,32 @@
       ],
       "script": "08-工具/examples/verify_OM-F-AN-0004.py",
       "latex": "\\Lambda(s,\\chi)=\\left(\\frac{q}{\\pi}\\right)^{(s+a)/2}\\Gamma\\!\\left(\\frac{s+a}{2}\\right)L(s,\\chi),\\quad a=\\frac{1-\\chi(-1)}{2},\\qquad \\Lambda(s,\\chi)=\\frac{\\tau(\\chi)}{i^{a}\\sqrt{q}}\\,\\Lambda(1-s,\\overline{\\chi}),\\quad \\tau(\\chi)=\\sum_{r=1}^{q}\\chi(r)e^{2\\pi i r/q},\\ \\ |\\tau(\\chi)|=\\sqrt{q}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-F-NA-0001",
+      "kind": "formula",
+      "domain": "NA",
+      "status": "VERIFIED(L2)",
+      "evidence_level": "L2",
+      "title_zh": "三点 Gauss–Legendre 求积在任意区间上对不超过 5 次的多项式精确：节点是 P_3 的根，精度阶是 2n-1",
+      "path": "02-公式库/数值分析/OM-F-NA-0001-gauss-legendre-three-node-exactness.yaml",
+      "tags": [
+        "Gauss 求积",
+        "Legendre 多项式的根",
+        "精度阶 2n-1",
+        "任意区间的仿射映射",
+        "数值分析首枚"
+      ],
+      "symbols": [
+        "lo",
+        "hi",
+        "xi",
+        "p"
+      ],
+      "script": "08-工具/examples/verify_OM-F-NA-0001.py",
+      "latex": "\\int_{lo}^{hi} t^{p}\\,dt = \\frac{hi-lo}{2}\\sum_{k=1}^{3} w_k \\xi_k^{p}\\ (p\\le 5),\\qquad \\xi = \\frac{lo+hi}{2} \\pm \\frac{\\sqrt{3/5}}{2}(hi-lo),\\ 0;\\qquad w = \\left(\\tfrac{5}{9},\\tfrac{8}{9},\\tfrac{5}{9}\\right);\\qquad P_3(x)=x^3-\\tfrac{3}{5}x",
       "machine_readable": true
     },
     {
@@ -1889,6 +1939,37 @@
     },
     {
       "node_type": "record",
+      "id": "OM-T-MP-0001",
+      "kind": "theorem",
+      "domain": "MP",
+      "status": "VERIFIED(L2)",
+      "evidence_level": "L2",
+      "title_zh": "一维盒的热核迹＝绕数轨道和：θ 模变换读成一条迹公式，前导项是盒的 Weyl 律",
+      "path": "02-公式库/数学物理/OM-T-MP-0001-heat-kernel-trace-theta-orbit-sum.yaml",
+      "tags": [
+        "热核迹",
+        "θ 函数的模变换",
+        "Poisson 求和",
+        "绕数／像电荷",
+        "Weyl 前导项"
+      ],
+      "symbols": [
+        "a",
+        "b",
+        "c",
+        "k",
+        "k2",
+        "m",
+        "L",
+        "hbar",
+        "bt"
+      ],
+      "script": "08-工具/examples/verify_OM-T-MP-0001.py",
+      "latex": "Σ_{n≥1} e^{-a n²} = ½(√(π/a)(1+2Σ_{n≥1} e^{-π²n²/a}) − 1), 1+2Σ_{n≥1} e^{-τn²}cos(nx) = √(π/τ) Σ_{m∈ℤ} e^{-(x-2πm)²/(4τ)}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
       "id": "OM-T-NT-0001",
       "kind": "theorem",
       "domain": "NT",
@@ -2138,6 +2219,38 @@
       ],
       "script": "08-工具/examples/verify_OM-T-SC-0001.py",
       "latex": "Var_θ(T) ≥ (g′(θ))² / I_n(θ)",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-T-SC-0002",
+      "kind": "theorem",
+      "domain": "SC",
+      "status": "VERIFIED(L2)",
+      "evidence_level": "L2",
+      "title_zh": "Fisher 信息的可加性：独立观测把信息相加，自然指数族把它读成对数配分的曲率",
+      "path": "02-公式库/统计与数据科学/OM-T-SC-0002-fisher-information-additivity.yaml",
+      "tags": [
+        "Fisher 信息",
+        "可加性",
+        "自然参数",
+        "对数配分函数",
+        "重参数化律"
+      ],
+      "symbols": [
+        "I_n",
+        "A",
+        "eta",
+        "q",
+        "lam",
+        "theta",
+        "sd1",
+        "sd2",
+        "x1",
+        "x2"
+      ],
+      "script": "08-工具/examples/verify_OM-T-SC-0002.py",
+      "latex": "I_n(θ) = Σ I_i(θ),  I(η) = Var_η(T) = A″(η),  I(η) = I(θ)·(dθ/dη)²",
       "machine_readable": true
     },
     {
@@ -3118,6 +3231,20 @@
       "resolvable": true
     },
     {
+      "src": "OM-D-NA-0001",
+      "dst": "OM-F-NA-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-NA-0001",
+      "dst": "OM-F-NA-0001",
+      "type": "uses",
+      "via": "正文引用",
+      "resolvable": true
+    },
+    {
       "src": "OM-D-NT-0001",
       "dst": "OM-F-NT-0001",
       "type": "cites",
@@ -4018,6 +4145,27 @@
       "dst": "OM-F-AN-0002",
       "type": "specializes",
       "via": "specializations",
+      "resolvable": true
+    },
+    {
+      "src": "OM-F-NA-0001",
+      "dst": "OM-T-GR-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-F-NA-0001",
+      "dst": "OM-T-GR-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-F-NA-0001",
+      "dst": "OM-D-NA-0001",
+      "type": "uses",
+      "via": "uses",
       "resolvable": true
     },
     {
@@ -5274,6 +5422,62 @@
       "resolvable": true
     },
     {
+      "src": "OM-T-MP-0001",
+      "dst": "OM-D-AN-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-MP-0001",
+      "dst": "OM-F-AN-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-MP-0001",
+      "dst": "OM-F-AN-0003",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-MP-0001",
+      "dst": "OM-F-AN-0004",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-MP-0001",
+      "dst": "OM-F-AN-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-MP-0001",
+      "dst": "OM-F-AN-0003",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-MP-0001",
+      "dst": "OM-F-AN-0004",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-MP-0001",
+      "dst": "OM-D-AN-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
       "src": "OM-T-NT-0001",
       "dst": "OM-A-NT-0001",
       "type": "cites",
@@ -5848,6 +6052,83 @@
       "resolvable": true
     },
     {
+      "src": "OM-T-SC-0002",
+      "dst": "OM-D-IT-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-SC-0002",
+      "dst": "OM-D-SC-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-SC-0002",
+      "dst": "OM-T-PR-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-SC-0002",
+      "dst": "OM-T-SC-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-SC-0002",
+      "dst": "OM-T-SC-0001",
+      "type": "implies",
+      "via": "equivalent_forms",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-SC-0002",
+      "dst": "OM-D-SC-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-SC-0002",
+      "dst": "OM-T-PR-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-SC-0002",
+      "dst": "OM-T-SC-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-SC-0002",
+      "dst": "OM-D-IT-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-SC-0002",
+      "dst": "OM-D-SC-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-SC-0002",
+      "dst": "OM-T-SC-0001",
+      "type": "uses",
+      "via": "正文引用",
+      "resolvable": true
+    },
+    {
       "src": "OM-T-ST-0001",
       "dst": "OM-D-ST-0001",
       "type": "cites",
@@ -6255,27 +6536,80 @@
     "ID_COLLISION_YAML_VS_MD": [],
     "UNDEFINED_SYMBOL": [
       "b",
+      "bt",
       "c",
       "chi",
       "d",
       "e",
       "epsilon",
       "g",
+      "hbar",
       "i",
       "k",
+      "k2",
+      "lam",
       "n",
       "phi(x, a)",
       "q",
       "r",
       "s",
+      "sd1",
+      "sd2",
       "sigma",
       "tau",
       "theta",
+      "x1",
+      "x2",
       "z"
     ],
     "RELATION_KEY_UNREAD": [],
     "EVIDENCE_INVERSION": [],
     "PROSE_RELATION_UNTRAVERSABLE": [
+      {
+        "src": "OM-F-NA-0001",
+        "field": "equivalent_forms",
+        "text": "规范区间形：lo=-1、hi=1 时本卡退化为 integral_{-1}^{1} f = (5/9)f(-sqrt(3/5)) + (8/9)f(0) + (5/9)f(sqrt(3/5))——采样点 lo=-1、hi=1 那一格读的就是它"
+      },
+      {
+        "src": "OM-F-NA-0001",
+        "field": "equivalent_forms",
+        "text": "节点形（根的条件）：xi 属于 {0, ±sqrt(3/5)} 是 P_3(x)=x^3-(3/5)x 的三枚根，与「P_3 与 1、t、t^2 在 [-1,1] 上正交」是同一件事的两个说法；本卡的三条正交通道读后者，节点由仿射映射搬到任意区间"
+      },
+      {
+        "src": "OM-F-NA-0001",
+        "field": "equivalent_forms",
+        "text": "精度阶形：「对 p<=5 精确且对 p=6 不精确」是「精度阶＝5＝2·3-1」的可算读法；本卡不把误差项 f^(2n)(xi)/(2n)!·∫(x-xi)^2... 那一型定量界读进来"
+      },
+      {
+        "src": "OM-F-NA-0001",
+        "field": "equivalent_forms",
+        "text": "仿射不变形：(hi-lo)/2 是 Jacobian，不是可选修饰——预演脚本第一版在对象路漏乘它，p=0 那格当场展开成 -hi+lo+2 而被断言咬红（同一面留痕）"
+      },
+      {
+        "src": "OM-T-MP-0001",
+        "field": "equivalent_forms",
+        "text": "整和形式：Σ_{n∈ℤ} e^{-a n²} = √(π/a) Σ_{m∈ℤ} e^{-π²m²/a}。本卡把它读成「谱侧一条一条能数」的形态（去掉 n=0 项再乘 ½），因为机器字段里两个 summation 都是 n≥1"
+      },
+      {
+        "src": "OM-T-MP-0001",
+        "field": "equivalent_forms",
+        "text": "θ 函数模变换：Θ(t)=Σ_{n∈ℤ}e^{-π t n²} 满足 Θ(t)=t^{-1/2}Θ(1/t)，取 t=a/π 即本卡第一式——同一件事的第三种写法，不新增内容"
+      },
+      {
+        "src": "OM-T-MP-0001",
+        "field": "equivalent_forms",
+        "text": "逐点／像电荷形：1+2Σ_{n≥1}e^{-τn²}cos(nx) = √(π/τ)Σ_{m∈ℤ}e^{-(x-2πm)²/(4τ)}。x=0 退化为整和形式，但 x≠0 那几格是**新通道**（判定 4a 用它，两族生产者都逐点求和而不是靠变换）"
+      },
+      {
+        "src": "OM-T-MP-0001",
+        "field": "equivalent_forms",
+        "text": "物理参数化：a=βπ²ℏ²/(2mL²) 时 √(π/a)=L√(2m/(πβℏ²))，故前导项 ½(√(π/a)−1)→L√(m/(2πβℏ²))——一维盒态密度积分的 Weyl 律；判定 3 把这条代数排布整体代回原恒等式复核"
+      },
+      {
+        "src": "OM-T-MP-0001",
+        "field": "equivalent_forms",
+        "text": "机制形（Poisson 核）：∫e^{-ax²}cos(2πkx)dx = √(π/a)e^{-π²k²/a}，即「轨道侧那枚 e^{-π²k²/a}」不是拟合常数而是高斯核的 Fourier 值；判定 2 用 sympy 的符号积分通道读它"
+      },
       {
         "src": "OM-P-NT-0004",
         "field": "equivalent_forms",
@@ -6305,6 +6639,26 @@
         "src": "OM-T-SC-0001",
         "field": "equivalent_forms",
         "text": "二项族读数：I(q)=m/(q(1−q))＝A″(η)/(dq/dη)²，η=log(q/(1−q))，两条通道在 15 组 (m,q) 上差的最大值 2.7369111e-48（同一载体判定1b）"
+      },
+      {
+        "src": "OM-T-SC-0002",
+        "field": "equivalent_forms",
+        "text": "可加性的两条同义写法：I_n(θ)=Σ I_i(θ)（得分二阶矩可加，因交叉项 E[u_i u_j]=E[u_i]E[u_j]=0）＝求和族的对数配分相加 A_{Σ}=Σ A_i 时其曲率相加（自然坐标下）"
+      },
+      {
+        "src": "OM-T-SC-0002",
+        "field": "equivalent_forms",
+        "text": "自然指数族三条恒等式串成一条：E_η[T]=A′(η)、Var_η(T)=A″(η)、I(η)=Var_η(T)，故「信息＝对数配分的曲率」；本卡把它落成 Bernoulli 与 Poisson 两族的机器读数"
+      },
+      {
+        "src": "OM-T-SC-0002",
+        "field": "equivalent_forms",
+        "text": "重参数化律：I(η)=I(θ)(dθ/dη)²。二项／Bernoulli 读数 I(q)=1/(q(1-q)) 与 A″(η)=q(1-q) 由 dq/dη=q(1-q) 互推；位置族读数 I(θ)=1/σ² 与 I(η)=σ²（η=θ/σ²）同一把尺"
+      },
+      {
+        "src": "OM-T-SC-0002",
+        "field": "equivalent_forms",
+        "text": "不达到界的一侧（反对照）：算术平均 (x1+x2)/2 在 σ1≠σ2 时 Var−界=(σ1−σ2)²/4·(…)>0（数值由载体 scratch/T14_SC0002_face.txt 判定3b 印出），等号条件可解性残差非零"
       },
       {
         "src": "OM-P-NT-0002",
@@ -6414,20 +6768,20 @@
       "evidence-path": 4
     },
     "off_graph_sides": 4,
-    "nodes": 104,
-    "node_keys": 104,
-    "edges": 547,
-    "both_in_graph": 543,
+    "nodes": 108,
+    "node_keys": 108,
+    "edges": 571,
+    "both_in_graph": 567,
     "one_endpoint_off_graph": 4,
     "both_endpoints_off_graph": 0,
     "collapsed_to_self_loop": 0,
     "ambiguous_doc_ids": []
   },
   "counts": {
-    "record_nodes": 81,
+    "record_nodes": 85,
     "doc_nodes": 23,
     "evidence_docs": 4,
-    "edges": 547,
+    "edges": 571,
     "load_errors": 0
   }
 }

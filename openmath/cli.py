@@ -91,7 +91,28 @@ def cmd_lint(args):
     return 1
 
 
+def _force_utf8_streams():
+    """把 verify 出口的币种钉成 UTF-8，容错走 backslashreplace。
+    实测口径（第 16 批，载体 `scratch/T16_GBK_probe_face.txt`）：本轮逐条命令在强制
+    `PYTHONIOENCODING=gbk` 下跑，`lint`／`fidelity`／`graph --check`／`index`／`verify`（含 `--json`）
+    **全部 rc=0**——所以登记的那条债「非 UTF-8 出口遇 `⊢` 崩」在当前语料上复现不出来，不改口径就是假账。
+    但语料里有 25 种 GBK 编不出的字形（`²`×86、`−`×43、`⇒`×20…，共 233 次，住在 26 份 yaml 的
+    name/statement/notes 里，当前没有一条命令把它们印出来）。这条固定的就是那道边界：
+    哪天把 statement 印进版面，宁可看到 `\\xb2` 也不许 UnicodeEncodeError 把这一条判决整个吃掉。"""
+    for name in ("stdout", "stderr"):
+        stream = getattr(sys, name, None)
+        reconfigure = getattr(stream, "reconfigure", None)
+        if reconfigure is None:
+            continue
+        try:
+            reconfigure(encoding="utf-8", errors="backslashreplace")
+        except (ValueError, OSError, io.UnsupportedOperation):
+            # 被 pytest／上层调用方换掉的流改不动：不改不许崩，判决比币种要紧。
+            pass
+
+
 def cmd_verify(args):
+    _force_utf8_streams()
     root = record_mod.find_root()
     if root is None:
         print("错误：未找到仓库根，请在 openmath 仓库内运行。")
@@ -106,11 +127,15 @@ def cmd_verify(args):
         print("没有匹配的记录。")
         return 0
     levels = args.level or ["L2"]
-    options = {
-        "precision_digits": args.precision,
-        "seed": args.seed,
-        "sample_count": args.samples,
-    }
+    # 只把**真被传了**的开关交给引擎：无条件塞默认值等于让命令行替记录决定精度档
+    # （第 15 批登记的债；口径见 openmath/verify.py 的 _effective）。
+    options = {}
+    if args.precision is not None:
+        options["precision_digits"] = args.precision
+    if args.seed is not None:
+        options["seed"] = args.seed
+    if args.samples is not None:
+        options["sample_count"] = args.samples
     exit_code = 0
     for rec in records:
         for level in levels:
@@ -293,9 +318,12 @@ def build_parser():
     p_verify.add_argument("--level", nargs="+", choices=["L2", "L3"], help="验证层级")
     p_verify.add_argument("--id", nargs="+", help="指定条目 ID")
     p_verify.add_argument("--domain", nargs="+", help="按域代码过滤")
-    p_verify.add_argument("--precision", type=int, default=50, help="有效数字位数")
-    p_verify.add_argument("--seed", type=int, default=20260910, help="随机种子")
-    p_verify.add_argument("--samples", type=int, default=20, help="采样点数")
+    p_verify.add_argument("--precision", type=int, default=None,
+                          help="有效数字位数；缺省＝记录自己声明的档位（未声明才用引擎兜底 50）")
+    p_verify.add_argument("--seed", type=int, default=None,
+                          help="随机种子；缺省＝记录声明的种子（未声明用 20260910）")
+    p_verify.add_argument("--samples", type=int, default=None,
+                          help="采样点数；缺省＝记录声明的 sample_count（未声明用 20）")
     p_verify.add_argument("--json", action="store_true", help="输出 JSON")
     p_verify.set_defaults(func=cmd_verify)
 

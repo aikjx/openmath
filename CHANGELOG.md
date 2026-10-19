@@ -3,6 +3,84 @@
 本文件遵循 [Keep a Changelog](https://keepachangelog.com/) 格式，版本号遵循[语义化版本](https://semver.org/lang/zh-CN/)。
 
 ## [未发布]
+
+### 新增（2026-10-19，第 17 批记录：`01-域依赖` 的同层互译边改由**图自己数**——「声明了却画不出」第一次有分账）
+
+- **版面读数（改前→本轮；这两批不铸记录，各格持平）**：台账从 83 条涨到 **83 条**；域覆盖 **17 / 20 → 17 / 20**；图谱 **106 节点／566 边 → 106 节点／566 边**；`contradicts` 边型（版面现印 12 条）、`generalizes` 边型（版面现印 7 条）；跨层真实边 265 条（上一版 265），折叠成 6 条层间边；`UNDEFINED_SYMBOL` 23 → **26** 枚；逻辑层 27 → 27 个节点；变异体 18 枚全部被抓住（18 caught / 0 not caught）；`verify --level L2` 复跑＝**23 PASS／54 SKIP／0 FAIL／6 UNKNOWN**（判决面 `scratch/VERIFY_L2_clean.txt` 本轮重跑，行数 83＝版面记录数；与上一代面 `scratch/VERIFY_L2_t16_raw.txt` 逐行比对 83／83 同值）。
+- **本轮铸的是判据不是记录**：`openmath/flowdocs.py` 里 `if rank_a and rank_b:` 在端点未归层时**什么都不发**，
+  而版面 meta 的 `intra_edges` 数的是**声明数**——「YAML 声明了一条同层互译、图上画不出来」在版面上零痕迹。
+  `10-文献与索引/知识图谱/README.md` 明文要求「任何『图上画了多少条边』点名版面 charts 节」，
+  charts 节当时替图撒了谎（读数不动、边静默消失＝恒绿型仪器盲）。现语料 `intra_dropped`=0，
+  即这条洞还没咬掉任何真边，危险在于 `CB`／`GT` 两个「有节点但未归层」的域正等着被借用。
+- **改**：画不出的声明各发一行 `X_INTRA_<a>_<b>["声明的同层边画不出：a-b 端点未归层（DEFECT）"]`；
+  meta 增 `intra_drawn`（数 `-.->|同层互译|` 的行，由印出的图得出，不重新声明一遍）、`intra_dropped`、
+  `intra_dropped_pairs`；旧键 `intra_edges` 保留（文档在引它，动它＝造第二权威源）。
+  版面本轮 3057 B（md5 `6ce614c4db9ad2c9c198dc21763d0539`）；五张 `.mmd` 与前像槽 `scratch/_bak33_intra/` 逐张 md5 相同
+  ⇒ 嵌图通道零位移，无需重同步文档抄本。
+- **牙**：常驻回归 `08-工具/tests/test_core.py::test_intra_edge_faithfulness`（合成夹具＋现盘两臂），
+  pytest 现跑 11 passed；变异体见证 `scratch/T17_INTRA_mutant.txt`——在真语料图上加一条 `["CB","NT"]`：
+  本底 edges=1／drawn=1／dropped=0／40 行，变异体 edges=2／**drawn=1**／dropped=1／41 行。
+  旧口径在变异体上会印 2，而图上只有 1 条——这就是它没牙的证明。
+- **本轮自己被抓两处**：(1) `graph --check` 只判据不写盘，第一次跑完版面 md5 分毫未动，
+  新测试的现盘臂于是在陈旧面上红——读产物之前必须证明产物本轮被写过；(2) 变异体夹具按 `域依赖.yaml`
+  的字面形状喂了三元组（端点、端点、理由），发射器 `for a, b in sorted(...)` 当场 `ValueError`＝零判决。
+  二元形状是 `graph.py` 的解析器削出来的，**这枚脆弱性留在册上不修**：要裁的是「理由字段进不进图」这条口径。
+- **尺外之地**：`evidence-path` 端点 4 枚、`MD_ONLY_LEDGER` 27 份、`ID_MULTI_FILE` 1、`OM-P-NT-0008` 无主人；
+  空域 `NA`／`OR`／`XS`（口径 `empty_roster`＝无节点的域，**不等于**版面 `declared unplaced`＝`CB, GT, XS`）。
+
+### 新增（2026-10-19，第 16 批记录：名册格判据化＋精度档归属还给记录＋出口币种钉死（原登记债更正为不可复现））
+
+- **版面读数（改前→本轮；这两批不铸记录，各格持平）**：台账从 83 条涨到 **83 条**；域覆盖 **17 / 20 → 17 / 20**；图谱 **106 节点／566 边 → 106 节点／566 边**；`contradicts` 边型（版面现印 12 条）、`generalizes` 边型（版面现印 7 条）；跨层真实边 265 条（上一版 265），折叠成 6 条层间边；`UNDEFINED_SYMBOL` 23 → **26** 枚；逻辑层 27 → 27 个节点；变异体 18 枚全部被抓住（18 caught / 0 not caught）；`verify --level L2` 复跑＝**23 PASS／54 SKIP／0 FAIL／6 UNKNOWN**（判决面 `scratch/VERIFY_L2_clean.txt` 本轮重跑，行数 83＝版面记录数；与上一代面 `scratch/VERIFY_L2_t16_raw.txt` 逐行比对 83／83 同值）。
+- **第一件·名册格**：`10-文献与索引/四层总览.md` 那句「剩下的 N 枚**故意不铸**，按名单分两类」原住在词表外
+  ——散文引用版面记号名单却无人复算。现补声明 `§三 名册格`＋自检**格 12**（两把刀：改数→MISMATCH、
+  删名→MISSING-CLAIM），两类枚数与记号名都由 `graph.json` 的 `UNDEFINED_SYMBOL` 现推：
+  26 枚＝短记号 15 枚＋长记号 11 枚。该文档现 87521 B，前像
+  `scratch/_bak32_roster/10-文献与索引__四层总览.md.pre` 87418 B；改前判据面 rc=2（`scratch/T16_DOCFACE_predoc.txt`），
+  改后 rc=0（`scratch/T16_docface_final.txt`／`scratch/T16_selftest_final.txt`）。
+- **第二件·精度档**：`cli.py` 的 `--precision/--seed/--samples` 默认从硬编值改为 `None`（只装真被传的键），
+  `verify.py` 新增 `_declared`／`_effective`，档位权威序 **cli＞记录声明＞默认**，environment 落
+  `declared_precision_digits`／`precision_source`，PASS 那句注明档位来源。
+  回归 `test_precision_tier_authority` 四臂（声明 80 无参→record／cli 50→cli／显式 None→record／
+  声明 0→默认档，四臂都必须 PASS 且句中含「档位来源=」）；声明 `0` 的含义从此是「十进制档不适用」，
+  不再以 0 位精度跑。见证 `scratch/T16_TIER_mutant.txt`。
+- **第三件·出口币种（先测再改）**：登记的那条债「`verify.py` 非 UTF-8 出口遇 `⊢` 崩」
+  **在现语料上复现不出来**——`lint`／`fidelity`／`graph --check`／`index`／`verify --id … --json`／
+  `verify --level L2 --domain MP` 六条命令在强制 `PYTHONIOENCODING=gbk` 下全部 rc=0
+  （`scratch/T16_GBK_probe_face.txt`），故该债就地更正为不可复现。真暴露面另算：
+  现扫 25 种 GBK 编不出的字形、26 份 yaml、共 233 次（`scratch/T16_GLYPH_face.txt`）。
+  修法是把出口钉死：`cli.py` 新增 `_force_utf8_streams()`（stdout／stderr `reconfigure(encoding=utf-8,
+  errors=backslashreplace)`，改不动的流放过而不是崩），`cmd_verify` 第一句调用；
+  回归 `test_verify_outlet_codec` 三臂（未修出口必崩／过修后同一字形落成 UTF-8 字节／真命令在 gbk 下
+  rc=0 且 stdout 按 UTF-8 解得开、不含 `\ufffd`），字形由 `02-公式库` 的 yaml 现取不打字。
+  收口面 `scratch/T16_CODECPY_gates.txt`。
+- **台账里要留的一枚自捕**：`return p.returncode, p.communicate()[0]`——元组**从左到右**求值，
+  `p.returncode` 读在 `communicate()` 之前，两臂 rc 全成 `None`：一臂靠 `None != 0` 侥幸判过，
+  另一臂靠 `None == 0` 判成「修后仍崩」的假红。凡 `return rc, out` 型封装必须先把子进程等完。
+- **取舍（点名不做）**：`_force_utf8_streams()` 只挂 `cmd_verify`，没铺到其余四条出口——它们当前不印语料字形，
+  铺开会把「谁改了币种」摊薄；三臂的 (a)(b) 替下一句印 statement 的代码兜住。
+### 新增（2026-10-19，第 15 批记录：铸 `OM-T-MP-0001`＝一维盒热核迹＝θ 的绕数／像电荷轨道和，并把空域 `MP` 开成）
+
+- **本轮铸的是内容，不是尺**：`MP`（数学物理）的第一份记录＝`sum_{n>=1} e^{-a n^2}` 的双侧读法——谱侧（θ 模变换）与轨道侧（像电荷／绕数求和）逐格同值，物理参数化 `a=beta*pi^2*hbar^2/(2*m*L^2)` 时前导项 `1/2(sqrt(pi/a)-1)` 就是盒的 Weyl 律；判定册 `08-工具/examples/verify_OM-T-MP-0001.py`（六条判定＋变异体自检）。
+- **版面读数（改前→本轮；改前取自第 14 批条目那张图**落盘那一侧**的读数——箭头左边是第 13 批的账，上一版本条目抄错的正是这一格）**：台账从 82 条涨到 **83 条**；域覆盖 **16 / 20 → 17 / 20**；图谱 **105 节点／558 边 → 106 节点／566 边**；跨层真实边 265 条（上一版 263），折叠成 6 条层间边；`contradicts`（版面现印 12 条）、`generalizes`（版面现印 7 条）本轮未涨；逻辑层 27 → 27 个节点。
+- **可跑性**：`verify --level L2` 走完 83 行＝**23 PASS／54 SKIP／0 FAIL／6 UNKNOWN**（凭据 `scratch/VERIFY_L2_clean.txt`，本轮由 `scratch/VERIFY_L2_raw_t15.txt` 重建、改前像 `scratch/_bak30_t15/VERIFY_L2_clean.txt.bak30`；改前像那张已作废不得引用），四格相加 23＋54＋0＋6＝83＝版面记录数。本轮新增那一枚是 PASS（专跑面 `scratch/T15_VERIFY_MP0001.txt` 两档各印 PASS 与最大绝对残差）。**L2 通过不构成证明**（红线一）。
+- **符号账**：`UNDEFINED_SYMBOL` 23 → **26** 枚（本轮新记录带入的记号未先铸卡，与第 14 批同一型债）。
+- **判定册的两处口径发现**：① `verify --precision` 的 CLI 默认值 50 会**覆盖记录里声明的档位**——聚合判决面那一行因此印「共 2 个采样点、50 位」而记录写 80，本轮补跑 `--precision 80` 作对照，两档各印自己的最大绝对残差；这是仪器债（默认值不该压过声明），已登记未修。② `beta` 在 sympy 里是全局函数类，作变量名会被 `free_symbols` 认成函数——采样点字段改名 `bt` 后才通过。
+- **判定册踩到的三枚仪器缺陷（都当场加牙，不删判据）**：相对残差是一种**货币**——`a=400` 那格 |S|~1e-174 由两个 O(1) 数相消而来，80 位档付不起 `rel<=1e-40`，档位改由相消深度现推（`dps=深度+40+20`）；地板必须由该档精度驱动（旧版钉死 1e-60 造了三枚假阳）；恒 0 读数先当针坏——mpmath 的 ambient 默认 15 位会把高位相减舍成 0，自检的牙齿面曾因未包 `workdps` 在自己的正对照上假崩。牙齿面 `scratch/T15_MP0001_selftest_final.txt` 印变异体全响＋正例不误伤，`G1/G2/G3` 三把尺各带反对照。
+- **判据与闸门**：改前11台逐台点名（每台自己印 rc）在 `scratch/T15_GATES_predoc.txt`——lint／index／fidelity／graph --check／verify --id（80 位）／graph_mutants／判定册／判定册自检／pytest 9台 rc=0，`doc_face_sync` 2台 rc=2＝**文档尚未同步**，本条目落盘后由写后面转正；变异体复跑：`graph_mutants.py` 变异体 18 枚全部被抓住（18 caught / 0 not caught）。
+- **未偿债（本轮未清，照旧在册）**：`MD_ONLY_LEDGER` 27 份、`PROSE_RELATION_UNTRAVERSABLE` 24 枚、`EDGE_ENDPOINT_OFF_GRAPH` 4 枚、`ID_MULTI_FILE` 1 枚、`UNDEFINED_SYMBOL` 26 枚；仪器债：`verify --precision` 默认覆盖记录声明档位、`verify.py` 非 UTF-8 出口遇 `⊢` 崩、OV §三 名册格与「本轮段」仍在词表外（尺外之地，第 14 批刀 ④ 实测过）。
+### 新增（2026-10-18，第 14 批记录：铸 `OM-T-SC-0002`＝Fisher 信息的可加性与自然指数族曲率＋把「行插入排序纪律」接成 `doc_face_sync` 的常驻判据（格 11））
+
+- **本轮铸的是内容，不是尺**：`SC`（统计与数据科学）的第二份记录 `OM-T-SC-0002`（Fisher 信息的可加性：独立观测把信息相加，自然指数族把它读成对数配分的曲率，`kind=theorem`、状态 `VERIFIED(L2)`），配对 md 正本 `OM-T-SC-0002-fisher-information-additivity.md` 与专脚本 `verify_OM-T-SC-0002.py`；台账从 81 条涨到 **82 条**（`lint`／`index`／`fidelity`／版面四台同值，见下），域覆盖 **16 / 20 → 16 / 20**（该域已有 3 条，域集合一个没加）。
+- **版面读数（改前→本轮）**：图谱 **104 节点／547 边 → 105 节点／558 边**；键 104 → 105，端点解析 543／547 → 554／558，一端无载体 4 条（分账 {'evidence-path': 4} 型 4 个端点，一条未动）；跨层真实边 263 条（上一版 258），折叠成 6 条层间边；`contradicts`（版面现印 12 条）与 `generalizes`（版面现印 7 条）一条未增；`UNDEFINED_SYMBOL` 18 → **23** 枚（本轮未铸记号卡，见符号账那条），逻辑层 27 → 27 个节点，方程层 40 → 41 个。
+- **新边的归因（逐通道做差，不靠叙述）**：两张生成物（改前像 `scratch/_bak27_gen/10-文献与索引#知识图谱#graph.json` 与盘上正本 `10-文献与索引/知识图谱/graph.json`）做差共 11 条新增、0 条消失：`cites`×`配对 md 正文（ID 引用）` 4 条／`related`×`related` 3 条／`uses`×`uses` 2 条／`implies`×`equivalent_forms` 1 条／`uses`×`正文引用` 1 条，全部由本轮那一条记录发起（逐主分组只点出 `OM-T-SC-0002` 一个主）；两把尺（型×通道的分组合加／逐主合加）各自合加 11 条＝版面涨幅，载体 `scratch/T14_EDGES_delta.txt`（686 B）。
+- **符号账**：`UNDEFINED_SYMBOL` 18 → 23 枚——本轮**未守**第 4 批『先铸卡、再落记录』纪律：新记录带入的 5 名（`lam`／`sd1`／`sd2`／`x1`／`x2`）未升进记号卡 `OM-D-SC-0001`，逐名差项见 `scratch/T14_ROSTER_delta.txt`；`PROSE_RELATION_UNTRAVERSABLE` 15 → 19 枚（新入册 4 枚全部住在 `OM-T-SC-0002`.`equivalent_forms`，那是等价写法而不是跨记录关系，不转 ID）。两型都是 ADVISORY，登记不掩盖。
+- **可跑性与两把尺**：`verify --level L2` 走完 82 行＝**22 PASS／54 SKIP／0 FAIL／6 UNKNOWN**（凭据 `scratch/VERIFY_L2_clean.txt`，本轮重跑），四格相加 82＝判决行数＝版面记录数；`OM-T-SC-0002` 是本轮新增的 PASS（通用引擎口径最大绝对残差 1.981e-99，凭据 `scratch/T14_VERIFY_SC0002.txt`）；专脚本那一面 `scratch/T14_SC0002_face.txt` 印 判定 1-5 中 PASS 5／FAIL 0、耗时 513.9 秒、`face rc=0；牙齿面 `scratch/T14_SC0002_selftest.txt` 印 变异体 7 枚须全响、正例 3 枚须不误伤、`selftest rc=0。**L2 通过不构成证明**（红线一）。
+- **成本口径的一处更正（就地，不追加）**：`OM-T-SC-0002` 的 yaml 与专脚本原写着「Fubini 那条连续通道单枚约 109 秒、精确代入约 1.9 秒」，本轮用两张面推翻它：通用引擎口径（float 代入＋`sp.N(50)`）单枚 40.4 秒而残差 -9.126e-52（`scratch/T14_PROTO3_face.txt` 的 GAUSS_ADD 行，3133 B），第二台独立计时 69.9 秒、残差 9.1260e-52（`scratch/T14_CALIBER_probe.txt`，435 B）——两台的**残差**同值到各自印出的位数而秒数不同，这是同一件事量了两次，不是同一秒量了两遍；记录字段里那 11 项合计 6.7 秒。脚本自己的精确有理通道一点三路合计 237.1 秒；先 `doit` 再 `simplify` 同一条 0.4 秒且残差 0；只 `simplify`（不调 doit）161.6 秒而残差那一格印「未归约/非零」——旧那句 109 秒量的是最后这一型装配。另一型是形状而不是成本：未做 Fubini 分解的嵌套双重积分在引擎口径下 0.0 秒直接返回 Integral(0.039506172839506…（同一张 PROTO3 面），`sp.N` 会把它退化成一个数当作残差读，所以脚本的 `ex()` 必须先抛。更正落在记录 yaml（assumptions／caveat／provenance）、专脚本打印的账单与 md 正本三处，判定面由**这三次写入之后**重铸。
+- **仪器侧（本轮的第二件事）**：第 13 批登记的那条债——『目录树与 §三 表的新行由 bespoke 代码 append，「插在哪一行」与「`(XX)` 打在第几列」没有尺』——接成 `doc_face_sync` 的常驻判据：树三型（行序按目录名码点序／显示列统一／目录名↔号段互指）＋§三 表行序按域码升序，两套期望值分别从各自的对象现推；自检从 10 格涨到 11 格（第 11 格四把刀：树行序、显示列、表行序、真面正对照），声明词表 72 条与上批（72 条）**同值**——本轮没有新增声明，新增的是同一批声明里的**判据型**，把「词表涨了」写进条目就是假账。牙齿面 `scratch/T14_DOCFACE_selftest2.txt`（2978 B）逐格印「＝通过」，`doc_face_sync --selftest` 的退出码挂在改前十台面 `scratch/T14_PREDOC_GATES.txt` 的 `=== doc_face_sync --selftest rc=0 ===` 那一行（那张面每台自己印退出码，所以这里没有一个退出码是我打的）。本轮自己撞红两处并就地改：① 发射器把三型红字写成不带标签的短句，判据按标签分组计数时无人认领⇒仪器看不见自己判出的红（假绿；探针 `scratch/T14_TREE11_probe.txt` 证明尺本身在真面上判得出、挪行时判得红，红在发射器不在尺）；② 正对照第一稿要求「两个 tag 各恰一条 OK 且无 MISMATCH」，于是把「文档尚未同步」（枚数陈旧）读成「针坏了」——口径改窄为只问排序型那几把尺，计数红归驱动器。对照的期望由对象实际有的形状定，不由我希望它同步定。**第三处撞在出处而不是数上**：`patch_by_claims` 按词表换数字、从不换句里的载体指针，于是 `02-公式库/README.md` §合计 那一格的「`lint` 现印 记录数 82」仍挂着上一批那张印 81 的 `scratch/T13_LINT_post2.txt`＝现时态句子配陈旧载体（红线八：没核对的出处不写）。本轮把这一型接成驱动器侧的常驻复查 `stale_citation_guard`：本轮**改过**且含「现印」的每一行，行里点名的每个 `scratch/…` 必须存在、非空，且至少印出句中某个多位数（载体自己的字节数除外），否则当场抛——DRY 首跑即抓到这一处，换指针后才过。**第四处撞的是名单自己，而且红得对、红得太晚**：本轮写进条目的改前像路径是 `scratch/_bak27_gen/10-文献与索引#知识图谱#graph.json` 这种「路径以 `#` 分段」的名字，而零豁免对账的指针名单里没有 `#`——它把真存在的载体一路截到第一个 `#` 之前（只剩目录名那一段）判成不存在，于是 `--apply` 首跑在**五份文档已落盘、写后判据面零红、十台全绿、mtime 断言也过了**之后才抛（首跑那两面已被就地补账的第二次跑覆盖，所以这里只叙述形状、不挂数字——挂了就是一张不存在的面）。两条都修：① 名单补 `#`（宽一格配一对对照＝牙齿第 ⑨ 把：带 `#` 的真名必须不抛、换成绝无可能的假名必须抛，现读见 `scratch/T14_TEETH_face.txt` 的 ⑨ 行）；② 把这一台对账挪到**第一次写盘之前**跑（`prewrite_carrier_check`，扫的是 CHANGELOG 已并入条目的合并像而不是孤条目），写后那一遍照旧留作盘上复核。**第五处是这台尺把自己驱动器的散文判红了**：改写条目时我把「截短后的那一段」当反例原样写进句子，而反例长得和引用一模一样（一个 `scratch/` 开头的路径），于是它被同一台零豁免对账拦下——反例不许写成活的 `scratch/` 指针，这一句现在改成描述而不给前缀。同一批里这条尺共拦下两次：一次是真的挂空出处，一次是叙述里的假路径；两次都不许靠放宽名单过关。
+- **三台独立仪器同日同值**：`lint` 现印 记录数 82（错误 0／加载失败 0，凭据 `scratch/T14_LINT.txt`）、`index` 条目数 82（悬空引用 0，`scratch/T14_INDEX_gen.txt`）、`fidelity` 被扫 82 份／有丢失的记录 0 份（`scratch/T14_FIDELITY.txt`，口径 比对键 19 枚，白名单 65 枚键）＝版面记录数 82；`graph --check` rc=0（那张面自己印 未写盘；DEFECT 类 0、不变量故障 0，凭据 `scratch/T14_GRAPHCHECK.txt`）；`pytest` 8 passed（`scratch/T14_PYTEST.txt`）。
+- **对照状态**：变异体 18 枚全部被抓住（18 caught / 0 not caught）（`scratch/T14_GRAPHCHECK.txt`／`scratch/T14_MUTANTS.txt`，那张面自己印 mutants=18 caught=18 not_caught=0）；改前十台基线面 `scratch/T14_PREDOC_GATES.txt`（5195 B／75 行）印 9 / 10 台 rc=0，唯一红的那台是 `doc_face_sync`——它红 37 条讲的是**文档与版面分叉**（词表 72 条与本轮同值），正是本轮要落的活，不是语料缺陷；把它记进「十台全绿」是假账，所以条目只引用它的逐台退出码与红数，不引用它的判决。写后判据面 `scratch/T14_DOCFACE_final.txt` 与十台 `scratch/T14_POSTDOC_GATES.txt` 由**这次写入之后**产出（mtime 断言见驱动器），内存图像上的刀见 `scratch/T14_TEETH_face.txt`（刀数与基线 OK／红由那张面首行自己印，条目不复述——条目在刀之前拼好，数不出它）。
+- **仍不修的债（逐条点名，不合并口径）**：`evidence-path` 4 枚端点的章程未裁；`MD_ONLY_LEDGER` 27 份未升 YAML；`PROSE_RELATION_UNTRAVERSABLE` 19 枚；`UNDEFINED_SYMBOL` 23 枚（本轮新带入的 5 名按上文**未铸卡**）；空域 4 个（`MP`（数学物理）／`NA`（数值分析）／`OR`（运筹与系统科学）／`XS`（交叉与新兴））；`OM-P-NT-0008` 无主人；`verify.py` 非 UTF-8 出口遇 `⊢` 崩；`08-工具/examples/verify_OM-T-SC-0002.py` 的 Fubini 连续通道不进机器读数（成本取舍，账单见上）；**本轮新立一条**：格 11 那把尺只覆盖「公式库 目录树」的显示列与两张表的行序，`§三 域×记录数表` 这一型若将来出现显示列（对齐用的空格列）仍无尺——它现在只判行序，宽窄由对象实际有的形状定。**本轮测出的第二型盲区（④ 那一刀量的不是牙，是边界）**：OV §三 本轮那段名册登记，与紧邻它的「剩下的 N 枚**故意不铸**＝单字母 X＋多名 Y」那一格，都不在词表 72 条的形状里 ⇒ 撤掉整段或把总数改坏，判据 0 红（两把刀的现读印在 `scratch/T14_TEETH_face.txt` 的 ④ 行，条目不复述）；同值改坏 `§八 符号债` 那一格必红，所以版面现值仍受尺管辖，盲区是**有界**的而不是无人看守。下批的活：把名册格接成常驻声明，期望由「剩下的＝单字母＋多名」的合加与版面 `UNDEFINED_SYMBOL` 现值双驱动（一把尺两个方向都要能红）。`_镜像/` 一律未动，未提交。
+
 ### 新增（2026-10-18，第 13 批记录：空域 `SC` 落地第一对记录 `OM-T-SC-0001`＋记号卡 `OM-D-SC-0001`）
 
 - **本轮铸的是内容，不是尺**：`SC`（统计与数据科学）在改前只是目录名——空域之一，没有节点就没有边。铸 `OM-T-SC-0001`（Cramér–Rao 不等式：Fisher 信息、等号条件与三个可算族，`kind=theorem`、状态 `VERIFIED(L2)`）与记号卡 `OM-D-SC-0001`（得分函数／Fisher 信息／自然参数），台账从 79 条涨到 **81 条**（`lint`／`index`／`fidelity`／版面四台同值，见下），域覆盖 **15 / 20 → 16 / 20**。

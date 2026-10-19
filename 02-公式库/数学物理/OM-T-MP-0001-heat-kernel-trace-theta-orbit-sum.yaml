@@ -1,0 +1,184 @@
+schema_version: "0.1"
+
+id: OM-T-MP-0001
+kind: theorem
+title_zh: '一维盒的热核迹＝绕数轨道和：θ 模变换读成一条迹公式，前导项是盒的 Weyl 律'
+title_en: 'Heat-kernel trace on the interval as a winding-number orbit sum (Poisson resummation, Weyl leading term)'
+domain: MP
+msc:
+  - '11F27'
+  - '35K05'
+  - '58J35'
+tags:
+  - '热核迹'
+  - 'θ 函数的模变换'
+  - 'Poisson 求和'
+  - '绕数／像电荷'
+  - 'Weyl 前导项'
+
+status: VERIFIED(L2)
+evidence_level: L2
+revision: 1
+created: 2026-10-19
+updated: 2026-10-19
+
+statement_latex: >-
+  对 a>0：Σ_{n≥1} e^{-a n²} = ½(√(π/a)(1 + 2Σ_{n≥1} e^{-π²n²/a}) − 1)，
+  等价于整和形式 Σ_{n∈ℤ} e^{-a n²} = √(π/a) Σ_{m∈ℤ} e^{-π²m²/a}（即 Θ(t)=t^{-1/2}Θ(1/t)，a=πt）。
+  逐点形（x∈ℝ、τ>0）为 1 + 2Σ_{n≥1} e^{-τn²}cos(nx) = √(π/τ) Σ_{m∈ℤ} e^{-(x-2πm)²/(4τ)}。
+  物理参数化 a = βπ²ℏ²/(2mL²) 下前导项 ½(√(π/a) − 1) → L√(m/(2πβℏ²))，即一维盒的 Weyl 律。
+hypotheses:
+  - 'a>0（等价地 τ>0、β>0、L>0、m>0、ℏ>0）；a≤0 时两侧级数都不收敛，本卡不声明任何读数'
+  - '求和指标取 ℤ（谱侧为周期轨／圆上长度 2π 的 Laplace 本征值 n²，像电荷侧为绕数 m）；Dirichlet 盒的谱是 n 而非 n²，需另卡，本卡不混'
+  - 'Poisson 求和的应用要求 e^{-a x²} 与其 Fourier 变换均可积，且可逐项积分——这是标准充分条件，本卡未做成机器判据（红线一）'
+proposed_by: '迹公式读法属经典内容（θ 函数的模变换可追到 Jacobi；Poisson 求和 1827；热核迹与 Weyl 律属 20 世纪谱几何标准形态），本卡不主张任何归属精确性（红线八）'
+proposed_year: 1827
+
+latex: >-
+  Σ_{n≥1} e^{-a n²} = ½(√(π/a)(1+2Σ_{n≥1} e^{-π²n²/a}) − 1),
+  1+2Σ_{n≥1} e^{-τn²}cos(nx) = √(π/τ) Σ_{m∈ℤ} e^{-(x-2πm)²/(4τ)}
+sympy: '((summation(exp(-a*n**2),(n,1,oo)) - (sqrt(pi/a)*(1+2*summation(exp(-pi**2*n**2/a),(n,1,oo)))-1)/2)**2 + (summation(exp(-b*n**2),(n,1,oo)) - (sqrt(pi/b)*(1+2*summation(exp(-pi**2*n**2/b),(n,1,oo)))-1)/2)**2 + (summation(exp(-c*n**2),(n,1,oo)) - (sqrt(pi/c)*(1+2*summation(exp(-pi**2*n**2/c),(n,1,oo)))-1)/2)**2 + (integrate(exp(-a*x**2)*cos(2*pi*k*x),(x,-oo,oo)) - sqrt(pi/a)*exp(-pi**2*k**2/a))**2 + (integrate(exp(-b*x**2)*cos(2*pi*k2*x),(x,-oo,oo)) - sqrt(pi/b)*exp(-pi**2*k2**2/b))**2 + (summation(exp(-bt*pi**2*hbar**2*n**2/(2*m*L**2)),(n,1,oo)) - (L*sqrt(2*m/(pi*bt*hbar**2))*(1+2*summation(exp(-2*m*L**2*n**2/(bt*hbar**2)),(n,1,oo)))-1)/2)**2)'
+
+assumptions:
+  - '本卡机器读数（sympy 字段）是六条平方和：恒等式在三枚横坐标 a、b、c 上各读一次，机制侧的高斯余弦变换在 k 与 k2 上各读一次，第六条是物理参数化排布（bt、m、L、hbar）。它判的是「六条各自归零」，不是任意 a 的定理（红线一）'
+  - '通用引擎口径要求每枚采样点钉满全部九个自由符号 a、b、c、k、k2、m、L、hbar、bt，少钉一个整条判 UNKNOWN（这条机制在第 13 批撞出来，本卡照此钉点）'
+  - 'sympy 的 summation(exp(-a*n**2),(n,1,oo)) 在符号层保持未归约的 Sum，代入数值后由 sp.N 数值求和——所以机器读数那条是数值通道而不是符号证明；integrate(exp(-a*x**2)*cos(2*pi*k*x),(x,-oo,oo)) 那条在代数值后返回恰好 Zero（符号归零），两种形状在面上分别点名（判定 2 的「形状」列）'
+  - '符号名 bt 代替 beta：beta 在 sympy 里是全局的贝塔函数 FunctionClass，把它当符号代入会让 sympify 崩——这是装配期撞到的，不是数学事实'
+  - '判定 1 的相对残差是一种**货币**而不是无条件可读的数：a=400 那格 |S|~1e-174 由两个 O(1) 数相消而来，80 位档付不起 rel<=1e-40，该档读到的 2.5e+80 是算术的必然不是数学的偏离；脚本按本格尺度定档（dps = 相消深度 + 40 + 余量）后同一格读到 2.166e-74。凡「两档放大倍数」低于 1e+15 的格，脚本判它量的是真差而不是噪声并抬红'
+  - '判定 5 的先验界 |S(a) − ½(√(π/a)−1)| ≤ √(π/a)·e^{-c}/(1−e^{-c})（c=π²/a）是一条**不等式**，其量级就是 e^{-c}；用 50 位求值去断言 1e-214 的界，读到的是求值噪声（面上 G2 那格：50 位读数 4.66e-81 越界、按 c 定档到 275 位后读数 6.057919e-214 落进界内）。脚本因此把求值位数由 c 现定，并把这一取舍写在判定 5 的表头'
+  - '前导项读法（比值≈1）只在 a≤1/50 那两格断言：a 大时 ½(√(π/a)−1) 为负，它不再是任何渐近前导项——这是定义域性质，不是脚本的宽容'
+symbols:
+  - name: 'a'
+    meaning_zh: '谱侧的高斯宽度（热核时间参数，无量纲化后＝π·τ 或 βπ²ℏ²/(2mL²)）'
+    type: real
+    constraints: '>0；机器读数钉 1/50 与 1，判定面另扫 1/4、pi/7、4、25、400'
+  - name: 'b'
+    meaning_zh: '第二条求和通道的宽度（与 a 同一恒等式的另一枚横坐标）'
+    type: real
+    constraints: '>0；机器读数钉 1/4 与 pi/7，也承载 k2 那格的积分宽度'
+  - name: 'c'
+    meaning_zh: '第三条求和通道的宽度'
+    type: real
+    constraints: '>0；机器读数钉 4 与 25'
+  - name: 'k'
+    meaning_zh: 'Fourier 侧整数（高斯核余弦变换的频指标＝绕数指标）'
+    type: integer
+    constraints: '机器读数钉 1 与 2；判定面另取 3'
+  - name: 'k2'
+    meaning_zh: '第二条积分通道的频指标（与 k 分开钉，免得一个符号盖两格）'
+    type: integer
+    constraints: '机器读数钉 3 与 5'
+  - name: 'm'
+    meaning_zh: '粒子的质量（物理参数化那一排）'
+    type: real
+    constraints: '>0；机器读数钉 3/2 与 1'
+  - name: 'L'
+    meaning_zh: '一维盒的长度'
+    type: real
+    constraints: '>0；机器读数钉 5/3 与 2；Weyl 前导项与 L 成正比'
+  - name: 'hbar'
+    meaning_zh: '约化普朗克常数'
+    type: real
+    constraints: '>0；机器读数钉 7/5 与 1'
+  - name: 'bt'
+    meaning_zh: '逆温度 β（sympy 里必须叫 bt，beta 是贝塔函数类）'
+    type: real
+    constraints: '>0；机器读数钉 11/4 与 4/3'
+
+domain_of_validity: 'a>0（等价 τ、β、L、m、ℏ 均正）的周期轨／圆上热核迹；本卡不含 Dirichlet 盒（谱为 n² 与 n 之别）、不含高维盒（乘积形式需另卡）、不含相依或带势的情形'
+
+equivalent_forms:
+  - '整和形式：Σ_{n∈ℤ} e^{-a n²} = √(π/a) Σ_{m∈ℤ} e^{-π²m²/a}。本卡把它读成「谱侧一条一条能数」的形态（去掉 n=0 项再乘 ½），因为机器字段里两个 summation 都是 n≥1'
+  - 'θ 函数模变换：Θ(t)=Σ_{n∈ℤ}e^{-π t n²} 满足 Θ(t)=t^{-1/2}Θ(1/t)，取 t=a/π 即本卡第一式——同一件事的第三种写法，不新增内容'
+  - '逐点／像电荷形：1+2Σ_{n≥1}e^{-τn²}cos(nx) = √(π/τ)Σ_{m∈ℤ}e^{-(x-2πm)²/(4τ)}。x=0 退化为整和形式，但 x≠0 那几格是**新通道**（判定 4a 用它，两族生产者都逐点求和而不是靠变换）'
+  - '物理参数化：a=βπ²ℏ²/(2mL²) 时 √(π/a)=L√(2m/(πβℏ²))，故前导项 ½(√(π/a)−1)→L√(m/(2πβℏ²))——一维盒态密度积分的 Weyl 律；判定 3 把这条代数排布整体代回原恒等式复核'
+  - '机制形（Poisson 核）：∫e^{-ax²}cos(2πkx)dx = √(π/a)e^{-π²k²/a}，即「轨道侧那枚 e^{-π²k²/a}」不是拟合常数而是高斯核的 Fourier 值；判定 2 用 sympy 的符号积分通道读它'
+
+related:
+  - 'OM-F-AN-0002'
+  - 'OM-F-AN-0004'
+  - 'OM-F-AN-0003'
+uses:
+  - 'OM-D-AN-0001'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+
+caveat: >-
+  本卡不重做证明，也不声明任何新结果（红线一、红线八）。它做的是三件更窄的事：
+  ①用两条互不相干的生产者读同一条恒等式——谱侧是自己写的逐项求和循环（不调任何 theta 库），
+  轨道侧是像电荷求和，两条同值才计一次数；第三枚生产者（sympy 数值求和与 mpmath 逐项求和）
+  在判定 3、判定 5 上各自复算；
+  ②给「残差随精度收缩」定价：每格的相对残差与尺度并列印出，并在由该格尺度现定的第二档上重跑，
+  印放大倍数——放大倍数低于 1e+15 判真差、非零残差低于地板判不可比，两种「看不见」不许混成「通过」；
+  ③把不等式那一格按界的量级定档（判定 5），并用 G2 对照证明低位读数会把一条真的先验界判成反例。
+  须记住的是：判定 2 那五格返回**恰好 Zero** 是符号机的归约，不是对一般 k 的证明；
+  判定 3 是代数重排的复算，不构成第二台独立生产者；
+  判定 4a 中三格 BELOW_FLOOR（170 位档上两族全同）只证明「两条独立生产者落在同一个数上」，
+  其地板由该格精度驱动，脚本另配 G1 五格对照证明这根地板尺随档位翻判决、不会把正确读数咬红。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: sympy/mpmath
+      precision_digits: 80
+      sample_count: 2
+      seed: 0
+      tolerance: "1e-40"
+      sample_points:
+        - a: "1/50"
+          b: "1/4"
+          c: "4"
+          k: "1"
+          k2: "3"
+          m: "3/2"
+          L: "5/3"
+          hbar: "7/5"
+          bt: "11/4"
+        - a: "1"
+          b: "pi/7"
+          c: "25"
+          k: "2"
+          k2: "5"
+          m: "1"
+          L: "2"
+          hbar: "1"
+          bt: "4/3"
+      max_abs_residual: "见 scratch/T15_VERIFY_MP0001.txt（该面由最后一次写入之后运行印出，本行不复制其数）"
+      script: 08-工具/examples/verify_OM-T-MP-0001.py
+      credential: scratch/T15_MP0001_face_final.txt
+      last_run: 2026-10-19
+      note: '判定册面 scratch/T15_MP0001_face_final.txt（五条判定，抓到红 0 条、rc=0）；牙齿面 scratch/T15_MP0001_selftest_final.txt（4 枚变异体须响＋1 枚正例不误伤＋G1/G2/G3 三组尺子对照，rc=0）；通用引擎口径面 scratch/T15_VERIFY_MP0001.txt'
+    L3:
+      passed: false
+      engine: ""
+      method: '不登记：一般陈述的符号层需要 Poisson 求和的收敛条件与 Fourier 反演假设，本库未做成判据（红线一）'
+      note: '判定 2 的符号归零由 sympy 的积分规则集给出，它不等同于对一般 a、k 的证明'
+    L4:
+      passed: false
+      system: ''
+      name: ''
+      note: '未核对 mathlib/Lean 中 θ 函数模变换与热核迹的绑定名，故不填 L4（红线八）'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均属经典内容，本库未重做证明，本轮也未经目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。记录级 status=VERIFIED(L2) 只指本库点名的横坐标与采样点上的残差核对结果，不代表文献定理的地位，也不代表本库证明了该恒等式。'
+  sources:
+    - 'Jacobi 虚数变换与 θ 函数的模变换（经典形态，本轮未逐条核对原始文献与版本，红线八）'
+    - 'Poisson 求和公式（1827 年形态，本轮未核对原始出处页码）'
+    - '热核迹与 Weyl 律的谱几何标准表述（本轮未核对具体教材版本与节号）'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: session
+      value: '判定册面 scratch/T15_MP0001_face_final.txt 与牙齿面 scratch/T15_MP0001_selftest_final.txt（本卡五条判定的读数只在这两张面上，本文件不复制它们）'
+    - type: session
+      value: '坏针诊断面 scratch/T15_MP0001_face_v2.txt（第一版判定面抓到红 5 条：一枚相对残差货币错配、三枚地板尺假阳、一条先验界用 50 位求值断言；五条全部判为仪器缺陷并就地更正，其后 scratch/T15_MP0001_face_v4.txt 与 final 面 0 条）'
+    - type: session
+      value: '字段可用性预演 scratch/_t15_theta_probe3.py、scratch/_t15_theta_probe4.py（第 13 批口径：采样点须钉满全部自由符号；probe3 用精确有理代入误判为 0.000000e+00，probe4 改按引擎的 float 代入才读到非零残差）'
+  contributors:
+    - "qoder-session-2026-10-19"

@@ -39,7 +39,8 @@ sympy: '((1-q)*(1/(1-q))**2 + q*(1/q)**2 - 1/(q*(1-q)))**2 + ((1-q)**2*(2/(1-q))
 assumptions:
   - '本卡机器读数（sympy 字段）覆盖的是「一条平方和里的 11 项恒等式」，不是任意独立族：离散侧取 Bernoulli 一枚与两枚乘积测度（四个原子显式枚举，不走闭式）、Bin(3,q) 的求和通道；连续侧只进「等号条件恒等式」那一项（它不含积分，逐点成立），故积分形状的可加性由脚本的精确有理通道承担'
   - 'Poisson 两项（自然坐标与 lam 坐标）由 sympy 的无穷求和给出解析闭式；这一型在 float 代入下仍返回闭式，因此可以进机器读数，但它的闭式出自符号机而不是数值求积（红线一）'
-  - 'Fubini 分解后的连续可加性（单积分乘积）在通用引擎口径下单点耗时约 109 秒（实测见 scratch/T14_PROTO3_face.txt），故它留在脚本的精确有理通道（同一条在精确代入下约 1.9 秒），不写进 sympy 字段——这是刻意的取舍，不是遗漏'
+  - 'Fubini 分解后的连续可加性（单积分乘积）不进 sympy 字段是**成本**取舍，不是算不出来：通用引擎口径（float 代入＋sp.N(50)）下单枚采样点 40.4 秒、残差 -9.126e-52（scratch/T14_PROTO3_face.txt 的 cost 段；第二台独立计时 69.9 秒、残差同为 9.1260e-52，见 scratch/T14_CALIBER_probe.txt），而字段里那 11 项合计只要 6.7 秒（同一张 PROTO3 面的 REC_TOTAL 行）。本脚本走精确有理通道，同一枚点核对三条通道耗时 237.1 秒（CALIBER 面末行）；把 .doit() 提到 simplify 之前可 0.4 秒归约为 0（同一张面），本卡没有那样装配——代点前先 doit 会撞进 sympy 的 meijerint 内部 KeyError（文件头记过），代点后 doit 是未付的仪器杠杆'
+  - '同一批积分若**不做 Fubini 分解**（嵌套双重积分原形），在引擎口径下 0.0 秒返回未归约的 Integral（scratch/T14_PROTO3_face.txt）——它不报错，而是能被 sp.N 退化成一个数当残差印，所以脚本 ex() 的形状守卫必须抛（η-参数化 Poisson 一阶矩曾给出 -1.4185 而真值 0）'
   - '等号条件那一项是「score = I·(T−θ)」的逐点恒等式：它对任意 (x1,x2,θ,σ1,σ2) 成立，所以本卡的连续侧证据是代数形状而不是积分值'
 symbols:
   - name: 'I_n'
@@ -113,7 +114,8 @@ caveat: >-
   ③给「精度相加」装上双向判别：同一把等号条件的尺在逆方差加权判可及、在算术平均判不可及，
   且与「方差减界」那条通道同判——只有一边红一边绿才说明这把尺会判，全绿不算证据。
   另须记住：Poisson 两项的闭式出自 sympy 的无穷求和，Fubini 那条连续通道只在精确有理代入下被核对
-  （它在浮点代入下单枚耗时约 109 秒而不进机器读数）；把这些当数值证据时，它们出自符号机。
+  （引擎口径下同一条单枚采样点要 40.4 秒，见 assumptions 与 scratch/T14_PROTO3_face.txt，故不进机器读数）；
+  把这些当数值证据时，它们出自符号机。
 
 verification:
   levels:
@@ -175,6 +177,6 @@ provenance:
     - type: book
       value: 'van Trees, Detection, Estimation, and Modulation Theory, Part I (1968), §3.2'
     - type: session
-      value: '残差式预演面 scratch/T14_PROTO3_face.txt 与 scratch/T14_PROTO2_face.txt（本卡的连续通道取舍由这两张面决定）'
+      value: '残差式预演面 scratch/T14_PROTO3_face.txt、scratch/T14_PROTO2_face.txt 与口径分诊面 scratch/T14_CALIBER_probe.txt（本卡的连续通道取舍由这三张面决定；旧稿「约 109 秒」由后两张更正）'
   contributors:
     - "qoder-session-2026-10-18"
