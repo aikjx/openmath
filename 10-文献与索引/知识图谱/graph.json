@@ -1,6 +1,6 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-10-19T03:12:37Z",
+  "generated": "2026-10-24T03:19:23Z",
   "root": "openmath",
   "nodes": [
     {
@@ -6476,6 +6476,7 @@
         "CT"
       ]
     ],
+    "intra_malformed": [],
     "missing_placement": []
   },
   "gaps": {

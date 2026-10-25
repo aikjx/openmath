@@ -1,5 +1,5 @@
 openmath graph face — 本面是唯一载体，文档只许引用这里印出的数
-generated: 2026-10-19T03:12:37Z
+generated: 2026-10-24T03:19:23Z
 ---- ledger scope ----
 record nodes (OM-*.yaml)            : 85
 doc nodes (OM-*.md 无 .yaml 伴生)    : 23
@@ -34,7 +34,7 @@ YAML load errors                   : 0
   TERM_INCONSISTENCY             :    0 : ADVISORY
 ---- charts ----
   00-四层总览 : {"domains_with_nodes": 18, "edges_off_graph": 4, "layer_edges": 6, "layer_nodes": {"方程层": 43, "逻辑层": 28, "难题层": 37}, "real_edges_between_layers": 268}
-  01-域依赖 : {"intra_drawn": 1, "intra_dropped": 0, "intra_dropped_pairs": [], "intra_edges": 1, "missing_placement": 0, "tier_edges": 5, "tiers": 6, "unplaced": 3}
+  01-域依赖 : {"intra_bad_shape": 0, "intra_drawn": 1, "intra_dropped": 0, "intra_dropped_pairs": [], "intra_edges": 1, "intra_malformed": 0, "intra_malformed_lines": [], "missing_placement": 0, "tier_edges": 5, "tiers": 6, "unplaced": 3}
   02-公式与定理依赖 : {"edges": 518, "record_nodes_in_chart": 85}
   03-难题卡点 : {"chart_nodes": 71, "dangling": 0, "edges": 134, "edges_with_off_graph_end": 4, "problem_nodes": 37, "prose_bottlenecks": 9}
   04-桥接与旁证 : {"bridge_docs": 0, "bridge_edges": 0, "edges_with_off_graph_end": 4, "evidence_edges": 4, "nodes": 5}

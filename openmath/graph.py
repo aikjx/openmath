@@ -60,6 +60,8 @@ _TIER_RANK = re.compile(r"^\s*-\s*rank:\s*(\d+)\s*$")
 _TIER_DOMAINS = re.compile(r"^\s*domains:\s*\[([A-Z,\s]*)\]\s*$")
 _TIER_LABEL = re.compile(r'^\s*label:\s*"(.*)"\s*$')
 _UNPLACED = re.compile(r"^\s*-\s*code:\s*([A-Z]{2})\s*$")
+_INTRA_ITEM = re.compile(r"^\s*-\s*\[(.*)\]\s*$")
+_INTRA_CODE = re.compile(r"^[A-Z]{2}$")
 _EDGE_STYLE = {
     "related": "---",
     "specializes": "-.->",
@@ -112,26 +114,47 @@ def _norm_tag(tag):
 
 
 def _parse_tiers(path):
-    """读 域依赖.yaml 的 rank/domains/unplaced（自带小解析器，两种 YAML 后端都能跑）。"""
+    """读 域依赖.yaml 的 rank/domains/unplaced/intra（自带小解析器，两种 YAML 后端都能跑）。
+
+    `intra` 只收**段内**的行，且要求前两枚恰好是 `^[A-Z]{2}$` 域码、第三枚若存在必须是散文；
+    形状不合不丢、不截，原样进 `intra_malformed` 让发射器点名——旧写法在段外扫全文，还要求
+    第二项后面有逗号，于是 `["ST", "CT"]` 这种两元行整行读不到，而 `["ST","CT","DL"]` 的第三枚
+    域码被静默截成理由（少一条边而版面照旧绿）。
+    """
     with open(path, "r", encoding="utf-8") as handle:
         text = handle.read()
     tiers = []
     section = None
     pending = None
     unplaced = []
+    intra = []
+    intra_malformed = []
     for line in text.splitlines():
-        if line.startswith("tiers:"):
-            section = "tiers"
+        if line and not line[0] in " \t#" and ":" in line:
+            # 顶格换段：旧写法把 intra 的正则跑在**整份文件**上，别处的同形列表项会冒充同层边
+            section = {"tiers:": "tiers", "unplaced_domains:": "unplaced",
+                       "intra_tier_edges:": "intra"}.get(line.split(":", 1)[0] + ":")
             continue
-        if line.startswith("unplaced_domains:"):
-            section = "unplaced"
-            continue
-        if line.startswith("intra_tier_edges:"):
-            section = "other"
         if section == "unplaced":
             hit = _UNPLACED.match(line)
             if hit:
                 unplaced.append(hit.group(1))
+            continue
+        if section == "intra":
+            hit = _INTRA_ITEM.match(line)
+            if not hit:
+                if line.strip().startswith("-"):
+                    intra_malformed.append(line.strip())
+                continue
+            items = re.findall(r'"([^"]*)"', hit.group(1))
+            if len(items) < 2 or not all(_INTRA_CODE.match(x) for x in items[:2]):
+                intra_malformed.append(line.strip())
+            elif any(_INTRA_CODE.match(x) for x in items[2:]):
+                # 本文件的惯例是「两枚域码 ＋ 一句理由」。第三枚若也是域码，二元拆法会把它
+                # 静默吞成理由的一部分＝声明了一条边而图上少一条；宁可乐面点名，不当截断。
+                intra_malformed.append(line.strip())
+            else:
+                intra.append((items[0], items[1]))
             continue
         if section != "tiers":
             continue
@@ -147,12 +170,7 @@ def _parse_tiers(path):
         hit = _TIER_LABEL.match(line)
         if hit and pending is not None:
             pending["label"] = hit.group(1)
-    intra = []
-    for line in text.splitlines():
-        hit = re.match(r"^\s*-\s*\[\"\s*([A-Z]{2})\s*\",\s*\"\s*([A-Z]{2})\s*\",", line)
-        if hit:
-            intra.append((hit.group(1), hit.group(2)))
-    return tiers, unplaced, intra
+    return tiers, unplaced, intra, intra_malformed
 
 
 def _md_ledger(root):
@@ -563,7 +581,7 @@ def build(root):
 
     gaps = detect_gaps(root, records, nodes, edges, docs, evidence, md_id_hits, dup_ids,
                        prose_relations, load_errors)
-    tiers, unplaced, intra = _parse_tiers(os.path.join(root, TIERS_PATH))
+    tiers, unplaced, intra, intra_malformed = _parse_tiers(os.path.join(root, TIERS_PATH))
     placed = sorted({d for tier in tiers for d in tier["domains"]})
     missing_placement = sorted(set(ids.DOMAINS) - set(placed) - set(unplaced))
     gaps["DOMAIN_UNPLACED"] = missing_placement
@@ -603,6 +621,7 @@ def build(root):
         "nodes": sorted(nodes, key=lambda n: (str(n["id"] or "~"), n["path"])),
         "edges": sorted(edges, key=lambda e: (e["src"], e["type"], e["dst"])),
         "tiers": {"ranks": tiers, "unplaced": unplaced, "intra": intra,
+                  "intra_malformed": intra_malformed,
                   "missing_placement": missing_placement},
         "gaps": gaps,
         "resolution": resolution_census(nodes, edges),

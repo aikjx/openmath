@@ -187,7 +187,17 @@ def chart_domain_tiers(g):
         prev = tag
     INTRA_SIG = "-.->|同层互译|"
     dropped = []
-    for a, b in sorted(g["tiers"]["intra"]):
+    # 形状先判再拆：旧写法直接 `for a, b in sorted(...)`，一枚三元组就把整张图抛成 ValueError，
+    # 而 ValueError 发生在本函数任何 emit 之前 ⇒ 面上一行判决都没有（崩 ≠ 红）。
+    pairs, bad_shape = [], []
+    for item in g["tiers"]["intra"]:
+        if (isinstance(item, (list, tuple)) and len(item) == 2
+                and all(isinstance(x, str) and graph_mod._INTRA_CODE.match(x) for x in item)):
+            pairs.append((item[0], item[1]))
+        else:
+            bad_shape.append(repr(item))
+    malformed = list(g["tiers"].get("intra_malformed") or [])
+    for a, b in sorted(pairs):
         rank_a = next((t["rank"] for t in tiers if a in t["domains"]), None)
         rank_b = next((t["rank"] for t in tiers if b in t["domains"]), None)
         if rank_a and rank_b:
@@ -198,21 +208,40 @@ def chart_domain_tiers(g):
         # 这一支以前什么都不发，而 `intra_edges` 数的是声明数：版面照旧绿，图上少一条边。
         lines.append('  X_INTRA_%s["声明的同层边画不出：%s 端点未归层（DEFECT）"]' % (
             pair.replace("-", "_"), pair))
+    for k, shape in enumerate(sorted(bad_shape)):
+        lines.append('  X_SHAPE_%d["同层边声明的形状不是二元域码（DEFECT）：%s"]' % (k, shape))
+    for k, line in enumerate(sorted(malformed)):
+        lines.append('  X_MALFORMED_%d["域依赖.yaml 里的同层边行没落成两枚域码（DEFECT）：%s"]' % (k, line))
     for code in sorted(g["tiers"]["unplaced"]):
         lines.append('  U_%s["%s %s：声明为未归层"]' % (code, code, _clean(ids.DOMAINS.get(code, code))))
     for code in sorted(g["tiers"]["missing_placement"]):
         lines.append('  M_%s["%s %s：既未归层也未声明未归层（DEFECT）"]' % (
             code, code, _clean(ids.DOMAINS.get(code, code))))
+    declared = len(pairs) + len(bad_shape) + len(malformed)
+    assert declared == len(g["tiers"]["intra"]) + len(malformed), (
+        "同层边分账不合：声明 %d ≠ 可拆 %d ＋ 形状坏 %d ＋ 段落畸形 %d（有一枚被静默吞掉）"
+        % (declared, len(pairs), len(bad_shape), len(malformed)))
+    assert meta_drawn_check(lines, pairs, dropped, INTRA_SIG), "画出的边数与可拆且已归层的对数分家"
     meta = {"tiers": len(tiers),
             "tier_edges": max(0, len(tiers) - 1),
-            "intra_edges": len(g["tiers"]["intra"]),
+            "intra_edges": declared,
             # 由印出的那张图自己数，不重新声明一遍（否则又一个恒绿读数）。
             "intra_drawn": sum(1 for l in lines if INTRA_SIG in l),
             "intra_dropped": len(dropped),
             "intra_dropped_pairs": dropped,
+            "intra_bad_shape": len(bad_shape),
+            "intra_malformed": len(malformed),
+            "intra_malformed_lines": malformed,
             "unplaced": len(g["tiers"]["unplaced"]),
             "missing_placement": len(g["tiers"]["missing_placement"])}
     return "\n".join(lines) + "\n", meta
+
+
+def meta_drawn_check(lines, pairs, dropped, sig):
+    """画出来的条数必须等于「可拆且两端都归层」那一支的条数——由 lines 现数，不另算一遍。"""
+    want = len(pairs) - len(dropped)
+    got = sum(1 for l in lines if sig in l)
+    return got == want
 
 
 def chart_record_deps(g):

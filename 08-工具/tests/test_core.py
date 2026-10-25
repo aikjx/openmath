@@ -7,6 +7,7 @@
     python 08-工具/tests/test_core.py
 """
 
+import io
 import os
 import sys
 
@@ -45,6 +46,75 @@ def test_intra_edge_faithfulness():
     dropped = int(_re.search(r'"intra_dropped": (\d+)', face).group(1))
     assert declared == real_drawn == printed and dropped == 0, \
         "现语料上声明 %d／图上 %d／版面 %d（未画出 %d）" % (declared, real_drawn, printed, dropped)
+
+
+def test_intra_shape_guard():
+    """同层边声明的**形状**本身要被判，不能靠运气：
+      · HEAD 的解析正则要求第二项后面有逗号 ⇒ `["ST", "CT"]` 整行读不到（声明了一条边而机器读到 0 条）；
+      · 同一枚正则把 `["ST","CT","DL"]` 的第三枚域码静默截成理由 ⇒ 版面照旧绿而图上少一条边；
+      · HEAD 的发射 `for a, b in sorted(...)` 遇三元组当场 ValueError ⇒ 崩在 emit 之前，面上一行判决都没有。
+    崩 ≠ 红：现在形状坏要落成点名节点，且分账必须闭合。
+    """
+    import re
+    import tempfile
+    from openmath import flowdocs, graph as graph_mod
+
+    old_rx = re.compile(r'^\s*-\s*\["\s*([A-Z]{2})\s*",\s*"\s*([A-Z]{2})\s*",')
+    body_head = ("schema_version: \"0.1\"\n"
+                 "unplaced_domains:\n  - code: XS\n    reason: \"x\"\n"
+                 "tiers:\n  - rank: 1\n    domains: [FD, ST, CT, DL]\n    label: \"L1\"\n"
+                 "intra_tier_edges:\n%s\n"
+                 "notes_by_domain:\n  - [\"AN\", \"PR\", \"别段的同形行，不是同层边\"]\n")
+
+    def parse(intra_lines):
+        d = tempfile.mkdtemp()
+        p = os.path.join(d, "tier.yaml")
+        with io.open(p, "wb") as fh:
+            fh.write((body_head % "".join(intra_lines)).encode("utf-8"))
+        return graph_mod._parse_tiers(p)
+
+    # ① 三枚域码：旧写法静默截断（正对照），新写法整行点名
+    _, _, intra, malformed = parse(['  - ["ST", "CT", "DL"]\n'])
+    assert intra == [] and len(malformed) == 1, \
+        "第三枚域码被当成散文理由吃掉了：%s / %s" % (intra, malformed)
+    assert old_rx.match('  - ["ST", "CT", "DL"]'), "HEAD 那枚正则今天已经不截了？夹具口径与 HEAD 分家，本测试的区分性作废"
+
+    # ② 两枚、无尾逗号：旧写法整行读不到（正对照），新写法读得到
+    _, _, intra, malformed = parse(['  - ["ST", "CT"]\n'])
+    assert intra == [("ST", "CT")] and malformed == [], "两元声明今天读成 %s / %s" % (intra, malformed)
+    assert not old_rx.match('  - ["ST", "CT"]'), "HEAD 那枚正则今天已能吃两元行 ⇒ 上面那条断言失去意义"
+
+    # ③ 语料的真实形状（两码＋一句散文理由）不许误伤
+    _, _, intra, malformed = parse(['  - ["ST", "CT", "集合论为范畴论提供例子与反例"]\n'])
+    assert intra == [("ST", "CT")] and malformed == [], "假阳：散文理由被当成端点形状缺陷：%s" % malformed
+
+    # ④ 段内坏行不静默跳过；段外同形行不冒充同层边
+    _, _, intra, malformed = parse(['  - ["ST", "CT", "理由"]\n', "  - 裸破折号不是列表项\n"])
+    assert len(malformed) == 1 and intra == [("ST", "CT")], malformed
+    _, _, intra, _ = parse(['  - ["ST", "CT", "理由"]\n'])
+    assert intra == [("ST", "CT")], "段外同形行被扫进来了：%s" % intra
+    sentinel = '  - ["AN", "PR", "别段的同形行，不是同层边"]\n'
+    assert old_rx.match(sentinel), "夹具尾部的同形行今天不被 HEAD 正则命中 ⇒ 段外这条断言失去对照对象"
+
+    # ⑤ 发射层：三元组不崩，且落成 DEFECT 点名节点，分账闭合
+    g = {"tiers": {"ranks": [{"rank": 1, "domains": ["ST", "CT", "AN"], "label": "L1"}],
+                   "intra": [["ST", "CT", "多出来的一枚"], ["AN", "PR"]],
+                   "intra_malformed": [], "unplaced": [], "missing_placement": []},
+         "nodes": []}
+    text, meta = flowdocs.chart_domain_tiers(g)
+    assert meta["intra_bad_shape"] == 1 and "X_SHAPE_0" in text, meta
+    assert meta["intra_edges"] == len(g["tiers"]["intra"]) + meta["intra_malformed"], meta
+    assert meta["intra_drawn"] == 0 and meta["intra_dropped"] == 1, meta
+
+    # ⑥ 现语料在盘上必须仍是「一条、零畸形」——有人把 YAML 写成坏形状时这里红
+    repo = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    tiers, unplaced, intra, malformed = graph_mod._parse_tiers(
+        os.path.join(repo, "01-数学体系", "域依赖.yaml"))
+    face = io.open(os.path.join(repo, "10-文献与索引", "知识图谱", "_版面",
+                                "graph_face.txt"), encoding="utf-8").read()
+    assert intra == [("ST", "CT")] and malformed == [], (intra, malformed)
+    assert '"intra_bad_shape": 0' in face and '"intra_malformed": 0' in face, \
+        "盘上声明干净而版面里形状读数非 0——graph.json/面陈旧了，重新跑 openmath graph"
 
 
 def test_id_parse_and_make():
