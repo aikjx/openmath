@@ -1,6 +1,6 @@
 {
   "schema_version": "0.1",
-  "generated": "2026-10-24T03:19:23Z",
+  "generated": "2026-11-01T02:58:39Z",
   "root": "openmath",
   "nodes": [
     {
@@ -558,6 +558,33 @@
       ],
       "script": null,
       "latex": "P(Y)=\\prod_{p\\le Y}p,\\qquad A_Y(N)=\\#\\{1\\le n\\le N:\\ n^2+1\\ \\text{的素因子}>Y\\},\\qquad C_d(N)=\\#\\{1\\le n\\le N:\\ d\\mid n^2+1\\},\\qquad \\omega(p)=\\#\\{r\\bmod p:\\ p\\mid r^2+1\\},\\qquad \\mathrm{NextPrime}(m)=\\min\\{q>m:\\ q\\ \\text{是素数}\\}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
+      "id": "OM-D-OR-0001",
+      "kind": "definition",
+      "domain": "OR",
+      "status": "PROPOSED",
+      "evidence_level": "L1",
+      "title_zh": "M/M/1 的记号：到达率 lambda_a、服务率 mu、平稳概率 pi_n 与排队长/等待时间 L_q/W_q（流量强度只写成商 lambda_a/mu，本卡不接管 rho 这个名字）",
+      "path": "02-公式库/运筹与系统科学/OM-D-OR-0001-m-m-1-queue-notation.yaml",
+      "tags": [
+        "记号定义",
+        "M/M/1 队列",
+        "流量强度",
+        "运筹与系统科学首张记号卡"
+      ],
+      "symbols": [
+        "lambda_a",
+        "mu",
+        "pi_n",
+        "L_q",
+        "W_q",
+        "W_s"
+      ],
+      "script": null,
+      "latex": "lambda_a>0 记单位时间到达数（泊松到达的速率），mu>0 记单个服务台的速率（指数服务）；流量强度写成商 lambda_a/mu 而不另起名；平稳概率记作 pi_n（n 为系统中的队长），排队长与等待时间记作 L_q/W_q，系统中的队长与逗留时间记作 L_s/W_s，二者由 W_s = W_q + 1/mu 相连。稳定条件写作 lambda_a < mu。",
       "machine_readable": true
     },
     {
@@ -2148,6 +2175,31 @@
     },
     {
       "node_type": "record",
+      "id": "OM-T-OR-0001",
+      "kind": "theorem",
+      "domain": "OR",
+      "status": "VERIFIED(L2)",
+      "evidence_level": "L2",
+      "title_zh": "M/M/1 的几何平稳量与 Little 律闭合形式：十枚代数通道逐条归零，而稳定条件 lambda_a<mu 不在这些通道里——它由 pi_0>0 与尾项衰减两枚控制读数承重",
+      "path": "02-公式库/运筹与系统科学/OM-T-OR-0001-mm1-geometric-stationary-law-and-little-identity.yaml",
+      "tags": [
+        "M/M/1 队列",
+        "几何平稳分布",
+        "细致平衡",
+        "Little 律",
+        "运筹与系统科学首枚"
+      ],
+      "symbols": [
+        "lambda_a",
+        "mu",
+        "pi_n"
+      ],
+      "script": "08-工具/examples/verify_OM-T-OR-0001.py",
+      "latex": "\\pi_n=(1-r)r^{n}\\ (r=\\lambda_a/\\mu),\\qquad \\pi_0\\lambda_a=\\pi_1\\mu,\\quad \\pi_1\\lambda_a=\\pi_2\\mu,\\qquad \\sum_{n=0}^{K}\\pi_n=1-r^{K+1}, \\qquad L_s=\\frac{r}{1-r}=\\lambda_a W_s,\\quad W_s=\\frac{1}{\\mu-\\lambda_a},\\quad W_s=W_q+\\frac1\\mu,\\quad L_q=\\frac{\\lambda_a^{2}}{\\mu(\\mu-\\lambda_a)},\\quad \\int_{0}^{T} r\\,e^{-(\\mu-\\lambda_a)t}\\,dt=\\frac{r\\,(1-e^{-(\\mu-\\lambda_a)T})}{\\mu-\\lambda_a}",
+      "machine_readable": true
+    },
+    {
+      "node_type": "record",
       "id": "OM-T-PR-0001",
       "kind": "theorem",
       "domain": "PR",
@@ -3513,6 +3565,69 @@
     {
       "src": "OM-D-NT-0003",
       "dst": "OM-F-NT-0004",
+      "type": "uses",
+      "via": "正文引用",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-OR-0001",
+      "dst": "OM-D-GR-0003",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-OR-0001",
+      "dst": "OM-D-TC-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-OR-0001",
+      "dst": "OM-T-OR-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-OR-0001",
+      "dst": "OM-T-SC-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-OR-0001",
+      "dst": "OM-T-OR-0001",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-OR-0001",
+      "dst": "OM-D-GR-0003",
+      "type": "uses",
+      "via": "正文引用",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-OR-0001",
+      "dst": "OM-D-TC-0001",
+      "type": "uses",
+      "via": "正文引用",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-OR-0001",
+      "dst": "OM-T-OR-0001",
+      "type": "uses",
+      "via": "正文引用",
+      "resolvable": true
+    },
+    {
+      "src": "OM-D-OR-0001",
+      "dst": "OM-T-SC-0002",
       "type": "uses",
       "via": "正文引用",
       "resolvable": true
@@ -5912,6 +6027,69 @@
       "resolvable": true
     },
     {
+      "src": "OM-T-OR-0001",
+      "dst": "OM-D-GR-0003",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-OR-0001",
+      "dst": "OM-D-OR-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-OR-0001",
+      "dst": "OM-D-PR-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-OR-0001",
+      "dst": "OM-D-TC-0001",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-OR-0001",
+      "dst": "OM-T-SC-0002",
+      "type": "cites",
+      "via": "配对 md 正文（ID 引用）",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-OR-0001",
+      "dst": "OM-T-SC-0002",
+      "type": "related",
+      "via": "related",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-OR-0001",
+      "dst": "OM-D-OR-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-OR-0001",
+      "dst": "OM-D-PR-0001",
+      "type": "uses",
+      "via": "uses",
+      "resolvable": true
+    },
+    {
+      "src": "OM-T-OR-0001",
+      "dst": "OM-T-SC-0002",
+      "type": "uses",
+      "via": "正文引用",
+      "resolvable": true
+    },
+    {
       "src": "OM-T-PR-0001",
       "dst": "OM-D-PR-0001",
       "type": "cites",
@@ -6662,6 +6840,26 @@
         "text": "不达到界的一侧（反对照）：算术平均 (x1+x2)/2 在 σ1≠σ2 时 Var−界=(σ1−σ2)²/4·(…)>0（数值由载体 scratch/T14_SC0002_face.txt 判定3b 印出），等号条件可解性残差非零"
       },
       {
+        "src": "OM-T-OR-0001",
+        "field": "equivalent_forms",
+        "text": "细致平衡形：pi_n*lambda_a = pi_{n+1}*mu 对 n=0、1 成立，与「pi_n = (1-r)r^n」是同一件事的可算读法——本卡 B1/B2 两枚通道读前者，G1/G2 读它的求和后果"
+      },
+      {
+        "src": "OM-T-OR-0001",
+        "field": "equivalent_forms",
+        "text": "归一化有限和形：sum_{n=0}^{K} pi_n = 1 - r^{K+1}（K=1、2 两枚通道）。无穷和等于 1 这一条**不在**本卡机器字段里：它要求 |r|<1，进了字段就把恒等式换成条件式，会与「字段对稳定条件零分辨力」这句结论互相打脸"
+      },
+      {
+        "src": "OM-T-OR-0001",
+        "field": "equivalent_forms",
+        "text": "Little 律形：L_s = lambda_a*W_s 与 L_q = lambda_a*W_q；本卡用 W_s = 1/(mu-lambda_a)、L_s = r/(1-r) 两侧代值读第一条（L1 通道），W_s = W_q + 1/mu 读第二条（L3 通道）"
+      },
+      {
+        "src": "OM-T-OR-0001",
+        "field": "equivalent_forms",
+        "text": "自洽方程形：L_s = r + r*L_s（队长 = 正在被服务的一位（概率 r）+ 平均排队后再来的部分），本卡 L2 通道读它的闭合解与显式解同值"
+      },
+      {
         "src": "OM-P-NT-0002",
         "field": "equivalent_forms",
         "text": "精确计算 pi(x) 与精确定位 p_n 在多项式开销内互化（离散反演 p_n = min{x : pi(x) >= n}）"
@@ -6769,20 +6967,20 @@
       "evidence-path": 4
     },
     "off_graph_sides": 4,
-    "nodes": 108,
-    "node_keys": 108,
-    "edges": 571,
-    "both_in_graph": 567,
+    "nodes": 110,
+    "node_keys": 110,
+    "edges": 589,
+    "both_in_graph": 585,
     "one_endpoint_off_graph": 4,
     "both_endpoints_off_graph": 0,
     "collapsed_to_self_loop": 0,
     "ambiguous_doc_ids": []
   },
   "counts": {
-    "record_nodes": 85,
+    "record_nodes": 87,
     "doc_nodes": 23,
     "evidence_docs": 4,
-    "edges": 571,
+    "edges": 589,
     "load_errors": 0
   }
 }

@@ -1,0 +1,90 @@
+schema_version: "0.1"
+
+id: OM-D-OR-0001
+kind: definition
+title_zh: 'M/M/1 的记号：到达率 lambda_a、服务率 mu、平稳概率 pi_n 与排队长/等待时间 L_q/W_q（流量强度只写成商 lambda_a/mu，本卡不接管 rho 这个名字）'
+title_en: 'Notation for the M/M/1 queue: arrival rate lambda_a, service rate mu, stationary probabilities pi_n, and the queue-length/waiting-time pair L_q/W_q (traffic intensity is written only as the quotient lambda_a/mu; this card does not take over the name rho)'
+domain: OR
+msc:
+  - '60K25'
+  - '90B22'
+tags:
+  - '记号定义'
+  - 'M/M/1 队列'
+  - '流量强度'
+  - '运筹与系统科学首张记号卡'
+
+status: PROPOSED
+evidence_level: L1
+revision: 1
+created: 2026-11-01
+updated: 2026-11-01
+
+statement_latex: 'lambda_a>0 记单位时间到达数（泊松到达的速率），mu>0 记单个服务台的速率（指数服务）；流量强度写成商 lambda_a/mu 而不另起名；平稳概率记作 pi_n（n 为系统中的队长），排队长与等待时间记作 L_q/W_q，系统中的队长与逗留时间记作 L_s/W_s，二者由 W_s = W_q + 1/mu 相连。稳定条件写作 lambda_a < mu。'
+
+assumptions:
+  - '本卡只固定记号与它们的换算关系，不判定任何排队律；几何平稳分布与 Little 律的机器读数住在 OM-T-OR-0001'
+  - 'lambda_a、mu 都取正实数：mu=0 时商 lambda_a/mu 无定义、lambda_a=0 时系统空转（pi_0=1，全部通道退化为 0=0 但不判定任何东西），本卡不把这两枚退化读作新的定义'
+  - '本卡**不声明** `rho`：现读它已由 OM-D-GR-0003 全域定义为「表示（群到 GL(V) 的同态）」，同一名字再加一枚定义只会让「谁定义了什么」更难读（载体 scratch/T20_OR_probe.txt 的 S2 段 owners=OM-D-GR-0003 那一行）；流量强度一律写商'
+  - '本卡**不声明** 裸 `L` 与裸 `W`：`L` 现读已有主人 OM-D-TC-0001（计算复杂性里的输入长度），本卡改用带下标的 L_s/W_s；这是第 4 批裁定「结构名铸、裸字母不铸」在同名冲突下的加强版——不是不铸，是不抢别人已在用的名字'
+  - '本卡**不声明** `lam`：现读它在 UNDEFINED_SYMBOL 名单上、主人是 OM-T-SC-0002（含义「Poisson 族的均值参数」）。定义符号按名字全域聚合（openmath/graph.py:653-663），所以本卡一旦声明 `lam`，SC-0002 那笔「用了没定义」的账会被悄悄抹平——实测会让该名单从 26 枚变 25 枚（同一张预演面）。本批不替它平账：两处 λ 同名不同义，该做的是改名而不是加定义，这条已登记为在册未修'
+
+symbols:
+  - name: 'lambda_a'
+    meaning_zh: '到达率：单位时间平均到达的顾客数（泊松到达过程的速率参数），稳定条件要求 lambda_a<mu'
+    type: real
+    constraints: '>0；机器读数钉 1/2 与 7/4 两档（配套 mu 分别取 1 与 2，即流量强度 1/2 与 7/8）'
+  - name: 'mu'
+    meaning_zh: '服务率：单个服务台单位时间平均可完成的顾客数（指数服务时间的速率参数）；lambda_a/mu 就是占用系统的份额'
+    type: real
+    constraints: '>0；机器读数钉 1 与 2 两档；mu<=lambda_a 时本卡的平稳概率不再是概率分布（OM-T-OR-0001 的控制读数现印 pi_0<=0 与尾项发散）'
+  - name: 'pi_n'
+    meaning_zh: '平稳状态下队长恰为 n 的概率（n=0,1,2,...）；本卡的口径是它等于 (1-lambda_a/mu)*(lambda_a/mu)^n，但「这族数真的构成概率分布」需要 lambda_a<mu，本卡只固定记号不担保'
+    type: other
+    constraints: '下标 n 为非负整数；pi_0 = 1-lambda_a/mu'
+  - name: 'L_q'
+    meaning_zh: '排队长：排队等待（不含正在被服务的那位）的平均人数'
+    type: real
+    constraints: '= (lambda_a/mu)^2/(1-lambda_a/mu)；该闭式在 lambda_a>=mu 时不再是期望值'
+  - name: 'W_q'
+    meaning_zh: '等待时间：到达顾客排队等待的平均时长'
+    type: real
+    constraints: '= lambda_a/(mu*(mu-lambda_a))；与 L_q 由 Little 律 L_q = lambda_a*W_q 相连'
+  - name: 'W_s'
+    meaning_zh: '逗留时间：从到达到离开的平均时长，等于等待时间加一次服务时间'
+    type: real
+    constraints: '= W_q + 1/mu = 1/(mu-lambda_a)'
+
+related:
+  - 'OM-T-OR-0001'
+uses: []
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+equivalent_forms: []
+caveat: >-
+  第 20 批记号卡：把 OM-T-OR-0001 用到的结构名升成定义条目，符号账不动（净涨 0）。
+  铸卡前逐名量过主人（载体 scratch/T20_OR_probe.txt 的 S2 段，打在写卡之前）：
+  lambda_a、mu、pi_n、L_q、W_q、W_s 六枚在现面 0 主人、0 在未定义名单上，
+  所以本卡不会把任何人的账抹成「已定义」；同一把尺在 lam/k/n/q/s 上抓到主人或抓到账＝反对照通过，
+  放宽排除集那一档由夹具抓到 T 被抹成 0 主人（摘除律自检 5 格）。
+  本卡另外**主动不声明** 三枚名字（rho、裸 L/裸 W、lam），理由逐枚写在 assumptions 里并挂现读数——
+  这是本卡的全部数学内容之外的东西，但它是符号账不被假绿污染的前提。
+  本卡不新增任何数学主张，只固定记号与口径。
+
+fact_check:
+  status: UNVERIFIED
+  note: '记号取法是排队论标准写法（Kendall 记号 M/M/1 与 Little 律的常规符号），本库未重做证明，本轮也未按目录/DOI 逐条核对出处页码，故按红线八记 UNVERIFIED。状态字段按记录级写 PROPOSED（L1），不代表文献地位。'
+  sources:
+    - 'Kendall 记号与 M/M/1 的标准表述（排队论标准内容，本轮未核对具体教材版本与节号，红线八）'
+    - 'Little 律 L = lambda*W 的一般形式与在 M/M/1 中的两个实例（L_s/W_s 与 L_q/W_q）（本轮未逐条核对原始文献页码）'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: session
+      value: '铸卡前排雷面 scratch/T20_OR_probe.txt（号段普查、逐名主人与未定义账、接管 lam 的实测代价、Python 关键字不能当符号名的现场演示，都在这张面上；它产于写卡之前）'
+  contributors:
+    - "qoder-session-2026-11-01"

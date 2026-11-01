@@ -1,0 +1,155 @@
+schema_version: "0.1"
+
+id: OM-T-OR-0001
+kind: theorem
+title_zh: 'M/M/1 的几何平稳量与 Little 律闭合形式：十枚代数通道逐条归零，而稳定条件 lambda_a<mu 不在这些通道里——它由 pi_0>0 与尾项衰减两枚控制读数承重'
+title_en: 'Closed forms for the M/M/1 geometric stationary quantities and for the law L = lambda*W: ten algebraic channels vanish one by one, while the stability condition lambda_a < mu is not among them - it is carried by the two controls pi_0 > 0 and tail decay'
+domain: OR
+msc:
+  - '60K25'
+  - '90B22'
+tags:
+  - 'M/M/1 队列'
+  - '几何平稳分布'
+  - '细致平衡'
+  - 'Little 律'
+  - '运筹与系统科学首枚'
+
+status: VERIFIED(L2)
+evidence_level: L2
+revision: 1
+created: 2026-11-01
+updated: 2026-11-01
+
+statement_latex: >-
+  记流量强度 r = lambda_a/mu（lambda_a>0、mu>0）。本卡的机器字段是十枚通道各自的平方之和：
+  两枚有限几何和闭合（pi_0 + ... + pi_K = 1 - r^(K+1)，K=1、2）、两枚细致平衡
+  （pi_n*lambda_a = pi_{n+1}*mu，n=0、1，其中 pi_n = (1-r) r^n）、三枚 Little 律家族
+  （L_s = lambda_a*W_s、L_s = r + r*L_s、W_s = W_q + 1/mu）、一枚占用率（1 - pi_0 = r）、
+  一枚排队长闭式（L_q = lambda_a^2/(mu*(mu-lambda_a))）、一枚指数尾积分（有限视界 5/2 上的
+  integral_0^T r*exp(-(mu-lambda_a)*t) dt 与其闭合形式）。
+  这十枚在 lambda_a ≠ mu 处逐条归零；本卡另外现读：把它们当 r 的函数看，十枚恒等式对**一切** r 成立，
+  包括 r=2 那格（pi_0=-1，尾项 -1.0995e+12），所以「机器字段全绿」不等于「lambda_a<mu」——
+  后者只由 pi_0>0 与尾项衰减这两枚控制读数承重（载体 scratch/T20_OR_face.txt）。
+
+hypotheses:
+  - 'lambda_a>0 且 mu>0（两枚速率取正实数）；lambda_a=mu 时五枚含商／含指数的通道读不成数（判定册现场印出类型名 NaN，其 is_finite 不为 True），另五枚多项式通道仍读恰好 0——这一格本卡不判定任何东西，只作为反对照由判定册现算（采样点不含它）'
+  - '稳定条件 lambda_a<mu 是本卡的**概率性**前提，不是本卡**代数通道**的前提：十枚通道里没有任何一枚检验它（实测在 r=2 处仍全零）。它承重的是另外两件事——pi_0 = 1-r 必须为正、尾项 (1-r)r^n 必须随 n 衰减，这两枚由判定 4 现读并配正负对照'
+  - '队长与等待时间取平稳期望（无限时域平均）；本卡不判定收敛性证明，也不判定「几何族是这台的唯一平稳分布」——唯一性属遍历性论证，本库未做成机器判据（红线一）'
+  - '指数尾积分通道 E1 取有限视界 T=5/2：把视界推到 +oo 需要 mu>lambda_a 才收敛，且 sympy 对该积分返回 Piecewise（按 mu-lambda_a 的符号分支）——本卡的机器字段只在代值通路上读它，不在符号层把分支读成结论'
+
+latex: >-
+  \pi_n=(1-r)r^{n}\ (r=\lambda_a/\mu),\qquad
+  \pi_0\lambda_a=\pi_1\mu,\quad \pi_1\lambda_a=\pi_2\mu,\qquad
+  \sum_{n=0}^{K}\pi_n=1-r^{K+1},
+  \qquad L_s=\frac{r}{1-r}=\lambda_a W_s,\quad W_s=\frac{1}{\mu-\lambda_a},\quad
+  W_s=W_q+\frac1\mu,\quad L_q=\frac{\lambda_a^{2}}{\mu(\mu-\lambda_a)},\quad
+  \int_{0}^{T} r\,e^{-(\mu-\lambda_a)t}\,dt=\frac{r\,(1-e^{-(\mu-\lambda_a)T})}{\mu-\lambda_a}
+
+sympy: '((1-(lambda_a/mu)) + (lambda_a/mu)*(1-(lambda_a/mu)) - (1-(lambda_a/mu)**2))**2+((1-(lambda_a/mu)) + (lambda_a/mu)*(1-(lambda_a/mu)) + (lambda_a/mu)**2*(1-(lambda_a/mu)) - (1-(lambda_a/mu)**3))**2+((1-(lambda_a/mu))*lambda_a - (lambda_a/mu)*(1-(lambda_a/mu))*mu)**2+((lambda_a/mu)*(1-(lambda_a/mu))*lambda_a - (lambda_a/mu)**2*(1-(lambda_a/mu))*mu)**2+((lambda_a/mu)/(1-(lambda_a/mu)) - lambda_a/(mu-lambda_a))**2+((lambda_a/mu)/(1-(lambda_a/mu)) - ((lambda_a/mu) + (lambda_a/mu)*((lambda_a/mu)/(1-(lambda_a/mu)))))**2+(1/(mu-lambda_a) - (lambda_a/(mu*(mu-lambda_a)) + 1/mu))**2+(1 - (1-(lambda_a/mu)) - (lambda_a/mu))**2+((lambda_a/mu)**2/(1-(lambda_a/mu)) - lambda_a**2/(mu*(mu-lambda_a)))**2+(integrate((lambda_a/mu)*exp(-(mu-lambda_a)*t),(t,0,Rational(5,2))) - (lambda_a/mu)*(1-exp(-Rational(5,2)*(mu-lambda_a)))/(mu-lambda_a))**2'
+
+assumptions:
+  - '本卡机器读数（sympy 字段）是十枚通道的平方和，判的是「十枚各自归零」这一件代数事；它不判概率性、不判唯一性、也不判 lambda_a<mu（红线一）。通用引擎口径要求每枚采样点钉满全部自由符号——sympify 后自由符号恰为 lambda_a、mu 两枚（预演面 scratch/T20_OR_probe.txt 的「sympify 后自由符号=」那一行），少钉一枚整条判 UNKNOWN'
+  - '两条通路分成两种形状，必须分开读：G1/G2/B1/B2/U1 五枚是多项式通道（在 lambda_a=mu 那格仍读恰好 0），L1/L2/L3/Q1/E1 五枚含 1/(1-r) 或 1/(mu-lambda_a) 或指数（在 lambda_a=mu 那格读不成数，判定册印出的类型名是 NaN）。这个「五枚 NaN／五枚 0」的分裂由判定 4 现算并写进断言，不是散文；第一版把桶名写成「非有限」并按 is_finite is False 分桶，NaN 的 is_finite 读成 None（未定）而不是 False，于是五枚全落进「有限非零」把判定 4 自己判红——桶判据与类型名一起印在面上'
+  - 'E1 通道的被积结果在符号层是 Piecewise：sympy 按 mu-lambda_a 的符号分支返回，`expand` 出来的形状里能直接看到该字（预演面 S3 段的 E1 那一行）。本卡因此只在代值通路（80 位求值）上读 E1，绝不把「符号层给了个分支表达式」读成「本卡判了收敛性」'
+  - '符号名只用 ASCII，且本卡不用裸 `lam`：`lam` 现在挂着 OM-T-SC-0002 的未定义账（含义是 Poisson 均值参数，与本卡的到达率同名不同义），本卡改用 lambda_a。另外 `lambda` 本身是 Python 关键字，sympify 当场抛 SympifyError——现场演示在同一张预演面上，这就是队列到达率不能写成 lambda 的仪器理由'
+  - '本卡**不在 symbols 里声明 `t`**：t 只是 E1 通道 integrate(...,(t,0,Rational(5,2))) 的约束变元，sympify 后不进入自由符号；一旦把它写进 symbols，它就进 used 名单而没有任何定义卡定义它（现读：写卡前 t 在盘上 0 主人、0 在未定义名单上），符号账会凭空多一枚。第 18 批 NA 卡对它的 t 做同一处理，口径保持一致'
+  - '采样点钉两档（lambda_a/mu = 1/2 与 7/8），都落在稳定区内：把 r=1 或 r=2 钉进采样点会让引擎跳点并可能整条判 UNKNOWN——那不是失败而是没判定，所以过载区只由判定 4 的控制读数访问，不进 sympy 字段的采样点'
+  - '正对照一枚：占用率通道 U1 即「1 - pi_0 = r」，它是 p=0 那格归一化的别名（与第 18 批 NA 卡的权重和 sum w_k = 2 同一角色）；反对照一枚：L1 的右端改成 lambda_a/(lambda_a-mu)（符号翻转）后判定 1 的字符串路/对象路当场咬红，牙齿面现印'
+  - '本卡的十枚通道都是 rho 的恒等式，因此「十枚全绿」对稳定条件零分辨力——这句话本身是可测的：判定 4 在 r=2 那格要求十枚**仍然**归零且 pi_0<0，若那一枚改成归零失败，说明字段被改成了条件式而不是恒等式（牙齿面第三枚变异体）'
+
+symbols:
+  - name: 'lambda_a'
+    meaning_zh: '到达率（正实数）；本卡 sympy 字段的唯二自由符号之一，机器读数钉 1/2 与 7/4，反对照另访问 1 与 2（由判定 4 现算，不进采样点）'
+    type: real
+    constraints: '>0；与 mu 成对钉值，使流量强度取 1/2、7/8 两档；名字口径见 OM-D-OR-0001（不用裸 lam，也不用 Python 关键字 lambda）'
+  - name: 'mu'
+    meaning_zh: '服务率（正实数）；本卡 sympy 字段的第二枚自由符号，机器读数钉 1 与 2'
+    type: real
+    constraints: '>0；mu-lambda_a 出现在五枚分母通道里，它为零那格本卡不判定（引擎跳点）'
+  - name: 'pi_n'
+    meaning_zh: '平稳概率记号：机器字段里不出现 pi_n 这个名字，而是把 (1-lambda_a/mu)*(lambda_a/mu)^n 逐字展开（n=0、1、2 三枚），因此本卡的平稳概率是代入值而不是符号；该名字的定义住在 OM-D-OR-0001'
+    type: other
+
+domain_of_validity: '单服务台、泊松到达、指数服务的排队系统（M/M/1）的平稳量闭式；本卡不含多服务台（M/M/c）、不含非几何的服务时间分布（M/G/1 的 Pollaczek–Khinchine 变换式属另一张卡）、不含有限容量（M/M/1/K）与放弃/重试机制、不判平稳分布的存在唯一性、也不在 lambda_a>=mu 区域给出任何可读的量'
+
+equivalent_forms:
+  - '细致平衡形：pi_n*lambda_a = pi_{n+1}*mu 对 n=0、1 成立，与「pi_n = (1-r)r^n」是同一件事的可算读法——本卡 B1/B2 两枚通道读前者，G1/G2 读它的求和后果'
+  - '归一化有限和形：sum_{n=0}^{K} pi_n = 1 - r^{K+1}（K=1、2 两枚通道）。无穷和等于 1 这一条**不在**本卡机器字段里：它要求 |r|<1，进了字段就把恒等式换成条件式，会与「字段对稳定条件零分辨力」这句结论互相打脸'
+  - 'Little 律形：L_s = lambda_a*W_s 与 L_q = lambda_a*W_q；本卡用 W_s = 1/(mu-lambda_a)、L_s = r/(1-r) 两侧代值读第一条（L1 通道），W_s = W_q + 1/mu 读第二条（L3 通道）'
+  - '自洽方程形：L_s = r + r*L_s（队长 = 正在被服务的一位（概率 r）+ 平均排队后再来的部分），本卡 L2 通道读它的闭合解与显式解同值'
+
+related:
+  - 'OM-T-SC-0002'
+uses:
+  - 'OM-D-OR-0001'
+  - 'OM-D-PR-0001'
+implications: []
+contradicts: []
+generalizations: []
+specializations: []
+
+caveat: >-
+  本卡不重做证明，也不声明任何新结果（红线一、红线八）。它做的是三件更窄的事：
+  ①把 M/M/1 的几何平稳量、细致平衡、Little 律家族与一枚指数尾积分拆成十枚通道，
+  每条在两条独立通路上读——字符串路（写进 sympy 字段那一条，从盘上 YAML 读回）
+  与对象路（脚本里用 sympy 对象重新拼一遍 pi_n、L_s、W_s、L_q），两路须同文且**各自**在两枚采样点上归零才计一次数；
+  ②给「平稳」二字定价：判定 2 第一段只用四条细致平衡方程（不含任何归一化）现推 p_n = p_0*r^n，不借闭式——这是独立生产者；
+  第二段把归一化换成 sum_{n<=4}p_n=1，现推出来的是**有限容量链**（r=1/2 时 16/31、8/31…），
+  它必须与卡面的无限闭式（1/2、1/4…）不同值：两种归一化币种若读成同一个数，这一段就是抄表，
+  电池 M4 把容量旋钮从 5 拧到 4 来测这把尺有没有牙；无限归一化本身因此只登记成可读形
+  「前 K+1 项部分和与 1 之差恰为闭式余项 r^(K+1)」（K+1 由 r 与 1e-20 那把尺现推，本卡不判 |r|<1）；
+  ③把「代数恒等式」与「概率陈述」分开登记并**明写前者对后者零分辨力**：
+  判定 4 在 r=2 那格同时读到「十枚通道全零」与「pi_0=-1、尾项 -1.0995e+12」，
+  所以引用本卡时不许把 L2 PASS 读成「本卡验证了稳定条件」。
+  须记住：L_s 是平稳期望这一事实本身要遍历性论证，本卡未做成机器判据；
+  M/M/c、M/G/1 与有限容量各需另卡。
+
+verification:
+  levels:
+    L2:
+      passed: true
+      engine: sympy/mpmath
+      precision_digits: 80
+      sample_count: 2
+      seed: 0
+      tolerance: "1e-40"
+      sample_points:
+        - lambda_a: "1/2"
+          mu: "1"
+        - lambda_a: "7/4"
+          mu: "2"
+      max_abs_residual: '见 scratch/T20_OR_generic.txt（该面由最后一次写入之后运行印出，本行不复制其数）'
+      script: 08-工具/examples/verify_OM-T-OR-0001.py
+      credential: scratch/T20_OR_face.txt
+      last_run: 2026-11-01
+      note: '判定册面 scratch/T20_OR_face.txt；牙齿面 scratch/T20_OR_selftest.txt（变异体须响＋正对照不误伤）；通用引擎口径面 scratch/T20_OR_generic.txt；铸卡前排雷面 scratch/T20_OR_probe.txt（产于写卡之前，v1 曾崩在收口之前，见证 scratch/T20_OR_probe.v1_NOVERDICT.txt）'
+    L3:
+      passed: false
+      engine: ""
+      method: '不登记：十枚通道是对 r 的恒等式（判定 4 在 r=2 处仍读到全零），而「这族几何数是 M/M/1 生成算子的唯一平稳分布」需要平衡方程的无穷维解与遍历性论证，本库未做成机器判据（红线一）'
+      note: '恒等式归零不携带稳定性；把它登记成 L3 会被读成「本卡证明了平稳性」'
+    L4:
+      passed: false
+      system: ''
+      name: ''
+      note: '未核对 mathlib/Lean 中排队论（M/M/1 平稳分布、Little 律）的绑定名，故不填 L4（红线八）'
+
+fact_check:
+  status: UNVERIFIED
+  note: '本卡的数学主张均属经典排队论内容，本库未重做证明，本轮也未按目录/DOI 逐条核对出处，故按红线八记 UNVERIFIED。记录级 status=VERIFIED(L2) 只指本库点名的十枚通道、两枚采样点与两条通路上的残差核对结果，不代表文献定理的地位，也不代表本库证明了 M/M/1 的平稳分布（红线一）。'
+  sources:
+    - 'M/M/1 几何平稳分布 pi_n = (1-rho) rho^n 与平均队长 L = rho/(1-rho)（排队论标准内容，本轮未核对具体教材版本与节号，红线八）'
+    - 'Little 律 L = lambda*W 及其在 M/M/1 的两个实例（本轮未逐条核对原始文献页码）'
+    - '细致平衡方程 pi_n*lambda = pi_{n+1}*mu 与生灭过程的平稳性（本轮未逐条核对原始文献页码）'
+
+provenance:
+  ai_assisted: true
+  ai_role: drafting
+  sources:
+    - type: session
+      value: '铸卡前排雷面 scratch/T20_OR_probe.txt（十枚通道的恒等性、sympify 后自由符号集合、真引擎 verify_l2 的判决、以及 r=1/r=2 两型控制的残差形状都在这一张面上；写记录之前先跑它）'
+    - type: session
+      value: '判定册面 scratch/T20_OR_face.txt 与牙齿面 scratch/T20_OR_selftest.txt（本卡机器读数的最终读数只在这两张面上，本文件不复制它们）'
+  contributors:
+    - "qoder-session-2026-11-01"
